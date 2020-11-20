@@ -4,7 +4,11 @@ import { FullComponent } from './layouts/full/full.component';
 
 export const AppRoutes: Routes = [
   {
-    path: '',
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'main',
     component: FullComponent,
     children: [
       {
