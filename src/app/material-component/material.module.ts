@@ -11,8 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialRoutes } from './material.routing';
 import { ButtonsComponent } from './buttons/buttons.component';
-import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 
 @NgModule({
   imports: [
@@ -26,10 +27,12 @@ import { TabsComponent } from './tabs/tabs.component';
     CdkTableModule
   ],
   providers: [],
+  entryComponents: [AdminDetailComponent],
   declarations: [
     ButtonsComponent,
-    MenuComponent,
-    TabsComponent
+    AdminComponent,
+    TabsComponent,
+    AdminDetailComponent
   ]
 })
 export class MaterialComponentsModule {}

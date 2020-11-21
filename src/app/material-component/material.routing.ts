@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
+import { AdminComponent } from './admin/admin.component';
 
 import { ButtonsComponent } from './buttons/buttons.component';
-import { MenuComponent } from './menu/menu.component';
 import { TabsComponent } from './tabs/tabs.component';
 
 export const MaterialRoutes: Routes = [
@@ -12,8 +12,8 @@ export const MaterialRoutes: Routes = [
     component: FullComponent,
     children: [
       {
-        path: 'menu',
-        component: MenuComponent
+        path: 'admin',
+        component: AdminComponent
       },
       {
         path: 'tabs',

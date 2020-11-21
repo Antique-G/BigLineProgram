@@ -1,0 +1,48 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <form [formGroup]="editForm">
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <div fxLayout="row">
+                    <label fxFlex=15>姓名: </label>
+                    <mat-form-field>
+                        <input matInput value="" formControlName="name">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <label fxFlex=15>账号:</label>
+                    <mat-form-field>
+                        <input matInput value="" formControlName="account">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <label fxFlex=15>密码:</label>
+                    <mat-form-field>
+                        <input matInput value="" formControlName="password">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <label fxFlex=15>手机号:</label>
+                    <mat-form-field>
+                        <input matInput value="" formControlName="tel">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <label fxFlex=15>状态:</label>
+                    <mat-form-field>
+                        <input matInput value="" formControlName="status">
+                    </mat-form-field>
+                </div>
+
+            </div>
+        </form>
+
+        <div fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 3px;">提交</button>
+        </div>
+
+
+    </div>
+</div>

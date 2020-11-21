@@ -8,7 +8,7 @@ export interface Menu {
 }
 
 const MENUITEMS = [
-  { state: 'menu', type: 'link', name: 'Menu', icon: 'view_headline' },
+  { state: 'admin', type: 'link', name: 'Admin', icon: 'view_headline' },
   { state: 'tabs', type: 'link', name: 'Tabs', icon: 'tab' },
   { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' }
 ];
