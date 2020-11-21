@@ -39,10 +39,10 @@ import { LoginModule } from './login/login.module';
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
-    {
-      provide: LocationStrategy,
-      useClass: PathLocationStrategy
-    }
+    // {
+    //   provide: LocationStrategy,
+    //   useClass: PathLocationStrategy
+    // }
   ],
   bootstrap: [AppComponent]
 })

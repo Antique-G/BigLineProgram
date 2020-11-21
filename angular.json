@@ -12,12 +12,6 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "aot": true,
-                        "allowedCommonJsDependencies": [
-                            "rxjs-compat",
-                            "rxjs",
-                            "hammerjs",
-                            "chartist"
-                        ],
                         "outputPath": "dist",
                         "index": "src/index.html",
                         "main": "src/main.ts",

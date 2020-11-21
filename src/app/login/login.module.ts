@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { DemoMaterialModule } from '../demo-material-module';
+import { MaterialComponentsModule } from '../material-component/material.module';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { DemoMaterialModule } from '../demo-material-module';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    MaterialComponentsModule
   ]
 })
 export class LoginModule { }
