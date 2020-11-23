@@ -1,21 +1,23 @@
 import { Routes } from '@angular/router';
 
-import { FullComponent } from './layouts/full/full.component';
-import { LoginComponent } from './login/login.component';
-
 export const AppRoutes: Routes = [
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    path: 'admin/login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule), data : { title : "管理后台" }
   },
   {
-    path: 'main',
+    path: 'admin/main',
     loadChildren:
-    () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
+    () => import('./material-component/material.module').then(m => m.MaterialComponentsModule), data : { title : "管理后台" }
+  },
+  {
+    path: 'store',
+    loadChildren:
+    () => import('./store-app/store-login/store-login.module').then(m => m.StoreLoginModule), data : { title : "店铺平台" }
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'admin/login',
     pathMatch: 'full'
   }
 ];
