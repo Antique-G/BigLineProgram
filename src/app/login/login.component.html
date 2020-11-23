@@ -8,15 +8,21 @@
                     </div>
 
                     <div fxlayout="row wrap" style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-                        <div fxflex.gt-sm="100" fxflex.gt-xs="100" fxflex="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="用戶名" value="">
-                            </mat-form-field>
+                        <form [formGroup]="loginForm" style="width: 100%;">
+                            <div fxflex.gt-sm="100" fxflex.gt-xs="100" fxflex="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="用戶名" value="" formControlName="userName">
+                                </mat-form-field>
 
-                            <mat-form-field class="example-full-width">
-                                <input matInput placeholder="密碼" value="">
-                            </mat-form-field>
-                        </div>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="密碼" value="" formControlName="password">
+                                </mat-form-field>
+
+                                <div>
+                                    <mat-checkbox class="example-margin" style="font-size: 12px;" formControlName="logged">保持登陆</mat-checkbox>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                 </form>
