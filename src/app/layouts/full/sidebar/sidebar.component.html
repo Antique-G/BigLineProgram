@@ -10,14 +10,15 @@
             <mat-icon>account_box</mat-icon> Profile </button>
         <button mat-menu-item>
             <mat-icon>notifications_off</mat-icon> Disable notifications </button>
-        <button mat-menu-item routerLink="/login">
+        <button mat-menu-item routerLink="/admin/login">
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
 </div>
 
 <mat-nav-list appAccordion>
     <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
-        <a class="" appAccordionToggle [routerLink]="['/main', menuitem.state]" *ngIf="menuitem.type === 'link'">
+
+        <a class="" appAccordionToggle [routerLink]="['/admin/main', menuitem.state]" *ngIf="menuitem.type === 'link'">
             <mat-icon>{{ menuitem.icon }}</mat-icon>
             <span>{{ menuitem.name }}</span>
             <span fxFlex></span>

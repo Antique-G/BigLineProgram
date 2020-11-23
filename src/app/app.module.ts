@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -17,7 +17,7 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { LoginModule } from './login/login.module';
+import { Interceptor } from '../http-interceptors/interceptor';
 
 @NgModule({
   declarations: [
@@ -38,10 +38,7 @@ import { LoginModule } from './login/login.module';
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
-    // {
-    //   provide: LocationStrategy,
-    //   useClass: PathLocationStrategy
-    // }
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },     //拦截器
   ],
   bootstrap: [AppComponent]
 })
