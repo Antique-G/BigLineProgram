@@ -8,7 +8,7 @@ import { TabsComponent } from './tabs/tabs.component';
 export const MaterialRoutes: Routes = [
 
   {
-    path: 'main',
+    path: '',
     component: FullComponent,
     children: [
       {

@@ -5,12 +5,14 @@ import { LoginRoutingModule } from './login-routing.module';
 import { DemoMaterialModule } from '../demo-material-module';
 import { MaterialComponentsModule } from '../material-component/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     LoginRoutingModule,
     DemoMaterialModule,
     FormsModule,
