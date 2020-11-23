@@ -35,7 +35,6 @@ import { LoginModule } from './login/login.module';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
-    LoginModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
