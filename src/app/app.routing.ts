@@ -16,6 +16,11 @@ export const AppRoutes: Routes = [
     () => import('./store-app/store-login/store-login.module').then(m => m.StoreLoginModule), data : { title : "店铺平台" }
   },
   {
+    path: 'store/main',
+    loadChildren:
+    () => import('./store-app/store-material/store-material.module').then(m => m.StoreMaterialComponentsModule), data : { title : "店铺平台" }
+  },
+  {
     path: '',
     redirectTo: 'admin/login',
     pathMatch: 'full'
