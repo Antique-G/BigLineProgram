@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
 @Component({
@@ -6,8 +6,10 @@ import { MenuItems } from '../../../shared/menu-items/menu-items';
   templateUrl: './sidebar.component.html',
   styleUrls: []
 })
-export class AppSidebarComponent implements OnDestroy {
+export class AppSidebarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
+  public pathName: any;
+
 
   private _mobileQueryListener: () => void;
 
@@ -20,6 +22,14 @@ export class AppSidebarComponent implements OnDestroy {
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+
+
+  ngOnInit(): void {
+    console.log('url地址', location)
+    console.log('获取值', location.pathname);
+    this.pathName=location.pathname;
+  }
+
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

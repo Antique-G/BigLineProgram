@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreLoginComponent } from './store-login.component';
 import { StoreLoginRoutingModule } from './store-login-routing.module';
+import { DemoMaterialModule } from '../../../app/demo-material-module';
+import { MaterialComponentsModule } from '../../../app/material-component/material.module';
 
 
 @NgModule({
@@ -12,9 +14,10 @@ import { StoreLoginRoutingModule } from './store-login-routing.module';
     CommonModule,
     HttpClientModule,
     StoreLoginRoutingModule,
-  
+    DemoMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialComponentsModule
   ]
 })
 export class StoreLoginModule { }
