@@ -1,0 +1,86 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+                    <form [formGroup]="nameForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>姓名:</mat-label>
+                                    <input matInput value="" formControlName="name">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> 商户名 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="regionCode">
+                                <th mat-header-cell *matHeaderCellDef>区域编码 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.regionCode}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="address">
+                                <th mat-header-cell *matHeaderCellDef> 商户地址 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fax">
+                                <th mat-header-cell *matHeaderCellDef> 传真 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fax}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="phone">
+                                <th mat-header-cell *matHeaderCellDef> 座机号码 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef> 状态 </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div *ngIf="element.status==='0'">
+                                        正常
+                                    </div>
+                                    <div *ngIf="element.status==='1'">
+                                        暂停
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> 操作 </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div style="cursor: pointer;" (click)="edit(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

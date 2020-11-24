@@ -10,10 +10,11 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialRoutes } from './material.routing';
-import { ButtonsComponent } from './buttons/buttons.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
+import { AdminStoreComponent } from './admin-store/admin-store.component';
+import { AdminStoreCreateComponent } from './admin-store/admin-store-create/admin-store-create.component';
 
 @NgModule({
   imports: [
@@ -27,12 +28,16 @@ import { AdminDetailComponent } from './admin/admin-detail/admin-detail.componen
     CdkTableModule
   ],
   providers: [],
-  entryComponents: [AdminDetailComponent],
+  entryComponents: [
+    AdminDetailComponent,
+    AdminStoreCreateComponent
+  ],
   declarations: [
-    ButtonsComponent,
     AdminComponent,
     TabsComponent,
-    AdminDetailComponent
+    AdminDetailComponent,
+    AdminStoreComponent,
+    AdminStoreCreateComponent
   ]
 })
 export class MaterialComponentsModule {}
