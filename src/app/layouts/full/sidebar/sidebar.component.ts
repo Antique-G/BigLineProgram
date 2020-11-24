@@ -27,7 +27,8 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('url地址', location)
     console.log('获取值', location.pathname);
-    this.pathName=location.pathname;
+    this.pathName=(location.pathname).slice(1,6);
+    console.log("this.pathName",this.pathName)
   }
 
 

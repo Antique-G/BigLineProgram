@@ -9,8 +9,9 @@ export interface Menu {
 
 const MENUITEMS = [
   { state: 'admin', type: 'link', name: 'Admin', icon: 'view_headline' },
+  { state: 'store', type: 'link', name: 'Store', icon: 'crop_7_5' },
+
   { state: 'tabs', type: 'link', name: 'Tabs', icon: 'tab' },
-  { state: 'button', type: 'link', name: 'Buttons', icon: 'crop_7_5' }
 ];
 
 
