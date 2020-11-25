@@ -32,7 +32,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-admin-store',
   templateUrl: './admin-store.component.html',
-  styleUrls: ['./admin-store.component.css']
+  styleUrls: []
 })
 export class AdminStoreComponent  implements AfterViewInit  {
   nameForm: FormGroup;
