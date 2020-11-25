@@ -45,7 +45,7 @@ export class AdminStoreComponent  implements AfterViewInit  {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-
+// testing
   constructor(public fb: FormBuilder, public dialog: MatDialog) {
     this.nameForm = fb.group({
       name: new FormControl(' ')
