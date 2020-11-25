@@ -15,7 +15,8 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminStoreComponent } from './admin-store/admin-store.component';
 import { AdminStoreCreateComponent } from './admin-store/admin-store-create/admin-store-create.component';
-
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +26,9 @@ import { AdminStoreCreateComponent } from './admin-store/admin-store-create/admi
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    CdkTableModule
+    CdkTableModule,
+    NzCascaderModule,
+    DemoNgZorroAntdModule
   ],
   providers: [],
   entryComponents: [

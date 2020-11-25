@@ -3,52 +3,55 @@
         <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
     </div>
     <div style="padding: 5px;">
-        <form [formGroup]="editForm">
-            <div fxLayout="column" fxLayoutAlign="start stretch">
-                <div fxLayout="row">
-                    <label fxFlex=15>商户名: </label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="name">
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                    <label fxFlex=15>区域编码:</label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="regionCode">
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                    <label fxFlex=15>商户地址:</label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="address">
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                    <label fxFlex=15>传真:</label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="fax">
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                    <label fxFlex=15>座机号码:</label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="phone">
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row">
-                    <label fxFlex=15>状态:</label>
-                    <mat-form-field>
-                        <input matInput value="" formControlName="status">
-                    </mat-form-field>
-                </div>
 
-            </div>
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>商户名</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域编码</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>商户地址</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="address" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax" nzRequired>传真</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="fax" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>座机号码</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="phone" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <nz-radio-group [(ngModel)]="status" formControlName="status">
+                        <label nz-radio nzValue="1">开启</label>
+                        <label nz-radio nzValue="0">暂停</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary">提交</button>
+                </nz-form-control>
+            </nz-form-item>
         </form>
-
-        <div fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 3px;">提交</button>
-        </div>
-
 
     </div>
 </div>
