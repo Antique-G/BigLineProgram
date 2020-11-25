@@ -18,6 +18,7 @@ import { DemoMaterialModule } from './demo-material-module';
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { Interceptor } from '../http-interceptors/interceptor';
+import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { Interceptor } from '../http-interceptors/interceptor';
     FlexLayoutModule,
     HttpClientModule,
     SharedModule,
+    DemoNgZorroAntdModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [
