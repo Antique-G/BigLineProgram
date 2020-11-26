@@ -6,7 +6,7 @@ import {
 
 import { Observable } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
-import { AdminLoginService } from 'src/services/admin-login/admin-login.service';
+import { AdminLoginService } from '../services/admin-login/admin-login.service';
 
 // 拦截器
 
