@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
+import { AdminStoreAccountComponent } from './admin-store-account/admin-store-account.component';
+import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin-store-bank-account.component';
 import { AdminStoreComponent } from './admin-store/admin-store.component';
 import { AdminComponent } from './admin/admin.component';
-import { TabsComponent } from './tabs/tabs.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -19,8 +20,12 @@ export const MaterialRoutes: Routes = [
         component: AdminStoreComponent
       },
       {
-        path: 'tabs',
-        component: TabsComponent
+        path: 'storeAccount',
+        component: AdminStoreAccountComponent
+      },
+      {
+        path: 'storeBankAccount',
+        component: AdminStoreBankAccountComponent
       },
       
     ]

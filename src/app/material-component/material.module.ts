@@ -10,7 +10,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialRoutes } from './material.routing';
-import { TabsComponent } from './tabs/tabs.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminStoreComponent } from './admin-store/admin-store.component';
@@ -18,6 +17,8 @@ import { AdminStoreCreateComponent } from './admin-store/admin-store-create/admi
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
 import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
+import { AdminStoreAccountComponent } from './admin-store-account/admin-store-account.component';
+import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin-store-bank-account.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,11 +40,12 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
   ],
   declarations: [
     AdminComponent,
-    TabsComponent,
     AdminDetailComponent,
     AdminStoreComponent,
     AdminStoreCreateComponent,
-    AdminCreateComponent
+    AdminCreateComponent,
+    AdminStoreAccountComponent,
+    AdminStoreBankAccountComponent
   ]
 })
 export class MaterialComponentsModule {}
