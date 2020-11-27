@@ -1,11 +1,11 @@
 import { AfterViewInit } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminAdminListRequestModel, AdminAdminListResponseModel, Datum } from '../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminLoginService } from '../../../services/admin-login/admin-login.service';
+import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
 
 
@@ -75,8 +75,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  add() {
-
+  add(){
+    const dialogRef = this.dialog.open(AdminCreateComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }
 

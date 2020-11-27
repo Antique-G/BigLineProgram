@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Urls } from '../../api';
-import { LoginRequestModel, LoginResponseModel } from '../../interfaces/adminLogin/login-model';
-import { AdminAdminListRequestModel, AdminAdminListResponseModel } from '../../interfaces/adminAdmin/admin-admin-model';
+import { LoginRequestModel, LoginResponseModel, LogOutResponseModel } from '../../interfaces/adminLogin/login-model';
+import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
 
 
@@ -36,8 +36,9 @@ export class AdminLoginService {
     return localStorage.setItem('userToken', t);
   }
 
-  logOut(loginType?: string) {
-    localStorage.removeItem('isLoggedin');
+  // 移除token
+  removeToken() {
+    localStorage.removeItem('userToken');
   }
 
 
@@ -67,6 +68,22 @@ export class AdminLoginService {
         catchError(this.handleError)
       )
   }
+
+  // 登出
+  logout(): Observable<LogOutResponseModel> {
+    return this.httpClient.get<LogOutResponseModel>(this.urls.AdminLogout);
+  }
+
+
+  // 注册
+  register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {
+    return this.httpClient.post<RegisterResponseModel>(this.urls.AdminRegister, registerRequestModel, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
+
 
 
   private handleError(error: HttpErrorResponse) {

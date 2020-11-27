@@ -17,6 +17,7 @@ import { AdminStoreComponent } from './admin-store/admin-store.component';
 import { AdminStoreCreateComponent } from './admin-store/admin-store-create/admin-store-create.component';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
+import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,6 +34,7 @@ import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
   providers: [],
   entryComponents: [
     AdminDetailComponent,
+    AdminCreateComponent,
     AdminStoreCreateComponent
   ],
   declarations: [
@@ -40,7 +42,8 @@ import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
     TabsComponent,
     AdminDetailComponent,
     AdminStoreComponent,
-    AdminStoreCreateComponent
+    AdminStoreCreateComponent,
+    AdminCreateComponent
   ]
 })
 export class MaterialComponentsModule {}

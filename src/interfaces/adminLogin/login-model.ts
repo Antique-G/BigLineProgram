@@ -13,3 +13,8 @@ export interface LoginResponseModel {
 }
 
 
+
+export interface LogOutResponseModel {
+  message: string;
+  code?: string;
+}

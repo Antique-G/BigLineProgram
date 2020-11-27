@@ -38,3 +38,19 @@ export  interface Datum {
   updated_at: string;
 }
 
+
+
+
+export  interface RegisterRequestModel {
+  account: string;
+  password: string;
+  password_confirmation: string;
+  real_name: string;
+  mobile: string;
+  status: any;
+}
+
+export interface RegisterResponseModel {
+  message: string;
+  code?: string;
+}

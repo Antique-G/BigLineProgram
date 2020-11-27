@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
+import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -16,7 +18,9 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    public adminLoginService: AdminLoginService,public router:Router
+
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -27,7 +31,7 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // console.log('url地址', location)
     // console.log('获取值', location.pathname);
-    this.pathName=(location.pathname).slice(1,6);
+    this.pathName = (location.pathname).slice(1, 6);
     // console.log("this.pathName",this.pathName);
   }
 
@@ -35,4 +39,16 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
+
+
+  logOut() {
+    this.adminLoginService.logout().subscribe(res=>{
+      // console.log("jieguo ",res);
+      alert(res.message);
+      this.adminLoginService.removeToken();
+      localStorage.removeItem('account');
+      this.router.navigate(['/admin/login']);
+    })
+  }
+ 
 }

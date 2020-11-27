@@ -1,0 +1,72 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入用户名！">
+                    <input nz-input id="website" formControlName="account" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入密码！">
+                    <input nz-input type="password" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+                    <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            请确认密码！
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('confirm')">
+                            两次输入的密码不一致！
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>真实姓名</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入真实姓名！">
+                    <input nz-input id="website" formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>手机号</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']" nzErrorTip="请输入您的手机号！">
+                    <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                        <ng-template #addOnBeforeTemplate>
+                            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                                <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                                <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+                            </nz-select>
+                        </ng-template>
+                        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group [(ngModel)]="statusValue" formControlName="status">
+                        <label nz-radio nzValue="0">暂停 </label>
+                        <label nz-radio nzValue="1">正常</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" (click)="add()">添加</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
