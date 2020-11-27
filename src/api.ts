@@ -3,9 +3,14 @@ import { environment } from "./environments/environment";
 
 
 
-let api=environment.baseUrl;
+const api=environment.baseUrl;
 
-export class API{
-    Admin_Login_Post_API=api+'/admin/login';
-}
+export const Urls= {
+    AdminLogin: api + '/admin/login', // 管理后台登陆接口
+    // GetBills: api +  '/api/bill/GetBills', // 获取列表
+    // GetCount: api +  '/api/bill/GetCount', // 获取统计信息
+    // GetTotallCount: api +  '/api/bill/GetTotallCount', // 获取求和数据
+    // AddBills: api +  '/api/bill/AddBills', // 添加记账信息
+    // DeleteBill: api +  '/api/bill/DeleteBill', // 删除记账信息
+  };
 
