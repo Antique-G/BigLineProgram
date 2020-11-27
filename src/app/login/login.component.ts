@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminLoginService } from '../../services/admin-login/admin-login.service';
 import { LoginRequestModel, LoginResponseModel } from '../../interfaces/adminLogin/login-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,10 @@ export class LoginComponent implements OnInit {
   loginResponseModel: LoginResponseModel | undefined;
 
 
-  constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService) {
+  constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService,public router:Router) {
     this.loginForm = fb.group({
-      userName: new FormControl(' '),
-      password: new FormControl(' ')
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
     });
     this.loginRequestModel = {
       account: 'admin',
@@ -28,11 +29,25 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setValue() {
+    this.loginRequestModel.account = this.loginForm.value.userName;
+    this.loginRequestModel.password = this.loginForm.value.password;
+  }
+
 
   login() {
     // routerLink="/admin/main/admin"
+    this.setValue();
+    console.log("提交的model是什么", this.loginRequestModel);
     this.adminLoginService.login(this.loginRequestModel).subscribe(res => {
-      console.log("res结果", res)
+      // console.log("res结果", res);
+      if(res.access_token!=''){
+        this.adminLoginService.setToken(res.access_token);
+        localStorage.setItem('account',this.loginRequestModel.account);  
+        // localStorage.setItem('account',this.loginRequestModel.account);  
+
+        this.router.navigate(['/admin/main/admin'])
+      }
     })
   }
 }

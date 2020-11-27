@@ -3,6 +3,9 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
                     <form [formGroup]="nameForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=50>

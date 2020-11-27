@@ -69,7 +69,9 @@ export class AdminComponent  implements AfterViewInit  {
     });
   }
 
-
+  add(){
+    
+  }
 }
 
 
