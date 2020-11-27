@@ -11,7 +11,7 @@ const MENUITEMS = [
   { state: 'admin', type: 'link', name: '管理员账号模块', icon: 'view_headline' },
   { state: 'store', type: 'link', name: '店铺管理模块', icon: 'view_list' },
   { state: 'storeAccount', type: 'link', name: '店铺账号管理模块', icon: 'view_headline' },
-  { state: 'storeBankAccount', type: 'link', name: '店铺账号管理模块', icon: 'view_headline' }
+  { state: 'storeBankAccount', type: 'link', name: '店铺银行账号管理模块', icon: 'view_headline' }
 
 ];
 
