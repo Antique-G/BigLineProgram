@@ -1,16 +1,40 @@
 export interface AdminAdminListRequestModel {
-  page: any;
+  page?: any;
+  status?: number;
+  keyword?: any;
+}
+
+
+export interface AdminAdminListResponseModel{
+  current_page: number;
+  data: Datum[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url: string;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+
+export interface Link {
+  url?: string;
+  label: number | string;
+  active: boolean;
+}
+
+export  interface Datum {
+  admin_id: number;
+  account: string;
+  real_name: string;
+  mobile: string;
   status: number;
-  keyword:string;
+  created_at: string;
+  updated_at: string;
 }
-
-
-export interface AdminAdminListResponseModel {
-  message?: string;
-  status_code: string;
-  access_token: string;
-  token_type?: any;
-  expires_in?: any;
-}
-
 

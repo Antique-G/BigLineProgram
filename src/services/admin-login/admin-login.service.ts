@@ -1,12 +1,12 @@
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { log } from 'console';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Urls } from '../../api';
-import { environment } from '../../environments/environment';
 import { LoginRequestModel, LoginResponseModel } from '../../interfaces/adminLogin/login-model';
+import { AdminAdminListRequestModel, AdminAdminListResponseModel } from '../../interfaces/adminAdmin/admin-admin-model';
+
 
 
 
@@ -26,12 +26,14 @@ export class AdminLoginService {
   }
 
 
+  // 获取token
   getToken() {
     return localStorage.getItem('userToken');
   }
 
-  setToken(t:string){
-    return localStorage.setItem('userToken',t);  
+  // 储存token
+  setToken(t: string) {
+    return localStorage.setItem('userToken', t);
   }
 
   logOut(loginType?: string) {
@@ -46,22 +48,39 @@ export class AdminLoginService {
         retry(1), // 重试1次
         catchError(this.handleError)
       )
+  }
 
+  // 管理员列表
+  adminList(adminAdminListRequestModel: AdminAdminListRequestModel): Observable<AdminAdminListResponseModel> {
+    let params = new HttpParams()
+    params.append("page", adminAdminListRequestModel.page ? adminAdminListRequestModel.page : '');
+
+    params.append("keyword", adminAdminListRequestModel.keyword ? adminAdminListRequestModel.keyword : '');
+    let body = params;
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: body
+    };
+    return this.httpClient.get<AdminAdminListResponseModel>(this.urls.AdminList, findhttpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
   }
 
 
   private handleError(error: HttpErrorResponse) {
-    console.log("1212",error);
-    switch (error.status){
+    console.log("1212", error);
+    switch (error.status) {
       case 401:
         alert(error.message);
         break
     }
-   
+
     // if (error.error instanceof ErrorEvent) {
     //   // 客户端本身引起的错误信息
     //   alert()
-     
+
     //   console.error(`客户端错误：${error.error.message}`);
     // } else {
     //   // 服务端返回的错误信息

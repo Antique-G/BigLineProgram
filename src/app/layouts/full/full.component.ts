@@ -30,8 +30,8 @@ export class FullComponent implements OnInit,  OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('url地址11', location)
-    console.log('获取值11', location.pathname);
+    // console.log('url地址11', location)
+    // console.log('获取值11', location.pathname);
     this.pathName=location.pathname;
   }
 

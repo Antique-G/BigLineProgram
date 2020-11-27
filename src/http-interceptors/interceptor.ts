@@ -15,30 +15,35 @@ export class Interceptor implements HttpInterceptor {
 
   constructor(public adminLoginService:AdminLoginService,public router:Router) { }
 
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    // let token = this.adminLoginService.getToken(); 
-    let currentUserToken = localStorage.getItem('userToken')// 获取token
-    if (currentUserToken) { // 如果有token，就添加
+    const token = localStorage.getItem('userToken')// 获取token
+    if (token) { // 如果有token，就添加
       req = req.clone({
         setHeaders: {
-          'Authorization': `${currentUserToken}`
+          'Authorization': `Bearer ${token}`
         }
       });
+    // console.log('314234234',req);
+
     }
     return next.handle(req).pipe(
       tap(event => {
         if (event instanceof HttpResponse) { // 这里是返回，可通过event.body获取返回内容
           // event.body
         }
-      }, error => { // 统一处理所有的http错误
+      },
+       error => { // 统一处理所有的http错误
         if (error instanceof HttpErrorResponse) {
-          if (error.status !=200) {
+          if (error.status == 401) {
             this.router.navigate(['/admin/login']);
+          } else if (error.status == 500) {
+            alert(error.message)
+          } else if (error.status == 504) {
+            alert(error.message)
+          } 
           }
-        }
-      })
+        } 
+      )
     )
   }
   
