@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   adminAdminListRequestModel: AdminAdminListRequestModel;
   // adminAdminListResponseModel: AdminAdminListResponseModel;
-  datum: Datum[]=[];
+  datum: Datum[] = [];
 
 
   displayedColumns: string[] = ['name', 'account', 'tel', 'status', 'action'];
@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   constructor(public adminLoginService: AdminLoginService, public dialog: MatDialog) {
-   
+
     this.adminAdminListRequestModel = {
       // page: '',
       // status?: 1,
@@ -43,11 +43,20 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.adminList();
+  }
+
+  adminList() {
     this.adminLoginService.adminList(this.adminAdminListRequestModel).subscribe(res => {
       console.log("1111", res);
       this.dataSource.data = res.data;
-      console.log("表格的数据",this.dataSource)
+      console.log("表格的数据", this.dataSource)
       // this.dataSource.paginator = res.total;
+      this.dataSource = new MatTableDataSource(res.data);
+      // this.resultsLength
+       this.dataSource.filterPredicate = (data: Datum, filter: string) => {
+      return data.real_name == filter;
+     };
 
     })
   }
@@ -59,10 +68,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
-}
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
 
 
   edit(index: any): void {
@@ -75,12 +85,15 @@ export class AdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  add(){
+  add() {
     const dialogRef = this.dialog.open(AdminCreateComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log("result", result)
+      if (result !== '') {
+        this.adminList();
+      }
     });
   }
 }

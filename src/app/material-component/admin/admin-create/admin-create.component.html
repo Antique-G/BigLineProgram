@@ -3,7 +3,7 @@
         <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
     </div>
     <div style="padding: 5px;">
-        <form nz-form [formGroup]="validateForm">
+        <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入用户名！">
@@ -39,16 +39,8 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>手机号</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']" nzErrorTip="请输入您的手机号！">
-                    <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
-                        <ng-template #addOnBeforeTemplate>
-                            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-                                <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-                                <nz-option nzLabel="+87" nzValue="+87"></nz-option>
-                            </nz-select>
-                        </ng-template>
-                        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
-                    </nz-input-group>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的手机号！">
+                    <input nz-input id="website" formControlName="phoneNumber" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>

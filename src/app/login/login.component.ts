@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.loginRequestModel = {
-      account: 'admin',
-      password: '123456'
+      account: '',
+      password: ''
     }
   }
 
