@@ -25,7 +25,11 @@ const MENUITEMS = [
     { state: 'storeAccount', type: 'link', name: '店铺账号管理', icon: 'view_headline' },
     { state: 'storeBankAccount', type: 'link', name: '店铺银行账号管理', icon: 'view_headline' }
     ]
-  }
+  },
+  {
+    header: '产品模块',
+    menulist: [{ state: 'area', type: 'link', name: '区域', icon: 'view_headline' }]
+  },
 ];
 
 
