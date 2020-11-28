@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
-import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class AdminCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminCreateComponent>,
-    public adminLoginService: AdminLoginService,) {
+    public adminAdminService: AdminAdminService,) {
     this.addForm = this.fb.group({
       account: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -70,7 +70,7 @@ export class AdminCreateComponent implements OnInit {
   add() {
     this.setValue();
     console.log("提交的model是什么", this.registerRequestModel);
-    this.adminLoginService.register(this.registerRequestModel).subscribe(res => {
+    this.adminAdminService.register(this.registerRequestModel).subscribe(res => {
       console.log("res结果", res);
       if (res === null) {
         alert("创建成功");

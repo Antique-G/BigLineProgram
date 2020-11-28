@@ -3,8 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AdminAdminService } from '../../../services/admin/admin-admin.service';
 import { AdminAdminListRequestModel, AdminAdminListResponseModel, Datum } from '../../../interfaces/adminAdmin/admin-admin-model';
-import { AdminLoginService } from '../../../services/admin-login/admin-login.service';
 import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
 
@@ -32,7 +32,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   isRateLimitReached = false;
 
 
-  constructor(public adminLoginService: AdminLoginService, public dialog: MatDialog) {
+  constructor(public adminAdminService: AdminAdminService,public dialog: MatDialog) {
 
     this.adminAdminListRequestModel = {
       // page: '',
@@ -47,7 +47,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   adminList() {
-    this.adminLoginService.adminList(this.adminAdminListRequestModel).subscribe(res => {
+    this.adminAdminService.adminList(this.adminAdminListRequestModel).subscribe(res => {
       console.log("1111", res);
       this.dataSource.data = res.data;
       console.log("表格的数据", this.dataSource)
