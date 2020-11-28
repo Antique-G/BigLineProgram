@@ -16,8 +16,9 @@
     </mat-menu>
 
 
-    <mat-nav-list appAccordion>
-        <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
+    <mat-nav-list appAccordion *ngFor="let menuitemList of menuItems.getMenuitem()">
+        <h3 matSubheader>{{menuitemList.header}}</h3>
+        <mat-list-item appAccordionLink *ngFor="let menuitem of menuitemList.menulist" routerLinkActive="selected" group="{{menuitem.state}}">
 
             <a class="" appAccordionToggle [routerLink]="['/admin/main', menuitem.state]" *ngIf="menuitem.type === 'link'">
                 <mat-icon>{{ menuitem.icon }}</mat-icon>
@@ -25,9 +26,7 @@
                 <span fxFlex></span>
             </a>
 
-
         </mat-list-item>
-
     </mat-nav-list>
 
 </div>
@@ -52,8 +51,10 @@
     </mat-menu>
 
 
-    <mat-nav-list appAccordion>
-        <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getStoreMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}">
+
+    <mat-nav-list appAccordion *ngFor="let menuitemList of menuItems.getStoreMenuitem()">
+        <h3 matSubheader>{{menuitemList.storeHeader}}</h3>
+        <mat-list-item appAccordionLink *ngFor="let menuitem of menuitemList.storeMenulist" routerLinkActive="selected" group="{{menuitem.state}}">
 
             <a class="" appAccordionToggle [routerLink]="['/store/main', menuitem.state]" *ngIf="menuitem.type === 'link'">
                 <mat-icon>{{ menuitem.icon }}</mat-icon>
@@ -61,9 +62,7 @@
                 <span fxFlex></span>
             </a>
 
-
         </mat-list-item>
-
     </mat-nav-list>
 
 </div>
