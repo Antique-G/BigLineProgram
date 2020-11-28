@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from '../layouts/full/full.component';
-import { AdminProductAreaFirstComponent } from './admin-product-area/admin-product-area-first/admin-product-area-first.component';
-import { AdminProductAreaSecondComponent } from './admin-product-area/admin-product-area-second/admin-product-area-second.component';
-import { AdminProductAreaComponent } from './admin-product-area/admin-product-area.component';
 import { AdminStoreAccountComponent } from './admin-store-account/admin-store-account.component';
 import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin-store-bank-account.component';
 import { AdminStoreComponent } from './admin-store/admin-store.component';
+import { AdminSystemAreaFirstComponent } from './admin-system-area/admin-system-area-first/admin-system-area-first.component';
+import { AdminSystemAreaSecondComponent } from './admin-system-area/admin-system-area-second/admin-system-area-second.component';
+import { AdminSystemAreaComponent } from './admin-system-area/admin-system-area.component';
 import { AdminComponent } from './admin/admin.component';
 
 export const MaterialRoutes: Routes = [
@@ -19,6 +19,18 @@ export const MaterialRoutes: Routes = [
         component: AdminComponent
       },
       {
+        path: 'settingArea',
+        component: AdminSystemAreaComponent,
+      },
+      {
+        path: 'settingAreaFirst',     //暂定 需修改
+        component: AdminSystemAreaFirstComponent
+      },
+      {
+        path: 'settingAreaSecond',     //暂定 需修改
+        component: AdminSystemAreaSecondComponent
+      },
+      {
         path: 'store',
         component: AdminStoreComponent
       },
@@ -30,18 +42,8 @@ export const MaterialRoutes: Routes = [
         path: 'storeBankAccount',
         component: AdminStoreBankAccountComponent
       },
-      {
-        path: 'area',
-        component: AdminProductAreaComponent,
-      },
-      {
-        path: 'areaFirst',     //暂定 需修改
-        component: AdminProductAreaFirstComponent
-      },
-      {
-        path: 'areaSecond',     //暂定 需修改
-        component: AdminProductAreaSecondComponent
-      },
+     
+
       
     ]
   }

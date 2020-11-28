@@ -16,8 +16,10 @@ export interface Menus {
 
 const MENUITEMS = [
   {
-    header: '管理员账号模块',
-    menulist: [{ state: 'admin', type: 'link', name: '管理员账号列表', icon: 'view_headline' }]
+    header: '系统设置模块',
+    menulist: [{ state: 'admin', type: 'link', name: '管理员账号', icon: 'view_headline' },
+    { state: 'settingArea', type: 'link', name: '区域', icon: 'view_headline' }
+    ]
   },
   {
     header: '店铺模块',
@@ -28,7 +30,7 @@ const MENUITEMS = [
   },
   {
     header: '产品模块',
-    menulist: [{ state: 'area', type: 'link', name: '区域', icon: 'view_headline' }]
+    menulist: []
   },
 ];
 

@@ -22,10 +22,10 @@ import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin
 import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account/admin-store-bank-account-create/admin-store-bank-account-create.component';
 import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account/admin-store-bank-account-detail/admin-store-bank-account-detail.component';
 import { AdminStoreAccountCreateComponent } from './admin-store-account/admin-store-account-create/admin-store-account-create.component';
-import { AdminProductAreaComponent } from './admin-product-area/admin-product-area.component';
-import { AdminProductAreaFirstComponent } from './admin-product-area/admin-product-area-first/admin-product-area-first.component';
-import { AdminProductAreaCreateComponent } from './admin-product-area/admin-product-area-create/admin-product-area-create.component';
-import { AdminProductAreaSecondComponent } from './admin-product-area/admin-product-area-second/admin-product-area-second.component';
+import { AdminSystemAreaComponent } from './admin-system-area/admin-system-area.component';
+import { AdminSystemAreaCreateComponent } from './admin-system-area/admin-system-area-create/admin-system-area-create.component';
+import { AdminSystemAreaFirstComponent } from './admin-system-area/admin-system-area-first/admin-system-area-first.component';
+import { AdminSystemAreaSecondComponent } from './admin-system-area/admin-system-area-second/admin-system-area-second.component';
 
 @NgModule({
   imports: [
@@ -48,7 +48,7 @@ import { AdminProductAreaSecondComponent } from './admin-product-area/admin-prod
     AdminStoreBankAccountCreateComponent,
     AdminStoreBankAccountDetailComponent,
     AdminStoreAccountCreateComponent,
-    AdminProductAreaCreateComponent
+    AdminSystemAreaCreateComponent
   ],
   declarations: [
     AdminComponent,
@@ -61,10 +61,10 @@ import { AdminProductAreaSecondComponent } from './admin-product-area/admin-prod
     AdminStoreBankAccountCreateComponent,
     AdminStoreBankAccountDetailComponent,
     AdminStoreAccountCreateComponent,
-    AdminProductAreaComponent,
-    AdminProductAreaFirstComponent,
-    AdminProductAreaCreateComponent,
-    AdminProductAreaSecondComponent,
+    AdminSystemAreaComponent,
+    AdminSystemAreaCreateComponent,
+    AdminSystemAreaFirstComponent,
+    AdminSystemAreaSecondComponent,
   ]
 })
 export class MaterialComponentsModule {}

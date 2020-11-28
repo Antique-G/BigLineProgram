@@ -25,11 +25,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 @Component({
-  selector: 'app-admin-product-area-first',
-  templateUrl: './admin-product-area-first.component.html',
-  styleUrls: ['./admin-product-area-first.component.css']
+  selector: 'app-admin-system-area-first',
+  templateUrl: './admin-system-area-first.component.html',
+  styleUrls: ['./admin-system-area-first.component.css']
 })
-export class AdminProductAreaFirstComponent  implements AfterViewInit  {
+export class AdminSystemAreaFirstComponent  implements AfterViewInit  {
   nameForm: FormGroup;
 
   displayedColumns: string[] = ['sort', 'regionId', 'regionName', 'regionCode','areaCode', 'regionLevel', 'status','action'];
@@ -65,11 +65,12 @@ export class AdminProductAreaFirstComponent  implements AfterViewInit  {
 
 
   nextLevel(element:any){
-    this.router.navigate(['/admin/main/areaSecond'])
+    this.router.navigate(['/admin/main/settingAreaSecond'])
 
   }
 
 }
+
 
 
 
