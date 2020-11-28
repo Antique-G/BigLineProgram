@@ -19,6 +19,8 @@ import { DemoNgZorroAntdModule } from '../ng-zorro-antd.module';
 import { AdminCreateComponent } from './admin/admin-create/admin-create.component';
 import { AdminStoreAccountComponent } from './admin-store-account/admin-store-account.component';
 import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin-store-bank-account.component';
+import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account/admin-store-bank-account-create/admin-store-bank-account-create.component';
+import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account/admin-store-bank-account-detail/admin-store-bank-account-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,7 +38,9 @@ import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin
   entryComponents: [
     AdminDetailComponent,
     AdminCreateComponent,
-    AdminStoreCreateComponent
+    AdminStoreCreateComponent,
+    AdminStoreBankAccountCreateComponent,
+    AdminStoreBankAccountDetailComponent
   ],
   declarations: [
     AdminComponent,
@@ -45,7 +49,9 @@ import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin
     AdminStoreCreateComponent,
     AdminCreateComponent,
     AdminStoreAccountComponent,
-    AdminStoreBankAccountComponent
+    AdminStoreBankAccountComponent,
+    AdminStoreBankAccountCreateComponent,
+    AdminStoreBankAccountDetailComponent
   ]
 })
 export class MaterialComponentsModule {}
