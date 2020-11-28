@@ -21,6 +21,7 @@ import { AdminStoreAccountComponent } from './admin-store-account/admin-store-ac
 import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin-store-bank-account.component';
 import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account/admin-store-bank-account-create/admin-store-bank-account-create.component';
 import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account/admin-store-bank-account-detail/admin-store-bank-account-detail.component';
+import { AdminStoreAccountCreateComponent } from './admin-store-account/admin-store-account-create/admin-store-account-create.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +41,8 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
     AdminCreateComponent,
     AdminStoreCreateComponent,
     AdminStoreBankAccountCreateComponent,
-    AdminStoreBankAccountDetailComponent
+    AdminStoreBankAccountDetailComponent,
+    AdminStoreAccountCreateComponent
   ],
   declarations: [
     AdminComponent,
@@ -51,7 +53,8 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
     AdminStoreAccountComponent,
     AdminStoreBankAccountComponent,
     AdminStoreBankAccountCreateComponent,
-    AdminStoreBankAccountDetailComponent
+    AdminStoreBankAccountDetailComponent,
+    AdminStoreAccountCreateComponent
   ]
 })
 export class MaterialComponentsModule {}

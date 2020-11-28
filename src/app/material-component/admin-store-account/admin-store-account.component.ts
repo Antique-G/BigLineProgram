@@ -2,6 +2,8 @@ import { MatTableDataSource } from '@angular/material/table';
 // import { PeriodicElement } from './../admin/admin.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminStoreAccountCreateComponent } from './admin-store-account-create/admin-store-account-create.component';
 
 
 export interface PeriodicElement {   //1.1导出数据接口,定义了数据类型
@@ -32,10 +34,21 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
   // resultslength = 0;
   // isLoadingResults = true;
   // isRateLlimitReachted = false;
-  constructor() { }
+  constructor( public dialog: MatDialog) { }
 
   ngOnInit(): void {
     // this.dataSource.paginator = this.paginator;
   }
+
+
+  add(){
+    const dialogRef = this.dialog.open(AdminStoreAccountCreateComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 
 }
