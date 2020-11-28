@@ -4,16 +4,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
-import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
 
 
 @Component({
-  selector: 'app-admin-product-area-create',
-  templateUrl: './admin-product-area-create.component.html',
-  styleUrls: ['./admin-product-area-create.component.css']
+  selector: 'app-admin-system-area-create',
+  templateUrl: './admin-system-area-create.component.html',
+  styleUrls: ['./admin-system-area-create.component.css']
 })
-export class AdminProductAreaCreateComponent implements OnInit {
+export class AdminSystemAreaCreateComponent implements OnInit {
   addForm!: FormGroup;
   statusValue = '0';
   // registerRequestModel: RegisterRequestModel;
@@ -26,7 +25,7 @@ export class AdminProductAreaCreateComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductAreaCreateComponent>,
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminSystemAreaCreateComponent>,
     public adminLoginService: AdminLoginService,
     private msg: NzMessageService) {
     this.addForm = this.fb.group({

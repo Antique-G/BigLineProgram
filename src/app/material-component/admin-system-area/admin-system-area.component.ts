@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { AdminProductAreaCreateComponent } from './admin-product-area-create/admin-product-area-create.component';
+import { AdminSystemAreaCreateComponent } from './admin-system-area-create/admin-system-area-create.component';
 
 
 export interface PeriodicElement {
@@ -26,11 +26,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 @Component({
-  selector: 'app-admin-product-area',
-  templateUrl: './admin-product-area.component.html',
-  styleUrls: ['./admin-product-area.component.css']
+  selector: 'app-admin-system-area',
+  templateUrl: './admin-system-area.component.html',
+  styleUrls: ['./admin-system-area.component.css']
 })
-export class AdminProductAreaComponent implements AfterViewInit {
+export class AdminSystemAreaComponent implements AfterViewInit {
   nameForm: FormGroup;
 
   displayedColumns: string[] = ['sort', 'regionId', 'regionName', 'regionCode', 'areaCode', 'regionLevel', 'status', 'action'];
@@ -56,7 +56,7 @@ export class AdminProductAreaComponent implements AfterViewInit {
   }
 
   add() {
-    const dialogRef = this.dialog.open(AdminProductAreaCreateComponent, {
+    const dialogRef = this.dialog.open(AdminSystemAreaCreateComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -73,7 +73,7 @@ export class AdminProductAreaComponent implements AfterViewInit {
 
 
   nextLevel(element: any) {
-    this.router.navigate(['/admin/main/areaFirst'])
+    this.router.navigate(['/admin/main/settingAreaFirst'])
   }
 
 }
