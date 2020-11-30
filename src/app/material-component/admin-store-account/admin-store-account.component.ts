@@ -9,18 +9,20 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 
 export interface PeriodicElement {   //1.1导出数据接口,定义了数据类型
-  position:string;
+
   name:string;
-  weight:string;
-  symbol:string;
+  mobile:string;
+  store_id:string;
+  level:string;
+  status:string
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [   //1.2声明一个常量数据表，传输数据
-  {position:'1',name:'kobin',weight:'20',symbol:'@'},
-  {position:'2',name:'anya',weight:'20',symbol:'@'},
-  {position:'3',name:'Odyn',weight:'20',symbol:'@'},
-  {position:'4',name:'Harley',weight:'20',symbol:'@'},
-  {position:'5',name:'yannie',weight:'20',symbol:'@'},
+  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'},
+  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'},
+  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'}
+
+  
 ]
 
 @Component({
@@ -32,7 +34,7 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
   
   nameForm: FormGroup;  //2.1 实例化一个时FormGroup，传入子控件的集合作为第一个参数。每个子项（每个input都有FormControl）的键都会注册控件的名称。
   
-  displayedColumns:string[] = ['position','name','weight','symbol'];   //1.3每个列需要渲染的行内容
+  displayedColumns:string[] = ['name','mobile','store_id','level','status'];   //1.3每个列需要渲染的行内容
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);   //1.4将数据添加到dataSource
   dialogRef: any;
   

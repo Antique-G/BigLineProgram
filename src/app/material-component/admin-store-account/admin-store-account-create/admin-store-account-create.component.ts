@@ -20,12 +20,15 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   //初始输入不能为空
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
-      required: '不能为空'
+      required: '请输入'
+    },
+    default: {
+      email: '邮箱格式不正确'
     }
   };
 
 
-  submitForm(value: { userName: string;  password: string; confirm: string;  realName:string; mobile: string ; status: string}): void {
+  submitForm(value: { name: string;  password: string; password_confirmation: string;  email:string; mobile: string ; level:string; status: string;store_id:string}): void {
     for (const key in this.validateForm.controls) {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
@@ -35,11 +38,11 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
 
   validateConfirmPassword(): void {
-    setTimeout(() => this.validateForm.controls.confirm.updateValueAndValidity());
+    setTimeout(() => this.validateForm.controls.password_confirmation.updateValueAndValidity());
   };
 
 //验证用户名是否已注册
-  userNameAsyncValidator = (control: FormControl) =>
+  nameAsyncValidator = (control: FormControl) =>
   new Observable((observer: Observer<MyValidationErrors | null>) => {
     setTimeout(() => {
       if (control.value === 'JasonWood') {
@@ -58,7 +61,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
     if (!control.value) {
       return { error: true, required: true };
     } else if (control.value !== this.validateForm.controls.password.value) {
-      return { confirm: true, error: true };
+      return { password_confirmation: true, error: true };
     }
     return {};
   };
@@ -67,13 +70,15 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
   constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>,) {
     // use `MyValidators`
-    const { required, maxLength, minLength, mobile } = MyValidators;  //
+    const { required, maxLength, minLength, mobile ,email} = MyValidators;  //
     this.validateForm = this.fb.group({
-      userName: ['', [required, maxLength(12), minLength(6)], [this.userNameAsyncValidator]],
+      name: ['', [required, maxLength(64), minLength(2)], [this.nameAsyncValidator]],
       password: ['', [required]],
-      confirm: ['', [this.confirmValidator]],
-      realName: ['', [required]],
+      password_confirmation: ['', [this.confirmValidator]],
+      email: ['', [required,email]],
       mobile: ['', [required, mobile]],
+      level: ['', [required]],
+      store_id: ['', [required]],
       status: ['', [required]]
     });
   }  

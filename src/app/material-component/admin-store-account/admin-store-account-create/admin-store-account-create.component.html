@@ -6,42 +6,54 @@
     <div >
         <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
             <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzRequired>用戶名</nz-form-label>
-              <nz-form-control [nzSpan]="17" nzValidatingTip="有效用户名...">
-                <input nz-input formControlName="userName" placeholder="请输入用户名" />
-              </nz-form-control>
-            </nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
+                <nz-form-control [nzSpan]="17" nzValidatingTip="有效用户名...">
+                  <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>            
             <nz-form-item>
               <nz-form-label [nzSpan]="5" nzRequired>密码</nz-form-label>
               <nz-form-control [nzSpan]="17"  nzErrorTip="请输入您的密码!">
-                <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" placeholder="请输入6-12位密码" />
+                <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()"/>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label [nzSpan]="5" nzRequired>确认密码</nz-form-label>
               <nz-form-control [nzSpan]="17" nzDisableAutoTips [nzErrorTip]="passwordErrorTpl">
-                <input nz-input type="password" formControlName="confirm" placeholder="确认您的密码" />
+                <input nz-input type="password" formControlName="password_confirmation"  />
                 <ng-template #passwordErrorTpl let-control>
                   <ng-container *ngIf="control.hasError('required')">
                     请确认您的密码!
                   </ng-container>
-                  <ng-container *ngIf="control.hasError('confirm')">
+                  <ng-container *ngIf="control.hasError('password_confirmation')">
                     密码不一致!
                   </ng-container>
                 </ng-template>
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzRequired>真实姓名</nz-form-label>
-              <nz-form-control [nzSpan]="17">
-                <input nz-input formControlName="realName" placeholder="请输入用户名" />
-              </nz-form-control>
-            </nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>手机号</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                  <input nz-input formControlName="mobile" />
+                </nz-form-control>
+            </nz-form-item> 
             <nz-form-item>
-              <nz-form-label [nzSpan]="5" nzRequired>手机号</nz-form-label>
-              <nz-form-control [nzSpan]="17">
-                <input nz-input formControlName="mobile" placeholder="请输入手机号" />
-              </nz-form-control>
+                <nz-form-label [nzSpan]="5" nzRequired>E-mail</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                  <input nz-input formControlName="email" type="email" />
+                </nz-form-control>
+            </nz-form-item>                
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>等级</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                  <input nz-input formControlName="level" />
+                </nz-form-control>
+            </nz-form-item>                    
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>商户id</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                  <input nz-input formControlName="store_id"/>
+                </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>状态</nz-form-label>
