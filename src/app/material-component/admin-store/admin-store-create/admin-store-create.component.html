@@ -4,7 +4,7 @@
     </div>
     <div style="padding: 5px;">
 
-        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>商户名</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入商户名！">
@@ -12,9 +12,9 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域编码</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
-                    <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
+                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -39,8 +39,8 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="status" formControlName="status">
-                        <label nz-radio nzValue="1">开启</label>
-                        <label nz-radio nzValue="0">暂停</label>
+                        <label nz-radio nzValue=0>暂停</label>
+                        <label nz-radio nzValue=1>开启</label>
                     </nz-radio-group>
                 </nz-form-control>
             </nz-form-item>
@@ -48,7 +48,7 @@
 
             <nz-form-item nz-row class="register-area">
                 <nz-form-control [nzSpan]="14" [nzOffset]="11">
-                    <button nz-button nzType="primary">提交</button>
+                    <button nz-button nzType="primary" (click)="add()">提交</button>
                 </nz-form-control>
             </nz-form-item>
         </form>

@@ -1,37 +1,35 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AdminRegionModel } from '../../interfaces/adminRegion/admin-region-model';
+import { StoreBankAccountRequestModel, StoreBankAccountResponseModel } from '../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
 import { Urls } from '../../api';
-
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class AdminRegionService {
+
+export class AdminStoreBankAccountService {
   public urls = Urls;
 
   constructor(public httpClient: HttpClient) { }
 
 
-  // 区域三级联动数据
-  getAllRegionList(): Observable<AdminRegionModel[]> {
-    return this.httpClient.get<AdminRegionModel[]>(this.urls.GetAdminAllRegions,httpOptions)
-      .pipe(
-        retry(1), // 重试1次
-        catchError(this.handleError)
-      );
-  }
+    // 注册
+    addStoreBankAccount(storeBankAccountRequestModel: StoreBankAccountRequestModel): Observable<StoreBankAccountResponseModel> {
+      return this.httpClient.post<StoreBankAccountResponseModel>(this.urls.PostAdminStoreBankCreate, storeBankAccountRequestModel, httpOptions)
+        .pipe(
+          retry(1), // 重试1次
+          catchError(this.handleError)
+        )
+    }
 
 
-
-
+    
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
@@ -53,5 +51,4 @@ export class AdminRegionService {
     // 反馈给用户的错误信息（用于组件中使用 error 回调时的错误提示）
     return throwError('');
   }
-
 }

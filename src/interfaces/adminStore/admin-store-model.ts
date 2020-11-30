@@ -61,7 +61,7 @@ export interface AddStoreResponseModel {
 
 
 export interface StoreDetailModel {
-  store_id: number;
+  store_id: any;
   name: string;
   region_code: string;
   address: string;

@@ -69,8 +69,7 @@ export class AdminStoreComponent  implements OnInit  {
 
   add(){
     const dialogRef = this.dialog.open(AdminStoreCreateComponent, {
-      width: '550px',
-      data: 1
+      width: '550px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
@@ -90,7 +89,7 @@ export class AdminStoreComponent  implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
       // console.log("result", result);
       if (result !== undefined) {
-        // this.adminList();
+        this.storeList();
       }
 
     });

@@ -1,1 +1,57 @@
-<p>admin-store-detail works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>商户名</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入商户名！">
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
+                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户地址</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="address" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax">传真</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="fax" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">座机号码</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="phone" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <nz-radio-group formControlName="status" ngModel={{storeDetailModel.status}}>
+                        <label nz-radio nzValue=0>暂停</label>
+                        <label nz-radio nzValue=1>正常</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" (click)="update()">提交</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>

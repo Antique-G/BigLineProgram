@@ -1,50 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AddStoreRequestModel } from '../../../../interfaces/adminStore/admin-store-model';
+import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { NzSelectSizeType } from 'ng-zorro-antd/select';
 
 
-const options = [
-  {
-    value: '浙江',
-    label: '浙江',
-    children: [
-      {
-        value: '杭州',
-        label: '杭州',
-        children: [
-          {
-            value: '西湖',
-            label: '西湖',
-            isLeaf: true
-          }
-        ]
-      },
-      {
-        value: '宁波',
-        label: '宁波',
-        isLeaf: true
-      }
-    ]
-  },
-  {
-    value: '广东',
-    label: '广东',
-    children: [
-      {
-        value: '深圳',
-        label: '深圳',
-        children: [
-          {
-            value: '南山区',
-            label: '南山区',
-            isLeaf: true
-          }
-        ]
-      }
-    ]
-  }
-];
+
 
 @Component({
   selector: 'app-admin-store-create',
@@ -52,47 +15,89 @@ const options = [
   styleUrls: ['./admin-store-create.component.css']
 })
 export class AdminStoreCreateComponent implements OnInit {
-
+  // 区域联动
   nzOptions: any[] | null = null;
   values: any[] | null = null;
+  idRegion: any;
 
 
-  validateForm!: FormGroup;
+  addForm!: FormGroup;
   status = '1';
 
+  addStoreRequestModel: AddStoreRequestModel;
+
+
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreCreateComponent>,
-    public adminRegionService: AdminRegionService) {
+    public adminRegionService: AdminRegionService, public adminStoreService: AdminStoreService) {
+
+    this.addForm = this.fb.group({
+      name: ['', [Validators.required]],
+      regionCode: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      fax: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+
+    });
+    this.addStoreRequestModel = {
+      name: '',
+      region_code: '',
+      address: '',
+      fax: '',
+      phone: '',
+      status: '',
+    }
   }
 
   ngOnInit(): void {
-   this.adminRegionService.getAllRegionList().subscribe(res=>{
-     console.log("结果是",res);
-   })
+    this.adminRegionService.getAllRegionList().subscribe(res => {
+      console.log("结果是", res);
+      this.nzOptions = res;
+    })
 
-    this.validateForm = this.fb.group({
-      name: [null, [Validators.required]],
-      regionCode: [{ value: '' }, [Validators.required]],
-      address: [null, [Validators.required]],
-      fax: [null, [Validators.required]],
-      phone: [null, [Validators.required]],
-      status: [null, [Validators.required]]
-    });
+ 
   }
+
+
+
+  setValue() {
+    this.addStoreRequestModel.name = this.addForm.value.name;
+    this.addStoreRequestModel.region_code = this.addForm.value.regionCode;
+    this.addStoreRequestModel.address = this.addForm.value.address;
+    this.addStoreRequestModel.fax = this.addForm.value.fax;
+    this.addStoreRequestModel.phone = this.addForm.value.phone
+    this.addStoreRequestModel.status = this.addForm.value.status;
+  }
+
+
+  add() {
+    this.setValue();
+    this.addStoreRequestModel.region_code = this.idRegion;
+    console.log("提交的model是什么", this.addStoreRequestModel);
+    this.adminStoreService.addStore(this.addStoreRequestModel).subscribe(res => {
+      console.log("res结果", res);
+      if (res.message) {
+        alert("创建成功");
+        this.dialogRef.close(1);
+      }
+      else {
+        alert("创建失败，请重新填写");
+      }
+    })
+  }
+
 
   close(): void {
     this.dialogRef.close();
   }
 
   onChanges(values: any): void {
-    console.log(values, this.values);
+    console.log("点击的结果是", values);
+    console.log("this.values", this.values);
+   if(values!==null){
+    this.idRegion = values[values.length - 1];
+   }
   }
 
 
-
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-  }
 }
