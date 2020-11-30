@@ -1,1 +1,63 @@
-<p>admin-store-account-create works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start" >
+        <!-- <div>X</div> -->
+        <i nz-icon nzType="close" nzTheme="outline" (click)="close()" class="closebtn"></i>
+    </div>
+    <div >
+        <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>用戶名</nz-form-label>
+              <nz-form-control [nzSpan]="17" nzValidatingTip="有效用户名...">
+                <input nz-input formControlName="userName" placeholder="请输入用户名" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>密码</nz-form-label>
+              <nz-form-control [nzSpan]="17"  nzErrorTip="请输入您的密码!">
+                <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" placeholder="请输入6-12位密码" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>确认密码</nz-form-label>
+              <nz-form-control [nzSpan]="17" nzDisableAutoTips [nzErrorTip]="passwordErrorTpl">
+                <input nz-input type="password" formControlName="confirm" placeholder="确认您的密码" />
+                <ng-template #passwordErrorTpl let-control>
+                  <ng-container *ngIf="control.hasError('required')">
+                    请确认您的密码!
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('confirm')">
+                    密码不一致!
+                  </ng-container>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>真实姓名</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <input nz-input formControlName="realName" placeholder="请输入用户名" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSpan]="5" nzRequired>手机号</nz-form-label>
+              <nz-form-control [nzSpan]="17">
+                <input nz-input formControlName="mobile" placeholder="请输入手机号" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                    <nz-radio-group [(ngModel)]="status" formControlName="status">
+                        <label nz-radio nzValue="1">开启</label>
+                        <label nz-radio nzValue="0">暂停</label>
+                      </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item> 
+
+            <nz-form-item fxLayoutAlign="center center" >
+              <nz-form-control [nzSpan]="12" >
+                <button nz-button nzType="primary" style="width: 100%;" >添加</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+    </div>
+</div>
