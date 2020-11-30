@@ -41,6 +41,9 @@ export class Interceptor implements HttpInterceptor {
           } else if (error.status == 504) {
             alert(error.message)
           } 
+          else if (error.status == 422) {
+            alert(error.message)
+          } 
           }
         } 
       )

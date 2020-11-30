@@ -18,6 +18,12 @@ export const Urls = {
   PutAdminStoreUpdate: api + '/admin/store/', //管理后台商户信息修改保存
   GetAdminStore: api + '/admin/store', //管理后台获取商户列表接口
 
+  PostAdminStoreBankCreate:  api +'/admin/store_bank' , // 商铺银行卡添加接口
+  GetAdminStoreBank:  api +'/admin/store_bank' ,  //商铺的银行卡列表
+  GetAdminStoreBankDetail: api + '/admin/store/' , //商铺的银行卡详情
+  PutAdminStoreBankUpdate: api + '/admin/store_bank/', //商铺的银行卡更新
+
+
   GetAdminAllRegions: api + '/admin/regions_all_json'   // 管理后台获取区域三级联动数据
 
 
