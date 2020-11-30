@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreMaterialRoutes } from './store-material.routing';
 import { StoreAdminComponent } from './store-admin/store-admin.component';
+import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { StoreAdminComponent } from './store-admin/store-admin.component';
   entryComponents: [],
   declarations: [
   StoreAdminComponent,
+  StoreProductManagementComponent,
 ]
 })
 export class StoreMaterialComponentsModule {}
