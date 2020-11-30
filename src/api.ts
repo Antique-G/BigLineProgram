@@ -10,7 +10,7 @@ export const Urls = {
   
   PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
   GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口
-  PutAdminAccountUpdate: api + '/admin/account/id', //管理后台管理员更新接口
+  PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
 
 
   PostAdminStoreCreate: api +'/admin/store', //管理后台商户添加接口

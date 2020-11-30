@@ -1,10 +1,11 @@
-label {
-    color: rgba(0, 0, 0, 0.54);
-    font-size: inherit;
-    font-weight: 400;
-    line-height: 1.125;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    letter-spacing: normal;
-    font-size: 13px;
-    line-height: 60px;
+[nz-form] {
+    max-width: 600px;
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
 }

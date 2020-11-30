@@ -1,11 +1,12 @@
 export interface AdminAdminListRequestModel {
   page?: any;
+  per_page?: any;
   status?: number;
   keyword?: any;
 }
 
 
-export interface AdminAdminListResponseModel{
+export interface AdminAdminListResponseModel {
   current_page: number;
   data: Datum[];
   first_page_url: string;
@@ -28,7 +29,7 @@ export interface Link {
   active: boolean;
 }
 
-export  interface Datum {
+export interface Datum {
   admin_id: number;
   account: string;
   real_name: string;
@@ -41,7 +42,7 @@ export  interface Datum {
 
 
 
-export  interface RegisterRequestModel {
+export interface RegisterRequestModel {
   account: string;
   password: string;
   password_confirmation: string;
@@ -54,3 +55,22 @@ export interface RegisterResponseModel {
   message: string;
   code?: string;
 }
+
+
+export interface AdminDetailModel {
+  admin_id: number;
+  account: string;
+  real_name: string;
+  mobile: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UpdateRequestModel {
+  real_name?: string;
+  mobile?: string;
+  status?: string;
+  admin_id?: number;
+}
+

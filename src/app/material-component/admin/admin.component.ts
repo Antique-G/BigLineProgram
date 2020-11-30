@@ -48,11 +48,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   adminList() {
     this.adminAdminService.adminList(this.adminAdminListRequestModel).subscribe(res => {
-      console.log("1111", res);
-      this.dataSource.data = res.data;
-      console.log("表格的数据", this.dataSource)
+      console.log("1111", res);  //结果；
+      this.dataSource.data = res.data; 
+      console.log("表格的数据", this.dataSource);
+      this.resultsLength=res.total;  //总数
       // this.dataSource.paginator = res.total;
       this.dataSource = new MatTableDataSource(res.data);
+   
       // this.resultsLength
        this.dataSource.filterPredicate = (data: Datum, filter: string) => {
       return data.real_name == filter;
@@ -75,13 +77,18 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
 
-  edit(index: any): void {
+  edit(element: any): void {
+    console.log("拿到的值",element);
     const dialogRef = this.dialog.open(AdminDetailComponent, {
       width: '550px',
-      data: index
+      data: element
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log("result", result);
+      if (result !== undefined) {
+        this.adminList();
+      }
+      
     });
   }
 
@@ -90,10 +97,11 @@ export class AdminComponent implements OnInit, AfterViewInit {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result)
-      if (result !== '') {
+      console.log("result", result);
+      if (result !== undefined) {
         this.adminList();
       }
+      
     });
   }
 }
