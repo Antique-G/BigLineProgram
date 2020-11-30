@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Urls } from '../../api';
-import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel } from '../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
 
 const httpOptions = {
@@ -20,26 +20,26 @@ export class AdminAdminService {
   constructor(public httpClient: HttpClient) { }
 
 
-    // 管理员列表
-    adminList(adminAdminListRequestModel: AdminAdminListRequestModel): Observable<AdminAdminListResponseModel> {
-      let params = new HttpParams()
-      params.append("page", adminAdminListRequestModel.page ? adminAdminListRequestModel.page : '');
-  
-      params.append("keyword", adminAdminListRequestModel.keyword ? adminAdminListRequestModel.keyword : '');
-      let body = params;
-      const findhttpOptions = {
-        headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-        params: body
-      };
-      return this.httpClient.get<AdminAdminListResponseModel>(this.urls.GetAdminAccount, findhttpOptions)
-        .pipe(
-          retry(1), // 重试1次
-          catchError(this.handleError)
-        )
-    }
+  // 管理员列表
+  adminList(adminAdminListRequestModel: AdminAdminListRequestModel): Observable<AdminAdminListResponseModel> {
+    let params = new HttpParams()
+    params.append("page", adminAdminListRequestModel.page ? adminAdminListRequestModel.page : '');
+    params.append("per_page", adminAdminListRequestModel.per_page ? adminAdminListRequestModel.per_page : '');
+    params.append("keyword", adminAdminListRequestModel.keyword ? adminAdminListRequestModel.keyword : '');
+    let body = params;
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: body
+    };
+    return this.httpClient.get<AdminAdminListResponseModel>(this.urls.GetAdminAccount, findhttpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
 
 
-    
+
   // 注册
   register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {
     return this.httpClient.post<RegisterResponseModel>(this.urls.PostAdminAccountCreate, registerRequestModel, httpOptions)
@@ -48,6 +48,23 @@ export class AdminAdminService {
         catchError(this.handleError)
       )
   }
+
+
+  // 更新
+  updateUser(updateRequestModel: UpdateRequestModel): Observable<any> {
+    const id = updateRequestModel.admin_id;
+    return this.httpClient.put(this.urls.PutAdminAccountUpdate+id, updateRequestModel, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
+
+
+
+
+
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
