@@ -1,12 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 const options = [
   {
@@ -64,16 +60,16 @@ export class AdminStoreCreateComponent implements OnInit {
   validateForm!: FormGroup;
   status = '1';
 
-  constructor( public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreCreateComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-     }
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreCreateComponent>,
+    public adminRegionService: AdminRegionService) {
+  }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.nzOptions = options;
-    }, 100);
+   this.adminRegionService.getAllRegionList().subscribe(res=>{
+     console.log("结果是",res);
+   })
 
-
- this.validateForm = this.fb.group({
+    this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
       regionCode: [{ value: '' }, [Validators.required]],
       address: [null, [Validators.required]],
