@@ -51,6 +51,10 @@ const StoreMENUITEMS = [
   {
     storeHeader: '店铺页面',
     storeMenulist: [{ state: 'admin', type: 'link', name: 'Admin', icon: 'view_headline' }]
+  },
+  {
+    storeHeader: '产品模块',
+    storeMenulist: [{ state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }]
   }
 ];
 
