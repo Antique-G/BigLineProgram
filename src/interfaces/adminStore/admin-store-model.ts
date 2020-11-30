@@ -34,6 +34,8 @@ export interface Datum {
   name: string;
   region_code: string;
   address: string;
+  mobile: string;
+  contact: string;
   fax: string;
   phone: string;
   profile_photo_path?: any;
@@ -52,6 +54,8 @@ export interface AddStoreRequestModel {
   fax: string;
   phone: string;
   status: any;
+  mobile: string;
+  contact: string;
 }
 
 export interface AddStoreResponseModel {
@@ -71,6 +75,8 @@ export interface StoreDetailModel {
   status: number;
   created_at: string;
   updated_at: string;
+  mobile: string;
+  contact: string;
 }
 
 export interface  StoreUpdateRequestModel {
@@ -81,5 +87,7 @@ export interface  StoreUpdateRequestModel {
   phone?: string;
   status?: number;
   store_id?: string;
+  mobile?: string;
+  contact?: string;
 }
 

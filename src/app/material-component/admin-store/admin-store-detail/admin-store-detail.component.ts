@@ -44,7 +44,9 @@ export class AdminStoreDetailComponent implements OnInit {
       address: [this.storeDetailModel.address, [Validators.required]],
       fax: [this.storeDetailModel.fax, [Validators.required]],
       phone: [this.storeDetailModel.phone, [Validators.required]],
-      status: [this.storeDetailModel.status, [Validators.required]]
+      status: [this.storeDetailModel.status, [Validators.required]],
+      contact: [this.storeDetailModel.contact, [Validators.required]],
+      mobile: [this.storeDetailModel.mobile, [Validators.required]],
     });
     this.storeUpdateRequestModel = {
       name: '',
@@ -53,6 +55,8 @@ export class AdminStoreDetailComponent implements OnInit {
       fax: '',
       phone: '',
       status: 0,
+      contact: '',
+      mobile: '',
     }
 
   }
@@ -74,6 +78,8 @@ export class AdminStoreDetailComponent implements OnInit {
     this.storeUpdateRequestModel.fax = this.addForm.value.fax;
     this.storeUpdateRequestModel.phone = this.addForm.value.phone
     this.storeUpdateRequestModel.status = this.addForm.value.status;
+    this.storeUpdateRequestModel.contact = this.addForm.value.contact;
+    this.storeUpdateRequestModel.mobile = this.addForm.value.mobile;
   }
 
 
@@ -85,11 +91,11 @@ export class AdminStoreDetailComponent implements OnInit {
     this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
       console.log("res结果", res);
       if (res.message) {
-        alert("创建成功");
+        alert("更新成功");
         this.dialogRef.close(1);
       }
       else {
-        alert("创建失败，请重新填写")
+        alert("更新失败")
       }
     })
   }

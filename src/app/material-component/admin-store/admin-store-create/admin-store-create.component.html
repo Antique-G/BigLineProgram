@@ -17,6 +17,22 @@
                     <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人！">
+                    <input nz-input formControlName="contact" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mobile" nzRequired>联系人手机号</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人手机号！">
+                    <input nz-input formControlName="mobile" />
+                </nz-form-control>
+            </nz-form-item>
+
+
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户地址</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -35,6 +51,9 @@
                     <input nz-input formControlName="phone" />
                 </nz-form-control>
             </nz-form-item>
+
+
+
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
