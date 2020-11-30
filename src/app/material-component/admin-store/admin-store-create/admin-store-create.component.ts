@@ -4,8 +4,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AddStoreRequestModel } from '../../../../interfaces/adminStore/admin-store-model';
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
-import { NzSelectSizeType } from 'ng-zorro-antd/select';
-
 
 
 
@@ -37,6 +35,8 @@ export class AdminStoreCreateComponent implements OnInit {
       fax: ['', [Validators.required]],
       phone: ['', [Validators.required]],
       status: ['', [Validators.required]],
+      contact: ['', [Validators.required]],
+      mobile: ['', [Validators.required]],
 
     });
     this.addStoreRequestModel = {
@@ -46,6 +46,8 @@ export class AdminStoreCreateComponent implements OnInit {
       fax: '',
       phone: '',
       status: '',
+      contact:'',
+      mobile:''
     }
   }
 
@@ -67,6 +69,10 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addStoreRequestModel.fax = this.addForm.value.fax;
     this.addStoreRequestModel.phone = this.addForm.value.phone
     this.addStoreRequestModel.status = this.addForm.value.status;
+    this.addStoreRequestModel.contact = this.addForm.value.contact;
+    this.addStoreRequestModel.mobile = this.addForm.value.mobile;
+
+
   }
 
 

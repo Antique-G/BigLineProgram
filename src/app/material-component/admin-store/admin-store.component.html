@@ -37,6 +37,16 @@
                                 <td mat-cell *matCellDef="let element"> {{element.address}} </td>
                             </ng-container>
 
+                            <ng-container matColumnDef="contact">
+                                <th mat-header-cell *matHeaderCellDef> 联系人 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="mobile">
+                                <th mat-header-cell *matHeaderCellDef> 联系人手机号 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+                            </ng-container>
+
                             <ng-container matColumnDef="phone">
                                 <th mat-header-cell *matHeaderCellDef> 座机号码 </th>
                                 <td mat-cell *matCellDef="let element"> {{element.phone}} </td>

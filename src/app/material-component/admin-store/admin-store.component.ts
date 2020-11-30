@@ -18,7 +18,7 @@ export class AdminStoreComponent  implements OnInit  {
   adminStoreListRequestModel:AdminStoreListRequestModel;
   datum: Datum[] = [];
 
-  displayedColumns: string[] = ['storeId','name', 'regionCode', 'address','phone', 'fax', 'status', 'action'];
+  displayedColumns: string[] = ['storeId','name', 'regionCode', 'address','contact','mobile','phone', 'fax', 'status', 'action'];
   dataSource = new MatTableDataSource<Datum>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
