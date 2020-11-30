@@ -6,11 +6,11 @@
                     <div>
                         <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加</button>
                     </div>
-                    <form class="example-form">
+                    <form [formGroup]="nameForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=50>
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="姓名:" value=" ">
+                                    <input matInput placeholder="姓名:" value="" formControlName="name">
                                 </mat-form-field>
                             </div>
                             <div fxFlex=20>
