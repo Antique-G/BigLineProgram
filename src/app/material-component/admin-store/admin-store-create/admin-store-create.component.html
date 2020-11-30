@@ -7,36 +7,36 @@
         <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>商户名</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入商户名！">
                     <input nz-input formControlName="name" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域编码</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
                     <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>商户地址</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户地址</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
                     <input nz-input formControlName="address" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax" nzRequired>传真</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax">传真</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
                     <input nz-input formControlName="fax" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>座机号码</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">座机号码</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
                     <input nz-input formControlName="phone" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="status" formControlName="status">
                         <label nz-radio nzValue="1">开启</label>

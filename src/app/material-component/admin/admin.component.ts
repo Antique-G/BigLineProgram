@@ -1,4 +1,3 @@
-import { AfterViewInit } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,7 +15,7 @@ import { AdminDetailComponent } from './admin-detail/admin-detail.component';
 })
 
 
-export class AdminComponent implements OnInit, AfterViewInit {
+export class AdminComponent implements OnInit {
 
   adminAdminListRequestModel: AdminAdminListRequestModel;
   // adminAdminListResponseModel: AdminAdminListResponseModel;
@@ -32,7 +31,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   isRateLimitReached = false;
 
 
-  constructor(public adminAdminService: AdminAdminService,public dialog: MatDialog) {
+  constructor(public adminAdminService: AdminAdminService, public dialog: MatDialog) {
 
     this.adminAdminListRequestModel = {
       // page: '',
@@ -43,31 +42,27 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
     this.adminList();
   }
 
   adminList() {
     this.adminAdminService.adminList(this.adminAdminListRequestModel).subscribe(res => {
       console.log("1111", res);  //结果；
-      this.dataSource.data = res.data; 
+      this.dataSource.data = res.data;
       console.log("表格的数据", this.dataSource);
-      this.resultsLength=res.total;  //总数
+      this.resultsLength = res.total;  //总数
       // this.dataSource.paginator = res.total;
       this.dataSource = new MatTableDataSource(res.data);
-   
+
       // this.resultsLength
-       this.dataSource.filterPredicate = (data: Datum, filter: string) => {
-      return data.real_name == filter;
-     };
+      this.dataSource.filterPredicate = (data: Datum, filter: string) => {
+        return data.real_name == filter;
+      };
 
     })
   }
 
-
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -78,7 +73,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
   edit(element: any): void {
-    console.log("拿到的值",element);
+    console.log("拿到的值", element);
     const dialogRef = this.dialog.open(AdminDetailComponent, {
       width: '550px',
       data: element
@@ -88,7 +83,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       if (result !== undefined) {
         this.adminList();
       }
-      
+
     });
   }
 
@@ -101,7 +96,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
       if (result !== undefined) {
         this.adminList();
       }
-      
+
     });
   }
 }
