@@ -31,8 +31,14 @@ export const Urls = {
 
 
 
-  GetAdminAllRegions: api + '/admin/regions_all_json'   // 管理后台获取区域三级联动数据
+  GetAdminAllRegions: api + '/admin/regions_all_json',   // 管理后台获取区域三级联动数据
+  
+  // 店铺后台api
+  PostStoreProductCreate: api + '/store/product', //添加产品api
+  GetStoreProductList:api + '/store/product', //添加产品api
+  GetStoreProductDetail:api + '/store/product/id', //添加产品api
 
 
 };
+
 
