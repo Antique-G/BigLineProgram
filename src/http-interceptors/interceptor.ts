@@ -35,6 +35,7 @@ export class Interceptor implements HttpInterceptor {
        error => { // 统一处理所有的http错误
         if (error instanceof HttpErrorResponse) {
           if (error.status == 401) {
+            alert('token已过期，请重新登陆')
             this.router.navigate(['/admin/login']);
           } else if (error.status == 500) {
             alert(error.message)
@@ -42,7 +43,7 @@ export class Interceptor implements HttpInterceptor {
             alert(error.message)
           } 
           else if (error.status == 422) {
-            alert(error.message)
+            // alert(error.message);
           } 
           }
         } 

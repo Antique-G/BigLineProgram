@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { StoreBankAccountRequestModel, StoreBankAccountResponseModel } from '../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
+import { AdminStoreBankAccountListRequestModel, AdminStoreBankAccountListResponseModel, StoreBankAccountRequestModel, StoreBankAccountResponseModel, StoreBankAccountUpdateRequestModel } from '../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
 import { Urls } from '../../api';
 
 const httpOptions = {
@@ -19,23 +19,55 @@ export class AdminStoreBankAccountService {
   constructor(public httpClient: HttpClient) { }
 
 
-    // 注册
-    addStoreBankAccount(storeBankAccountRequestModel: StoreBankAccountRequestModel): Observable<StoreBankAccountResponseModel> {
-      return this.httpClient.post<StoreBankAccountResponseModel>(this.urls.PostAdminStoreBankCreate, storeBankAccountRequestModel, httpOptions)
-        .pipe(
-          retry(1), // 重试1次
-          catchError(this.handleError)
-        )
-    }
+  // 银行卡列表
+  storeBankList(store_id: AdminStoreBankAccountListRequestModel): Observable<AdminStoreBankAccountListResponseModel> {
+    const params = new HttpParams({
+      fromString: 'store_id=' + store_id.store_id
+    });
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<AdminStoreBankAccountListResponseModel>(this.urls.PostAdminStoreBankCreate, findhttpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
 
 
-    
+
+  // 银行卡添加
+  addStoreBankAccount(storeBankAccountRequestModel: StoreBankAccountRequestModel): Observable<StoreBankAccountResponseModel> {
+    return this.httpClient.post<StoreBankAccountResponseModel>(this.urls.PostAdminStoreBankCreate, storeBankAccountRequestModel, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 商铺的银行卡更新
+  updateStoreBank(storeBankAccountUpdateRequestModel: StoreBankAccountUpdateRequestModel): Observable<any> {
+    const id = storeBankAccountUpdateRequestModel.bank_id;
+    return this.httpClient.put(this.urls.PutAdminStoreBankUpdate + id, storeBankAccountUpdateRequestModel, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
+
+
+
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
       case 401:
         alert(error.message);
-        break
+        break;
+      case 422:
+        alert("请输入正确的值");
+        break;
     }
 
     // if (error.error instanceof ErrorEvent) {

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
-import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
+import { MatDialogRef} from '@angular/material/dialog';
+import { StoreBankAccountRequestModel } from '../../../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
+import { AdminStoreBankAccountService } from '../../../../services/admin/admin-store-bank-account.service';
 
 
 @Component({
@@ -12,13 +12,13 @@ import { AdminLoginService } from '../../../../services/admin-login/admin-login.
 })
 export class AdminStoreBankAccountCreateComponent implements OnInit {
   addForm!: FormGroup;
-  statusValue = '1';
-  // registerRequestModel: RegisterRequestModel;
+  statusValue = 0;
 
+  storeBankAccountRequestModel: StoreBankAccountRequestModel;
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreBankAccountCreateComponent>,
-    public adminLoginService: AdminLoginService,) {
+    public adminStoreBankAccountService: AdminStoreBankAccountService,) {
     this.addForm = this.fb.group({
       storeId: ['', [Validators.required]],
       bankName: ['', [Validators.required]],
@@ -28,46 +28,45 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
       contacts: ['', [Validators.required]],
       contactsPhone: ['', [Validators.required]]
     });
-    // this.registerRequestModel = {
-    //   account: '',
-    //   password: '',
-    //   password_confirmation: '',
-    //   real_name: '',
-    //   mobile: '',
-    //   status: '',
-    // }
+    this.storeBankAccountRequestModel = {
+      store_id: '',
+      bank_name: '',
+      bank_account: '',
+      account_address: '',
+      is_corporate: 0,
+      contacts: '',
+      contacts_phone: '',
+    }
   }
-
-
-
 
   ngOnInit(): void {
 
   }
 
   setValue() {
-    // this.registerRequestModel.account = this.addForm.value.account;
-    // this.registerRequestModel.password = this.addForm.value.password;
-    // this.registerRequestModel.password_confirmation = this.addForm.value.checkPassword;
-    // this.registerRequestModel.real_name = this.addForm.value.name;
-    // this.registerRequestModel.mobile = this.addForm.value.phoneNumber
-    // this.registerRequestModel.status = this.addForm.value.status;
+    this.storeBankAccountRequestModel.store_id = this.addForm.value.storeId;
+    this.storeBankAccountRequestModel.bank_name = this.addForm.value.bankName;
+    this.storeBankAccountRequestModel.bank_account = this.addForm.value.bankAccount;
+    this.storeBankAccountRequestModel.account_address = this.addForm.value.accountAddress;
+    this.storeBankAccountRequestModel.is_corporate = this.addForm.value.isCorporate;
+    this.storeBankAccountRequestModel.contacts = this.addForm.value.contacts;
+    this.storeBankAccountRequestModel.contacts_phone = this.addForm.value.contactsPhone;
   }
 
 
   add() {
     this.setValue();
-    // console.log("提交的model是什么", this.registerRequestModel);
-    // this.adminLoginService.register(this.registerRequestModel).subscribe(res => {
-    //   console.log("res结果", res);
-    //   if (res === null) {
-    //     alert("创建成功");
-    //     this.dialogRef.close(1);
-    //   }
-    //   else{
-    //     alert("创建失败，请重新填写")
-    //   }
-    // })
+    console.log("提交的model是什么", this.storeBankAccountRequestModel);
+    this.adminStoreBankAccountService.addStoreBankAccount(this.storeBankAccountRequestModel).subscribe(res => {
+      console.log("res结果", res);
+      if (res.code) {
+        alert("创建失败，请重新填写");
+      }
+      else{
+        alert("创建成功");
+        this.dialogRef.close(1);
+      }
+    })
   }
 
 

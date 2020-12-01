@@ -12,7 +12,7 @@
             </nz-form-item>
 
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bankName" nzRequired>开户行 </nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bankName" nzRequired>开户行名称 </nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入开户行 ！">
                     <input nz-input formControlName="bankName" />
                 </nz-form-control>
@@ -34,8 +34,8 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isCorporate" nzRequired>账号类型</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="statusValue" formControlName="isCorporate">
-                        <label nz-radio nzValue="1">对公 </label>
-                        <label nz-radio nzValue="2">对私</label>
+                        <label nz-radio nzValue=1>对公 </label>
+                        <label nz-radio nzValue=2>对私</label>
                     </nz-radio-group>
                 </nz-form-control>
             </nz-form-item>
