@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AddStoreRequestModel, AddStoreResponseModel, AdminStoreListRequestModel, AdminStoreListResponseModel, StoreUpdateRequestModel } from '../../interfaces/adminStore/admin-store-model';
-import { Urls } from '../../api';
+import { AdminUrls } from '../../api';
 
 
 const httpOptions = {
@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdminStoreService {
-  public urls = Urls;
+  public urls = AdminUrls;
 
   constructor(public httpClient: HttpClient) { }
 

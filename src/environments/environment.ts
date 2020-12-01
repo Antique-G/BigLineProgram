@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://p.carl.beennn.cn"
+  // baseUrl: "http://p.carl.beennn.cn"     //旧的
+  baseUrl: "http://plat.beennn.cn"
 };
 
 /*

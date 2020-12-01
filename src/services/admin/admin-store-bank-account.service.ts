@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AdminStoreBankAccountListRequestModel, AdminStoreBankAccountListResponseModel, StoreBankAccountRequestModel, StoreBankAccountResponseModel, StoreBankAccountUpdateRequestModel } from '../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
-import { Urls } from '../../api';
+import { AdminUrls } from '../../api';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -14,7 +14,7 @@ const httpOptions = {
 })
 
 export class AdminStoreBankAccountService {
-  public urls = Urls;
+  public urls = AdminUrls;
 
   constructor(public httpClient: HttpClient) { }
 

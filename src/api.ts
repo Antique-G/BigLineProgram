@@ -2,7 +2,8 @@ import { environment } from "./environments/environment";
 
 const api = environment.baseUrl;
 
-export const Urls = {
+// 管理后台api
+export const AdminUrls = {
   AdminLogin: api + '/admin/login', // 管理后台登陆接口
   AdminLogout: api + '/admin/logout',  //管理后台登出接口
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
@@ -18,9 +19,9 @@ export const Urls = {
   PutAdminStoreUpdate: api + '/admin/store/', //管理后台商户信息修改保存
   GetAdminStore: api + '/admin/store', //管理后台获取商户列表接口
 
-  PostAdminStoreBankCreate:  api +'/admin/store_bank' , // 商铺银行卡添加接口
-  GetAdminStoreBank:  api +'/admin/store_bank' ,  //商铺的银行卡列表
-  GetAdminStoreBankDetail: api + '/admin/store/' , //商铺的银行卡详情
+  PostAdminStoreBankCreate: api + '/admin/store_bank', // 商铺银行卡添加接口
+  GetAdminStoreBank: api + '/admin/store_bank',  //商铺的银行卡列表
+  GetAdminStoreBankDetail: api + '/admin/store/', //商铺的银行卡详情
   PutAdminStoreBankUpdate: api + '/admin/store_bank/', //商铺的银行卡更新
 
 
@@ -30,15 +31,20 @@ export const Urls = {
 
 
 
-
   GetAdminAllRegions: api + '/admin/regions_all_json',   // 管理后台获取区域三级联动数据
-  
-  // 店铺后台api
-  PostStoreProductCreate: api + '/store/product', //添加产品api
-  GetStoreProductList:api + '/store/product', //添加产品api
-  GetStoreProductDetail:api + '/store/product/id', //添加产品api
-
 
 };
 
 
+
+// 店铺后台api
+export const StoreUrls = {
+  StoreLogin: api + '/store/login', // 店铺后台登陆接口
+  StoreLogout: api + '/store/logout',  //店铺后台登出接口
+  StoreRefresh: api + '/store/refresh',  //店铺后台Token刷新接口
+
+
+  PostStoreProductCreate: api + '/store/product', //添加产品api
+  GetStoreProductList: api + '/store/product', //添加产品api
+  GetStoreProductDetail: api + '/store/product/id', //添加产品api
+}

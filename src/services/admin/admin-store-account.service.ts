@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
-import { Urls } from '../../api';
+import { AdminUrls } from '../../api';
 
 const httpOptions = {   //1.1定义请求头信息
   headers : new HttpHeaders().set('Content-Type','application/json')
@@ -11,7 +11,7 @@ const httpOptions = {   //1.1定义请求头信息
   providedIn: 'root'
 })
 export class AdminStoreAccountService {  //创建店铺帐号管理服务
-  public urls = Urls;   //1.2引入定义的baseUrl：http://p.carl.beennn.cn
+  public urls = AdminUrls;   //1.2引入定义的baseUrl：http://p.carl.beennn.cn
   
   constructor(public HttpHeaders:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
 

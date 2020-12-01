@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Urls } from '../../../api';
-import {ProductModel,ProductResponseModel,ProductModelRequestModel,ProductResponseListResponseModel} from '../../../interfaces/store/storeProduct/ProductModel';
+import { StoreUrls } from '../../../api';
+import { ProductModel, ProductResponseModel, ProductModelRequestModel, ProductResponseListResponseModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class StoreProductService {
-  public urls = Urls;
+  public urls = StoreUrls;
 
   constructor(public httpClient: HttpClient) { }
 
@@ -30,11 +30,11 @@ export class StoreProductService {
       params: body
     };
 
-   return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreProductList, findhttpOptions)
-        .pipe(
-          retry(1), // 重试1次
-          catchError(this.handleError)
-        )
+    return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreProductList, findhttpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
   }
 
   // 添加产品
@@ -47,7 +47,7 @@ export class StoreProductService {
   }
 
   // 获取产品详情
-  getProductDetail(id:any){
+  getProductDetail(id: any) {
 
     let params = new HttpParams()
     params.append("id", id ? id : 0);
@@ -56,11 +56,11 @@ export class StoreProductService {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: body
     };
-    return this.httpClient.get<ProductModel>(this.urls.GetStoreProductDetail,findhttpOption)
-    .pipe(
-      retry(1), // 重试1次
-      catchError(this.handleError)
-    )
+    return this.httpClient.get<ProductModel>(this.urls.GetStoreProductDetail, findhttpOption)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
   }
 
   private handleError(error: HttpErrorResponse) {
