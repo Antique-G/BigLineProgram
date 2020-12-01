@@ -20,7 +20,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   //初始输入不能为空
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
-      required: '请输入'
+      required: '内容不能为空'
     },
     default: {
       email: '邮箱格式不正确'

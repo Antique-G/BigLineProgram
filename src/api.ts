@@ -24,6 +24,13 @@ export const Urls = {
   PutAdminStoreBankUpdate: api + '/admin/store_bank/', //商铺的银行卡更新
 
 
+  PostAdminStoreAccountCreate: api + '/admin/store_account', //商铺的账号创建
+  GetAdminStoreAccountDetail: api + '/admin/store_account/', //店铺账号的编辑详情
+  PutAdminStoreAccountUpdate: api + '/admin/store/', //管理后台商户信息修改保存
+
+
+
+
   GetAdminAllRegions: api + '/admin/regions_all_json'   // 管理后台获取区域三级联动数据
 
 
