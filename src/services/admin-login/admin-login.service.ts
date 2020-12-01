@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Urls } from '../../api';
+import { AdminUrls } from '../../api';
 import { LoginRequestModel, LoginResponseModel, LogOutResponseModel } from '../../interfaces/adminLogin/login-model';
 
 
@@ -17,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdminLoginService {
-  public urls = Urls;
+  public urls = AdminUrls;
 
   constructor(public httpClient: HttpClient) {
     // super();

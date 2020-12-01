@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { Urls } from '../../api';
+import { AdminUrls } from '../../api';
 import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
 
@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdminAdminService {
-  public urls = Urls;
+  public urls = AdminUrls;
 
   constructor(public httpClient: HttpClient) { }
 

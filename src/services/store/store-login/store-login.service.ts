@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AdminRegionModel } from '../../interfaces/adminRegion/admin-region-model';
-import { AdminUrls } from '../../api';
+import { StoreLoginRequestModel, StoreLoginResponseModel, StoreLogOutResponseModel } from '../../../interfaces/store/storeLogin/store-login-model';
+import { StoreUrls } from '../../../api';
 
 
 const httpOptions = {
@@ -14,25 +14,51 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AdminRegionService {
-  public urls = AdminUrls;
+export class StoreLoginService {
+  public urls = StoreUrls;
 
-  constructor(public httpClient: HttpClient) { }
+  constructor(public httpClient: HttpClient) {}
 
 
-  // 区域三级联动数据
-  getAllRegionList(): Observable<AdminRegionModel[]> {
-    return this.httpClient.get<AdminRegionModel[]>(this.urls.GetAdminAllRegions,httpOptions)
-      .pipe(
-        retry(1), // 重试1次
-        catchError(this.handleError)
-      );
+  // 获取token
+  getToken() {
+    return localStorage.getItem('userToken');
+  }
+
+  // 储存token
+  setToken(t: string) {
+    return localStorage.setItem('userToken', t);
+  }
+
+  // 移除token
+  removeToken() {
+    localStorage.removeItem('userToken');
   }
 
 
 
 
-  public handleError(error: HttpErrorResponse) {
+  // 登陆
+  login(storeLoginRequestModel: StoreLoginRequestModel): Observable<StoreLoginResponseModel> {
+    return this.httpClient.post<StoreLoginResponseModel>(this.urls.StoreLogin, storeLoginRequestModel, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      )
+  }
+
+
+
+  // 登出
+  logout(): Observable<StoreLogOutResponseModel> {
+    return this.httpClient.get<StoreLogOutResponseModel>(this.urls.StoreLogout);
+  }
+
+
+
+
+
+  private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
       case 401:
@@ -53,5 +79,7 @@ export class AdminRegionService {
     // 反馈给用户的错误信息（用于组件中使用 error 回调时的错误提示）
     return throwError('');
   }
+
+
 
 }

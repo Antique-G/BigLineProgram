@@ -13,17 +13,19 @@ import { AdminLoginService } from '../services/admin-login/admin-login.service';
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(public adminLoginService:AdminLoginService,public router:Router) { }
+  constructor(public adminLoginService: AdminLoginService, public router: Router) { }
+
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('userToken')// 获取token
+    const token = localStorage.getItem('userToken');// 获取token
+    let pathName = location.pathname.slice(1, 6);
     if (token) { // 如果有token，就添加
       req = req.clone({
         setHeaders: {
           'Authorization': `Bearer ${token}`
         }
       });
-    // console.log('314234234',req);
+      // console.log('314234234',req);
 
     }
     return next.handle(req).pipe(
@@ -32,25 +34,32 @@ export class Interceptor implements HttpInterceptor {
           // event.body
         }
       },
-       error => { // 统一处理所有的http错误
-        if (error instanceof HttpErrorResponse) {
-          if (error.status == 401) {
-            alert('token已过期，请重新登陆')
-            this.router.navigate(['/admin/login']);
-          } else if (error.status == 500) {
-            alert(error.message)
-          } else if (error.status == 504) {
-            alert(error.message)
-          } 
-          else if (error.status == 422) {
-            // alert(error.message);
-          } 
+        error => { // 统一处理所有的http错误
+          if (error instanceof HttpErrorResponse) {
+            if (error.status == 401) {
+              alert('token已过期，请重新登陆');
+              if (pathName === 'admin') {
+                this.router.navigate(['/admin/login']);
+              }
+              else if (pathName === 'store') {
+                this.router.navigate(['/store/login']);
+              }
+            }
+            else if (error.status == 500) {
+              alert(error.message)
+            }
+            else if (error.status == 504) {
+              alert(error.message)
+            }
+            else if (error.status == 422) {
+              // alert(error.message);
+            }
           }
-        } 
+        }
       )
     )
   }
-  
+
 }
 
 
