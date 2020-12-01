@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { Urls } from '../../api';
 import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
@@ -22,14 +22,17 @@ export class AdminAdminService {
 
   // 管理员列表
   adminList(adminAdminListRequestModel: AdminAdminListRequestModel): Observable<AdminAdminListResponseModel> {
-    let params = new HttpParams()
-    params.append("page", adminAdminListRequestModel.page ? adminAdminListRequestModel.page : '');
-    params.append("per_page", adminAdminListRequestModel.per_page ? adminAdminListRequestModel.per_page : '');
-    params.append("keyword", adminAdminListRequestModel.keyword ? adminAdminListRequestModel.keyword : '');
-    let body = params;
+    let page = 1;  //页码
+    let per_page = 10; //每一页的数
+    const params = new HttpParams().set('page', page.toString())
+    .set('per_page', per_page.toString())
+    .set('keyword',adminAdminListRequestModel.keyword.toString());
+    // params.append("page", page.toString());
+    // params.append("per_page", per_page.toString());
+    // params.append("keyword", adminAdminListRequestModel.keyword.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: body
+      params: params
     };
     return this.httpClient.get<AdminAdminListResponseModel>(this.urls.GetAdminAccount, findhttpOptions)
       .pipe(
@@ -53,7 +56,7 @@ export class AdminAdminService {
   // 更新
   updateUser(updateRequestModel: UpdateRequestModel): Observable<any> {
     const id = updateRequestModel.admin_id;
-    return this.httpClient.put(this.urls.PutAdminAccountUpdate+id, updateRequestModel, httpOptions)
+    return this.httpClient.put(this.urls.PutAdminAccountUpdate + id, updateRequestModel, httpOptions)
       .pipe(
         retry(1), // 重试1次
         catchError(this.handleError)

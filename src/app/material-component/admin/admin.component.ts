@@ -6,6 +6,8 @@ import { AdminAdminService } from '../../../services/admin/admin-admin.service';
 import { AdminAdminListRequestModel, AdminAdminListResponseModel, Datum } from '../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
+import { merge } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -32,11 +34,10 @@ export class AdminComponent implements OnInit {
 
 
   constructor(public adminAdminService: AdminAdminService, public dialog: MatDialog) {
-
     this.adminAdminListRequestModel = {
-      // page: '',
-      // status?: 1,
-      // keyword: ''
+      page: 1,
+      per_page: 10,
+      keyword: ''
     }
   }
 
@@ -47,18 +48,35 @@ export class AdminComponent implements OnInit {
   }
 
   adminList() {
+    console.log("提交的model",this.adminAdminListRequestModel)
     this.adminAdminService.adminList(this.adminAdminListRequestModel).subscribe(res => {
-      console.log("1111", res);  //结果；
       this.dataSource.data = res.data;
       console.log("表格的数据", this.dataSource);
       this.resultsLength = res.total;  //总数
-      // this.dataSource.paginator = res.total;
+      this.dataSource.paginator=this.paginator;
       this.dataSource = new MatTableDataSource(res.data);
-
-      // this.resultsLength
-      this.dataSource.filterPredicate = (data: Datum, filter: string) => {
-        return data.real_name == filter;
-      };
+      console.log("this.paginator.page",this.paginator.pageIndex)
+      merge(this.paginator.page)
+      .pipe(
+          startWith({}),
+          switchMap(() => {
+          this.isLoadingResults = true;
+          this.adminAdminListRequestModel.page=this.paginator.pageIndex + 1;
+          return this.adminAdminService.adminList(this.adminAdminListRequestModel)
+          }),
+          map(data => {
+            console.log("data",data)
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          return data;
+          }),
+          catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return [];
+          })
+      ).subscribe(data => this.dataSource.data = data.data);
+  
 
     })
   }
