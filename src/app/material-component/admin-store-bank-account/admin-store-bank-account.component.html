@@ -10,13 +10,13 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=50>
                                 <mat-form-field>
-                                    <mat-label>商户名:</mat-label>
-                                    <input matInput value="" formControlName="storeId">
+                                    <mat-label>商户id:</mat-label>
+                                    <input matInput value="" formControlName="storeId" placeholder="请输入商户id" required>
                                 </mat-form-field>
 
                             </div>
                             <div fxFlex=20>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;">搜索</button>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
 
                         </div>
@@ -43,10 +43,10 @@
                             <ng-container matColumnDef="isCorporate">
                                 <th mat-header-cell *matHeaderCellDef> 账号类型 </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div *ngIf="element.is_corporate==='1'">
+                                    <div *ngIf="element.is_corporate===1">
                                         对公
                                     </div>
-                                    <div *ngIf="element.is_corporate==='2'">
+                                    <div *ngIf="element.is_corporate===2">
                                         对私
                                     </div>
                                 </td>
@@ -78,7 +78,7 @@
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
 
-                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
                     </div>
                 </div>
 

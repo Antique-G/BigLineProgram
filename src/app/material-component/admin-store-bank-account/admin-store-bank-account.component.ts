@@ -1,9 +1,9 @@
-import { AfterViewInit } from '@angular/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+import { AdminStoreBankAccountListRequestModel } from '../../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
+import { AdminStoreBankAccountService } from '../../../services/admin/admin-store-bank-account.service';
 import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account-create/admin-store-bank-account-create.component';
 import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account-detail/admin-store-bank-account-detail.component';
 
@@ -13,48 +13,71 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
   templateUrl: './admin-store-bank-account.component.html',
   styleUrls: ['./admin-store-bank-account.component.css']
 })
-export class AdminStoreBankAccountComponent  implements AfterViewInit  {
+export class AdminStoreBankAccountComponent implements OnInit {
   nameForm: FormGroup;
+  adminStoreBankAccountListRequestModel: AdminStoreBankAccountListRequestModel;
 
-  displayedColumns: string[] = ['storeId', 'bankName', 'bankAccount', 'isCorporate','contacts', 'contactsPhone', 'action'];
+  displayedColumns: string[] = ['storeId', 'bankName', 'bankAccount', 'isCorporate', 'contacts', 'contactsPhone', 'action'];
   dataSource = new MatTableDataSource();
 
 
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
-// testing
-  constructor(public fb: FormBuilder, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreBankAccountService: AdminStoreBankAccountService) {
     this.nameForm = fb.group({
-      storeId: new FormControl(' ')
+      storeId: ['', [Validators.required]]
     });
-   }
-
-   ngAfterViewInit(): void{
-    this.dataSource.paginator = this.paginator;
+    this.adminStoreBankAccountListRequestModel = {
+      store_id: ''
+    }
   }
 
-  add(){
+  ngOnInit(): void {
+  }
+
+  setValue() {
+    this.adminStoreBankAccountListRequestModel.store_id = this.nameForm.value.storeId;
+  }
+
+
+  search() {
+    this.setValue();
+    console.log("请求参数", this.adminStoreBankAccountListRequestModel);
+    this.adminStoreBankAccountService.storeBankList(this.adminStoreBankAccountListRequestModel).subscribe(res => {
+      console.log("结果", res);
+      if (res.data) {
+        if (res.data != []) {
+          this.dataSource.data = res.data;
+        }
+        else{
+          alert("该商户无银行账号");
+        }
+      }
+    })
+  }
+
+
+  add() {
     const dialogRef = this.dialog.open(AdminStoreBankAccountCreateComponent, {
-      width: '550px',
-      data: 1
+      width: '550px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result !== undefined) {
+        if(this.dataSource.data!=[]){
+          this.search();
+        }
+      }
     });
   }
 
 
-  edit(index: any): void  {
+  edit(element:any): void {
     const dialogRef = this.dialog.open(AdminStoreBankAccountDetailComponent, {
       width: '550px',
-      data: 1
+      data: element
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result !== undefined) {
+        this.search();
+      }
     });
   }
 
