@@ -1,8 +1,10 @@
+import { AdminStoreAccountService } from './../../../../services/admin/admin-store-account.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, AbstractControl, ValidatorFn,Validators  } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { Observable, Observer } from 'rxjs';
+import { AddStoreAccountRequestModel } from '../../../../interfaces/adminStoreAccount/admin-store-account-model';
 
 
 
@@ -13,11 +15,12 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./admin-store-account-create.component.css']
 })
 export class AdminStoreAccountCreateComponent implements OnInit {
-  values: any[] | null = null;
   validateForm: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
   status = '1';
 
-  //初始输入不能为空
+  addStoreAccountRequestModel:AddStoreAccountRequestModel;   //引入定义的请求参数模块
+
+  //表单验证初始输入内容不能为空
   autoTips: Record<string, Record<string, string>> = {
     'zh-cn': {
       required: '内容不能为空'
@@ -28,15 +31,9 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   };
 
 
-  submitForm(value: { name: string;  password: string; password_confirmation: string;  email:string; mobile: string ; level:string; status: string;store_id:string}): void {
-    for (const key in this.validateForm.controls) {
-      this.validateForm.controls[key].markAsDirty();
-      this.validateForm.controls[key].updateValueAndValidity();
-    }
-    console.log(value);
-  };
+ 
 
-
+  //密码验证
   validateConfirmPassword(): void {
     setTimeout(() => this.validateForm.controls.password_confirmation.updateValueAndValidity());
   };
@@ -45,7 +42,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   nameAsyncValidator = (control: FormControl) =>
   new Observable((observer: Observer<MyValidationErrors | null>) => {
     setTimeout(() => {
-      if (control.value === 'JasonWood') {
+      if (control.value === "anya") {
         observer.next({
           duplicated: { 'zh-cn': `用户名已存在` }
         });
@@ -68,12 +65,12 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
 
 
-  constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>,) {
+  constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>, public adminStoreAccountService:AdminStoreAccountService) {
     // use `MyValidators`
     const { required, maxLength, minLength, mobile ,email} = MyValidators;  //
-    this.validateForm = this.fb.group({
-      name: ['', [required, maxLength(64), minLength(2)], [this.nameAsyncValidator]],
-      password: ['', [required]],
+    this.validateForm = this.fb.group({   //表单验证
+      name: ['', [required, maxLength(12), minLength(2)], [this.nameAsyncValidator]],
+      password: ['', [required,maxLength(12), minLength(6)]],
       password_confirmation: ['', [this.confirmValidator]],
       email: ['', [required,email]],
       mobile: ['', [required, mobile]],
@@ -81,18 +78,61 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       store_id: ['', [required]],
       status: ['', [required]]
     });
+    this.addStoreAccountRequestModel = {    //接口请求参数
+      name: '',
+      password: '',
+      password_confirmation: '',
+      mobile: '',
+      email: '',
+      level: '',
+      store_id: '',
+      status: 0
+    }
   }  
 
+  ngOnInit(): void {
+
+  };
+
+
+  setValue(){  //获取表单输入值
+    this.addStoreAccountRequestModel.name =  this.validateForm.value.name;
+    this.addStoreAccountRequestModel.password =  this.validateForm.value.password;
+    this.addStoreAccountRequestModel.password_confirmation =  this.validateForm.value.password_confirmation;
+    this.addStoreAccountRequestModel.mobile =  this.validateForm.value.mobile;
+    this.addStoreAccountRequestModel.email =  this.validateForm.value.email;
+    this.addStoreAccountRequestModel.level =  this.validateForm.value.level;
+    this.addStoreAccountRequestModel.store_id =  this.validateForm.value.store_id;
+    this.addStoreAccountRequestModel.status =  this.validateForm.value.status;
+  }
+
+  //商铺账号创建
+  add() {
+    
+    for (const key in this.validateForm.controls) {  //验证表单输入内容不能为空
+       this.validateForm.controls[key].markAsDirty();
+       this.validateForm.controls[key].updateValueAndValidity();
+    };
+
+    this.setValue();   
+    console.log("提交的model是什么",this.addStoreAccountRequestModel);
+    this.adminStoreAccountService.addStoreAccount(this.addStoreAccountRequestModel).subscribe(res => {
+      console.log("res结果",res);
+      if (res.status_code){
+        alert("创建失败，请重新填写")
+      }else{
+        alert("创建成功");
+        this.dialogRef.close(1);
+      }
+    })
+  }
   //关闭弹窗
   close(): void {
     this.dialogRef.close();
   }
 
 
-  ngOnInit(): void {
-
-
-  };
+ 
 
 
 }

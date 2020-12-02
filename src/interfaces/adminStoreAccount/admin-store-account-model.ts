@@ -1,4 +1,4 @@
-export interface StoreAccountRequestModel {
+export interface AddStoreAccountRequestModel {   // 1.1创建商铺账号的接收数据模块
   password: string;
   password_confirmation: string;
   name: string;
@@ -9,8 +9,9 @@ export interface StoreAccountRequestModel {
   status: any;
 }
 
-export interface StoreAccountResponseModel {
+export interface AddStoreAccountResponseModel {  //1.2创建商铺帐号的返回数据模块
   message: string;
-
+  status_code?: string;
 }
+
 
