@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import {ProductTagModel} from '../../../../interfaces/store/storeProduct/ProductTagModel';
+import {ProductTagModel} from '../../../../interfaces/adminProduct/ProductTagModel';
 import {AdminProductTagCreateComponent} from './admin-product-tag-create/admin-product-tag-create.component';
+
 const ELEMENT_DATA: ProductTagModel[] = [
   { id: 1, name: '020',cateId:0, status: 1,updatedAt:''}
 ];

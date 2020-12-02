@@ -45,8 +45,9 @@ export const StoreUrls = {
 
 
   PostStoreProductCreate: api + '/store/product', //添加产品api
-  GetStoreProductList: api + '/store/product', //添加产品api
-  GetStoreProductDetail: api + '/store/product/id', //添加产品api
+  GetStoreProductList: api + '/store/product', //获取产品列表api
+  GetStoreProductDetail: api + '/store/product/', //获取产品详情api
+  PutStoreProductUpdate: api + '/store/product/', //修改产品api
 
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
@@ -58,4 +59,5 @@ export const StoreUrls = {
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
+  
 }

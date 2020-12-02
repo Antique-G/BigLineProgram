@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreProductManagementCreateComponent } from './store-product-management-create/store-product-management-create.component';
 import {StoreProductService} from '../../../../services/store/store-product/store-product.service';
-import { ProductModelRequestModel } from '../../../../interfaces/store/storeProduct/ProductModel';
+import { ProductModelRequestModel, Datum } from '../../../../interfaces/store/storeProduct/ProductModel';
 
 export interface PeriodicElement {
   id: number;
@@ -30,9 +30,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class StoreProductManagementComponent implements OnInit {
   nameForm: FormGroup;
+  resultsLength = 0; //总数
   productModelRequestModel:ProductModelRequestModel
-  displayedColumns:string[] = ['id','title','fewDays','fewNights','adultPrice','childPrice', 'status','updatedAt','action'];   //1.3每个列需要渲染的行内容
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);   //1.4将数据添加到dataSource
+  datum: Datum[] = [];
+  displayedColumns:string[] = ['id','title','few_days','few_nights','adult_price','child_price', 'status','updated_at','action'];   //1.3每个列需要渲染的行内容
+  dataSource = new MatTableDataSource<Datum>();   //1.4将数据添加到dataSource
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
@@ -42,8 +44,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.nameForm = this.fb.group({
       storeId: new FormControl(' ')
     });
-    this.dataSource.paginator = this.paginator;
-
+   
     this.productModelRequestModel = {
       // page: '',
       // status?: 1,
@@ -54,13 +55,14 @@ export class StoreProductManagementComponent implements OnInit {
 
  
   ngOnInit(): void {
-    // this.getProductList()
+    this.dataSource.paginator = this.paginator;
+
+    this.getProductList()
   }
 
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    this.dataSource.paginator = this.paginator;
   }
  
   getProductList(){
@@ -68,6 +70,9 @@ export class StoreProductManagementComponent implements OnInit {
       console.log("1111", res);
       this.dataSource.data = res.data;
       console.log("表格的数据", this.dataSource)
+      this.resultsLength = res.total;  //总数
+      this.dataSource.paginator=this.paginator;
+      this.dataSource = new MatTableDataSource(res.data);
       // this.dataSource.paginator = res.total;
       //   this.dataSource = new MatTableDataSource(res.data);
       //   // this.resultsLength
