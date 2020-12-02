@@ -22,14 +22,15 @@ export class AdminStoreService {
 
   // 商户列表
   storeList(adminStoreListRequestModel: AdminStoreListRequestModel): Observable<AdminStoreListResponseModel> {
-    let params = new HttpParams()
-    params.append("page", adminStoreListRequestModel.page ? adminStoreListRequestModel.page : '');
-    params.append("per_page", adminStoreListRequestModel.per_page ? adminStoreListRequestModel.per_page : '');
-    params.append("keyword", adminStoreListRequestModel.keyword ? adminStoreListRequestModel.keyword : '');
-    let body = params;
+    let page = 1;  //页码
+    let per_page = 10; //每一页的数
+    const params = new HttpParams().set('page', page.toString())
+    .set('per_page', per_page.toString())
+    .set('keyword',adminStoreListRequestModel.keyword.toString());
+   
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: body
+      params: params
     };
     return this.httpClient.get<AdminStoreListResponseModel>(this.urls.GetAdminStore, findhttpOptions)
       .pipe(

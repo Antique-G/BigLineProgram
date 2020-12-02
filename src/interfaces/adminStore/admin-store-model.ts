@@ -1,6 +1,6 @@
 export interface AdminStoreListRequestModel {
-  page?: any;
-  per_page?: any;
+  page?: number;
+  per_page?: number;
   status?: number;
   keyword?: any;
 }
