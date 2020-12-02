@@ -7,6 +7,7 @@ import { AdminSystemAreaFirstComponent } from './admin-system-area/admin-system-
 import { AdminSystemAreaSecondComponent } from './admin-system-area/admin-system-area-second/admin-system-area-second.component';
 import { AdminSystemAreaComponent } from './admin-system-area/admin-system-area.component';
 import { AdminComponent } from './admin/admin.component';
+import {AdminProductTagComponent} from './admin-product/admin-product-tag/admin-product-tag.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -41,6 +42,10 @@ export const MaterialRoutes: Routes = [
       {
         path: 'storeBankAccount',
         component: AdminStoreBankAccountComponent
+      },
+      {
+        path: 'productTag',
+        component: AdminProductTagComponent
       },
      
 

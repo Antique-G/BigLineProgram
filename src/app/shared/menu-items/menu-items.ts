@@ -30,7 +30,10 @@ const MENUITEMS = [
   },
   {
     header: '产品模块',
-    menulist: []
+    menulist: [
+      { state: 'productTag', type: 'link', name: '产品标签', icon: 'view_headline' }
+      
+    ]
   },
 ];
 
@@ -54,8 +57,11 @@ const StoreMENUITEMS = [
   },
   {
     storeHeader: '产品模块',
-    storeMenulist: [{ state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }]
+    storeMenulist: [
+          { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }
+    ]
   }
+
 ];
 
 @Injectable()
