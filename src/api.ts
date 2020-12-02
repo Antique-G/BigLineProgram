@@ -47,4 +47,15 @@ export const StoreUrls = {
   PostStoreProductCreate: api + '/store/product', //添加产品api
   GetStoreProductList: api + '/store/product', //添加产品api
   GetStoreProductDetail: api + '/store/product/id', //添加产品api
+
+
+  GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
+  PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加
+  PutStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点修改
+  DeleteStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点删除
+  GetStoreMeetingPlaceDetail: api + '/store/assembling_place/',   // 集合地点详情
+  
+  
+
+
 }
