@@ -45,7 +45,7 @@ export interface AddStoreMeetingPlaceRequestModel {
 
 
 export interface AddStoreMeetingPlaceResponseModel {
-
+  status_code?: any
 }
 
 

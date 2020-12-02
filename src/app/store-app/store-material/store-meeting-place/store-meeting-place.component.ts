@@ -112,6 +112,12 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
     });
   }
+
+
+
+  delete(element:any){
+    
+  }
 }
 
 

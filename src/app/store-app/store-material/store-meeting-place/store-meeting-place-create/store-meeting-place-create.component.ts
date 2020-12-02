@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AddStoreMeetingPlaceRequestModel } from '../../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
-import { AdminRegionService } from '../../../../../services/admin/admin-region.service';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 
 
@@ -25,7 +25,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceCreateComponent>,
-    public adminRegionService: AdminRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
+    public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
 
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -42,7 +42,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adminRegionService.getAllRegionList().subscribe(res => {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
     })
@@ -56,10 +56,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.name = this.addForm.value.name;
     this.addStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
-    this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
-    
-
-
+    this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;    
   }
 
 
@@ -69,13 +66,14 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     console.log("提交的model是什么", this.addStoreMeetingPlaceRequestModel);
     this.storeMeetingPlaceService.addStoreMeetingPlace(this.addStoreMeetingPlaceRequestModel).subscribe(res => {
       console.log("res结果", res);
-      // if (res.message) {
-      //   alert("创建成功");
-      //   this.dialogRef.close(1);
-      // }
-      // else {
-      //   alert("创建失败，请重新填写");
-      // }
+      if (res.status_code) {
+        alert("创建失败，请重新填写");
+       
+      }
+      else {
+        alert("创建成功");
+        this.dialogRef.close(1);
+      }
     })
   }
 
