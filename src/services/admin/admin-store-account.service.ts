@@ -3,12 +3,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { AdminUrls } from '../../api';
 import { throwError, Observable } from 'rxjs';
-<<<<<<< HEAD
-import { AddStoreAccountResponseModel } from '../../interfaces/adminStoreAccount/admin-store-account-model';
-=======
-import { Urls } from '../../api';
 import { AddStoreAccountRequestModel, AddStoreAccountResponseModel } from '../../interfaces/adminStoreAccount/admin-store-account-model';
->>>>>>> 8e7ae67... 店铺帐号管理页面更新
 
 const httpOptions = {   //1.1定义请求头信息
   headers : new HttpHeaders().set('Content-Type','application/json')
