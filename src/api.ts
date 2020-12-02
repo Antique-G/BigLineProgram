@@ -54,8 +54,8 @@ export const StoreUrls = {
   PutStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点修改
   DeleteStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点删除
   GetStoreMeetingPlaceDetail: api + '/store/assembling_place/',   // 集合地点详情
-  
-  
 
 
+
+  GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
 }

@@ -25,7 +25,7 @@ export class StoreMeetingPlaceService {
     let page = 1;  //页码
     let per_page = 20; //每一页的数
     const params = new HttpParams().set('page', page.toString())
-    .set('per_page', per_page.toString());
+      .set('per_page', per_page.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -60,6 +60,14 @@ export class StoreMeetingPlaceService {
   }
 
 
+  // 删除
+  deleteStoreMeetingPlace(id:any): Observable<any> {
+    return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlaceUpdate, httpOptions)
+      .pipe(
+        retry(1), // 重试1次
+        catchError(this.handleError)
+      );
+  }
 
 
 
