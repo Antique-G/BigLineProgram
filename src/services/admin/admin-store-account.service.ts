@@ -3,7 +3,12 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { AdminUrls } from '../../api';
 import { throwError, Observable } from 'rxjs';
+<<<<<<< HEAD
 import { AddStoreAccountResponseModel } from '../../interfaces/adminStoreAccount/admin-store-account-model';
+=======
+import { Urls } from '../../api';
+import { AddStoreAccountRequestModel, AddStoreAccountResponseModel } from '../../interfaces/adminStoreAccount/admin-store-account-model';
+>>>>>>> 8e7ae67... 店铺帐号管理页面更新
 
 const httpOptions = {   //1.1定义请求头信息
   headers : new HttpHeaders().set('Content-Type','application/json')
@@ -18,7 +23,7 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
   constructor(public httpClient:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
 
   //商铺的账号创建
-  addStoreAccount(addStoreAccountRequestModel:AddStoreAccountResponseModel):Observable<AddStoreAccountResponseModel>{
+  addStoreAccount(addStoreAccountRequestModel:AddStoreAccountRequestModel):Observable<AddStoreAccountResponseModel>{
     return this.httpClient.post<AddStoreAccountResponseModel>(this.urls.PostAdminStoreAccountCreate,addStoreAccountRequestModel,httpOptions)
     .pipe(
       retry(1),

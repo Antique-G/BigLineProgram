@@ -4,7 +4,7 @@
         <i nz-icon nzType="close" nzTheme="outline" (click)="close()" class="closebtn"></i>
     </div>
     <div >
-        <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+        <form nz-form [nzAutoTips]="autoTips" [formGroup]="validateForm">
             <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
                 <nz-form-control [nzSpan]="17" nzValidatingTip="有效用户名...">
@@ -66,7 +66,7 @@
             </nz-form-item> 
 
             <nz-form-item fxLayoutAlign="center center" >
-              <nz-form-control [nzSpan]="12" >
+              <nz-form-control [nzSpan]="5" >
                 <button nz-button nzType="primary" style="width: 100%;" (click)="add()">添加</button>
               </nz-form-control>
             </nz-form-item>

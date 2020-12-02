@@ -11,5 +11,7 @@ export interface AddStoreAccountRequestModel {   // 1.1创建商铺账号的接�
 
 export interface AddStoreAccountResponseModel {  //1.2创建商铺帐号的返回数据模块
   message: string;
+  status_code?: string;
 }
+
 

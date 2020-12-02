@@ -16,9 +16,10 @@ export interface PeriodicElement {   //1.1导出数据接口,定义了数据类�
   status:string
 }
 const ELEMENT_DATA: PeriodicElement[] = [   //1.2声明一个常量数据表，传输数据
-  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'},
-  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'},
-  {name:'kobin',mobile:'kobin',store_id:'20',level:'@',status:'20'}
+  {name:'kobin',mobile:'13011112222',store_id:'11',level:'@',status:'1'},
+  {name:'anya',mobile:'13011112222',store_id:'22',level:'@',status:'0'},
+  {name:'carl',mobile:'13011112222',store_id:'33',level:'@',status:'1'},
+  {name:'yannie',mobile:'13011112222',store_id:'33',level:'@',status:'1'}
 ]
 
 @Component({
