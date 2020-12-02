@@ -11,23 +11,19 @@
                         <form [formGroup]="loginForm" style="width: 100%;">
                             <div fxflex.gt-sm="100" fxflex.gt-xs="100" fxflex="100" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="用戶名" value="" formControlName="userName">
+                                    <input matInput placeholder="手机号码" value="" formControlName="mobile">
                                 </mat-form-field>
 
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="密碼" value="" formControlName="password">
+                                    <input matInput placeholder="密碼" value="" formControlName="password" type="password">
                                 </mat-form-field>
-
-                                <div>
-                                    <mat-checkbox class="example-margin" style="font-size: 12px;" formControlName="logged">保持登陆</mat-checkbox>
-                                </div>
                             </div>
                         </form>
                     </div>
 
                 </form>
                 <div class="text-center" style="margin-top: 30px;">
-                    <button mat-raised-button color="primary" style="width: 250px;letter-spacing: 2px;" routerLink="/store/main/admin">登陸</button>
+                    <button mat-raised-button color="primary" style="width: 250px;letter-spacing: 2px;" (click)="login()">登陸</button>
                 </div>
             </mat-card-content>
         </mat-card>

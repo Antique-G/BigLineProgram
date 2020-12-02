@@ -3,6 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuItems } from '../../../shared/menu-items/menu-items';
 import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
 import { Router } from '@angular/router';
+import { StoreLoginService } from '../../../../services/store/store-login/store-login.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -19,8 +20,8 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public menuItems: MenuItems,
-    public adminLoginService: AdminLoginService,public router:Router
-
+    public adminLoginService: AdminLoginService, public router: Router,
+    public storeLoginService: StoreLoginService
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -42,7 +43,7 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
 
 
   logOut() {
-    this.adminLoginService.logout().subscribe(res=>{
+    this.adminLoginService.logout().subscribe(res => {
       // console.log("jieguo ",res);
       alert(res.message);
       this.adminLoginService.removeToken();
@@ -50,5 +51,16 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
       this.router.navigate(['/admin/login']);
     })
   }
- 
+
+
+  storeLogOut() {
+    this.storeLoginService.storeLogout().subscribe(res => {
+      console.log("jieguo ",res);
+      alert(res.message);
+      this.adminLoginService.removeToken();
+      localStorage.removeItem('mobile');
+      this.router.navigate(['/store/login']);
+    })
+  }
+
 }
