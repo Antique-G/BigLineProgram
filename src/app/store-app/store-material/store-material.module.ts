@@ -15,7 +15,6 @@ import { StoreMaterialRoutes } from './store-material.routing';
 import { StoreAdminComponent } from './store-admin/store-admin.component';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
 import { StoreProductManagementCreateComponent } from './store-product-management/store-product-management-create/store-product-management-create.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +32,7 @@ import { StoreProductManagementCreateComponent } from './store-product-managemen
   declarations: [
   StoreAdminComponent,
   StoreProductManagementComponent,
-  StoreProductManagementCreateComponent,
+  StoreProductManagementCreateComponent
 ]
 })
 export class StoreMaterialComponentsModule {}
