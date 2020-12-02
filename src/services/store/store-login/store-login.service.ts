@@ -36,10 +36,8 @@ export class StoreLoginService {
   }
 
 
-
-
   // 登陆
-  login(storeLoginRequestModel: StoreLoginRequestModel): Observable<StoreLoginResponseModel> {
+  storeLogin(storeLoginRequestModel: StoreLoginRequestModel): Observable<StoreLoginResponseModel> {
     return this.httpClient.post<StoreLoginResponseModel>(this.urls.StoreLogin, storeLoginRequestModel, httpOptions)
       .pipe(
         retry(1), // 重试1次
@@ -50,11 +48,9 @@ export class StoreLoginService {
 
 
   // 登出
-  logout(): Observable<StoreLogOutResponseModel> {
+  storeLogout(): Observable<StoreLogOutResponseModel> {
     return this.httpClient.get<StoreLogOutResponseModel>(this.urls.StoreLogout);
   }
-
-
 
 
 

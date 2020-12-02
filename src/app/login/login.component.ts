@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminLoginService } from '../../services/admin-login/admin-login.service';
-import { LoginRequestModel, LoginResponseModel } from '../../interfaces/adminLogin/login-model';
+import { LoginRequestModel } from '../../interfaces/adminLogin/login-model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginRequestModel: LoginRequestModel
-  loginResponseModel: LoginResponseModel | undefined;
+  loginRequestModel: LoginRequestModel;
 
 
   constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService,public router:Router) {
