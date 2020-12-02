@@ -52,15 +52,15 @@ export interface StoreMenus {
 
 const StoreMENUITEMS = [
   {
-    storeHeader: '店铺页面',
-    storeMenulist: [{ state: 'admin', type: 'link', name: 'Admin', icon: 'view_headline' }]
-  },
-  {
     storeHeader: '产品模块',
     storeMenulist: [
           { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }
     ]
-  }
+  },
+  {
+    storeHeader: '集合地点',
+    storeMenulist: [{ state: 'storeMeetingPlace', type: 'link', name: '集合地点', icon: 'view_headline' }]
+  },
 
 ];
 

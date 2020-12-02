@@ -42,7 +42,7 @@ export class StoreLoginComponent implements OnInit {
       if(res.access_token!=''){
         this.storeLoginService.setToken(res.access_token);
         localStorage.setItem('mobile',this.storeLoginRequestModel.mobile);  
-        this.router.navigate(['/store/main/admin'])
+        this.router.navigate(['/store/main/storeProduct'])
       }
     })
   }

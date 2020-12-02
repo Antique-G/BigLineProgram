@@ -12,9 +12,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreMaterialRoutes } from './store-material.routing';
-import { StoreAdminComponent } from './store-admin/store-admin.component';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
 import { StoreProductManagementCreateComponent } from './store-product-management/store-product-management-create/store-product-management-create.component';
+import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,9 +30,9 @@ import { StoreProductManagementCreateComponent } from './store-product-managemen
   providers: [],
   entryComponents: [],
   declarations: [
-  StoreAdminComponent,
-  StoreProductManagementComponent,
-  StoreProductManagementCreateComponent
-]
+    StoreProductManagementComponent,
+    StoreProductManagementCreateComponent,
+    StoreMeetingPlaceComponent
+  ]
 })
-export class StoreMaterialComponentsModule {}
+export class StoreMaterialComponentsModule { }
