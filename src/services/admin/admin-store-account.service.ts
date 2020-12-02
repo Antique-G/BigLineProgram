@@ -1,7 +1,9 @@
+import { retry, catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
 import { AdminUrls } from '../../api';
+import { throwError, Observable } from 'rxjs';
+import { AddStoreAccountResponseModel } from '../../interfaces/adminStoreAccount/admin-store-account-model';
 
 const httpOptions = {   //1.1定义请求头信息
   headers : new HttpHeaders().set('Content-Type','application/json')
@@ -13,9 +15,16 @@ const httpOptions = {   //1.1定义请求头信息
 export class AdminStoreAccountService {  //创建店铺帐号管理服务
   public urls = AdminUrls;   //1.2引入定义的baseUrl：http://p.carl.beennn.cn
   
-  constructor(public HttpHeaders:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
+  constructor(public httpClient:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
 
-  
+  //商铺的账号创建
+  addStoreAccount(addStoreAccountRequestModel:AddStoreAccountResponseModel):Observable<AddStoreAccountResponseModel>{
+    return this.httpClient.post<AddStoreAccountResponseModel>(this.urls.PostAdminStoreAccountCreate,addStoreAccountRequestModel,httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
 
 
   //http请求失败的响应返回对象

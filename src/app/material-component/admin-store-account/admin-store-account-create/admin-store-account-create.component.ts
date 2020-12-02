@@ -1,3 +1,4 @@
+import { AdminStoreAccountService } from './../../../../services/admin/admin-store-account.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, AbstractControl, ValidatorFn,Validators  } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +14,6 @@ import { Observable, Observer } from 'rxjs';
   styleUrls: ['./admin-store-account-create.component.css']
 })
 export class AdminStoreAccountCreateComponent implements OnInit {
-  values: any[] | null = null;
   validateForm: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
   status = '1';
 
@@ -68,11 +68,11 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
 
 
-  constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>,) {
+  constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>, public adminStoreAccountService:AdminStoreAccountService) {
     // use `MyValidators`
     const { required, maxLength, minLength, mobile ,email} = MyValidators;  //
     this.validateForm = this.fb.group({
-      name: ['', [required, maxLength(64), minLength(2)], [this.nameAsyncValidator]],
+      name: ['', [required, maxLength(12), minLength(2)], [this.nameAsyncValidator]],
       password: ['', [required]],
       password_confirmation: ['', [this.confirmValidator]],
       email: ['', [required,email]],
@@ -82,7 +82,9 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       status: ['', [required]]
     });
   }  
-
+  add(){
+    
+  }
   //关闭弹窗
   close(): void {
     this.dialogRef.close();
