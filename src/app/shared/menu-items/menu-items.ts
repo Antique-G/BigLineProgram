@@ -32,7 +32,7 @@ const MENUITEMS = [
     header: '产品模块',
     menulist: [
       { state: 'productTag', type: 'link', name: '产品标签', icon: 'view_headline' }
-      
+
     ]
   },
 ];
@@ -54,13 +54,18 @@ const StoreMENUITEMS = [
   {
     storeHeader: '产品模块',
     storeMenulist: [
-          { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }
+      { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' }
     ]
   },
   {
     storeHeader: '集合地点',
     storeMenulist: [{ state: 'storeMeetingPlace', type: 'link', name: '集合地点', icon: 'view_headline' }]
   },
+  {
+    storeHeader: '条款管理模块',
+    storeMenulist: [{ state: 'storeTermsManage', type: 'link', name: '条款管理', icon: 'view_headline' }]
+  },
+
 
 ];
 
