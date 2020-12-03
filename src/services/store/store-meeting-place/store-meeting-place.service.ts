@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
-import { AddStoreMeetingPlaceRequestModel, StoreMeetingPlaceListRequestModel, StoreMeetingPlaceListResponseModel, UpdateStoreMeetingPlaceRequestModel } from '../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
+import { catchError, } from 'rxjs/operators';
+import { AddStoreMeetingPlaceRequestModel, StoreMeetingPlaceListResponseModel, UpdateStoreMeetingPlaceRequestModel } from '../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreUrls } from '../../../api';
 
 
@@ -21,18 +21,15 @@ export class StoreMeetingPlaceService {
 
 
   // 集合地点列表
-  storeMeetingPlaceList(storeMeetingPlaceListRequestModel: StoreMeetingPlaceListRequestModel): Observable<StoreMeetingPlaceListResponseModel> {
-    let page = 1;  //页码
-    let per_page = 20; //每一页的数
+  storeMeetingPlaceList(page: number, per_page: number): Observable<StoreMeetingPlaceListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
-      .set('per_page', per_page.toString());
+      .set('per_page', per_page.toString())
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
     return this.httpClient.get<StoreMeetingPlaceListResponseModel>(this.urls.GetStoreMeetingPlace, findhttpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -43,7 +40,6 @@ export class StoreMeetingPlaceService {
   addStoreMeetingPlace(addStoreMeetingPlaceRequestModel: AddStoreMeetingPlaceRequestModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreMeetingPlaceCreate, addStoreMeetingPlaceRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -54,17 +50,15 @@ export class StoreMeetingPlaceService {
     const id = updateStoreMeetingPlaceRequestModel.id;
     return this.httpClient.put(this.urls.PutStoreMeetingPlaceUpdate + id, updateStoreMeetingPlaceRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
 
 
   // 删除
-  deleteStoreMeetingPlace(id:any): Observable<any> {
+  deleteStoreMeetingPlace(id: any): Observable<any> {
     return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlaceUpdate, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       );
   }

@@ -40,7 +40,6 @@ export class StoreLoginService {
   storeLogin(storeLoginRequestModel: StoreLoginRequestModel): Observable<StoreLoginResponseModel> {
     return this.httpClient.post<StoreLoginResponseModel>(this.urls.StoreLogin, storeLoginRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -58,7 +57,7 @@ export class StoreLoginService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 

@@ -1,10 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { merge } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Datum, StoreMeetingPlaceListRequestModel } from '../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreMeetingPlaceService } from '../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place-create/store-meeting-place-create.component';
 import { StoreMeetingPlaceDetailComponent } from './store-meeting-place-detail/store-meeting-place-detail.component';
@@ -16,72 +11,40 @@ import { StoreMeetingPlaceDetailComponent } from './store-meeting-place-detail/s
   styleUrls: ['./store-meeting-place.component.css']
 })
 export class StoreMeetingPlaceComponent implements OnInit {
-  storeMeetingPlaceListRequestModel: StoreMeetingPlaceListRequestModel;
-  datum: Datum[] = [];
-
-
-  displayedColumns: string[] = ['name', 'regionCode', 'address', 'status', 'action'];
-  dataSource = new MatTableDataSource<Datum>();
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
+  dataSource = [];
+  page = 1;
+  per_page = 20;
+  total = 1;
+  loading = true;
 
   constructor(public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
-    this.storeMeetingPlaceListRequestModel = {
-      page: 1,
-      per_page: 20,
-    }
   }
 
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.storeMeetingPlaceList();
   }
 
-  storeMeetingPlaceList() {
-    console.log("提交的model", this.storeMeetingPlaceListRequestModel)
-    this.storeMeetingPlaceService.storeMeetingPlaceList(this.storeMeetingPlaceListRequestModel).subscribe(res => {
-      this.dataSource.data = res.data;
-      console.log("表格的数据", this.dataSource);
-      this.resultsLength = res.meta.pagination.total //总数
-      this.dataSource.paginator = this.paginator;
-      this.dataSource = new MatTableDataSource(res.data);
-      console.log("this.paginator.page", this.paginator.pageIndex);
-      merge(this.paginator.page)
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isLoadingResults = true;
-            this.storeMeetingPlaceListRequestModel.page = this.paginator.pageIndex + 1;
-            return this.storeMeetingPlaceService.storeMeetingPlaceList(this.storeMeetingPlaceListRequestModel)
-          }),
-          map(data => {
-            console.log("data", data)
-            this.isLoadingResults = false;
-            this.isRateLimitReached = false;
-            return data;
-          }),
-          catchError(() => {
-            this.isLoadingResults = false;
-            this.isRateLimitReached = true;
-            return [];
-          })
-        ).subscribe(data => this.dataSource.data = data.data);
 
+  storeMeetingPlaceList(): void {
+    this.loading = true;
+    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page).subscribe((result: any) => {
+      console.log("jieguyo",result)
+      this.loading = false;
+      this.total = result.meta.pagination.total;   //总页数
+      this.dataSource = result.data;
+    });
+  };
 
-    })
+  changePageIndex(page: number) {
+    console.log("当前页", page);
+    this.page = page;
+    this.storeMeetingPlaceList();
   }
-
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+  changePageSize(per_page: number) {
+    console.log("一页显示多少", per_page);
+    this.per_page = per_page;
+    this.storeMeetingPlaceList();
   }
 
 
@@ -115,8 +78,8 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
 
 
-  delete(element:any){
-    
+  delete(element: any) {
+
   }
 }
 
