@@ -18,10 +18,8 @@
                             <div fxFlex=20>
                                 <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;">搜索</button>
                             </div>
-
                         </div>
                     </form>
-
 
                     <div class="mat-elevation-z8">
                         <table mat-table [dataSource]="dataSource" style="width: 100%;">
@@ -34,31 +32,31 @@
                                 <td mat-cell *matCellDef="let element"> {{element.title}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="fewDays">
+                            <ng-container matColumnDef="few_days">
                                 <th mat-header-cell *matHeaderCellDef>几天 </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;">{{element.fewDays}}</div>
+                                    <div style="cursor: pointer;">{{element.few_days}}</div>
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="fewNights">
+                            <ng-container matColumnDef="few_nights">
                                 <th mat-header-cell *matHeaderCellDef>几晚</th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;">{{element.fewNights}}</div>
+                                    <div style="cursor: pointer;">{{element.few_nights}}</div>
                                 </td>
                             </ng-container>
                             
-                            <ng-container matColumnDef="adultPrice">
+                            <ng-container matColumnDef="adult_price">
                                 <th mat-header-cell *matHeaderCellDef>成人价格</th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;">{{element.adultPrice}}</div>
+                                    <div style="cursor: pointer;">{{element.adult_price}}</div>
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="childPrice">
+                            <ng-container matColumnDef="child_price">
                                 <th mat-header-cell *matHeaderCellDef>儿童价格 </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;">{{element.childPrice}}</div>
+                                    <div style="cursor: pointer;">{{element.child_price}}</div>
                                 </td>
                             </ng-container>
                             
@@ -69,13 +67,12 @@
                                 </td>
                             </ng-container>                          
                             
-                            <ng-container matColumnDef="updatedAt">
-                                <th mat-header-cell *matHeaderCellDef>修改时间23</th>
+                            <ng-container matColumnDef="updated_at">
+                                <th mat-header-cell *matHeaderCellDef>修改时间</th>
                                 <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;">{{element.updatedAt|date:'yyyy-MM-dd hh:mm:ss'}}</div>
+                                    <div style="cursor: pointer;">{{element.updated_at|date:'yyyy-MM-dd hh:mm:ss'}}</div>
                                 </td>
                             </ng-container>
-
 
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef> 操作 </th>
@@ -92,7 +89,7 @@
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
 
-                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        <mat-paginator [length]="resultsLength" #paginator [pageSizeOptions]="[1,10, 15, 20]" showFirstLastButtons></mat-paginator>
                     </div>
                 </div>
 

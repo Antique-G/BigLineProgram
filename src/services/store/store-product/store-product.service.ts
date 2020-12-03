@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductModel, ProductResponseModel, ProductModelRequestModel, ProductResponseListResponseModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductModel, ProductResponseModel, ProductModelRequestModel, ProductResponseListResponseModel,ProductDateilResponseModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -21,7 +21,7 @@ export class StoreProductService {
   // 获取产品列表
   getProduct(productModelRequestModel: ProductModelRequestModel): Observable<ProductResponseListResponseModel> {
     let params = new HttpParams()
-    params.append("page", productModelRequestModel.page ? productModelRequestModel.page : '');
+    params.append("page", productModelRequestModel.page?.toString() ? productModelRequestModel.page.toString() : '0');
     params.append("keyword", productModelRequestModel.keyword ? productModelRequestModel.keyword : '');
 
     let body = params;
@@ -32,7 +32,6 @@ export class StoreProductService {
 
     return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreProductList, findhttpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -41,26 +40,24 @@ export class StoreProductService {
   createProduct(productModel: ProductModel): Observable<ProductResponseModel> {
     return this.httpClient.post<ProductResponseModel>(this.urls.PostStoreProductCreate, productModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
 
   // 获取产品详情
   getProductDetail(id: any) {
-
-    let params = new HttpParams()
-    params.append("id", id ? id : 0);
-    let body = params;
-    const findhttpOption = {
-      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: body
-    };
-    return this.httpClient.get<ProductModel>(this.urls.GetStoreProductDetail, findhttpOption)
+    return this.httpClient.get<ProductDateilResponseModel>(this.urls.GetStoreProductDetail+id,httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
+  }
+
+  // 修改产品
+  updateProduct(productModel: ProductModel){
+    return this.httpClient.put<ProductResponseModel>(this.urls.PutStoreProductUpdate+productModel.id, productModel, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -69,6 +66,7 @@ export class StoreProductService {
       case 401:
         alert(error.message);
         break
+     
     }
     return throwError('');
   }
