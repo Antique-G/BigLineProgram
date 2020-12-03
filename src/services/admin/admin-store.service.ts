@@ -19,15 +19,13 @@ export class AdminStoreService {
 
   constructor(public httpClient: HttpClient) { }
 
-
+  
   // 商户列表
-  storeList(adminStoreListRequestModel: AdminStoreListRequestModel): Observable<AdminStoreListResponseModel> {
-    let page = 1;  //页码
-    let per_page = 10; //每一页的数
+  storeList(page:number, per_page:number,keyword:any): Observable<AdminStoreListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
     .set('per_page', per_page.toString())
-    .set('keyword',adminStoreListRequestModel.keyword.toString());
-   
+    .set('keyword',keyword?keyword:'');
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params

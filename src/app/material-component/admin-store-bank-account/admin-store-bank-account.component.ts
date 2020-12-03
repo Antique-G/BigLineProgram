@@ -15,43 +15,43 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
 })
 export class AdminStoreBankAccountComponent implements OnInit {
   nameForm: FormGroup;
-  adminStoreBankAccountListRequestModel: AdminStoreBankAccountListRequestModel;
-
-  displayedColumns: string[] = ['storeId', 'bankName', 'bankAccount', 'isCorporate', 'contacts', 'contactsPhone', 'action'];
-  dataSource = new MatTableDataSource();
-
+  dataSource = [];
+  page = 1;
+  per_page = 10;
+  total = 1;
+  loading = false;
+  store_id: any;
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreBankAccountService: AdminStoreBankAccountService) {
     this.nameForm = fb.group({
       storeId: ['', [Validators.required]]
     });
-    this.adminStoreBankAccountListRequestModel = {
-      store_id: ''
-    }
   }
 
   ngOnInit(): void {
   }
 
-  setValue() {
-    this.adminStoreBankAccountListRequestModel.store_id = this.nameForm.value.storeId;
+
+  search(): void {
+    this.loading = true;
+    this.store_id = this.nameForm.value.storeId;
+    console.log("this.store_id",this.store_id);
+    this.adminStoreBankAccountService.storeBankList(this.store_id, this.page, this.per_page).subscribe((result: any) => {
+      this.loading = false;
+      this.total = result.total;   //总页数
+      this.dataSource = result.data;
+    });
+  };
+
+  changePageIndex(page: number) {
+    console.log("当前页", page);
+    this.page = page;
+    this.search();
   }
-
-
-  search() {
-    this.setValue();
-    console.log("请求参数", this.adminStoreBankAccountListRequestModel);
-    this.adminStoreBankAccountService.storeBankList(this.adminStoreBankAccountListRequestModel).subscribe(res => {
-      console.log("结果", res);
-      if (res.data) {
-        if (res.data != []) {
-          this.dataSource.data = res.data;
-        }
-        else{
-          alert("该商户无银行账号");
-        }
-      }
-    })
+  changePageSize(per_page: number) {
+    console.log("一页显示多少", per_page);
+    this.per_page = per_page;
+    this.search();
   }
 
 
@@ -61,7 +61,7 @@ export class AdminStoreBankAccountComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        if(this.dataSource.data!=[]){
+        if (this.dataSource != []) {
           this.search();
         }
       }
@@ -69,7 +69,7 @@ export class AdminStoreBankAccountComponent implements OnInit {
   }
 
 
-  edit(element:any): void {
+  edit(element: any): void {
     const dialogRef = this.dialog.open(AdminStoreBankAccountDetailComponent, {
       width: '550px',
       data: element

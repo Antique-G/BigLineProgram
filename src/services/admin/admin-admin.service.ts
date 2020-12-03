@@ -20,16 +20,12 @@ export class AdminAdminService {
   constructor(public httpClient: HttpClient) { }
 
 
-  // 管理员列表
-  adminList(adminAdminListRequestModel: AdminAdminListRequestModel): Observable<AdminAdminListResponseModel> {
-    let page = 1;  //页码
-    let per_page = 10; //每一页的数
+ // 管理员列表
+  adminList(page:number, per_page:number,keyword:any): Observable<AdminAdminListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
     .set('per_page', per_page.toString())
-    .set('keyword',adminAdminListRequestModel.keyword.toString());
-    // params.append("page", page.toString());
-    // params.append("per_page", per_page.toString());
-    // params.append("keyword", adminAdminListRequestModel.keyword.toString());
+    .set('keyword',keyword?keyword:'');
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -39,8 +35,7 @@ export class AdminAdminService {
         catchError(this.handleError)
       )
   }
-
-
+  
 
   // 注册
   register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {

@@ -7,64 +7,62 @@
                         <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
                     </div>
 
-                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                        <div fxFlex=50>
-                            <mat-form-field>
-                                <mat-label>姓名:</mat-label>
-                                <input matInput placeholder="请输入关键字" (keyup)="applyFilter($event.target.value)">
-                            </mat-form-field>
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>姓名:</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入关键字">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
                         </div>
-                    </div>
+                    </form>
+
+
 
 
                     <div class="mat-elevation-z8">
-                        <table mat-table matSort [dataSource]="dataSource" style="width: 100%;">
-                            <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef> 姓名 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.real_name}} </td>
-                            </ng-container>
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">姓名</th>
+                                    <th style="text-align: center;">账号</th>
+                                    <th style="text-align: center;">手机号</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.real_name}}</td>
+                                    <td>{{data.account}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            暂停
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            正常
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="edit(data)">
+                                            <mat-icon>edit</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
 
-                            <ng-container matColumnDef="account">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> 账号 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.account}} </td>
-                            </ng-container>
-
-
-
-                            <ng-container matColumnDef="tel">
-                                <th mat-header-cell *matHeaderCellDef> 手机号 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef> 状态 </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <div *ngIf="element.status===0">
-                                        暂停
-                                    </div>
-                                    <div *ngIf="element.status===1">
-                                        正常
-                                    </div>
-                                </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="action">
-                                <th mat-header-cell *matHeaderCellDef> 操作 </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;" (click)="edit(element)">
-                                        <mat-icon>edit</mat-icon>
-                                    </div>
-                                </td>
-                            </ng-container>
-
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
-
-                        <mat-paginator [length]="resultsLength" #paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
                     </div>
                 </div>
+
 
             </div>
         </mat-card>
