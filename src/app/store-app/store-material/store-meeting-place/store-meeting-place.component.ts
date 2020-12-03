@@ -29,7 +29,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
   storeMeetingPlaceList(): void {
     this.loading = true;
     this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page).subscribe((result: any) => {
-      console.log("jieguyo",result)
+      console.log("jieguyo", result)
       this.loading = false;
       this.total = result.meta.pagination.total;   //总页数
       this.dataSource = result.data;
@@ -78,8 +78,18 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
 
 
-  delete(element: any) {
-
+  delete(data: any) {
+    console.log("nadao", data);
+    this.storeMeetingPlaceService.deleteStoreMeetingPlace(data.id).subscribe(res=>{
+      console.log("res",res);
+      if (res === null) {
+        alert("删除成功");
+        this.storeMeetingPlaceList(); 
+      }
+      else {
+        alert("删除失败");
+      }
+    })
   }
 }
 
