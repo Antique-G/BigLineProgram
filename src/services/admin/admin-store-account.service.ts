@@ -1,5 +1,6 @@
+import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
 import { retry, catchError } from 'rxjs/operators';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AdminUrls } from '../../api';
 import { throwError, Observable } from 'rxjs';
@@ -13,7 +14,7 @@ const httpOptions = {   //1.1定义请求头信息
   providedIn: 'root'
 })
 export class AdminStoreAccountService {  //创建店铺帐号管理服务
-  public urls = AdminUrls;   //1.2引入定义的baseUrl：http://p.carl.beennn.cn
+  public urls = AdminUrls;   //1.2引入定义的baseUrl：http://plat.beennn.cn
   
   constructor(public httpClient:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
 
@@ -26,6 +27,21 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
     )
   }
 
+  //商铺帐号列表
+  storeAccountList(store_id:AdminStoreAccountListRequestModel):Observable<AdminStoreAccountListResponseModel>{
+    const params = new HttpParams({
+      fromString: 'store_id=' + store_id.store_id
+    });
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type':'application/json'}),
+      params:params
+    };
+    return this.httpClient.get<AdminStoreAccountListResponseModel>(this.urls.GetAdminStoreAccountList,findhttpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
 
   //http请求失败的响应返回对象
   public handleError(error: HttpErrorResponse) {

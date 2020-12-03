@@ -7,6 +7,7 @@ export interface AddStoreAccountRequestModel {   // 1.1创建商铺账号的接�
   level: string;
   store_id: string;
   status: any;
+  
 }
 
 export interface AddStoreAccountResponseModel {  //1.2创建商铺帐号的返回数据模块
@@ -14,4 +15,27 @@ export interface AddStoreAccountResponseModel {  //1.2创建商铺帐号的返�
   status_code?: string;
 }
 
+
+export interface AdminStoreAccountListRequestModel{  // 2.1创建商铺账号列表的接收数据模块
+  store_id: any;
+}
+
+export interface AdminStoreAccountListResponseModel {  //2.2.1创建商铺帐号的返回数据模块
+  message: string;
+  data: Datun[];
+  status_code?: string;
+}
+export interface Datun{  // 2.2.2创建商铺账号列表的返回参数
+  account_id: any;
+  name: string;
+  password: string;
+  remember_token: any;
+  mobile: string;
+  email: string;
+  level: any;
+  store_id: any;
+  status: any;
+  created_at: string;
+  updated_at: string
+}
 
