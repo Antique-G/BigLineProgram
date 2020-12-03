@@ -59,5 +59,6 @@ export interface UpdateStoreMeetingPlaceRequestModel {
 
 
 export interface UpdateStoreMeetingPlaceResponseModel {
-
+  message?: string;
+  status_code?: number;
 }

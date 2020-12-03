@@ -47,7 +47,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       this.nzOptions = res;
     })
 
- 
+
   }
 
 
@@ -56,7 +56,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.name = this.addForm.value.name;
     this.addStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
-    this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;    
+    this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
   }
 
 
@@ -66,13 +66,12 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     console.log("提交的model是什么", this.addStoreMeetingPlaceRequestModel);
     this.storeMeetingPlaceService.addStoreMeetingPlace(this.addStoreMeetingPlaceRequestModel).subscribe(res => {
       console.log("res结果", res);
-      if (res.status_code) {
-        alert("创建失败，请重新填写");
-       
-      }
-      else {
+      if (res === null) {
         alert("创建成功");
         this.dialogRef.close(1);
+      }
+      else {
+        alert("创建失败，请重新填写");
       }
     })
   }
@@ -85,9 +84,9 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   onChanges(values: any): void {
     console.log("点击的结果是", values);
     console.log("this.values", this.values);
-   if(values!==null){
-    this.idRegion = values[values.length - 1];
-   }
+    if (values !== null) {
+      this.idRegion = values[values.length - 1];
+    }
   }
 
 

@@ -30,7 +30,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
     this.detailModel = this.data;
 
-    
+
     const str = this.detailModel.region_code;
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
@@ -79,12 +79,12 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     console.log("提交的model是什么", this.updateStoreMeetingPlaceRequestModel);
     this.storeMeetingPlaceService.updateStoreMeetingPlace(this.updateStoreMeetingPlaceRequestModel).subscribe(res => {
       console.log("res结果", res);
-      if (res.status_code) {
-        alert("更新失败，请重新填写");
-      }
-      else {
+      if (res === null) {
         alert("更新成功");
         this.dialogRef.close(1);
+      }
+      else {
+        alert("更新失败，请重新填写");
       }
     })
   }

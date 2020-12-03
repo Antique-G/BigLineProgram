@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, } from 'rxjs/operators';
-import { AddStoreMeetingPlaceRequestModel, StoreMeetingPlaceListResponseModel, UpdateStoreMeetingPlaceRequestModel } from '../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
+import { AddStoreMeetingPlaceRequestModel, StoreMeetingPlaceListResponseModel, UpdateStoreMeetingPlaceRequestModel, UpdateStoreMeetingPlaceResponseModel } from '../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreUrls } from '../../../api';
 
 
@@ -46,7 +46,7 @@ export class StoreMeetingPlaceService {
 
 
   // 更新
-  updateStoreMeetingPlace(updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel): Observable<any> {
+  updateStoreMeetingPlace(updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel): Observable<UpdateStoreMeetingPlaceResponseModel> {
     const id = updateStoreMeetingPlaceRequestModel.id;
     return this.httpClient.put(this.urls.PutStoreMeetingPlaceUpdate + id, updateStoreMeetingPlaceRequestModel, httpOptions)
       .pipe(
@@ -56,8 +56,8 @@ export class StoreMeetingPlaceService {
 
 
   // 删除
-  deleteStoreMeetingPlace(id: any): Observable<any> {
-    return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlaceUpdate, httpOptions)
+  deleteStoreMeetingPlace(id: any): Observable<UpdateStoreMeetingPlaceResponseModel> {
+    return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlaceUpdate + id, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
