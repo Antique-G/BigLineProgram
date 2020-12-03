@@ -72,7 +72,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   }
 
 
-  add() {
+  update() {
     this.setValue();
     this.updateStoreMeetingPlaceRequestModel.region_code = this.idRegion;
     this.updateStoreMeetingPlaceRequestModel.id = this.detailModel.id;
