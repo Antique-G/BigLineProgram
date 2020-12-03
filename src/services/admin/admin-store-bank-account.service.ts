@@ -20,15 +20,15 @@ export class AdminStoreBankAccountService {
 
 
   // 银行卡列表
-  storeBankList(store_id: AdminStoreBankAccountListRequestModel): Observable<AdminStoreBankAccountListResponseModel> {
-    const params = new HttpParams({
-      fromString: 'store_id=' + store_id.store_id
-    });
+  storeBankList(store_id: number, page: number, per_page: number): Observable<AdminStoreBankAccountListResponseModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('store_id', store_id.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
-    return this.httpClient.get<AdminStoreBankAccountListResponseModel>(this.urls.PostAdminStoreBankCreate, findhttpOptions)
+    return this.httpClient.get<AdminStoreBankAccountListResponseModel>(this.urls.GetAdminStoreBank, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )

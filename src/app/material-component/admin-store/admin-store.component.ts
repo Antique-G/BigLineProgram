@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { AdminStoreService } from '../../../services/admin/admin-store.service';
-import { AdminStoreListRequestModel, Datum } from '../../../interfaces/adminStore/admin-store-model';
 import { AdminStoreCreateComponent } from './admin-store-create/admin-store-create.component';
 import { AdminStoreDetailComponent } from './admin-store-detail/admin-store-detail.component';
-import { merge } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -17,77 +13,52 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./admin-store.component.css']
 })
 export class AdminStoreComponent implements OnInit {
-  adminStoreListRequestModel: AdminStoreListRequestModel;
-  datum: Datum[] = [];
+  searchForm: FormGroup;
+  dataSource = [];
+  page = 1;
+  per_page = 10;
+  total = 1;
+  loading = true;
+  keyword:any;
 
-  displayedColumns: string[] = ['storeId', 'name', 'regionCode', 'address', 'contact', 'mobile', 'phone', 'fax', 'status', 'action'];
-  dataSource = new MatTableDataSource<Datum>();
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
-
-  constructor(public dialog: MatDialog, public adminStoreService: AdminStoreService) {
-    this.adminStoreListRequestModel = {
-      page: 1,
-      per_page: 10,
-      keyword: ''
-    }
+  constructor(public fb: FormBuilder,public dialog: MatDialog, public adminStoreService: AdminStoreService) {
+    this.searchForm = fb.group({
+      storeName: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.storeList();
+    this.getData();
+  }
+
+  getData(): void {
+    this.loading = true;
+    this.adminStoreService.storeList(this.page, this.per_page,this.keyword).subscribe((result: any) => {
+      this.loading = false;
+      this.total = result.total;   //总页数
+      this.dataSource = result.data;
+      });
+    };
+  
+  changePageIndex(page:number ) {
+    console.log("当前页",page);
+    this.page = page;
+    this.getData();
+  }
+   changePageSize(per_page:number) {
+    console.log("一页显示多少",per_page);
+    this.per_page = per_page;
+     this.getData();
   }
 
 
+  search(){
+    this.keyword = this.searchForm.value.storeName;
+    this.getData();
+    console.log("this.keyword",this.keyword);
 
-  storeList() {
-    this.adminStoreService.storeList(this.adminStoreListRequestModel).subscribe(res => {
-      console.log("1111", res);  //结果；
-      this.dataSource.data = res.data;
-      console.log("表格的数据", this.dataSource);
-      this.resultsLength = res.total;  //总数
-      this.dataSource.paginator = this.paginator;
-      this.dataSource = new MatTableDataSource(res.data);
-      console.log("this.paginator.page", this.paginator.pageIndex)
-      merge(this.paginator.page)
-        .pipe(
-          startWith({}),
-          switchMap(() => {
-            this.isLoadingResults = true;
-            this.adminStoreListRequestModel.page = this.paginator.pageIndex + 1;
-            return this.adminStoreService.storeList(this.adminStoreListRequestModel)
-          }),
-          map(data => {
-            console.log("data", data)
-            this.isLoadingResults = false;
-            this.isRateLimitReached = false;
-            return data;
-          }),
-          catchError(() => {
-            this.isLoadingResults = false;
-            this.isRateLimitReached = true;
-            return [];
-          })
-        ).subscribe(data => this.dataSource.data = data.data);
-
-
-      this.dataSource.filterPredicate = (data: Datum, filter: string) => {
-        return data.name == filter;
-      };
-
-    })
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
-  }
 
 
   add() {
@@ -96,7 +67,7 @@ export class AdminStoreComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.storeList();
+        this.getData();
       }
 
     });
@@ -112,7 +83,7 @@ export class AdminStoreComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log("result", result);
       if (result !== undefined) {
-        this.storeList();
+        this.getData();
       }
 
     });

@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { AdminAdminService } from '../../../services/admin/admin-admin.service';
-import { AdminAdminListRequestModel, AdminAdminListResponseModel, Datum } from '../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminCreateComponent } from './admin-create/admin-create.component';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
-import { merge } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,78 +12,53 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./admin.component.scss']
 })
 
-
 export class AdminComponent implements OnInit {
+  searchForm: FormGroup;
+  dataSource = [];
+  page = 1;
+  per_page = 10;
+  total = 1;
+  loading = true;
+  keyword:any;
 
-  adminAdminListRequestModel: AdminAdminListRequestModel;
-  // adminAdminListResponseModel: AdminAdminListResponseModel;
-  datum: Datum[] = [];
-
-
-  displayedColumns: string[] = ['name', 'account', 'tel', 'status', 'action'];
-  dataSource = new MatTableDataSource<Datum>();
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
-
-  constructor(public adminAdminService: AdminAdminService, public dialog: MatDialog) {
-    this.adminAdminListRequestModel = {
-      page: 1,
-      per_page: 10,
-      keyword: ''
-    }
+  constructor(public fb: FormBuilder,public adminAdminService: AdminAdminService, public dialog: MatDialog) {
+    this.searchForm = fb.group({
+      name: ['', [Validators.required]]
+    });
   }
-
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.adminList();
+    this.getData();
   }
 
-  adminList() {
-    console.log("提交的model",this.adminAdminListRequestModel)
-    this.adminAdminService.adminList(this.adminAdminListRequestModel).subscribe(res => {
-      this.dataSource.data = res.data;
-      console.log("表格的数据", this.dataSource);
-      this.resultsLength = res.total;  //总数
-      this.dataSource.paginator=this.paginator;
-      this.dataSource = new MatTableDataSource(res.data);
-      console.log("this.paginator.page",this.paginator.pageIndex)
-      merge(this.paginator.page)
-      .pipe(
-          startWith({}),
-          switchMap(() => {
-          this.isLoadingResults = true;
-          this.adminAdminListRequestModel.page=this.paginator.pageIndex + 1;
-          return this.adminAdminService.adminList(this.adminAdminListRequestModel)
-          }),
-          map(data => {
-            console.log("data",data)
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          return data;
-          }),
-          catchError(() => {
-          this.isLoadingResults = false;
-          this.isRateLimitReached = true;
-          return [];
-          })
-      ).subscribe(data => this.dataSource.data = data.data);
+  getData(): void {
+    this.loading = true;
+    this.adminAdminService.adminList(this.page, this.per_page,this.keyword).subscribe((result: any) => {
+      this.loading = false;
+      this.total = result.total;   //总页数
+      this.dataSource = result.data;
+      });
+    };
   
-
-    })
+  changePageIndex(page:number ) {
+    console.log("当前页",page);
+    this.page = page;
+    this.getData();
+  }
+   changePageSize(per_page:number) {
+    console.log("一页显示多少",per_page);
+    this.per_page = per_page;
+     this.getData();
   }
 
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+  search(){
+    this.keyword = this.searchForm.value.name;
+    this.getData();
+    console.log("this.keyword",this.keyword);
+
   }
+
 
 
   edit(element: any): void {
@@ -99,7 +70,7 @@ export class AdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // console.log("result", result);
       if (result !== undefined) {
-        this.adminList();
+        this.getData();
       }
 
     });
@@ -112,7 +83,7 @@ export class AdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.adminList();
+        this.getData();
       }
 
     });
