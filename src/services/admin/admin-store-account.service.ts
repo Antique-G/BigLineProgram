@@ -22,23 +22,19 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
   addStoreAccount(addStoreAccountRequestModel:AddStoreAccountRequestModel):Observable<AddStoreAccountResponseModel>{
     return this.httpClient.post<AddStoreAccountResponseModel>(this.urls.PostAdminStoreAccountCreate,addStoreAccountRequestModel,httpOptions)
     .pipe(
-      retry(1),
       catchError(this.handleError)
     )
   }
 
   //商铺帐号列表
-  storeAccountList(store_id:AdminStoreAccountListRequestModel):Observable<AdminStoreAccountListResponseModel>{
-    const params = new HttpParams({
-      fromString: 'store_id=' + store_id.store_id
-    });
+  storeAccountList(store_id:number):Observable<AdminStoreAccountListResponseModel>{
+    const params = new HttpParams().set('store_id',store_id.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type':'application/json'}),
       params:params
     };
     return this.httpClient.get<AdminStoreAccountListResponseModel>(this.urls.GetAdminStoreAccountList,findhttpOptions)
     .pipe(
-      retry(1),
       catchError(this.handleError)
     )
   }
@@ -48,7 +44,7 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 
