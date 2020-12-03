@@ -6,20 +6,27 @@
                     <div>
                         <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加</button>
                     </div>
-                    <form class="example-form" >
+                    <form [formGroup]="nameForm" >
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=50>
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="姓名:" value="">
+                                    <mat-label>帐号ID:</mat-label>
+                                    <input matInput placeholder="请输入帐号ID" value="" formControlName="store_id" required>
                                 </mat-form-field>
                             </div>
                             <div fxFlex=20>
-                                <button mat-raised-button color="primary" style="width:50px; letter-spacing:2px">搜索</button>
+                                <button mat-raised-button color="primary" style="width:50px; letter-spacing:2px" (click)="search()">搜索</button>
                             </div>
                         </div>
                     </form>
                     <div class="mat-elevation-z8">
                         <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                            
+                            <ng-container matColumnDef="account_id">
+                                <th mat-header-cell *matHeaderCellDef> 商户id </th>
+                                <td mat-cell *matCellDef="let element"> {{element.account_id}} </td>
+                            </ng-container>
+
                             <ng-container matColumnDef="name">
                                 <th mat-header-cell *matHeaderCellDef> 姓名 </th>
                                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -30,19 +37,29 @@
                                 <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="store_id">
-                                <th mat-header-cell *matHeaderCellDef> 商户id </th>
-                                <td mat-cell *matCellDef="let element"> {{element.store_id}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="level">
-                                <th mat-header-cell *matHeaderCellDef> 等级 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+                            <ng-container matColumnDef="email">
+                                <th mat-header-cell *matHeaderCellDef> 邮箱 </th>
+                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef> 状态 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                <td mat-cell *matCellDef="let element">
+                                    <div *ngIf="element.status===0">
+                                         暂停
+                                    </div>
+                                    <div *ngIf="element.status===1">
+                                         开启
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> 编辑 </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <div style="cursor: pointer;" (click)="edit(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </div>
+                                </td>
                             </ng-container>
 
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
