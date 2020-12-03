@@ -30,7 +30,6 @@ export class AdminStoreBankAccountService {
     };
     return this.httpClient.get<AdminStoreBankAccountListResponseModel>(this.urls.PostAdminStoreBankCreate, findhttpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -41,7 +40,6 @@ export class AdminStoreBankAccountService {
   addStoreBankAccount(storeBankAccountRequestModel: StoreBankAccountRequestModel): Observable<StoreBankAccountResponseModel> {
     return this.httpClient.post<StoreBankAccountResponseModel>(this.urls.PostAdminStoreBankCreate, storeBankAccountRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -52,7 +50,6 @@ export class AdminStoreBankAccountService {
     const id = storeBankAccountUpdateRequestModel.bank_id;
     return this.httpClient.put(this.urls.PutAdminStoreBankUpdate + id, storeBankAccountUpdateRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -63,10 +60,10 @@ export class AdminStoreBankAccountService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break;
       case 422:
-        alert("请输入正确的值");
+        // alert("请输入正确的值");
         break;
     }
 

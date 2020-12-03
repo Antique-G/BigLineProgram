@@ -36,7 +36,6 @@ export class AdminAdminService {
     };
     return this.httpClient.get<AdminAdminListResponseModel>(this.urls.GetAdminAccount, findhttpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -47,7 +46,6 @@ export class AdminAdminService {
   register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {
     return this.httpClient.post<RegisterResponseModel>(this.urls.PostAdminAccountCreate, registerRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -58,7 +56,6 @@ export class AdminAdminService {
     const id = updateRequestModel.admin_id;
     return this.httpClient.put(this.urls.PutAdminAccountUpdate + id, updateRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -73,7 +70,7 @@ export class AdminAdminService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 

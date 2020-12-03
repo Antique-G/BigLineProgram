@@ -52,7 +52,7 @@ export class Interceptor implements HttpInterceptor {
               alert(error.message)
             }
             else if (error.status == 422) {
-              // alert(error.message);
+              alert("请输入正确的值");
             }
           }
         }
