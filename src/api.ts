@@ -26,7 +26,7 @@ export const AdminUrls = {
 
 
   PostAdminStoreAccountCreate: api + '/admin/store_account', //商铺的账号创建
-  GetAdminStoreAccountList:api + '/admin/store_account',    //店铺的账号列表
+  GetAdminStoreAccountList: api + '/admin/store_account',    //店铺的账号列表
   GetAdminStoreAccountDetail: api + '/admin/store_account/', //店铺账号的编辑详情
   PutAdminStoreAccountUpdate: api + '/admin/store/', //管理后台商户信息修改保存
 
@@ -36,8 +36,8 @@ export const AdminUrls = {
 
 
   // 产品标签api
-  PostAdminProductTagCreate:api + '/admin/tag', //添加产品标签
-  GetAdminProdectCateList:api + '/admin/tags/cate_list',//标签的分类列表
+  PostAdminProductTagCreate: api + '/admin/tag', //添加产品标签
+  GetAdminProdectCateList: api + '/admin/tags/cate_list',//标签的分类列表
 };
 
 
@@ -58,11 +58,17 @@ export const StoreUrls = {
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加
   PutStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点修改
-  DeleteStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点删除
+  DeleteStoreMeetingPlace: api + '/store/assembling_place/',   // 集合地点删除
   GetStoreMeetingPlaceDetail: api + '/store/assembling_place/',   // 集合地点详情
 
 
+  GetStoreTermsList: api + '/store/terms',  //条款管理列表
+  PostStoreTermsCreate: api + '/store/terms',   // 条款管理添加
+  PutStoreTermsUpdate: api + '/store/terms/',   // 条款管理修改
+  DeleteStoreTerms: api + '/store/terms/',   // 条款管理删除
+  GetStoreTermsDetail: api + '/store/terms/',   // 条款管理详情
+
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
-  
+
 }

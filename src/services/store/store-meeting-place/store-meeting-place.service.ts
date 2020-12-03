@@ -57,7 +57,7 @@ export class StoreMeetingPlaceService {
 
   // 删除
   deleteStoreMeetingPlace(id: any): Observable<UpdateStoreMeetingPlaceResponseModel> {
-    return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlaceUpdate + id, httpOptions)
+    return this.httpClient.delete<any>(this.urls.DeleteStoreMeetingPlace + id, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

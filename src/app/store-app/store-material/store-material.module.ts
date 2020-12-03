@@ -15,6 +15,8 @@ import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place/store-meeting-place-create/store-meeting-place-create.component';
 import { StoreMeetingPlaceDetailComponent } from './store-meeting-place/store-meeting-place-detail/store-meeting-place-detail.component';
 import { StoreTermsManagementComponent } from './store-terms-management/store-terms-management.component';
+import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
+import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +33,9 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
   entryComponents: [
     StoreProductManagementCreateComponent,
     StoreMeetingPlaceCreateComponent,
-    StoreMeetingPlaceDetailComponent
+    StoreMeetingPlaceDetailComponent,
+    StoreTermsManagementCreateComponent,
+    StoreTermsManagementDetailComponent
   ],
   declarations: [
     StoreProductManagementComponent,
@@ -39,7 +43,9 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
     StoreMeetingPlaceComponent,
     StoreMeetingPlaceCreateComponent,
     StoreMeetingPlaceDetailComponent,
-    StoreTermsManagementComponent
+    StoreTermsManagementComponent,
+    StoreTermsManagementCreateComponent,
+    StoreTermsManagementDetailComponent
   ]
 })
 export class StoreMaterialComponentsModule { }
