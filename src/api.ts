@@ -33,6 +33,10 @@ export const AdminUrls = {
 
   GetAdminAllRegions: api + '/admin/regions_all_json',   // 管理后台获取区域三级联动数据
 
+
+  // 产品标签api
+  PostAdminProductTagCreate:api + '/admin/tag', //添加产品标签
+  GetAdminProdectCateList:api + '/admin/tags/cate_list',//标签的分类列表
 };
 
 

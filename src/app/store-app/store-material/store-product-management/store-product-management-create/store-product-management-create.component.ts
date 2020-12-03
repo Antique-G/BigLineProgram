@@ -32,7 +32,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
       'maxlength': '标题长度最多为225个字符',
       'required': '请填写标题'
     },
-    regionCode:{
+    region_code:{
       'maxlength': '标题长度最多为16个字符',
       'required': '请填写区域编码'
     },
@@ -40,46 +40,47 @@ export class StoreProductManagementCreateComponent implements OnInit {
       'isNumber': '请填写预定截止时间（出发前一天，需提前多少分钟预定）',
       'required': '请填写预定截止时间（出发前一天，需提前多少分钟预定）'
     },
-    fewDays: {
+    few_days: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
     },
-    fewNights: {
+    few_nights: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几晚！'
 
     },
-    adultPrice: {
+    adult_price: {
       'isFloat': '请输入非零的正整数',
       'required': '请输入成人价格！'
     },
-    childPrice: {
+    child_price: {
       'isFloat': '请输入非零的正整数',
       'required': '请输入儿童价格！'
     },
-    originalAdultPrice:{
+    original_adult_price:{
       'isFloat': '请输入非零的正整数',
       'required': '请输入成人原价！'
     },
-    originalChildPrice:{
+    original_child_price:{
       'isFloat': '请输入非零的正整数',
       'required': '请输入儿童原价！'
     },
-    differencePrice:{
+    difference_price:{
       'isFloat': '请输入非零的正整数',
       'required': '请输入补差价！'
     },
   };
   formErrors:any = {
     title: '',
-    regionCode:'',
-    fewDays:'',
-    fewNights:'',
-    adultPrice: '',
-    childPrice: '',
-    originalAdultPrice: '',
-    originalChildPrice: '',
-    differencePrice: '',
+    region_code:'',
+    earlier:'',
+    few_days:'',
+    few_nights:'',
+    adult_price: '',
+    child_price: '',
+    original_adult_price: '',
+    original_child_price: '',
+    difference_price: '',
     
   };
     
@@ -212,12 +213,11 @@ export class StoreProductManagementCreateComponent implements OnInit {
      
         if(this.data){
             // 修改
-            console.log( this.addForm);
-            console.log("修改");
-            console.log("productModel",this.productModel);
+         
 
             this.storeProductService.updateProduct(this.productModel).subscribe(res => {
               console.log("res结果", res);
+              
               // if (res === null) {
               //   alert("创建成功");
               //   this.dialogRef.close(1);

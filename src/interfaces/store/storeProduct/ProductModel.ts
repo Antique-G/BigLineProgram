@@ -42,25 +42,38 @@ export interface ProductDateilResponseModel {
 
 // 返回
 export interface ProductResponseModel {
-    message: string;
+    message?: string;
     code?: string;
+    debug?:object;
+    status_code?:number;
+    errors?:object;
 }
 
 
 export interface ProductResponseListResponseModel{
-    current_page: number;
+    // current_page: number;
     data: Datum[];
-    first_page_url: string;
-    from: number;
-    last_page: number;
-    last_page_url: string;
-    links: Link[];
-    next_page_url: string;
-    path: string;
-    per_page: number;
-    prev_page_url?: any;
-    to: number;
-    total: number;
+    meta:{
+      pagination:{
+        count: number
+        current_page: number
+        links: object
+        per_page: number
+        total: number
+        total_pages: number
+      }
+    }
+    // first_page_url: string;
+    // from: number;
+    // last_page: number;
+    // last_page_url: string;
+    // links: Link[];
+    // next_page_url: string;
+    // path: string;
+    // per_page: number;
+    // prev_page_url?: any;
+    // to: number;
+    // total: number;
   }
   
   
@@ -83,11 +96,29 @@ export  interface Datum {
 
 // 请求
 export interface ProductModelRequestModel {
-    page?: any;
-    status?: number;
-    keyword?: any;
-  }
+  page?: number;
+  per_page?: number;
+  status?: number;
+  keyword?: any;
+}
   
 
+// 返回
+export interface ProductModelResponseModel {
+  current_page: number;
+  data: Datum[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url: string;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+  
  
   

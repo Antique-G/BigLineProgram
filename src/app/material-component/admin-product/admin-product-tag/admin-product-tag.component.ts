@@ -7,7 +7,7 @@ import {ProductTagModel} from '../../../../interfaces/adminProduct/ProductTagMod
 import {AdminProductTagCreateComponent} from './admin-product-tag-create/admin-product-tag-create.component';
 
 const ELEMENT_DATA: ProductTagModel[] = [
-  { id: 1, name: '020',cateId:0, status: 1,updatedAt:''}
+  { id: 1, name: '020',cate_id:0, status: 1,updatedAt:''}
 ];
 
 @Component({
@@ -18,7 +18,7 @@ const ELEMENT_DATA: ProductTagModel[] = [
 export class AdminProductTagComponent implements OnInit {
 
   nameForm: FormGroup;
-  displayedColumns:string[] =['id','name','cateId','status','updatedAt','action'];
+  displayedColumns:string[] =['id','name','cate_id','status','updatedAt','action'];
   dataSource = new MatTableDataSource<ProductTagModel>(ELEMENT_DATA);   //1.4将数据添加到dataSource
 
   constructor(public fb: FormBuilder,public dialog:MatDialog) { 
@@ -32,8 +32,16 @@ export class AdminProductTagComponent implements OnInit {
   }
 
   
-  edit(){
-
+  edit(ele:any){
+    console.log(ele);
+    const dialogRef = this.dialog.open(AdminProductTagCreateComponent,{
+      width:'800px',
+      data: ele
+    })
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log('result',result);
+    })
+    
   }
 
   addTap(){
