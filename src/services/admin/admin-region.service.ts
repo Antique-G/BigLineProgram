@@ -24,7 +24,6 @@ export class AdminRegionService {
   getAllRegionList(): Observable<AdminRegionModel[]> {
     return this.httpClient.get<AdminRegionModel[]>(this.urls.GetAdminAllRegions,httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       );
   }
@@ -36,7 +35,7 @@ export class AdminRegionService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 

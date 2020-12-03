@@ -34,7 +34,6 @@ export class AdminStoreService {
     };
     return this.httpClient.get<AdminStoreListResponseModel>(this.urls.GetAdminStore, findhttpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -45,7 +44,6 @@ export class AdminStoreService {
   addStore(addStoreRequestModel: AddStoreRequestModel): Observable<AddStoreResponseModel> {
     return this.httpClient.post<AddStoreResponseModel>(this.urls.PostAdminStoreCreate, addStoreRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
@@ -56,14 +54,9 @@ export class AdminStoreService {
     const id = storeUpdateRequestModel.store_id;
     return this.httpClient.put(this.urls.PutAdminStoreUpdate + id, storeUpdateRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
-
-
-
-
 
 
 
@@ -71,7 +64,7 @@ export class AdminStoreService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 

@@ -6,8 +6,6 @@ import { AdminUrls } from '../../api';
 import { LoginRequestModel, LoginResponseModel, LogOutResponseModel } from '../../interfaces/adminLogin/login-model';
 
 
-
-
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
 };
@@ -44,11 +42,9 @@ export class AdminLoginService {
   login(loginRequestModel: LoginRequestModel): Observable<LoginResponseModel> {
     return this.httpClient.post<LoginResponseModel>(this.urls.AdminLogin, loginRequestModel, httpOptions)
       .pipe(
-        retry(1), // 重试1次
         catchError(this.handleError)
       )
   }
-
 
 
   // 登出
@@ -56,15 +52,11 @@ export class AdminLoginService {
     return this.httpClient.get<LogOutResponseModel>(this.urls.AdminLogout);
   }
 
-
-
-
-
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 
