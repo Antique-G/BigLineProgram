@@ -19,15 +19,14 @@ export class StoreProductService {
   constructor(public httpClient: HttpClient) { }
 
   // 获取产品列表
-  getProduct(productModelRequestModel: ProductModelRequestModel): Observable<ProductResponseListResponseModel> {
-    let params = new HttpParams()
-    params.append("page", productModelRequestModel.page?.toString() ? productModelRequestModel.page.toString() : '0');
-    params.append("keyword", productModelRequestModel.keyword ? productModelRequestModel.keyword : '');
+  getProduct(page:number, per_page:number,keyword:any): Observable<ProductResponseListResponseModel> {
+    const params = new HttpParams().set('page', page.toString())
+    .set('per_page', per_page.toString())
+    .set('keyword',keyword?keyword:'');
 
-    let body = params;
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: body
+      params: params
     };
 
     return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreProductList, findhttpOptions)

@@ -16,9 +16,22 @@ export class AdminProductTagService {
 
   constructor(public httpClient: HttpClient) { }
 
-  // 获取产品列表
-  getProductList(){
-    
+  // 获取产品标签列表
+  getProductTagList(){
+    // const params = new HttpParams().set('page', page.toString())
+    // .set('per_page', per_page.toString())
+    // .set('keyword',keyword?keyword:'');
+
+    // const findhttpOptions = {
+    //   headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+    //   params: params
+    // };
+
+    return this.httpClient.get<ProductResponseTagModel>(this.urls.GetAdminProdectTagList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+
   }  
 
   // 添加产品

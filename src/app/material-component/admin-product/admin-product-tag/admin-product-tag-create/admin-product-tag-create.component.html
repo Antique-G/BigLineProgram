@@ -16,8 +16,7 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cate_id" nzRequired>分类</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输选择分类！">
                     <nz-select [(ngModel)]="cateValue" formControlName="cate_id">
-                        <nz-option nzValue="0" nzLabel="Jack"></nz-option>
-                        <nz-option nzValue="1" nzLabel="Lucy"></nz-option>
+                        <nz-option  *ngFor="let item of cateList" [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
                       </nz-select>
                 </nz-form-control>
             </nz-form-item>

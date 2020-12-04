@@ -52,7 +52,7 @@ export interface ProductResponseModel {
 
 export interface ProductResponseListResponseModel{
     // current_page: number;
-    data: Datum[];
+    data:[];
     meta:{
       pagination:{
         count: number

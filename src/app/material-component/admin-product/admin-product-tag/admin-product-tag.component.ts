@@ -1,14 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import {ProductTagModel} from '../../../../interfaces/adminProduct/ProductTagModel';
 import {AdminProductTagCreateComponent} from './admin-product-tag-create/admin-product-tag-create.component';
+import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 
-const ELEMENT_DATA: ProductTagModel[] = [
-  { id: 1, name: '020',cate_id:0, status: 1,updatedAt:''}
-];
 
 @Component({
   selector: 'app-admin-product-tag',
@@ -18,10 +14,16 @@ const ELEMENT_DATA: ProductTagModel[] = [
 export class AdminProductTagComponent implements OnInit {
 
   nameForm: FormGroup;
-  displayedColumns:string[] =['id','name','cate_id','status','updatedAt','action'];
-  dataSource = new MatTableDataSource<ProductTagModel>(ELEMENT_DATA);   //1.4将数据添加到dataSource
+  dataSource = []
 
-  constructor(public fb: FormBuilder,public dialog:MatDialog) { 
+  loading = true;
+  page = 1;
+  per_page = 10;
+  total = 1;
+  keyword =''
+
+
+  constructor(public fb: FormBuilder,public dialog:MatDialog,public adminProductTagService:AdminProductTagService) { 
     this.nameForm = this.fb.group({
       storeId: new FormControl(' ')
     });
@@ -29,8 +31,28 @@ export class AdminProductTagComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.getProductTagList()
   }
 
+  getProductTagList(){
+    this.adminProductTagService.getProductTagList().subscribe(res => {
+      this.loading = false;
+      console.log(res);
+      this.total = res.data?.length||0;   //总页数
+      this.dataSource = res.data||[];
+    })
+  }
+
+  changePageSize(per_page:number){
+    this.per_page = per_page;
+    this.getProductTagList();
+  }
+
+  changePageIndex(page:number){
+    console.log("当前页",page);
+    this.page = page;
+    this.getProductTagList();
+  }
   
   edit(ele:any){
     console.log(ele);
@@ -52,6 +74,8 @@ export class AdminProductTagComponent implements OnInit {
       console.log('result',result);
     })
   }
+
+
 }
 
 
