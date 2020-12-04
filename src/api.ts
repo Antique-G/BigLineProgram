@@ -36,8 +36,9 @@ export const AdminUrls = {
 
 
   // 产品标签api
-  PostAdminProductTagCreate: api + '/admin/tag', //添加产品标签
-  GetAdminProdectCateList: api + '/admin/tags/cate_list',//标签的分类列表
+  PostAdminProductTagCreate:api + '/admin/tag', //添加产品标签
+  GetAdminProdectCateList:api + '/admin/tags/cate_list',//标签的分类列表
+  GetAdminProdectTagList:api + '/admin/tag',//标签列表
 };
 
 

@@ -21,6 +21,7 @@ export class AdminProductTagCreateComponent implements OnInit {
   cateValue=""
   productTagModel:ProductTagModel
   productTagInfo:any
+  cateList:any = []
   validationMessage:any ={
     name: {
       'maxlength': '标签名称长度最多为32个字符',
@@ -136,6 +137,8 @@ export class AdminProductTagCreateComponent implements OnInit {
 
   getCateList(){
     this.adminProductTagService.getCateList().subscribe(res=>{
+      this.cateList = res.data
+      console.log(this.cateList);
       console.log(res);
     })
   }

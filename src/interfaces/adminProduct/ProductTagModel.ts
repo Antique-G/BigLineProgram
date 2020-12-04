@@ -7,8 +7,10 @@ export interface ProductTagModel{
 }
 
 export interface ProductResponseTagModel{
-    message?:string
+    message?:string;
+    data?:[]
 }
+
 
 export interface ProductResponseCateListModel{
     data:object
