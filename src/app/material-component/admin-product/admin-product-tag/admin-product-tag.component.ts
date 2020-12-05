@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {ProductTagModel} from '../../../../interfaces/adminProduct/ProductTagModel';
-import {AdminProductTagCreateComponent} from './admin-product-tag-create/admin-product-tag-create.component';
 import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
+import {AdminProductTagCreateComponent} from './admin-product-tag-create/admin-product-tag-create.component';
+import { AdminProductTagDetailComponent } from './admin-product-tag-detail/admin-product-tag-detail.component';
+
 
 
 @Component({
@@ -12,56 +12,36 @@ import { AdminProductTagService } from '../../../../services/admin/admin-product
   styleUrls: ['./admin-product-tag.component.css']
 })
 export class AdminProductTagComponent implements OnInit {
-
-  nameForm: FormGroup;
-  dataSource = []
-
+  dataSource = [];
   loading = true;
-  page = 1;
-  per_page = 10;
-  total = 1;
-  keyword =''
-
-
-  constructor(public fb: FormBuilder,public dialog:MatDialog,public adminProductTagService:AdminProductTagService) { 
-    this.nameForm = this.fb.group({
-      storeId: new FormControl(' ')
-    });
-  }
+  
+  constructor(public dialog:MatDialog, public adminProductTagService:AdminProductTagService,) {}
   
 
   ngOnInit(): void {
-    this.getProductTagList()
+    this.getData();
   }
 
-  getProductTagList(){
-    this.adminProductTagService.getProductTagList().subscribe(res => {
-      this.loading = false;
-      console.log(res);
-      this.total = res.data?.length||0;   //总页数
-      this.dataSource = res.data||[];
-    })
-  }
+  getData(): void {
+    this.loading = true;
+    this.adminProductTagService.getProductTagList().subscribe((result: any) => {
+      console.log("jieguo",result);
+      this.loading = false;  //总页数
+      this.dataSource = result.data;
+      });
+    };
 
-  changePageSize(per_page:number){
-    this.per_page = per_page;
-    this.getProductTagList();
-  }
-
-  changePageIndex(page:number){
-    console.log("当前页",page);
-    this.page = page;
-    this.getProductTagList();
-  }
   
-  edit(ele:any){
-    console.log(ele);
-    const dialogRef = this.dialog.open(AdminProductTagCreateComponent,{
-      width:'800px',
-      data: ele
+  edit(data:any){
+    console.log("传的值",data);
+    const dialogRef = this.dialog.open(AdminProductTagDetailComponent,{
+      width:'500px',
+      data: data
     })
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log('result',result);
+    dialogRef.afterClosed().subscribe((result:any)=>{
+      if (result !== undefined) {
+        this.getData();
+      }
     })
     
   }
@@ -70,12 +50,17 @@ export class AdminProductTagComponent implements OnInit {
     const dialogRef = this.dialog.open(AdminProductTagCreateComponent,{
       width:'500px'
     })
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log('result',result);
+    dialogRef.afterClosed().subscribe((result:any)=>{
+      if (result !== undefined) {
+        this.getData();
+      }
     })
   }
 
 
+  delete(){
+
+  }
 }
 
 

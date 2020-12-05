@@ -25,13 +25,14 @@ export class Interceptor implements HttpInterceptor {
           'Authorization': `Bearer ${token}`
         }
       });
-      // console.log('314234234',req);
-
     }
+  
     return next.handle(req).pipe(
       tap(event => {
+        console.log()
         if (event instanceof HttpResponse) { // 这里是返回，可通过event.body获取返回内容
-          // event.body
+          console.log("shishia", event)
+         
         }
       },
         error => { // 统一处理所有的http错误
