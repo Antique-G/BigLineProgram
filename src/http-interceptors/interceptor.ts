@@ -40,7 +40,7 @@ export class Interceptor implements HttpInterceptor {
             if (error.status == 401) {
               alert('token已过期，请重新登陆');
               if (pathName === 'admin') {
-                this.router.navigate(['/admin/login']);
+                // this.router.navigate(['/admin/login']);
               }
               else if (pathName === 'store') {
                 this.router.navigate(['/store/login']);
@@ -60,6 +60,8 @@ export class Interceptor implements HttpInterceptor {
       )
     )
   }
+
+
 
 }
 

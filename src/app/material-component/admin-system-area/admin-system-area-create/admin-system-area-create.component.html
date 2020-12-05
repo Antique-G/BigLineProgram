@@ -5,9 +5,9 @@
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionId" nzRequired>区域名称 </nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionName" nzRequired>区域名称 </nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入区域名称 ！">
-                    <input nz-input formControlName="regionId" />
+                    <input nz-input formControlName="regionName" />
                 </nz-form-control>
             </nz-form-item>
 
@@ -28,12 +28,6 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="areaCode">地区编码</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                     <input nz-input formControlName="areaCode" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sort">排序</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input formControlName="sort" />
                 </nz-form-control>
             </nz-form-item>
 

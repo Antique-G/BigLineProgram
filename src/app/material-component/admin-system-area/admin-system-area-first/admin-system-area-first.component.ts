@@ -1,27 +1,10 @@
-import { AfterViewInit } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 import { Router } from '@angular/router';
+import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 
 
-export interface PeriodicElement {
-  sort: string;
-  regionId: string;
-  regionName: string;
-  regionCode: string;
-  areaCode: string;
-  regionLevel: string;
-  status: string;
-  action?: '';
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {sort: '0', regionId: '020', regionName: '广东省', regionCode: '001', areaCode:'000001',regionLevel: '0',status:'0', action: ''},
- 
-];
 
 
 @Component({
@@ -29,30 +12,59 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './admin-system-area-first.component.html',
   styleUrls: ['./admin-system-area-first.component.css']
 })
-export class AdminSystemAreaFirstComponent  implements AfterViewInit  {
+export class AdminSystemAreaFirstComponent  implements OnInit  {
   nameForm: FormGroup;
-
-  displayedColumns: string[] = ['sort', 'regionId', 'regionName', 'regionCode','areaCode', 'regionLevel', 'status','action'];
-  // dataSource = new MatTableDataSource();
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-
-
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
+  dataSource = [];
+  page = 1;
+  per_page = 10;
+  total = 1;
+  loading = true;
+  keyword:any;
+  parent_code: any;
 
 // testing
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router) {
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router,
+    public adminRegionService: AdminRegionService) {
     this.nameForm = fb.group({
       storeId: new FormControl(' ')
     });
    }
 
-   ngAfterViewInit(): void{
-    this.dataSource.paginator = this.paginator;
+   ngOnInit(): void {
+    this.getData();
   }
+
+
+  
+  getData(): void {
+    this.loading = true;
+    this.adminRegionService.regionList(this.page, this.per_page, this.keyword, this.parent_code).subscribe((result: any) => {
+      this.loading = false;
+      this.total = result.total;   //总页数
+      this.dataSource = result.data;
+    });
+    };
+  
+  changePageIndex(page:number ) {
+    console.log("当前页",page);
+    this.page = page;
+    this.getData();
+  }
+   changePageSize(per_page:number) {
+    console.log("一页显示多少",per_page);
+    this.per_page = per_page;
+     this.getData();
+  }
+
+
+  search(){
+    this.keyword = this.nameForm.value.storeId;
+    this.getData();
+    console.log("this.keyword",this.keyword);
+
+  }
+
+  
 
   add(){
    
