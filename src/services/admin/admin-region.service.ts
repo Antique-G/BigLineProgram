@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AdminRegionModel } from '../../interfaces/adminRegion/admin-region-model';
+import { AddAdminRegionListRequestModel, AdminRegionListResponseModel, AdminRegionModel, AdminRegionResponseModel, UpdateAdminRegionListRequestModel } from '../../interfaces/adminRegion/admin-region-model';
 import { AdminUrls } from '../../api';
 
 
@@ -22,11 +22,48 @@ export class AdminRegionService {
 
   // 区域三级联动数据
   getAllRegionList(): Observable<AdminRegionModel[]> {
-    return this.httpClient.get<AdminRegionModel[]>(this.urls.GetAdminAllRegions,httpOptions)
+    return this.httpClient.get<AdminRegionModel[]>(this.urls.GetAdminAllRegions, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
+
+  // 区域列表
+  regionList(page: number, per_page: number, keyword: any, parent_code: any): Observable<AdminRegionListResponseModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('keyword', keyword ? keyword : '')
+      .set('parent_code', parent_code.toString());
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<AdminRegionListResponseModel>(this.urls.GetAdminRegionList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+   // 添加
+   addRegion(addAdminRegionListRequestModel: AddAdminRegionListRequestModel): Observable<AdminRegionResponseModel> {
+    return this.httpClient.post<AdminRegionResponseModel>(this.urls.PostAdminRegionCreate, addAdminRegionListRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 更新
+  updateRegion(updateAdminRegionListRequestModel: UpdateAdminRegionListRequestModel): Observable<any> {
+    const id = updateAdminRegionListRequestModel.id;
+    return this.httpClient.put(this.urls.PutAdminRegionUpdate + id, updateAdminRegionListRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 

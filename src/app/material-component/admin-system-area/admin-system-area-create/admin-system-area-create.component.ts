@@ -4,7 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
-import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
+import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { AddAdminRegionListRequestModel } from '../../../../interfaces/adminRegion/admin-region-model';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { AdminLoginService } from '../../../../services/admin-login/admin-login.
 export class AdminSystemAreaCreateComponent implements OnInit {
   addForm!: FormGroup;
   statusValue = '0';
-  // registerRequestModel: RegisterRequestModel;
+  addAdminRegionListRequestModel: AddAdminRegionListRequestModel;
 
 
 
@@ -26,24 +27,24 @@ export class AdminSystemAreaCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminSystemAreaCreateComponent>,
-    public adminLoginService: AdminLoginService,
+    public adminRegionService: AdminRegionService,
     private msg: NzMessageService) {
     this.addForm = this.fb.group({
-      regionId: ['', [Validators.required]],
+      regionName: ['', [Validators.required]],
       parentCode: ['', [Validators.required]],
       regionDesc: ['', [Validators.required]],
       areaCode: ['', [Validators.required]],
-      sort: ['', [Validators.required]],
       status: ['', [Validators.required]],
+      avatarUrl: ['', [Validators.required]],
     });
-    // this.registerRequestModel = {
-    //   account: '',
-    //   password: '',
-    //   password_confirmation: '',
-    //   real_name: '',
-    //   mobile: '',
-    //   status: '',
-    // }
+    this.addAdminRegionListRequestModel = {
+      region_name: 0,
+      parent_code: 0,
+      region_desc: '',
+      area_code: 0,
+      region_img: '',
+      status: 0
+    }
   }
 
 
@@ -54,28 +55,28 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   }
 
   setValue() {
-    // this.registerRequestModel.account = this.addForm.value.account;
-    // this.registerRequestModel.password = this.addForm.value.password;
-    // this.registerRequestModel.password_confirmation = this.addForm.value.checkPassword;
-    // this.registerRequestModel.real_name = this.addForm.value.name;
-    // this.registerRequestModel.mobile = this.addForm.value.phoneNumber
-    // this.registerRequestModel.status = this.addForm.value.status;
+    this.addAdminRegionListRequestModel.region_name = this.addForm.value.regionName;
+    this.addAdminRegionListRequestModel.parent_code = this.addForm.value.parentCode;
+    this.addAdminRegionListRequestModel.region_desc = this.addForm.value.regionDesc;
+    this.addAdminRegionListRequestModel.area_code = this.addForm.value.areaCode;
+    this.addAdminRegionListRequestModel.region_img = this.addForm.value.avatarUrl
+    this.addAdminRegionListRequestModel.status = this.addForm.value.status;
   }
 
 
   add() {
     this.setValue();
-    // console.log("提交的model是什么", this.registerRequestModel);
-    // this.adminLoginService.register(this.registerRequestModel).subscribe(res => {
-    //   console.log("res结果", res);
-    //   if (res === null) {
-    //     alert("创建成功");
-    //     this.dialogRef.close(1);
-    //   }
-    //   else{
-    //     alert("创建失败，请重新填写")
-    //   }
-    // })
+    console.log("提交的model是什么", this.addAdminRegionListRequestModel);
+    this.adminRegionService.addRegion(this.addAdminRegionListRequestModel).subscribe(res => {
+      console.log("res结果", res);
+      // if (res === null) {
+      //   alert("创建成功");
+      //   this.dialogRef.close(1);
+      // }
+      // else{
+      //   alert("创建失败，请重新填写")
+      // }
+    })
   }
 
 

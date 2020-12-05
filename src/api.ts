@@ -28,6 +28,11 @@ export const AdminUrls = {
   PutAdminStoreAccountUpdate: api + '/admin/store/', //管理后台商户信息修改保存
 
   GetAdminAllRegions: api + '/admin/regions_all_json',   // 管理后台获取区域三级联动数据
+  PostAdminRegionCreate: api + '/admin/region', //区域创建接口
+  GetAdminRegionList: api + '/admin/region',    //区域列表接口
+  GetAdminRegionDetail: api + '/admin/region/', //区域列表接口的编辑详情
+  PutAdminRegionUpdate: api + '/admin/region/', //区域列表接口信息修改保存
+
 
   GetAdminProductTagList: api + '/admin/tag', //产品标签列表
   GetAdminProductTagDetail: api + '/admin/tag/', //产品标签的编辑信息
