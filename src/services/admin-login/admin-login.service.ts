@@ -52,6 +52,14 @@ export class AdminLoginService {
     return this.httpClient.get<LogOutResponseModel>(this.urls.AdminLogout);
   }
 
+
+  // 刷新token
+  refreshToken(): Observable<LoginResponseModel> {
+    return this.httpClient.post<LoginResponseModel>(this.urls.AdminRefresh, httpOptions);
+  }
+
+
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
