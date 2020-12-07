@@ -68,7 +68,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>, public adminStoreAccountService:AdminStoreAccountService) {
     // use `MyValidators`
     const { required, maxLength, minLength, mobile ,email} = MyValidators;  //
-    this.validateForm = this.fb.group({   //表单验证
+    this.validateForm = this.fb.group({   //表单赋值和验证验证
       name: ['', [required, maxLength(12), minLength(2)], [this.nameAsyncValidator]],
       password: ['', [required,maxLength(12), minLength(6)]],
       password_confirmation: ['', [this.confirmValidator]],
@@ -122,7 +122,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
         alert("创建失败，请重新填写")
       }else{
         alert("创建成功");
-        this.dialogRef.close(1);
+        this.dialogRef.close(1);   //如果创建成功就传一个1,父组件收到创建成功传的结果是1时调用帐号列表方法（search()）更新页面数据
       }
     })
   }

@@ -1,4 +1,4 @@
-import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
+import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel, StoreAccountDetailUpdateRequestModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
 import { retry, catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -37,6 +37,16 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
     .pipe(
       catchError(this.handleError)
     )
+  }
+
+  //商铺帐号修改
+  updateStoreAccount(storeAccountDetailUpdateRequestModel:StoreAccountDetailUpdateRequestModel):Observable<any>{
+    const id = storeAccountDetailUpdateRequestModel.store_id
+    return this.httpClient.put(this.urls.PutAdminStoreAccountUpdate + id, storeAccountDetailUpdateRequestModel, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+
   }
 
   //http请求失败的响应返回对象

@@ -25,7 +25,7 @@ export const AdminUrls = {
   PostAdminStoreAccountCreate: api + '/admin/store_account', //商铺的账号创建
   GetAdminStoreAccountList: api + '/admin/store_account',    //店铺的账号列表
   GetAdminStoreAccountDetail: api + '/admin/store_account/', //店铺账号的编辑详情
-  PutAdminStoreAccountUpdate: api + '/admin/store/', //管理后台商户信息修改保存
+  PutAdminStoreAccountUpdate: api + '/admin/store_account/', //店铺的账号的修改
 
   GetAdminAllRegions: api + '/admin/regions_all_json',   // 管理后台获取区域三级联动数据
   PostAdminRegionCreate: api + '/admin/region', //区域创建接口
