@@ -20,19 +20,33 @@ export class Interceptor implements HttpInterceptor {
     const token = localStorage.getItem('userToken');// 获取token
     let pathName = location.pathname.slice(1, 6);
     if (token) { // 如果有token，就添加
-      req = req.clone({
-        setHeaders: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      console.log("token是什么", token);
+      let bearToken = token.slice(0, 6);
+      if (bearToken === 'Bearer') {
+        req = req.clone({
+          setHeaders: {
+            'Authorization': `${token}`
+          }
+        });
+      }
+      else {
+        req = req.clone({
+          setHeaders: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      }
     }
-  
+
     return next.handle(req).pipe(
       tap(event => {
         console.log()
         if (event instanceof HttpResponse) { // 这里是返回，可通过event.body获取返回内容
-          console.log("shishia", event)
-         
+          console.log("222", event.headers.get('Authorization'));
+          let newToken = event.headers.get('Authorization');
+          if (newToken != null) {
+            localStorage.setItem('userToken', newToken);
+          }
         }
       },
         error => { // 统一处理所有的http错误
@@ -40,7 +54,7 @@ export class Interceptor implements HttpInterceptor {
             if (error.status == 401) {
               alert('token已过期，请重新登陆');
               if (pathName === 'admin') {
-                // this.router.navigate(['/admin/login']);
+                this.router.navigate(['/admin/login']);
               }
               else if (pathName === 'store') {
                 this.router.navigate(['/store/login']);
