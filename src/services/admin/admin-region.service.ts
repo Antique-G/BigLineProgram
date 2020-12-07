@@ -33,7 +33,7 @@ export class AdminRegionService {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('keyword', keyword ? keyword : '')
-      .set('parent_code', parent_code.toString());
+      .set('parent_code', parent_code ? parent_code : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

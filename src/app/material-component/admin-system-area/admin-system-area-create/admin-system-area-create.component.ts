@@ -6,6 +6,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { AddAdminRegionListRequestModel } from '../../../../interfaces/adminRegion/admin-region-model';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,11 +15,10 @@ import { AddAdminRegionListRequestModel } from '../../../../interfaces/adminRegi
   styleUrls: ['./admin-system-area-create.component.css']
 })
 export class AdminSystemAreaCreateComponent implements OnInit {
-  addForm!: FormGroup;
-  statusValue = '0';
+  addForm: FormGroup;
+  statusValue = 2;
   addAdminRegionListRequestModel: AddAdminRegionListRequestModel;
-
-
+  isGrade: any;  //弹窗等级
 
   // 上传
   loading = false;
@@ -27,15 +27,18 @@ export class AdminSystemAreaCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminSystemAreaCreateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, public activatedRoute: ActivatedRoute,
     public adminRegionService: AdminRegionService,
     private msg: NzMessageService) {
+    console.log("data", data);
+    this.isGrade = data;
+
     this.addForm = this.fb.group({
       regionName: ['', [Validators.required]],
       parentCode: ['', [Validators.required]],
       regionDesc: ['', [Validators.required]],
       areaCode: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      avatarUrl: ['', [Validators.required]],
     });
     this.addAdminRegionListRequestModel = {
       region_name: 0,
@@ -51,15 +54,22 @@ export class AdminSystemAreaCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const parentCode = params['parentCode'];
+      console.log('11111', parentCode);
+      if (parentCode != undefined) {
+        this.addAdminRegionListRequestModel.parent_code = parentCode;
+      }
+      const parentName = params['name'];
+      console.log('222', parentName);
+    });
 
   }
 
   setValue() {
     this.addAdminRegionListRequestModel.region_name = this.addForm.value.regionName;
-    this.addAdminRegionListRequestModel.parent_code = this.addForm.value.parentCode;
     this.addAdminRegionListRequestModel.region_desc = this.addForm.value.regionDesc;
     this.addAdminRegionListRequestModel.area_code = this.addForm.value.areaCode;
-    this.addAdminRegionListRequestModel.region_img = this.addForm.value.avatarUrl
     this.addAdminRegionListRequestModel.status = this.addForm.value.status;
   }
 
@@ -69,13 +79,13 @@ export class AdminSystemAreaCreateComponent implements OnInit {
     console.log("提交的model是什么", this.addAdminRegionListRequestModel);
     this.adminRegionService.addRegion(this.addAdminRegionListRequestModel).subscribe(res => {
       console.log("res结果", res);
-      // if (res === null) {
-      //   alert("创建成功");
-      //   this.dialogRef.close(1);
-      // }
-      // else{
-      //   alert("创建失败，请重新填写")
-      // }
+      if (res === null) {
+        alert("创建成功");
+        this.dialogRef.close(1);
+      }
+      else{
+        alert("创建失败，请重新填写")
+      }
     })
   }
 
@@ -113,6 +123,7 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
+    console.log("dianji", info)
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
@@ -122,6 +133,7 @@ export class AdminSystemAreaCreateComponent implements OnInit {
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;
           this.avatarUrl = img;
+          console.log("this.avatarUrl ", this.avatarUrl)
         });
         break;
       case 'error':

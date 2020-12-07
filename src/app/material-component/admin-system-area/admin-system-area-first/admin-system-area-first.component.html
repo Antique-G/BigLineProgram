@@ -6,7 +6,7 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" routerLink="/admin/main/settingArea">区域首页</button>
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="add()">添加区域</button>
-                        <div fxLayoutAlign="center center" style="cursor: pointer;" routerLink="/admin/main/settingArea">上级区域-中国</div>
+                        <div fxLayoutAlign="center center" style="cursor: pointer;" routerLink="/admin/main/settingArea">上级区域-{{isName}}</div>
                     </div>
                     <form [formGroup]="nameForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
@@ -40,12 +40,12 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.regionId}}</td>
+                                    <td>{{data.region_id}}</td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="nextLevel(data)">{{data.regionName}}</div>
+                                        <div style="cursor: pointer;" (click)="nextLevel(data)"><a>{{data.region_name}}</a></div>
                                     </td>
-                                    <td>{{data.regionCode}}</td>
-                                    <td>{{data.regionLevel}}</td>
+                                    <td>{{data.region_code}}</td>
+                                    <td>{{data.region_level}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             暂停
