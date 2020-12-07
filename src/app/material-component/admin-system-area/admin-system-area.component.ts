@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminSystemAreaCreateComponent } from './admin-system-area-create/admin-system-area-create.component';
+import { AdminSystemAreaFirstComponent } from './admin-system-area-first/admin-system-area-first.component';
 
 
 
@@ -28,7 +29,7 @@ export class AdminSystemAreaComponent implements OnInit {
   constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router,
     public adminRegionService: AdminRegionService) {
     this.nameForm = fb.group({
-      storeId: new FormControl(' ')
+      storeId: ['', [Validators.required]]
     });
   }
 
@@ -41,6 +42,7 @@ export class AdminSystemAreaComponent implements OnInit {
   getData(): void {
     this.loading = true;
     this.adminRegionService.regionList(this.page, this.per_page, this.keyword, this.parent_code).subscribe((result: any) => {
+      console.log("结果是",result);
       this.loading = false;
       this.total = result.total;   //总页数
       this.dataSource = result.data;
@@ -70,6 +72,7 @@ export class AdminSystemAreaComponent implements OnInit {
   add() {
     const dialogRef = this.dialog.open(AdminSystemAreaCreateComponent, {
       width: '550px',
+      data:0
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result)
@@ -85,7 +88,8 @@ export class AdminSystemAreaComponent implements OnInit {
 
 
   nextLevel(element: any) {
-    this.router.navigate(['/admin/main/settingAreaFirst'])
+    console.log("点击获取的是",element);
+    this.router.navigate(['/admin/main/settingAreaFirst'], { queryParams: { 'parentCode': element.region_code,"name":element.region_name} });
   }
 
 }

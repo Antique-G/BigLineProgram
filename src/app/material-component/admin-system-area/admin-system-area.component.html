@@ -13,7 +13,7 @@
                             <div fxFlex=50>
                                 <mat-form-field>
                                     <mat-label>请输入关键字:</mat-label>
-                                    <input matInput value="" formControlName="storeId">
+                                    <input matInput formControlName="storeId">
                                 </mat-form-field>
 
                             </div>
@@ -40,12 +40,12 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.regionId}}</td>
+                                    <td>{{data.region_id}}</td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="nextLevel(data)">{{data.regionName}}</div>
+                                        <div style="cursor: pointer;" (click)="nextLevel(data)"><a>{{data.region_name}}</a></div>
                                     </td>
-                                    <td>{{data.regionCode}}</td>
-                                    <td>{{data.regionLevel}}</td>
+                                    <td>{{data.region_code}}</td>
+                                    <td>{{data.region_level}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             暂停

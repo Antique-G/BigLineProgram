@@ -1,8 +1,12 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayoutAlign="end start">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <span style="margin-right: 10px;">添加区域</span>
+            <span *ngIf='isGrade!=0'>上级区域-{{isGrade}}</span>
+        </div>
         <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
     </div>
-    <div style="padding: 5px;">
+    <div style="padding: 5px;margin-top: 10px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionName" nzRequired>区域名称 </nz-form-label>
@@ -11,9 +15,9 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="parentCode" nzRequired>父级编码 </nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入父级编码 ！">
+            <nz-form-item *ngIf='isGrade===0'>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="parentCode" nzRequired>当地国家编码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
                     <input nz-input formControlName="parentCode" />
                 </nz-form-control>
             </nz-form-item>
@@ -32,11 +36,11 @@
             </nz-form-item>
 
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">区域状态</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="statusValue" formControlName="status">
-                        <label nz-radio nzValue="0">暂停 </label>
-                        <label nz-radio nzValue="1">正常</label>
+                        <label nz-radio nzValue=0>暂停 </label>
+                        <label nz-radio nzValue=1>正常</label>
                     </nz-radio-group>
                 </nz-form-control>
             </nz-form-item>
@@ -45,9 +49,8 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24">图片地址</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <nz-upload class="avatar-uploader" nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76" nzName="avatar" nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
+                    <nz-upload class="avatar-uploader" [nzAction] nzName="avatar" nzListType="picture-card" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
                         <ng-container *ngIf="!avatarUrl">
-                            <!-- <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i> -->
                             <i class="upload-icon" nz-icon></i>
                             <div class="ant-upload-text">Upload</div>
                         </ng-container>
