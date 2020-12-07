@@ -1,4 +1,4 @@
-import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
+import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel, StoreAccountDetailUpdateRequestModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
 import { retry, catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,25 +22,31 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
   addStoreAccount(addStoreAccountRequestModel:AddStoreAccountRequestModel):Observable<AddStoreAccountResponseModel>{
     return this.httpClient.post<AddStoreAccountResponseModel>(this.urls.PostAdminStoreAccountCreate,addStoreAccountRequestModel,httpOptions)
     .pipe(
-      retry(1),
       catchError(this.handleError)
     )
   }
 
   //商铺帐号列表
-  storeAccountList(store_id:AdminStoreAccountListRequestModel):Observable<AdminStoreAccountListResponseModel>{
-    const params = new HttpParams({
-      fromString: 'store_id=' + store_id.store_id
-    });
+  storeAccountList(store_id:number):Observable<AdminStoreAccountListResponseModel>{
+    const params = new HttpParams().set('store_id',store_id.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type':'application/json'}),
       params:params
     };
     return this.httpClient.get<AdminStoreAccountListResponseModel>(this.urls.GetAdminStoreAccountList,findhttpOptions)
     .pipe(
-      retry(1),
       catchError(this.handleError)
     )
+  }
+
+  //商铺帐号修改
+  updateStoreAccount(storeAccountDetailUpdateRequestModel:StoreAccountDetailUpdateRequestModel):Observable<any>{
+    const id = storeAccountDetailUpdateRequestModel.store_id
+    return this.httpClient.put(this.urls.PutAdminStoreAccountUpdate + id, storeAccountDetailUpdateRequestModel, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+
   }
 
   //http请求失败的响应返回对象
@@ -48,7 +54,7 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        alert(error.message);
+        // alert(error.message);
         break
     }
 

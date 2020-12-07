@@ -39,3 +39,35 @@ export interface Datun{  // 2.2.2创建商铺账号列表的返回参数
   updated_at: string
 }
 
+// export interface StoreAccountDetailResponseModel {
+//   message: string;
+//   data: DataDetailStoreAccountResponseModel;
+// }
+export interface DataDetailStoreAccountResponseModel {
+  account_id: any;
+  created_at: string;
+  email: string;
+  level: any;
+  mobile: string;
+  name: string;
+  password: string;
+  remember_token: any;
+  status: any;
+  store_id: any;
+  updated_at: string;
+}
+
+export interface StoreAccountDetailUpdateRequestModel  {
+  password: string;
+  // password_confirmation: string;
+  name: string;
+  mobile: string;
+  email: string;
+  level: any;
+  store_id: string;
+  status: any;
+}
+
+
+
+

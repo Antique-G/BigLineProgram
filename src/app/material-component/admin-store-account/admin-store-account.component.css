@@ -1,0 +1,7 @@
+.cursor{
+    cursor: pointer;
+}
+.storeListBox td , .storeListBox th{
+    text-align: center;
+}
+

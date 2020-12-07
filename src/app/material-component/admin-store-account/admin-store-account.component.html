@@ -19,59 +19,43 @@
                             </div>
                         </div>
                     </form>
-                    <div class="mat-elevation-z8">
-                        <table mat-table [dataSource]="dataSource" style="width: 100%;">
-                            
-                            <ng-container matColumnDef="account_id">
-                                <th mat-header-cell *matHeaderCellDef> 商户id </th>
-                                <td mat-cell *matCellDef="let element"> {{element.account_id}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef> 姓名 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="mobile">
-                                <th mat-header-cell *matHeaderCellDef> 手机号 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="email">
-                                <th mat-header-cell *matHeaderCellDef> 邮箱 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef> 状态 </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <div *ngIf="element.status===0">
-                                         暂停
+                    <div class="mat-elevation-z8" class="storeListBox">
+                        <nz-table #borderedTable nzBordered [nzData]="dataSource">
+                            <thead>
+                              <tr>
+                                <th>商户id</th>
+                                <th>姓名</th>
+                                <th>手机号码</th>
+                                <th>邮箱地址</th>
+                                <th>状态</th>
+                                <th>编辑</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of borderedTable.data">
+                                <td>{{ data.account_id }}</td>
+                                <td>{{ data.name }}</td>
+                                <td>{{ data.mobile }}</td>
+                                <td>{{ data.email }}</td>
+                                <td>
+                                    <div *ngIf = "data.status === 0">
+                                        暂停
                                     </div>
-                                    <div *ngIf="element.status===1">
-                                         开启
+                                    <div *ngIf = "data.status === 1">
+                                        开启
                                     </div>
                                 </td>
-                            </ng-container>
-                            <ng-container matColumnDef="action">
-                                <th mat-header-cell *matHeaderCellDef> 编辑 </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <div style="cursor: pointer;" (click)="edit(element)">
+                                <td>
+                                    <div class="cursor" (click)="edit(data)">
                                         <mat-icon>edit</mat-icon>
                                     </div>
                                 </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        </table>
-                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-
+                              </tr>
+                            </tbody>
+                          </nz-table>
                     </div>
                 </div>
             </div>
-
         </mat-card>
     </div>
 </div>
