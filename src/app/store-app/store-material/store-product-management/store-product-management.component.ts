@@ -11,7 +11,7 @@ import {StoreProductService} from '../../../../services/store/store-product/stor
 })
 
 export class StoreProductManagementComponent implements OnInit {
-  nameForm: FormGroup;
+  // nameForm: FormGroup;
   dataSource =[];   //1.4将数据添加到dataSource
 
   loading = true;
@@ -23,21 +23,16 @@ export class StoreProductManagementComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder,public dialog:MatDialog,public storeProductService:StoreProductService) {
-    this.nameForm = this.fb.group({
-      storeId: new FormControl(' ')
-    });
+    // this.nameForm = this.fb.group({
+    //   storeId: new FormControl(' ')
+    // });
   }
 
  
   ngOnInit(): void {
-
-    this.getProductList()
+    this.getProductList();
   }
 
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-  }
  
   getProductList(){
     this.loading = true;
@@ -46,9 +41,9 @@ export class StoreProductManagementComponent implements OnInit {
       console.log(res);
       this.total = res.meta.pagination.total;   //总页数
       this.dataSource = res.data;
-    
     })
   }
+
 
   changePageSize(per_page:number){
     this.per_page = per_page;
@@ -60,6 +55,8 @@ export class StoreProductManagementComponent implements OnInit {
     this.page = page;
     this.getProductList();
   }
+
+  
 
   addProduct(){
     const dialogRef = this.dialog.open(StoreProductManagementCreateComponent,{
