@@ -4,8 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminSystemAreaCreateComponent } from './admin-system-area-create/admin-system-area-create.component';
-import { AdminSystemAreaFirstComponent } from './admin-system-area-first/admin-system-area-first.component';
-
 
 
 @Component({
@@ -13,17 +11,18 @@ import { AdminSystemAreaFirstComponent } from './admin-system-area-first/admin-s
   templateUrl: './admin-system-area.component.html',
   styleUrls: ['./admin-system-area.component.css']
 })
+
 export class AdminSystemAreaComponent implements OnInit {
   nameForm: FormGroup;
   dataSource = [];
+  parent = [];
   page = 1;
   per_page = 10;
   total = 1;
   loading = true;
   keyword: any;
   parent_code: any;
-
-
+  upFlag: boolean = false;
 
   // testing
   constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router,
@@ -37,35 +36,34 @@ export class AdminSystemAreaComponent implements OnInit {
     this.getData();
   }
 
-
-
   getData(): void {
     this.loading = true;
     this.adminRegionService.regionList(this.page, this.per_page, this.keyword, this.parent_code).subscribe((result: any) => {
-      console.log("结果是",result);
+      this.parent = result.parent;
+      let temp = result.list;
       this.loading = false;
-      this.total = result.total;   //总页数
-      this.dataSource = result.data;
+      this.total = temp.total;   //总页数
+      this.dataSource = temp.data;
+      this.upFlag = this.parent.region_id ? true : false;
     });
   };
 
   changePageIndex(page: number) {
-    console.log("当前页", page);
     this.page = page;
     this.getData();
   }
+
   changePageSize(per_page: number) {
-    console.log("一页显示多少", per_page);
     this.per_page = per_page;
     this.getData();
   }
 
-
   search() {
     this.keyword = this.nameForm.value.storeId;
+    this.page = 1;
+    this.parent = [];
+    this.parent_code = '';
     this.getData();
-    console.log("this.keyword", this.keyword);
-
   }
 
 
@@ -86,12 +84,29 @@ export class AdminSystemAreaComponent implements OnInit {
 
   }
 
-
   nextLevel(element: any) {
-    console.log("点击获取的是",element);
-    this.router.navigate(['/admin/main/settingAreaFirst'], { queryParams: { 'parentCode': element.region_code,"name":element.region_name} });
+    let p = element.region_code;
+    if(p.length >= 12){
+        return;
+    }
+    this.parent_code = p;
+    this.page = 1;
+    this.keyword = '';
+    this.getData();
   }
 
+  resetPage(): void {
+    this.page = 1;
+    this.parent_code = '';
+    this.keyword = '';
+    this.getData();
+  }
+
+  backToUp(): void {
+    this.parent_code = this.parent_code.substr(0, 4);
+    this.keyword = '';
+    this.getData();
+  }
 }
 
 

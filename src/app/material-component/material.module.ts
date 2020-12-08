@@ -24,8 +24,6 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
 import { AdminStoreAccountCreateComponent } from './admin-store-account/admin-store-account-create/admin-store-account-create.component';
 import { AdminSystemAreaComponent } from './admin-system-area/admin-system-area.component';
 import { AdminSystemAreaCreateComponent } from './admin-system-area/admin-system-area-create/admin-system-area-create.component';
-import { AdminSystemAreaFirstComponent } from './admin-system-area/admin-system-area-first/admin-system-area-first.component';
-import { AdminSystemAreaSecondComponent } from './admin-system-area/admin-system-area-second/admin-system-area-second.component';
 import { AdminStoreDetailComponent } from './admin-store/admin-store-detail/admin-store-detail.component';
 import { AdminProductTagComponent } from './admin-product/admin-product-tag/admin-product-tag.component';
 import { AdminProductTagCreateComponent } from './admin-product/admin-product-tag/admin-product-tag-create/admin-product-tag-create.component';
@@ -44,7 +42,7 @@ import { AdminProductManagementComponent } from './admin-product/admin-product-m
     FlexLayoutModule,
     CdkTableModule,
     NzCascaderModule,
-    DemoNgZorroAntdModule
+    DemoNgZorroAntdModule,
   ],
   providers: [],
   entryComponents: [
@@ -72,14 +70,12 @@ import { AdminProductManagementComponent } from './admin-product/admin-product-m
     AdminStoreAccountCreateComponent,
     AdminSystemAreaComponent,
     AdminSystemAreaCreateComponent,
-    AdminSystemAreaFirstComponent,
-    AdminSystemAreaSecondComponent,
     AdminStoreDetailComponent,
     AdminProductTagComponent,
     AdminProductTagCreateComponent,
     AdminStoreAccountDetailComponent,
     AdminProductTagDetailComponent,
-    AdminProductManagementComponent,
+    AdminProductManagementComponent
   ]
 })
 export class MaterialComponentsModule {}
