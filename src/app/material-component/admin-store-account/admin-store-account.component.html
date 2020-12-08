@@ -20,7 +20,7 @@
                         </div>
                     </form>
                     <div class="mat-elevation-z8" class="storeListBox">
-                        <nz-table #borderedTable nzBordered [nzData]="dataSource">
+                        <nz-table #borderedTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageSizeChange)="changePageSize($event)" (nzPageIndexChange)="changePageIndex($event)">
                             <thead>
                               <tr>
                                 <!-- <th>商户id</th> -->

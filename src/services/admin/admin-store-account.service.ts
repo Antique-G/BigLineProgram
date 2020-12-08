@@ -27,8 +27,8 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
   }
 
   //商铺帐号列表
-  storeAccountList(store_id:number):Observable<AdminStoreAccountListResponseModel>{
-    const params = new HttpParams().set('store_id',store_id.toString());
+  storeAccountList(store_id:number, page:number, per_page:number):Observable<AdminStoreAccountListResponseModel>{
+    const params = new HttpParams().set('per_page',per_page.toString()).set('page',page.toString()).set('store_id',store_id.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type':'application/json'}),
       params:params
