@@ -40,6 +40,13 @@ export const AdminUrls = {
   PostAdminProductTagCreate: api + '/admin/tag', //标签的添加
   DeleteAdminProductTag: api + '/admin/tag/', //标签的删除
   GetAdminProdectCateList: api + '/admin/tags/cate_list',//标签的分类列表
+
+
+  GetAdminProductManagementList: api + '/admin/product' ,  //产品列表
+  PutAdminProductManagementUpdate: api + '/admin/product/', //产品编辑
+  PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
+  PostAdminProductCheckStatus: api + '/admin/products/set_status', //产品的审核
+
 };
 
 
