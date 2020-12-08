@@ -44,7 +44,7 @@ export class AdminSystemAreaComponent implements OnInit {
       this.loading = false;
       this.total = temp.total;   //总页数
       this.dataSource = temp.data;
-      this.upFlag = this.parent.region_id ? true : false;
+      this.upFlag = typeof this.parent.region_id == 'undefined' ? false : true;
     });
   };
 
