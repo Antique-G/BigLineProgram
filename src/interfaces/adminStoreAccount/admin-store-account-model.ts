@@ -51,6 +51,7 @@ export interface DataDetailStoreAccountResponseModel {
   mobile: string;
   name: string;
   password: string;
+  password_confirmation: string;
   remember_token: any;
   status: any;
   store_id: any;
@@ -58,14 +59,15 @@ export interface DataDetailStoreAccountResponseModel {
 }
 
 export interface StoreAccountDetailUpdateRequestModel  {
-  password: string;
-  // password_confirmation: string;
   name: string;
+  password: string;
+  password_confirmation: string;
   mobile: string;
   email: string;
   level: any;
   store_id: string;
   status: any;
+  account_id: any;
 }
 
 

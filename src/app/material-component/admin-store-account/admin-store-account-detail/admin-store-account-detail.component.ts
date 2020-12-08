@@ -13,7 +13,7 @@ import { DataDetailStoreAccountResponseModel, StoreAccountDetailUpdateRequestMod
 
 export class AdminStoreAccountDetailComponent implements OnInit {
   detaileForm: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
-  status = '1'; 
+  status =3; 
   storeAccountDetailUpdateRequestModel: StoreAccountDetailUpdateRequestModel;
   dataDetailStoreAccountResponseModel: DataDetailStoreAccountResponseModel;
 
@@ -37,7 +37,7 @@ export class AdminStoreAccountDetailComponent implements OnInit {
   nameAsyncValidator = (control: FormControl) =>
   new Observable((observer: Observer<MyValidationErrors | null>) => {
     setTimeout(() => {
-      if (control.value === "anya") {
+      if (control.value === "") {
         observer.next({
           duplicated: { 'zh-cn': `用户名已存在` }
         });
@@ -66,9 +66,9 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     console.log("点击编辑传过来的当前商铺id数据",this.dataDetailStoreAccountResponseModel);
     const { required, maxLength, minLength, mobile ,email} = MyValidators;  
     this.detaileForm = this.fb.group({   //表单验证
-      name: [this.dataDetailStoreAccountResponseModel.name , [required, maxLength(12), minLength(2)], [this.nameAsyncValidator]],
+      name: [this.dataDetailStoreAccountResponseModel.name , [required, maxLength(12), minLength(2)]],   // , [this.nameAsyncValidator]
       password: ['' ],
-      // password_confirmation: [this.dataDetailStoreAccountResponseModel.password_confirmation, [this.confirmValidator]],
+      password_confirmation: [''],     // ,[this.confirmValidator] 
       email: [this.dataDetailStoreAccountResponseModel.email, [required,email]],
       mobile: [this.dataDetailStoreAccountResponseModel.mobile, [required, mobile]],
       level: [this.dataDetailStoreAccountResponseModel.level, [required]],
@@ -78,11 +78,13 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     this.storeAccountDetailUpdateRequestModel = {
       name: '',
       password: '',
+      password_confirmation: '',
       mobile: '',
       email: '',
       level: 0,
       store_id: '',
       status: '',
+      account_id: ''
     }
 
   }  
@@ -92,8 +94,9 @@ export class AdminStoreAccountDetailComponent implements OnInit {
   };
   
   setValue() {   //获取表单内容赋值给修改内容接口请求的数据模块
-    this.storeAccountDetailUpdateRequestModel.password = this.detaileForm.value.password;
     this.storeAccountDetailUpdateRequestModel.name = this.detaileForm.value.name;
+    this.storeAccountDetailUpdateRequestModel.password = this.detaileForm.value.password;
+    this.storeAccountDetailUpdateRequestModel.password_confirmation = this.detaileForm.value.password_confirmation;
     this.storeAccountDetailUpdateRequestModel.mobile = this.detaileForm.value.mobile;
     this.storeAccountDetailUpdateRequestModel.email = this.detaileForm.value.email;
     this.storeAccountDetailUpdateRequestModel.level = this.detaileForm.value.level;
@@ -108,8 +111,8 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     };
     console.log("看看表单里面的输入内容",this.detaileForm.value)
     this.setValue();
-    this.storeAccountDetailUpdateRequestModel.store_id =  this.dataDetailStoreAccountResponseModel.store_id;
-    console.log("看看提交的model是什么", this.storeAccountDetailUpdateRequestModel);
+    this.storeAccountDetailUpdateRequestModel.account_id =  this.dataDetailStoreAccountResponseModel.account_id;
+    console.log("看看修改提交的model是什么", this.storeAccountDetailUpdateRequestModel,this.storeAccountDetailUpdateRequestModel.account_id);
     this.adminStoreAccountService.updateStoreAccount(this.storeAccountDetailUpdateRequestModel).subscribe(res => {
       console.log("res结果",res);
       if (res.status_code){

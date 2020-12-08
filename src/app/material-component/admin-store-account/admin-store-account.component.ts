@@ -46,7 +46,6 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
       console.log(result)
       if (result === 1){
         this.search();    //创建店铺成功后传回结果为1时调用search()更新页面展示数据
-        this.search();
       }
     });
   }
@@ -56,7 +55,7 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
     this.store_id = this.nameForm.value.store_id  //输入的帐号id赋值给接口请求参数帐号id
     console.log("获取表单输入值", this.store_id);
     this.adminStoreAccountService.storeAccountList(this.store_id).subscribe((result: any) => {
-      console.log("接口返回什么结果呀", result.data)
+      console.log("搜索帐号接口返回什么列表结果呀", result.data)
       this.dataSource = result.data;
 
     })
@@ -70,8 +69,10 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
       data: element
     })
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        console.log('The dialog was closed');
+      console.log('修改成功返回的结果',result)
+      if (result === 1){
+        this.search();    //创建店铺成功后传回结果为1时调用search()更新页面展示数据
+        console.log("页面刷新成功")
       }
     })
   }

@@ -41,7 +41,7 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
 
   //商铺帐号修改
   updateStoreAccount(storeAccountDetailUpdateRequestModel:StoreAccountDetailUpdateRequestModel):Observable<any>{
-    const id = storeAccountDetailUpdateRequestModel.store_id
+    const id = storeAccountDetailUpdateRequestModel.account_id
     return this.httpClient.put(this.urls.PutAdminStoreAccountUpdate + id, storeAccountDetailUpdateRequestModel, httpOptions)
     .pipe(
       catchError(this.handleError)

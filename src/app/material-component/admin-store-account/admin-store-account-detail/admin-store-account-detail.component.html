@@ -7,7 +7,7 @@
         <form nz-form [nzAutoTips]="autoTips" [formGroup]="detaileForm">
             <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>姓名</nz-form-label>
-                <nz-form-control [nzSpan]="17" nzValidatingTip="有效用户名...">
+                <nz-form-control [nzSpan]="17">
                   <input nz-input formControlName="name" placeholder="请输入创建者姓名"/>
                 </nz-form-control>
             </nz-form-item>            
@@ -17,7 +17,7 @@
                 <input nz-input autocomplete="on" type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" placeholder="请输入6-12位密码"/>
               </nz-form-control>
             </nz-form-item>
-            <!-- <nz-form-item>
+            <nz-form-item>
               <nz-form-label [nzSpan]="5" nzRequired>确认密码</nz-form-label>
               <nz-form-control [nzSpan]="17" nzDisableAutoTips [nzErrorTip]="passwordErrorTpl">
                 <input nz-input autocomplete="off" type="password" formControlName="password_confirmation"  placeholder="请再输入密码"/>
@@ -30,7 +30,7 @@
                   </ng-container>
                 </ng-template>
               </nz-form-control>
-            </nz-form-item> -->
+            </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>手机号</nz-form-label>
                 <nz-form-control [nzSpan]="17">
@@ -58,9 +58,9 @@
             <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>状态</nz-form-label>
                 <nz-form-control [nzSpan]="17">
-                    <nz-radio-group [(ngModel)]="status" formControlName="status">
-                        <label nz-radio nzValue="1">开启</label>
-                        <label nz-radio nzValue="0">暂停</label>
+                    <nz-radio-group ngModel={{dataDetailStoreAccountResponseModel.status}} formControlName="status">
+                        <label nz-radio nzValue=1>开启</label>
+                        <label nz-radio nzValue=0>暂停</label>
                       </nz-radio-group>
                 </nz-form-control>
             </nz-form-item> 
