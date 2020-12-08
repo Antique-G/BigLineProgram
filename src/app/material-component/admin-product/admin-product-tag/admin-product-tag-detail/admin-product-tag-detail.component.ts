@@ -15,12 +15,14 @@ export class AdminProductTagDetailComponent implements OnInit {
   updateAdminProductRequestModel: UpdateAdminProductRequestModel;
   addForm: FormGroup;
   optionList: any[] = [];
+  selectedValue: any;
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductTagDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public adminProductTagService: AdminProductTagService) {
     this.detailModel = this.data;
+    this.selectedValue = this.detailModel.cate_id;
     this.addForm = fb.group({
       name: [this.detailModel.name, [Validators.required]],
       cate_id: [this.detailModel.cate_id, Validators.required],
@@ -36,6 +38,7 @@ export class AdminProductTagDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedValue = this.detailModel.cate_id;
     this.getCateList();
   }
 
@@ -68,10 +71,10 @@ export class AdminProductTagDetailComponent implements OnInit {
   getCateList() {
     this.adminProductTagService.getProdectCateList().subscribe(res => {
       console.log('分类的结果', res.data);
-      let a = { label: res.data[0].name, value: res.data[0].name, id: parseInt(res.data[0].id)};
+      let a = { label: res.data[0].name, value: res.data[0].name, id: parseInt(res.data[0].id) };
       console.log("aaaa", a)
       this.optionList.push(a);
-      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id)};
+      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id) };
       this.optionList.push(b);
       console.log("this.optionList", this.optionList);
     })

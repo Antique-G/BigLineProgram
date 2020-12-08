@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MenuService } from 'ng-zorro-antd/menu';
 
 export interface Menu {
   header: string;
@@ -31,8 +30,8 @@ const MENUITEMS = [
   {
     header: '产品模块',
     menulist: [
-      { state: 'productTag', type: 'link', name: '产品标签', icon: 'view_headline' }
-
+      { state: 'productTag', type: 'link', name: '产品标签', icon: 'view_headline' }, 
+      { state: 'productManagement', type: 'link', name: '产品管理', icon: 'view_headline' }, 
     ]
   },
 ];
