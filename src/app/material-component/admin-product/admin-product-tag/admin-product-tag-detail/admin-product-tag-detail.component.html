@@ -14,7 +14,7 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cate_id" nzRequired>分类{{detailModel.cate_id}}</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择分类！">
-                    <nz-select formControlName="cate_id" ngModel={{detailModel.cate_id}} (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="请选择分类！">
+                    <nz-select formControlName="cate_id" [(ngModel)]="selectedValue" (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="请选择分类！">
                         <nz-option *ngFor="let option of optionList" [nzValue]="option.id" [nzLabel]="option.label"></nz-option>
                     </nz-select>
                 </nz-form-control>
