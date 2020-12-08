@@ -68,10 +68,10 @@ export class AdminProductTagDetailComponent implements OnInit {
   getCateList() {
     this.adminProductTagService.getProdectCateList().subscribe(res => {
       console.log('分类的结果', res.data);
-      let a = { label: res.data[0].name, value: res.data[0].name, id: parseInt(res.data[0].id) };
+      let a = { label: res.data[0].name, value: res.data[0].name, id: parseInt(res.data[0].id)};
       console.log("aaaa", a)
       this.optionList.push(a);
-      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id) };
+      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id)};
       this.optionList.push(b);
       console.log("this.optionList", this.optionList);
     })

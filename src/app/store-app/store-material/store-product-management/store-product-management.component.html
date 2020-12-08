@@ -6,7 +6,7 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addProduct()">添加产品</button>
                     </div>
-                    <form [formGroup]="nameForm">
+                    <!-- <form [formGroup]="nameForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=50>
                                 <mat-form-field>
@@ -16,16 +16,14 @@
 
                             </div>
                             <div fxFlex=20>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;">搜索</button>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
                         </div>
-                    </form>
+                    </form> -->
 
                     <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions] ="[1,2,3]" [nzData]="dataSource" 
-                        [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" 
-                        [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
-                            (nzPageSizeChange)="changePageSize($event)">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[1,2,3]" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+                            (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
@@ -35,7 +33,7 @@
                                     <th style="text-align: center;">成人价格</th>
                                     <th style="text-align: center;">儿童价格</th>
                                     <th style="text-align: center;">状态</th>
-                                    <th style="text-align: center;">修改时间</th>
+                                    <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
                             </thead>
@@ -46,7 +44,7 @@
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
                                     <td>{{data.adult_price}}</td>
-                                    <td>{{data.child_price}}</td>                                   
+                                    <td>{{data.child_price}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             禁用
@@ -55,7 +53,20 @@
                                             启用
                                         </div>
                                     </td>
-                                    <td>{{data.updated_at}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            未提交审核
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            审核中
+                                        </div>
+                                        <div *ngIf="data.status===2">
+                                            已通过
+                                        </div>
+                                        <div *ngIf="data.status===3">
+                                            未通过
+                                        </div>
+                                    </td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="edit(data)">
                                             <mat-icon>edit</mat-icon>

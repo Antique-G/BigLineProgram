@@ -20,7 +20,7 @@ export class Interceptor implements HttpInterceptor {
     const token = localStorage.getItem('userToken');// 获取token
     let pathName = location.pathname.slice(1, 6);
     if (token) { // 如果有token，就添加
-      console.log("token是什么", token);
+      // console.log("token是什么", token);
       let bearToken = token.slice(0, 6);
       if (bearToken === 'Bearer') {
         req = req.clone({

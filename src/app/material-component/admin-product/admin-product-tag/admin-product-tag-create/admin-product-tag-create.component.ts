@@ -42,7 +42,7 @@ export class AdminProductTagCreateComponent implements OnInit {
   setValue() {
     this.addAdminProductTagRequestModel.name = this.addForm.value.name;
     this.addAdminProductTagRequestModel.cate_id = this.addForm.value.cate_id;
-    this.addAdminProductTagRequestModel.status = this.addForm.value.status;
+    this.addAdminProductTagRequestModel.status = parseInt(this.addForm.value.status);
   }
 
   addProductTag() {
@@ -69,7 +69,7 @@ export class AdminProductTagCreateComponent implements OnInit {
       let a = { label: res.data[0].name, value: res.data[0].name, id: parseInt(res.data[0].id)};
       console.log("aaaa", a)
       this.optionList.push(a);
-      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id) };
+      let b = { label: res.data[1].name, value: res.data[1].name, id: parseInt(res.data[1].id)};
       this.optionList.push(b);
       console.log("this.optionList", this.optionList);
     })
