@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AddAdminRegionListRequestModel, AdminRegionListResponseModel, AdminRegionModel, AdminRegionResponseModel, UpdateAdminRegionListRequestModel } from '../../interfaces/adminRegion/admin-region-model';
+import { AddAdminRegionListRequestModel, AdminRegionDetailResponseModel, AdminRegionListResponseModel, AdminRegionModel, AdminRegionResponseModel, UpdateAdminRegionListRequestModel } from '../../interfaces/adminRegion/admin-region-model';
 import { AdminUrls } from '../../api';
 
 
@@ -56,13 +56,23 @@ export class AdminRegionService {
 
 
   // 更新
-  updateRegion(updateAdminRegionListRequestModel: UpdateAdminRegionListRequestModel): Observable<any> {
+  updateRegion(updateAdminRegionListRequestModel: UpdateAdminRegionListRequestModel): Observable<AdminRegionResponseModel> {
     const id = updateAdminRegionListRequestModel.id;
     return this.httpClient.put(this.urls.PutAdminRegionUpdate + id, updateAdminRegionListRequestModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+
+  // 详情
+  regionDetail(region_id:any): Observable<AdminRegionDetailResponseModel> {
+    return this.httpClient.get<AdminRegionDetailResponseModel>(this.urls.GetAdminRegionDetail+region_id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 

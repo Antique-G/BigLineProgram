@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminSystemAreaCreateComponent } from './admin-system-area-create/admin-system-area-create.component';
+import { AdminSystemAreaEditComponent } from './admin-system-area-edit/admin-system-area-edit.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { AdminSystemAreaCreateComponent } from './admin-system-area-create/admin
 export class AdminSystemAreaComponent implements OnInit {
   nameForm: FormGroup;
   dataSource = [];
-  parent = [];
+  parent:any;
   page = 1;
   per_page = 10;
   total = 1;
@@ -24,11 +25,11 @@ export class AdminSystemAreaComponent implements OnInit {
   parent_code: any;
   upFlag: boolean = false;
 
-  // testing
+ 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router,
     public adminRegionService: AdminRegionService) {
     this.nameForm = fb.group({
-      storeId: ['', [Validators.required]]
+      keyword: ['', [Validators.required]]
     });
   }
 
@@ -39,13 +40,13 @@ export class AdminSystemAreaComponent implements OnInit {
   getData(): void {
     this.loading = true;
     this.adminRegionService.regionList(this.page, this.per_page, this.keyword, this.parent_code).subscribe((result: any) => {
-      console.log("result的结果是",result)
+      console.log("result的结果是",result);
       this.parent = result.parent;
       let temp = result.list;
       this.loading = false;
       this.total = temp.total;   //总页数
       this.dataSource = temp.data;
-      this.upFlag = this.parent.region_id ? true : false;
+      this.upFlag = this.parent?.region_id ? true : false;
     });
   };
 
@@ -60,7 +61,7 @@ export class AdminSystemAreaComponent implements OnInit {
   }
 
   search() {
-    this.keyword = this.nameForm.value.storeId;
+    this.keyword = this.nameForm.value.keyword;
     this.page = 1;
     this.parent = [];
     this.parent_code = '';
@@ -71,18 +72,33 @@ export class AdminSystemAreaComponent implements OnInit {
   add() {
     const dialogRef = this.dialog.open(AdminSystemAreaCreateComponent, {
       width: '550px',
-      data:0
+      data: this.parent
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result)
+      if(result!=undefined){
+        this.search();
+      }
 
     });
 
   }
 
 
-  edit(index: any): void {
-
+  edit(data: any): void {
+    console.log("data",data)
+    this.adminRegionService.regionDetail(data.region_id).subscribe(res=>{
+      const dialogRef = this.dialog.open(AdminSystemAreaEditComponent, {
+        width: '550px',
+        data: res
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result!=undefined){
+          this.search();
+        }
+  
+      });
+    })
+   
   }
 
   nextLevel(element: any) {
@@ -104,9 +120,17 @@ export class AdminSystemAreaComponent implements OnInit {
   }
 
   backToUp(): void {
-    this.parent_code = this.parent_code.substr(0, 4);
-    this.keyword = '';
+    if(this.parent_code.length===4){
+      this.parent_code = '';
+      this.keyword = '';
     this.getData();
+    }else{
+      this.parent_code = this.parent_code.substr(0, 4);
+      this.keyword = '';
+      console.log("this.parent_code",this.parent_code)
+      this.getData();
+    }
+    
   }
 }
 

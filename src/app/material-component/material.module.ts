@@ -31,6 +31,7 @@ import { AdminStoreAccountDetailComponent } from './admin-store-account/admin-st
 import { AdminProductTagDetailComponent } from './admin-product/admin-product-tag/admin-product-tag-detail/admin-product-tag-detail.component';
 import { AdminProductManagementComponent } from './admin-product/admin-product-management/admin-product-management.component';
 import { AdminProductManagementDetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-detail.component';
+import { AdminSystemAreaEditComponent } from './admin-system-area/admin-system-area-edit/admin-system-area-edit.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { AdminProductManagementDetailComponent } from './admin-product/admin-pro
     AdminProductTagDetailComponent,
     AdminProductManagementComponent,
     AdminProductManagementDetailComponent,
+    AdminSystemAreaEditComponent,
   ]
 })
 export class MaterialComponentsModule {}

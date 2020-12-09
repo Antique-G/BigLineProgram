@@ -78,8 +78,8 @@ export interface DatumModel {
 
 
 export interface AddAdminRegionListRequestModel {
-  region_name: number;
-  parent_code: number;
+  region_name: string;
+  parent_code: any;
   region_desc: string;
   area_code: number;
   region_img?: any;
@@ -90,12 +90,24 @@ export interface AddAdminRegionListRequestModel {
 
 
 export interface UpdateAdminRegionListRequestModel {
-  region_name: number;
-  parent_code: number;
-  region_desc: string;
-  area_code: number;
+  region_name: string;
+  region_desc?: string;
+  area_code?: any;
   region_img?: any;
   status?: number;
   sort?: number;
-  id?:any;
+  id?: any;
+}
+
+
+export interface AdminRegionDetailResponseModel {
+  region_id: number;
+  region_name: string;
+  region_code: string;
+  area_code: string;
+  region_level: number;
+  sort: number;
+  status: number;
+  created_at: string;
+  updated_at: string;
 }
