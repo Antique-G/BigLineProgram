@@ -17,7 +17,8 @@
                                     <th style="text-align: center;">儿童价格</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
-                                    <th style="text-align: center;">操作</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">审核</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,15 +52,14 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
-                                            <div style="cursor: pointer;" (click)="edit(data)">
-                                                <mat-icon>edit</mat-icon>
-                                            </div>
-                                            <div style="cursor: pointer;" *ngIf="data.status!=0">
-                                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="change(data)">审核</button>
-                                            </div>
+                                        <div style="cursor: pointer;" (click)="edit(data)" title="详情">
+                                            <mat-icon>edit</mat-icon>
                                         </div>
-
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" *ngIf="data.status!=0" (click)="edit(data)" title="审核">
+                                            <mat-icon>assignment</mat-icon>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
