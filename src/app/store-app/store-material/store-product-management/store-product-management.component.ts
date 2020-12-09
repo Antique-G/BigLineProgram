@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreProductManagementCreateComponent } from './store-product-management-create/store-product-management-create.component';
 import {StoreProductService} from '../../../../services/store/store-product/store-product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store-product-management',
@@ -22,7 +23,7 @@ export class StoreProductManagementComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder,public dialog:MatDialog,public storeProductService:StoreProductService) {
+  constructor(public fb: FormBuilder,public dialog:MatDialog,public storeProductService:StoreProductService,public router: Router) {
     // this.nameForm = this.fb.group({
     //   storeId: new FormControl(' ')
     // });
@@ -64,9 +65,14 @@ export class StoreProductManagementComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result=>{
       console.log('result',result);
+      this.getProductList();
     })
   }
-
+  // 报价
+  goToQuoteClick(data:any){
+    console.log(data);
+    this.router.navigate(['/store/main/storeQuote'], { queryParams: {productId: data.id} });
+  }
   edit(index: any){
     console.log("编辑",index);
     const dialogRef = this.dialog.open(StoreProductManagementCreateComponent,{

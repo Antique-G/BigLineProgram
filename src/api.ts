@@ -64,6 +64,8 @@ export const StoreUrls = {
   GetStoreProductDetail: api + '/store/product/', //获取产品详情api
   PutStoreProductUpdate: api + '/store/product/', //修改产品api
 
+  GetStoreQuoteByDate:api+'/store/product/',//产品报价列表
+  PostStoreQuoteByDate:api+'/store/product/',//添加产品报价
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加

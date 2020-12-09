@@ -9,6 +9,7 @@ export function isNumber(control: FormControl):any{
 export function isFloat(control: FormControl):any{
     const number = /^\d+(\.\d+)?$/;
     let newV =control.value
+    if(newV.length==0) return
     const result = number.test(newV);
     return result ? null : { isFloat: true };
 }
