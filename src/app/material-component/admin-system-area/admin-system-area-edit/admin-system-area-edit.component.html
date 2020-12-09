@@ -1,0 +1,48 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="row" fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;margin-top: 10px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionName" nzRequired>区域名称 </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入区域名称 ！">
+                    <input nz-input formControlName="regionName" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="areaCode">地区编码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="areaCode" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sort">排序</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="sort" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group ngModel={{adminRegionDetailResponseModel.status}} formControlName="status">
+                        <label nz-radio nzValue=0>暂停 </label>
+                        <label nz-radio nzValue=1>正常</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" (click)="update()">更新</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
