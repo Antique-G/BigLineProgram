@@ -21,28 +21,40 @@ export interface AdminStoreAccountListRequestModel{  // 2.1创建商铺账号列
 }
 
 export interface AdminStoreAccountListResponseModel {  //2.2.1创建商铺帐号的返回数据模块
-  message: string;
-  data: Datun[];
-  status_code?: string;
-}
-export interface Datun{  // 2.2.2创建商铺账号列表的返回参数
-  account_id: any;
-  name: string;
-  password: string;
-  remember_token: any;
-  mobile: string;
-  email: string;
-  level: any;
-  store_id: any;
-  status: any;
-  created_at: string;
-  updated_at: string
+  data: Datum[];
+  meta: Meta;
 }
 
-// export interface StoreAccountDetailResponseModel {
-//   message: string;
-//   data: DataDetailStoreAccountResponseModel;
-// }
+interface Meta {
+  pagination: Pagination;
+}
+
+interface Pagination {
+  total: number;
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+  links: Links;
+}
+
+interface Links {
+}
+
+interface Datum {
+  account_id: number;
+  name: string;
+  password: string;
+  remember_token?: any;
+  mobile: string;
+  email: string;
+  level: number;
+  store_id: number;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface DataDetailStoreAccountResponseModel {
   account_id: any;
   created_at: string;
