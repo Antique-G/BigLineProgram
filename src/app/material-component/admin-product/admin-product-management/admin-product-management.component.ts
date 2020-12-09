@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {StoreProductService} from '../../../../services/store/store-product/store-product.service';
+import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
+import { AdminProductManagementDetailComponent } from './admin-product-management-detail/admin-product-management-detail.component';
 
 @Component({
   selector: 'app-admin-product-management',
@@ -9,72 +10,60 @@ import {StoreProductService} from '../../../../services/store/store-product/stor
   styleUrls: ['./admin-product-management.component.css']
 })
 export class AdminProductManagementComponent implements OnInit {
-  // nameForm: FormGroup;
-  dataSource =[];   //1.4将数据添加到dataSource
-
+  dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
   page = 1;
-  per_page = 10;
+  per_page = 20;
   total = 1;
-  keyword =''
 
 
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService) {
 
-  constructor(public fb: FormBuilder,public dialog:MatDialog,) {
-    // this.nameForm = this.fb.group({
-    //   storeId: new FormControl(' ')
-    // });
   }
 
- 
+
   ngOnInit(): void {
     this.getProductList();
   }
 
- 
-  getProductList(){
+
+  getProductList() {
     this.loading = true;
-    // this.storeProductService.getProduct(this.page, this.per_page,this.keyword).subscribe(res => {
-    //   this.loading = false;
-    //   console.log(res);
-    //   this.total = res.meta.pagination.total;   //总页数
-    //   this.dataSource = res.data;
-    // })
+    this.adminProductManagementService.productList(this.page, this.per_page).subscribe(res => {
+      console.log("结果是", res)
+      this.loading = false;
+      this.total = res.meta.pagination.total;   //总页数
+      this.dataSource = res.data;
+    })
   }
 
 
-  changePageSize(per_page:number){
+  changePageSize(per_page: number) {
     this.per_page = per_page;
     this.getProductList();
   }
 
-  changePageIndex(page:number){
-    console.log("当前页",page);
+  changePageIndex(page: number) {
+    console.log("当前页", page);
     this.page = page;
     this.getProductList();
   }
 
-  
 
-  addProduct(){
-    // const dialogRef = this.dialog.open(StoreProductManagementCreateComponent,{
-    //   width:'800px'
-    // })
-    // dialogRef.afterClosed().subscribe(result=>{
-    //   console.log('result',result);
-    // })
+
+  edit(data: any) {
+    console.log("编辑",data);
+    const dialogRef = this.dialog.open(AdminProductManagementDetailComponent,{
+      width:'800px',
+      data: data
+    })
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log('result',result);
+    })
+
   }
 
-  edit(index: any){
-    // console.log("编辑",index);
-    // const dialogRef = this.dialog.open(StoreProductManagementCreateComponent,{
-    //   width:'800px',
-    //   data: index
-    // })
-    // dialogRef.afterClosed().subscribe(result=>{
-    //   console.log('result',result);
-    // })
-    
-  }
+
+  change(){}
 
 }

@@ -44,6 +44,7 @@ export const AdminUrls = {
 
   GetAdminProductManagementList: api + '/admin/product' ,  //产品列表
   PutAdminProductManagementUpdate: api + '/admin/product/', //产品编辑
+  GetAdminProductManagementDetail: api + '/admin/product/', //产品详情
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
   PostAdminProductCheckStatus: api + '/admin/products/set_status', //产品的审核
 

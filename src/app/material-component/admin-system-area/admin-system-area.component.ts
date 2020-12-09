@@ -39,6 +39,7 @@ export class AdminSystemAreaComponent implements OnInit {
   getData(): void {
     this.loading = true;
     this.adminRegionService.regionList(this.page, this.per_page, this.keyword, this.parent_code).subscribe((result: any) => {
+      console.log("result的结果是",result)
       this.parent = result.parent;
       let temp = result.list;
       this.loading = false;
