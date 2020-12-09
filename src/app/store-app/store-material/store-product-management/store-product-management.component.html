@@ -68,9 +68,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)">
-                                            <mat-icon>edit</mat-icon>
+                                        <div style="cursor: pointer;">
+                                            <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
+                                            <mat-icon  (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
                                         </div>
+        
                                     </td>
                                 </tr>
                             </tbody>

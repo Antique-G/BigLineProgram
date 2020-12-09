@@ -1,1 +1,28 @@
-<p>store-quote-bydate works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
+                    </div>
+                    <div class="mat-elevation-z8">
+                        <nz-calendar (nzSelectChange)="onSelectChange($event)">
+                            <div *nzDateCell="let date" class="events">
+                                <ng-container *ngFor="let item of listDataMap.data" >
+                                    <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                        <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
+                                        <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
+                                        <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </nz-calendar>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>
+

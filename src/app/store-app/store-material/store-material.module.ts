@@ -18,6 +18,8 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
 import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
 import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-bydate.component';
+import { StoreQuoteBydateCreateComponent } from './store-quote-bydate/store-quote-bydate-create/store-quote-bydate-create.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +49,8 @@ import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-byda
     StoreTermsManagementComponent,
     StoreTermsManagementCreateComponent,
     StoreTermsManagementDetailComponent,
-    StoreQuoteBydateComponent
+    StoreQuoteBydateComponent,
+    StoreQuoteBydateCreateComponent
   ]
 })
 export class StoreMaterialComponentsModule { }

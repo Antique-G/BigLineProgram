@@ -54,7 +54,6 @@ const StoreMENUITEMS = [
     storeHeader: '产品模块',
     storeMenulist: [
       { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' },
-      { state: 'storeQuote', type: 'link', name: '按日期报价', icon: 'view_headline' },
 
     ]
   },

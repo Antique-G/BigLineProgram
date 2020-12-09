@@ -3,6 +3,10 @@
     text-align: center !important;
 }
 
+.baojia{
+    border: 0;
+    background-color: #fdfdfd;
+}
 
 /* // nzBordered 表格是否有边框 dataSet 数据源
 // [nzFrontPagination] 是否在前端分页，默认true

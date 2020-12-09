@@ -47,23 +47,23 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
     },
     adult_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入成人价格！'
     },
     child_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入儿童价格！'
     },
     original_adult_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入成人原价！'
     },
     original_child_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入儿童原价！'
     },
     difference_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入补差价！'
     },
   };
