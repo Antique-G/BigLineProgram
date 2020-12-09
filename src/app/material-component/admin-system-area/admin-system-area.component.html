@@ -6,7 +6,7 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="resetPage()">区域首页</button>
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="add()">添加区域</button>
-                        <div *ngIf="upFlag" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToUp()">上级区域 - {{parent.region_name}}</div>
+                        <!-- <div *ngIf="upFlag" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToUp()">上级区域 - {{parent.region_name}}</div> -->
                     </div>
                     <form [formGroup]="nameForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">

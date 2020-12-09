@@ -26,13 +26,26 @@ export interface AdminRegionResponseModel {
 
 
 export interface AdminRegionListResponseModel {
+  list: ListModel;
+  parent: ParentModel;
+}
+
+
+export interface ParentModel {
+  region_id: number;
+  region_name: string;
+  region_code: string;
+  region_level: number;
+}
+
+export interface ListModel {
   current_page: number;
-  data: Datum[];
+  data: DatumModel[];
   first_page_url: string;
   from: number;
   last_page: number;
   last_page_url: string;
-  links: Link[];
+  links: LinkModel[];
   next_page_url?: any;
   path: string;
   per_page: number;
@@ -41,14 +54,13 @@ export interface AdminRegionListResponseModel {
   total: number;
 }
 
-
-export interface Link {
+export interface LinkModel {
   url?: string;
   label: number | string;
   active: boolean;
 }
 
-export interface Datum {
+export interface DatumModel {
   region_id: number;
   region_name: string;
   region_code: string;
@@ -58,6 +70,9 @@ export interface Datum {
   status: number;
   created_at: string;
   updated_at: string;
+  local_code: string;
+  pinyin: string;
+  full_name: string;
 }
 
 

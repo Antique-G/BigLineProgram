@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminProductCheckStatusModel, AdminProductManagementListResponseModel, AdminProductManagementUpdateModel, AdminProductResponseModel, AdminProductSetStatusModel } from '../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductManagementUpdateModel, AdminProductResponseModel, AdminProductSetStatusModel } from '../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -39,6 +39,14 @@ export class AdminProductManagementService {
   updateProduct(adminProductManagementUpdateModel: AdminProductManagementUpdateModel): Observable<any> {
     const id = adminProductManagementUpdateModel.id;
     return this.httpClient.put(this.urls.PutAdminProductManagementUpdate + id, adminProductManagementUpdateModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 详情
+  productDetail(id:any): Observable<AdminProductDetailResponseModel> {
+    return this.httpClient.get<AdminProductDetailResponseModel>(this.urls.GetAdminProductManagementDetail+id, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
