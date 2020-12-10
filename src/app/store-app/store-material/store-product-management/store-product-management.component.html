@@ -6,20 +6,6 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addProduct()">添加产品</button>
                     </div>
-                    <!-- <form [formGroup]="nameForm">
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=50>
-                                <mat-form-field>
-                                    <mat-label>请输入关键字:</mat-label>
-                                    <input matInput value="" formControlName="storeId">
-                                </mat-form-field>
-
-                            </div>
-                            <div fxFlex=20>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
-                            </div>
-                        </div>
-                    </form> -->
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[1,2,3]" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
@@ -54,25 +40,25 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.status===0">
+                                        <div *ngIf="data.check_status===0">
                                             未提交审核
                                         </div>
-                                        <div *ngIf="data.status===1">
+                                        <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
-                                        <div *ngIf="data.status===2">
+                                        <div *ngIf="data.check_status===2">
                                             已通过
                                         </div>
-                                        <div *ngIf="data.status===3">
+                                        <div *ngIf="data.check_status===3">
                                             未通过
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;">
+                                        <div style="cursor: pointer;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
                                             <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
-                                            <mat-icon  (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
+                                            <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
                                         </div>
-        
+
                                     </td>
                                 </tr>
                             </tbody>

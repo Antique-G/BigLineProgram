@@ -74,6 +74,8 @@ export const StoreUrls = {
   DeleteStoreMeetingPlace: api + '/store/assembling_place/',   // 集合地点删除
   GetStoreMeetingPlaceDetail: api + '/store/assembling_place/',   // 集合地点详情
 
+  GetStoreProductTagList: api + '/store/tag', //产品标签列表
+
 
   GetStoreTermsList: api + '/store/terms',  //条款管理列表
   PostStoreTermsCreate: api + '/store/terms',   // 条款管理添加
