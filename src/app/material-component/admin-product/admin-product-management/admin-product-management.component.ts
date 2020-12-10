@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminProductManagementDetailComponent } from './admin-product-management-detail/admin-product-management-detail.component';
+import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
 
 @Component({
   selector: 'app-admin-product-management',
@@ -58,12 +59,25 @@ export class AdminProductManagementComponent implements OnInit {
       data: data
     })
     dialogRef.afterClosed().subscribe(result=>{
-      console.log('result',result);
+      if (result !== undefined) {
+        this.getProductList();
+      }
     })
 
   }
 
 
-  change(){}
+  review(data: any){
+    console.log("编辑",data);
+    const dialogRef = this.dialog.open(AdminProductReviewComponent,{
+      width:'800px',
+      data: data
+    })
+    dialogRef.afterClosed().subscribe(result=>{
+      if (result !== undefined) {
+        this.getProductList();
+      }
+    })
+  }
 
 }

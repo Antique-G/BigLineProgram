@@ -63,7 +63,7 @@ export class AdminProductManagementService {
   }
 
 
-    // 产品的上架/下架
+    // 产品的审核
     productCheckStatus(adminProductCheckStatusModel: AdminProductCheckStatusModel): Observable<AdminProductResponseModel> {
       return this.httpClient.post<AdminProductResponseModel>(this.urls.PostAdminProductCheckStatus, adminProductCheckStatusModel, httpOptions)
         .pipe(
