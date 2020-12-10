@@ -15,7 +15,7 @@ export const MaterialRoutes: Routes = [
     component: FullComponent,
     children: [
       {
-        path: 'admin',
+        path: 'adminAccount',
         component: AdminComponent
       },
       {

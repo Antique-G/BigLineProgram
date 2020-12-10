@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login() {
-    // routerLink="/admin/main/admin"
+  login() { 
     this.setValue();
     console.log("提交的model是什么", this.loginRequestModel);
     this.adminLoginService.login(this.loginRequestModel).subscribe(res => {
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('account',this.loginRequestModel.account);  
         // localStorage.setItem('account',this.loginRequestModel.account);  
 
-        this.router.navigate(['/admin/main/admin'])
+        this.router.navigate(['/admin/main/adminAccount'])
       }
     })
   }
