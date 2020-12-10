@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductModel, ProductResponseModel, ProductModelRequestModel, ProductResponseListResponseModel, ProductDateilResponseModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -19,10 +19,9 @@ export class StoreProductService {
   constructor(public httpClient: HttpClient) { }
 
   // 获取产品列表
-  getProduct(page: number, per_page: number, keyword: any): Observable<ProductResponseListResponseModel> {
+  getProduct(page: number, per_page: number): Observable<ProductResponseListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
-      .set('keyword', keyword ? keyword : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -35,13 +34,17 @@ export class StoreProductService {
       )
   }
 
+
+
   // 添加产品
-  createProduct(productModel: ProductModel): Observable<ProductResponseModel> {
-    return this.httpClient.post<ProductResponseModel>(this.urls.PostStoreProductCreate, productModel, httpOptions)
+  createProduct(addStoreProductModel: AddStoreProductModel): Observable<AddProductResponseModel> {
+    return this.httpClient.post<AddProductResponseModel>(this.urls.PostStoreProductCreate, addStoreProductModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+
 
   // 获取产品详情
   getProductDetail(id: any) {
@@ -51,9 +54,12 @@ export class StoreProductService {
       )
   }
 
+
+
+
   // 修改产品
-  updateProduct(productModel: ProductModel) {
-    return this.httpClient.put<ProductResponseModel>(this.urls.PutStoreProductUpdate + productModel.id, productModel, httpOptions)
+  updateProduct(detailModel: DetailModel) {
+    return this.httpClient.put<AddProductResponseModel>(this.urls.PutStoreProductUpdate + detailModel.id, detailModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

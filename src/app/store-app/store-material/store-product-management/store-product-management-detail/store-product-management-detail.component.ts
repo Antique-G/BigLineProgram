@@ -1,34 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StoreProductManagementComponent } from '../store-product-management.component';
 import { isNumber, isFloat } from '../../../../util/validators';
-import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
-import { AddStoreProductModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
-import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
-
-
+import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
+import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
+import { DetailModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
 
 @Component({
-  selector: 'app-store-product-management-create',
-  templateUrl: './store-product-management-create.component.html',
-  styleUrls: ['./store-product-management-create.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-store-product-management-detail',
+  templateUrl: './store-product-management-detail.component.html',
+  styleUrls: ['./store-product-management-detail.component.css']
 })
-
-export class StoreProductManagementCreateComponent implements OnInit {
+export class StoreProductManagementDetailComponent implements OnInit {
   addForm!: FormGroup;
-  confirmValue = 0;//是否需要客服确认：0/否，1/是
-  payMethodValue = 1;//支付方式：1/在线支付,2/景区现付
-
   selectedPlace: any[] = [];
   selectedTag: any[] = [];;
   assemblingPlaceList: any[] = [];
   tagList: any[] = [];
-
-  addStoreProductModel: AddStoreProductModel;
-
+  detailData: any;
+  dataProductDetailModel: any;
+  detailUpdateModel: DetailModel;  //更新
+  disabled = true;
 
 
   validationMessage: any = {
@@ -54,23 +47,23 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
     },
     adult_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入非零的正整数',
       'required': '请输入成人价格！'
     },
     child_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入非零的正整数',
       'required': '请输入儿童价格！'
     },
     original_adult_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入非零的正整数',
       'required': '请输入成人原价！'
     },
     original_child_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入非零的正整数',
       'required': '请输入儿童原价！'
     },
     difference_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入非零的正整数',
       'required': '请输入补差价！'
     },
   };
@@ -88,13 +81,15 @@ export class StoreProductManagementCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreProductManagementComponent>,
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreProductManagementDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public storeProductService: StoreProductService,
     public storeProductTagService: StoreProductTagService,
     public storeMeetingPlaceService: StoreMeetingPlaceService) {
-
+    this.detailData = data;
+    console.log(" this.detailData", this.detailData)
     this.buildForm();
-    this.addStoreProductModel = {
+
+    this.detailUpdateModel = {
       title: '',
       region_code: '',
       earlier: 0,
@@ -107,13 +102,14 @@ export class StoreProductManagementCreateComponent implements OnInit {
       original_adult_price: 0,
       original_child_price: 0,
       difference_price: 0,
+      assembling_place_id: [],
       feature: '',
       details: '',
       fee: '',
       notice: '',
-      assembling_place_id: [],
-      tag_id: [],
+      tag_id: []
     }
+
   }
 
   buildForm(): void {
@@ -152,6 +148,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.getTagList();
+
   }
 
 
@@ -179,9 +176,10 @@ export class StoreProductManagementCreateComponent implements OnInit {
         let a = { value: i.id, label: i.name };
         this.assemblingPlaceList.push(a);
       }
+      this.getProductDetail();
+
     });
   }
-
 
 
   // 表单验证
@@ -211,26 +209,27 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
 
   setValue() {
-    this.addStoreProductModel.title = this.addForm.value.title;
-    this.addStoreProductModel.region_code = this.addForm.value.region_code
-    this.addStoreProductModel.earlier = this.addForm.value.earlier
-    this.addStoreProductModel.confirm = this.addForm.value.confirm
-    this.addStoreProductModel.pay_method = this.addForm.value.pay_method
-    this.addStoreProductModel.few_days = this.addForm.value.few_days;
-    this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
-    this.addStoreProductModel.adult_price = this.addForm.value.adult_price;
-    this.addStoreProductModel.child_price = this.addForm.value.child_price;
-    this.addStoreProductModel.original_adult_price = this.addForm.value.original_adult_price;
-    this.addStoreProductModel.original_child_price = this.addForm.value.original_child_price;
-    this.addStoreProductModel.difference_price = this.addForm.value.difference_price;
-    this.addStoreProductModel.feature = this.addForm.value.feature;
-    this.addStoreProductModel.details = this.addForm.value.details;
-    this.addStoreProductModel.fee = this.addForm.value.fee;
-    this.addStoreProductModel.notice = this.addForm.value.notice;
+    this.detailUpdateModel.title = this.addForm.value.title;
+    this.detailUpdateModel.region_code = this.addForm.value.region_code
+    this.detailUpdateModel.earlier = this.addForm.value.earlier
+    this.detailUpdateModel.confirm = this.addForm.value.confirm
+    this.detailUpdateModel.pay_method = this.addForm.value.pay_method
+    this.detailUpdateModel.few_days = this.addForm.value.few_days;
+    this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
+    this.detailUpdateModel.adult_price = this.addForm.value.adult_price;
+    this.detailUpdateModel.child_price = this.addForm.value.child_price;
+    this.detailUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
+    this.detailUpdateModel.original_child_price = this.addForm.value.original_child_price;
+    this.detailUpdateModel.difference_price = this.addForm.value.difference_price;
+    this.detailUpdateModel.feature = this.addForm.value.feature;
+    this.detailUpdateModel.details = this.addForm.value.details;
+    this.detailUpdateModel.fee = this.addForm.value.fee;
+    this.detailUpdateModel.notice = this.addForm.value.notice;
+    // this.detailUpdateModel.status = parseInt(this.addForm.value.status);
   }
 
 
-  addProduct() {
+  updateProduct() {
     this.setValue();
     // 验证表单
     for (const i in this.addForm.controls) {
@@ -238,36 +237,81 @@ export class StoreProductManagementCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-      // 添加
-      this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
+      this.detailUpdateModel.id = this.dataProductDetailModel.id;
+      console.log("更新的model是", this.detailUpdateModel);
+      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         console.log("res结果", res);
-        if (res === null) {
-          alert("创建成功");
-          this.dialogRef.close(1);
+        if (res?.status_code) {
+          alert("更新失败");
         }
         else {
-          alert("创建失败，请重新填写")
+          alert("更新成功");
+          this.dialogRef.close(1);
         }
       })
-    }
 
+    }
   }
 
 
-close() {
-  this.dialogRef.close();
-}
+  getProductDetail() {
+    this.storeProductService.getProductDetail(this.detailData.id).subscribe(res => {
+      console.log('res.data', res);
+      this.dataProductDetailModel = res.data;
+      this.setFormValue();
+    })
+  }
 
-changePlace(a: any): void {
-  console.log('选择的值是sss', a);
-  this.addStoreProductModel.assembling_place_id = a;
-}
 
-changeTag(a: any): void {
-  console.log('选择的值是vvv', a);
-  this.addStoreProductModel.tag_id = a;
-}
+  setFormValue() {
+    console.log("拿到的值是", this.dataProductDetailModel)
+    this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('region_code')?.setValue(this.dataProductDetailModel.region_code);
+    this.addForm.get('earlier')?.setValue(this.dataProductDetailModel.earlier);
+    this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
+    this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
+    this.addForm.get('adult_price')?.setValue(this.dataProductDetailModel.adult_price);
+    this.addForm.get('child_price')?.setValue(this.dataProductDetailModel.child_price);
+    this.addForm.get('original_adult_price')?.setValue(this.dataProductDetailModel.original_adult_price);
+    this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
+    this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
+    this.addForm.get('feature')?.setValue(this.dataProductDetailModel.feature);
+    this.addForm.get('fee')?.setValue(this.dataProductDetailModel.fee);
+    this.addForm.get('notice')?.setValue(this.dataProductDetailModel.notice);
+    this.addForm.get('details')?.setValue(this.dataProductDetailModel.details);
+    console.log("this.dataProductDetailModel.assembling_place.data", this.dataProductDetailModel.assembling_place.data)
+    let a = this.dataProductDetailModel.assembling_place.data;
+    let aNums: any[] = []
+    for (let int of a) {
+      aNums.push(int.id)
+      this.selectedPlace = aNums;
+    }
+    console.log("this.selectedPlace", this.selectedPlace);
+    let b = this.dataProductDetailModel.tag.data;
+    let bNums: any[] = []
+    for (let ints of b) {
+      bNums.push(ints.id)
+      this.selectedTag = bNums
+    }
+    console.log("this.selectedTag", this.selectedTag);
 
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+
+
+  changePlace(a: any): void {
+    console.log('选择的值是sss', a);
+    this.detailUpdateModel.assembling_place_id = a;
+  }
+
+  changeTag(a: any): void {
+    console.log('选择的值是vvv', a);
+    this.detailUpdateModel.tag_id = a;
+  }
 
 }
 
