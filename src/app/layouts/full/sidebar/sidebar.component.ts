@@ -13,6 +13,9 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   public pathName: any;
 
+  userName: any;
+  mobile: any;
+
 
   private _mobileQueryListener: () => void;
 
@@ -34,6 +37,8 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
     // console.log('获取值', location.pathname);
     this.pathName = (location.pathname).slice(1, 6);
     // console.log("this.pathName",this.pathName);
+    this.userName = localStorage.getItem("account");
+    this.mobile = localStorage.getItem("mobile");
   }
 
 
@@ -55,7 +60,7 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
 
   storeLogOut() {
     this.storeLoginService.storeLogout().subscribe(res => {
-      console.log("jieguo ",res);
+      console.log("jieguo ", res);
       alert(res.message);
       this.adminLoginService.removeToken();
       localStorage.removeItem('mobile');
