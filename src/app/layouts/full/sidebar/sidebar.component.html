@@ -3,14 +3,8 @@
 
     <div class="profile-img"> <img src="assets/images/users/profile.png" alt="user"> </div>
 
-    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> 用户名 <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon> Settings </button>
-        <button mat-menu-item>
-            <mat-icon>account_box</mat-icon> Profile </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon> Disable notifications </button>
         <button mat-menu-item (click)="logOut()">
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
@@ -38,14 +32,8 @@
 
     <div class="profile-img"> <img src="assets/images/users/profile.png" alt="user"> </div>
 
-    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> 用户名 <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{mobile}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon> Settings </button>
-        <button mat-menu-item>
-            <mat-icon>account_box</mat-icon> Profile </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon> Disable notifications </button>
         <button mat-menu-item (click)="storeLogOut()">
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
