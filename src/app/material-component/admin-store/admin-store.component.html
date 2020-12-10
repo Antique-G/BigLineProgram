@@ -38,7 +38,10 @@
                                     <th style="text-align: center;">座机号码</th>
                                     <th style="text-align: center;">传真</th>
                                     <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">店铺账号管理</th>
+                                    <th style="text-align: center;">店铺银行账号管理</th>
                                     <th style="text-align: center;">操作</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,7 +63,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)">
+                                        <div style="cursor: pointer;" (click)="account(data)" title="账号详情">
+                                            <mat-icon>assignment</mat-icon>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="bankAccount(data)" title="银行账号详情">
+                                            <mat-icon>assignment</mat-icon>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="edit(data)" title="更新">
                                             <mat-icon>edit</mat-icon>
                                         </div>
                                     </td>

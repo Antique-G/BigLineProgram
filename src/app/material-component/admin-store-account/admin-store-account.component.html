@@ -3,56 +3,45 @@
         <mat-card>
             <div style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div>
+                    <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加</button>
+                        <button mat-raised-button color="primary" style="letter-spacing:2px" routerLink="/admin/main/store">返回店铺管理</button>
                     </div>
-                    <form [formGroup]="nameForm" >
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=50>
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>帐号ID:</mat-label>
-                                    <input matInput placeholder="请输入帐号ID" value="" formControlName="store_id" required>
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex=20>
-                                <button mat-raised-button color="primary" style="width:50px; letter-spacing:2px" (click)="search()">搜索</button>
-                            </div>
-                        </div>
-                    </form>
                     <div class="mat-elevation-z8" class="storeListBox">
-                        <nz-table #borderedTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageSizeChange)="changePageSize($event)" (nzPageIndexChange)="changePageIndex($event)">
+                        <nz-table #borderedTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageSizeChange)="changePageSize($event)"
+                            (nzPageIndexChange)="changePageIndex($event)">
                             <thead>
-                              <tr>
-                                <th>商户id</th>
-                                <th>姓名</th>
-                                <th>手机号码</th>
-                                <th>邮箱地址</th>
-                                <th>状态</th>
-                                <th>编辑</th>
-                              </tr>
+                                <tr>
+                                    <th>商户id</th>
+                                    <th>姓名</th>
+                                    <th>手机号码</th>
+                                    <th>邮箱地址</th>
+                                    <th>状态</th>
+                                    <th>编辑</th>
+                                </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let data of borderedTable.data">
-                                <td>{{ data.account_id }}</td>
-                                <td>{{ data.name }}</td>
-                                <td>{{ data.mobile }}</td>
-                                <td>{{ data.email }}</td>
-                                <td>
-                                    <div *ngIf = "data.status === 0">
-                                        暂停
-                                    </div>
-                                    <div *ngIf = "data.status === 1">
-                                        开启
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="cursor" (click)="edit(data)">
-                                        <mat-icon>edit</mat-icon>
-                                    </div>
-                                </td>
-                              </tr>
+                                <tr *ngFor="let data of borderedTable.data">
+                                    <td>{{ data.account_id }}</td>
+                                    <td>{{ data.name }}</td>
+                                    <td>{{ data.mobile }}</td>
+                                    <td>{{ data.email }}</td>
+                                    <td>
+                                        <div *ngIf="data.status === 0">
+                                            暂停
+                                        </div>
+                                        <div *ngIf="data.status === 1">
+                                            开启
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="cursor" (click)="edit(data)">
+                                            <mat-icon>edit</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
-                          </nz-table>
+                        </nz-table>
                     </div>
                 </div>
             </div>

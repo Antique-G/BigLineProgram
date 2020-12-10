@@ -27,11 +27,11 @@ export const MaterialRoutes: Routes = [
         component: AdminStoreComponent
       },
       {
-        path: 'storeAccount',
+        path: 'store/storeAccount',
         component: AdminStoreAccountComponent
       },
       {
-        path: 'storeBankAccount',
+        path: 'store/storeBankAccount',
         component: AdminStoreBankAccountComponent
       },
       {

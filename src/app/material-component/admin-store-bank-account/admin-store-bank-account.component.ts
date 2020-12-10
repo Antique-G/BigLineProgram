@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { AdminStoreBankAccountListRequestModel } from '../../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
+import { ActivatedRoute } from '@angular/router';
 import { AdminStoreBankAccountService } from '../../../services/admin/admin-store-bank-account.service';
 import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account-create/admin-store-bank-account-create.component';
 import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account-detail/admin-store-bank-account-detail.component';
@@ -14,7 +12,6 @@ import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account
   styleUrls: ['./admin-store-bank-account.component.css']
 })
 export class AdminStoreBankAccountComponent implements OnInit {
-  nameForm: FormGroup;
   dataSource = [];
   page = 1;
   per_page = 10;
@@ -22,20 +19,20 @@ export class AdminStoreBankAccountComponent implements OnInit {
   loading = false;
   store_id: any;
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreBankAccountService: AdminStoreBankAccountService) {
-    this.nameForm = fb.group({
-      storeId: ['', [Validators.required]]
-    });
+  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminStoreBankAccountService: AdminStoreBankAccountService) {
   }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.store_id = JSON.parse(params["id"]);
+    });
+    this.search();
   }
 
 
   search(): void {
     this.loading = true;
-    this.store_id = this.nameForm.value.storeId;
-    console.log("this.store_id",this.store_id);
+    console.log("this.store_id", this.store_id);
     this.adminStoreBankAccountService.storeBankList(this.store_id, this.page, this.per_page).subscribe((result: any) => {
       this.loading = false;
       this.total = result.total;   //总页数
