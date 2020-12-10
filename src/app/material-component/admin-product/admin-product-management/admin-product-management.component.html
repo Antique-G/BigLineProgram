@@ -38,16 +38,16 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.status===0">
+                                        <div *ngIf="data.check_status===0">
                                             未提交审核
                                         </div>
-                                        <div *ngIf="data.status===1">
+                                        <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
-                                        <div *ngIf="data.status===2">
+                                        <div *ngIf="data.check_status===2">
                                             已通过
                                         </div>
-                                        <div *ngIf="data.status===3">
+                                        <div *ngIf="data.check_status===3">
                                             未通过
                                         </div>
                                     </td>
@@ -57,7 +57,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.status!=0" (click)="edit(data)" title="审核">
+                                        <div style="cursor: pointer;" *ngIf="data.check_status!=0" (click)="review(data)" title="审核">
                                             <mat-icon>assignment</mat-icon>
                                         </div>
                                     </td>

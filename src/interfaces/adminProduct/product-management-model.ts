@@ -47,14 +47,14 @@ export interface AdminProductManagementUpdateModel {
     original_adult_price: number;
     original_child_price: number;
     difference_price: number;
-    assembling_place_id: number[];
+    assembling_place_id: [];
     feature: string;
     details: string;
     fee: string;
     notice: string;
     status: number;
-    tag_id: number[];
-    id?: number;
+    tag_id: [];
+    id?: any;
 }
 
 export interface AdminProductSetStatusModel {
@@ -73,6 +73,10 @@ export interface AdminProductResponseModel {
 }
 
 export interface AdminProductDetailResponseModel {
+    data: DataProductDetailModel;
+}
+
+export interface DataProductDetailModel {
     id?: number;
     title: string;
     store_id: number;

@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNumber, isFloat } from '../../../../util/validators';
-import { AdminProductDetailResponseModel, Datum2 } from '../../../../../interfaces/adminProduct/product-management-model';
+import { AdminProductManagementUpdateModel, DataProductDetailModel, Datum2 } from '../../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../../services/admin/admin-product-management.service';
-
-
+import { AdminProductTagService } from '../../../../../services/admin/admin-product-tag.service';
+import { AdminMeetingPlaceService } from '../../../../../services/admin/admin-meeting-place.service';
 
 @Component({
   selector: 'app-admin-product-management-detail',
@@ -14,14 +14,14 @@ import { AdminProductManagementService } from '../../../../../services/admin/adm
 })
 export class AdminProductManagementDetailComponent implements OnInit {
   addForm!: FormGroup;
-  statusValue = 0;//状态：0/禁用，1/启用
-  confirmValue = 0;//是否需要客服确认：0/否，1/是
-  payMethodValue = 1;//支付方式：1/在线支付,2/景区现付
+  selectedPlace: any[] = [];
+  selectedTag: any[] = [];;
+  assemblingPlaceList: any[] = [];
+  tagList: any[] = [];
   detailData: any;
-  assemblingPlaceList = [{ label: '待生成', value: 0 }, { label: '已生成', value: 1 }, { label: '待审批', value: 2 }, { label: '审批通过', value: 3 }];
-  adminProductDetailResponseModel: AdminProductDetailResponseModel;
-  assemblingModel: any;
-  tagModel: any;
+  dataProductDetailModel: any;
+  adminProductManagementUpdateModel: AdminProductManagementUpdateModel;
+
 
   validationMessage: any = {
     title: {
@@ -81,20 +81,14 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductManagementDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public adminProductManagementService: AdminProductManagementService,) {
+    public adminProductManagementService: AdminProductManagementService,
+    public adminProductTagService: AdminProductTagService,
+    public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.detailData = data;
     this.buildForm();
-    this.tagModel = {
-      id: 0,
-      name: ''
-    }
-    this.assemblingModel = {
-      id: 0,
-      name: '',
-    }
-    this.adminProductDetailResponseModel = {
+
+    this.adminProductManagementUpdateModel = {
       title: '',
-      store_id: 0,
       region_code: '',
       earlier: 0,
       confirm: 0,
@@ -103,23 +97,16 @@ export class AdminProductManagementDetailComponent implements OnInit {
       few_nights: 0,
       adult_price: 0,
       child_price: 0,
-      minimum_price: 0,
-      maximum_price: 0,
       original_adult_price: 0,
       original_child_price: 0,
-      original_minimum_price: 0,
-      original_maximum_price: 0,
       difference_price: 0,
+      assembling_place_id: [],
       feature: '',
       details: '',
       fee: '',
       notice: '',
       status: 0,
-      check_status: 0,
-      created_at: '',
-      updated_at: '',
-      assembling_place: this.assemblingModel,
-      tag: this.tagModel
+      tag_id: []
     }
 
   }
@@ -159,8 +146,36 @@ export class AdminProductManagementDetailComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
-    // 修改的情况下 获取产品详情
-    this.data ? this.getProductDetail() : '';
+    this.getTagList();
+  }
+
+
+  // 标签  --按顺序执行
+  getTagList() {
+    this.adminProductTagService.getProductTagList().subscribe(res => {
+      console.log("标签", res.data);
+      for (let i of res.data) {
+        console.log('iiiiii', i);
+        let a = { value: i.id, label: i.name };
+        this.tagList.push(a);
+      }
+      this.getAccemList();
+    }
+    )
+  }
+
+
+  // 集合地点
+  getAccemList() {
+    this.adminMeetingPlaceService.adminMeetingPlaceList(1, 1000).subscribe(res => {
+      console.log("集合地点", res.data);
+      for (let i of res.data) {
+        console.log('iiiiii', i);
+        let a = { value: i.id, label: i.name };
+        this.assemblingPlaceList.push(a);
+      }
+      this.getProductDetail();
+    });
   }
 
 
@@ -191,27 +206,27 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
 
   setValue() {
-    this.adminProductDetailResponseModel.title = this.addForm.value.title;
-    this.adminProductDetailResponseModel.region_code = this.addForm.value.region_code
-    this.adminProductDetailResponseModel.earlier = this.addForm.value.earlier
-    this.adminProductDetailResponseModel.confirm = this.addForm.value.confirm
-    this.adminProductDetailResponseModel.pay_method = this.addForm.value.pay_method
-    this.adminProductDetailResponseModel.few_days = this.addForm.value.few_days;
-    this.adminProductDetailResponseModel.few_nights = this.addForm.value.few_nights;
-    this.adminProductDetailResponseModel.adult_price = this.addForm.value.adult_price;
-    this.adminProductDetailResponseModel.child_price = this.addForm.value.child_price;
-    this.adminProductDetailResponseModel.original_adult_price = this.addForm.value.original_adult_price;
-    this.adminProductDetailResponseModel.original_child_price = this.addForm.value.original_child_price;
-    this.adminProductDetailResponseModel.difference_price = this.addForm.value.difference_price;
-    this.adminProductDetailResponseModel.feature = this.addForm.value.feature;
-    this.adminProductDetailResponseModel.details = this.addForm.value.details;
-    this.adminProductDetailResponseModel.fee = this.addForm.value.fee;
-    this.adminProductDetailResponseModel.notice = this.addForm.value.notice;
-    this.adminProductDetailResponseModel.status = this.addForm.value.status;
+    this.adminProductManagementUpdateModel.title = this.addForm.value.title;
+    this.adminProductManagementUpdateModel.region_code = this.addForm.value.region_code
+    this.adminProductManagementUpdateModel.earlier = this.addForm.value.earlier
+    this.adminProductManagementUpdateModel.confirm = this.addForm.value.confirm
+    this.adminProductManagementUpdateModel.pay_method = this.addForm.value.pay_method
+    this.adminProductManagementUpdateModel.few_days = this.addForm.value.few_days;
+    this.adminProductManagementUpdateModel.few_nights = this.addForm.value.few_nights;
+    this.adminProductManagementUpdateModel.adult_price = this.addForm.value.adult_price;
+    this.adminProductManagementUpdateModel.child_price = this.addForm.value.child_price;
+    this.adminProductManagementUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
+    this.adminProductManagementUpdateModel.original_child_price = this.addForm.value.original_child_price;
+    this.adminProductManagementUpdateModel.difference_price = this.addForm.value.difference_price;
+    this.adminProductManagementUpdateModel.feature = this.addForm.value.feature;
+    this.adminProductManagementUpdateModel.details = this.addForm.value.details;
+    this.adminProductManagementUpdateModel.fee = this.addForm.value.fee;
+    this.adminProductManagementUpdateModel.notice = this.addForm.value.notice;
+    this.adminProductManagementUpdateModel.status = this.addForm.value.status;
   }
 
 
-  addProduct() {
+  updateProduct() {
     this.setValue();
     // 验证表单
     for (const i in this.addForm.controls) {
@@ -219,66 +234,64 @@ export class AdminProductManagementDetailComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-      if (this.data) {
-        // 修改
-        // this.storeProductService.updateProduct(this.adminProductDetailResponseModel).subscribe(res => {
-        //   console.log("res结果", res);
-        //   // if (res === null) {
-        //   //   alert("创建成功");
-        //   //   this.dialogRef.close(1);
-        //   // }
-        //   // else{
-        //   //   alert("创建失败，请重新填写")
-        //   // }
-        // })
-      } else {
-        console.log("添加");
-        // 添加
-        // this.storeProductService.createProduct(this.adminProductDetailResponseModel).subscribe(res => {
-        //   console.log("res结果", res);
-        //   if (res === null) {
-        //     alert("创建成功");
-        //     this.dialogRef.close(1);
-        //   }
-        //   else {
-        //     alert("创建失败，请重新填写")
-        //   }
-        // })
-      }
+      this.adminProductManagementUpdateModel.id = this.dataProductDetailModel.id;
+      console.log("更新的model是", this.adminProductManagementUpdateModel);
+      this.adminProductManagementService.updateProduct(this.adminProductManagementUpdateModel).subscribe(res => {
+        console.log("res结果", res);
+        if (res.status_code) {
+          alert("更新失败");
+        }
+        else {
+          alert("更新成功");
+          this.dialogRef.close(1);
+        }
+      })
 
     }
   }
 
+
   getProductDetail() {
     this.adminProductManagementService.productDetail(this.detailData.id).subscribe(res => {
       console.log('res.data', res);
-      // let obj: any = res.data
-      // console.log('res.data', res.data);
-      // console.log('obj', obj);
-      // this.adminProductDetailResponseModel = obj;
+      this.dataProductDetailModel = res.data;
       this.setFormValue();
     })
   }
 
+
   setFormValue() {
-    this.addForm.get('title')?.setValue(this.adminProductDetailResponseModel.title);
-    this.addForm.get('region_code')?.setValue(this.adminProductDetailResponseModel.region_code);
-    this.addForm.get('earlier')?.setValue(this.adminProductDetailResponseModel.earlier);
-    this.addForm.controls['few_days'].setValue(this.adminProductDetailResponseModel.few_days);
-    this.addForm.get('few_nights')?.setValue(this.adminProductDetailResponseModel.few_nights);
-    this.addForm.get('adult_price')?.setValue(this.adminProductDetailResponseModel.adult_price);
-    this.addForm.get('child_price')?.setValue(this.adminProductDetailResponseModel.child_price);
-    this.addForm.get('original_adult_price')?.setValue(this.adminProductDetailResponseModel.original_adult_price);
-    this.addForm.get('original_child_price')?.setValue(this.adminProductDetailResponseModel.original_child_price);
-    this.addForm.get('difference_price')?.setValue(this.adminProductDetailResponseModel.difference_price);
-    this.addForm.get('feature')?.setValue(this.adminProductDetailResponseModel.feature);
-    this.addForm.get('details')?.setValue(this.adminProductDetailResponseModel.details);
-    this.addForm.get('fee')?.setValue(this.adminProductDetailResponseModel.fee);
-    this.addForm.get('notice')?.setValue(this.adminProductDetailResponseModel.notice);
-    this.statusValue = this.adminProductDetailResponseModel.status;//状态：0/禁用，1/启用
-    this.confirmValue = this.adminProductDetailResponseModel.confirm;//是否需要客服确认：0/否，1/是
-    this.payMethodValue = this.adminProductDetailResponseModel.pay_method;//支付方式：1/在线支付,2/景区现付
-    console.log(this.adminProductDetailResponseModel.pay_method.toString(), this.adminProductDetailResponseModel.confirm.toString(), this.adminProductDetailResponseModel.status.toString());
+    console.log("拿到的值是", this.dataProductDetailModel)
+    this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('region_code')?.setValue(this.dataProductDetailModel.region_code);
+    this.addForm.get('earlier')?.setValue(this.dataProductDetailModel.earlier);
+    this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
+    this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
+    this.addForm.get('adult_price')?.setValue(this.dataProductDetailModel.adult_price);
+    this.addForm.get('child_price')?.setValue(this.dataProductDetailModel.child_price);
+    this.addForm.get('original_adult_price')?.setValue(this.dataProductDetailModel.original_adult_price);
+    this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
+    this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
+    this.addForm.get('feature')?.setValue(this.dataProductDetailModel.feature);
+    this.addForm.get('fee')?.setValue(this.dataProductDetailModel.fee);
+    this.addForm.get('notice')?.setValue(this.dataProductDetailModel.notice);
+    this.addForm.get('details')?.setValue(this.dataProductDetailModel.details);
+    console.log("this.dataProductDetailModel.assembling_place.data", this.dataProductDetailModel.assembling_place.data)
+    let a = this.dataProductDetailModel.assembling_place.data;
+    let aNums: any[] = []
+    for (let int of a) {
+      aNums.push(int.id)
+      this.selectedPlace = aNums;
+    }
+    console.log("this.selectedPlace", this.selectedPlace);
+    let b = this.dataProductDetailModel.tag.data;
+    let bNums: any[] = []
+    for (let ints of b) {
+      bNums.push(ints.id)
+      this.selectedTag = bNums
+    }
+    console.log("this.selectedTag", this.selectedTag);
+
   }
 
   close() {
@@ -287,7 +300,15 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
 
 
-  // 集合地点
+  changePlace(a: any): void {
+    console.log('选择的值是sss', a);
+    this.adminProductManagementUpdateModel.assembling_place_id = a;
+  }
+
+  changeTag(a: any): void {
+    console.log('选择的值是vvv', a);
+    this.adminProductManagementUpdateModel.tag_id = a;
+  }
 
 }
 
