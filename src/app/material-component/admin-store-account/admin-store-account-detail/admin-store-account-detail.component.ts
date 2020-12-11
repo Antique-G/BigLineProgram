@@ -134,11 +134,11 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     this.adminStoreAccountService.updateStoreAccount(this.storeAccountDetailUpdateRequestModel).subscribe(res => {
       console.log("res结果", res);
       if (res.status_code) {
-        alert("修改失败");
+        // alert("修改失败");
       }
       else {
         alert("修改成功");
-        this.dialogRef.close(1);
+        // this.dialogRef.close(1);
       }
     })
   }

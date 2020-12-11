@@ -43,12 +43,6 @@ export class AdminDetailComponent implements OnInit {
     public adminAdminService: AdminAdminService) {
     this.adminDetailModel = this.data;
     this.forms();
-    // this.addForm = this.fb.group({
-    //   account: [this.adminDetailModel.account, [Validators.required]],
-    //   name: [this.adminDetailModel.real_name, [Validators.required]],
-    //   phoneNumber: [this.adminDetailModel.mobile, [Validators.required]],
-    //   status: [this.adminDetailModel.status, [Validators.required]]
-    // });
     this.updateRequestModel = {
       real_name: '',
       mobile: '',
@@ -126,11 +120,11 @@ export class AdminDetailComponent implements OnInit {
       this.adminAdminService.updateUser(this.updateRequestModel).subscribe(res => {
         console.log("res", res);
         if (res === null) {
-          alert("更新成功");
+          // alert("更新成功");
           this.dialogRef.close(1);
         }
         else {
-          alert("更新失败");
+          // alert("更新失败");
         }
       })
     }

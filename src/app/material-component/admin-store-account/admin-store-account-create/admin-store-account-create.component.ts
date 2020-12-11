@@ -131,9 +131,9 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       this.adminStoreAccountService.addStoreAccount(this.addStoreAccountRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res.status_code) {
-          alert("创建失败，请重新填写")
+          // alert("创建失败，请重新填写")
         } else {
-          alert("创建成功");
+          // alert("创建成功");
           this.dialogRef.close(1);   //如果创建成功就传一个1,父组件收到创建成功传的结果是1时调用帐号列表方法（search()）更新页面数据
         }
       })
