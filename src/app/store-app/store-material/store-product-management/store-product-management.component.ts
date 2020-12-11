@@ -56,14 +56,15 @@ export class StoreProductManagementComponent implements OnInit {
 
 
   addProduct() {
-    const dialogRef = this.dialog.open(StoreProductManagementCreateComponent, {
-      width: '800px'
-    })
-    dialogRef.afterClosed().subscribe(result => {
-      if(result!=undefined){
-        this.getProductList();
-       }
-    })
+    // const dialogRef = this.dialog.open(StoreProductManagementCreateComponent, {
+    //   width: '800px'
+    // })
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(result!=undefined){
+    //     this.getProductList();
+    //    }
+    // })
+    this.router.navigate(['/store/main/storeProduct/create']);
   }
 
 
@@ -88,7 +89,7 @@ export class StoreProductManagementComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log(data);
-    this.router.navigate(['/store/main/storeQuote'], { queryParams: { productId: data.id } });
+    this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id } });
   }
 
 

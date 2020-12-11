@@ -1,12 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StoreProductManagementComponent } from '../store-product-management.component';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
 import { AddStoreProductModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
 import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
+import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 
 
 
@@ -18,6 +17,12 @@ import { StoreMeetingPlaceService } from '../../../../../services/store/store-me
 })
 
 export class StoreProductManagementCreateComponent implements OnInit {
+  // 区域联动
+  nzOptions: any[] | null = null;
+  values: any[] | null = null;
+  idRegion: any;
+
+
   addForm!: FormGroup;
   confirmValue = 0;//是否需要客服确认：0/否，1/是
   payMethodValue = 1;//支付方式：1/在线支付,2/景区现付
@@ -88,10 +93,11 @@ export class StoreProductManagementCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreProductManagementComponent>,
+  constructor(public fb: FormBuilder,
     public storeProductService: StoreProductService,
     public storeProductTagService: StoreProductTagService,
-    public storeMeetingPlaceService: StoreMeetingPlaceService) {
+    public storeMeetingPlaceService: StoreMeetingPlaceService,
+    public storeRegionService: StoreRegionService,) {
 
     this.buildForm();
     this.addStoreProductModel = {
@@ -136,7 +142,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
       notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
       tag_id: ['', [Validators.required]],
-      status: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -152,6 +157,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.getTagList();
+
   }
 
 
@@ -179,9 +185,18 @@ export class StoreProductManagementCreateComponent implements OnInit {
         let a = { value: i.id, label: i.name };
         this.assemblingPlaceList.push(a);
       }
+      this.regionList();
     });
+
   }
 
+  // 区域
+  regionList() {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      console.log("结果是", res);
+      this.nzOptions = res;
+    })
+  }
 
 
   // 表单验证
@@ -233,6 +248,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
   addProduct() {
     this.setValue();
     // 验证表单
+    console.log("this.addForm",this.addForm)
+    this.addStoreProductModel.region_code = this.idRegion;
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
@@ -243,7 +260,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
-          this.dialogRef.close(1);
+
         }
         else {
           // alert("创建失败，请重新填写");
@@ -254,19 +271,24 @@ export class StoreProductManagementCreateComponent implements OnInit {
   }
 
 
-close() {
-  this.dialogRef.close();
-}
+  changePlace(a: any): void {
+    console.log('选择的值是sss', a);
+    this.addStoreProductModel.assembling_place_id = a;
+  }
 
-changePlace(a: any): void {
-  console.log('选择的值是sss', a);
-  this.addStoreProductModel.assembling_place_id = a;
-}
+  changeTag(a: any): void {
+    console.log('选择的值是vvv', a);
+    this.addStoreProductModel.tag_id = a;
+  }
 
-changeTag(a: any): void {
-  console.log('选择的值是vvv', a);
-  this.addStoreProductModel.tag_id = a;
-}
+
+  onChanges(values: any): void {
+    console.log("点击的结果是", values);
+    console.log("this.values", this.values);
+    if (values !== null) {
+      this.idRegion = values[values.length - 1];
+    }
+  }
 
 
 }

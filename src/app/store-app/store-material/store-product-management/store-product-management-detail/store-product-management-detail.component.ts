@@ -133,7 +133,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
       notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
       tag_id: ['', [Validators.required]],
-      status: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
