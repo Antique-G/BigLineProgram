@@ -21,6 +21,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
   detailData: any;
   dataProductDetailModel: any;
   adminProductManagementUpdateModel: AdminProductManagementUpdateModel;
+  public isSpinning: any = true;
 
 
   validationMessage: any = {
@@ -256,6 +257,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
       console.log('res.data', res);
       this.dataProductDetailModel = res.data;
       this.setFormValue();
+      this.isSpinning = false;
     })
   }
 

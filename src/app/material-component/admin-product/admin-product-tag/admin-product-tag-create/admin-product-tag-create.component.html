@@ -6,14 +6,14 @@
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>产品标签</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入产品标签！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
                     <input nz-input formControlName="name" />
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cate_id" nzRequired>分类</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择分类！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.cate_id">
                     <nz-select formControlName="cate_id" (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="请选择分类！">
                         <nz-option *ngFor="let option of optionList" [nzValue]="option.id" [nzLabel]="option.label"></nz-option>
                     </nz-select>
