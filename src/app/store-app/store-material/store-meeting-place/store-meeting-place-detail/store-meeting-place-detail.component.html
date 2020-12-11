@@ -7,20 +7,20 @@
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>集合地点名称</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入集合地点名称！">
+                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.name">
                     <input nz-input formControlName="name" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
+                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.regionCode">
                     <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>具体地址</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入具体地址！">
+                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.address">
                     <input nz-input formControlName="address" />
                 </nz-form-control>
             </nz-form-item>
