@@ -6,14 +6,14 @@
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入用户名！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.account">
                     <input nz-input formControlName="account" />
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入密码！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.password">
                     <input nz-input type="password" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
                 </nz-form-control>
             </nz-form-item>
@@ -33,13 +33,13 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>真实姓名</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入真实姓名！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
                     <input nz-input formControlName="name" />
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>手机号</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入您的手机号！">
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.phoneNumber">
                     <input nz-input formControlName="phoneNumber" />
                 </nz-form-control>
             </nz-form-item>

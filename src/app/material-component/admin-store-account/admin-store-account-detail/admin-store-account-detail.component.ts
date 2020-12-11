@@ -1,10 +1,11 @@
 import { AdminStoreAccountService } from './../../../../services/admin/admin-store-account.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, AbstractControl, ValidatorFn,Validators  } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { Observable, Observer } from 'rxjs';
 import { DataDetailStoreAccountResponseModel, StoreAccountDetailUpdateRequestModel } from '../../../../interfaces/adminStoreAccount/admin-store-account-model';
+import { isNumber } from '../../../../app/util/validators';
+
+
 @Component({
   selector: 'app-admin-store-account-detail',
   templateUrl: './admin-store-account-detail.component.html',
@@ -12,69 +13,38 @@ import { DataDetailStoreAccountResponseModel, StoreAccountDetailUpdateRequestMod
 })
 
 export class AdminStoreAccountDetailComponent implements OnInit {
-  detaileForm: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
-  status =3; 
+  detaileForm!: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
+  status = 3;
   storeAccountDetailUpdateRequestModel: StoreAccountDetailUpdateRequestModel;
   dataDetailStoreAccountResponseModel: DataDetailStoreAccountResponseModel;
 
-  //表单验证初始输入内容不能为空
-  autoTips: Record<string, Record<string, string>> = {
-    'zh-cn': {
-      required: '内容不能为空'
+
+  validationMessage: any = {
+    name: {
+      'maxlength': '用户名长度最多为64个字符',
+      'required': '请输入用户名！'
     },
-    default: {
-      email: '邮箱格式不正确'
-    }
+    password: {
+      'maxlength': '密码长度最多为16个字符',
+      'required': '请输入密码！'
+    },
+    mobile: {
+      'isNumber': '请输入非零的正整数',
+      'required': '请输入您的手机号！'
+    },
   };
-
-
-  //密码验证
-  validateConfirmPassword(): void {
-    setTimeout(() => this.detaileForm.controls.password_confirmation.updateValueAndValidity());
-  };
-
-//验证用户名是否已注册
-  nameAsyncValidator = (control: FormControl) =>
-  new Observable((observer: Observer<MyValidationErrors | null>) => {
-    setTimeout(() => {
-      if (control.value === "") {
-        observer.next({
-          duplicated: { 'zh-cn': `用户名已存在` }
-        });
-      } else {
-        observer.next(null);
-      }
-      observer.complete();
-    }, 1000);
-  });
-
-//确认密码与输入密码是否一致
-  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { error: true, required: true };
-    } else if (control.value !== this.detaileForm.controls.password.value) {
-      return { password_confirmation: true, error: true };
-    }
-    return {};
+  formErrors: any = {
+    name: '',
+    password: '',
+    mobile: '',
   };
 
 
 
-  constructor(public fb:FormBuilder,public dialogRef: MatDialogRef<AdminStoreAccountDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,public adminStoreAccountService:AdminStoreAccountService) {
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreAccountDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public adminStoreAccountService: AdminStoreAccountService) {
     this.dataDetailStoreAccountResponseModel = this.data;
-    // use `MyValidators`
-    console.log("点击编辑传过来的当前商铺id数据",this.dataDetailStoreAccountResponseModel);
-    const { required, maxLength, minLength, mobile ,email} = MyValidators;  
-    this.detaileForm = this.fb.group({   //表单验证
-      name: [this.dataDetailStoreAccountResponseModel.name , [required, maxLength(12), minLength(2)]],   // , [this.nameAsyncValidator]
-      password: ['' ],
-      password_confirmation: [''],     // ,[this.confirmValidator] 
-      email: [this.dataDetailStoreAccountResponseModel.email, [required,email]],
-      mobile: [this.dataDetailStoreAccountResponseModel.mobile, [required, mobile]],
-      level: [this.dataDetailStoreAccountResponseModel.level, [required]],
-      store_id: [this.dataDetailStoreAccountResponseModel.store_id, [required]],
-      status: [this.dataDetailStoreAccountResponseModel.status, [required]]
-    });
+    this.forms();
+    console.log("点击编辑传过来的当前商铺id数据", this.dataDetailStoreAccountResponseModel);
     this.storeAccountDetailUpdateRequestModel = {
       name: '',
       password: '',
@@ -86,13 +56,60 @@ export class AdminStoreAccountDetailComponent implements OnInit {
       status: '',
       account_id: ''
     }
+  }
 
-  }  
+  
+  forms() {
+    this.detaileForm = this.fb.group({
+      name: [this.dataDetailStoreAccountResponseModel.name, [Validators.required, Validators.maxLength(64)]],
+      password: [''],
+      password_confirmation: [''],  
+      email: [this.dataDetailStoreAccountResponseModel.email, [Validators.required]],
+      mobile: [this.dataDetailStoreAccountResponseModel.mobile, [Validators.required, isNumber]],
+      level: [this.dataDetailStoreAccountResponseModel.level, [Validators.required]],
+      store_id: [this.dataDetailStoreAccountResponseModel.store_id, [Validators.required]],
+      status: [this.dataDetailStoreAccountResponseModel.status, [Validators.required]],
+    });
+    // 每次表单数据发生变化的时候更新错误信息
+    this.detaileForm.valueChanges.subscribe(data => {
+      this.onValueChanged(data);
+    });
+    // 初始化错误信息
+    this.onValueChanged();
+  }
+
+
+  // 表单验证
+  onValueChanged(data?: any) {
+    // 如果表单不存在则返回
+    if (!this.detaileForm) return;
+    // 获取当前的表单
+    const form = this.detaileForm;
+    // 遍历错误消息对象
+    for (const field in this.formErrors) {
+      // 清空当前的错误消息
+      this.formErrors[field] = '';
+      // 获取当前表单的控件
+      const control: any = form.get(field);
+      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
+      if (control && !control.valid) {
+        // 获取验证不通过的控件名，为了获取更详细的不通过信息
+        const messages = this.validationMessage[field];
+        // 遍历当前控件的错误对象，获取到验证不通过的属性
+        for (const key in control.errors) {
+          // 把所有验证不通过项的说明文字拼接成错误消息
+          this.formErrors[field] = messages[key];
+        }
+      }
+    }
+  }
+
+
 
   ngOnInit(): void {
 
   };
-  
+
   setValue() {   //获取表单内容赋值给修改内容接口请求的数据模块
     this.storeAccountDetailUpdateRequestModel.name = this.detaileForm.value.name;
     this.storeAccountDetailUpdateRequestModel.password = this.detaileForm.value.password;
@@ -104,18 +121,19 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     this.storeAccountDetailUpdateRequestModel.status = this.detaileForm.value.status;
   }
 
-  update(){
+  update() {
+    console.log("看看表单里面的输入内容", this.detaileForm.value)
+    this.setValue();
     for (const key in this.detaileForm.controls) {  //验证表单输入内容不能为空
       this.detaileForm.controls[key].markAsDirty();
       this.detaileForm.controls[key].updateValueAndValidity();
     };
-    console.log("看看表单里面的输入内容",this.detaileForm.value)
-    this.setValue();
-    this.storeAccountDetailUpdateRequestModel.account_id =  this.dataDetailStoreAccountResponseModel.account_id;
-    console.log("看看修改提交的model是什么", this.storeAccountDetailUpdateRequestModel,this.storeAccountDetailUpdateRequestModel.account_id);
+    if (this.detaileForm.valid) {
+    this.storeAccountDetailUpdateRequestModel.account_id = this.dataDetailStoreAccountResponseModel.account_id;
+    console.log("看看修改提交的model是什么", this.storeAccountDetailUpdateRequestModel, this.storeAccountDetailUpdateRequestModel.account_id);
     this.adminStoreAccountService.updateStoreAccount(this.storeAccountDetailUpdateRequestModel).subscribe(res => {
-      console.log("res结果",res);
-      if (res.status_code){
+      console.log("res结果", res);
+      if (res.status_code) {
         alert("修改失败");
       }
       else {
@@ -124,58 +142,30 @@ export class AdminStoreAccountDetailComponent implements OnInit {
       }
     })
   }
- 
+  }
+
   //关闭弹窗
   close(): void {
     this.dialogRef.close();
   }
 
 
- 
+  //密码验证
+  validateConfirmPassword(): void {
+    setTimeout(() => this.detaileForm.controls.password_confirmation.updateValueAndValidity());
+  };
 
-
-}
-
-
-// 表单验证提示message
-export type MyErrorsOptions = { 'zh-cn': string;} & Record<string, NzSafeAny>;
-export type MyValidationErrors = Record<string, MyErrorsOptions>;
-
-export class MyValidators extends Validators {
-  static minLength(minLength: number): ValidatorFn {
-    return (control: AbstractControl): MyValidationErrors | null => {
-      if (Validators.minLength(minLength)(control) === null) {
-        return null;
-      }
-      return { minlength: { 'zh-cn': `最小长度为 ${minLength}` } };
-    };
-  }
-
-  static maxLength(maxLength: number): ValidatorFn {
-    return (control: AbstractControl): MyValidationErrors | null => {
-      if (Validators.maxLength(maxLength)(control) === null) {
-        return null;
-      }
-      return { maxlength: { 'zh-cn': `最大长度为 ${maxLength}` } };
-    };
-  }
-
-  static mobile(control: AbstractControl): MyValidationErrors | null {
-    const value = control.value;
-
-    if (isEmptyInputValue(value)) {
-      return null;
+  //确认密码与输入密码是否一致
+  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { error: true, required: true };
+    } else if (control.value !== this.detaileForm.controls.password.value) {
+      return { password_confirmation: true, error: true };
     }
+    return {};
+  };
 
-    return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确` } };
-  }
+
+
 }
 
-function isEmptyInputValue(value: NzSafeAny): boolean {
-  return value == null || value.length === 0;
-}
-
-//手机号码格式验证
-function isMobile(value: string): boolean {
-  return typeof value === 'string' && /(^1\d{10}$)/.test(value);
-}
