@@ -33,6 +33,7 @@ export interface Datum {
   created_at: string;
   updated_at: string;
   id?: any
+  region_full_name: string;
 }
 
 
