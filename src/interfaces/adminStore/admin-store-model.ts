@@ -20,6 +20,7 @@ export interface AdminStoreListResponseModel {
   prev_page_url?: any;
   to: number;
   total: number;
+  region_full_name: string;
 }
 
 
@@ -79,7 +80,7 @@ export interface StoreDetailModel {
   contact: string;
 }
 
-export interface  StoreUpdateRequestModel {
+export interface StoreUpdateRequestModel {
   name: string;
   region_code: string;
   address?: string;

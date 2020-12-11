@@ -22,6 +22,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   dataProductDetailModel: any;
   detailUpdateModel: DetailModel;  //更新
   disabled = true;
+  public isSpinning: any = true;
 
 
   validationMessage: any = {
@@ -259,6 +260,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
       console.log('res.data', res);
       this.dataProductDetailModel = res.data;
       this.setFormValue();
+      this.isSpinning = false;
     })
   }
 
