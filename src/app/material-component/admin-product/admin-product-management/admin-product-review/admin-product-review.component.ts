@@ -48,10 +48,10 @@ export class AdminProductReviewComponent implements OnInit {
     this.adminProductManagementService.productCheckStatus(this.adminProductCheckStatusModel).subscribe(res => {
       console.log("222222", res)
       if (res.status_code) {
-        alert("审核更新不成功");
+        // alert("审核更新不成功");
       }
       else {
-        alert("审核更新成功");
+        // alert("审核更新成功");
         this.dialogRef.close(1);
 
       }

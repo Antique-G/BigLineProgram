@@ -99,11 +99,11 @@ export class StoreTermsManagementCreateComponent implements OnInit {
       this.storeTermsManagementService.addStoreTerms(this.addStoreTermsManagementRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
-          alert("创建成功");
+          // alert("创建成功");
           this.dialogRef.close(1);
         }
         else {
-          alert("创建失败，请重新填写");
+          // alert("创建失败，请重新填写");
         }
       })
     }

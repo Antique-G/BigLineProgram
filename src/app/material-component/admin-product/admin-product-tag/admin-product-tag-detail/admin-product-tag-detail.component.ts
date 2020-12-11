@@ -112,10 +112,10 @@ export class AdminProductTagDetailComponent implements OnInit {
       this.adminProductTagService.updateProductTag(this.updateAdminProductRequestModel).subscribe(res => {
         console.log('分类的结果', res);
         if (res.status_code) {
-          alert("更新失败");
+          // alert("更新失败");
         }
         else {
-          alert("更新成功");
+          // alert("更新成功");
           this.dialogRef.close(1);
         }
       })

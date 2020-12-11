@@ -3,17 +3,18 @@ import { Injectable } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { AdminLoginService } from '../services/admin-login/admin-login.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 // 拦截器
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(public adminLoginService: AdminLoginService, public router: Router) { }
+  constructor(public adminLoginService: AdminLoginService, public router: Router,
+    private modal: NzModalService,) { }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -47,6 +48,12 @@ export class Interceptor implements HttpInterceptor {
           if (newToken != null) {
             localStorage.setItem('userToken', newToken);
           }
+          console.log("返回的结果", event)
+          console.log("event", event.status);
+          if (event.status === 201) {
+            this.createSuccess();   // 更新 添加
+          }
+
         }
       },
         error => { // 统一处理所有的http错误
@@ -67,7 +74,13 @@ export class Interceptor implements HttpInterceptor {
               alert(error.message)
             }
             else if (error.status == 422) {
-              alert("请输入正确的值");
+              this.createFail();
+            }
+            else if (error.status == 403) {
+              alert(error.message)
+            }
+            else if (error.status == 404) {
+              alert(error.message)
             }
           }
         }
@@ -75,7 +88,30 @@ export class Interceptor implements HttpInterceptor {
     )
   }
 
+  createSuccess(): void {
+    ['success'].forEach(method =>
+      // @ts-ignore
+      this.modal[method]({
+        nzMask: false,
+        nzTitle: `操作成功`,
+      })
+    );
+    this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+    setTimeout(() => this.modal.closeAll(), 2000);  //2s后消失
+  }
 
+
+  createFail(): void {
+    ['error'].forEach(method =>
+      // @ts-ignore
+      this.modal[method]({
+        nzMask: false,
+        nzTitle: `操作失败`,
+      })
+    );
+    this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+    setTimeout(() => this.modal.closeAll(), 2000);  //2s后消失
+  }
 
 }
 

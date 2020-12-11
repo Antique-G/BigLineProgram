@@ -138,10 +138,10 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
       this.adminStoreBankAccountService.addStoreBankAccount(this.storeBankAccountRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res.code) {
-          alert("创建失败，请重新填写");
+          // alert("创建失败，请重新填写");
         }
         else {
-          alert("创建成功");
+          // alert("创建成功");
           this.dialogRef.close(1);
         }
       })

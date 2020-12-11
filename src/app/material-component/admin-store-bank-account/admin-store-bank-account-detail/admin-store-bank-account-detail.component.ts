@@ -134,10 +134,10 @@ export class AdminStoreBankAccountDetailComponent implements OnInit {
       this.adminStoreBankAccountService.updateStoreBank(this.storeBankAccountUpdateRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res.status_code) {
-          alert("更新失败");
+          // alert("更新失败");
         }
         else {
-          alert("更新成功");
+          // alert("更新成功");
           this.dialogRef.close(1);
         }
       })

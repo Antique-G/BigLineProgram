@@ -158,11 +158,11 @@ export class AdminStoreDetailComponent implements OnInit {
       this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res.message) {
-          alert("更新成功");
+          // alert("更新成功");
           this.dialogRef.close(1);
         }
         else {
-          alert("更新失败")
+          // alert("更新失败")
         }
       })
     }

@@ -132,11 +132,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       this.storeMeetingPlaceService.updateStoreMeetingPlace(this.updateStoreMeetingPlaceRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
-          alert("更新成功");
+          // alert("更新成功");
           this.dialogRef.close(1);
         }
         else {
-          alert("更新失败，请重新填写");
+          // alert("更新失败，请重新填写");
         }
       })
     }
