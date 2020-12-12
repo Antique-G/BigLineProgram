@@ -32,8 +32,16 @@
                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                 <div nz-row>
                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier" nzRequired>预定截止时间</nz-form-label>
-                                    <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.earlier">
-                                        <input nz-input formControlName="earlier" />
+                                    <nz-form-control [nzSm]="18" [nzXs]="24">
+                                        <nz-input-group nzCompact>
+                                            <input nz-input placeholder="请输入天数" style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            <nz-select (ngModelChange)="changeHour($event)" class="nzChoice" nzPlaceHolder="请选择小时" formControlName="earlier2">
+                                                <nz-option *ngFor="let option of hourList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                                            </nz-select>
+                                            <nz-select (ngModelChange)="changeMins($event)" class="nzChoice" nzPlaceHolder="请选择分钟" formControlName="earlier3">
+                                                <nz-option *ngFor="let option of minsList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                                            </nz-select>
+                                        </nz-input-group>
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -42,7 +50,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点id</nz-form-label>
                                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入集合地点！">
-                                        <nz-select nzMode="multiple" nzPlaceHolder="请选择" (ngModelChange)="changePlace($event)" [(ngModel)]="selectedPlace" formControlName="assembling_place_id" nzAllowClear="true">
+                                        <nz-select nzMode="multiple" nzShowSearch nzAllowClear nzPlaceHolder="请选择集合地点" (ngModelChange)="changePlace($event)" formControlName="assembling_place_id">
                                             <nz-option *ngFor="let option of assemblingPlaceList" [nzLabel]="option.label" [nzValue]="option.value">
                                             </nz-option>
                                         </nz-select>
@@ -54,7 +62,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id" nzRequired>标题id</nz-form-label>
                                     <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请输入标题！">
-                                        <nz-select nzMode="multiple" nzPlaceHolder="请选择" (ngModelChange)="changeTag($event)" [(ngModel)]="selectedTag" formControlName="tag_id" nzAllowClear="true">
+                                        <nz-select nzMode="multiple" nzShowSearch nzAllowClear nzPlaceHolder="请选择标题" (ngModelChange)="changeTag($event)" formControlName="tag_id">
                                             <nz-option *ngFor="let option of tagList" [nzLabel]="option.label" [nzValue]="option.value">
                                             </nz-option>
                                         </nz-select>
@@ -172,7 +180,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="feature" nzRequired>产品特色</nz-form-label>
                                     <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品特色！">
-                                        <textarea nz-input placeholder="请输入产品详情" formControlName="feature"></textarea>
+                                        <textarea nz-input placeholder="请输入产品特色" formControlName="feature"></textarea>
                                     </nz-form-control>
                                 </div>
 
@@ -185,8 +193,6 @@
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
-
-
 
 
 

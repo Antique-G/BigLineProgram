@@ -27,12 +27,20 @@ export class StoreProductManagementCreateComponent implements OnInit {
   confirmValue = 0;//是否需要客服确认：0/否，1/是
   payMethodValue = 1;//支付方式：1/在线支付,2/景区现付
 
-  selectedPlace: any[] = [];
-  selectedTag: any[] = [];;
+  // 集合地以及标题
   assemblingPlaceList: any[] = [];
   tagList: any[] = [];
 
+
+  // 预定截止日期
+  hourList: any[] = [];
+  minsList: any[] = [];
+
+  // 添加model
   addStoreProductModel: AddStoreProductModel;
+
+
+  editContent: any;
 
 
 
@@ -44,10 +52,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
     region_code: {
       'maxlength': '标题长度最多为16个字符',
       'required': '请填写区域编码'
-    },
-    earlier: {
-      'isNumber': '请填写预定截止时间（出发前一天，需提前多少分钟预定）',
-      'required': '请填写预定截止时间（出发前一天，需提前多少分钟预定）'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -82,7 +86,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
   formErrors: any = {
     title: '',
     region_code: '',
-    earlier: '',
     few_days: '',
     few_nights: '',
     adult_price: '',
@@ -126,7 +129,9 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(225)]],
       region_code: ['', [Validators.required, , Validators.maxLength(16)]],
-      earlier: ['', [Validators.required, isNumber]],
+      earlier1: [0, [Validators.required]],
+      earlier2: ['', [Validators.required]],
+      earlier3: ['', [Validators.required]],
       confirm: ['', [Validators.required]],
       pay_method: ['', [Validators.required]],
       few_days: ['', [Validators.required, isNumber]],
@@ -157,6 +162,19 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.getTagList();
+
+    // 24小时遍历
+    for (var i = 1; i < 25; i++) {
+      console.log('i是什么', i);
+      let a = { value: i, label: i };
+      this.hourList.push(a);
+    }
+    // 分钟
+    for (var i = 0; i <= 60; i += 5) {
+      console.log('i是什么', i);
+      let a = { value: i, label: i };
+      this.minsList.push(a);
+    }
 
   }
 
@@ -227,8 +245,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   setValue() {
     this.addStoreProductModel.title = this.addForm.value.title;
-    this.addStoreProductModel.region_code = this.addForm.value.region_code
-    this.addStoreProductModel.earlier = this.addForm.value.earlier
+    this.addStoreProductModel.region_code = this.addForm.value.region_code;
     this.addStoreProductModel.confirm = this.addForm.value.confirm
     this.addStoreProductModel.pay_method = this.addForm.value.pay_method
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
@@ -242,13 +259,18 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addStoreProductModel.details = this.addForm.value.details;
     this.addStoreProductModel.fee = this.addForm.value.fee;
     this.addStoreProductModel.notice = this.addForm.value.notice;
+    //  this.addStoreProductModel.earlier
+    let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
+    this.addStoreProductModel.earlier = i;
+    console.log("12121212", this.addStoreProductModel.earlier);
+
   }
 
 
   addProduct() {
     this.setValue();
     // 验证表单
-    console.log("this.addForm",this.addForm)
+    console.log("this.addForm", this.addForm)
     this.addStoreProductModel.region_code = this.idRegion;
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
@@ -288,6 +310,19 @@ export class StoreProductManagementCreateComponent implements OnInit {
     if (values !== null) {
       this.idRegion = values[values.length - 1];
     }
+  }
+
+  changeHour(values: any) {
+    this.addForm.value.earlier2 = values;
+    console.log("this.addForm.value.earlier2", this.addForm.value.earlier2);
+
+  }
+
+
+  changeMins(values: any) {
+    this.addForm.value.earlier3 = values;
+    console.log("3333", this.addForm.value.earlier3);
+
   }
 
 

@@ -13,3 +13,8 @@
 .ant-form-item-label {
     text-align: left;
 }
+
+.nzChoice {
+    max-width: 150px !important;
+    width: 150px !important;
+}
