@@ -32,6 +32,7 @@
         "rxjs": "~6.6.0",
         "rxjs-compat": "^6.6.3",
         "tslib": "^2.0.0",
+        "wangeditor": "^4.5.3",
         "zone.js": "~0.10.2"
     },
     "devDependencies": {

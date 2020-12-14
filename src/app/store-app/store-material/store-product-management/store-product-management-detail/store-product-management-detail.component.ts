@@ -1,11 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
 import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
 import { DetailModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
+import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import wangEditor from 'wangeditor';
+
 
 @Component({
   selector: 'app-store-product-management-detail',
@@ -13,30 +16,39 @@ import { DetailModel } from '../../../../../interfaces/store/storeProduct/Produc
   styleUrls: ['./store-product-management-detail.component.css']
 })
 export class StoreProductManagementDetailComponent implements OnInit {
-  addForm!: FormGroup;
+  // 区域联动
+  nzOptions: any[] | null = null;
+  values: any[] = [];
+  idRegion: any;
+
+  // 集合地以及标题
   selectedPlace: any[] = [];
-  selectedTag: any[] = [];;
+  selectedTag: any[] = [];
   assemblingPlaceList: any[] = [];
   tagList: any[] = [];
-  detailData: any;
+
+  // 预定截止日期
+  hourList: any[] = [];
+  minsList: any[] = [];
+  selectedDay: any;
+  selectedHour: any;
+  selectedMins: any;
+
+  addForm!: FormGroup;
+  detailId: any;
   dataProductDetailModel: any;
   detailUpdateModel: DetailModel;  //更新
-  disabled = true;
-  public isSpinning: any = true;
+  public isSpinning: any = true;    //loading 
+
+  // 初始化文本框的值
+  featureMessage: any;
+  detailsMessage: any;
 
 
   validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为225个字符',
       'required': '请填写标题'
-    },
-    region_code: {
-      'maxlength': '标题长度最多为16个字符',
-      'required': '请填写区域编码'
-    },
-    earlier: {
-      'isNumber': '请填写预定截止时间（出发前一天，需提前多少分钟预定）',
-      'required': '请填写预定截止时间（出发前一天，需提前多少分钟预定）'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -70,8 +82,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
   };
   formErrors: any = {
     title: '',
-    region_code: '',
-    earlier: '',
     few_days: '',
     few_nights: '',
     adult_price: '',
@@ -82,12 +92,10 @@ export class StoreProductManagementDetailComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreProductManagementDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public storeProductService: StoreProductService,
+  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
+    public storeProductService: StoreProductService, public storeRegionService: StoreRegionService,
     public storeProductTagService: StoreProductTagService,
     public storeMeetingPlaceService: StoreMeetingPlaceService) {
-    this.detailData = data;
-    console.log(" this.detailData", this.detailData)
     this.buildForm();
 
     this.detailUpdateModel = {
@@ -117,7 +125,9 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(225)]],
       region_code: ['', [Validators.required, , Validators.maxLength(16)]],
-      earlier: ['', [Validators.required, isNumber]],
+      earlier1: [0, [Validators.required]],
+      earlier2: ['', [Validators.required]],
+      earlier3: ['', [Validators.required]],
       confirm: ['', [Validators.required]],
       pay_method: ['', [Validators.required]],
       few_days: ['', [Validators.required, isNumber]],
@@ -127,8 +137,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
       original_adult_price: ['', [Validators.required, isFloat]],
       original_child_price: ['', [Validators.required, isFloat]],
       difference_price: ['', [Validators.required, isFloat]],
-      feature: ['', [Validators.required]],
-      details: ['', [Validators.required]],
       fee: ['', [Validators.required]],
       notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
@@ -141,46 +149,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
     // 初始化错误信息
     this.onValueChanged();
   }
-
-
-
-  ngOnInit(): void {
-    this.addForm.controls['assembling_place_id'].setValue([]);
-    this.addForm.controls['tag_id'].setValue([]);
-    this.getTagList();
-
-  }
-
-
-  // 标签  --按顺序执行
-  getTagList() {
-    this.storeProductTagService.getProductTagList().subscribe(res => {
-      console.log("标签", res.data);
-      for (let i of res.data) {
-        console.log('iiiiii', i);
-        let a = { value: i.id, label: i.name };
-        this.tagList.push(a);
-      }
-      this.getAccemList();
-    }
-    )
-  }
-
-
-  // 集合地点
-  getAccemList() {
-    this.storeMeetingPlaceService.storeMeetingPlaceList(1, 1000).subscribe(res => {
-      console.log("集合地点", res.data);
-      for (let i of res.data) {
-        console.log('iiiiii', i);
-        let a = { value: i.id, label: i.name };
-        this.assemblingPlaceList.push(a);
-      }
-      this.getProductDetail();
-
-    });
-  }
-
 
   // 表单验证
   onValueChanged(data?: any) {
@@ -208,24 +176,76 @@ export class StoreProductManagementDetailComponent implements OnInit {
   }
 
 
+
+  ngOnInit(): void {
+    this.addForm.controls['assembling_place_id'].setValue([]);
+    this.addForm.controls['tag_id'].setValue([]);
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailDataId"]);
+    });
+    this.getTagList();
+    // 24小时遍历   
+    for (var i = 1; i < 25; i++) {
+      let a = { value: i, label: i };
+      this.hourList.push(a);
+    }
+    // 分钟
+    for (var i = 0; i <= 60; i += 5) {
+      let a = { value: i, label: i };
+      this.minsList.push(a);
+    }
+
+  }
+
+
+  // 标签  --按顺序执行
+  getTagList() {
+    this.storeProductTagService.getProductTagList().subscribe(res => {
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.name };
+        this.tagList.push(a);
+        console.log("tagList", this.tagList)
+      }
+      this.getRegionList();
+    })
+  }
+
+  // 区域
+  getRegionList() {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+      this.getAccemList();
+    })
+  }
+
+  // 集合地点
+  getAccemList() {
+    this.storeMeetingPlaceService.storeMeetingPlaceList(1, 1000).subscribe(res => {
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.name };
+        this.assemblingPlaceList.push(a);
+      }
+      this.getProductDetail();
+    });
+  }
+
+
   setValue() {
     this.detailUpdateModel.title = this.addForm.value.title;
-    this.detailUpdateModel.region_code = this.addForm.value.region_code
-    this.detailUpdateModel.earlier = this.addForm.value.earlier
-    this.detailUpdateModel.confirm = this.addForm.value.confirm
-    this.detailUpdateModel.pay_method = this.addForm.value.pay_method
-    this.detailUpdateModel.few_days = this.addForm.value.few_days;
+    this.detailUpdateModel.confirm = this.addForm.value.confirm;
+    this.detailUpdateModel.pay_method = this.addForm.value.pay_method;
+    this.detailUpdateModel.few_days = this.addForm.value.few_days;;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
     this.detailUpdateModel.adult_price = this.addForm.value.adult_price;
     this.detailUpdateModel.child_price = this.addForm.value.child_price;
     this.detailUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
     this.detailUpdateModel.original_child_price = this.addForm.value.original_child_price;
     this.detailUpdateModel.difference_price = this.addForm.value.difference_price;
-    this.detailUpdateModel.feature = this.addForm.value.feature;
-    this.detailUpdateModel.details = this.addForm.value.details;
     this.detailUpdateModel.fee = this.addForm.value.fee;
     this.detailUpdateModel.notice = this.addForm.value.notice;
-    // this.detailUpdateModel.status = parseInt(this.addForm.value.status);
+    let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
+    this.detailUpdateModel.earlier = i;
+    console.log("12121212", this.detailUpdateModel.earlier);
   }
 
 
@@ -238,6 +258,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
     }
     if (this.addForm.valid) {
       this.detailUpdateModel.id = this.dataProductDetailModel.id;
+      this.detailUpdateModel.region_code = this.idRegion;
       console.log("更新的model是", this.detailUpdateModel);
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         console.log("res结果", res);
@@ -245,8 +266,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
           // alert("更新失败");
         }
         else {
-          // alert("更新成功");
-          this.dialogRef.close(1);
+          this.router.navigate(['/store/main/storeProduct']);
         }
       })
 
@@ -255,11 +275,12 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
 
   getProductDetail() {
-    this.storeProductService.getProductDetail(this.detailData.id).subscribe(res => {
-      console.log('res.data', res);
+    this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
+      console.log('详情拿到的model', res);
       this.dataProductDetailModel = res.data;
       this.setFormValue();
       this.isSpinning = false;
+      this.textChange();  //富文本初始化
     })
   }
 
@@ -267,8 +288,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
     this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
-    this.addForm.get('region_code')?.setValue(this.dataProductDetailModel.region_code);
-    this.addForm.get('earlier')?.setValue(this.dataProductDetailModel.earlier);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
     this.addForm.get('adult_price')?.setValue(this.dataProductDetailModel.adult_price);
@@ -276,11 +295,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.addForm.get('original_adult_price')?.setValue(this.dataProductDetailModel.original_adult_price);
     this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
     this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
-    this.addForm.get('feature')?.setValue(this.dataProductDetailModel.feature);
     this.addForm.get('fee')?.setValue(this.dataProductDetailModel.fee);
     this.addForm.get('notice')?.setValue(this.dataProductDetailModel.notice);
-    this.addForm.get('details')?.setValue(this.dataProductDetailModel.details);
-    console.log("this.dataProductDetailModel.assembling_place.data", this.dataProductDetailModel.assembling_place.data)
     let a = this.dataProductDetailModel.assembling_place.data;
     let aNums: any[] = []
     for (let int of a) {
@@ -295,24 +311,85 @@ export class StoreProductManagementDetailComponent implements OnInit {
       this.selectedTag = bNums
     }
     console.log("this.selectedTag", this.selectedTag);
+    const str = this.dataProductDetailModel.region_code;
+    for (let i = 0; i < str.length / 4; i++) {
+      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+      this.values.push(temp);
+    }
+    this.addForm.get('region_code')?.setValue(this.values);   //区域
+    // 截止日期
+    console.log("截止日期", this.dataProductDetailModel.earlier);
+    console.log("分钟", this.dataProductDetailModel.earlier % 60)
+    console.log("小时", Math.floor(this.dataProductDetailModel.earlier / 60)%24);
+    console.log("", Math.floor(this.dataProductDetailModel.earlier / 60 / 24));
+    this.selectedDay = Math.floor(this.dataProductDetailModel.earlier / 60 / 24); //天数
+    //小时
+    if(Math.floor(this.dataProductDetailModel.earlier / 60)>25){
+      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60)%24; 
+    }
+    else{
+      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60); 
 
+    }
+    this.selectedMins = Math.floor(this.dataProductDetailModel.earlier  % 60);  //分钟
   }
 
-  close() {
-    this.dialogRef.close();
-  }
 
 
 
   changePlace(a: any): void {
-    console.log('选择的值是sss', a);
     this.detailUpdateModel.assembling_place_id = a;
   }
 
   changeTag(a: any): void {
-    console.log('选择的值是vvv', a);
     this.detailUpdateModel.tag_id = a;
   }
+
+
+  // 区域
+  onChanges(values: any): void {
+    if (values !== null) {
+      this.idRegion = values[values.length - 1];
+    }
+  }
+
+
+  changeHour(values: any) {
+    this.addForm.value.earlier2 = values;
+  }
+
+
+  changeMins(values: any) {
+    this.addForm.value.earlier3 = values;
+  }
+
+
+
+  // 富文本
+  textChange() {
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    editorFeature.txt.html(this.dataProductDetailModel.feature);
+    this.featureMessage = editorFeature.txt.text();  //赋值
+    editorFeature.config.onchange = (newHtml: any) => {
+      this.detailUpdateModel.feature = newHtml;
+    }
+    editorFeature.create();
+    editorFeature.config.uploadImgServer = '/upload-img';
+
+
+    // 详情
+    const editorDetail = new wangEditor("#editorDetail", "#editorContent");
+    editorDetail.txt.html(this.dataProductDetailModel.details);
+    this.detailsMessage = editorDetail.txt.text();
+    editorDetail.config.onchange = (newHtml: any) => {
+      this.detailUpdateModel.details = newHtml;
+    }
+    editorDetail.create();
+    editorDetail.config.uploadImgServer = '/upload-img'
+
+  }
+
 
 }
 
