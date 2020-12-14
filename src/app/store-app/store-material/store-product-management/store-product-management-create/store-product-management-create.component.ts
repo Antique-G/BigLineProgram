@@ -6,7 +6,8 @@ import { AddStoreProductModel } from '../../../../../interfaces/store/storeProdu
 import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
-
+import E from 'wangeditor'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,10 +39,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   // 添加model
   addStoreProductModel: AddStoreProductModel;
-
-
-  editContent: any;
-
 
 
   validationMessage: any = {
@@ -96,7 +93,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder,
+  constructor(public fb: FormBuilder,public router: Router,
     public storeProductService: StoreProductService,
     public storeProductTagService: StoreProductTagService,
     public storeMeetingPlaceService: StoreMeetingPlaceService,
@@ -141,8 +138,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
       original_adult_price: ['', [Validators.required, isFloat]],
       original_child_price: ['', [Validators.required, isFloat]],
       difference_price: ['', [Validators.required, isFloat]],
-      feature: ['', [Validators.required]],
-      details: ['', [Validators.required]],
+      // feature: [''],
+      // details: [''],
       fee: ['', [Validators.required]],
       notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
@@ -175,6 +172,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
       let a = { value: i, label: i };
       this.minsList.push(a);
     }
+
+   this.textChange();
 
   }
 
@@ -255,8 +254,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addStoreProductModel.original_adult_price = this.addForm.value.original_adult_price;
     this.addStoreProductModel.original_child_price = this.addForm.value.original_child_price;
     this.addStoreProductModel.difference_price = this.addForm.value.difference_price;
-    this.addStoreProductModel.feature = this.addForm.value.feature;
-    this.addStoreProductModel.details = this.addForm.value.details;
+    // this.addStoreProductModel.feature = this.addForm.value.feature;
+    // this.addStoreProductModel.details = this.addForm.value.details;
     this.addStoreProductModel.fee = this.addForm.value.fee;
     this.addStoreProductModel.notice = this.addForm.value.notice;
     //  this.addStoreProductModel.earlier
@@ -276,13 +275,14 @@ export class StoreProductManagementCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("66666",this.addForm.valid)
     if (this.addForm.valid) {
       // 添加
       this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
-
+          this.router.navigate(['/store/main/storeProduct']);
         }
         else {
           // alert("创建失败，请重新填写");
@@ -323,6 +323,39 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addForm.value.earlier3 = values;
     console.log("3333", this.addForm.value.earlier3);
 
+  }
+
+
+
+  // 富文本
+  textChange(){
+     // 产品特色
+     const editorFeature = new E(document.getElementById('featureDiv'));
+     editorFeature.config.height = 200;  // 设置编辑区域高度为 500px
+     // editorFeature.config.focus = false; // 取消自动 focus
+     editorFeature.config.onchange = (newHtml: any) => {
+       console.log("213123",newHtml)
+       // console.log("content", editorFeature.txt.text());
+       this.addStoreProductModel.feature = newHtml;
+ 
+     }
+     editorFeature.create();
+     // 上传图片接口地址（待定）
+     editorFeature.config.uploadImgServer = '/upload-img';
+ 
+     // 详情
+     const editorDetail = new E(document.getElementById('detailDiv'));
+     editorDetail.config.height = 200;  // 设置编辑区域高度为 500px
+     editorDetail.config.onchange = (newHtml: any) => {
+       console.log("213123",newHtml)
+       // console.log("content", editorFeature.txt.text());
+       this.addStoreProductModel.details = newHtml;
+ 
+     }
+     editorDetail.create();
+     // 上传图片接口地址（待定）
+     editorDetail.config.uploadImgServer = '/upload-img'
+ 
   }
 
 

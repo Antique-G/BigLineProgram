@@ -43,12 +43,12 @@ export class Interceptor implements HttpInterceptor {
       tap(event => {
         console.log()
         if (event instanceof HttpResponse) { // 这里是返回，可通过event.body获取返回内容
-          console.log("222", event.headers.get('Authorization'));
+          // console.log("222", event.headers.get('Authorization'));
           let newToken = event.headers.get('Authorization');
           if (newToken != null) {
             localStorage.setItem('userToken', newToken);
           }
-          console.log("返回的结果", event)
+          // console.log("返回的结果", event)
           console.log("event", event.status);
           if (event.status === 201) {
             this.createSuccess();   // 更新 添加

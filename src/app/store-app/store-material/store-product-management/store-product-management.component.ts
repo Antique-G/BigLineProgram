@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { StoreProductManagementCreateComponent } from './store-product-management-create/store-product-management-create.component';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { Router } from '@angular/router';
-import { StoreProductManagementDetailComponent } from './store-product-management-detail/store-product-management-detail.component';
+
 
 @Component({
   selector: 'app-store-product-management',
@@ -20,10 +18,7 @@ export class StoreProductManagementComponent implements OnInit {
   total = 1;
 
 
-
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public storeProductService: StoreProductService, public router: Router) {
-
-  }
+  constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router) { }
 
 
   ngOnInit(): void {
@@ -54,36 +49,16 @@ export class StoreProductManagementComponent implements OnInit {
   }
 
 
-
+  // 添加
   addProduct() {
-    // const dialogRef = this.dialog.open(StoreProductManagementCreateComponent, {
-    //   width: '800px'
-    // })
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if(result!=undefined){
-    //     this.getProductList();
-    //    }
-    // })
     this.router.navigate(['/store/main/storeProduct/create']);
   }
 
 
-
+  // 查看详情
   edit(data: any) {
-    console.log("编辑", data);
-    const dialogRef = this.dialog.open(StoreProductManagementDetailComponent, {
-      width: '800px',
-      data: data
-    })
-    dialogRef.afterClosed().subscribe(result => {
-     if(result!=undefined){
-      this.getProductList();
-     }
-    })
-
+    this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
   }
-
-
 
 
   // 报价
