@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminProductManagementDetailComponent } from './admin-product-management-detail/admin-product-management-detail.component';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
@@ -18,8 +19,9 @@ export class AdminProductManagementComponent implements OnInit {
   total = 1;
 
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService) {
-
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
+    public router: Router) {
+   
   }
 
 
@@ -51,19 +53,9 @@ export class AdminProductManagementComponent implements OnInit {
   }
 
 
-
-  edit(data: any) {
-    console.log("编辑",data);
-    const dialogRef = this.dialog.open(AdminProductManagementDetailComponent,{
-      width:'800px',
-      data: data
-    })
-    dialogRef.afterClosed().subscribe(result=>{
-      if (result !== undefined) {
-        this.getProductList();
-      }
-    })
-
+   // 查看详情
+   edit(data: any) {
+    this.router.navigate(['/admin/main/productManagement/detail'], { queryParams: { detailDataId: data.id } });
   }
 
 

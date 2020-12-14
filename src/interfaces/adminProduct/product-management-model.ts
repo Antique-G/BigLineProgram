@@ -52,7 +52,7 @@ export interface AdminProductManagementUpdateModel {
     details: string;
     fee: string;
     notice: string;
-    status: number;
+    status?: number;
     tag_id: [];
     id?: any;
 }

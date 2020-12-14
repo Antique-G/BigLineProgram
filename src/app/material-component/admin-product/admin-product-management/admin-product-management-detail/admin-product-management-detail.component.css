@@ -1,5 +1,5 @@
 [nz-form] {
-    max-width: 700px;
+    max-width: 1200px;
 }
 
 .phone-select {
@@ -8,4 +8,17 @@
 
 .register-are {
     margin-bottom: 8px;
+}
+
+.ant-form-item-label {
+    text-align: left;
+}
+
+.nzChoice {
+    max-width: 150px !important;
+    width: 150px !important;
+}
+
+.wangeditor-feature {
+    border: 1px solid #c9d8dc;
 }
