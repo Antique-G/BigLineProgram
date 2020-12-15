@@ -8,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import {AdminProductTagComponent} from './admin-product/admin-product-tag/admin-product-tag.component';
 import { AdminProductManagementComponent } from './admin-product/admin-product-management/admin-product-management.component';
 import { AdminProductManagementDetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-detail.component';
+import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -47,6 +48,11 @@ export const MaterialRoutes: Routes = [
         path: 'productManagement/detail',
         component: AdminProductManagementDetailComponent
       },
+      {
+        path: 'termsManage',
+        component: AdminTermsManageComponent
+      },
+      
       
       
      
