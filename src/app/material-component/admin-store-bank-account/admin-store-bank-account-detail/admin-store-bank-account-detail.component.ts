@@ -133,7 +133,7 @@ export class AdminStoreBankAccountDetailComponent implements OnInit {
       console.log("提交的model是什么", this.storeBankAccountUpdateRequestModel);
       this.adminStoreBankAccountService.updateStoreBank(this.storeBankAccountUpdateRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res.status_code) {
+        if (res?.status_code) {
           // alert("更新失败");
         }
         else {

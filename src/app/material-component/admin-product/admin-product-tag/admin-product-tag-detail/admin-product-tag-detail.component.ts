@@ -111,7 +111,7 @@ export class AdminProductTagDetailComponent implements OnInit {
       this.updateAdminProductRequestModel.id = this.detailModel.id;
       this.adminProductTagService.updateProductTag(this.updateAdminProductRequestModel).subscribe(res => {
         console.log('分类的结果', res);
-        if (res.status_code) {
+        if (res?.status_code) {
           // alert("更新失败");
         }
         else {

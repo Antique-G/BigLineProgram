@@ -44,7 +44,7 @@ export class AdminTermsManageReviewComponent implements OnInit {
     this.setValue();
     this.adminTermsManageService.termsCheckStatus(this.adminTermsManagementSetCheckRequestModel).subscribe(res => {
       console.log("222222", res)
-      if (res.status_code) {
+      if (res?.status_code) {
         // alert("审核更新不成功");
       }
       else {

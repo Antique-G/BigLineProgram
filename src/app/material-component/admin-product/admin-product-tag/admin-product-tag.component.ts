@@ -61,7 +61,7 @@ export class AdminProductTagComponent implements OnInit {
   delete(data: any) {
     console.log("传的值", data);
     this.adminProductTagService.deleteProductTag(data.id).subscribe(res => {
-      if (res.status_code) {
+      if (res?.status_code) {
         alert("删除失败");
       }
       else {

@@ -106,7 +106,7 @@ export class AdminProductTagCreateComponent implements OnInit {
     if (this.addForm.valid) {
       this.adminProductTagService.createProductTag(this.addAdminProductTagRequestModel).subscribe(res => {
         console.log('分类的结果', res);
-        if (res.status_code) {
+        if (res?.status_code) {
           // alert("添加失败");
         }
         else {
