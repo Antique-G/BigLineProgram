@@ -133,7 +133,7 @@ export class AdminStoreAccountDetailComponent implements OnInit {
     console.log("看看修改提交的model是什么", this.storeAccountDetailUpdateRequestModel, this.storeAccountDetailUpdateRequestModel.account_id);
     this.adminStoreAccountService.updateStoreAccount(this.storeAccountDetailUpdateRequestModel).subscribe(res => {
       console.log("res结果", res);
-      if (res.status_code) {
+      if (res?.status_code) {
         // alert("修改失败");
       }
       else {

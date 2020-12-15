@@ -130,7 +130,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
     if (this.validateForm.valid) {
       this.adminStoreAccountService.addStoreAccount(this.addStoreAccountRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res.status_code) {
+        if (res?.status_code) {
           // alert("创建失败，请重新填写")
         } else {
           // alert("创建成功");

@@ -47,7 +47,7 @@ export class AdminProductReviewComponent implements OnInit {
     this.setValue();
     this.adminProductManagementService.productCheckStatus(this.adminProductCheckStatusModel).subscribe(res => {
       console.log("222222", res)
-      if (res.status_code) {
+      if (res?.status_code) {
         // alert("审核更新不成功");
       }
       else {
