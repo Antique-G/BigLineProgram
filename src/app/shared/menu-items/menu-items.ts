@@ -39,6 +39,13 @@ const MENUITEMS = [
       { state: 'settingArea', type: 'link', name: '区域', icon: 'view_headline' }
     ]
   },
+  {
+    header: '条款管理',
+    menulist: [
+      { state: 'termsManage', type: 'link', name: '条款审核', icon: 'assignment' }
+    ]
+  },
+  
 ];
 
 

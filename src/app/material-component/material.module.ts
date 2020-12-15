@@ -33,6 +33,8 @@ import { AdminProductManagementComponent } from './admin-product/admin-product-m
 import { AdminProductManagementDetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-detail.component';
 import { AdminSystemAreaEditComponent } from './admin-system-area/admin-system-area-edit/admin-system-area-edit.component';
 import { AdminProductReviewComponent } from './admin-product/admin-product-management/admin-product-review/admin-product-review.component';
+import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
+import { AdminTermsManageReviewComponent } from './admin-terms-manage/admin-terms-manage-review/admin-terms-manage-review.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,8 @@ import { AdminProductReviewComponent } from './admin-product/admin-product-manag
     AdminSystemAreaCreateComponent,
     AdminProductTagDetailComponent,
     AdminProductTagCreateComponent,
-    AdminProductReviewComponent
+    AdminProductReviewComponent,
+    AdminTermsManageReviewComponent
   ],
   declarations: [
     AdminComponent,
@@ -83,6 +86,8 @@ import { AdminProductReviewComponent } from './admin-product/admin-product-manag
     AdminProductManagementDetailComponent,
     AdminSystemAreaEditComponent,
     AdminProductReviewComponent,
+    AdminTermsManageComponent,
+    AdminTermsManageReviewComponent,
   ]
 })
 export class MaterialComponentsModule {}

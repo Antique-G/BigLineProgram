@@ -49,6 +49,11 @@ export const AdminUrls = {
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
+
+  GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
+  PostAdminTermsCheckStatus: api + '/admin/terms/set_check'  // 条款管理审核
+
+
 };
 
 
