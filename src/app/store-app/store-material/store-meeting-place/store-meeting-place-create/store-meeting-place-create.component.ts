@@ -17,7 +17,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   values: any[] | null = null;
   idRegion: any;
   addForm!: FormGroup;
-  status = 3;
+  status = '1';
 
   addStoreMeetingPlaceRequestModel: AddStoreMeetingPlaceRequestModel;
 
@@ -60,7 +60,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       name: ['', [Validators.required]],
       regionCode: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+      status: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
