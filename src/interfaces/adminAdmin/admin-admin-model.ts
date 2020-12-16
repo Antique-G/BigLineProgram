@@ -48,7 +48,7 @@ export interface RegisterRequestModel {
   password_confirmation: string;
   real_name: string;
   mobile: string;
-  status: any;
+  status: number;
 }
 
 export interface RegisterResponseModel {

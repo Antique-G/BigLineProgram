@@ -19,10 +19,12 @@ export class AdminComponent implements OnInit {
   per_page = 10;
   total = 1;
   loading = true;
-  keyword:any;
+  keyword: any;
+  status: any;
 
-  constructor(public fb: FormBuilder,public adminAdminService: AdminAdminService, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public adminAdminService: AdminAdminService, public dialog: MatDialog) {
     this.searchForm = fb.group({
+      status: ['', [Validators.required]],
       name: ['', [Validators.required]]
     });
   }
@@ -33,29 +35,30 @@ export class AdminComponent implements OnInit {
 
   getData(): void {
     this.loading = true;
-    this.adminAdminService.adminList(this.page, this.per_page,this.keyword).subscribe((result: any) => {
+    this.adminAdminService.adminList(this.page, this.per_page, this.keyword, this.status).subscribe((result: any) => {
       this.loading = false;
       this.total = result.total;   //总页数
       this.dataSource = result.data;
-      });
-    };
-  
-  changePageIndex(page:number ) {
-    console.log("当前页",page);
+    });
+  };
+
+  changePageIndex(page: number) {
+    console.log("当前页", page);
     this.page = page;
     this.getData();
   }
-   changePageSize(per_page:number) {
-    console.log("一页显示多少",per_page);
+  changePageSize(per_page: number) {
+    console.log("一页显示多少", per_page);
     this.per_page = per_page;
-     this.getData();
+    this.getData();
   }
 
 
-  search(){
+  search() {
     this.keyword = this.searchForm.value.name;
+    this.status = this.searchForm.value.status;
     this.getData();
-    console.log("this.keyword",this.keyword);
+    console.log("this.keyword", this.keyword);
 
   }
 
