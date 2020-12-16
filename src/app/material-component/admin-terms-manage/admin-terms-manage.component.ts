@@ -41,8 +41,9 @@ export class AdminTermsManageComponent implements OnInit {
         res.push(a);
         this.storeList = res;
       }
+      this.adminTermsList();
     });
-    this.adminTermsList();
+   
   }
 
 
