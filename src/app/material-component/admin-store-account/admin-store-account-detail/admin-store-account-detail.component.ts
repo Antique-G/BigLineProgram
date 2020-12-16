@@ -137,8 +137,8 @@ export class AdminStoreAccountDetailComponent implements OnInit {
         // alert("修改失败");
       }
       else {
-        alert("修改成功");
-        // this.dialogRef.close(1);
+        // alert("修改成功");
+        this.dialogRef.close(1);
       }
     })
   }
