@@ -65,6 +65,15 @@ export class StoreProductService {
       )
   }
 
+
+  // 产品上架
+  patchProductStatus(id: number) {
+    return this.httpClient.patch(this.urls.PatchStoreProductStatus + id + '/status', httpOptions)
+      .pipe(
+      )
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {

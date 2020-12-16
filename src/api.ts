@@ -42,7 +42,7 @@ export const AdminUrls = {
   GetAdminProdectCateList: api + '/admin/tags/cate_list',//标签的分类列表
 
 
-  GetAdminProductManagementList: api + '/admin/product' ,  //产品列表
+  GetAdminProductManagementList: api + '/admin/product',  //产品列表
   PutAdminProductManagementUpdate: api + '/admin/product/', //产品编辑
   GetAdminProductManagementDetail: api + '/admin/product/', //产品详情
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
@@ -69,9 +69,9 @@ export const StoreUrls = {
   GetStoreProductList: api + '/store/product', //获取产品列表api
   GetStoreProductDetail: api + '/store/product/', //获取产品详情api
   PutStoreProductUpdate: api + '/store/product/', //修改产品api
-
-  GetStoreQuoteByDate:api+'/store/product/',//产品报价列表
-  PostStoreQuoteByDate:api+'/store/product/',//添加产品报价
+  PatchStoreProductStatus: api + '/store/product/',   //产品上下架
+  GetStoreQuoteByDate: api + '/store/product/',//产品报价列表
+  PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加
