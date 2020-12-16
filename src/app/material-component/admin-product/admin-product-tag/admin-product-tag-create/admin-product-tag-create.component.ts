@@ -13,7 +13,7 @@ import { AddAdminProductTagRequestModel } from '../../../../../interfaces/adminP
 })
 export class AdminProductTagCreateComponent implements OnInit {
   addForm!: FormGroup;
-  statusValue = 2;
+  statusValue = '1';
   addAdminProductTagRequestModel: AddAdminProductTagRequestModel;
   optionList: any[] = [];
 
@@ -39,7 +39,7 @@ export class AdminProductTagCreateComponent implements OnInit {
     this.addAdminProductTagRequestModel = {
       name: '',
       cate_id: 0,
-      status: 0,
+      status: 1,
     }
 
   }
@@ -49,7 +49,7 @@ export class AdminProductTagCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       cate_id: ['', Validators.required],
-      status: [null, [Validators.required]]
+      status: [1, [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
