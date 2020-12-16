@@ -15,6 +15,7 @@ import { AddStoreAccountRequestModel } from '../../../../interfaces/adminStoreAc
 export class AdminStoreAccountCreateComponent implements OnInit {
   validateForm!: FormGroup;  //1.1使用form表单时需要实例化一个FormGroup
   status = '1';
+  store_id: any;
   addStoreAccountRequestModel: AddStoreAccountRequestModel;   //引入定义的请求参数模块
 
   validationMessage: any = {
@@ -38,7 +39,8 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>, public adminStoreAccountService: AdminStoreAccountService) {
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreAccountCreateComponent>,
+    public activatedRoute: ActivatedRoute, public adminStoreAccountService: AdminStoreAccountService) {
     this.forms();
     this.addStoreAccountRequestModel = {    //接口请求参数
       name: '',
@@ -47,7 +49,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       mobile: '',
       email: '',
       level: '',
-      store_id: '',
+      store_id: this.store_id,
       status: 0
     }
   }
@@ -62,7 +64,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.maxLength(32)]],
       mobile: ['', [Validators.required, mobile]],
       level: ['', [Validators.required]],
-      store_id: ['', [Validators.required]],
+      store_id: [{ value: this.store_id, disabled: true }, [Validators.required]],
       status: ['', [Validators.required]],
 
     });
@@ -103,6 +105,9 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.store_id = JSON.parse(params["id"]);
+    });
   };
 
 
@@ -114,7 +119,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
     this.addStoreAccountRequestModel.mobile = this.validateForm.value.mobile;
     this.addStoreAccountRequestModel.email = this.validateForm.value.email;
     this.addStoreAccountRequestModel.level = this.validateForm.value.level;
-    this.addStoreAccountRequestModel.store_id = this.validateForm.value.store_id;
+    this.addStoreAccountRequestModel.store_id = this.store_id;
     this.addStoreAccountRequestModel.status = this.validateForm.value.status;
   }
 
@@ -172,12 +177,13 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
 // 手机号码校验
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { ActivatedRoute } from '@angular/router';
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
 
 export class MyValidators extends Validators {
 
- static mobile(control: AbstractControl): MyValidationErrors | null {
+  static mobile(control: AbstractControl): MyValidationErrors | null {
     const value = control.value;
 
     if (isEmptyInputValue(value)) {
