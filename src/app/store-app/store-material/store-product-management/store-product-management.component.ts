@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { StoreProductManagementUpComponent } from './store-product-management-up/store-product-management-up.component';
 
 
 @Component({
@@ -18,7 +20,8 @@ export class StoreProductManagementComponent implements OnInit {
   total = 1;
 
 
-  constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router) { }
+  constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
+    public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -65,6 +68,20 @@ export class StoreProductManagementComponent implements OnInit {
   goToQuoteClick(data: any) {
     console.log(data);
     this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id } });
+  }
+
+
+  up(data: any) {
+    console.log("nadao", data);
+    const dialogRef = this.dialog.open(StoreProductManagementUpComponent, {
+      width: '550px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      this.getProductList();
+
+    });
   }
 
 
