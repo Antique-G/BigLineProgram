@@ -25,8 +25,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
 
   addForm!: FormGroup;
-  confirmValue = 0;//是否需要客服确认：0/否，1/是
-  payMethodValue = 1;//支付方式：1/在线支付,2/景区现付
+  confirmValue = '1';//是否需要客服确认：0/否，1/是
+  payMethodValue = '1'//支付方式：1/在线支付,2/景区现付
 
   // 集合地以及标题
   assemblingPlaceList: any[] = [];
@@ -129,8 +129,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
       earlier1: [0, [Validators.required]],
       earlier2: ['', [Validators.required]],
       earlier3: ['', [Validators.required]],
-      confirm: ['', [Validators.required]],
-      pay_method: ['', [Validators.required]],
+      confirm: [1, [Validators.required]],
+      pay_method: [1, [Validators.required]],
       few_days: ['', [Validators.required, isNumber]],
       few_nights: ['', [Validators.required, isNumber]],
       adult_price: ['', [Validators.required, isFloat]],
