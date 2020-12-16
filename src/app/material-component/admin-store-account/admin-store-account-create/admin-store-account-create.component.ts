@@ -2,10 +2,7 @@ import { AdminStoreAccountService } from './../../../../services/admin/admin-sto
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { Observable, Observer } from 'rxjs';
 import { AddStoreAccountRequestModel } from '../../../../interfaces/adminStoreAccount/admin-store-account-model';
-import { isNumber } from '../../../../app/util/validators';
 
 
 
@@ -56,12 +53,14 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   }
 
   forms() {
+    // 校验手机
+    const { mobile } = MyValidators;
     this.validateForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(64)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       password_confirmation: ['', [Validators.required, this.confirmValidator]],
       email: ['', [Validators.required, Validators.maxLength(32)]],
-      mobile: ['', [Validators.required, isNumber]],
+      mobile: ['', [Validators.required, mobile]],
       level: ['', [Validators.required]],
       store_id: ['', [Validators.required]],
       status: ['', [Validators.required]],
@@ -106,7 +105,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   ngOnInit(): void {
   };
 
-  
+
 
   setValue() {  //获取表单输入值
     this.addStoreAccountRequestModel.name = this.validateForm.value.name;
@@ -166,5 +165,34 @@ export class AdminStoreAccountCreateComponent implements OnInit {
   };
 
 
+}
+
+
+
+
+// 手机号码校验
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
+export type MyValidationErrors = Record<string, MyErrorsOptions>;
+
+export class MyValidators extends Validators {
+
+ static mobile(control: AbstractControl): MyValidationErrors | null {
+    const value = control.value;
+
+    if (isEmptyInputValue(value)) {
+      return null;
+    }
+
+    return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确`, en: `Mobile phone number is not valid` } };
+  }
+}
+
+function isEmptyInputValue(value: NzSafeAny): boolean {
+  return value == null || value.length === 0;
+}
+
+function isMobile(value: string): boolean {
+  return typeof value === 'string' && /(^1\d{10}$)/.test(value);
 }
 

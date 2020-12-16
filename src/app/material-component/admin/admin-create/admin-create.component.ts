@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
-import { isNumber } from '../../../../app/util/validators';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { isNumber } from '../../../../app/util/validators';
 })
 export class AdminCreateComponent implements OnInit {
   addForm!: FormGroup;
-  statusValue = '0';
+  statusValue = '1';
   registerRequestModel: RegisterRequestModel;
 
 
@@ -47,7 +46,7 @@ export class AdminCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminCreateComponent>,
-    public adminAdminService: AdminAdminService,) {
+    public adminAdminService: AdminAdminService) {
     this.forms();
     this.registerRequestModel = {
       account: '',
@@ -55,17 +54,19 @@ export class AdminCreateComponent implements OnInit {
       password_confirmation: '',
       real_name: '',
       mobile: '',
-      status: '',
+      status: 1,
     }
   }
 
   forms() {
+    // 校验手机
+    const { mobile } = MyValidators;
     this.addForm = this.fb.group({
       account: ['', [Validators.required, Validators.maxLength(32)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       checkPassword: ['', [Validators.required, this.confirmationValidator]],
       name: ['', [Validators.required, Validators.maxLength(32)]],
-      phoneNumber: ['', [Validators.required, isNumber]],
+      phoneNumber: ['', [Validators.required, mobile]],
       status: ['', [Validators.required]]
     });
      // 每次表单数据发生变化的时候更新错误信息
@@ -160,4 +161,36 @@ export class AdminCreateComponent implements OnInit {
   }
 
 
+}
+
+
+
+
+// 手机号码校验
+import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+
+// current locale is key of the MyErrorsOptions
+export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
+export type MyValidationErrors = Record<string, MyErrorsOptions>;
+
+export class MyValidators extends Validators {
+
+ static mobile(control: AbstractControl): MyValidationErrors | null {
+    const value = control.value;
+
+    if (isEmptyInputValue(value)) {
+      return null;
+    }
+
+    return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确`, en: `Mobile phone number is not valid` } };
+  }
+}
+
+function isEmptyInputValue(value: NzSafeAny): boolean {
+  return value == null || value.length === 0;
+}
+
+function isMobile(value: string): boolean {
+  return typeof value === 'string' && /(^1\d{10}$)/.test(value);
 }

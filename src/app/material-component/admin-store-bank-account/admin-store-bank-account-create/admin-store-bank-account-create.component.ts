@@ -68,6 +68,8 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
   }
 
   forms() {
+    // 校验手机
+    const { mobile } = MyValidators;
     this.addForm = this.fb.group({
       storeId: ['', [Validators.required]],
       bankName: ['', [Validators.required]],
@@ -75,7 +77,7 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
       accountAddress: ['', [Validators.required]],
       isCorporate: ['', [Validators.required]],
       contacts: ['', [Validators.required]],
-      contactsPhone: ['', [Validators.required]]
+      contactsPhone: ['', [Validators.required, mobile]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -155,3 +157,37 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 
 
 }
+
+
+
+
+
+// 手机号码校验
+import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+
+// current locale is key of the MyErrorsOptions
+export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
+export type MyValidationErrors = Record<string, MyErrorsOptions>;
+
+export class MyValidators extends Validators {
+
+  static mobile(control: AbstractControl): MyValidationErrors | null {
+    const value = control.value;
+
+    if (isEmptyInputValue(value)) {
+      return null;
+    }
+
+    return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确`, en: `Mobile phone number is not valid` } };
+  }
+}
+
+function isEmptyInputValue(value: NzSafeAny): boolean {
+  return value == null || value.length === 0;
+}
+
+function isMobile(value: string): boolean {
+  return typeof value === 'string' && /(^1\d{10}$)/.test(value);
+}
+

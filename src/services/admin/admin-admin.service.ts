@@ -20,11 +20,13 @@ export class AdminAdminService {
   constructor(public httpClient: HttpClient) { }
 
 
- // 管理员列表
-  adminList(page:number, per_page:number,keyword:any): Observable<AdminAdminListResponseModel> {
+  // 管理员列表
+  adminList(page: number, per_page: number, keyword: any, status: any): Observable<AdminAdminListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
-    .set('per_page', per_page.toString())
-    .set('keyword',keyword?keyword:'');
+      .set('per_page', per_page.toString())
+      .set('keyword', keyword ? keyword : '')
+      .set('status', status ? status : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -35,7 +37,7 @@ export class AdminAdminService {
         catchError(this.handleError)
       )
   }
-  
+
 
   // 注册
   register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {
