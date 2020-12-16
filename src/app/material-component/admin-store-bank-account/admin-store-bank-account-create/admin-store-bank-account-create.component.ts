@@ -12,7 +12,9 @@ import { AdminStoreBankAccountService } from '../../../../services/admin/admin-s
 })
 export class AdminStoreBankAccountCreateComponent implements OnInit {
   addForm!: FormGroup;
-  statusValue = 0;
+  statusValue = '1';
+  store_id: any;
+
 
   storeBankAccountRequestModel: StoreBankAccountRequestModel;
 
@@ -54,10 +56,11 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreBankAccountCreateComponent>,
-    public adminStoreBankAccountService: AdminStoreBankAccountService,) {
+    public adminStoreBankAccountService: AdminStoreBankAccountService,
+    public activatedRoute: ActivatedRoute,) {
     this.forms();
     this.storeBankAccountRequestModel = {
-      store_id: '',
+      store_id: this.store_id,
       bank_name: '',
       bank_account: '',
       account_address: '',
@@ -71,7 +74,7 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
-      storeId: ['', [Validators.required]],
+      storeId: [{ value: this.store_id, disabled: true }, [Validators.required]],
       bankName: ['', [Validators.required]],
       bankAccount: ['', [Validators.required, Validators.maxLength(30)]],
       accountAddress: ['', [Validators.required]],
@@ -115,11 +118,13 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.store_id = JSON.parse(params["id"]);
+    });
   }
 
   setValue() {
-    this.storeBankAccountRequestModel.store_id = this.addForm.value.storeId;
+    this.storeBankAccountRequestModel.store_id = this.store_id;
     this.storeBankAccountRequestModel.bank_name = this.addForm.value.bankName;
     this.storeBankAccountRequestModel.bank_account = this.addForm.value.bankAccount;
     this.storeBankAccountRequestModel.account_address = this.addForm.value.accountAddress;
@@ -165,6 +170,7 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 // 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { ActivatedRoute } from '@angular/router';
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;

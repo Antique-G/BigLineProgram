@@ -3,8 +3,9 @@
         <mat-card>
             <div style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div style="margin-bottom: 20px;color: #607D8B;font-size: 16px;letter-spacing: 1px;">店铺账号管理列表</div>
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加</button>
+                        <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加店铺账号</button>
                         <button mat-raised-button color="primary" style="letter-spacing:2px" routerLink="/admin/main/store">返回店铺管理</button>
                     </div>
                     <div class="mat-elevation-z8" class="storeListBox">
@@ -12,8 +13,9 @@
                             (nzPageIndexChange)="changePageIndex($event)">
                             <thead>
                                 <tr>
-                                    <th>商户id</th>
-                                    <th>姓名</th>
+                                    <th>商铺id</th>
+                                    <th>账号id</th>
+                                    <th>账号名称</th>
                                     <th>手机号码</th>
                                     <th>邮箱地址</th>
                                     <th>状态</th>
@@ -22,7 +24,8 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of borderedTable.data">
-                                    <td>{{ data.account_id }}</td>
+                                    <td>{{ data.store_id }}</td>
+                                    <td>{{ data.account_id}}</td>
                                     <td>{{ data.name }}</td>
                                     <td>{{ data.mobile }}</td>
                                     <td>{{ data.email }}</td>
