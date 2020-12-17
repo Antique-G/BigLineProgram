@@ -21,6 +21,9 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel;
   detailModel: Datum;
 
+  public isSpinning: any = true;    //loading 
+
+
   validationMessage: any = {
     name: {
       'maxlength': '集合地点名称长度最多为32个字符',
@@ -108,6 +111,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
+      this.isSpinning = false;
     })
   }
 
