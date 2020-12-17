@@ -4,6 +4,8 @@ Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
+
+
 /**
  * Table Of Content
  *
@@ -18,12 +20,11 @@ File: scss
  */
 
 @import 'variable';
-
 @import 'spinner';
 @import 'app';
-@import 'header';
+// @import 'header';
 @import 'pages';
 @import 'sidebar';
 @import 'responsive';
-
 @import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+// http://cdn.bigline.com.cn
