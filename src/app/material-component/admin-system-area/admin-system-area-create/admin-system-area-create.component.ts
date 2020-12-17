@@ -128,7 +128,9 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   }
 
   handleChange(info: { file: NzUploadFile }): void {
-    console.log("dianji", info)
+    console.log("dianji", info);
+    // console.log("获取上传图片信息", info.fileList);
+
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
