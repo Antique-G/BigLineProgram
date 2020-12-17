@@ -21,10 +21,13 @@ export class AdminStoreComponent implements OnInit {
   total = 1;
   loading = true;
   keyword: any;
+  status: any;
+
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreService: AdminStoreService,
     public router: Router) {
     this.searchForm = fb.group({
+      status: ['', [Validators.required]],
       storeName: ['', [Validators.required]]
     });
   }
@@ -35,7 +38,7 @@ export class AdminStoreComponent implements OnInit {
 
   getData(): void {
     this.loading = true;
-    this.adminStoreService.storeList(this.page, this.per_page, this.keyword).subscribe((result: any) => {
+    this.adminStoreService.storeList(this.page, this.per_page, this.keyword,this.status).subscribe((result: any) => {
       this.loading = false;
       this.total = result.total;   //总页数
       this.dataSource = result.data;
@@ -55,6 +58,7 @@ export class AdminStoreComponent implements OnInit {
 
 
   search() {
+    this.status = this.searchForm.value.status;
     this.keyword = this.searchForm.value.storeName;
     this.getData();
     console.log("this.keyword", this.keyword);

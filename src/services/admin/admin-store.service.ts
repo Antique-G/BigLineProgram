@@ -19,12 +19,13 @@ export class AdminStoreService {
 
   constructor(public httpClient: HttpClient) { }
 
-  
+
   // 商户列表
-  storeList(page:number, per_page:number,keyword:any): Observable<AdminStoreListResponseModel> {
+  storeList(page: number, per_page: number, keyword: any, status: any): Observable<AdminStoreListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
-    .set('per_page', per_page.toString())
-    .set('keyword',keyword?keyword:'');
+      .set('per_page', per_page.toString())
+      .set('keyword', keyword ? keyword : '')
+      .set('status', status ? status : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
