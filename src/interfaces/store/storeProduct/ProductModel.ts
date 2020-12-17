@@ -157,5 +157,10 @@ export interface DetailModel {
 }
 
 
+export interface UploadImgModel {
+  image: any;
+}
+
+
 
 

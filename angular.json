@@ -24,8 +24,7 @@
                         "tsConfig": "src/tsconfig.app.json",
                         "polyfills": "src/polyfills.ts",
                         "assets": [
-                            "src/assets",
-                            "src/favicon.ico"
+                            "src/assets"
                         ],
                         "styles": [
                             "node_modules/chartist/dist/chartist.css",
@@ -91,8 +90,7 @@
                             "src/assets/styles/style.scss"
                         ],
                         "assets": [
-                            "src/assets",
-                            "src/favicon.ico"
+                            "src/assets"
                         ]
                     }
                 },

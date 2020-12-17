@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -70,6 +70,16 @@ export class StoreProductService {
   patchProductStatus(id: number) {
     return this.httpClient.patch(this.urls.PatchStoreProductStatus + id + '/status', httpOptions)
       .pipe(
+      )
+  }
+
+
+
+  // 上传图片
+  uploadImg(uploadImgModel: UploadImgModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreImgUpload, uploadImgModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
       )
   }
 
