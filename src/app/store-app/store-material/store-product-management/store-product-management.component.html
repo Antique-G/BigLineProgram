@@ -18,7 +18,6 @@
                                     <th style="text-align: center;">几晚</th>
                                     <th style="text-align: center;">成人价格</th>
                                     <th style="text-align: center;">儿童价格</th>
-                                    <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">报价</th>
@@ -34,22 +33,16 @@
                                     <td>{{data.adult_price}}</td>
                                     <td>{{data.child_price}}</td>
                                     <td>
-                                        <div *ngIf="data.status===0">
-                                            未上架
-                                        </div>
-                                        <div *ngIf="data.status===1">
-                                            已上架
-                                        </div>
-                                    </td>
-                                    <td>
                                         <div *ngIf="data.check_status===0">
-                                            未提交审核
+                                            <!-- 未提交审核  -->
+                                            未上架
                                         </div>
                                         <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
                                         <div *ngIf="data.check_status===2">
-                                            已通过
+                                            <!-- 已通过 -->
+                                            上架
                                         </div>
                                         <div *ngIf="data.check_status===3">
                                             未通过
@@ -68,7 +61,7 @@
 
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status===2">
+                                        <div style="cursor: pointer;" *ngIf="data.check_status===2||data.check_status===0">
                                             <mat-icon title="上架" (click)="up(data)">arrow_circle_up</mat-icon>
                                         </div>
 

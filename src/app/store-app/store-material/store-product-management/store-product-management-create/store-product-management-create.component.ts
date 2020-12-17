@@ -341,7 +341,10 @@ export class StoreProductManagementCreateComponent implements OnInit {
      }
      editorFeature.create();
      // 上传图片接口地址（待定）
-     editorFeature.config.uploadImgServer = '/upload-img';
+     editorFeature.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+  }
+     editorFeature.config.uploadImgServer = 'http://plat.bigline.cc/store/image';
  
      // 详情
      const editorDetail = new E(document.getElementById('detailDiv'));
@@ -354,7 +357,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
      }
      editorDetail.create();
      // 上传图片接口地址（待定）
-     editorDetail.config.uploadImgServer = '/upload-img'
+     editorDetail.config.uploadImgServer = 'http://plat.bigline.cc/store/image'
  
   }
 
