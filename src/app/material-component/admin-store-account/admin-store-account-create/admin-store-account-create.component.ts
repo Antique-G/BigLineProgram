@@ -20,8 +20,8 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
   validationMessage: any = {
     name: {
-      'maxlength': '用户名长度最多为64个字符',
-      'required': '请输入用户名！'
+      'maxlength': '姓名长度最多为64个字符',
+      'required': '请输入姓名！'
     },
     password: {
       'maxlength': '密码长度最多为16个字符',
@@ -61,9 +61,9 @@ export class AdminStoreAccountCreateComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(64)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       password_confirmation: ['', [Validators.required, this.confirmValidator]],
-      email: ['', [Validators.required, Validators.maxLength(32)]],
+      email: ['',],
       mobile: ['', [Validators.required, mobile]],
-      level: ['', [Validators.required]],
+      level: ['',],
       store_id: [{ value: this.store_id, disabled: true }, [Validators.required]],
       status: ['', [Validators.required]],
 
