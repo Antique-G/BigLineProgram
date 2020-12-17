@@ -21,8 +21,8 @@ export class AdminStoreAccountDetailComponent implements OnInit {
 
   validationMessage: any = {
     name: {
-      'maxlength': '用户名长度最多为64个字符',
-      'required': '请输入用户名！'
+      'maxlength': '姓名长度最多为64个字符',
+      'required': '请输入姓名！'
     },
     password: {
       'maxlength': '密码长度最多为16个字符',

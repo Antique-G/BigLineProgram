@@ -17,6 +17,12 @@
                     <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户详细地址</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="address" />
+                </nz-form-control>
+            </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
@@ -32,13 +38,6 @@
                 </nz-form-control>
             </nz-form-item>
 
-
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户地址</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <input nz-input formControlName="address" />
-                </nz-form-control>
-            </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax">传真</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24">

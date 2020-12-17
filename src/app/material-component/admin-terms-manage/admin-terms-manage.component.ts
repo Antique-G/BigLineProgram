@@ -32,7 +32,7 @@ export class AdminTermsManageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.adminStoreService.storeList(1, 1000, '').subscribe((result: any) => {
+    this.adminStoreService.storeList(1, 1000, '','').subscribe((result: any) => {
       console.log("商铺的结果", result.data);
       let storeData = result.data;
       let res: any[] = [];
