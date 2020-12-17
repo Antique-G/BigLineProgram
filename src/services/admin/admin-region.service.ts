@@ -73,7 +73,8 @@ export class AdminRegionService {
       )
   }
 
-
+  //上传图片
+  // regionImgUpload
 
 
 

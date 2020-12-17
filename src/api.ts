@@ -32,6 +32,8 @@ export const AdminUrls = {
   GetAdminRegionList: api + '/admin/region',    //区域列表接口
   GetAdminRegionDetail: api + '/admin/region/', //区域列表接口的编辑详情
   PutAdminRegionUpdate: api + '/admin/region/', //区域列表接口信息修改保存
+  
+  PostAdminRegionUpload: api + '/admin/image',  //区域创建图片上传
 
 
   GetAdminProductTagList: api + '/admin/tag', //产品标签列表
@@ -72,6 +74,7 @@ export const StoreUrls = {
   PatchStoreProductStatus: api + '/store/product/',   //产品上下架
   GetStoreQuoteByDate: api + '/store/product/',//产品报价列表
   PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
+  PostStoreImgUpload: api + '/store/image',  //上传
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加
