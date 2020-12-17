@@ -7,7 +7,16 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
                                 <mat-form-field>
-                                    <mat-select placeholder="选择商户id" formControlName="storeId">
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>暂停</mat-option>
+                                        <mat-option value=1>正常</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择店铺" formControlName="storeId">
                                         <mat-option>none</mat-option>
                                         <mat-option *ngFor="let store of storeList" [value]="store.id">
                                             {{store.value}}
@@ -15,10 +24,11 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
+
                             <div fxFlex=50>
                                 <mat-form-field>
-                                    <mat-label>title</mat-label>
-                                    <input matInput value="" formControlName="title" placeholder="请输入title">
+                                    <mat-label>条款标题</mat-label>
+                                    <input matInput value="" formControlName="title" placeholder="请输入条款标题">
                                 </mat-form-field>
                             </div>
                             <div fxFlex=20>
@@ -34,7 +44,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">店铺id</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">标题</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>

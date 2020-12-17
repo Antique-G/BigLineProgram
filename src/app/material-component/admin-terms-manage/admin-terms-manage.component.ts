@@ -18,6 +18,7 @@ export class AdminTermsManageComponent implements OnInit {
   per_page = 20;
   store_id: any;
   title: any;
+  status: any;
   total = 1;
   loading = true;
   storeList: any[] = [];
@@ -25,6 +26,7 @@ export class AdminTermsManageComponent implements OnInit {
   constructor(public dialog: MatDialog, public adminTermsManageService: AdminTermsManageService,
     public fb: FormBuilder, public adminStoreService: AdminStoreService,) {
     this.searchForm = this.fb.group({
+      status: ['', [Validators.required]],
       storeId: ['', [Validators.required]],
       title: ['', [Validators.required]],
     })
@@ -49,7 +51,7 @@ export class AdminTermsManageComponent implements OnInit {
 
   adminTermsList(): void {
     this.loading = true;
-    this.adminTermsManageService.adminTermsList(this.page, this.per_page, this.store_id, this.title).subscribe((result: any) => {
+    this.adminTermsManageService.adminTermsList(this.page, this.per_page, this.store_id, this.title,this.status).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.total;   //总页数
