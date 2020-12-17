@@ -13,12 +13,14 @@ export class StoreProductManagementUpComponent implements OnInit {
   addForm!: FormGroup;
   status = 1;
   id: any;
+  oldStatus: any;
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreProductManagementUpComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public storeProductService: StoreProductService) {
     console.log("返回的值", data);
     this.status = data.status;
+    this.oldStatus = data.status;
     this.id = data.id;
     this.addForm = this.fb.group({
       title: [data.title, [Validators.required]],
@@ -37,10 +39,17 @@ export class StoreProductManagementUpComponent implements OnInit {
 
 
   update() {
+
     this.storeProductService.patchProductStatus(this.id).subscribe(res => {
       console.log("res结果", res);
       if (res === null) {
         // alert("创建成功");
+        // if (this.oldStatus === 0) {
+        //   this.status = 1;
+        // }
+        // else if(this.oldStatus === 1){
+        //   this.status = 0;
+        // }
         this.dialogRef.close(1);
       }
       else {
