@@ -19,11 +19,13 @@ export class AdminTermsManageService {
 
 
   // 条款管理列表
-  adminTermsList(page: number, per_page: number, store_id: any, title: string): Observable<AdminTermsManagementListResponseModel> {
+  adminTermsList(page: number, per_page: number, store_id: any, title: string, status: any): Observable<AdminTermsManagementListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('store_id', store_id ? store_id : '')
-      .set('title', title ? title : '');
+      .set('title', title ? title : '')
+      .set('status', status ? status : '');
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
