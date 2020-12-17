@@ -1,20 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminProductCheckStatusModel } from '../../../../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductSetStatusModel } from '../../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../../services/admin/admin-product-management.service';
 
 @Component({
-  selector: 'app-admin-product-review',
-  templateUrl: './admin-product-review.component.html',
-  styleUrls: ['./admin-product-review.component.css']
+  selector: 'app-admin-product-management-up',
+  templateUrl: './admin-product-management-up.component.html',
+  styleUrls: ['./admin-product-management-up.component.css']
 })
-export class AdminProductReviewComponent implements OnInit {
+export class AdminProductManagementUpComponent implements OnInit {
   addForm!: FormGroup;
   disabled = true;
-  adminProductCheckStatusModel: AdminProductCheckStatusModel;
+  adminProductSetStatusModel:AdminProductSetStatusModel;
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductReviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductManagementUpComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public adminProductManagementService: AdminProductManagementService) {
     this.addForm = this.fb.group({
       title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
@@ -22,11 +22,11 @@ export class AdminProductReviewComponent implements OnInit {
       few_nights: new FormControl({ value: this.data.few_nights, disabled: true }, Validators.required),
       adult_price: new FormControl({ value: this.data.adult_price, disabled: true }, Validators.required),
       child_price: new FormControl({ value: this.data.child_price, disabled: true }, Validators.required),
-      check_status: new FormControl({ value: this.data.check_status }, Validators.required)
+      status: new FormControl({ value: this.data.status }, Validators.required)
     });
-    this.adminProductCheckStatusModel = {
+    this.adminProductSetStatusModel = {
       id: this.data.id,
-      check_status: 0
+      status: 0
     }
   }
 
@@ -34,7 +34,7 @@ export class AdminProductReviewComponent implements OnInit {
   }
 
   setValue() {
-    this.adminProductCheckStatusModel.check_status = parseInt(this.addForm.value.check_status);
+    this.adminProductSetStatusModel.status = parseInt(this.addForm.value.status);
   }
 
   close() {
@@ -42,18 +42,19 @@ export class AdminProductReviewComponent implements OnInit {
   }
 
 
-  review() {
+  submit() {
     this.setValue();
-    this.adminProductManagementService.productCheckStatus(this.adminProductCheckStatusModel).subscribe(res => {
+    this.adminProductManagementService.productSetStatus(this.adminProductSetStatusModel).subscribe(res => {
       console.log("222222", res)
       if (res?.status_code) {
-        // alert("审核更新不成功");
+        // alert("上架不成功");
       }
       else {
-        // alert("审核更新成功");
+        // alert("上架成功");
         this.dialogRef.close(1);
 
       }
     })
   }
 }
+

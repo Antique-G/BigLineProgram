@@ -20,7 +20,9 @@
                                     <th style="text-align: center;">儿童价格</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
-                                    <th style="text-align: center;">操作</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">报价</th>
+                                    <th style="text-align: center;">上下架</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,10 +35,10 @@
                                     <td>{{data.child_price}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
-                                            禁用
+                                            未上架
                                         </div>
                                         <div *ngIf="data.status===1">
-                                            启用
+                                            已上架
                                         </div>
                                     </td>
                                     <td>
@@ -54,9 +56,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                        <div style="cursor: pointer;">
                                             <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
                                             <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" *ngIf="data.check_status===2">
                                             <mat-icon title="上架" (click)="up(data)">arrow_circle_up</mat-icon>
                                         </div>
 

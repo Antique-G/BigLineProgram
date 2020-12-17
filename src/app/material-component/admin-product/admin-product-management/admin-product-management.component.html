@@ -19,6 +19,7 @@
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">审核</th>
+                                    <th style="text-align: center;">上下架</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,10 +32,10 @@
                                     <td>{{data.child_price}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
-                                            禁用
+                                            禁用/下架
                                         </div>
                                         <div *ngIf="data.status===1">
-                                            启用
+                                            启用/上架
                                         </div>
                                     </td>
                                     <td>
@@ -57,8 +58,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status!=0" (click)="review(data)" title="审核">
+                                        <div style="cursor: pointer;" *ngIf="data.check_status===1" (click)="review(data)" title="审核">
                                             <mat-icon>assignment</mat-icon>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
+                                            <mat-icon title="上架">arrow_circle_up</mat-icon>
                                         </div>
                                     </td>
                                 </tr>
