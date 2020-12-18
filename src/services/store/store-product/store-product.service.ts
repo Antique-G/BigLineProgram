@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -78,6 +78,23 @@ export class StoreProductService {
       .pipe(
       )
   }
+
+
+  // 产品集合地点
+  productAssemblingPlaceList(): Observable<AssemblingPlaceListModel> {
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreAssemblingPlaceList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+    // 产品标题
+    // productAssemblingPlaceList(): Observable<AssemblingPlaceListModel> {
+    //   return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreAssemblingPlaceList, httpOptions)
+    //     .pipe(
+    //       catchError(this.handleError)
+    //     )
+    // }
 
 
 // uploadImgModel: UploadImgModel
