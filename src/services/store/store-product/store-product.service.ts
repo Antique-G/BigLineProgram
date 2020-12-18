@@ -21,9 +21,13 @@ export class StoreProductService {
   constructor(public httpClient: HttpClient) { }
 
   // 获取产品列表
-  getProduct(page: number, per_page: number): Observable<ProductResponseListResponseModel> {
+  getProduct(page: number, per_page: number,check_status:any,title:any,few_days:any,few_nights:any): Observable<ProductResponseListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
+      .set('check_status', check_status ? check_status : '')
+      .set('title', title ? title : '')
+      .set('few_days', few_days ? few_days : '')
+      .set('few_nights', few_nights ? few_nights : '')
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
