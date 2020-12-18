@@ -161,13 +161,13 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.getTagList();
 
     // 24小时遍历
-    for (var i = 1; i < 25; i++) {
+    for (var i = 0; i < 25; i++) {
       // console.log('i是什么', i);
       let a = { value: i, label: i };
       this.hourList.push(a);
     }
     // 分钟
-    for (var i = 0; i <= 60; i += 5) {
+    for (var i = 0; i <= 55; i += 5) {
       // console.log('i是什么', i);
       let a = { value: i, label: i };
       this.minsList.push(a);

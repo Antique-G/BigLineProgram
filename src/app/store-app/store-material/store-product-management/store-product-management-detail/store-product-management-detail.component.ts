@@ -185,12 +185,12 @@ export class StoreProductManagementDetailComponent implements OnInit {
     });
     this.getTagList();
     // 24小时遍历   
-    for (var i = 1; i < 25; i++) {
+    for (var i = 0; i < 25; i++) {
       let a = { value: i, label: i };
       this.hourList.push(a);
     }
     // 分钟
-    for (var i = 0; i <= 60; i += 5) {
+    for (var i = 0; i <= 55; i += 5) {
       let a = { value: i, label: i };
       this.minsList.push(a);
     }
