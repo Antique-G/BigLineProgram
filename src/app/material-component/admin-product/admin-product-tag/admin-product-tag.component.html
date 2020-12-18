@@ -7,6 +7,33 @@
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addTap()">添加产品标签</button>
                     </div>
 
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="请输入分类id" formControlName="cate_id">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option *ngFor="let sort of sortList" [value]="sort.id">
+                                            {{sort.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>标签名称</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入标签名称">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzData]="dataSource" [nzLoading]="loading" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
                             <thead>

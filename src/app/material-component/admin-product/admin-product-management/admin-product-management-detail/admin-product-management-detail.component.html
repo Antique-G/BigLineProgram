@@ -138,7 +138,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee" nzRequired>费用包含</nz-form-label>
                                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请输入费用包含！">
-                                            <input nz-input formControlName="fee" />
+                                            <textarea nz-input formControlName="fee" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>

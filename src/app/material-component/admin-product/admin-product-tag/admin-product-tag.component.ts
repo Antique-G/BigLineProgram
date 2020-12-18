@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 import { AdminProductTagCreateComponent } from './admin-product-tag-create/admin-product-tag-create.component';
@@ -12,24 +13,65 @@ import { AdminProductTagDetailComponent } from './admin-product-tag-detail/admin
   styleUrls: ['./admin-product-tag.component.css']
 })
 export class AdminProductTagComponent implements OnInit {
+  searchForm!: FormGroup;
+  page = 1;
+  per_page = 10;
+  cate_id: any;
+  name: any;
   dataSource = [];
   loading = true;
+  sortList: any[] = [];
 
-  constructor(public dialog: MatDialog, public adminProductTagService: AdminProductTagService,) { }
+
+  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductTagService: AdminProductTagService,) {
+    this.searchForm = fb.group({
+      cate_id: ['', [Validators.required]],
+      name: ['', [Validators.required]]
+    });
+  }
 
 
   ngOnInit(): void {
-    this.getData();
+    this.adminProductTagService.getProdectCateList().subscribe((result: any) => {
+      console.log("分类的结果", result.data);
+      let a = { label: result.data[0].name, value: result.data[0].name, id: parseInt(result.data[0].id) };
+      console.log("aaaa", a)
+      this.sortList.push(a);
+      let b = { label: result.data[1].name, value: result.data[1].name, id: parseInt(result.data[1].id) };
+      this.sortList.push(b);
+      this.getData();
+    });
+   
   }
 
   getData(): void {
     this.loading = true;
-    this.adminProductTagService.getProductTagList().subscribe((result: any) => {
+    this.adminProductTagService.getProductTagList(this.page, this.per_page, this.cate_id, this.name).subscribe((result: any) => {
       console.log("jieguo", result);
       this.loading = false;  //总页数
       this.dataSource = result.data;
     });
   };
+
+  changePageIndex(page: number) {
+    console.log("当前页", page);
+    this.page = page;
+    this.getData();
+  }
+  changePageSize(per_page: number) {
+    console.log("一页显示多少", per_page);
+    this.per_page = per_page;
+    this.getData();
+  }
+
+
+  search() {
+    this.cate_id = this.searchForm.value.cate_id;
+    this.name = this.searchForm.value.name;
+    this.getData();
+
+  }
+
 
 
   edit(data: any) {

@@ -17,8 +17,17 @@ export class AdminProductTagService {
   constructor(public httpClient: HttpClient) { }
 
   // 产品标签列表
-  getProductTagList(): Observable<AdminProductTagListRequestModel> {
-    return this.httpClient.get<AdminProductTagListRequestModel>(this.urls.GetAdminProductTagList,httpOptions)
+  getProductTagList(page: number, per_page: number, cate_id: any, name: any): Observable<AdminProductTagListRequestModel> {
+    const params = new HttpParams().set('page', page.toString())
+    .set('per_page', per_page.toString())
+    .set('cate_id', cate_id ? cate_id : '')
+    .set('name', name ? name : '');
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+
+    return this.httpClient.get<AdminProductTagListRequestModel>(this.urls.GetAdminProductTagList,findhttpOptions)
       .pipe(
         catchError(this.handleError)
       );

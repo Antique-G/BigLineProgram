@@ -21,6 +21,7 @@ import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-byda
 import { StoreQuoteBydateCreateComponent } from './store-quote-bydate/store-quote-bydate-create/store-quote-bydate-create.component';
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
 import { StoreProductManagementUpComponent } from './store-product-management/store-product-management-up/store-product-management-up.component';
+import { StoreTermManagementReviewComponent } from './store-terms-management/store-term-management-review/store-term-management-review.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { StoreProductManagementUpComponent } from './store-product-management/st
     StoreMeetingPlaceDetailComponent,
     StoreTermsManagementCreateComponent,
     StoreTermsManagementDetailComponent,
-    StoreProductManagementDetailComponent
+    StoreProductManagementDetailComponent,
+    StoreTermManagementReviewComponent
   ],
   declarations: [
     StoreProductManagementComponent,
@@ -55,7 +57,8 @@ import { StoreProductManagementUpComponent } from './store-product-management/st
     StoreQuoteBydateComponent,
     StoreQuoteBydateCreateComponent,
     StoreProductManagementDetailComponent,
-    StoreProductManagementUpComponent
+    StoreProductManagementUpComponent,
+    StoreTermManagementReviewComponent
   ]
 })
 export class StoreMaterialComponentsModule { }
