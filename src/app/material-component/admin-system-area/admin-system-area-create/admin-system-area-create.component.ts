@@ -5,7 +5,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer } from 'rxjs';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
-import { AddAdminRegionListRequestModel } from '../../../../interfaces/adminRegion/admin-region-model';
+import { AddAdminRegionListRequestModel, AdminRegionUploadRequestModel } from '../../../../interfaces/adminRegion/admin-region-model';
+import { NzThSelectionComponent } from 'ng-zorro-antd/table';
 
 
 @Component({
@@ -19,10 +20,13 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   addAdminRegionListRequestModel: AddAdminRegionListRequestModel;
   isGrade: any;  //弹窗等级
   isGradeName: any;
-
+  
   // 上传
   loading = false;
   avatarUrl?: string;
+  previewVisible = false;
+  // imgList: [];
+  adminRegionUploadRequestModel: AdminRegionUploadRequestModel;
 
 
 
@@ -45,6 +49,9 @@ export class AdminSystemAreaCreateComponent implements OnInit {
       area_code: 0,
       status: 0,
       sort:0
+    };
+    this.adminRegionUploadRequestModel = {
+      image: '',
     }
   }
 
@@ -100,8 +107,7 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   }
 
 
-
-  // 上传
+  // 上传的图片的格式限制
   beforeUpload = (file: NzUploadFile, _fileList: NzUploadFile[]) => {
     return new Observable((observer: Observer<boolean>) => {
       const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -127,10 +133,18 @@ export class AdminSystemAreaCreateComponent implements OnInit {
     reader.readAsDataURL(img);
   }
 
+  //上传预览
+  handlePreview = (file: NzUploadFile) =>{
+    this.avatarUrl = file.url || file.thumbUrl;
+    this.previewVisible = true; 
+  }
+
   handleChange(info: { file: NzUploadFile }): void {
     console.log("dianji", info);
-    // console.log("获取上传图片信息", info.fileList);
-
+    console.log("获取上传图片信息", info.file.name);
+    this.adminRegionService.adminUpload(this.adminRegionUploadRequestModel).subscribe(res =>{
+      console.log("返回结果",res)
+    })
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;

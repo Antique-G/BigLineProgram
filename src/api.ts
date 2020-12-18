@@ -32,8 +32,7 @@ export const AdminUrls = {
   GetAdminRegionList: api + '/admin/region',    //区域列表接口
   GetAdminRegionDetail: api + '/admin/region/', //区域列表接口的编辑详情
   PutAdminRegionUpdate: api + '/admin/region/', //区域列表接口信息修改保存
-  
-  PostAdminRegionUpload: api + '/admin/image',  //区域创建图片上传
+  PostAdminUpload: api + '/admin/image',  //区域创建的图片上传
 
 
   GetAdminProductTagList: api + '/admin/tag', //产品标签列表

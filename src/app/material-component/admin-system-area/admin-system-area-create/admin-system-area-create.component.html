@@ -48,6 +48,9 @@
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24">图片地址</nz-form-label>
+                <!-- nzAction:上传地址      nzListType：上传列表的内建样式    nzName ：发到后台的文件参数名
+                nzBeforeUpload：上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传。注意：IE9 不支持该方法；注意：务必使用 => 定义处理方法。
+                -->
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                     <nz-upload class="avatar-uploader" [nzAction] nzName="avatar" nzListType="picture-card" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
                         <ng-container *ngIf="!avatarUrl">
