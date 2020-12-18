@@ -28,13 +28,15 @@ export interface Links {
 export interface Datum {
   title: string;
   status: number;
-  id: any
+  id: any,
 }
 
 
 export interface AddStoreTermsManagementRequestModel {
   title: string;
   content: string;
+  status: number,
+
 }
 
 
@@ -47,6 +49,7 @@ export interface UpdateStoreTermsManagementeRequestModel {
   id?: any
   title: string;
   content: string;
+  status: number;
 }
 
 

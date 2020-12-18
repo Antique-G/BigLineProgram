@@ -1,25 +1,25 @@
 export interface AdminProductManagementListResponseModel {
-    data: Datum[];
-    meta: Meta;
-}
-
-export interface Meta {
-    pagination: Pagination;
-}
-
-export interface Pagination {
-    total: number;
-    count: number;
-    per_page: number;
     current_page: number;
-    total_pages: number;
-    links: Links;
+    data: DatumModel[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: LinkModel[];
+    next_page_url: string;
+    path: string;
+    per_page: boolean;
+    prev_page_url?: any;
+    to: number;
+    total: number;
 }
-
-export interface Links {
-}
-
-export interface Datum {
+interface LinkModel {
+    url?: string;
+    label: number | string;
+    active: boolean;
+  }
+  
+  interface DatumModel {
     id: number;
     title: string;
     few_days: number;
@@ -29,9 +29,27 @@ export interface Datum {
     child_price: number;
     status: number;
     check_status: number;
-    created_at?: string;
-    updated_at?: string;
-}
+    created_at: string;
+    updated_at: string;
+    region_full_name: string;
+    store: StoreModel;
+  }
+  
+  interface StoreModel {
+    store_id: number;
+    name: string;
+    region_code: string;
+    address: string;
+    fax: string;
+    phone: string;
+    mobile: string;
+    contact: string;
+    profile_photo_path?: any;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    region_full_name: string;
+  }
 
 
 export interface AdminProductManagementUpdateModel {

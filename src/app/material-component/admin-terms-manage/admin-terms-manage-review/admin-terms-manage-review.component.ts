@@ -13,6 +13,7 @@ export class AdminTermsManageReviewComponent implements OnInit {
   addForm!: FormGroup;
   statusValue: any;
   disabled = true;
+  isdisabled = true;
   adminTermsManagementSetCheckRequestModel: AdminTermsManagementSetCheckRequestModel;
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminTermsManageReviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,

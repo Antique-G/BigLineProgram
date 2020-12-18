@@ -74,9 +74,9 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       regionCode: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      fax: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
+      address: ['', ],
+      fax: ['', ],
+      phone: ['',],
       status: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       mobile: ['', [Validators.required, mobile]],
