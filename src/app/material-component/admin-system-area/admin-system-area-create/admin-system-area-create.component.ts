@@ -22,10 +22,20 @@ export class AdminSystemAreaCreateComponent implements OnInit {
   isGradeName: any;
   
   // 上传
+  
+  
+  // fileList = [
+  //   {
+  //     uid: -1,
+  //     name: 'xxx.png',
+  //     status: 'done',
+  //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+  //   }
+  // ];
+  // previewImage = '';
   loading = false;
   avatarUrl?: string;
   previewVisible = false;
-  // imgList: [];
   adminRegionUploadRequestModel: AdminRegionUploadRequestModel;
 
 
@@ -68,6 +78,8 @@ export class AdminSystemAreaCreateComponent implements OnInit {
       this.isGradeName = this.isGrade.region_name;
       this.addAdminRegionListRequestModel.parent_code = this.isGrade.region_code;
     }
+
+    // this.adminRegionUploadRequestModel.image = this.fileList;
   }
 
 
@@ -133,7 +145,7 @@ export class AdminSystemAreaCreateComponent implements OnInit {
     reader.readAsDataURL(img);
   }
 
-  //上传预览
+  //预览
   handlePreview = (file: NzUploadFile) =>{
     this.avatarUrl = file.url || file.thumbUrl;
     this.previewVisible = true; 
@@ -144,24 +156,26 @@ export class AdminSystemAreaCreateComponent implements OnInit {
     console.log("获取上传图片信息", info.file.name);
     this.adminRegionService.adminUpload(this.adminRegionUploadRequestModel).subscribe(res =>{
       console.log("返回结果",res)
-    })
-    switch (info.file.status) {
-      case 'uploading':
-        this.loading = true;
-        break;
-      case 'done':
-        // Get this url from response in real world.
-        this.getBase64(info.file!.originFileObj!, (img: string) => {
+
+      switch (info.file.status) {
+        case 'uploading':
+          this.loading = true;
+          break;
+        case 'done':
+          // Get this url from response in real world.
+          this.getBase64(info.file!.originFileObj!, (img: string) => {
+            this.loading = false;
+            this.avatarUrl = img;
+            console.log("this.avatarUrl ", this.avatarUrl)
+          });
+          this.adminRegionUploadRequestModel.image = info.file.response.result.imageName;
+          break;
+        case 'error':
+          this.msg.error('Network error');
           this.loading = false;
-          this.avatarUrl = img;
-          console.log("this.avatarUrl ", this.avatarUrl)
-        });
-        break;
-      case 'error':
-        this.msg.error('Network error');
-        this.loading = false;
-        break;
-    }
+          break;
+      }
+    })
   }
 
 }
