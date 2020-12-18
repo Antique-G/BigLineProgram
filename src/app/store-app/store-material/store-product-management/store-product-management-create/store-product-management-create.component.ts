@@ -332,6 +332,11 @@ export class StoreProductManagementCreateComponent implements OnInit {
     // 产品特色
     const editorFeature = new E(document.getElementById('featureDiv'));
     editorFeature.config.height = 200;  // 设置编辑区域高度为 500px
+    editorFeature.config.uploadImgMaxSize = 2 * 1024 * 1024 // 2M
+    editorFeature.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
+    editorFeature.config.uploadImgMaxLength = 1
+    editorFeature.config.uploadImgShowBase64 = true
+
     // editorFeature.config.focus = false; // 取消自动 focus
     editorFeature.config.onchange = (newHtml: any) => {
       console.log("213123", newHtml)
@@ -344,7 +349,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
     editorFeature.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
-    editorFeature.config.uploadImgServer = '';
+    editorFeature.config.uploadImgServer = '/store/image';
     /* 
        自定义图片上传事件
        参数1 ：files 是 input 中选中的文件列表
@@ -360,20 +365,22 @@ export class StoreProductManagementCreateComponent implements OnInit {
       // 下面的代码就是去根据自己的需求请求数据 
       //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
       // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
       let formData = new FormData();
-      formData.append('file', files[0]);
-      console.log("formData是什么", formData);
+      formData.append('image', files[0] as any);
 
-      // this.storeProductService.uploadImg(formData).subscribe(res => {
-      //   if(res.code =='ok'){  
-      //     insert(res.data.viewUrl)
-      //     this.messageService.showInfoMessage('上传成功')
-      //   }else{
-      //     this.messageService.showErrorMessage(res.message)
-      //   }
-      // })
+      console.log("formData是什么", formData.get('file'));
+
+      this.storeProductService.uploadImg(formData).subscribe(res => {
+        console.log(res,'res');
+        // if(res.code =='ok'){  
+          insert(res.data)
+        //   // this.messageService.showInfoMessage('上传成功')
+        // }else{
+        //   // this.messageService.showErrorMessage(res.message)
+        // }
+      })
     }
-
 
 
 

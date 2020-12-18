@@ -10,6 +10,8 @@ const httpOptions = {
 };
 
 
+
+// multipart/form-data
 @Injectable({
   providedIn: 'root'
 })
@@ -74,10 +76,17 @@ export class StoreProductService {
   }
 
 
-
+// uploadImgModel: UploadImgModel
   // 上传图片
-  uploadImg(uploadImgModel: UploadImgModel): Observable<any> {
-    return this.httpClient.post<any>(this.urls.PostStoreImgUpload, uploadImgModel, httpOptions)
+  uploadImg(image: any): Observable<any> {
+    console.log('uploadImgModel',image);
+    const imgHttpOptions = {
+      reportProgress: true,
+      // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+     
+    };
+    
+    return this.httpClient.post<any>(this.urls.PostStoreImgUpload, image, imgHttpOptions)
       .pipe(
         catchError(this.handleError)
       )
