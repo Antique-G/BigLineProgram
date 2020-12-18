@@ -90,6 +90,7 @@ export const StoreUrls = {
   PutStoreTermsUpdate: api + '/store/terms/',   // 条款管理修改
   DeleteStoreTerms: api + '/store/terms/',   // 条款管理删除
   GetStoreTermsDetail: api + '/store/terms/',   // 条款管理详情
+  PostStoreTermsUpdateCheck: api + '/store/terms/update_check',  // 条款审核
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据

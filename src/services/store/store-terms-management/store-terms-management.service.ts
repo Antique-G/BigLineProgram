@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { AddStoreTermsManagementRequestModel, AddStoreTermsManagementResponseModel, StoreTermsManagementDetailResponseModel, StoreTermsManagementListResponseModel, UpdateStoreTermsManagementeRequestModel, UpdateStoreTermsManagementResponseModel } from '../../../interfaces/store/storeTermsManagement/store-terms-management-model';
+import { AddStoreTermsManagementRequestModel, AddStoreTermsManagementResponseModel, StoreTermsManagementDetailResponseModel, StoreTermsManagementListResponseModel, StoreTermsManagementRequestModel, UpdateStoreTermsManagementeRequestModel, UpdateStoreTermsManagementResponseModel } from '../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 
 
 const httpOptions = {
@@ -21,9 +21,12 @@ export class StoreTermsManagementService {
 
 
   // 条款管理列表
-  storeTermsList(page: number, per_page: number): Observable<StoreTermsManagementListResponseModel> {
+  storeTermsList(page: number, per_page: number, status: any, check_status: any): Observable<StoreTermsManagementListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
+      .set('check_status', check_status ? check_status : '')
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -55,13 +58,13 @@ export class StoreTermsManagementService {
   }
 
 
-    // 详情
-    storeTermsDetail(id: any): Observable<StoreTermsManagementDetailResponseModel> {
-      return this.httpClient.get<StoreTermsManagementDetailResponseModel>(this.urls.GetStoreTermsDetail + id, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        );
-    }
+  // 详情
+  storeTermsDetail(id: any): Observable<StoreTermsManagementDetailResponseModel> {
+    return this.httpClient.get<StoreTermsManagementDetailResponseModel>(this.urls.GetStoreTermsDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
 
   // 删除
@@ -70,6 +73,15 @@ export class StoreTermsManagementService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+
+  //审核
+  productCheckStatus(storeTermsManagementRequestModel: StoreTermsManagementRequestModel): Observable<UpdateStoreTermsManagementResponseModel> {
+    return this.httpClient.post<UpdateStoreTermsManagementResponseModel>(this.urls.PostStoreTermsUpdateCheck, storeTermsManagementRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
 

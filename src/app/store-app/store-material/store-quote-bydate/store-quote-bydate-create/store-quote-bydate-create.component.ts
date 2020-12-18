@@ -206,9 +206,9 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
         this.dialogRef.close();
         if(res ==null){
-          alert("报价成功");
+          // alert("报价成功");
         }else{
-          alert("报价失败");
+          // alert("报价失败");
         }
       
         this.quoteBydateRequestModel.data =[]

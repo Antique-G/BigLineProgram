@@ -73,3 +73,9 @@ export interface DataDetailModel {
   created_at: string;
   updated_at: string;
 }
+
+
+export interface StoreTermsManagementRequestModel{
+  id: number;
+  check_status: number;
+}
