@@ -3,7 +3,40 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>下架</mat-option>
+                                        <mat-option value=1>上架</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="审核状态" formControlName="checkStatus">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>未提交审核</mat-option>
+                                        <mat-option value=1>审核中</mat-option>
+                                        <mat-option value=1>已通过</mat-option>
+                                        <mat-option value=1>未通过</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>产品名称</mat-label>
+                                    <input matInput value="" formControlName="title" placeholder="请输入产品名称">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
 
+                        </div>
+                    </form>
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[1,2,3]" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
                             (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
