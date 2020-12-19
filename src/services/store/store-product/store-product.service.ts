@@ -87,14 +87,14 @@ export class StoreProductService {
         catchError(this.handleError)
       )
   }
-
-    // 产品标题
-    // productAssemblingPlaceList(): Observable<AssemblingPlaceListModel> {
-    //   return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreAssemblingPlaceList, httpOptions)
-    //     .pipe(
-    //       catchError(this.handleError)
-    //     )
-    // }
+  
+    // 产品标签
+    productTagList(): Observable<AssemblingPlaceListModel> {
+      return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreTagList, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
 
 // uploadImgModel: UploadImgModel
@@ -102,11 +102,8 @@ export class StoreProductService {
   uploadImg(image: any): Observable<any> {
     console.log('uploadImgModel',image);
     const imgHttpOptions = {
-      reportProgress: true,
-      // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
-     
+      reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };
-    
     return this.httpClient.post<any>(this.urls.PostStoreImgUpload, image, imgHttpOptions)
       .pipe(
         catchError(this.handleError)

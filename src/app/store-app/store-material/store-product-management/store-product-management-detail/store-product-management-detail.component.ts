@@ -1,9 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../util/validators';
-import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
-import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
 import { DetailModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -93,9 +91,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
-    public storeProductService: StoreProductService, public storeRegionService: StoreRegionService,
-    public storeProductTagService: StoreProductTagService,
-    public storeMeetingPlaceService: StoreMeetingPlaceService) {
+    public storeProductService: StoreProductService, public storeRegionService: StoreRegionService,) {
     this.buildForm();
 
     this.detailUpdateModel = {
@@ -200,11 +196,11 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
   // 标签  --按顺序执行
   getTagList() {
-    this.storeProductTagService.getProductTagList().subscribe(res => {
+    this.storeProductService.productTagList().subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);
-        console.log("tagList", this.tagList)
+        // console.log("tagList", this.tagList)
       }
       this.getRegionList();
     })
@@ -220,7 +216,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.storeMeetingPlaceService.storeMeetingPlaceList(1, 1000).subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.assemblingPlaceList.push(a);
@@ -245,7 +241,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.detailUpdateModel.notice = this.addForm.value.notice;
     let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
     this.detailUpdateModel.earlier = i;
-    console.log("12121212", this.detailUpdateModel.earlier);
+    // console.log("12121212", this.detailUpdateModel.earlier);
   }
 
 
@@ -303,14 +299,14 @@ export class StoreProductManagementDetailComponent implements OnInit {
       aNums.push(int.id)
       this.selectedPlace = aNums;
     }
-    console.log("this.selectedPlace", this.selectedPlace);
+    // console.log("this.selectedPlace", this.selectedPlace);
     let b = this.dataProductDetailModel.tag.data;
     let bNums: any[] = []
     for (let ints of b) {
       bNums.push(ints.id)
       this.selectedTag = bNums
     }
-    console.log("this.selectedTag", this.selectedTag);
+    // console.log("this.selectedTag", this.selectedTag);
     const str = this.dataProductDetailModel.region_code;
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
@@ -369,13 +365,46 @@ export class StoreProductManagementDetailComponent implements OnInit {
   textChange() {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
+    console.log("拿到的feature",this.dataProductDetailModel.feature);
     editorFeature.txt.html(this.dataProductDetailModel.feature);
     this.featureMessage = editorFeature.txt.text();  //赋值
+    console.log("拿到的值1212",this.featureMessage);
+
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
     }
     editorFeature.create();
-    editorFeature.config.uploadImgServer = '/upload-img';
+  // 上传图片接口地址（待定）
+  editorFeature.config.uploadImgParams = {
+    token: (localStorage.getItem('userToken')!),
+  }
+  editorFeature.config.uploadImgServer = '/store/image';
+  /* 
+     自定义图片上传事件
+     参数1 ：files 是 input 中选中的文件列表
+     参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+   */
+  editorFeature.config.customUploadImg = (files: any, insert: any) => {
+    // 限制一次最多上传 1 张图片
+    if (files.length !== 1) {
+      alert('单次只能上传一个图片')
+      return
+    }
+    console.log("files是什么", files)
+    // 下面的代码就是去根据自己的需求请求数据 
+    //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+    // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+    console.log(files[0]);
+    let formData = new FormData();
+    formData.append('image', files[0] as any);
+    console.log("formData是什么", formData.get('file'));
+    this.storeProductService.uploadImg(formData).subscribe(res => {
+      console.log(res,'res');
+        insert(res.data);
+    })
+  }
+
+
 
 
     // 详情
@@ -386,7 +415,34 @@ export class StoreProductManagementDetailComponent implements OnInit {
       this.detailUpdateModel.details = newHtml;
     }
     editorDetail.create();
-    editorDetail.config.uploadImgServer = '/upload-img'
+  editorDetail.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorDetail.config.uploadImgServer = '/store/image';
+    /* 
+       自定义图片上传事件
+       参数1 ：files 是 input 中选中的文件列表
+       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+     */
+    editorDetail.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files)
+      // 下面的代码就是去根据自己的需求请求数据 
+      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
+      let formDataDetail = new FormData();
+      formDataDetail.append('image', files[0] as any);
+      console.log("formData是什么", formDataDetail.get('file'));
+      this.storeProductService.uploadImg(formDataDetail).subscribe(res => {
+        console.log(res,'res');
+          insert(res.data);
+      })
+    }
 
   }
 

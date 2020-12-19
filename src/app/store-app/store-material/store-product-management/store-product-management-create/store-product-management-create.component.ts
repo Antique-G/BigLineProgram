@@ -3,8 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
 import { AddStoreProductModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
-import { StoreProductTagService } from '../../../../../services/store/store-product-tag/store-product-tag.service';
-import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import E from 'wangeditor'
 import { Router } from '@angular/router';
@@ -95,8 +93,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router,
     public storeProductService: StoreProductService,
-    public storeProductTagService: StoreProductTagService,
-    public storeMeetingPlaceService: StoreMeetingPlaceService,
     public storeRegionService: StoreRegionService,) {
 
     this.buildForm();
@@ -180,7 +176,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   // 标签  --按顺序执行
   getTagList() {
-    this.storeProductTagService.getProductTagList().subscribe(res => {
+    this.storeProductService.productTagList().subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {
         // console.log('iiiiii', i);
@@ -195,8 +191,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.storeMeetingPlaceService.storeMeetingPlaceList(1, 1000).subscribe(res => {
-      // console.log("集合地点", res.data);
+    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+      console.log("集合地点", res.data);
       for (let i of res.data) {
         // console.log('iiiiii', i);
         let a = { value: i.id, label: i.name };
@@ -332,17 +328,13 @@ export class StoreProductManagementCreateComponent implements OnInit {
     // 产品特色
     const editorFeature = new E(document.getElementById('featureDiv'));
     editorFeature.config.height = 200;  // 设置编辑区域高度为 500px
-    editorFeature.config.uploadImgMaxSize = 2 * 1024 * 1024 // 2M
-    editorFeature.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
-    editorFeature.config.uploadImgMaxLength = 1
-    editorFeature.config.uploadImgShowBase64 = true
+    editorFeature.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
+    editorFeature.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    editorFeature.config.uploadImgMaxLength = 1;
 
-    // editorFeature.config.focus = false; // 取消自动 focus
     editorFeature.config.onchange = (newHtml: any) => {
-      console.log("213123", newHtml)
-      // console.log("content", editorFeature.txt.text());
+      console.log("213123", newHtml);
       this.addStoreProductModel.feature = newHtml;
-
     }
     editorFeature.create();
     // 上传图片接口地址（待定）
@@ -368,17 +360,10 @@ export class StoreProductManagementCreateComponent implements OnInit {
       console.log(files[0]);
       let formData = new FormData();
       formData.append('image', files[0] as any);
-
       console.log("formData是什么", formData.get('file'));
-
       this.storeProductService.uploadImg(formData).subscribe(res => {
         console.log(res,'res');
-        // if(res.code =='ok'){  
-          insert(res.data)
-        //   // this.messageService.showInfoMessage('上传成功')
-        // }else{
-        //   // this.messageService.showErrorMessage(res.message)
-        // }
+          insert(res.data);
       })
     }
 
@@ -389,15 +374,42 @@ export class StoreProductManagementCreateComponent implements OnInit {
     // 详情
     const editorDetail = new E(document.getElementById('detailDiv'));
     editorDetail.config.height = 200;  // 设置编辑区域高度为 500px
+    editorDetail.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
+    editorDetail.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    editorDetail.config.uploadImgMaxLength = 1;
     editorDetail.config.onchange = (newHtml: any) => {
-      console.log("213123", newHtml)
-      // console.log("content", editorFeature.txt.text());
+      console.log("213123", newHtml);
       this.addStoreProductModel.details = newHtml;
-
     }
     editorDetail.create();
-    // 上传图片接口地址（待定）
-    editorDetail.config.uploadImgServer = 'http://plat.bigline.cc/store/image'
+    editorDetail.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorDetail.config.uploadImgServer = '/store/image';
+    /* 
+       自定义图片上传事件
+       参数1 ：files 是 input 中选中的文件列表
+       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+     */
+    editorDetail.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files)
+      // 下面的代码就是去根据自己的需求请求数据 
+      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
+      let formDataDetail = new FormData();
+      formDataDetail.append('image', files[0] as any);
+      console.log("formData是什么", formDataDetail.get('file'));
+      this.storeProductService.uploadImg(formDataDetail).subscribe(res => {
+        console.log(res,'res');
+          insert(res.data);
+      })
+    }
 
   }
 
