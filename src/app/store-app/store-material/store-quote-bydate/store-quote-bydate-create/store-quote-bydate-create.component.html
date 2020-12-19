@@ -19,12 +19,12 @@
                 </ng-template> -->
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
-                    <nz-range-picker  [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
+                    <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
                 </nz-form-control>
             </nz-form-item>
-           
-            
-            
+
+
+
             <nz-form-item>
                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price">成人价格</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.adult_price">
@@ -61,18 +61,18 @@
             </nz-form-item>
 
             <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                    <ng-container *ngIf="currentDate==''; else elseType">
-                        <nz-form-control [nzSpan]="14" [nzOffset]="12">
-                            <button nz-button nzType="primary" (click)="add()">添加</button>
-                        </nz-form-control>
-                    </ng-container>
-                    <ng-template #elseType>
-                        <nz-form-control [nzSpan]="14" [nzOffset]="8">
-                            <button nz-button nzType="primary"  nzDanger (click)="deleteInfo()">删除</button>
+                <ng-container *ngIf="currentDate==''; else elseType">
+                    <nz-form-control [nzSpan]="14" [nzOffset]="12">
+                        <button nz-button nzType="primary" (click)="add()">提交</button>
+                    </nz-form-control>
+                </ng-container>
+                <ng-template #elseType>
+                    <nz-form-control [nzSpan]="14" [nzOffset]="8">
+                        <button nz-button nzType="primary" nzDanger (click)="deleteInfo()">删除</button>
 
-                            <button nz-button nzType="primary" style="margin-left: 20px;" (click)="add()">修改</button>
-                        </nz-form-control>
-                    </ng-template>
+                        <button nz-button nzType="primary" style="margin-left: 20px;" (click)="add()">更新</button>
+                    </nz-form-control>
+                </ng-template>
             </nz-form-item>
         </form>
     </div>
