@@ -76,6 +76,18 @@ export class AdminProductManagementService {
     }
 
 
+      // 上传图片
+  uploadImg(image: any): Observable<any> {
+    console.log('uploadImgModel',image);
+    const imgHttpOptions = {
+      reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+    };
+    return this.httpClient.post<any>(this.urls.PostAdminUpload, image, imgHttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 
