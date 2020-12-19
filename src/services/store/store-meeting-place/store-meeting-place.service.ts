@@ -21,9 +21,12 @@ export class StoreMeetingPlaceService {
 
 
   // 集合地点列表
-  storeMeetingPlaceList(page: number, per_page: number): Observable<StoreMeetingPlaceListResponseModel> {
+  storeMeetingPlaceList(page: number, per_page: number, name: any , status: any): Observable<StoreMeetingPlaceListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
+      .set('name', name ? name : '')
+      .set('status', status ? status : '')
+      
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params

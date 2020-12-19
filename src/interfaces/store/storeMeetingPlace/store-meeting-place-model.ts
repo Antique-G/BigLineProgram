@@ -1,6 +1,8 @@
 export interface StoreMeetingPlaceListRequestModel {
   page?: number;
   per_page?: number;
+  status?: number;
+  name?: any;
 }
 
 
