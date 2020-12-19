@@ -94,6 +94,9 @@ export class Interceptor implements HttpInterceptor {
               const oldToken = (localStorage.getItem('userToken')!);
               localStorage.setItem('userToken', oldToken);
             }
+            else if(error.status == 400){
+              alert(error.error.message);
+            }
             else if (error.status == 403) {
               alert(error.message)
             }

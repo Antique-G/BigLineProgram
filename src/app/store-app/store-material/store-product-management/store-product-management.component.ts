@@ -106,5 +106,18 @@ export class StoreProductManagementComponent implements OnInit {
     });
   }
 
+  down(data: any) {
+    console.log("nadao", data);
+    const dialogRef = this.dialog.open(StoreProductManagementUpComponent, {
+      width: '550px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      this.getProductList();
+
+    });
+  }
+
 
 }

@@ -31,7 +31,6 @@ export class StoreProductManagementUpComponent implements OnInit {
 
 
   update() {
-
     this.storeProductService.patchProductStatus(this.id).subscribe(res => {
       console.log("res结果", res);
       if (res === null) {
