@@ -201,7 +201,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
   // 标签  --按顺序执行
   getTagList() {
-    this.adminProductTagService.getProductTagList(1,1000,'','').subscribe(res => {
+    this.adminProductTagService.getProductTagList(1,1000,'','','').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);

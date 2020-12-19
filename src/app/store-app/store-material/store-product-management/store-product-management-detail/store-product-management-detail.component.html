@@ -182,8 +182,8 @@
                                         <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品特色！">
                                             <div class="wangeditor-feature">
                                                 <div id="editorFeature" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                <div id="editor"  class="w-e-text" style="height:200px;max-height:250px;">
-                                                    <div #myBox>{{featureMessage}}</div>
+                                                <div id="editor" class="w-e-text" style="height:200px;max-height:250px;">
+                                                    <div #featureBox></div>
                                                 </div>
                                             </div>
                                         </nz-form-control>
@@ -197,7 +197,7 @@
                                             <div class="wangeditor-feature">
                                                 <div id="editorDetail" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
                                                 <div id="editorContent" class="w-e-text" style="height:200px;max-height:250px;">
-                                                    <p>{{detailsMessage}}</p>
+                                                    <div #detailBox></div>
                                                 </div>
                                             </div>
                                         </nz-form-control>

@@ -16,6 +16,7 @@ export class AdminProductTagComponent implements OnInit {
   searchForm!: FormGroup;
   page = 1;
   per_page = 10;
+  total: any;
   cate_id: any;
   status: any;
   name: any;
@@ -43,15 +44,16 @@ export class AdminProductTagComponent implements OnInit {
       this.sortList.push(b);
       this.getData();
     });
-   
+
   }
 
   getData(): void {
     this.loading = true;
-    this.adminProductTagService.getProductTagList(this.page, this.per_page, this.cate_id, this.name,this.status).subscribe((result: any) => {
+    this.adminProductTagService.getProductTagList(this.page, this.per_page, this.cate_id, this.name, this.status).subscribe((result: any) => {
       console.log("jieguo", result);
       this.loading = false;  //总页数
       this.dataSource = result.data;
+      this.total = result.total;
     });
   };
 

@@ -1,8 +1,27 @@
 export interface AdminProductTagListRequestModel {
-    data: Datum[];
+    current_page: number;
+    data: DatumModel[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: Link[];
+    next_page_url: string;
+    path: string;
+    per_page: string;
+    prev_page_url?: any;
+    to: number;
+    total: number;
 }
 
-export interface Datum {
+export interface Link {
+    url?: string;
+    label: number | string;
+    active: boolean;
+}
+
+
+export interface DatumModel {
     id: number;
     name: string;
     status: number;
