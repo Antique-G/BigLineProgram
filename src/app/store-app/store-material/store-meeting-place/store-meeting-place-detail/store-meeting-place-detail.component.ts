@@ -62,6 +62,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       region_code: '',
       address: '',
       status: 1,
+      time:''
     }
   }
 

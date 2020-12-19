@@ -18,6 +18,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   idRegion: any;
   addForm!: FormGroup;
   status = '1';
+  time: Date | null = null;
 
   addStoreMeetingPlaceRequestModel: AddStoreMeetingPlaceRequestModel;
 
@@ -33,12 +34,16 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     address: {
       'maxlength': '地址长度最多为255个字符',
       'required': '请输入具体地址！'
+    },
+    timeMeeting: {
+      'required': '请输入集合时间！'
     }
   };
   formErrors: any = {
     name: '',
     regionCode: '',
-    address: ''
+    address: '',
+    timeMeeting: '',
   };
 
 
@@ -51,6 +56,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       region_code: '',
       address: '',
       status: 1,
+      time: ''
     }
   }
 
@@ -61,6 +67,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       regionCode: ['', [Validators.required]],
       address: ['', [Validators.required]],
       status: [1, [Validators.required]],
+      timeMeeting: ['', [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -110,6 +117,14 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
+    console.log(" this.addForm.value.timeMeeting", this.addForm.value.timeMeeting);
+    console.log(" this.addForm.value.timeMeeting", this.time)
+    this.addStoreMeetingPlaceRequestModel.time = this.addForm.value.timeMeeting;
+
+  }
+
+  log(time: Date): void {
+    console.log(time && time.toTimeString());
   }
 
 
