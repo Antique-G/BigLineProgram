@@ -181,7 +181,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
     });
     this.getTagList();
     // 24小时遍历   
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 24; i++) {
       let a = { value: i, label: i };
       this.hourList.push(a);
     }

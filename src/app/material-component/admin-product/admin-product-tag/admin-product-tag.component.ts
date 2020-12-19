@@ -109,11 +109,11 @@ export class AdminProductTagComponent implements OnInit {
     console.log("传的值", data);
     this.adminProductTagService.deleteProductTag(data.id).subscribe(res => {
       if (res?.status_code) {
-        alert("删除失败");
+        // alert("删除失败");
       }
       else {
         alert("删除成功");
-        this.getData();
+        // this.getData();
       }
     })
   }
