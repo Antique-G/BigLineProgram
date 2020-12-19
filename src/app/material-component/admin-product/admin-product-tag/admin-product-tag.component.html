@@ -11,11 +11,20 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
                                 <mat-form-field>
-                                    <mat-select placeholder="请输入分类id" formControlName="cate_id">
+                                    <mat-select placeholder="请选择分类" formControlName="cate_id">
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option *ngFor="let sort of sortList" [value]="sort.id">
                                             {{sort.value}}
                                         </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>暂停</mat-option>
+                                        <mat-option value=1>正常</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>

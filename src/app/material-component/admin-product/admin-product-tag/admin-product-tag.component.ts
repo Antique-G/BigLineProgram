@@ -17,6 +17,7 @@ export class AdminProductTagComponent implements OnInit {
   page = 1;
   per_page = 10;
   cate_id: any;
+  status: any;
   name: any;
   dataSource = [];
   loading = true;
@@ -26,6 +27,7 @@ export class AdminProductTagComponent implements OnInit {
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductTagService: AdminProductTagService,) {
     this.searchForm = fb.group({
       cate_id: ['', [Validators.required]],
+      status: ['', [Validators.required]],
       name: ['', [Validators.required]]
     });
   }
@@ -46,7 +48,7 @@ export class AdminProductTagComponent implements OnInit {
 
   getData(): void {
     this.loading = true;
-    this.adminProductTagService.getProductTagList(this.page, this.per_page, this.cate_id, this.name).subscribe((result: any) => {
+    this.adminProductTagService.getProductTagList(this.page, this.per_page, this.cate_id, this.name,this.status).subscribe((result: any) => {
       console.log("jieguo", result);
       this.loading = false;  //总页数
       this.dataSource = result.data;
@@ -68,6 +70,7 @@ export class AdminProductTagComponent implements OnInit {
   search() {
     this.cate_id = this.searchForm.value.cate_id;
     this.name = this.searchForm.value.name;
+    this.status = this.searchForm.value.status;
     this.getData();
 
   }

@@ -17,11 +17,12 @@ export class AdminProductTagService {
   constructor(public httpClient: HttpClient) { }
 
   // 产品标签列表
-  getProductTagList(page: number, per_page: number, cate_id: any, name: any): Observable<AdminProductTagListRequestModel> {
+  getProductTagList(page: number, per_page: number, cate_id: any, name: any,status:any): Observable<AdminProductTagListRequestModel> {
     const params = new HttpParams().set('page', page.toString())
     .set('per_page', per_page.toString())
     .set('cate_id', cate_id ? cate_id : '')
-    .set('name', name ? name : '');
+    .set('name', name ? name : '')
+    .set('status', status ? status : '');
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
