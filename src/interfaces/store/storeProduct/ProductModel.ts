@@ -162,5 +162,15 @@ export interface UploadImgModel {
 }
 
 
+export interface  AssemblingPlaceListModel{
+  data: DatumList[];
+}
+
+
+export interface  DatumList{
+  id: number;
+  name: string;
+}
+
 
 
