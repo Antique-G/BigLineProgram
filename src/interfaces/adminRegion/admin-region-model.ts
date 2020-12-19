@@ -111,3 +111,12 @@ export interface AdminRegionDetailResponseModel {
   created_at: string;
   updated_at: string;
 }
+
+export interface AdminRegionUploadRequestModel {
+  image: any;
+
+}
+export interface AdminRegionUploadResponseModel {
+  url: any;
+
+}

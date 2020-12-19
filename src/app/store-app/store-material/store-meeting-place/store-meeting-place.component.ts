@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreMeetingPlaceService } from '../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place-create/store-meeting-place-create.component';
@@ -11,13 +12,20 @@ import { StoreMeetingPlaceDetailComponent } from './store-meeting-place-detail/s
   styleUrls: ['./store-meeting-place.component.css']
 })
 export class StoreMeetingPlaceComponent implements OnInit {
+  searchForm: FormGroup;
   dataSource = [];
   page = 1;
   per_page = 20;
   total = 1;
   loading = true;
+  name: any;
+  status: any;
 
-  constructor(public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
+    this.searchForm = fb.group({
+      status: ['',[Validators.required]],
+      name: ['',[Validators.required]],
+    })
   }
 
 
@@ -25,10 +33,11 @@ export class StoreMeetingPlaceComponent implements OnInit {
     this.storeMeetingPlaceList();
   }
 
+ 
 
   storeMeetingPlaceList(): void {
     this.loading = true;
-    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page).subscribe((result: any) => {
+    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page,this.name,this.status).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.meta.pagination.total;   //总页数
@@ -47,6 +56,13 @@ export class StoreMeetingPlaceComponent implements OnInit {
     this.storeMeetingPlaceList();
   }
 
+  search() {
+    console.log("获取输入框内容",this.searchForm.value)
+    this.name = this.searchForm.value.name;
+    this.status = this.searchForm.value.status;
+    this.storeMeetingPlaceList();
+
+  }
 
   edit(element: any): void {
     console.log("拿到的值", element);

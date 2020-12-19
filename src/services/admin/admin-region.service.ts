@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { AddAdminRegionListRequestModel, AdminRegionDetailResponseModel, AdminRegionListResponseModel, AdminRegionModel, AdminRegionResponseModel, UpdateAdminRegionListRequestModel } from '../../interfaces/adminRegion/admin-region-model';
+import { AddAdminRegionListRequestModel, AdminRegionDetailResponseModel, AdminRegionListResponseModel, AdminRegionModel, AdminRegionResponseModel, AdminRegionUploadRequestModel, AdminRegionUploadResponseModel, UpdateAdminRegionListRequestModel } from '../../interfaces/adminRegion/admin-region-model';
 import { AdminUrls } from '../../api';
 
 
@@ -74,7 +74,12 @@ export class AdminRegionService {
   }
 
   //上传图片
-  // regionImgUpload
+  adminUpload(adminRegionUploadRequestModel:AdminRegionUploadRequestModel){
+    return this.httpClient.post<AdminRegionUploadResponseModel>(this.urls.PostAdminUpload,adminRegionUploadRequestModel,httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
 
 
 
