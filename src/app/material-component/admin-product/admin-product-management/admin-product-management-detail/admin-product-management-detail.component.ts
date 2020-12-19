@@ -1,14 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { AdminProductManagementUpdateModel, DataProductDetailModel, Datum2 } from '../../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../../services/admin/admin-product-management.service';
 import { AdminProductTagService } from '../../../../../services/admin/admin-product-tag.service';
 import { AdminMeetingPlaceService } from '../../../../../services/admin/admin-meeting-place.service';
 import { AdminRegionService } from '../../../../../services/admin/admin-region.service';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
+
 
 
 @Component({
@@ -41,9 +41,8 @@ export class AdminProductManagementDetailComponent implements OnInit {
   adminProductManagementUpdateModel: AdminProductManagementUpdateModel //更新
   public isSpinning: any = true;    //loading 
 
-  // 初始化文本框的值
-  featureMessage: any;
-  detailsMessage: any;
+  @ViewChild("featureBox") featureBox: any;       //获取dom
+  @ViewChild("detailBox") detailBox: any;     //获取dom
 
 
   validationMessage: any = {
@@ -201,7 +200,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
   // 标签  --按顺序执行
   getTagList() {
-    this.adminProductTagService.getProductTagList(1,1000,'','','').subscribe(res => {
+    this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);
@@ -370,27 +369,92 @@ export class AdminProductManagementDetailComponent implements OnInit {
   textChange() {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
-    editorFeature.txt.html(this.dataProductDetailModel.feature);
-    this.featureMessage = editorFeature.txt.text();  //赋值
+    console.log("拿到的feature", this.dataProductDetailModel.feature);
+    this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
+
+    this.adminProductManagementUpdateModel.feature = this.dataProductDetailModel.feature;
+    console.log("没改之前的model", this.adminProductManagementUpdateModel.feature);
     editorFeature.config.onchange = (newHtml: any) => {
       this.adminProductManagementUpdateModel.feature = newHtml;
+      console.log("修改后的model", this.adminProductManagementUpdateModel.feature)
+
     }
     editorFeature.create();
-    editorFeature.config.uploadImgServer = '/upload-img';
+    // 上传图片接口地址（待定）
+    editorFeature.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorFeature.config.uploadImgServer = '/admin/image';
+    /* 
+       自定义图片上传事件
+       参数1 ：files 是 input 中选中的文件列表
+       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+     */
+    editorFeature.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files)
+      // 下面的代码就是去根据自己的需求请求数据 
+      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
+      let formData = new FormData();
+      formData.append('image', files[0] as any);
+      console.log("formData是什么", formData.get('file'));
+      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
+        console.log(res, 'res');
+        insert(res.data);
+      })
+    }
+
+
 
 
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-    editorDetail.txt.html(this.dataProductDetailModel.details);
-    this.detailsMessage = editorDetail.txt.text();
+    console.log("拿到的details", this.dataProductDetailModel.details)
+    this.detailBox.nativeElement.innerHTML = this.dataProductDetailModel.details;    //赋值
+    this.adminProductManagementUpdateModel.details = this.dataProductDetailModel.details;
+    console.log("没改之前的model", this.adminProductManagementUpdateModel.details);
     editorDetail.config.onchange = (newHtml: any) => {
       this.adminProductManagementUpdateModel.details = newHtml;
+    console.log("修改后的model", this.adminProductManagementUpdateModel.details);
+
     }
     editorDetail.create();
-    editorDetail.config.uploadImgServer = '/upload-img'
+    editorDetail.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorDetail.config.uploadImgServer = '/store/image';
+    /* 
+       自定义图片上传事件
+       参数1 ：files 是 input 中选中的文件列表
+       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+     */
+    editorDetail.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files)
+      // 下面的代码就是去根据自己的需求请求数据 
+      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
+      let formDataDetail = new FormData();
+      formDataDetail.append('image', files[0] as any);
+      console.log("formData是什么", formDataDetail.get('file'));
+      this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
+        console.log(res, 'res');
+        insert(res.data);
+      })
+    }
 
   }
-
 
 }
 

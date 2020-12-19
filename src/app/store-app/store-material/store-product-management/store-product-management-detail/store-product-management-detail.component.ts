@@ -367,6 +367,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
     const editorFeature = new wangEditor("#editorFeature", "#editor");
     console.log("拿到的feature", this.dataProductDetailModel.feature);
     this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
+    this.detailUpdateModel.feature = this.dataProductDetailModel.feature;
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
     }
@@ -408,6 +409,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
     console.log("拿到的details", this.dataProductDetailModel.details)
     this.detailBox.nativeElement.innerHTML = this.dataProductDetailModel.details;    //赋值
+    this.detailUpdateModel.details = this.dataProductDetailModel.details;
+
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details = newHtml;
     }
