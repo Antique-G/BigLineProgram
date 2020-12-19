@@ -61,6 +61,9 @@ export class Interceptor implements HttpInterceptor {
           if (event.status === 201) {
             this.createSuccess();   // 更新 添加
           }
+          else if( event.status === 204){
+            this.deleteSuccess();   // 删除
+          }
 
         }
       },
@@ -103,6 +106,7 @@ export class Interceptor implements HttpInterceptor {
     )
   }
 
+  
   createSuccess(): void {
     ['success'].forEach(method =>
       // @ts-ignore
@@ -112,8 +116,22 @@ export class Interceptor implements HttpInterceptor {
       })
     );
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    setTimeout(() => this.modal.closeAll(), 2000);  //2s后消失
+    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
   }
+
+
+  deleteSuccess(): void {
+    ['success'].forEach(method =>
+      // @ts-ignore
+      this.modal[method]({
+        nzMask: false,
+        nzTitle: `删除成功`,
+      })
+    );
+    this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+  }
+
 
 
   createFail(): void {
@@ -125,7 +143,7 @@ export class Interceptor implements HttpInterceptor {
       })
     );
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    setTimeout(() => this.modal.closeAll(), 2000);  //2s后消失
+    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
   }
 
 }

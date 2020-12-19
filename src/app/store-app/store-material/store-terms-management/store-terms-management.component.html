@@ -13,8 +13,8 @@
                                 <mat-form-field>
                                     <mat-select placeholder="选择状态" formControlName="status">
                                         <mat-option value=''>全部</mat-option>
-                                        <mat-option value=0>下架</mat-option>
-                                        <mat-option value=1>上架</mat-option>
+                                        <mat-option value=0>禁用</mat-option>
+                                        <mat-option value=1>启用</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -42,7 +42,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">标题</th>
-                                    <th style="text-align: center;">上下架</th>
+                                    <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">操作</th>
                                     <th style="text-align: center;">审核</th>
@@ -53,10 +53,10 @@
                                     <td>{{data.title}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
-                                            下架
+                                            禁用
                                         </div>
                                         <div *ngIf="data.status===1">
-                                            上架
+                                            启用
                                         </div>
                                     </td>
                                     <td>

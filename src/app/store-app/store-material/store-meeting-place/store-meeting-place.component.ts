@@ -99,11 +99,11 @@ export class StoreMeetingPlaceComponent implements OnInit {
     this.storeMeetingPlaceService.deleteStoreMeetingPlace(data.id).subscribe(res=>{
       console.log("res",res);
       if (res === null) {
-        alert("删除成功");
+        // alert("删除成功");
         this.storeMeetingPlaceList(); 
       }
       else {
-        alert("删除失败");
+        // alert("删除失败");
       }
     })
   }

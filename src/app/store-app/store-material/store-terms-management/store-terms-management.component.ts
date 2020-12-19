@@ -120,7 +120,7 @@ export class StoreTermsManagementComponent implements OnInit {
   review(data:any){
     console.log("拿到的值", data);
     const dialogRef = this.dialog.open(StoreTermManagementReviewComponent, {
-      width: '800px',
+      width: '500px',
       data: data
     });
     dialogRef.afterClosed().subscribe(result => {

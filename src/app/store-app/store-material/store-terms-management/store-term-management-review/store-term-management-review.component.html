@@ -3,34 +3,14 @@
         <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
     </div>
     <div style="padding: 5px;">
-        <form nz-form [formGroup]="addForm" nz-row>
-            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                <div nz-row>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="title" nzRequired>标题</nz-form-label>
-                    <nz-form-control [nzSm]="19" [nzXs]="24">
-                        <input nz-input formControlName="title" />
-                    </nz-form-control>
-                </div>
-            </nz-form-item>
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <div style="margin-bottom: 20px;color: red;font-size: 16px;letter-spacing: 1px;">是否提交审核</div>
 
-            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                <div nz-row>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <nz-radio-group ngModel="{{data.check_status}}" formControlName="check_status">
-                            <label nz-radio nzValue=1>审核中</label>
-                            <label nz-radio nzValue=2 [nzDisabled]="isdisabled">已通过 </label>
-                            <label nz-radio nzValue=3 [nzDisabled]="isdisabled">未通过 </label>
-                        </nz-radio-group>
-                    </nz-form-control>
-                </div>
-            </nz-form-item>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
+                <button nz-button nzType="default" (click)="cancel()" style="margin-right: 20px;">取消</button>
+                <button nz-button nzType="primary" (click)="update()">确定</button>
 
-            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                <nz-form-control [nzSpan]="14" [nzOffset]="12">
-                    <button nz-button nzType="primary" (click)="review()">审核</button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
+            </div>
+        </div>
     </div>
 </div>
