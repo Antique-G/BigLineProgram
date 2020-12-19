@@ -25,6 +25,12 @@
                 </nz-form-control>
             </nz-form-item>
 
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="timeMeeting" nzRequired>集合时间</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.timeMeeting">
+                    <nz-time-picker (ngModelChange)="log($event)" formControlName="timeMeeting"></nz-time-picker>
+                </nz-form-control>
+            </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>

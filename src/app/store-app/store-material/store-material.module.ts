@@ -22,7 +22,7 @@ import { StoreQuoteBydateCreateComponent } from './store-quote-bydate/store-quot
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
 import { StoreProductManagementUpComponent } from './store-product-management/store-product-management-up/store-product-management-up.component';
 import { StoreTermManagementReviewComponent } from './store-terms-management/store-term-management-review/store-term-management-review.component';
-
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 @NgModule({
   imports: [
     CommonModule,
@@ -33,7 +33,8 @@ import { StoreTermManagementReviewComponent } from './store-terms-management/sto
     ReactiveFormsModule,
     FlexLayoutModule,
     CdkTableModule,
-    DemoNgZorroAntdModule
+    DemoNgZorroAntdModule,
+    NzTimePickerModule
   ],
   providers: [],
   entryComponents: [
