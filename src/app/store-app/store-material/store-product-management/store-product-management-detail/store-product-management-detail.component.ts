@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
@@ -18,7 +18,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   nzOptions: any[] | null = null;
   values: any[] = [];
   idRegion: any;
-
+  @ViewChild("myBox") myBox: any;
   // 集合地以及标题
   selectedPlace: any[] = [];
   selectedTag: any[] = [];
@@ -366,7 +366,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
     console.log("拿到的feature",this.dataProductDetailModel.feature);
-    editorFeature.txt.html(this.dataProductDetailModel.feature);
+    // editorFeature.txt.html(this.dataProductDetailModel.feature);
+    this.myBox.nativeElement.innerHTML=this.dataProductDetailModel.feature
     this.featureMessage = editorFeature.txt.text();  //赋值
     console.log("拿到的值1212",this.featureMessage);
 
