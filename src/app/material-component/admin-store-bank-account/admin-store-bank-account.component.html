@@ -5,8 +5,8 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div style="margin-bottom: 20px;color: #607D8B;font-size: 16px;letter-spacing: 1px;">店铺银行账号管理列表</div>
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加银行账号</button>
                         <button mat-raised-button color="primary" style="letter-spacing:2px" routerLink="/admin/main/store">返回店铺管理</button>
+                        <button mat-raised-button color="primary" style="letter-spacing:2px" (click)="add()">添加银行账号</button>
                     </div>
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"

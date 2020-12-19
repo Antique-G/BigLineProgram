@@ -4,7 +4,7 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div>
-                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="add()">新增标题</button>
+                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="add()">新增条款</button>
                     </div>
 
                     <form [formGroup]="searchForm">
@@ -45,7 +45,6 @@
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">操作</th>
-                                    <th style="text-align: center;">审核</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,15 +82,12 @@
                                             <div style="cursor: pointer;" (click)="delete(data)" title="删除">
                                                 <mat-icon>delete</mat-icon>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                                            <div style="cursor: pointer;" (click)="review(data)" title="审核">
+                                            <div style="cursor: pointer;" (click)="review(data)" title="提交审核">
                                                 <mat-icon>assignment</mat-icon>
                                             </div>
                                         </div>
                                     </td>
+
                                 </tr>
                             </tbody>
                         </nz-table>

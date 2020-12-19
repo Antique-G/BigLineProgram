@@ -17,7 +17,7 @@
                             <div fxFlex=10>
                                 <mat-form-field>
                                     <mat-select placeholder="选择店铺" formControlName="storeId">
-                                        <mat-option>none</mat-option>
+                                        <mat-option value=''>全部</mat-option>
                                         <mat-option *ngFor="let store of storeList" [value]="store.id">
                                             {{store.value}}
                                         </mat-option>

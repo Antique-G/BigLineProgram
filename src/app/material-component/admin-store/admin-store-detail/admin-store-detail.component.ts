@@ -81,9 +81,9 @@ export class AdminStoreDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       name: [this.storeDetailModel.name, [Validators.required]],
       regionCode: [this.storeDetailModel.region_code, [Validators.required]],
-      address: [this.storeDetailModel.address, [Validators.required]],
-      fax: [this.storeDetailModel.fax, [Validators.required]],
-      phone: [this.storeDetailModel.phone, [Validators.required]],
+      address: [this.storeDetailModel.address],
+      fax: [this.storeDetailModel.fax],
+      phone: [this.storeDetailModel.phone],
       status: [this.storeDetailModel.status, [Validators.required]],
       contact: [this.storeDetailModel.contact, [Validators.required]],
       mobile: [this.storeDetailModel.mobile, [Validators.required]],
