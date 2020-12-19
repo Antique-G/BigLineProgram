@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
@@ -18,7 +18,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
   nzOptions: any[] | null = null;
   values: any[] = [];
   idRegion: any;
-  @ViewChild("myBox") myBox: any;
+  @ViewChild("featureBox") featureBox: any;       //获取dom
+  @ViewChild("detailBox") detailBox: any;     //获取dom
   // 集合地以及标题
   selectedPlace: any[] = [];
   selectedTag: any[] = [];
@@ -39,7 +40,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
   public isSpinning: any = true;    //loading 
 
   // 初始化文本框的值
-  featureMessage: any;
   detailsMessage: any;
 
 
@@ -316,18 +316,18 @@ export class StoreProductManagementDetailComponent implements OnInit {
     // 截止日期
     console.log("截止日期", this.dataProductDetailModel.earlier);
     console.log("分钟", this.dataProductDetailModel.earlier % 60)
-    console.log("小时", Math.floor(this.dataProductDetailModel.earlier / 60)%24);
+    console.log("小时", Math.floor(this.dataProductDetailModel.earlier / 60) % 24);
     console.log("", Math.floor(this.dataProductDetailModel.earlier / 60 / 24));
     this.selectedDay = Math.floor(this.dataProductDetailModel.earlier / 60 / 24); //天数
     //小时
-    if(Math.floor(this.dataProductDetailModel.earlier / 60)>25){
-      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60)%24; 
+    if (Math.floor(this.dataProductDetailModel.earlier / 60) > 25) {
+      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60) % 24;
     }
-    else{
-      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60); 
+    else {
+      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60);
 
     }
-    this.selectedMins = Math.floor(this.dataProductDetailModel.earlier  % 60);  //分钟
+    this.selectedMins = Math.floor(this.dataProductDetailModel.earlier % 60);  //分钟
   }
 
 
@@ -365,58 +365,54 @@ export class StoreProductManagementDetailComponent implements OnInit {
   textChange() {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
-    console.log("拿到的feature",this.dataProductDetailModel.feature);
-    // editorFeature.txt.html(this.dataProductDetailModel.feature);
-    this.myBox.nativeElement.innerHTML=this.dataProductDetailModel.feature
-    this.featureMessage = editorFeature.txt.text();  //赋值
-    console.log("拿到的值1212",this.featureMessage);
-
+    console.log("拿到的feature", this.dataProductDetailModel.feature);
+    this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
     }
     editorFeature.create();
-  // 上传图片接口地址（待定）
-  editorFeature.config.uploadImgParams = {
-    token: (localStorage.getItem('userToken')!),
-  }
-  editorFeature.config.uploadImgServer = '/store/image';
-  /* 
-     自定义图片上传事件
-     参数1 ：files 是 input 中选中的文件列表
-     参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-   */
-  editorFeature.config.customUploadImg = (files: any, insert: any) => {
-    // 限制一次最多上传 1 张图片
-    if (files.length !== 1) {
-      alert('单次只能上传一个图片')
-      return
+    // 上传图片接口地址（待定）
+    editorFeature.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
     }
-    console.log("files是什么", files)
-    // 下面的代码就是去根据自己的需求请求数据 
-    //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
-    // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-    console.log(files[0]);
-    let formData = new FormData();
-    formData.append('image', files[0] as any);
-    console.log("formData是什么", formData.get('file'));
-    this.storeProductService.uploadImg(formData).subscribe(res => {
-      console.log(res,'res');
+    editorFeature.config.uploadImgServer = '/store/image';
+    /* 
+       自定义图片上传事件
+       参数1 ：files 是 input 中选中的文件列表
+       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+     */
+    editorFeature.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files)
+      // 下面的代码就是去根据自己的需求请求数据 
+      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
+      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log(files[0]);
+      let formData = new FormData();
+      formData.append('image', files[0] as any);
+      console.log("formData是什么", formData.get('file'));
+      this.storeProductService.uploadImg(formData).subscribe(res => {
+        console.log(res, 'res');
         insert(res.data);
-    })
-  }
+      })
+    }
 
 
 
 
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-    editorDetail.txt.html(this.dataProductDetailModel.details);
-    this.detailsMessage = editorDetail.txt.text();
+    console.log("拿到的details", this.dataProductDetailModel.details)
+    this.detailBox.nativeElement.innerHTML = this.dataProductDetailModel.details;    //赋值
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details = newHtml;
     }
     editorDetail.create();
-  editorDetail.config.uploadImgParams = {
+    editorDetail.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
     editorDetail.config.uploadImgServer = '/store/image';
@@ -440,8 +436,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
       formDataDetail.append('image', files[0] as any);
       console.log("formData是什么", formDataDetail.get('file'));
       this.storeProductService.uploadImg(formDataDetail).subscribe(res => {
-        console.log(res,'res');
-          insert(res.data);
+        console.log(res, 'res');
+        insert(res.data);
       })
     }
 

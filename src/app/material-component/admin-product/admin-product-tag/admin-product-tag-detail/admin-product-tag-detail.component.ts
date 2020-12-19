@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, } from '@angular/material/dialog';
 import { AdminProductTagService } from '../../../../../services/admin/admin-product-tag.service';
-import { Datum, UpdateAdminProductRequestModel } from '../../../../../interfaces/adminProduct/ProductTagModel';
+import { DatumModel, UpdateAdminProductRequestModel } from '../../../../../interfaces/adminProduct/ProductTagModel';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { Datum, UpdateAdminProductRequestModel } from '../../../../../interfaces
   styleUrls: ['./admin-product-tag-detail.component.css']
 })
 export class AdminProductTagDetailComponent implements OnInit {
-  detailModel: Datum;
+  detailModel: DatumModel;
   updateAdminProductRequestModel: UpdateAdminProductRequestModel;
   addForm!: FormGroup;
   optionList: any[] = [];
@@ -136,6 +136,9 @@ export class AdminProductTagDetailComponent implements OnInit {
       console.log("this.optionList", this.optionList);
     })
   }
+
+
+  
 
 
   close() {
