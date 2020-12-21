@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminTermsManageService } from '../../../services/admin/admin-terms-manage.service';
 import { AdminTermsManageReviewComponent } from './admin-terms-manage-review/admin-terms-manage-review.component';
 import { AdminStoreService } from '../../../services/admin/admin-store.service';
+import { AdminTermsManageUpComponent } from './admin-terms-manage-up/admin-terms-manage-up.component';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class AdminTermsManageComponent implements OnInit {
   constructor(public dialog: MatDialog, public adminTermsManageService: AdminTermsManageService,
     public fb: FormBuilder, public adminStoreService: AdminStoreService,) {
     this.searchForm = this.fb.group({
-      status: ['', [Validators.required]],
-      storeId: ['', [Validators.required]],
-      title: ['', [Validators.required]],
+      status: [''],
+      storeId: ['' ],
+      title: [''],
     })
   }
 
@@ -89,6 +90,29 @@ export class AdminTermsManageComponent implements OnInit {
       this.adminTermsList();
     });
 
+  }
+
+
+  down(data:any){
+    console.log("拿到的值", data);
+    const dialogRef = this.dialog.open(AdminTermsManageUpComponent, {
+      width: '500px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.adminTermsList();
+    });
+  }
+
+  up(data:any){
+    console.log("拿到的值", data);
+    const dialogRef = this.dialog.open(AdminTermsManageUpComponent, {
+      width: '500px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.adminTermsList();
+    });
   }
 
 

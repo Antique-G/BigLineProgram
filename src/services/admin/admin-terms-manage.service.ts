@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminTermsManagementListResponseModel, AdminTermsManagementSetCheckRequestModel, AdminTermsManagementSetCheckResponseModel } from '../../interfaces/adminTerms/admin-terms-manage-model';
+import { AdminTermsManagementListResponseModel, AdminTermsManagementSetCheckRequestModel, AdminTermsManagementSetCheckResponseModel, AdminTermsManagementSetStatusRequestModel } from '../../interfaces/adminTerms/admin-terms-manage-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -45,6 +45,15 @@ export class AdminTermsManageService {
         catchError(this.handleError)
       )
   }
+
+
+    // 条款管理开启
+    termsSetStatus(adminTermsManagementSetStatusRequestModel: AdminTermsManagementSetStatusRequestModel): Observable<AdminTermsManagementSetCheckResponseModel> {
+      return this.httpClient.post<AdminTermsManagementSetCheckResponseModel>(this.urls.PostAdminTermsSetStatus, adminTermsManagementSetStatusRequestModel, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
 
   private handleError(error: HttpErrorResponse) {

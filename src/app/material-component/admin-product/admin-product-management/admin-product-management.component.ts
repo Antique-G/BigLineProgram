@@ -27,9 +27,9 @@ export class AdminProductManagementComponent implements OnInit {
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
     public router: Router) {
       this.searchForm = this.fb.group({
-        status: ['', [Validators.required]],
-        checkStatus: ['', [Validators.required]],
-        title: ['', [Validators.required]],
+        status: [''],
+        checkStatus: [''],
+        title: [''],
       })
    
   }

@@ -63,4 +63,9 @@ export interface AdminTermsManagementSetCheckResponseModel {
 }
 
 
+export interface AdminTermsManagementSetStatusRequestModel {
+  id: number;
+  status: number;
+}
+
 
