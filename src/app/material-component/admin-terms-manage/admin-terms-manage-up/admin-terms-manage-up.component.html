@@ -4,8 +4,8 @@
     </div>
     <div style="padding: 5px;">
         <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-            <div *ngIf="status===0" style="margin-bottom: 20px;color: red;font-size: 16px;letter-spacing: 1px;">是否决定开启</div>
-            <div *ngIf="status===1" style="margin-bottom: 20px;color: red;font-size: 16px;letter-spacing: 1px;">是否决定关闭</div>
+            <div *ngIf="status===0" style="margin-bottom: 20px;color: red;font-size: 16px;letter-spacing: 1px;">是否确定开启</div>
+            <div *ngIf="status===1" style="margin-bottom: 20px;color: red;font-size: 16px;letter-spacing: 1px;">是否确定关闭</div>
             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
                 <button nz-button nzType="default" (click)="cancel()" style="margin-right: 20px;">取消</button>
                 <button nz-button nzType="primary" (click)="update()" *ngIf="status===1">确定</button>
