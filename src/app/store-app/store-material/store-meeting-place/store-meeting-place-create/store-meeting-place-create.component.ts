@@ -4,12 +4,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AddStoreMeetingPlaceRequestModel } from '../../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-store-meeting-place-create',
   templateUrl: './store-meeting-place-create.component.html',
-  styleUrls: ['./store-meeting-place-create.component.css']
+  styleUrls: ['./store-meeting-place-create.component.css'],
+  providers: [DatePipe]
 })
 export class StoreMeetingPlaceCreateComponent implements OnInit {
   // 区域联动
@@ -18,7 +20,6 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   idRegion: any;
   addForm!: FormGroup;
   status = '1';
-  time: Date | null = null;
 
   addStoreMeetingPlaceRequestModel: AddStoreMeetingPlaceRequestModel;
 
@@ -49,6 +50,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceCreateComponent>,
+    private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
     this.forms();
     this.addStoreMeetingPlaceRequestModel = {
@@ -67,7 +69,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       regionCode: ['', [Validators.required]],
       address: ['', [Validators.required]],
       status: [1, [Validators.required]],
-      timeMeeting: ['', [Validators.required]],
+      timeMeeting: [null, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -118,13 +120,14 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
     console.log(" this.addForm.value.timeMeeting", this.addForm.value.timeMeeting);
-    console.log(" this.addForm.value.timeMeeting", this.time)
-    this.addStoreMeetingPlaceRequestModel.time = this.addForm.value.timeMeeting;
+    let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
+    this.addStoreMeetingPlaceRequestModel.time = times;
 
   }
 
   log(time: Date): void {
     console.log(time && time.toTimeString());
+    console.log("time是什么", time)
   }
 
 

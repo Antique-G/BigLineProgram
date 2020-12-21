@@ -85,6 +85,14 @@
                                             <div style="cursor: pointer;" (click)="review(data)" title="提交审核">
                                                 <mat-icon>assignment</mat-icon>
                                             </div>
+                                            <div style="cursor: pointer;" *ngIf="data.status===1" (click)="down(data)" title="禁用">
+                                                <mat-icon>arrow_circle_down</mat-icon>
+                                            </div>
+                                            <div style="cursor: pointer;" *ngIf="data.status===0" (click)="up(data)" title="开启">
+                                                <mat-icon>arrow_circle_up</mat-icon>
+                                            </div>
+
+
                                         </div>
                                     </td>
 

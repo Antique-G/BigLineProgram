@@ -4,12 +4,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { Datum, UpdateStoreMeetingPlaceRequestModel } from '../../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-store-meeting-place-detail',
   templateUrl: './store-meeting-place-detail.component.html',
-  styleUrls: ['./store-meeting-place-detail.component.css']
+  styleUrls: ['./store-meeting-place-detail.component.css'],
+  providers: [DatePipe]
 })
 export class StoreMeetingPlaceDetailComponent implements OnInit {
   // 区域联动
@@ -22,6 +24,9 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   detailModel: Datum;
 
   public isSpinning: any = true;    //loading 
+
+  newtime = new Date();
+  todayDate:any;
 
 
   validationMessage: any = {
@@ -36,21 +41,32 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     address: {
       'maxlength': '地址长度最多为255个字符',
       'required': '请输入具体地址！'
+    },
+    timeMeeting: {
+      'required': '请输入集合时间！'
     }
   };
   formErrors: any = {
     name: '',
     regionCode: '',
-    address: ''
+    address: '',
+    timeMeeting: ''
   };
 
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any, private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
     this.detailModel = this.data;
     const str = this.detailModel.region_code;
+    console.log("newtime",this.datePipe.transform(this.newtime,'yyyy-mm-dd '))
+    let today = this.datePipe.transform(this.newtime,'yyyy-MM-dd')+' ' + this.detailModel.time;
+    this.todayDate = new Date(today)
+      console.log('today',this.todayDate);
+
+    // this.newtime = this.detailModel.time?this.detailModel.time:null;
+
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
       this.values.push(temp);
@@ -62,7 +78,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       region_code: '',
       address: '',
       status: 1,
-      time:''
+      time: ''
     }
   }
 
@@ -72,6 +88,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       regionCode: [this.detailModel.region_code, [Validators.required]],
       address: [this.detailModel.address, [Validators.required]],
       status: [this.detailModel.status, [Validators.required]],
+      timeMeeting: [this.todayDate, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -121,6 +138,9 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.updateStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.updateStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.updateStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
+    console.log(" this.addForm.value.timeMeeting", this.addForm.value.timeMeeting);
+    let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
+    this.updateStoreMeetingPlaceRequestModel.time = times;
   }
 
 
@@ -146,6 +166,12 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       })
     }
   }
+
+  log(time: Date): void {
+    console.log(time && time.toTimeString());
+    console.log("time是什么", time)
+  }
+
 
 
   close(): void {

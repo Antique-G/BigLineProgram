@@ -34,7 +34,7 @@ export class AdminTermsManageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.adminStoreService.storeList(1, 1000, '','').subscribe((result: any) => {
+    this.adminStoreService.storeList(1, 1000, '', '').subscribe((result: any) => {
       console.log("商铺的结果", result.data);
       let storeData = result.data;
       let res: any[] = [];
@@ -45,13 +45,13 @@ export class AdminTermsManageComponent implements OnInit {
       }
       this.adminTermsList();
     });
-   
+
   }
 
 
   adminTermsList(): void {
     this.loading = true;
-    this.adminTermsManageService.adminTermsList(this.page, this.per_page, this.store_id, this.title,this.status).subscribe((result: any) => {
+    this.adminTermsManageService.adminTermsList(this.page, this.per_page, this.store_id, this.title, this.status).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.total;   //总页数
@@ -74,6 +74,7 @@ export class AdminTermsManageComponent implements OnInit {
   search() {
     this.store_id = this.searchForm.value.storeId;
     this.title = this.searchForm.value.title;
+    this.status = this.searchForm.value.status;
     this.adminTermsList();
   }
 

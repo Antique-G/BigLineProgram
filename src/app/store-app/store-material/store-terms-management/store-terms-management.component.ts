@@ -6,6 +6,7 @@ import { StoreTermsManagementCreateComponent } from './store-terms-management-cr
 import { StoreTermsManagementDetailComponent } from './store-terms-management-detail/store-terms-management-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
+import { StoreTermsManagementUpComponent } from './store-terms-management-up/store-terms-management-up.component';
 
 
 @Component({
@@ -126,8 +127,28 @@ export class StoreTermsManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.termsList();
     });
+  }
 
+  down(data:any){
+    console.log("拿到的值", data);
+    const dialogRef = this.dialog.open(StoreTermsManagementUpComponent, {
+      width: '500px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.termsList();
+    });
+  }
 
+  up(data:any){
+    console.log("拿到的值", data);
+    const dialogRef = this.dialog.open(StoreTermsManagementUpComponent, {
+      width: '500px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.termsList();
+    });
   }
 }
 
