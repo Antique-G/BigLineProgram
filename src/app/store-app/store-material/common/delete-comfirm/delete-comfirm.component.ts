@@ -1,3 +1,4 @@
+import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteComfirmComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialogRef:MatDialogRef<DeleteComfirmComponent>) { }
 
   ngOnInit(): void {
   }
+  
+  //确认删除
+  delete(){
+    this.dialogRef.close(1);
+  }
 
+  //取消
+  cancel() {
+    this.dialogRef.close();
+  }
+  
+  close() {
+    this.dialogRef.close();
+  }
 }
