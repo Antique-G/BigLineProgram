@@ -12,6 +12,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
+  alertMessage: any;
+
+
 
   constructor(public adminLoginService: AdminLoginService, public router: Router,
     private modal: NzModalService,) { }
@@ -56,12 +59,17 @@ export class Interceptor implements HttpInterceptor {
           else if (newToken === null) {
             localStorage.getItem('userToken');
           }
-          // console.log("返回的结果", event)
+          console.log("返回的结果", event)
           console.log("event", event.status);
-          if (event.status === 201) {
+          if (event.status === 200 && event.body.message != null) {
+            console.log('1111', event.body)
+            this.alertMessage = event.body.message;
+            this.alertSuccess();
+          }
+          else if (event.status === 201) {
             this.createSuccess();   // 更新 添加
           }
-          else if( event.status === 204){
+          else if (event.status === 204) {
             this.deleteSuccess();   // 删除
           }
 
@@ -94,7 +102,7 @@ export class Interceptor implements HttpInterceptor {
               const oldToken = (localStorage.getItem('userToken')!);
               localStorage.setItem('userToken', oldToken);
             }
-            else if(error.status == 400){
+            else if (error.status == 400) {
               alert(error.error.message);
             }
             else if (error.status == 403) {
@@ -109,7 +117,22 @@ export class Interceptor implements HttpInterceptor {
     )
   }
 
-  
+
+  alertSuccess(): void {
+    ['success'].forEach(method =>
+      // @ts-ignore
+      this.modal[method]({
+        nzMask: false,
+        nzTitle: this.alertMessage,
+      })
+    );
+    this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+  }
+
+
+
+
   createSuccess(): void {
     ['success'].forEach(method =>
       // @ts-ignore
