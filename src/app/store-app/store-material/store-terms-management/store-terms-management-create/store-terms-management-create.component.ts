@@ -12,7 +12,7 @@ import { StoreTermsManagementService } from '../../../../../services/store/store
 })
 export class StoreTermsManagementCreateComponent implements OnInit {
   addForm!: FormGroup;
-
+  status = '1';
 
   addStoreTermsManagementRequestModel: AddStoreTermsManagementRequestModel;
 
@@ -37,7 +37,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
     this.addStoreTermsManagementRequestModel = {
       title: '',
       content: '',
-   
+      status: 1,
     }
   }
 
@@ -45,7 +45,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
-    
+      status: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -89,8 +89,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
   setValue() {
     this.addStoreTermsManagementRequestModel.title = this.addForm.value.title;
     this.addStoreTermsManagementRequestModel.content = this.addForm.value.content;
- 
-
+    this.addStoreTermsManagementRequestModel.status = this.addForm.value.status;
   }
 
 

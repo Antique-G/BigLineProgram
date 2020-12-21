@@ -24,8 +24,8 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
     this.searchForm = fb.group({
-      status: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      status: ['' ],
+      name: ['' ],
     })
   }
 

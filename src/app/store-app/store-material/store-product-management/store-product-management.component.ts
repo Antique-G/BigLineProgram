@@ -29,10 +29,10 @@ export class StoreProductManagementComponent implements OnInit {
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
     public dialog: MatDialog) {
     this.searchForm = this.fb.group({
-      checkStatus: ['', [Validators.required]],
-      title: ['', [Validators.required]],
-      few_days: ['', [Validators.required]],
-      few_nights: ['', [Validators.required]],
+      checkStatus: ['' ],
+      title: ['' ],
+      few_days: ['' ],
+      few_nights: ['' ],
     })
   }
 

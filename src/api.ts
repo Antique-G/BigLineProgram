@@ -52,7 +52,8 @@ export const AdminUrls = {
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
 
   GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
-  PostAdminTermsCheckStatus: api + '/admin/terms/set_check'  // 条款管理审核
+  PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
+  PostAdminTermsSetStatus: api + '/admin/terms/set_status'  // 条款管理开启
 
 
 };

@@ -27,9 +27,9 @@ export class AdminProductTagComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductTagService: AdminProductTagService,) {
     this.searchForm = fb.group({
-      cate_id: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      cate_id: [''],
+      status: [''],
+      name: ['']
     });
   }
 

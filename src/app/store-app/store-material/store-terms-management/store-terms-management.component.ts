@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreTermsManagementService } from '../../../../services/store/store-terms-management/store-terms-management.service';
@@ -6,7 +5,6 @@ import { StoreTermsManagementCreateComponent } from './store-terms-management-cr
 import { StoreTermsManagementDetailComponent } from './store-terms-management-detail/store-terms-management-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
-import { StoreTermsManagementUpComponent } from './store-terms-management-up/store-terms-management-up.component';
 
 
 @Component({
@@ -26,8 +24,8 @@ export class StoreTermsManagementComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog) {
     this.searchForm = this.fb.group({
-      status: ['', [Validators.required]],
-      checkStatus: ['', [Validators.required]],
+      status: [''],
+      checkStatus: [''],
     })
   }
 
@@ -129,27 +127,7 @@ export class StoreTermsManagementComponent implements OnInit {
     });
   }
 
-  down(data:any){
-    console.log("拿到的值", data);
-    const dialogRef = this.dialog.open(StoreTermsManagementUpComponent, {
-      width: '500px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.termsList();
-    });
-  }
 
-  up(data:any){
-    console.log("拿到的值", data);
-    const dialogRef = this.dialog.open(StoreTermsManagementUpComponent, {
-      width: '500px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.termsList();
-    });
-  }
 }
 
 

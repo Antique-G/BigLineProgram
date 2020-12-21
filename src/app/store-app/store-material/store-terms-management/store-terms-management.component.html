@@ -24,8 +24,8 @@
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option value=0>未提交审核</mat-option>
                                         <mat-option value=1>审核中</mat-option>
-                                        <mat-option value=1>已通过</mat-option>
-                                        <mat-option value=1>未通过</mat-option>
+                                        <mat-option value=2>已通过</mat-option>
+                                        <mat-option value=3>未通过</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -85,14 +85,6 @@
                                             <div style="cursor: pointer;" (click)="review(data)" title="提交审核">
                                                 <mat-icon>assignment</mat-icon>
                                             </div>
-                                            <div style="cursor: pointer;" *ngIf="data.status===1" (click)="down(data)" title="禁用">
-                                                <mat-icon>arrow_circle_down</mat-icon>
-                                            </div>
-                                            <div style="cursor: pointer;" *ngIf="data.status===0" (click)="up(data)" title="开启">
-                                                <mat-icon>arrow_circle_up</mat-icon>
-                                            </div>
-
-
                                         </div>
                                     </td>
 

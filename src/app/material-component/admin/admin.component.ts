@@ -24,8 +24,8 @@ export class AdminComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public adminAdminService: AdminAdminService, public dialog: MatDialog) {
     this.searchForm = fb.group({
-      status: ['', [Validators.required]],
-      name: ['', [Validators.required]]
+      status: [''],
+      name: ['']
     });
   }
 

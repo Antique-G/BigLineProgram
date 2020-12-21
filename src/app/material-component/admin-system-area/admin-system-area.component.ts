@@ -29,7 +29,7 @@ export class AdminSystemAreaComponent implements OnInit {
   constructor(public fb: FormBuilder, public dialog: MatDialog, public router: Router,
     public adminRegionService: AdminRegionService) {
     this.nameForm = fb.group({
-      keyword: ['', [Validators.required]]
+      keyword: ['' ]
     });
   }
 

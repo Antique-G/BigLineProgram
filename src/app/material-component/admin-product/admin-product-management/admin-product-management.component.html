@@ -20,8 +20,8 @@
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option value=0>未提交审核</mat-option>
                                         <mat-option value=1>审核中</mat-option>
-                                        <mat-option value=1>已通过</mat-option>
-                                        <mat-option value=1>未通过</mat-option>
+                                        <mat-option value=2>已通过</mat-option>
+                                        <mat-option value=3>未通过</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -44,6 +44,7 @@
                                 <tr>
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;">标题</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
                                     <th style="text-align: center;">成人价格</th>
@@ -59,6 +60,7 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
+                                    <td>{{data?.store?.name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
                                     <td>{{data.adult_price}}</td>
