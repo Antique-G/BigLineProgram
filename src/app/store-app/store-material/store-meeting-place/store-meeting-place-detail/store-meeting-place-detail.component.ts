@@ -60,6 +60,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
     this.detailModel = this.data;
     const str = this.detailModel.region_code;
+    for (let i = 0; i < str.length / 4; i++) {
+      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+      this.values.push(temp);
+    }
+    console.log("111", this.values);    //区域
     console.log("newtime",this.datePipe.transform(this.newtime,'yyyy-mm-dd '))
     let today = this.datePipe.transform(this.newtime,'yyyy-MM-dd')+' ' + this.detailModel.time;
     this.todayDate = new Date(today)
@@ -67,11 +72,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
     // this.newtime = this.detailModel.time?this.detailModel.time:null;
 
-    for (let i = 0; i < str.length / 4; i++) {
-      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
-      this.values.push(temp);
-    }
-    console.log("111", this.values);    //区域
+
     this.forms();
     this.updateStoreMeetingPlaceRequestModel = {
       name: '',
