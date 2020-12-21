@@ -35,8 +35,6 @@ export interface Datum {
 export interface AddStoreTermsManagementRequestModel {
   title: string;
   content: string;
-  status: number,
-
 }
 
 
@@ -49,7 +47,7 @@ export interface UpdateStoreTermsManagementeRequestModel {
   id?: any
   title: string;
   content: string;
-  status: number;
+  // status: number;
 }
 
 
