@@ -64,7 +64,7 @@ export class AdminStoreAccountDetailComponent implements OnInit {
       name: [this.dataDetailStoreAccountResponseModel.name, [Validators.required, Validators.maxLength(64)]],
       password: [''],
       password_confirmation: [''],  
-      email: [this.dataDetailStoreAccountResponseModel.email, [Validators.required]],
+      email: [this.dataDetailStoreAccountResponseModel.email],
       mobile: [this.dataDetailStoreAccountResponseModel.mobile, [Validators.required, isNumber]],
       level: [this.dataDetailStoreAccountResponseModel.level, [Validators.required]],
       store_id: [this.dataDetailStoreAccountResponseModel.store_id, [Validators.required]],
