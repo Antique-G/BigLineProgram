@@ -50,7 +50,7 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   logOut() {
     this.adminLoginService.logout().subscribe(res => {
       // console.log("jieguo ",res);
-      alert(res.message);
+      // alert(res.message);
       this.adminLoginService.removeToken();
       localStorage.removeItem('account');
       this.router.navigate(['/admin/login']);
@@ -61,7 +61,7 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
   storeLogOut() {
     this.storeLoginService.storeLogout().subscribe(res => {
       console.log("jieguo ", res);
-      alert(res.message);
+      // alert(res.message);
       this.adminLoginService.removeToken();
       localStorage.removeItem('mobile');
       localStorage.removeItem('storeRegion');
