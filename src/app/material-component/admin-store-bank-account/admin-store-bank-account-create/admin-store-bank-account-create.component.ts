@@ -74,7 +74,7 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
-      storeId: [{ value: this.store_id, disabled: true }, [Validators.required]],
+      // storeId: [{ value: this.store_id, disabled: true }, [Validators.required]],
       bankName: ['', [Validators.required]],
       bankAccount: ['', [Validators.required, Validators.maxLength(30)]],
       accountAddress: ['', [Validators.required]],
