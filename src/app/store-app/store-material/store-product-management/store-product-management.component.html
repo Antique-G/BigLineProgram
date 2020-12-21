@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                                            <div style="cursor: pointer;" *ngIf="data.check_status===0">
+                                            <div style="cursor: pointer;" *ngIf="data.check_status===0||data.check_status===3">
                                                 <mat-icon title="上架" (click)="up(data)">arrow_circle_up</mat-icon>
                                             </div>
 
