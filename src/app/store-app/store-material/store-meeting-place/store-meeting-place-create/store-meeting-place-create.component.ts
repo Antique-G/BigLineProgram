@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
 export class StoreMeetingPlaceCreateComponent implements OnInit {
   // 区域联动
   nzOptions: any[] | null = null;
-  values: any[] | null = null;
+  values: any[] = [];
   idRegion: any;
   addForm!: FormGroup;
   status = '1';
@@ -52,6 +52,33 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceCreateComponent>,
     private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
+    // 拿到缓存的集合地点
+    console.log("234234", localStorage.getItem("storeRegion"));
+    console.log("353535", localStorage.getItem("lastRegion"));
+    // 缓存上一次输入的区域
+    if (localStorage.getItem("lastRegion") == null) {
+      const str = localStorage.getItem("storeRegion");
+      if (str != null) {
+        for (let i = 0; i < str.length / 4; i++) {
+          let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+          this.values.push(temp);
+        }
+        console.log("111", this.values);    //区域
+      }
+    }
+    // 刚登陆的店铺区域
+    else if (localStorage.getItem("lastRegion") != null) {
+      const str = localStorage.getItem("lastRegion");
+      if (str != null) {
+        for (let i = 0; i < str.length / 4; i++) {
+          let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+          this.values.push(temp);
+        }
+        console.log("111", this.values);    //区域
+      }
+    }
+
+
     this.forms();
     this.addStoreMeetingPlaceRequestModel = {
       name: '',
@@ -66,7 +93,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   forms() {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
-      regionCode: ['', [Validators.required]],
+      regionCode: [localStorage.getItem("storeRegion"), [Validators.required]],
       address: ['', [Validators.required]],
       status: [1, [Validators.required]],
       timeMeeting: [null, [Validators.required]],
@@ -111,6 +138,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       console.log("结果是", res);
       this.nzOptions = res;
     })
+
   }
 
 
@@ -144,6 +172,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
+          localStorage.setItem("lastRegion", this.addStoreMeetingPlaceRequestModel.region_code);
           this.dialogRef.close(1);
         }
         else {

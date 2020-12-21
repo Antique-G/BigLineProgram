@@ -64,6 +64,8 @@ export class AppSidebarComponent implements OnInit, OnDestroy {
       alert(res.message);
       this.adminLoginService.removeToken();
       localStorage.removeItem('mobile');
+      localStorage.removeItem('storeRegion');
+      localStorage.removeItem('lastRegion');
       this.router.navigate(['/store/login']);
     })
   }

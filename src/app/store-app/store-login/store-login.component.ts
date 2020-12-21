@@ -11,18 +11,18 @@ import { StoreLoginService } from '../../../services/store/store-login/store-log
 })
 export class StoreLoginComponent implements OnInit {
   loginForm: FormGroup;
-  storeLoginRequestModel:StoreLoginRequestModel;
+  storeLoginRequestModel: StoreLoginRequestModel;
 
-  constructor(public fb: FormBuilder, public storeLoginService:StoreLoginService,public router:Router) {
+  constructor(public fb: FormBuilder, public storeLoginService: StoreLoginService, public router: Router) {
     this.loginForm = fb.group({
-      mobile:  ['', Validators.required],
+      mobile: ['', Validators.required],
       password: ['', Validators.required]
     });
     this.storeLoginRequestModel = {
       mobile: '',
       password: ''
     }
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -33,15 +33,16 @@ export class StoreLoginComponent implements OnInit {
     this.storeLoginRequestModel.password = this.loginForm.value.password;
   }
 
-  
+
   login() {
     this.setValue();
     console.log("提交的model是什么", this.storeLoginRequestModel);
     this.storeLoginService.storeLogin(this.storeLoginRequestModel).subscribe(res => {
       console.log("res结果", res);
-      if(res.access_token!=''){
+      if (res.access_token != '') {
         this.storeLoginService.setToken(res.access_token);
-        localStorage.setItem('mobile',this.storeLoginRequestModel.mobile);  
+        localStorage.setItem('mobile', this.storeLoginRequestModel.mobile);
+        localStorage.setItem('storeRegion', res.region_code);
         this.router.navigate(['/store/main/storeProduct'])
       }
     })

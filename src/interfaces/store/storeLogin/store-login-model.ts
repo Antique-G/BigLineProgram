@@ -10,6 +10,7 @@ export interface StoreLoginResponseModel {
   access_token: string;
   token_type?: any;
   expires_in?: any;
+  region_code: any;
 }
 
 
