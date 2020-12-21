@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
+import { AdminDeleteComponent } from '../../admin-common/admin-delete/admin-delete.component';
 import { AdminProductTagCreateComponent } from './admin-product-tag-create/admin-product-tag-create.component';
 import { AdminProductTagDetailComponent } from './admin-product-tag-detail/admin-product-tag-detail.component';
 
@@ -105,17 +106,30 @@ export class AdminProductTagComponent implements OnInit {
   }
 
 
+  // AdminDeleteComponent
+
   delete(data: any) {
-    console.log("传的值", data);
-    this.adminProductTagService.deleteProductTag(data.id).subscribe(res => {
-      if (res?.status_code) {
-        // alert("删除失败");
-      }
-      else {
-        alert("删除成功");
-        // this.getData();
+    const dialogRef = this.dialog.open(AdminDeleteComponent, {
+      width: '500px'
+    })
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result !== undefined) {
+        console.log("传的值", data);
+        this.adminProductTagService.deleteProductTag(data.id).subscribe(res => {
+          if (res?.status_code) {
+            // alert("删除失败");
+            this.getData();
+          }
+          else {
+            alert("删除成功");
+            // this.getData();
+            this.getData();
+          }
+        })
       }
     })
+
+
   }
 }
 

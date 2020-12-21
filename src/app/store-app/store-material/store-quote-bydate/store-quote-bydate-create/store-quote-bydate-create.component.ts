@@ -1,5 +1,5 @@
 import { Component, OnInit,Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {differenceInCalendarDays,format} from 'date-fns';
 
@@ -8,6 +8,7 @@ import {StoreQuoteBydateRequestModel,StoreQuoteBydateModel} from '../../../../..
 
 import {StoreQuoteBydateService} from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { isNumber, isFloat } from '../../../../util/validators';
+import { DeleteComfirmComponent } from '../../common/delete-comfirm/delete-comfirm.component';
 
 @Component({
   selector: 'app-store-quote-bydate-create',
@@ -54,7 +55,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     difference_price:''
   };
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>,
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService) { 
     this.addForm = fb.group({
       date: ['', [Validators.required]],
@@ -217,21 +218,30 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   }
 
   deleteInfo(){
-    let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-      let str = this.dateArr.map((e:string)=>e)
-      return str.indexOf(item.date)==-1
-    })
-    this.quoteBydateRequestModel.data.push(...newList)
-    this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-      this.dialogRef.close();
-      if(res ==null){
-        // alert("删除成功")
-      }else{
-        // alert("删除成功")
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
+          let str = this.dateArr.map((e:string)=>e)
+          return str.indexOf(item.date)==-1
+        })
+        this.quoteBydateRequestModel.data.push(...newList)
+        this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
+          this.dialogRef.close();
+          if(res ==null){
+            // alert("删除成功")
+          }else{
+            // alert("删除成功")
+          }
+         
+          this.quoteBydateRequestModel.data =[]
+        })
       }
-     
-      this.quoteBydateRequestModel.data =[]
     })
+
   }
 
   close(){

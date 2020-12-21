@@ -5,6 +5,7 @@ import { StoreTermsManagementCreateComponent } from './store-terms-management-cr
 import { StoreTermsManagementDetailComponent } from './store-terms-management-detail/store-terms-management-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
+import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class StoreTermsManagementComponent implements OnInit {
   constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog) {
     this.searchForm = this.fb.group({
       status: [''],
-      checkStatus: [''],
+      checkStatus: [''], 
     })
   }
 
@@ -103,16 +104,30 @@ export class StoreTermsManagementComponent implements OnInit {
 
   delete(data: any) {
     console.log("nadao", data);
-    this.storeTermsManagementService.deleteStoreTerms(data.id).subscribe(res => {
-      console.log("res", res);
-      if (res === null) {
-        // alert("删除成功");
-        this.termsList();
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", data);
+        this.storeTermsManagementService.deleteStoreTerms(data.id).subscribe(res => {
+          console.log("res", res);
+          if (res === null) {
+            // alert("删除成功");
+            this.termsList();
+          }
+          else {
+            // alert("删除失败");
+          }
+        })
+    
       }
       else {
-        // alert("删除失败");
+        this.termsList();
       }
-    })
+
+    });
   }
 
 
