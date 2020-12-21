@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreMeetingPlaceService } from '../../../../services/store/store-meeting-place/store-meeting-place.service';
+import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place-create/store-meeting-place-create.component';
 import { StoreMeetingPlaceDetailComponent } from './store-meeting-place-detail/store-meeting-place-detail.component';
 
@@ -23,8 +24,8 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
     this.searchForm = fb.group({
-      status: ['',[Validators.required]],
-      name: ['',[Validators.required]],
+      status: ['', [Validators.required]],
+      name: ['', [Validators.required]],
     })
   }
 
@@ -33,11 +34,11 @@ export class StoreMeetingPlaceComponent implements OnInit {
     this.storeMeetingPlaceList();
   }
 
- 
+
 
   storeMeetingPlaceList(): void {
     this.loading = true;
-    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page,this.name,this.status).subscribe((result: any) => {
+    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page, this.name, this.status).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.meta.pagination.total;   //总页数
@@ -57,7 +58,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
   }
 
   search() {
-    console.log("获取输入框内容",this.searchForm.value)
+    console.log("获取输入框内容", this.searchForm.value)
     this.name = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
     this.storeMeetingPlaceList();
@@ -96,16 +97,31 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
   delete(data: any) {
     console.log("nadao", data);
-    this.storeMeetingPlaceService.deleteStoreMeetingPlace(data.id).subscribe(res=>{
-      console.log("res",res);
-      if (res === null) {
-        // alert("删除成功");
-        this.storeMeetingPlaceList(); 
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        this.storeMeetingPlaceService.deleteStoreMeetingPlace(data.id).subscribe(res => {
+          console.log("res", res);
+          if (res === null) {
+            // alert("删除成功");
+            this.storeMeetingPlaceList();
+          }
+          else {
+            // alert("删除失败");
+          }
+        })
+        this.storeMeetingPlaceList();
       }
       else {
-        // alert("删除失败");
+        this.storeMeetingPlaceList();
       }
-    })
+
+    });
+
+
   }
 }
 
