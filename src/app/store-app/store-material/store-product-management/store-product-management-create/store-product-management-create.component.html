@@ -173,7 +173,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="notice" nzRequired>预约须知</nz-form-label>
                                     <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入预约须知！">
-                                        <input nz-input formControlName="notice" />
+                                        <textarea nz-input formControlName="notice" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>

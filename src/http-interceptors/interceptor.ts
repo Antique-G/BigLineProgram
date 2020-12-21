@@ -77,7 +77,7 @@ export class Interceptor implements HttpInterceptor {
       },
         error => { // 统一处理所有的http错误
           if (error instanceof HttpErrorResponse) {
-            if (error.status == 401) {
+            if (error.status == 401&&error.error.message==null) {
               alert('token已过期，请重新登陆');
               if (pathName === 'admin') {
                 this.router.navigate(['/admin/login']);
@@ -86,11 +86,14 @@ export class Interceptor implements HttpInterceptor {
                 this.router.navigate(['/store/login']);
               }
             }
+            else if(error.status == 401&&error.error.message!=null){
+              alert(error.error.message);
+            }
             else if (error.status == 500) {
-              alert(error.message)
+              alert(error.message);
             }
             else if (error.status == 504) {
-              alert(error.message)
+              alert(error.message);
             }
             else if (error.status == 422) {
               console.log("弹出的错误", error.error.errors);
@@ -106,10 +109,10 @@ export class Interceptor implements HttpInterceptor {
               alert(error.error.message);
             }
             else if (error.status == 403) {
-              alert(error.message)
+              alert(error.error.message);
             }
             else if (error.status == 404) {
-              alert(error.message)
+              alert(error.message);
             }
           }
         }
