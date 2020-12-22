@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminAdminListRequestModel, AdminAdminListResponseModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminListRequestModel, AdminAdminListResponseModel, AdminDetailModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
 
 const httpOptions = {
@@ -58,7 +58,13 @@ export class AdminAdminService {
   }
 
 
-
+  // 详情
+  accountDetail(id:any): Observable<AdminDetailModel> {
+    return this.httpClient.get<AdminDetailModel>(this.urls.GetAdminDetail+id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
 

@@ -5,6 +5,8 @@
 
     <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
+        <button mat-menu-item (click)="accountDetail()">
+            <mat-icon>account_box</mat-icon> Profile </button>
         <button mat-menu-item (click)="logOut()">
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
@@ -34,11 +36,11 @@
 
     <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{mobile}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
+        <button mat-menu-item (click)="storeAccountDetail()">
+            <mat-icon>account_box</mat-icon> Profile </button>
         <button mat-menu-item (click)="storeLogOut()">
             <mat-icon>exit_to_app</mat-icon> Sign Out </button>
     </mat-menu>
-
-
 
     <mat-nav-list appAccordion *ngFor="let menuitemList of menuItems.getStoreMenuitem()">
         <h3 matSubheader>{{menuitemList.storeHeader}}</h3>

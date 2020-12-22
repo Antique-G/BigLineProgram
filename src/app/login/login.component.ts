@@ -41,9 +41,8 @@ export class LoginComponent implements OnInit {
       // console.log("res结果", res);
       if(res.access_token!=''){
         this.adminLoginService.setToken(res.access_token);
-        localStorage.setItem('account',this.loginRequestModel.account);  
-        // localStorage.setItem('account',this.loginRequestModel.account);  
-
+        localStorage.setItem('account',res.admin.account);  
+        localStorage.setItem('adminId',res.admin.admin_id);  
         this.router.navigate(['/admin/main/adminAccount'])
       }
     })
