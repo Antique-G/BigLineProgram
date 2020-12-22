@@ -23,9 +23,12 @@
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="region_code" nzRequired>区域</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择区域">
+                                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域">
                                             <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="region_code"></nz-cascader>
                                         </nz-form-control>
+                                        <div>
+                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshRegion()">refresh</mat-icon>
+                                        </div>
                                     </div>
                                 </nz-form-item>
 
@@ -33,12 +36,15 @@
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请输入集合地点！">
+                                        <nz-form-control [nzSm]="17" [nzXs]="24" nzErrorTip="请输入集合地点！">
                                             <nz-select nzMode="multiple" nzPlaceHolder="请选择" (ngModelChange)="changePlace($event)" [(ngModel)]="selectedPlace" formControlName="assembling_place_id">
                                                 <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label" [nzValue]="place.value">
                                                 </nz-option>
                                             </nz-select>
                                         </nz-form-control>
+                                        <div>
+                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshPlace()">refresh</mat-icon>
+                                        </div>
                                     </div>
                                 </nz-form-item>
 

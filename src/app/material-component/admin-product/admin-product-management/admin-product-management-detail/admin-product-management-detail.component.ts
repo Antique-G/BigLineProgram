@@ -456,6 +456,25 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
   }
 
+
+    // 刷新区域和集合地点
+    refreshRegion() {
+      this.adminRegionService.getAllRegionList().subscribe(res => {
+        this.nzOptions = res;
+      })
+    }
+  
+  
+    refreshPlace() {
+      this.adminMeetingPlaceService.adminMeetingPlaceList(1, 1000).subscribe(res => {
+        for (let i of res.data) {
+          let a = { value: i.id, label: i.name };
+          this.assemblingPlaceList.push(a);
+        }
+      });
+    }
+  
+
 }
 
 
