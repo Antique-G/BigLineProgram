@@ -447,5 +447,23 @@ export class StoreProductManagementDetailComponent implements OnInit {
   }
 
 
+  // 刷新区域和集合地点
+  refreshRegion() {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+    })
+  }
+
+
+  refreshPlace() {
+    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.name };
+        this.assemblingPlaceList.push(a);
+      }
+    });
+  }
+
+
 }
 

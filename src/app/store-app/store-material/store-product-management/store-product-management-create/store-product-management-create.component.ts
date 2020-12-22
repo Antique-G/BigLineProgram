@@ -362,8 +362,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
       formData.append('image', files[0] as any);
       console.log("formData是什么", formData.get('file'));
       this.storeProductService.uploadImg(formData).subscribe(res => {
-        console.log(res,'res');
-          insert(res.data);
+        console.log(res, 'res');
+        insert(res.data);
       })
     }
 
@@ -406,11 +406,28 @@ export class StoreProductManagementCreateComponent implements OnInit {
       formDataDetail.append('image', files[0] as any);
       console.log("formData是什么", formDataDetail.get('file'));
       this.storeProductService.uploadImg(formDataDetail).subscribe(res => {
-        console.log(res,'res');
-          insert(res.data);
+        console.log(res, 'res');
+        insert(res.data);
       })
     }
 
+  }
+
+  // 刷新区域和集合地点
+  refreshRegion() {
+    this.regionList();
+  }
+
+
+  refreshPlace() {
+    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+      console.log("集合地点", res.data);
+      for (let i of res.data) {
+        // console.log('iiiiii', i);
+        let a = { value: i.id, label: i.name };
+        this.assemblingPlaceList.push(a);
+      }
+    });
   }
 
 
