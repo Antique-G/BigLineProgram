@@ -24,6 +24,7 @@ import { StoreProductManagementUpComponent } from './store-product-management/st
 import { StoreTermManagementReviewComponent } from './store-terms-management/store-term-management-review/store-term-management-review.component';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { DeleteComfirmComponent } from './common/delete-comfirm/delete-comfirm.component';
+import { StoreAccountDetailComponent } from './common/store-account-detail/store-account-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -61,7 +62,8 @@ import { DeleteComfirmComponent } from './common/delete-comfirm/delete-comfirm.c
     StoreProductManagementDetailComponent,
     StoreProductManagementUpComponent,
     StoreTermManagementReviewComponent,
-    DeleteComfirmComponent
+    DeleteComfirmComponent,
+    StoreAccountDetailComponent
   ]
 })
 export class StoreMaterialComponentsModule { }

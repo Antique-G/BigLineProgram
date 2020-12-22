@@ -11,6 +11,7 @@ export const AdminUrls = {
   PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
   GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
   PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
+  GetAdminDetail: api + '/admin/account/',///管理后台管理员详情接口
 
   PostAdminStoreCreate: api + '/admin/store', //管理后台商户添加接口
   GetAdminStoreDetail: api + '/admin/store/',   //管理后台获取商户信息接口详情

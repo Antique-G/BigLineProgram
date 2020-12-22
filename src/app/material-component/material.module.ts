@@ -38,6 +38,7 @@ import { AdminTermsManageReviewComponent } from './admin-terms-manage/admin-term
 import { AdminProductManagementUpComponent } from './admin-product/admin-product-management/admin-product-management-up/admin-product-management-up.component';
 import { AdminTermsManageUpComponent } from './admin-terms-manage/admin-terms-manage-up/admin-terms-manage-up.component';
 import { AdminDeleteComponent } from './admin-common/admin-delete/admin-delete.component';
+import { AccountDetailComponent } from './admin-common/account-detail/account-detail.component';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { AdminDeleteComponent } from './admin-common/admin-delete/admin-delete.c
     AdminProductManagementUpComponent,
     AdminTermsManageUpComponent,
     AdminDeleteComponent,
+    AccountDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}
