@@ -136,8 +136,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
       difference_price: ['', [Validators.required, isFloat]],
       // feature: [''],
       // details: [''],
+      // notice: [''],
       fee: ['', [Validators.required]],
-      notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
       tag_id: ['', [Validators.required]],
     });
@@ -184,8 +184,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
         this.tagList.push(a);
       }
       this.getAccemList();
-    }
-    )
+    })
   }
 
 
@@ -252,8 +251,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
     this.addStoreProductModel.difference_price = this.addForm.value.difference_price;
     // this.addStoreProductModel.feature = this.addForm.value.feature;
     // this.addStoreProductModel.details = this.addForm.value.details;
+    // this.addStoreProductModel.notice = this.addForm.value.notice;
     this.addStoreProductModel.fee = this.addForm.value.fee;
-    this.addStoreProductModel.notice = this.addForm.value.notice;
     //  this.addStoreProductModel.earlier
     let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
     this.addStoreProductModel.earlier = i;
@@ -325,6 +324,40 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   // 富文本
   textChange() {
+    // 预约须知
+    const editorNotice = new E(document.getElementById('noticeDiv'));
+    editorNotice.config.height = 200;  // 设置编辑区域高度为 500px
+    editorNotice.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
+    editorNotice.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    editorNotice.config.uploadImgMaxLength = 1;
+    editorNotice.config.onchange = (newHtml: any) => {
+      console.log("213123", newHtml);
+      this.addStoreProductModel.notice = newHtml;
+    }
+    editorNotice.create();
+    //  上传图片
+    editorNotice.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorNotice.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files);
+      console.log(files[0]);
+      let formData = new FormData();
+      formData.append('image', files[0] as any);
+      console.log("formData是什么", formData.get('file'));
+      this.storeProductService.uploadImg(formData).subscribe(res => {
+        console.log(res, 'res');
+        insert(res.data);
+      })
+    }
+
+
+
     // 产品特色
     const editorFeature = new E(document.getElementById('featureDiv'));
     editorFeature.config.height = 200;  // 设置编辑区域高度为 500px
@@ -337,26 +370,17 @@ export class StoreProductManagementCreateComponent implements OnInit {
       this.addStoreProductModel.feature = newHtml;
     }
     editorFeature.create();
-    // 上传图片接口地址（待定）
+    // 上传图片
     editorFeature.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
-    editorFeature.config.uploadImgServer = '/store/image';
-    /* 
-       自定义图片上传事件
-       参数1 ：files 是 input 中选中的文件列表
-       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-     */
     editorFeature.config.customUploadImg = (files: any, insert: any) => {
       // 限制一次最多上传 1 张图片
       if (files.length !== 1) {
         alert('单次只能上传一个图片')
         return
       }
-      console.log("files是什么", files)
-      // 下面的代码就是去根据自己的需求请求数据 
-      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
-      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log("files是什么", files);
       console.log(files[0]);
       let formData = new FormData();
       formData.append('image', files[0] as any);
@@ -366,8 +390,6 @@ export class StoreProductManagementCreateComponent implements OnInit {
         insert(res.data);
       })
     }
-
-
 
 
 
@@ -382,25 +404,18 @@ export class StoreProductManagementCreateComponent implements OnInit {
       this.addStoreProductModel.details = newHtml;
     }
     editorDetail.create();
+
+    // 上传图片
     editorDetail.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
-    editorDetail.config.uploadImgServer = '/store/image';
-    /* 
-       自定义图片上传事件
-       参数1 ：files 是 input 中选中的文件列表
-       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-     */
     editorDetail.config.customUploadImg = (files: any, insert: any) => {
       // 限制一次最多上传 1 张图片
       if (files.length !== 1) {
         alert('单次只能上传一个图片')
         return
       }
-      console.log("files是什么", files)
-      // 下面的代码就是去根据自己的需求请求数据 
-      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
-      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log("files是什么", files);
       console.log(files[0]);
       let formDataDetail = new FormData();
       formDataDetail.append('image', files[0] as any);
@@ -413,7 +428,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
   }
 
-  // 刷新区域和集合地点
+  // 刷新区域和集合地点，标签
   refreshRegion() {
     this.regionList();
   }
@@ -428,6 +443,17 @@ export class StoreProductManagementCreateComponent implements OnInit {
         this.assemblingPlaceList.push(a);
       }
     });
+  }
+
+
+  refreshTag(){
+    this.storeProductService.productTagList().subscribe(res => {
+      console.log("标签", res.data);
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.name };
+        this.tagList.push(a);
+      }
+    })
   }
 
 

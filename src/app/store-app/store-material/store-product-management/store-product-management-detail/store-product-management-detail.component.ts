@@ -20,6 +20,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   idRegion: any;
   @ViewChild("featureBox") featureBox: any;       //获取dom
   @ViewChild("detailBox") detailBox: any;     //获取dom
+  @ViewChild("noticeBox") noticeBox: any;     //获取dom
   // 集合地以及标题
   selectedPlace: any[] = [];
   selectedTag: any[] = [];
@@ -134,7 +135,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
       original_child_price: ['', [Validators.required, isFloat]],
       difference_price: ['', [Validators.required, isFloat]],
       fee: ['', [Validators.required]],
-      notice: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
       tag_id: ['', [Validators.required]],
     });
@@ -238,7 +238,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.detailUpdateModel.original_child_price = this.addForm.value.original_child_price;
     this.detailUpdateModel.difference_price = this.addForm.value.difference_price;
     this.detailUpdateModel.fee = this.addForm.value.fee;
-    this.detailUpdateModel.notice = this.addForm.value.notice;
     let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
     this.detailUpdateModel.earlier = i;
     // console.log("12121212", this.detailUpdateModel.earlier);
@@ -292,7 +291,6 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
     this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
     this.addForm.get('fee')?.setValue(this.dataProductDetailModel.fee);
-    this.addForm.get('notice')?.setValue(this.dataProductDetailModel.notice);
     let a = this.dataProductDetailModel.assembling_place.data;
     let aNums: any[] = []
     for (let int of a) {
@@ -363,35 +361,26 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
   // 富文本
   textChange() {
-    // 产品特色
-    const editorFeature = new wangEditor("#editorFeature", "#editor");
-    console.log("拿到的feature", this.dataProductDetailModel.feature);
-    this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
-    this.detailUpdateModel.feature = this.dataProductDetailModel.feature;
-    editorFeature.config.onchange = (newHtml: any) => {
-      this.detailUpdateModel.feature = newHtml;
+    // 预约须知
+    const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
+    console.log("拿到的notice", this.dataProductDetailModel.notice);
+    this.noticeBox.nativeElement.innerHTML = this.dataProductDetailModel.notice;    //赋值
+    this.detailUpdateModel.notice = this.dataProductDetailModel.notice;
+    editorNotice.config.onchange = (newHtml: any) => {
+      this.detailUpdateModel.notice = newHtml;
     }
-    editorFeature.create();
-    // 上传图片接口地址（待定）
-    editorFeature.config.uploadImgParams = {
+    editorNotice.create();
+    // 上传图片
+    editorNotice.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
-    editorFeature.config.uploadImgServer = '/store/image';
-    /* 
-       自定义图片上传事件
-       参数1 ：files 是 input 中选中的文件列表
-       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-     */
-    editorFeature.config.customUploadImg = (files: any, insert: any) => {
+    editorNotice.config.customUploadImg = (files: any, insert: any) => {
       // 限制一次最多上传 1 张图片
       if (files.length !== 1) {
         alert('单次只能上传一个图片')
         return
       }
-      console.log("files是什么", files)
-      // 下面的代码就是去根据自己的需求请求数据 
-      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
-      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log("files是什么", files);
       console.log(files[0]);
       let formData = new FormData();
       formData.append('image', files[0] as any);
@@ -404,6 +393,36 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
 
 
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    console.log("拿到的feature", this.dataProductDetailModel.feature);
+    this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
+    this.detailUpdateModel.feature = this.dataProductDetailModel.feature;
+    editorFeature.config.onchange = (newHtml: any) => {
+      this.detailUpdateModel.feature = newHtml;
+    }
+    editorFeature.create();
+    // 上传图片
+    editorFeature.config.uploadImgParams = {
+      token: (localStorage.getItem('userToken')!),
+    }
+    editorFeature.config.customUploadImg = (files: any, insert: any) => {
+      // 限制一次最多上传 1 张图片
+      if (files.length !== 1) {
+        alert('单次只能上传一个图片')
+        return
+      }
+      console.log("files是什么", files);
+      console.log(files[0]);
+      let formData = new FormData();
+      formData.append('image', files[0] as any);
+      console.log("formData是什么", formData.get('file'));
+      this.storeProductService.uploadImg(formData).subscribe(res => {
+        console.log(res, 'res');
+        insert(res.data);
+      })
+    }
+
 
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
@@ -415,25 +434,17 @@ export class StoreProductManagementDetailComponent implements OnInit {
       this.detailUpdateModel.details = newHtml;
     }
     editorDetail.create();
+    // 上传图片
     editorDetail.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
-    editorDetail.config.uploadImgServer = '/store/image';
-    /* 
-       自定义图片上传事件
-       参数1 ：files 是 input 中选中的文件列表
-       参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
-     */
     editorDetail.config.customUploadImg = (files: any, insert: any) => {
       // 限制一次最多上传 1 张图片
       if (files.length !== 1) {
         alert('单次只能上传一个图片')
         return
       }
-      console.log("files是什么", files)
-      // 下面的代码就是去根据自己的需求请求数据 
-      //  注意这两个参数  参数1 ：files 是 input 中选中的文件列表
-      // 参数2 ：insert 是获取图片 url 后，插入到编辑器的方法
+      console.log("files是什么", files);
       console.log(files[0]);
       let formDataDetail = new FormData();
       formDataDetail.append('image', files[0] as any);
@@ -447,7 +458,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   }
 
 
-  // 刷新区域和集合地点
+  // 刷新区域和集合地点，标签
   refreshRegion() {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
@@ -462,6 +473,18 @@ export class StoreProductManagementDetailComponent implements OnInit {
         this.assemblingPlaceList.push(a);
       }
     });
+  }
+
+
+  
+  refreshTag(){
+    this.storeProductService.productTagList().subscribe(res => {
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.name };
+        this.tagList.push(a);
+        // console.log("tagList", this.tagList)
+      }
+    })
   }
 
 

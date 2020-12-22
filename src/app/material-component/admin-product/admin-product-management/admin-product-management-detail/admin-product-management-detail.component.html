@@ -50,12 +50,15 @@
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id" nzRequired>产品标签</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入产品标题！">
+                                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入产品标题！">
                                             <nz-select nzMode="multiple" nzPlaceHolder="请选择产品标签" (ngModelChange)="changeTag($event)" [(ngModel)]="selectedTag" formControlName="tag_id">
                                                 <nz-option *ngFor="let tagContent of tagList" [nzLabel]="tagContent.label" [nzValue]="tagContent.value">
                                                 </nz-option>
                                             </nz-select>
                                         </nz-form-control>
+                                        <div>
+                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshTag()">refresh</mat-icon>
+                                        </div>
                                     </div>
                                 </nz-form-item>
 
@@ -141,9 +144,11 @@
                                                 <nz-select (ngModelChange)="changeHour($event)" [(ngModel)]="selectedHour" class="nzChoice" nzPlaceHolder="请选择小时" formControlName="earlier2">
                                                     <nz-option *ngFor="let option of hourList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
                                                 </nz-select>
+                                                <span style="line-height: 32px;padding: 0 9px;">时</span>
                                                 <nz-select (ngModelChange)="changeMins($event)" [(ngModel)]="selectedMins" class="nzChoice" nzPlaceHolder="请选择分钟" formControlName="earlier3">
                                                     <nz-option *ngFor="let option of minsList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
                                                 </nz-select>
+                                                <span style="line-height: 32px;padding: 0 9px;">分</span>
                                                 <p style="font-size: 12px;color: red;letter-spacing: 1px;">!该截止时间为距离购买产品出发日期前一天24点的时间。例：截止时间选择1天10小时，若客人要选择出发日期为1月3日，则必须在1月1日14点前购买</p>
                                             </nz-input-group>
                                         </nz-form-control>
@@ -178,7 +183,12 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="notice" nzRequired>预约须知</nz-form-label>
                                         <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入预约须知！">
-                                            <textarea nz-input formControlName="notice" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                                            <div class="wangeditor-feature">
+                                                <div id="editorNotice" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
+                                                <div id="noticeContent" class="w-e-text" style="height:200px;max-height:250px;">
+                                                    <div #noticeBox></div>
+                                                </div>
+                                            </div>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
