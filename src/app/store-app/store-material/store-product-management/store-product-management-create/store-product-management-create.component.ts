@@ -326,8 +326,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorNotice = new E(document.getElementById('noticeDiv'));
-    editorNotice.config.height = 200;  // 设置编辑区域高度为 500px
-    editorNotice.config.showFullScreen = true;    // 配置全屏功能按钮是否展示
+    editorNotice.config.height = 250;  // 设置编辑区域高度
     editorNotice.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorNotice.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     editorNotice.config.uploadImgMaxLength = 1;
@@ -361,7 +360,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
     // 产品特色
     const editorFeature = new E(document.getElementById('featureDiv'));
-    editorFeature.config.height = 200;  // 设置编辑区域高度为 500px
+    editorFeature.config.height = 250;  // 设置编辑区域高度
     editorFeature.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorFeature.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     editorFeature.config.uploadImgMaxLength = 1;
@@ -396,7 +395,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
     // 详情
     const editorDetail = new E(document.getElementById('detailDiv'));
-    editorDetail.config.height = 200;  // 设置编辑区域高度为 500px
+    editorDetail.config.height = 250;  // 设置编辑区域高度
     editorDetail.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorDetail.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     editorDetail.config.uploadImgMaxLength = 1;
@@ -447,7 +446,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
   }
 
 
-  refreshTag(){
+  refreshTag() {
     this.storeProductService.productTagList().subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {
@@ -459,4 +458,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
 
 }
+
+
+
 

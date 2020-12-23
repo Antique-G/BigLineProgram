@@ -20,7 +20,6 @@ export interface AdminStoreListResponseModel {
   prev_page_url?: any;
   to: number;
   total: number;
-  region_full_name: string;
 }
 
 
@@ -34,15 +33,16 @@ export interface Datum {
   store_id: number;
   name: string;
   region_code: string;
-  address: string;
-  mobile: string;
-  contact: string;
   fax: string;
   phone: string;
+  mobile: string;
+  contact: string;
   profile_photo_path?: any;
   status: number;
   created_at: string;
   updated_at: string;
+  region_full_name: string;
+  address: string;
 }
 
 
@@ -68,6 +68,8 @@ export interface AddStoreResponseModel {
 export interface StoreDetailModel {
   store_id: any;
   name: string;
+  contact: string;
+  mobile: string;
   region_code: string;
   address: string;
   fax: string;
@@ -76,8 +78,7 @@ export interface StoreDetailModel {
   status: number;
   created_at: string;
   updated_at: string;
-  mobile: string;
-  contact: string;
+  region_full_name: string;
 }
 
 export interface StoreUpdateRequestModel {
