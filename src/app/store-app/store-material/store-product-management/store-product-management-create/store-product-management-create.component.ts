@@ -4,8 +4,8 @@ import { isNumber, isFloat } from '../../../../util/validators';
 import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
 import { AddStoreProductModel } from '../../../../../interfaces/store/storeProduct/ProductModel';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
-import E from 'wangeditor'
 import { Router } from '@angular/router';
+import wangEditor from 'wangeditor';
 
 
 @Component({
@@ -325,7 +325,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
   // 富文本
   textChange() {
     // 预约须知
-    const editorNotice = new E(document.getElementById('noticeDiv'));
+    const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
     editorNotice.config.height = 250;  // 设置编辑区域高度
     editorNotice.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorNotice.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
@@ -359,8 +359,8 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
 
     // 产品特色
-    const editorFeature = new E(document.getElementById('featureDiv'));
-    editorFeature.config.height = 250;  // 设置编辑区域高度
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    // editorFeature.config.height = 250;  // 设置编辑区域高度
     editorFeature.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorFeature.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     editorFeature.config.uploadImgMaxLength = 1;
@@ -394,7 +394,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
 
 
     // 详情
-    const editorDetail = new E(document.getElementById('detailDiv'));
+    const editorDetail = new wangEditor("#editorDetail", "#editorContent");
     editorDetail.config.height = 250;  // 设置编辑区域高度
     editorDetail.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorDetail.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
