@@ -21,4 +21,7 @@
 
 .wangeditor-feature {
     border: 1px solid #c9d8dc;
+    overflow: hidden !important;
+    resize: both !important;
+    height: 300px;
 }

@@ -19,6 +19,9 @@
     width: 120px !important;
 }
 
-#featureDiv {
-    z-index: 99999;
+.wangeditor-feature {
+    border: 1px solid #c9d8dc;
+    overflow: auto !important;
+    resize: both !important;
+    height: 300px;
 }
