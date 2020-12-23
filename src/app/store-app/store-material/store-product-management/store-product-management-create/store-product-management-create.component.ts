@@ -327,6 +327,7 @@ export class StoreProductManagementCreateComponent implements OnInit {
     // 预约须知
     const editorNotice = new E(document.getElementById('noticeDiv'));
     editorNotice.config.height = 200;  // 设置编辑区域高度为 500px
+    editorNotice.config.showFullScreen = true;    // 配置全屏功能按钮是否展示
     editorNotice.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
     editorNotice.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
     editorNotice.config.uploadImgMaxLength = 1;
