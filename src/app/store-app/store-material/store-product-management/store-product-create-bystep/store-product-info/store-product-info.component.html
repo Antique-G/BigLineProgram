@@ -1,0 +1,174 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <mat-card>
+                <div class="example-container">
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <h4 style="padding-left: 10px;padding-top: 10px;">基本信息</h4>
+                        <nz-divider></nz-divider>
+                        <div style="padding-left: 25px;padding-top: 25px">
+                            <h4>深圳两日游</h4>
+                            <h5>供应商id</h5>
+                        </div>
+                        <div style="padding:10px 80px">
+                            <form nz-form [formGroup]="addForm" nz-row>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="fee" nzRequired>产品标题</nz-form-label>
+                                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                                            <input nz-input formControlName="earlier1" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">行程天数</nz-form-label>
+                                        <nz-form-control [nzSm]="18" [nzXs]="24">
+                                            <input nz-input style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            <input nz-input style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">晚</span>
+                                            <span style="font-size: 12px;color: red;letter-spacing: 1px;">（提示）</span>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">400</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <input nz-input formControlName="earlier1" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">出发城市</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="earlier1"></nz-cascader>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">目的城市</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="earlier1"></nz-cascader>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>是否需要客服确认</nz-form-label>
+                                        <nz-form-control [nzSm]="10" [nzXs]="24">
+                                            <nz-radio-group formControlName="earlier1">
+                                                <label nz-radio nzValue='1'>是</label>
+                                                <label nz-radio nzValue='0'>否 </label>
+                                            </nz-radio-group>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>支付方式</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-radio-group formControlName="earlier1">
+                                                <label nz-radio nzValue='1'>景区现付</label>
+                                                <label nz-radio nzValue='0'>在线支付 </label>
+                                            </nz-radio-group>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">预约须知</nz-form-label>
+                                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                                            <textarea nz-input formControlName="earlier1" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </mat-card>
+
+
+            <mat-card>
+                <div class="example-container">
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <h4 style="padding-left: 10px;padding-top: 10px;">预定限制</h4>
+                        <nz-divider></nz-divider>
+                        <div style="padding:10px 80px">
+                            <form nz-form [formGroup]="addForm" nz-row>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">提前预定</nz-form-label>
+                                        <nz-form-control [nzSm]="18" [nzXs]="24">
+                                            <input nz-input style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            <nz-time-picker [(ngModel)]="time" nzFormat="HH:mm" formControlName="earlier2"></nz-time-picker><span style="line-height: 32px;padding: 0 9px;">前可订</span>
+                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;">!该截止时间为距离购买产品出发日期前一天24点的时间。例：截止时间选择1天10小时，若客人要选择出发日期为1月3日，则必须在1月1日14点前购买</p>
+
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">地接社名称</nz-form-label>
+                                        <nz-form-control [nzSm]="10" [nzXs]="24">
+                                            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" formControlName="earlier1">
+                                                <nz-option nzValue="1" nzLabel="深圳前海大航假期旅行社"></nz-option>
+                                                <nz-option nzValue="2" nzLabel="2"></nz-option>
+                                            </nz-select>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </mat-card>
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+<div style="position:fixed;left:0px;bottom:0px;width:100%;height:50px;background-color:ghostwhite;z-index:999; box-shadow: 4px;">
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+        <button mat-raised-button color="basic" style="height: 40px; ">保存</button>
+        <button mat-raised-button color="primary" style="height: 40px;margin-right: 20px;" (click)="nextTab()">下一步</button>
+
+    </div>
+</div>
