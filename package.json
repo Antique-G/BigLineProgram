@@ -22,6 +22,7 @@
         "@angular/platform-browser": "~11.0.0",
         "@angular/platform-browser-dynamic": "~11.0.0",
         "@angular/router": "~11.0.0",
+        "@ant-design/icons-angular": "^11.0.1",
         "@types/chartist": "^0.11.0",
         "chartist": "^0.11.4",
         "core-js": "^3.7.0",
