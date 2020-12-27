@@ -53,10 +53,13 @@
             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
         </nz-header>
         <div style="margin: 10px 15px;">
-            <!-- <nz-breadcrumb>
-                <nz-breadcrumb-item>User</nz-breadcrumb-item>
-                <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-            </nz-breadcrumb> -->
+            <nz-breadcrumb>
+                <nz-breadcrumb-item *ngIf="this.pathName==='admin'"><a routerLink="/admin/main/adminAccount">管理平台</a></nz-breadcrumb-item>
+                <nz-breadcrumb-item *ngIf="this.pathName==='store'"><a routerLink="/store/main/storeProduct">店铺平台</a></nz-breadcrumb-item>
+                <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs">
+                    <a>{{ breadcrumb.label }}</a>
+                </nz-breadcrumb-item>
+            </nz-breadcrumb>
             <div>
                 <router-outlet>
                     <app-spinner></app-spinner>

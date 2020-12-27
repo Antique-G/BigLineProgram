@@ -12,8 +12,9 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'store',
-    loadChildren:
-    () => import('./store-app/store-login/store-login.module').then(m => m.StoreLoginModule), data : { title : "店铺平台" }
+    loadChildren:() => import('./store-app/store-login/store-login.module').then(m => m.StoreLoginModule), 
+    data : { title : "店铺平台", breadcrumb: 'First' }
+   
   },
   {
     path: 'store/main',
