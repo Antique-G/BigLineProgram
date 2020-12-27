@@ -120,4 +120,10 @@ export class StoreProductManagementComponent implements OnInit {
   }
 
 
+
+
+  addStep(){
+    this.router.navigate(['/store/main/storeProduct/createByStep']);
+  }
+
 }

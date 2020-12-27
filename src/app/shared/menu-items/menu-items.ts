@@ -1,81 +1,77 @@
 import { Injectable } from '@angular/core';
 
 export interface Menu {
-  header: string;
-  menulist: Menus[];
+  title: string;
+  icon: string;
+  children: Menus[]
 }
 
 export interface Menus {
   state: string;
   name: string;
-  type: string;
-  icon: string;
 }
 
 
 const MENUITEMS = [
   {
-    header: '系统设置模块',
-    menulist: [{ state: 'adminAccount', type: 'link', name: '管理员账号', icon: 'view_headline' }
+    title: '系统设置模块', icon: 'user',
+    children: [{ state: 'adminAccount', name: '管理员账号' }
     ]
   },
   {
-    header: '店铺模块',
-    menulist: [{ state: 'store', type: 'link', name: '店铺管理', icon: 'view_list' },
-    // { state: 'storeAccount', type: 'link', name: '店铺账号管理', icon: 'view_headline' },
-    // { state: 'storeBankAccount', type: 'link', name: '店铺银行账号管理', icon: 'view_headline' }
+    title: '店铺模块', icon: 'appstore',
+    children: [{ state: 'store', name: '店铺管理' },
     ]
   },
   {
-    header: '产品模块',
-    menulist: [
-      { state: 'productTag', type: 'link', name: '产品标签', icon: 'view_headline' },
-      { state: 'productManagement', type: 'link', name: '产品管理', icon: 'view_headline' },
+    title: '产品模块', icon: 'project',
+    children: [
+      { state: 'productTag', name: '产品标签' },
+      { state: 'productManagement', name: '产品管理' },
     ]
   },
   {
-    header: '区域模块',
-    menulist: [
-      { state: 'settingArea', type: 'link', name: '区域', icon: 'view_headline' }
+    title: '区域模块', icon: 'environment',
+    children: [
+      { state: 'settingArea', name: '区域' }
     ]
   },
   {
-    header: '条款管理',
-    menulist: [
-      { state: 'termsManage', type: 'link', name: '条款审核', icon: 'assignment' }
+    title: '条款管理', icon: 'file',
+    children: [
+      { state: 'termsManage', name: '条款审核' }
     ]
   },
-  
+
 ];
 
 
 export interface StoreMenu {
-  storeHeader: string;
-  storeMenulist: StoreMenus[];
+  title: string;
+  icon: string;
+  children: StoreMenus[]
 }
 
 export interface StoreMenus {
   state: string;
   name: string;
-  type: string;
-  icon: string;
 }
 
 const StoreMENUITEMS = [
   {
-    storeHeader: '产品模块',
-    storeMenulist: [
-      { state: 'storeProduct', type: 'link', name: '产品管理', icon: 'view_headline' },
+    title: '产品模块', icon: 'project',
+    children: [
+      { state: 'storeProduct', name: '产品管理' },
 
     ]
   },
   {
-    storeHeader: '集合地点',
-    storeMenulist: [{ state: 'storeMeetingPlace', type: 'link', name: '集合地点', icon: 'view_headline' }]
+    title: '集合地点', icon: 'environment',
+    children: [{ state: 'storeMeetingPlace', name: '集合地点' }]
   },
   {
-    storeHeader: '条款管理模块',
-    storeMenulist: [{ state: 'storeTermsManage', type: 'link', name: '条款管理', icon: 'view_headline' }]
+    title: '条款管理模块', icon: 'file',
+    children: [{ state: 'storeTermsManage', name: '条款管理' }]
   },
 
 

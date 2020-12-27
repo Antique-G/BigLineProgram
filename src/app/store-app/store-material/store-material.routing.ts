@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from '../../../app/layouts/full/full.component';
 import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
+import { StoreProductCreateBystepComponent } from './store-product-management/store-product-create-bystep/store-product-create-bystep.component';
 import { StoreProductManagementCreateComponent } from './store-product-management/store-product-management-create/store-product-management-create.component';
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
@@ -20,6 +21,10 @@ export const StoreMaterialRoutes: Routes = [
       {
         path: 'storeProduct/create',
         component: StoreProductManagementCreateComponent
+      },
+      {
+        path: 'storeProduct/createByStep',
+        component: StoreProductCreateBystepComponent
       },
       {
         path: 'storeProduct/detail',
