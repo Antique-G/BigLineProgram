@@ -18,39 +18,66 @@ export const MaterialRoutes: Routes = [
     children: [
       {
         path: 'adminAccount',
-        component: AdminComponent
+        component: AdminComponent,
+        data: {
+          breadcrumb: '管理员账号列表'
+        }
       },
       {
         path: 'settingArea',
         component: AdminSystemAreaComponent,
+        data: {
+          breadcrumb: '区域列表'
+        }
       },
       {
         path: 'store',
-        component: AdminStoreComponent
+        component: AdminStoreComponent,
+        data: {
+          breadcrumb: '店铺列表'
+        }
       },
       {
         path: 'store/storeAccount',
-        component: AdminStoreAccountComponent
+        component: AdminStoreAccountComponent,
+        data: {
+          breadcrumb: '店铺账号列表'
+        }
       },
       {
         path: 'store/storeBankAccount',
-        component: AdminStoreBankAccountComponent
+        component: AdminStoreBankAccountComponent,
+        data: {
+          breadcrumb: '店铺银行账号列表'
+        }
       },
       {
         path: 'productTag',
-        component: AdminProductTagComponent
+        component: AdminProductTagComponent,
+        data: {
+          breadcrumb: '产品标签列表'
+        }
       },
       {
         path: 'productManagement',
-        component: AdminProductManagementComponent
+        component: AdminProductManagementComponent,
+        data: {
+          breadcrumb: '产品列表'
+        }
       },
       {
         path: 'productManagement/detail',
-        component: AdminProductManagementDetailComponent
+        component: AdminProductManagementDetailComponent,
+        data: {
+          breadcrumb: '产品详情'
+        }
       },
       {
         path: 'termsManage',
-        component: AdminTermsManageComponent
+        component: AdminTermsManageComponent,
+        data: {
+          breadcrumb: '条款列表'
+        }
       },
       
       

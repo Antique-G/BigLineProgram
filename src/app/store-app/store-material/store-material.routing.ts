@@ -16,32 +16,53 @@ export const StoreMaterialRoutes: Routes = [
     children: [
       {
         path: 'storeProduct',
-        component: StoreProductManagementComponent
+        component: StoreProductManagementComponent,
+        data: {
+          breadcrumb: '产品列表'
+        }
       },
       {
         path: 'storeProduct/create',
-        component: StoreProductManagementCreateComponent
+        component: StoreProductManagementCreateComponent,
+        data: {
+          breadcrumb: '产品添加'
+        }
       },
       {
         path: 'storeProduct/createByStep',
-        component: StoreProductCreateBystepComponent
+        component: StoreProductCreateBystepComponent,
+        data: {
+          breadcrumb: '产品添加'
+        }
       },
       {
         path: 'storeProduct/detail',
-        component: StoreProductManagementDetailComponent
+        component: StoreProductManagementDetailComponent,
+        data: {
+          breadcrumb: '产品详情'
+        }
       },
       {
         path: 'storeProduct/storeQuote',
-        component: StoreQuoteBydateComponent
+        component: StoreQuoteBydateComponent,
+        data: {
+          breadcrumb: '按日期报价'
+        }
       },
       
       {
         path: 'storeMeetingPlace',
-        component: StoreMeetingPlaceComponent
+        component: StoreMeetingPlaceComponent,
+        data: {
+          breadcrumb: '集合地点'
+        }
       },
       {
         path: 'storeTermsManage',
-        component: StoreTermsManagementComponent
+        component: StoreTermsManagementComponent,
+        data: {
+          breadcrumb: '条款列表'
+        }
       },
     ]
   }
