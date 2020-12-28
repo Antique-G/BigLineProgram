@@ -66,50 +66,39 @@ export interface StoreModel {
 }
 
 
+export interface AdminFreeTravelDetailResponseModel {
+    data: DataFreeTravelDetailModel;
+}
 
-// export interface AdminProductManagementUpdateModel {
-//     title: string;
-//     region_code: string;
-//     earlier: number;
-//     confirm: number;
-//     pay_method: number;
-//     few_days: number;
-//     few_nights: number;
-//     adult_price: number;
-//     child_price: number;
-//     original_adult_price: number;
-//     original_child_price: number;
-//     difference_price: number;
-//     assembling_place_id: [];
-//     feature: string;
-//     details: string;
-//     fee: string;
-//     notice: string;
-//     status?: number;
-//     tag_id: [];
-//     id?: any;
-// }
+export interface DataFreeTravelDetailModel {
+    id: number;
+    title: string;
+    store_id: number;
+    few_days: number;
+    few_nights: number;
+    departure_city: string;
+    destination_city: string;
+    earlier: number;
+    confirm: number;
+    pay_method: number;
+    service_phone: string;
+    min_price: number;
+    reserve_num: number;
+    reserve_children: number;
+    reserve_ahead: number;
+    children_age: number;
+    children_height: number;
+    feature: string;
+    details: string;
+    fee: string;
+    notice: string;
+    status: number;
+    check_status: number;
+    created_at?: any;
+    updated_at: string;
+}
 
-// export interface AdminProductSetStatusModel {
-//     id: number;
-//     status: number;
-// }
-
-// export interface AdminProductCheckStatusModel {
-//     id: number;
-//     check_status: number;
-// }
-
-// export interface AdminProductResponseModel {
-//     message?: string;
-//     status_code?: string;
-// }
-
-// export interface AdminProductDetailResponseModel {
-//     data: DataProductDetailModel;
-// }
-
-export interface FreeTravelDetailModel {
+export interface FreeTravelUpdateModel {
     id?: number;
     title: string;
     earlier: number;

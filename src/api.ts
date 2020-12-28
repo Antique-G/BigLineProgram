@@ -53,7 +53,7 @@ export const AdminUrls = {
 
   GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
   GetAdminFreeTravelDetail: api + '/admin/independent_product/', //自由行产品详情
-
+  PutAdminFreeTravelUpdate: api + '/admin/independent_product/', //自由行产品更新
 
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表

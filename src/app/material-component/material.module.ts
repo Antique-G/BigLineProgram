@@ -40,6 +40,8 @@ import { AdminTermsManageUpComponent } from './admin-terms-manage/admin-terms-ma
 import { AdminDeleteComponent } from './admin-common/admin-delete/admin-delete.component';
 import { AccountDetailComponent } from './admin-common/account-detail/account-detail.component';
 import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-free-travel/admin-produc-free-travel.component';
+import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
+import { AdminTravelDetailProinfoComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-proinfo/admin-travel-detail-proinfo.component';
 
 @NgModule({
   imports: [
@@ -98,6 +100,8 @@ import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-fre
     AdminDeleteComponent,
     AccountDetailComponent,
     AdminProducFreeTravelComponent,
+    AdminProductFreeTravelDetailComponent,
+    AdminTravelDetailProinfoComponent,
   ]
 })
 export class MaterialComponentsModule {}
