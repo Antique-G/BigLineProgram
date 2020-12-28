@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
-import { AdminProductManagementDetailComponent } from './admin-product-management-detail/admin-product-management-detail.component';
 import { AdminProductManagementUpComponent } from './admin-product-management-up/admin-product-management-up.component';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
 

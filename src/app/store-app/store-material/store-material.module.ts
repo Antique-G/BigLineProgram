@@ -28,6 +28,7 @@ import { StoreAccountDetailComponent } from './common/store-account-detail/store
 import { StoreProductCreateBystepComponent } from './store-product-management/store-product-create-bystep/store-product-create-bystep.component';
 import { StoreProductInfoComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-product-info.component';
 import { StoreProductDescComponent } from './store-product-management/store-product-create-bystep/store-product-desc/store-product-desc.component';
+import { StoreProductFreeTravelComponent } from './store-product-free-travel/store-product-free-travel.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -69,7 +70,8 @@ import { StoreProductDescComponent } from './store-product-management/store-prod
     StoreAccountDetailComponent,
     StoreProductCreateBystepComponent,
     StoreProductInfoComponent,
-    StoreProductDescComponent
+    StoreProductDescComponent,
+    StoreProductFreeTravelComponent
   ]
 })
 export class StoreMaterialComponentsModule { }
