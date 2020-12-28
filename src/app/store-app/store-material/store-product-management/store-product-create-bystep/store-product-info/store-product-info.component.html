@@ -15,7 +15,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="fee" nzRequired>产品标题</nz-form-label>
                                         <nz-form-control [nzSm]="16" [nzXs]="24">
-                                            <input nz-input formControlName="earlier1" />
+                                            <input nz-input formControlName="title" />
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
@@ -24,8 +24,8 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">行程天数</nz-form-label>
                                         <nz-form-control [nzSm]="18" [nzXs]="24">
-                                            <input nz-input style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">天</span>
-                                            <input nz-input style="width: 120px;" formControlName="earlier1" /><span style="line-height: 32px;padding: 0 9px;">晚</span>
+                                            <input nz-input style="width: 120px;" formControlName="day" /><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            <input nz-input style="width: 120px;" formControlName="dayTime" /><span style="line-height: 32px;padding: 0 9px;">晚</span>
                                             <span style="font-size: 12px;color: red;letter-spacing: 1px;">（提示）</span>
                                         </nz-form-control>
                                     </div>
@@ -36,7 +36,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">400</nz-form-label>
                                         <nz-form-control [nzSm]="8" [nzXs]="24">
-                                            <input nz-input formControlName="earlier1" />
+                                            <input nz-input formControlName="phone" />
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
@@ -47,7 +47,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">出发城市</nz-form-label>
                                         <nz-form-control [nzSm]="8" [nzXs]="24">
-                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="earlier1"></nz-cascader>
+                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="departureCity"></nz-cascader>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
@@ -56,7 +56,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">目的城市</nz-form-label>
                                         <nz-form-control [nzSm]="8" [nzXs]="24">
-                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="earlier1"></nz-cascader>
+                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="destinationCity"></nz-cascader>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
@@ -68,7 +68,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>是否需要客服确认</nz-form-label>
                                         <nz-form-control [nzSm]="10" [nzXs]="24">
-                                            <nz-radio-group formControlName="earlier1">
+                                            <nz-radio-group formControlName="confirm">
                                                 <label nz-radio nzValue='1'>是</label>
                                                 <label nz-radio nzValue='0'>否 </label>
                                             </nz-radio-group>
@@ -80,7 +80,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>支付方式</nz-form-label>
                                         <nz-form-control [nzSm]="8" [nzXs]="24">
-                                            <nz-radio-group formControlName="earlier1">
+                                            <nz-radio-group formControlName="pay">
                                                 <label nz-radio nzValue='1'>景区现付</label>
                                                 <label nz-radio nzValue='0'>在线支付 </label>
                                             </nz-radio-group>
@@ -95,7 +95,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">预约须知</nz-form-label>
                                         <nz-form-control [nzSm]="16" [nzXs]="24">
-                                            <textarea nz-input formControlName="earlier1" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                                            <textarea nz-input formControlName="notice" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
@@ -134,7 +134,7 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">地接社名称</nz-form-label>
                                         <nz-form-control [nzSm]="10" [nzXs]="24">
-                                            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" formControlName="earlier1">
+                                            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="请选择" formControlName="name">
                                                 <nz-option nzValue="1" nzLabel="深圳前海大航假期旅行社"></nz-option>
                                                 <nz-option nzValue="2" nzLabel="2"></nz-option>
                                             </nz-select>
@@ -160,13 +160,14 @@
 
 
 
+
     </div>
 </div>
 
 
 <div style="position:fixed;left:0px;bottom:0px;width:100%;height:50px;background-color:ghostwhite;z-index:999; box-shadow: 4px;">
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
-        <button mat-raised-button color="basic" style="height: 40px; ">保存</button>
+        <button mat-raised-button color="basic" style="height: 40px; " (click)="save()">保存</button>
         <button mat-raised-button color="primary" style="height: 40px;margin-right: 20px;" (click)="nextTab()">下一步</button>
 
     </div>
