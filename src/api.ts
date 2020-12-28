@@ -45,10 +45,16 @@ export const AdminUrls = {
 
 
   GetAdminProductManagementList: api + '/admin/product',  //产品列表
-  PutAdminProductManagementUpdate: api + '/admin/product/', //产品编辑
+  PutAdminProductManagementUpdate: api + '/admin/product/', //产品更新
   GetAdminProductManagementDetail: api + '/admin/product/', //产品详情
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
+
+
+  GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
+  GetAdminFreeTravelDetail: api + '/admin/independent_product/', //自由行产品详情
+
+
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
 
