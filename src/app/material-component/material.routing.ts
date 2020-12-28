@@ -10,6 +10,7 @@ import { AdminProductManagementComponent } from './admin-product/admin-product-m
 import { AdminProductManagementDetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-detail.component';
 import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
 import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-free-travel/admin-produc-free-travel.component';
+import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -78,6 +79,13 @@ export const MaterialRoutes: Routes = [
         component: AdminProducFreeTravelComponent,
         data: {
           breadcrumb: '自由行列表'
+        }
+      },
+      {
+        path: 'freeTravel/detail',
+        component: AdminProductFreeTravelDetailComponent,
+        data: {
+          breadcrumb: '自由行详情'
         }
       },
       

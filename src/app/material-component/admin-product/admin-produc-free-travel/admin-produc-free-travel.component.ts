@@ -71,19 +71,19 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
    // 查看详情
    edit(data: any) {
-    this.router.navigate(['/admin/main/productManagement/detail'], { queryParams: { detailDataId: data.id } });
+    this.router.navigate(['/admin/main/freeTravel/detail'], { queryParams: { detailId: data.id } });
   }
 
 
-  // 审核
-  review(data: any){
+  // // 审核
+  // review(data: any){
   
-  }
+  // }
 
 
-  // 上架
-  up(data: any){
+  // // 上架
+  // up(data: any){
   
-  }
+  // }
 
 }

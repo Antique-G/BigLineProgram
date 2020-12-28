@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AdminFreeTravelListResponseModel, FreeTravelDetailModel } from '../../interfaces/adminProduct/free-travel-model';
+import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AdminUrls } from '../../api';
 
 
@@ -37,10 +37,17 @@ export class AdminProductFreeTravelService {
       )
   }
 
-
     // 详情
-    freeTravelDetail(id:any): Observable<FreeTravelDetailModel> {
-      return this.httpClient.get<FreeTravelDetailModel>(this.urls.GetAdminFreeTravelDetail+id, httpOptions)
+    freeTravelDetail(id:any): Observable<AdminFreeTravelDetailResponseModel> {
+      return this.httpClient.get<AdminFreeTravelDetailResponseModel>(this.urls.GetAdminFreeTravelDetail+id, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+
+    // 更新
+    freeTravelUpdate(id:any): Observable<FreeTravelUpdateModel> {
+      return this.httpClient.get<FreeTravelUpdateModel>(this.urls.PutAdminFreeTravelUpdate+id, httpOptions)
         .pipe(
           catchError(this.handleError)
         )
