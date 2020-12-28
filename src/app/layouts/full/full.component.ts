@@ -44,17 +44,16 @@ export class FullComponent implements OnInit {
 
   ngOnInit(): void {
     const root: ActivatedRoute = this.activatedRoute.root;
-    console.log('初始化和刷新路由时', root);
+    // console.log('初始化和刷新路由时', root);
     this.breadcrumbs = this.getBreadcrumbs(root);
-   
-    console.log('url地址123', location)
+    // console.log('url地址123', location)
     this.pathName = (location.pathname).slice(1, 6);
     this.userName = localStorage.getItem("account");
     this.mobile = localStorage.getItem("mobile");
 
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
       const root: ActivatedRoute = this.activatedRoute.root;
-      console.log('切换路由后', root);
+      // console.log('切换路由后', root);
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
 
@@ -120,12 +119,11 @@ export class FullComponent implements OnInit {
   */
   getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): any {
     const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
-    // 得到子路由
-    const children: ActivatedRoute[] = route.children;
-    console.log('=== janine.有多少子路由 ===', children);
+    const children: ActivatedRoute[] = route.children;     // 得到子路由
+    // console.log('=== 有多少子路由 ===', children);
     // 如果没有子路由返回
     if (children.length === 0) {
-      console.log('=== janine.没有子路由是 ===', breadcrumbs);
+      // console.log('=== janine.没有子路由是 ===', breadcrumbs);
       return breadcrumbs;
     }
 
@@ -144,7 +142,7 @@ export class FullComponent implements OnInit {
       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
       // append route URL to URL 追加路由的url到url
       if (routeURL) {
-        console.log('=== janine.routeURL ===', routeURL);
+        // console.log('=== janine.routeURL ===', routeURL);
         url += `/${routeURL}`;
       }
 
@@ -159,10 +157,7 @@ export class FullComponent implements OnInit {
       if (child.component) {
         breadcrumbs.push(breadcrumb);
       }
-
-      console.log('=== 1231231 === ', breadcrumb);
-
-
+      console.log('breadcrumb是什么', breadcrumb);
       // 递归
       return this.getBreadcrumbs(child, url, breadcrumbs);
     }
