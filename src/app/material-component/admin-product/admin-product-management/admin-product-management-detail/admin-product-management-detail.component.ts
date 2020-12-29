@@ -104,7 +104,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
       region_code: '',
       earlier: 0,
       confirm: 0,
-      pay_method: 0,
+      // pay_method: 0,
       few_days: 0,
       few_nights: 0,
       adult_price: 0,
@@ -130,7 +130,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
       earlier2: ['', [Validators.required]],
       earlier3: ['', [Validators.required]],
       confirm: ['', [Validators.required]],
-      pay_method: ['', [Validators.required]],
+      // pay_method: ['', [Validators.required]],
       few_days: ['', [Validators.required, isNumber]],
       few_nights: ['', [Validators.required, isNumber]],
       adult_price: ['', [Validators.required, isFloat]],
@@ -233,7 +233,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
   setValue() {
     this.adminProductManagementUpdateModel.title = this.addForm.value.title;
     this.adminProductManagementUpdateModel.confirm = this.addForm.value.confirm;
-    this.adminProductManagementUpdateModel.pay_method = this.addForm.value.pay_method;
+    // this.adminProductManagementUpdateModel.pay_method = this.addForm.value.pay_method;
     this.adminProductManagementUpdateModel.few_days = this.addForm.value.few_days;;
     this.adminProductManagementUpdateModel.few_nights = this.addForm.value.few_nights;
     this.adminProductManagementUpdateModel.adult_price = this.addForm.value.adult_price;
@@ -255,6 +255,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log(this.addForm.valid);
     if (this.addForm.valid) {
       this.adminProductManagementUpdateModel.id = this.dataProductDetailModel.id;
       this.adminProductManagementUpdateModel.region_code = this.idRegion;

@@ -1,13 +1,15 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
 import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
 import wangEditor from 'wangeditor';
 import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
 import { FreeTravelUpdateModel } from '../../../../../../interfaces/adminProduct/free-travel-model';
-
+import {format} from 'date-fns';
+import {AdminChooseImgComponent} from '../admin-choose-img/admin-choose-img.component';
 @Component({
   selector: 'app-admin-travel-detail-proinfo',
   templateUrl: './admin-travel-detail-proinfo.component.html',
@@ -53,16 +55,16 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
+  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,public dialog: MatDialog,
     public adminProductFreeTravelService:AdminProductFreeTravelService,  public adminProductManagementService: AdminProductManagementService, 
-    public adminRegionService: AdminRegionService, public adminProductTagService: AdminProductTagService,) {
+    public adminRegionService: AdminRegionService, public adminProductTagService: AdminProductTagService) {
     this.buildForm();
 
     this.freeTravelUpdateModel = {
       title:'',
       earlier: 0,
       confirm: 0,
-      pay_method:0,
+      // pay_method:0,
       few_days: 0,
       few_nights:0,
       departure_city: 0,
@@ -72,7 +74,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       reserve_children: 0,
       reserve_ahead: 0,
       children_age: 0,
-      children_height: 0,
+      child_height_min: 0,
+      child_height_max: 0,
       feature: '',
       details: '',
       fee: '',
@@ -94,15 +97,16 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       fee: new FormControl('', [Validators.required]),
       service_phone: new FormControl('', [Validators.required]),
       confirm: new FormControl('', [Validators.required]),
-      pay: new FormControl('', [Validators.required]),
+      // pay: new FormControl('', [Validators.required]),
       notice: new FormControl(null, [Validators.required]),
       earlier1: new FormControl('', [Validators.required]),
-      earlier2: new FormControl('', [Validators.required]),
+      earlier2: new FormControl(null, [Validators.required]),
       reserve_ahead: new FormControl('', [Validators.required]),
       reserve_num: new FormControl('', [Validators.required]),
       reserve_children: new FormControl('', [Validators.required]),
       children_age: new FormControl('', [Validators.required]),
-      children_height: new FormControl('', [Validators.required]),
+      child_height_min: new FormControl('', [Validators.required]),
+      child_height_max: new FormControl('', [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -169,14 +173,17 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('reserve_num')?.setValue(this.dataDetailModel.reserve_num);
     this.addForm.get('reserve_children')?.setValue(this.dataDetailModel.reserve_children);
     this.addForm.get('children_age')?.setValue(this.dataDetailModel.children_age);
-    this.addForm.get('children_height')?.setValue(this.dataDetailModel.children_height);
-  
-    let b = this.dataDetailModel.tag_id;
+    this.addForm.get('child_height_min')?.setValue(this.dataDetailModel.child_height_min);
+    this.addForm.get('child_height_max')?.setValue(this.dataDetailModel.child_height_max);
+    this.addForm.get('notice')?.setValue(this.dataDetailModel.notice);
+    console.log(this.dataDetailModel,'this.dataDetailModel');
+    let b = this.dataDetailModel.tag.data;
     let bNums: any[] = []
     for (let ints of b) {
       bNums.push(ints.id)
       this.selectedTag = bNums
     }
+    
     console.log("this.selectedTag", this.selectedTag);  //标签
 
     const str = this.dataDetailModel.departure_city;
@@ -184,24 +191,43 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
       this.values.push(temp);
     }
+    console.log(this.values,'this.values');
     this.addForm.get('departure_city')?.setValue(this.values);   //出发城市
 
     const strs = this.dataDetailModel.destination_city;
-    for (let i = 0; i < str.length / 4; i++) {
-      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+    for (let i = 0; i < strs.length / 4; i++) {
+      let temp = this.valuesDestination_city[i] || '' + strs.substr(0, 4 * (i + 1))
       this.valuesDestination_city.push(temp);
     }
-    this.addForm.get('destination_city')?.setValue(this.values);   //目的城市
-   
+    console.log(this.valuesDestination_city,'目的城市');
+    this.addForm.get('destination_city')?.setValue(this.valuesDestination_city);   //目的城市
+    // 时间处理
+    let timeArr = this.timeStamp(this.dataDetailModel.earlier);
+    this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
+    let timeDate = format(this.time,'yyyy-MM-dd')+ ' ' +timeArr[1]+':'+timeArr[2];
+    this.time = new Date(timeDate)
+  
+    // this.addForm.get('earlier2')?.setValue(timeArr[0]);   //目的城市
     // 截止日期
     console.log("截止日期", this.dataDetailModel.earlier);
     console.log("分钟", this.dataDetailModel.earlier % 60)
     console.log("小时", Math.floor(this.dataDetailModel.earlier / 60) % 24);
     console.log("", Math.floor(this.dataDetailModel.earlier / 60 / 24));
+    console.log(this.timeStamp(this.dataDetailModel.earlier));
   }
 
 
 
+//传入的分钟数  转换成天、时、分 [天,时,分]
+ timeStamp(minutes:any) {
+  var day = Math.floor(minutes / 60 / 24);
+  var hour = Math.floor(minutes / 60 % 24);
+  var min = Math.floor(minutes % 60); 
+  let str:any = [day,hour,min]
+  
+  //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
+  return  str;
+}
 
   getTagList() {
     this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
@@ -225,17 +251,83 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
 
   onChanges($event:any){
-
+    // console.log($event);
+    // console.log(this.values);
+    // if ($event !== null) {
+    //     // this.freeTravelUpdateModel.departure_city
+    //   this.idRegion = $event[$event.length - 1];
+    // }
   }
 
 
   changeTag(a: any): void {
-    // this.freeTravelUpdateModel.tag_id = a;
+    this.freeTravelUpdateModel.tag_id = a;
+  }
+
+  setValue(){
+
+
+    this.freeTravelUpdateModel.id = this.dataDetailModel.id;
+
+    this.freeTravelUpdateModel.title = this.addForm.value.title;
+    this.freeTravelUpdateModel.few_days = this.addForm.value.few_days;;
+    this.freeTravelUpdateModel.few_nights = this.addForm.value.few_nights;
+    this.freeTravelUpdateModel.fee = this.addForm.value.fee;
+    this.freeTravelUpdateModel.service_phone = this.addForm.value.service_phone;
+    this.freeTravelUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
+    this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
+    this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
+    this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
+    this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    this.freeTravelUpdateModel.notice = this.addForm.value.notice;
+    this.freeTravelUpdateModel.confirm = this.addForm.value.confirm;
+    this.freeTravelUpdateModel.departure_city =  this.values[this.values.length-1]
+    this.freeTravelUpdateModel.destination_city =  this.valuesDestination_city[this.valuesDestination_city.length-1]
+    // let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
+    // this.dataDetailModel.earlier = i;
+    let earlier1 = this.addForm.value.earlier1.length>0?this.addForm.value.earlier1:0
+    let date = new Date(this.addForm.value.earlier2);
+    let min = date.getMinutes();
+    let hour = date.getHours();
+    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+    this.freeTravelUpdateModel.earlier = resMin
+
+
+
+    console.log( this.freeTravelUpdateModel);
   }
 
 
+  updateTravel(){
+    this.setValue();
+    // 验证表单
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log(this.addForm);
+    console.log(this.addForm.valid);
+    if (this.addForm.valid) {
+      this.adminProductFreeTravelService.freeTravelUpdate(this.freeTravelUpdateModel).subscribe(res=>{
+        if(res.message=="更新成功"){
+          this.router.navigate(['/admin/main/freeTravel']);
+        }
+      })
+    }
 
+  }
 
+  chooseImgClick(){
+    const dialogRef = this.dialog.open(AdminChooseImgComponent, {
+      width: '800px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+      }
+
+    });
+  }
   
   // 富文本
   textChange() {
@@ -251,6 +343,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       console.log("修改后的model", this.freeTravelUpdateModel.feature)
 
     }
+
     editorFeature.create();
     // 上传图片
     editorFeature.config.uploadImgParams = {
@@ -278,8 +371,12 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
+     // 关闭菜单栏fixed
+    //  editorDetail.config.menuFixed = false;
     console.log("拿到的details", this.dataDetailModel.details)
     this.detailBox.nativeElement.innerHTML = this.dataDetailModel.details;    //赋值
+  
+    
     this.freeTravelUpdateModel.details = this.dataDetailModel.details;
     console.log("没改之前的model", this.freeTravelUpdateModel.details);
     editorDetail.config.onchange = (newHtml: any) => {
@@ -288,7 +385,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
     }
     editorDetail.create();
-
+ 
     // 上传图片
     editorDetail.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
@@ -313,5 +410,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   }
 
+ 
 
 }

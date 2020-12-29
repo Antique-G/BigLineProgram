@@ -103,7 +103,7 @@ export interface FreeTravelUpdateModel {
     title: string;
     earlier: number;
     confirm: number;
-    pay_method: number;
+    // pay_method: number;
     few_days: number;
     few_nights: number;
     departure_city: number;
@@ -113,7 +113,8 @@ export interface FreeTravelUpdateModel {
     reserve_children: number;
     reserve_ahead: number;
     children_age: number;
-    children_height: number;
+    child_height_min: number;
+    child_height_max: number;
     feature: string;
     details: string;
     fee: string;
