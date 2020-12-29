@@ -16,5 +16,6 @@
     border: 1px solid #c9d8dc;
     overflow: hidden !important;
     resize: both !important;
-    height: 300px;
+    /* height: 300px; */
+    min-height: 300px;
 }

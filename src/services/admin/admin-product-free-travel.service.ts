@@ -46,8 +46,8 @@ export class AdminProductFreeTravelService {
     }
 
     // 更新
-    freeTravelUpdate(id:any): Observable<FreeTravelUpdateModel> {
-      return this.httpClient.get<FreeTravelUpdateModel>(this.urls.PutAdminFreeTravelUpdate+id, httpOptions)
+    freeTravelUpdate(model:FreeTravelUpdateModel): Observable<any> {
+      return this.httpClient.put<FreeTravelUpdateModel>(this.urls.PutAdminFreeTravelUpdate+model.id,model, httpOptions)
         .pipe(
           catchError(this.handleError)
         )

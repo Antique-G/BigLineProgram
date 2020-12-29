@@ -1,0 +1,56 @@
+<div fxLayoutWrap="wrap">
+    <div class="h3-img" fxLayout="row" fxLayoutAlign="center center">
+        <h4>从图库导入资源</h4>
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <!-- <form nz-form [formGroup]="addForm" nz-row>
+
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="reserve_ahead">景区</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input formControlName="reserve_num" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="reserve_num">国家</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input formControlName="reserve_num" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="children_age">景点</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input formControlName="children_age" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="children_height">描述</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input formControlName="children_height" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row [nzJustify]="'end'">
+                    <button nz-button nzType="primary" nzShape="round">查询</button>
+                </div>
+            </nz-form-item>
+        </form> -->
+        <div class="border"></div>
+        <div style="display: flex;flex-wrap: wrap;justify-content: space-between;">
+            <div *ngFor="let data of listOfData; index as i" style="height: 100px;width: 100px;">{{ data }}</div>
+        </div>
+       
+    </div>
+</div>

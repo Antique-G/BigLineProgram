@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { TitleService } from '../services/common/title.service';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
 
+registerLocaleData(zh);
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

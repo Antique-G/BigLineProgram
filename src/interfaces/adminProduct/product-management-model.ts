@@ -57,7 +57,7 @@ export interface AdminProductManagementUpdateModel {
     region_code: string;
     earlier: number;
     confirm: number;
-    pay_method: number;
+    // pay_method: number;
     few_days: number;
     few_nights: number;
     adult_price: number;

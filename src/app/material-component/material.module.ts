@@ -42,6 +42,7 @@ import { AccountDetailComponent } from './admin-common/account-detail/account-de
 import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-free-travel/admin-produc-free-travel.component';
 import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
 import { AdminTravelDetailProinfoComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-proinfo/admin-travel-detail-proinfo.component';
+import { AdminChooseImgComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-choose-img/admin-choose-img.component';
 
 @NgModule({
   imports: [
@@ -102,6 +103,7 @@ import { AdminTravelDetailProinfoComponent } from './admin-product/admin-produc-
     AdminProducFreeTravelComponent,
     AdminProductFreeTravelDetailComponent,
     AdminTravelDetailProinfoComponent,
+    AdminChooseImgComponent,
   ]
 })
 export class MaterialComponentsModule {}
