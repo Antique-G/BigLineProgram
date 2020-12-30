@@ -53,7 +53,22 @@ export class AdminProductFreeTravelService {
         )
     }
 
+    // 上架/下架
+    freeTravelUp(id:number): Observable<any>{
+      return this.httpClient.post(this.urls.PostAdminFreeTRavelUp, {id:id},httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
 
+    // 审核
+    freeTravelReview(id:number,check_status:number): Observable<any>{
+      return this.httpClient.post(this.urls.PostAdminFreeTRavelUp, {id,check_status},httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    
 
 
   private handleError(error: HttpErrorResponse) {

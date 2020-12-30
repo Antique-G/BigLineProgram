@@ -8,6 +8,7 @@ import { StoreProductManagementDetailComponent } from './store-product-managemen
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
 import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-bydate.component';
 import { StoreTermsManagementComponent } from './store-terms-management/store-terms-management.component';
+import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -70,6 +71,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreTermsManagementComponent,
         data: {
           breadcrumb: '条款列表'
+        }
+      },
+      {
+        path: 'storeTermsManage/detail',
+        component: StoreTermsManagementDetailComponent,
+        data: {
+          breadcrumb: '条款详情'
         }
       },
     ]

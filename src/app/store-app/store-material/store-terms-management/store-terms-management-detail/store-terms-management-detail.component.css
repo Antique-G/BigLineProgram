@@ -1,5 +1,5 @@
 [nz-form] {
-    max-width: 600px;
+    /* max-width: 600px; */
 }
 
 .phone-select {
@@ -8,4 +8,8 @@
 
 .register-are {
     margin-bottom: 8px;
+}
+.wangeditor-feature{
+    border: 1px solid #ccc;
+    min-height: 300px;
 }

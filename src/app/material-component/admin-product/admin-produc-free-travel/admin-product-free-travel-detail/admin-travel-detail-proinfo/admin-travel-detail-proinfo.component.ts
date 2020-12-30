@@ -286,7 +286,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.destination_city =  this.valuesDestination_city[this.valuesDestination_city.length-1]
     // let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
     // this.dataDetailModel.earlier = i;
-    let earlier1 = this.addForm.value.earlier1.length>0?this.addForm.value.earlier1:0
+    let earlier1 = this.addForm.value.earlier1
     let date = new Date(this.addForm.value.earlier2);
     let min = date.getMinutes();
     let hour = date.getHours();
@@ -306,7 +306,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.addForm);
     console.log(this.addForm.valid);
     if (this.addForm.valid) {
       this.adminProductFreeTravelService.freeTravelUpdate(this.freeTravelUpdateModel).subscribe(res=>{
@@ -320,7 +319,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   chooseImgClick(){
     const dialogRef = this.dialog.open(AdminChooseImgComponent, {
-      width: '800px'
+      width: '1105px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
@@ -409,7 +408,5 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
 
   }
-
- 
 
 }

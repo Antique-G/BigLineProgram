@@ -6,7 +6,7 @@ import { StoreTermsManagementDetailComponent } from './store-terms-management-de
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
 import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store-terms-management',
@@ -23,7 +23,8 @@ export class StoreTermsManagementComponent implements OnInit {
   total = 1;
   loading = true;
 
-  constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog,
+    private router: Router) {
     this.searchForm = this.fb.group({
       status: [''],
       checkStatus: [''], 
@@ -66,24 +67,25 @@ export class StoreTermsManagementComponent implements OnInit {
 
 
   edit(element: any): void {
-    console.log("拿到的值", element);
-    this.storeTermsManagementService.storeTermsDetail(element.id).subscribe(res => {
-      if (res.data) {
-        const dialogRef = this.dialog.open(StoreTermsManagementDetailComponent, {
-          width: '550px',
-          data: res.data
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          // console.log("result", result);
-          if (result !== undefined) {
-            this.termsList();
-          }
-        });
-      }
-      else {
-        alert("查看详情失败")
-      }
-    })
+    this.router.navigate(['/store/main/storeTermsManage/detail'], { queryParams: { detailId: element.id } });
+    // console.log("拿到的值", element);
+    // this.storeTermsManagementService.storeTermsDetail(element.id).subscribe(res => {
+    //   if (res.data) {
+    //     const dialogRef = this.dialog.open(StoreTermsManagementDetailComponent, {
+    //       width: '550px',
+    //       data: res.data
+    //     });
+    //     dialogRef.afterClosed().subscribe(result => {
+    //       // console.log("result", result);
+    //       if (result !== undefined) {
+    //         this.termsList();
+    //       }
+    //     });
+    //   }
+    //   else {
+    //     alert("查看详情失败")
+    //   }
+    // })
 
   }
 

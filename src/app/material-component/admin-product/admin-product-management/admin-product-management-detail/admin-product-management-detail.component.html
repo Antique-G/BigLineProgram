@@ -1,13 +1,29 @@
 <div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
-        <mat-card>
-            <div class="example-container" style="padding: 15px;">
-                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/admin/main/productManagement">返回产品管理</button>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/admin/main/productManagement">返回产品管理</button>
+        </div>
+        <mat-card style="margin-top: 20px;">
+            <div class="example-container">
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <h4 style="padding-left: 10px;padding-top: 10px;margin: 0px;">预定限制</h4>
+                    <nz-divider></nz-divider>
+                    <div style="padding:10px 80px">
+                        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                           
+                        </nz-spin>
                     </div>
 
-                    <div style="padding: 5px;">
+                </div>
+
+            </div>
+        </mat-card>
+        <mat-card style="margin-top: 20px;" >
+            <div class="example-container" >
+                <div fxLayout="column" fxLayoutAlign="start stretch" >
+                    <h4 style="padding-left: 10px;padding-top: 10px;margin: 0;">基本信息</h4>
+                    <nz-divider></nz-divider>
+                    <div style="padding:0 20px;">
                         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                             <form nz-form [formGroup]="addForm" nz-row>
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
@@ -70,7 +86,7 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
-
+                                
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_nights" nzRequired>几晚</nz-form-label>
@@ -79,6 +95,7 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
+
 
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>

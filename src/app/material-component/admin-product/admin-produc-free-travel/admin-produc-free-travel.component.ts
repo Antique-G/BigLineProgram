@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
 
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-produc-free-travel',
@@ -20,9 +21,9 @@ export class AdminProducFreeTravelComponent implements OnInit {
   status: any;
   check_status: any;
   title: any;
+  confirmModal?: NzModalRef; // g-zorro model 提示框
 
-
-  constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductFreeTravelService: AdminProductFreeTravelService,
+  constructor(public fb: FormBuilder, public dialog: MatDialog,private modal: NzModalService, public adminProductFreeTravelService: AdminProductFreeTravelService,
     public router: Router) {
       this.searchForm = this.fb.group({
         status: [''],
@@ -75,15 +76,35 @@ export class AdminProducFreeTravelComponent implements OnInit {
   }
 
 
-  // // 审核
-  // review(data: any){
-  
-  // }
+  // 审核
+  review(id:number,status:number){
+    console.log(id,status);
+    this.confirmModal = this.modal.confirm({
+      nzTitle: '是否确定该操作?',
+      nzContent: '请确认操作的数据是否正确',
+      nzOnOk: () =>{
+        this.adminProductFreeTravelService.freeTravelReview(id,status).subscribe(res => {
+          console.log("结果是", res)
+          this.getFeeTravelList();
+        })
+      }
+    })
+  }
 
 
-  // // 上架
-  // up(data: any){
-  
-  // }
+  // 上架
+  up(data: any){
+    this.confirmModal = this.modal.confirm({
+      nzTitle: '是否确定该操作?',
+      nzContent: '请确认操作的数据是否正确',
+      nzOnOk: () =>{
+        this.adminProductFreeTravelService.freeTravelUp(data.id).subscribe(res => {
+          console.log("结果是", res)
+          this.getFeeTravelList();
+        })
+      }
+    })
+    
+  }
 
 }
