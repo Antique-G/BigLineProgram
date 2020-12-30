@@ -1,7 +1,7 @@
 <div fxLayoutWrap="wrap">
-    <div class="h3-img" fxLayout="row" fxLayoutAlign="center center">
+    <div class="h3-img" fxLayout="row" fxLayoutAlign="space-between center">
         <h4>从图库导入资源</h4>
-        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+        <i nz-icon style="font-size: 18px;cursor: pointer;"  [nzType]="'close'" (click)="close()"></i>
     </div>
     <div style="padding: 5px;">
         <!-- <form nz-form [formGroup]="addForm" nz-row>
@@ -48,9 +48,24 @@
             </nz-form-item>
         </form> -->
         <div class="border"></div>
-        <div style="display: flex;flex-wrap: wrap;justify-content: space-between;">
-            <div *ngFor="let data of listOfData; index as i" style="height: 100px;width: 100px;">{{ data }}</div>
+        <nz-table #basicTable [nzData]="listOfData" [nzPageSize] = "20" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+            <tr style="display: flex;justify-content: flex-start;">
+                <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)" style="display:flex;">全选</th>
+            </tr>
+            <tbody  style="display: flex;flex-wrap: wrap;justify-content:flex-start;align-content: space-between;">
+              <div class="tr" *ngFor="let data of basicTable.data">
+                <td
+                [nzChecked]="setOfCheckedId.has(data)"
+                (nzCheckedChange)="onItemChecked(data, $event)"
+                class="checked"
+                ></td>
+                <td class="item">{{ data }}</td>
+              </div>
+            </tbody>
+        </nz-table>
+        <div class="border"></div>
+        <div style="display: flex;justify-content: flex-end;">
+            <button nz-button nzType="primary">导入图片</button>
         </div>
-       
     </div>
 </div>

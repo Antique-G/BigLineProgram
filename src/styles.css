@@ -23,3 +23,6 @@ body {
 .ant-picker-panel-container {
     z-index: 9999999999 !important;
 }
+.w-e-text-container{
+    z-index: 500 !important;
+}
