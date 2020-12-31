@@ -63,7 +63,7 @@ export class AdminProductFreeTravelService {
 
     // 审核
     freeTravelReview(id:number,check_status:number): Observable<any>{
-      return this.httpClient.post(this.urls.PostAdminFreeTRavelUp, {id,check_status},httpOptions)
+      return this.httpClient.post(this.urls.PostAdminFreeTCheckStatus, {id,check_status},httpOptions)
       .pipe(
         catchError(this.handleError)
       )

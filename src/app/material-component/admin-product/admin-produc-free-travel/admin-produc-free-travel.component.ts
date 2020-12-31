@@ -84,7 +84,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
       nzContent: '请确认操作的数据是否正确',
       nzOnOk: () =>{
         this.adminProductFreeTravelService.freeTravelReview(id,status).subscribe(res => {
-          console.log("结果是", res)
+          console.log("结果是res", res)
           this.getFeeTravelList();
         })
       }

@@ -57,7 +57,7 @@ export interface AdminProductManagementUpdateModel {
     region_code: string;
     earlier: number;
     confirm: number;
-    // pay_method: number;
+    pay_method: number;
     few_days: number;
     few_nights: number;
     adult_price: number;
@@ -65,13 +65,26 @@ export interface AdminProductManagementUpdateModel {
     original_adult_price: number;
     original_child_price: number;
     difference_price: number;
-    assembling_place_id: [];
+    destination: string;
+    advance: number;
+    child_status: number;
+    child_age_max: number;
+    child_height_min: number;
+    child_height_max: number;
+    reserve_num_min: number;
+    reserve_num_max: number;
+    contacts_status: number;
+    work_t_tem: number;
+    inventory: number;
+    inventory_num: number;
+    inventory_exceed: number;
+    assembling_place_id: number[];
     feature: string;
     details: string;
     fee: string;
     notice: string;
-    status?: number;
-    tag_id: [];
+    status: number;
+    tag_id: number[];
     id?: any;
 }
 
