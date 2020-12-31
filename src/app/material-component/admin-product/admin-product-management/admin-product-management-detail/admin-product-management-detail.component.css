@@ -25,3 +25,6 @@
     resize: both !important;
     min-height: 300px;
 }
+.w-e-toolbar{
+    z-index: 500 !important;
+}
