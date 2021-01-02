@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
-import {StoreQuoteBydateRsponseListModel,StoreQuoteBydateRequestModel,FreeTraveRsponseListModel} from '../../../interfaces/store/storeQuote/store-quote-bydate';
+import {StoreQuoteBydateRsponseListModel,StoreQuoteBydateRequestModel,FreeTraveRsponseListModel,FreeTraveQuoteBydateModel} from '../../../interfaces/store/storeQuote/store-quote-bydate';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -50,7 +50,17 @@ export class StoreQuoteBydateService {
       )
     }
   
+    // 自由行产品修改报价日期
+    updateFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
+      return this.httpClient.put(this.urls.PutStoreFreeTravelInfo+freeTraveQuoteBydateModel.id,freeTraveQuoteBydateModel, httpOptions)
+      .pipe()
+    }
 
+    // 自由行产品添加报价日期
+    createFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
+      return this.httpClient.post(this.urls.PostStoreFreeTravel,freeTraveQuoteBydateModel, httpOptions)
+      .pipe()
+    }
   
 
 

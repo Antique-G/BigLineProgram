@@ -66,7 +66,6 @@ export class StoreQuoteBydateComponent implements OnInit {
 
   getQuoteList(){
     console.log(this.productId,'this.productId');
-    
       this.quoteBydateService.getQuoteDateList(this.productId,this.type).subscribe(data=>{
         console.log('listDataMap',data);
         this.listDataMap = data
