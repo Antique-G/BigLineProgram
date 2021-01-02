@@ -9,6 +9,7 @@ import { StoreProductManagementComponent } from './store-product-management/stor
 import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-bydate.component';
 import { StoreTermsManagementComponent } from './store-terms-management/store-terms-management.component';
 import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
+import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -56,6 +57,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreQuoteBydateComponent,
         data: {
           breadcrumb: '按日期报价'
+        }
+      },
+      {
+        path: 'storeFreeTravel/detail',
+        component: StoreProductFreeTravelDetailComponent,
+        data: {
+          breadcrumb: '自由行产品详情'
         }
       },
       {

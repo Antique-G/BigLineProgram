@@ -29,7 +29,7 @@ export class StoreQuoteBydateService {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
         params: params
       };
-      return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreFreeTravel, findhttpOptions)
+      return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreFreeTravelQuote, findhttpOptions)
       .pipe(
       )
      }
@@ -52,13 +52,13 @@ export class StoreQuoteBydateService {
   
     // 自由行产品修改报价日期
     updateFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
-      return this.httpClient.put(this.urls.PutStoreFreeTravelInfo+freeTraveQuoteBydateModel.id,freeTraveQuoteBydateModel, httpOptions)
+      return this.httpClient.put(this.urls.PutStoreFreeTravelQuoteInfo+freeTraveQuoteBydateModel.id,freeTraveQuoteBydateModel, httpOptions)
       .pipe()
     }
 
     // 自由行产品添加报价日期
     createFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
-      return this.httpClient.post(this.urls.PostStoreFreeTravel,freeTraveQuoteBydateModel, httpOptions)
+      return this.httpClient.post(this.urls.PostStoreFreeTravelQuote,freeTraveQuoteBydateModel, httpOptions)
       .pipe()
     }
   
