@@ -29,6 +29,8 @@ import { StoreProductCreateBystepComponent } from './store-product-management/st
 import { StoreProductInfoComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-product-info.component';
 import { StoreProductDescComponent } from './store-product-management/store-product-create-bystep/store-product-desc/store-product-desc.component';
 import { StoreProductFreeTravelComponent } from './store-product-free-travel/store-product-free-travel.component';
+import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
+import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-proinfo/store-travel-detail-proinfo.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -71,7 +73,9 @@ import { StoreProductFreeTravelComponent } from './store-product-free-travel/sto
     StoreProductCreateBystepComponent,
     StoreProductInfoComponent,
     StoreProductDescComponent,
-    StoreProductFreeTravelComponent
+    StoreProductFreeTravelComponent,
+    StoreProductFreeTravelDetailComponent,
+    StoreTravelDetailProinfoComponent
   ]
 })
 export class StoreMaterialComponentsModule { }

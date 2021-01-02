@@ -88,12 +88,14 @@ export const StoreUrls = {
 
   // 自由行产品
   GetStoreFreeTravelList:api + '/store/independent_product',
+  GetStoreFreeTravelDetail:api + '/store/independent_product/',
+  PostStoreFreeTravelInfo:api + '/store/independent_product/',
 
   // 自由行产品日期报价
-  GetStoreFreeTravel: api + '/store/independent_date_quote',//自由行报价日期列表
-  PostStoreFreeTravel: api + '/store/independent_date_quote',//自由行报价日期
-  GetStoreFreeTravelDetail: api + '/store/independent_date_quote/',//获取自由行报价日期详情
-  PutStoreFreeTravelInfo:api + '/store/independent_date_quote/',//修改自由行报价日期
+  GetStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期列表
+  PostStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期
+  GetStoreFreeTravelQuoteDetail: api + '/store/independent_date_quote/',//获取自由行报价日期详情
+  PutStoreFreeTravelQuoteInfo:api + '/store/independent_date_quote/',//修改自由行报价日期
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加

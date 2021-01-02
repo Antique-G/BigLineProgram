@@ -80,7 +80,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   // 查看详情
   edit(data: any) {
-    this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
+    this.router.navigate(['/store/main/storeFreeTravel/detail'], { queryParams: { detailId: data.id } });
   }
 
 
