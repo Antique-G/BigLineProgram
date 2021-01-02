@@ -11,8 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {StoreQuoteBydateService} from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 
-import {StoreQuoteBydateRsponseListModel} from '../../../../interfaces/store/storeQuote/store-quote-bydate';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
+import {StoreQuoteBydateRsponseListModel,FreeTraveRsponseListModel} from '../../../../interfaces/store/storeQuote/store-quote-bydate';
+import {differenceInCalendarDays,format} from 'date-fns';
+
+import {FreeTraveQuoteBydateModel} from '../../../../interfaces/store/storeQuote/store-quote-bydate';
 
 
 @Component({
@@ -23,37 +25,86 @@ import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 export class StoreQuoteBydateComponent implements OnInit {
   pageClick:any
   productId:any//修改信息
+  type:any //freeTravel 自由行 management 产品管理   是从自由行 还是产品跳过来的
   toDay = new Date()
-  listDataMap:StoreQuoteBydateRsponseListModel
+  listDataMap:StoreQuoteBydateRsponseListModel|FreeTraveRsponseListModel
+
+
+  freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel
 
   constructor(public dialog:MatDialog,public activatedRoute: ActivatedRoute,public quoteBydateService:StoreQuoteBydateService,private el:ElementRef) {
     this.listDataMap={
         data:[]
     }
+    this.freeTraveQuoteBydateModel={
+      id: 0,
+      independent_product_id: 0,
+      start_date: '',
+      end_date: '',
+      adult_price: 0,
+      child_price: 0,
+      difference_price: 0,
+      inventory_num: 0,
+      set_inventory: 0,
+      allow_over: 0,
+      check_status: 0,
+      created_at: '',
+      updated_at: '',
+    }
   }
+
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.productId = JSON.parse(params["productId"]);
-      this.getQuoteList();
+      this.productId = params.productId;
+       this.type = params.type
+       this.getQuoteList();
     });
+    
 
   }
 
   getQuoteList(){
     console.log(this.productId,'this.productId');
-    this.quoteBydateService.getQuoteDateList(this.productId).subscribe(data=>{
-      console.log('listDataMap',data);
-      this.listDataMap = data
-    })
+    
+      this.quoteBydateService.getQuoteDateList(this.productId,this.type).subscribe(data=>{
+        console.log('listDataMap',data);
+        this.listDataMap = data
+        // this.transformData(data.data)
+      })
+  }
+
+
+  isMidDate(beginStr:any,endStr:any,str:any){
+    let beginDate = new Date(beginStr);
+    let endDate = new Date(endStr);
+    let strDate = new Date(str);
+    if(strDate>=beginDate && strDate<=endDate){
+      return true;
+    }
+    return false;
+  }
+
+  getAllDateCN(startTime:Date, endTime:Date) {
+    if(!startTime)return
+    if(!endTime) return [format(startTime,'yyyy-MM-dd')]
+    var date_all = []
+    var i = 0
+    while ((endTime.getTime() - startTime.getTime()) >= 0) {
+      date_all[i] = format(startTime,'yyyy-MM-dd')
+      startTime.setDate(startTime.getDate() + 1)
+      i += 1
+    }
+    return date_all
   }
 
   onSelectChange(date:any){
     if(differenceInCalendarDays(date,this.toDay)<0) return
       const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
-        width:'500px',
+        width:'700px',
         data:{
           date:date,
+          type:this.type,
           productId:this.productId,
           listDataMap:this.listDataMap
         }
@@ -68,14 +119,14 @@ export class StoreQuoteBydateComponent implements OnInit {
     console.log('panelChange',e);
   }
 
- 
   // 批量报价
   quoteClick(){
     console.log(123);
     const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
-      width:'500px',
+      width:'700px',
       data:{
         productId:this.productId,
+        type:this.type,
         listDataMap:this.listDataMap
       }
     })

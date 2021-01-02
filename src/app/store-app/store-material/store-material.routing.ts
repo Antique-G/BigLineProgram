@@ -52,6 +52,13 @@ export const StoreMaterialRoutes: Routes = [
         }
       },
       {
+        path: 'storeFreeTravel/storeQuote',
+        component: StoreQuoteBydateComponent,
+        data: {
+          breadcrumb: '按日期报价'
+        }
+      },
+      {
         path: 'storeProduct/storeQuote',
         component: StoreQuoteBydateComponent,
         data: {

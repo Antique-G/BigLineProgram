@@ -45,11 +45,11 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
-      this.total = res.meta.pagination.total;   //总页数
+      this.total = res.total;   //总页数
       this.dataSource = res.data;
+     
     })
   }
-
 
   changePageSize(per_page: number) {
     this.per_page = per_page;
@@ -87,7 +87,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log(data);
-    this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id } });
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id ,type:'freeTravel'} });
   }
 
 
