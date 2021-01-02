@@ -30,28 +30,35 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   productId:number;
   selectDate:any
   dateArr:any
+
+
   listDataMap:any
 
   confirmValue:any
   freeTravelModel:any
-  currentDate = ""
+  currentDate = null
 
   validationMessage: any = {
     adult_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入正确的数字',
+      'required':'成人价格数量必填'
     },
     child_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入正确的数字',
     },
     original_adult_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入正确的数字',
     },
     original_child_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入正确的数字',
     },
     difference_price: {
-      'isFloat': '请输入非零的正数',
+      'isFloat': '请输入正确的数字',
     },
+    inventory_num:{
+      'isNumber': '请输入非零的正数',
+      'required':'库存数量必填'
+    }
   }
 
   formErrors: any = {
@@ -59,7 +66,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     child_price: '',
     original_adult_price: '',
     original_child_price: '',
-    difference_price:''
+    difference_price:'',
+    inventory_num:''
   };
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>, public dialog: MatDialog,
@@ -101,7 +109,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     // this.quoteBydateRequestModel.data.push(...this.listDataMap)
 
      // 每次表单数据发生变化的时候更新错误信息
-     this.addForm.valueChanges.subscribe(data => {
+      this.addForm.valueChanges.subscribe(data => {
       this.onValueChanged(data);
     });
     // 初始化错误信息
@@ -114,7 +122,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+  
   }
 
   buildProduct(){
@@ -125,16 +133,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       original_adult_price: ['',[isFloat]],
       original_child_price: ['',[isFloat]],
       difference_price: ['',[isFloat]],
-     
+    
     });
   }
   buildFreeTravel(){
     this.addForm = this.fb.group({
+      // date: [[new Date(),new Date()], [Validators.required]],
       date: ['', [Validators.required]],
-      adult_price: ['',[isFloat]],
+      adult_price: ['',[Validators.required,isFloat]],
       child_price: ['',[isFloat]],
       difference_price: ['',[isFloat]],
-      inventory_num:['', [Validators.required]],
+      inventory_num:['', [Validators.required,isNumber]],
       set_inventory:['', [Validators.required]],
       allow_over:['', [Validators.required]],
     });
@@ -144,7 +153,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       if(this.type==='management'){
           // 修改
           if(this.data.date){
-            this.currentDate = this.data.date
             this.selectDate=[new Date(this.data.date)]
             let strDate = format(this.data.date,'yyyy-MM-dd');
             this.listDataMap.forEach((ele:StoreQuoteBydateModel) => {
@@ -160,9 +168,13 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   
       }else{
         if(this.data.date){
+          console.log(this.data.date,'this.data.date');
+          console.log(this.productId);
             this.quoteBydateService.getFreeTravelQuoteDateDetail(this.productId).subscribe(res=>{
-              this.freeTravelModel = res.data
-              this.setfreeTravelFormValue()
+              if(res.data){
+                this.freeTravelModel = res.data
+                this.setfreeTravelFormValue()
+              }
             })
           }
       }
@@ -217,13 +229,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     return date_all
   }
 
-  onDateChange(dateArr:any){
+  onDateChange(dateStr:any){
    
-    if(dateArr!=null&&dateArr!=""){
-      this.selectDate = dateArr
-      console.log( this.selectDate);
-      this.dateArr = this.getAllDateCN(dateArr[0],dateArr[1])
-    }
     
   }
 
@@ -232,7 +239,9 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     return differenceInCalendarDays(current, this.today) < 0;
   };
 
+  // 产品报价
   setValue(){
+    this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
     // 过滤已存在的日期
     let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
       let str = this.dateArr.map((e:string)=>e)
@@ -269,10 +278,13 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     
   }
 
+  // 自由行报价
   setFreeTravelValue(){
-    console.log(this.selectDate);
-    this.freeTraveModel.id = this.productId;
-    this.freeTraveModel.independent_product_id = this.freeTravelModel.independent_product_id;
+    console.log('this.currentDate',this.currentDate);
+
+    this.freeTraveModel.id = this.freeTravelModel?this.freeTravelModel.id:0;
+
+    this.freeTraveModel.independent_product_id = this.productId;
     this.freeTraveModel.start_date = format(this.selectDate[0],'yyyy-MM-dd');
     this.freeTraveModel.end_date = format(this.selectDate[1],'yyyy-MM-dd');
     this.freeTraveModel.adult_price = this.addForm.value.adult_price;
@@ -280,33 +292,54 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.freeTraveModel.difference_price = this.addForm.value.difference_price;
     this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
     this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
-    this.freeTraveModel.allow_over = this.freeTravelModel.allow_over;
-    this.freeTraveModel.check_status = this.freeTravelModel.check_status;
+    this.freeTraveModel.allow_over = this.addForm.value.allow_over;
+    this.freeTraveModel.check_status = this.addForm.value.check_status;
     console.log(this.freeTraveModel,'this.freeTraveModel');
   }
 
   add(){
-    this.onValueChanged()
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+
     console.log(this.addForm);
     console.log(this.addForm.valid);
-    if(this.selectDate.length==0){
+    if(this.selectDate===''){
       alert("请输入日期范围");
       return
     }
-    this.setFreeTravelValue();
+    
     if (this.addForm.valid) {
-
-      // this.setValue();
-      // this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-      //   this.dialogRef.close();
-      //   if(res ==null){
-      //     // alert("报价成功");
-      //   }else{
-      //     // alert("报价失败");
-      //   }
+      if(this.type==='management'){
+        this.setValue();
+        this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
+          this.dialogRef.close();
+          if(res ==null){
+            // alert("报价成功");
+          }else{
+            // alert("报价失败");
+          }
+        
+          this.quoteBydateRequestModel.data =[]
+        })
+      }else{
+        // 自由行产品编辑
+        this.setFreeTravelValue();
+        if(this.data.date){
+          this.quoteBydateService.updateFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
+              this.dialogRef.close();
+          })
+        }else{
+            this.quoteBydateService.createFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
+              console.log(res);
+              this.dialogRef.close();
+            })
+          
+        }
+        
+      }
       
-      //   this.quoteBydateRequestModel.data =[]
-      // })
     }
   }
 
