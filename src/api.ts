@@ -86,6 +86,14 @@ export const StoreUrls = {
   PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
   PostStoreImgUpload: api + '/store/image',  //上传
 
+  // 自由行产品
+  GetStoreFreeTravelList:api + '/store/independent_product',
+
+  // 自由行产品日期报价
+  GetStoreFreeTravel: api + '/store/independent_date_quote',
+  PostStoreFreeTravel: api + '/store/independent_date_quote',
+  GetStoreFreeTravelDetail: api + '/store/independent_date_quote/',
+
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加
   PutStoreMeetingPlaceUpdate: api + '/store/assembling_place/',   // 集合地点修改

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
-import {StoreQuoteBydateRsponseListModel,StoreQuoteBydateRequestModel} from '../../../interfaces/store/storeQuote/store-quote-bydate';
+import {StoreQuoteBydateRsponseListModel,StoreQuoteBydateRequestModel,FreeTraveRsponseListModel} from '../../../interfaces/store/storeQuote/store-quote-bydate';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -17,10 +17,23 @@ export class StoreQuoteBydateService {
   constructor(public httpClient: HttpClient) { }
 
    // 获取产品列表
-   getQuoteDateList(id:number):Observable<StoreQuoteBydateRsponseListModel>{
-    return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreQuoteByDate+id+'/date_quote', httpOptions)
+   getQuoteDateList(id:number,type:string):Observable<StoreQuoteBydateRsponseListModel>{
+     if(type == 'management'){
+        return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreQuoteByDate+id+'/date_quote', httpOptions)
+        .pipe(
+        )
+     }else{
+     
+      const params = new HttpParams().set('product_id', id.toString())
+      const findhttpOptions = {
+        headers: new HttpHeaders().set('Content-Type', 'application/json'),
+        params: params
+      };
+      return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreFreeTravel, findhttpOptions)
       .pipe(
       )
+     }
+    
   }
 
    // 添加报价信息
@@ -29,6 +42,14 @@ export class StoreQuoteBydateService {
       .pipe(
       )
   }
+
+    // 获取自由行产品报价详情
+    getFreeTravelQuoteDateDetail(id:any):Observable<FreeTraveRsponseListModel>{
+      return this.httpClient.get<FreeTraveRsponseListModel>(this.urls.GetStoreFreeTravelDetail+id, httpOptions)
+      .pipe(
+      )
+    }
+  
 
   
 

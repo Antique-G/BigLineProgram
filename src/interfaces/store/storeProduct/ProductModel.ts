@@ -100,7 +100,19 @@ export interface DatumModel {
 // 列表返回
 export interface ProductResponseListResponseModel {
   data: DatumListModel[];
-  meta: MetaListModel;
+  // meta: MetaListModel;
+  current_page: number;
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: any[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
 }
 export interface MetaListModel {
   pagination: PaginationListModel;

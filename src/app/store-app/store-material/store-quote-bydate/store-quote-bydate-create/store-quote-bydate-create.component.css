@@ -9,3 +9,6 @@
 .register-are {
     margin-bottom: 8px;
 }
+.nz-form-item{
+    display: flex;
+}

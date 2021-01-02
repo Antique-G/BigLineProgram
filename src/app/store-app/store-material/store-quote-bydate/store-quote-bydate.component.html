@@ -4,18 +4,38 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
+                        <ng-container *ngIf="type == 'management'; else elseTemplate">
+                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
+                        </ng-template>
+                        
+
+
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
                     </div>
                     <div class="mat-elevation-z8">
                         <nz-calendar (nzSelectChange)="onSelectChange($event)">
                             <div *nzDateCell="let date" class="events">
                                 <ng-container *ngFor="let item of listDataMap.data">
-                                    <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                        <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
-                                        <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
-                                        <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                    <ng-container *ngIf="type=='management'; else elseTemplate">
+                                        <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
+                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
+                                            <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                        </ng-container>
                                     </ng-container>
+                                    <ng-template #elseTemplate>
+                                        <ng-container *ngIf="isMidDate(item.start_date,item.end_date,(date | date:'yyyy-MM-dd'))">
+                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
+                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
+    
+                                        </ng-container>
+                                    </ng-template>
+                                    
+                                    
+                                    
                                 </ng-container>
                             </div>
                         </nz-calendar>
