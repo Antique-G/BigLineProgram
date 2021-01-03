@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-09 16:59:34
+ * @LastEditTime: 2021-01-03 11:44:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \angular\src\services\store\store-quote-bydate\store-quote-bydate.service.ts
+ */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
@@ -45,7 +53,7 @@ export class StoreQuoteBydateService {
 
     // 获取自由行产品报价详情
     getFreeTravelQuoteDateDetail(id:any):Observable<FreeTraveRsponseListModel>{
-      return this.httpClient.get<FreeTraveRsponseListModel>(this.urls.GetStoreFreeTravelDetail+id, httpOptions)
+      return this.httpClient.get<FreeTraveRsponseListModel>(this.urls.GetStoreFreeTravelQuoteDetail+id, httpOptions)
       .pipe(
       )
     }
@@ -61,7 +69,12 @@ export class StoreQuoteBydateService {
       return this.httpClient.post(this.urls.PostStoreFreeTravelQuote,freeTraveQuoteBydateModel, httpOptions)
       .pipe()
     }
-  
+    
+    // 自由行删除
+    delQuoteInfo(id:any):Observable<any>{
+      return this.httpClient.delete(this.urls.PutStoreFreeTravelQuoteInfo+id,httpOptions)
+      .pipe()
+    }
 
 
 }

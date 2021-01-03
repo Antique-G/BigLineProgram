@@ -24,3 +24,25 @@
 .mat-elevation-z8{
     padding: 10px;
 }
+
+.ant-picker-calendar-date-content{
+    display: flex !important;
+}
+.events{
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 !important;
+}
+.item{
+    flex: 1 !important;
+}
+.itemFree{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+
+.itemFree div{
+    width: 50%;
+}

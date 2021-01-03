@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-
-
+import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import {  NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-store-product-free-travel',
   templateUrl: './store-product-free-travel.component.html',
@@ -24,8 +23,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
   total = 1;
 
 
-  constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-    public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
+    public dialog: MatDialog,private modal: NzModalService) {
     this.searchForm = this.fb.group({
       checkStatus: ['' ],
       title: ['' ],
@@ -42,7 +41,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights).subscribe(res => {
+    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
       this.total = res.total;   //总页数
@@ -74,7 +73,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   // 添加
   addProduct() {
-    this.router.navigate(['/store/main/storeProduct/create']);
+    this.router.navigate(['/store/main/storeFreeTravel/detail']);
   }
 
 
@@ -93,13 +92,26 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   up(data: any) {
     console.log("nadao", data);
-
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>请确认操作</h6>',
+      nzOnOk: () =>
+        this.freeTrvelService.UpDownFreeTravel(data.id).subscribe(res=>{
+          this.getProductList();
+        })
+    });
+    
   }
 
   down(data: any) {
     console.log("nadao", data);
+   
   }
 
+
+  review(){
+    
+  }
 
 
 

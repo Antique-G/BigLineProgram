@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-12-04 15:56:27
+ * @LastEditTime: 2021-01-03 15:37:15
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \angular\src\app\store-app\store-material\store-quote-bydate\store-quote-bydate.component.html
+-->
 <div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
         <mat-card>
@@ -10,30 +18,32 @@
                         <ng-template #elseTemplate>
                             <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
                         </ng-template>
-                        
-
-
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
                     </div>
                     <div class="mat-elevation-z8">
-                        <nz-calendar (nzSelectChange)="onSelectChange($event)">
+                        <!--  (nzSelectChange)="onSelectChange($event)" -->
+                        <nz-calendar>
                             <div *nzDateCell="let date" class="events">
                                 <ng-container *ngFor="let item of listDataMap.data">
-                                    <ng-container *ngIf="type=='management'; else elseTemplate">
-                                        <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
-                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
-                                            <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                        <ng-container *ngIf="type=='management'; else elseTemplate" >
+                                            <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                                <div class="item" (click)="onSelectChange(item)">
+                                                    <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
+                                                    <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
+                                                    <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                                </div>
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
-                                    <ng-template #elseTemplate>
-                                        <ng-container *ngIf="isMidDate(item.start_date,item.end_date,(date | date:'yyyy-MM-dd'))">
-                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
-                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
-                                        </ng-container>
-                                    </ng-template>
-                                    
-                                    
+                                        <ng-template #elseTemplate>
+                                                <ng-container *ngIf="isMidDate(item.start_date,item.end_date,(date | date:'yyyy-MM-dd'))">
+                                                    <div class="item itemFree" (click)="onSelectChange(item)">
+                                                        <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
+                                                        <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
+                                                        <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                                        <div>库存数量: <span style="color: red;">¥{{item.inventory_num}}</span></div>
+                                                    </div>
+                                                </ng-container>
+                                        </ng-template>
                                     
                                 </ng-container>
                             </div>

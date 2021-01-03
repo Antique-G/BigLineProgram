@@ -2,6 +2,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {differenceInCalendarDays,format} from 'date-fns';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import {StoreQuoteBydateComponent} from '../store-quote-bydate.component';
 import {StoreQuoteBydateRequestModel,StoreQuoteBydateModel,FreeTraveQuoteBydateModel} from '../../../../../interfaces/store/storeQuote/store-quote-bydate';
@@ -30,7 +31,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   productId:number;
   selectDate:any
   dateArr:any
-
+  selectItem:any ////当前点击项
 
   listDataMap:any
 
@@ -71,11 +72,12 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   };
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService) { 
-      
+    @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService,private modal: NzModalService) { 
+      console.log(this.data,'this.data');
       this.productId = this.data.productId
       this.type = this.data.type
       this.listDataMap = this.data.listDataMap.data
+      this.selectItem = this.data.date; //当前点击项
 
       this.freeTraveModel={
         id: 0,
@@ -103,8 +105,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           this.buildProduct();
       }
     
-  
-  
     // 拼接之前的
     // this.quoteBydateRequestModel.data.push(...this.listDataMap)
 
@@ -114,7 +114,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     });
     // 初始化错误信息
     this.onValueChanged();
-    console.log( this.listDataMap,' this.productId');
     this.GetDetail();
       
 }
@@ -149,30 +148,28 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     });
   }
 
+  // 获取详情
   GetDetail(){
       if(this.type==='management'){
           // 修改
-          if(this.data.date){
-            this.selectDate=[new Date(this.data.date)]
-            let strDate = format(this.data.date,'yyyy-MM-dd');
-            this.listDataMap.forEach((ele:StoreQuoteBydateModel) => {
-              if(ele.date == strDate){
-                this.addForm.controls["adult_price"].setValue(ele.adult_price)
-                this.addForm.controls["child_price"].setValue(ele.child_price)
-                this.addForm.controls["original_adult_price"].setValue(ele.original_adult_price)
-                this.addForm.controls["original_child_price"].setValue(ele.original_child_price)
-                this.addForm.controls["difference_price"].setValue(ele.difference_price)
-              }
-            });
+          if(this.selectItem){
+            this.selectDate=[new Date(this.selectItem.date),new Date(this.selectItem.date)]
+            this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
+            this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
+            this.addForm.controls["original_adult_price"].setValue(this.selectItem.original_adult_price)
+            this.addForm.controls["original_child_price"].setValue(this.selectItem.original_child_price)
+            this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
           }
   
       }else{
-        if(this.data.date){
-          console.log(this.data.date,'this.data.date');
-          console.log(this.productId);
-            this.quoteBydateService.getFreeTravelQuoteDateDetail(this.productId).subscribe(res=>{
+        if(this.selectItem){
+          console.log(this.listDataMap,'this.listDataMap');
+          console.log(this.productId,'this.productId');
+          console.log(this.selectItem);
+            this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res=>{
               if(res.data){
                 this.freeTravelModel = res.data
+                console.log('拿到的data',res.data);
                 this.setfreeTravelFormValue()
               }
             })
@@ -281,9 +278,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   // 自由行报价
   setFreeTravelValue(){
     console.log('this.currentDate',this.currentDate);
-
     this.freeTraveModel.id = this.freeTravelModel?this.freeTravelModel.id:0;
-
     this.freeTraveModel.independent_product_id = this.productId;
     this.freeTraveModel.start_date = format(this.selectDate[0],'yyyy-MM-dd');
     this.freeTraveModel.end_date = format(this.selectDate[1],'yyyy-MM-dd');
@@ -302,7 +297,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-
     console.log(this.addForm);
     console.log(this.addForm.valid);
     if(this.selectDate===''){
@@ -326,11 +320,47 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }else{
         // 自由行产品编辑
         this.setFreeTravelValue();
-        if(this.data.date){
+        console.log( this.listDataMap,' this.listDataMap');
+        if(this.selectItem){
+          this.listDataMap = this.listDataMap.filter((ele:any)=>ele.id!=this.selectItem.id)
+        }
+        //判断添加日期是否在已有的日期内,若有,就不让加
+        let flag = this.listDataMap.some((ele:any)=>{
+          let start_date = new Date(ele.start_date).getTime()
+          let end_date = new Date(ele.end_date).getTime()
+          let selectBegin = new Date(this.selectDate[0]).getTime()
+          let selectEnd = new Date(this.selectDate[1]).getTime()
+        
+          return selectBegin<=start_date && selectEnd>=end_date 
+          || selectEnd<=end_date && selectEnd>=start_date
+          || selectBegin<=end_date && selectBegin>=start_date
+          || selectBegin>=start_date && selectEnd<=end_date
+          
+            
+        })
+        if(flag){
+          this.modal['error']({
+            nzMask: false,
+            nzTitle: `<h3>提示</h3>`,
+            nzContent: `<h6>存在日期有报价</h6>`,
+            nzStyle: { position: 'absolute', top: `70px`, left: `40%` }
+          })
+          this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+          setTimeout(() => this.modal.closeAll(), 2500);
+          return false;
+        }
+      
+        console.log(222);
+        // 修改
+        if(this.selectItem){
+
           this.quoteBydateService.updateFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
               this.dialogRef.close();
           })
         }else{
+            
+            
+            // 添加
             this.quoteBydateService.createFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
               console.log(res);
               this.dialogRef.close();
@@ -343,31 +373,43 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     }
   }
 
-  deleteInfo(){
-    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      if (result !== undefined) {
-        let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-          let str = this.dateArr.map((e:string)=>e)
-          return str.indexOf(item.date)==-1
-        })
-        this.quoteBydateRequestModel.data.push(...newList)
-        this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-          this.dialogRef.close();
-          if(res ==null){
-            // alert("删除成功")
-          }else{
-            // alert("删除成功")
-          }
-         
-          this.quoteBydateRequestModel.data =[]
-        })
-      }
-    })
 
+
+  deleteInfo(){
+     this.modal.confirm({
+      nzTitle: `<h2>删除<h2>`,
+      nzContent:  `<h6>请确认是否删除</h6>`,
+      nzOnOk: () =>{
+        if(this.type=='management'){
+          let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
+            let str = this.dateArr.map((e:string)=>e)
+            return str.indexOf(item.date)==-1
+          })
+          this.quoteBydateRequestModel.data.push(...newList)
+          this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
+            this.dialogRef.close();
+            if(res ==null){
+              // alert("删除成功")
+            }else{
+              // alert("删除成功")
+            }
+            this.quoteBydateRequestModel.data =[]
+          })
+        }else{
+          console.log('删除');
+          this.quoteBydateService.delQuoteInfo(this.selectItem.id).subscribe(res=>{
+            this.dialogRef.close();
+            if(res ==null){
+              // alert("删除成功")
+            }else{
+              // alert("删除成功")
+            }
+          })
+        }
+       
+      }
+
+    });
   }
 
   close(){

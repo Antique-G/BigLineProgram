@@ -83,7 +83,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>是否需要客服确认</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group ngModel={{dataModel?.confirm}} formControlName="confirm">
+                                                <nz-radio-group ngModel={{(dataModel?.confirm)||0}} formControlName="confirm">
                                                     <label nz-radio nzValue='1'>是</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -136,7 +136,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_ahead" nzRequired>是否可提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group ngModel={{dataModel?.reserve_ahead}}  formControlName="reserve_ahead">
+                                                <nz-radio-group ngModel={{(dataModel?.reserve_ahead)||0}}  formControlName="reserve_ahead">
                                                     <label nz-radio nzValue='1'>可以</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -157,7 +157,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_children">儿童是否可预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group ngModel={{dataModel?.reserve_children}} formControlName="reserve_children">
+                                                <nz-radio-group   ngModel={{(dataModel?.reserve_children)||0}} formControlName="reserve_children">
                                                     <label nz-radio nzValue='1'>可以</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -249,7 +249,13 @@
 
                                     <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
                                         <nz-form-control [nzSpan]="14" [nzOffset]="12">
-                                            <button nz-button nzType="primary" (click)="updateInfo()" >更新</button>
+                                            <ng-container *ngIf="detailId; else elseBtn">
+                                                <button nz-button nzType="primary" (click)="updateInfo()" >更新</button>
+                                            </ng-container>
+                                            <ng-template #elseBtn>
+                                                <button nz-button nzType="primary" (click)="AddInfo()" >添加</button>
+                                            </ng-template>
+                                            
                                         </nz-form-control>
                                     </nz-form-item>
 
