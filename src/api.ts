@@ -90,6 +90,8 @@ export const StoreUrls = {
   GetStoreFreeTravelList:api + '/store/independent_product',
   GetStoreFreeTravelDetail:api + '/store/independent_product/',
   PostStoreFreeTravelInfo:api + '/store/independent_product/',
+  PostSaveStoreFreeTravelInfo:api + '/store/independent_product',
+  PostUpDownFreeTravelInfo:api + '/store/independent_product/set_status',
 
   // 自由行产品日期报价
   GetStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期列表

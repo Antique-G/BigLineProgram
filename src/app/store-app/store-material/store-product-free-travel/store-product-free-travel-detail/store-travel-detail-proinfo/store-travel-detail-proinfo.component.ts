@@ -85,7 +85,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     console.log('this.detailId',this.detailId);
     this.addForm.controls['tag_id'].setValue([]);
     this.getTagList();
-    // this.getDetail();
   }
 
   // 表单初始化
@@ -225,10 +224,18 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   getRegionList() {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
-      this.getDetail()
+      console.log(this.detailId,1234123421341234);
+      if(this.detailId === undefined){
+        this.isSpinning = false
+        this.textChange();
+      }else{
+        this.getDetail()
+      }
+      
     })
   }
 
+  // 修改
   updateInfo(){
     this.setValue();
      // 验证表单
@@ -246,8 +253,28 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   }
 
+  // 添加
+  AddInfo(){
+    console.log(123);
+    this.setValue();
+    // 验证表单
+      for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    if (this.addForm.valid) {
+      this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res=>{
+        if(res.message=="添加成功"){
+          this.router.navigate(['/store/main/storeFreeTravel']);
+        }
+      })
+    }
+  }
   setValue(){
-    this.freeTravelModel.id = this.dataModel.id;
+    if(this.detailId != undefined){
+      this.freeTravelModel.id = this.dataModel.id;
+
+    }
     this.freeTravelModel.title = this.addForm.value.title;
     this.freeTravelModel.few_days = this.addForm.value.few_days;;
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
@@ -279,10 +306,12 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     textChange() {
       // 产品特色
       const editorFeature = new wangEditor("#editorFeature", "#editor");
-      this.featureBox.nativeElement.innerHTML= this.dataModel.feature
+      if(this.detailId!=undefined){
+        this.featureBox.nativeElement.innerHTML= this.dataModel.feature
+        this.freeTravelModel.feature = this.dataModel.feature
+      }
       editorFeature.config.onchange = (newHtml: any) => {
         this.freeTravelModel.feature = newHtml;
-  
       }
       editorFeature.create();
       // // 上传图片
@@ -311,11 +340,12 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       const editorDetail = new wangEditor("#editorDetail", "#editorContent");
       // 关闭菜单栏fixed
       //  editorDetail.config.menuFixed = false;
-      this.detailBox.nativeElement.innerHTML = this.dataModel.details;    //赋值
-
+      if(this.detailId!=undefined){
+        this.detailBox.nativeElement.innerHTML = this.dataModel.details;    //赋值
+        this.freeTravelModel.details = this.dataModel.details;    
+      }
       editorDetail.config.onchange = (newHtml: any) => {
         this.freeTravelModel.details = newHtml;
-  
       }
       editorDetail.create();
   

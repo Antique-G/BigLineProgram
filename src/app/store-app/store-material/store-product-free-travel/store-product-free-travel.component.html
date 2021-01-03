@@ -53,61 +53,71 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
-                                    <th style="text-align: center;">标题</th>
+                                    <th style="text-align: center;">产品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
-                                    <th style="text-align: center;">成人价格</th>
-                                    <th style="text-align: center;">儿童价格</th>
-                                    <th style="text-align: center;">产品状态</th>
-                                    <th style="text-align: center;">查看详情</th>
-                                    <th style="text-align: center;">报价</th>
-                                    <th style="text-align: center;">上下架</th>
+                                    <th style="text-align: center;">最低价格</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">儿童年龄</th>
+                                    <th style="text-align: center;">儿童身高</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">审核状态</th>
+                                    <th style="text-align: center;">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
+                                    <td>{{data?.store?.name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
-                                    <td>{{data.adult_price}}</td>
-                                    <td>{{data.child_price}}</td>
+                                    <td>{{data.min_price}}</td>
+                                    <td>{{data.departure_city}}</td>
+                                    <td>{{data.destination_city}}</td>
+                                    <td>{{data.children_age}}</td>
+                                    <td>{{data.children_height}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            下架
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            上架
+                                        </div>
+                                    </td>
                                     <td>
                                         <div *ngIf="data.check_status===0">
-                                            <!-- 未提交审核  -->
-                                            未上架
+                                            未提交审核
                                         </div>
                                         <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
                                         <div *ngIf="data.check_status===2">
-                                            <!-- 已通过 -->
-                                            上架
+                                            已通过
                                         </div>
                                         <div *ngIf="data.check_status===3">
                                             未通过
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;">
-                                            <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
-                                        </div>
-
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;">
-                                            <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
-                                        </div>
-
-                                    </td>
-                                    <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                                            <div style="cursor: pointer;" *ngIf="data.check_status===0||data.check_status===3">
-                                                <mat-icon title="上架" (click)="up(data)">arrow_circle_up</mat-icon>
+                                            <div style="cursor: pointer;" (click)="edit(data)" title="详情">
+                                                <mat-icon>edit</mat-icon>
                                             </div>
-
-                                            <div style="cursor: pointer;" *ngIf="data.check_status===2">
-                                                <mat-icon title="下架" (click)="down(data)">arrow_circle_down</mat-icon>
+                                            <!--   (click)="review(data)" -->
+                                            <div style="cursor: pointer;"> 
+                                                <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
+                                            </div>
+                                            <!-- *ngIf="data.check_status===2" -->
+                                            <div style="cursor: pointer;"  (click)="up(data)" title="上架">
+                                                <div *ngIf="data.status===0">
+                                                    <mat-icon title="上架">arrow_circle_up</mat-icon>
+                                                </div>
+                                                <div *ngIf="data.status===1">
+                                                    <mat-icon title="下架">arrow_circle_down</mat-icon>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>

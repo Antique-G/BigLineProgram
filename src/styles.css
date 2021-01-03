@@ -26,3 +26,6 @@ body {
 .w-e-text-container{
     z-index: 500 !important;
 }
+.ant-picker-calendar-date-content{
+    display: flex !important;
+}
