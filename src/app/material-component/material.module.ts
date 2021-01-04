@@ -43,6 +43,9 @@ import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-pro
 import { AdminTravelDetailProinfoComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-proinfo/admin-travel-detail-proinfo.component';
 import { AdminChooseImgComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-choose-img/admin-choose-img.component';
 import { AdminProductManagementBasicInfoComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/admin-product-management-basic-info.component';
+import { AdminPeoductManagementFeatureComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-feature/admin-peoduct-management-feature.component';
+import { AdminPeoductManagementEditordetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-editordetail/admin-peoduct-management-editordetail.component';
+import { AdminPeoductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-editornotice/admin-peoduct-management-editornotice.component';
 
 @NgModule({
   imports: [
@@ -104,6 +107,9 @@ import { AdminProductManagementBasicInfoComponent } from './admin-product/admin-
     AdminTravelDetailProinfoComponent,
     AdminChooseImgComponent,
     AdminProductManagementBasicInfoComponent,
+    AdminPeoductManagementFeatureComponent,
+    AdminPeoductManagementEditordetailComponent,
+    AdminPeoductManagementEditornoticeComponent,
   ]
 })
 export class MaterialComponentsModule {}
