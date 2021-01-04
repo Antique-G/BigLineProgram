@@ -35,7 +35,6 @@ import { AdminSystemAreaEditComponent } from './admin-system-area/admin-system-a
 import { AdminProductReviewComponent } from './admin-product/admin-product-management/admin-product-review/admin-product-review.component';
 import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
 import { AdminTermsManageReviewComponent } from './admin-terms-manage/admin-terms-manage-review/admin-terms-manage-review.component';
-import { AdminProductManagementUpComponent } from './admin-product/admin-product-management/admin-product-management-up/admin-product-management-up.component';
 import { AdminTermsManageUpComponent } from './admin-terms-manage/admin-terms-manage-up/admin-terms-manage-up.component';
 import { AdminDeleteComponent } from './admin-common/admin-delete/admin-delete.component';
 import { AccountDetailComponent } from './admin-common/account-detail/account-detail.component';
@@ -96,7 +95,6 @@ import { AdminChooseImgComponent } from './admin-product/admin-produc-free-trave
     AdminProductReviewComponent,
     AdminTermsManageComponent,
     AdminTermsManageReviewComponent,
-    AdminProductManagementUpComponent,
     AdminTermsManageUpComponent,
     AdminDeleteComponent,
     AccountDetailComponent,
