@@ -13,16 +13,25 @@
                             <app-admin-product-management-basic-info></app-admin-product-management-basic-info>
                         </div>
                     </mat-tab>
-                    <mat-tab label="预定限制">
+                    <mat-tab label="产品特色">
                         <div class="content">
-                            <div class="example-large-box mat-elevation-z4">
-                                this is 3
-                            </div>
+                            <app-admin-peoduct-management-feature></app-admin-peoduct-management-feature>
                         </div>
-
                     </mat-tab>
 
-                    <mat-tab label="图片与视频" [disabled]="isIndex<2">
+                    <mat-tab label="产品详情">
+                        <div class="content">
+                            <app-admin-peoduct-management-editordetail></app-admin-peoduct-management-editordetail>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="预约须知">
+                        <div class="content">
+                            <app-admin-peoduct-management-editornotice></app-admin-peoduct-management-editornotice>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="图片与视频">
                         <div class="content">
                             <div class="example-large-box mat-elevation-z4">
                                 this is 4
