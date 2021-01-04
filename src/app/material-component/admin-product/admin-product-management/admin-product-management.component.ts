@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminProductSetStatusModel } from '../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
-import { AdminProductManagementUpComponent } from './admin-product-management-up/admin-product-management-up.component';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
 
 @Component({
@@ -21,16 +22,21 @@ export class AdminProductManagementComponent implements OnInit {
   status: any;
   check_status: any;
   title: any;
+  adminProductSetStatusModel: AdminProductSetStatusModel;
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
-    public router: Router) {
-      this.searchForm = this.fb.group({
-        status: [''],
-        checkStatus: [''],
-        title: [''],
-      })
-   
+    public router: Router, private modal: NzModalService) {
+    this.adminProductSetStatusModel = {
+      id: 0,
+      status: 0
+    }
+    this.searchForm = this.fb.group({
+      status: [''],
+      checkStatus: [''],
+      title: [''],
+    })
+
   }
 
 
@@ -41,7 +47,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page,this.status,this.check_status,this.title).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.total;   //总页数
@@ -61,7 +67,7 @@ export class AdminProductManagementComponent implements OnInit {
     this.getProductList();
   }
 
-  search(){
+  search() {
     this.status = this.searchForm.value.status;
     this.check_status = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
@@ -70,20 +76,20 @@ export class AdminProductManagementComponent implements OnInit {
   }
 
 
-   // 查看详情
-   edit(data: any) {
+  // 查看详情
+  edit(data: any) {
     this.router.navigate(['/admin/main/productManagement/detail'], { queryParams: { detailDataId: data.id } });
   }
 
 
   // 审核
-  review(data: any){
-    console.log("编辑",data);
-    const dialogRef = this.dialog.open(AdminProductReviewComponent,{
-      width:'800px',
+  review(data: any) {
+    console.log("编辑", data);
+    const dialogRef = this.dialog.open(AdminProductReviewComponent, {
+      width: '800px',
       data: data
     })
-    dialogRef.afterClosed().subscribe(result=>{
+    dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.getProductList();
       }
@@ -91,18 +97,25 @@ export class AdminProductManagementComponent implements OnInit {
   }
 
 
-  // 上架
-  up(data: any){
-    console.log("编辑",data);
-    const dialogRef = this.dialog.open(AdminProductManagementUpComponent,{
-      width:'800px',
-      data: data
-    })
-    dialogRef.afterClosed().subscribe(result=>{
-      if (result !== undefined) {
-        this.getProductList();
-      }
-    })
+
+  // 上下架操作
+  up(data: any) {
+    console.log("nadao", data);
+    this.adminProductSetStatusModel.id = data.id;
+    if (data.status === 1) {
+      this.adminProductSetStatusModel.status = 0;
+    }
+    else if (data.status === 0) {
+      this.adminProductSetStatusModel.status = 1;
+    }
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>请确认操作</h6>',
+      nzOnOk: () =>
+        this.adminProductManagementService.productSetStatus(this.adminProductSetStatusModel).subscribe(res => {
+          this.getProductList();
+        })
+    });
   }
 
 }

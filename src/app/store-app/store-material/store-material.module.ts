@@ -20,7 +20,6 @@ import { StoreTermsManagementDetailComponent } from './store-terms-management/st
 import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-bydate.component';
 import { StoreQuoteBydateCreateComponent } from './store-quote-bydate/store-quote-bydate-create/store-quote-bydate-create.component';
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
-import { StoreProductManagementUpComponent } from './store-product-management/store-product-management-up/store-product-management-up.component';
 import { StoreTermManagementReviewComponent } from './store-terms-management/store-term-management-review/store-term-management-review.component';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { DeleteComfirmComponent } from './common/delete-comfirm/delete-comfirm.component';
@@ -66,7 +65,6 @@ import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/s
     StoreQuoteBydateComponent,
     StoreQuoteBydateCreateComponent,
     StoreProductManagementDetailComponent,
-    StoreProductManagementUpComponent,
     StoreTermManagementReviewComponent,
     DeleteComfirmComponent,
     StoreAccountDetailComponent,

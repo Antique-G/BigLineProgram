@@ -4,14 +4,13 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
+                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
                 </div>
 
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
                             <app-store-travel-detail-proinfo></app-store-travel-detail-proinfo>
-                            <!-- <app-admin-travel-detail-proinfo></app-admin-travel-detail-proinfo> -->
                         </div>
                     </mat-tab>
                     <mat-tab label="推荐玩法" [disabled]="isIndex<1">

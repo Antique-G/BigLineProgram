@@ -5,7 +5,6 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addProduct()">添加产品</button>
-                        <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" (click)="addStep()">分步骤添加产品</button>
                     </div>
 
                     <form [formGroup]="searchForm">
@@ -62,9 +61,10 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">儿童年龄</th>
                                     <th style="text-align: center;">儿童身高</th>
-                                    <th style="text-align: center;">状态</th>
-                                    <th style="text-align: center;">审核状态</th>
-                                    <th style="text-align: center;">操作</th>
+                                    <th style="text-align: center;">产品状态</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">报价</th>
+                                    <th style="text-align: center;">上下架</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,44 +80,38 @@
                                     <td>{{data.children_age}}</td>
                                     <td>{{data.children_height}}</td>
                                     <td>
-                                        <div *ngIf="data.status===0">
-                                            下架
-                                        </div>
-                                        <div *ngIf="data.status===1">
-                                            上架
-                                        </div>
-                                    </td>
-                                    <td>
                                         <div *ngIf="data.check_status===0">
-                                            未提交审核
+                                            <!-- 未提交审核  -->
+                                            未上架
                                         </div>
                                         <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
                                         <div *ngIf="data.check_status===2">
-                                            已通过
+                                            <!-- 已通过 -->
+                                            上架
                                         </div>
                                         <div *ngIf="data.check_status===3">
                                             未通过
                                         </div>
                                     </td>
                                     <td>
-                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                                            <div style="cursor: pointer;" (click)="edit(data)" title="详情">
-                                                <mat-icon>edit</mat-icon>
+                                        <div style="cursor: pointer;" (click)="edit(data)" title="详情">
+                                            <mat-icon>edit</mat-icon>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
+                                            <div *ngIf="data.status===0">
+                                                <mat-icon title="上架">arrow_circle_up</mat-icon>
                                             </div>
-                                            <!--   (click)="review(data)" -->
-                                            <div style="cursor: pointer;"> 
-                                                <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
-                                            </div>
-                                            <!--  -->
-                                            <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
-                                                <div *ngIf="data.status===0">
-                                                    <mat-icon title="上架">arrow_circle_up</mat-icon>
-                                                </div>
-                                                <div *ngIf="data.status===1">
-                                                    <mat-icon title="下架">arrow_circle_down</mat-icon>
-                                                </div>
+                                            <div *ngIf="data.status===1">
+                                                <mat-icon title="下架">arrow_circle_down</mat-icon>
                                             </div>
                                         </div>
                                     </td>
