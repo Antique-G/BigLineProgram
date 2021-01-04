@@ -12,7 +12,7 @@
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title" nzRequired>产品标题</nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.title">
                                                 <input nz-input formControlName="title" />
                                             </nz-form-control>
                                         </div>
@@ -20,20 +20,23 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days">行程天数</nz-form-label>
-                                            <nz-form-control [nzSm]="18" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
+                                            <nz-form-control [nzSm]="5" [nzXs]="24" [nzErrorTip]="formErrors.few_days">
                                                 <nz-input-number style="width: 110px;"  formControlName="few_days" [nzMin]="0" [nzMax]="255" [nzStep]="1"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            </nz-form-control>
+                                            <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]=" formErrors.few_nights">
                                                 <nz-input-number style="width: 110px;" formControlName="few_nights" [nzMin]="0" [nzMax]="255" [nzStep]="1"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">晚</span>
                                             </nz-form-control>
+                                            
                                         </div>
                                     </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id">产品标签</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入产品标题！">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id" nzRequired>产品标签</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.departure_city">
                                                 <nz-select nzMode="multiple" nzPlaceHolder="请选择产品标签" (ngModelChange)="changeTag($event)" [(ngModel)]="selectedTag" formControlName="tag_id">
                                                     <nz-option *ngFor="let option of tagList" [nzLabel]="option.label" [nzValue]="option.value">
                                                     </nz-option>
@@ -44,8 +47,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city" nzRequired>出发城市</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.departure_city">
                                                 <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="departure_city"  formControlName="departure_city"></nz-cascader>
                                             </nz-form-control>
                                         </div>
@@ -53,8 +56,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city" nzRequired>目的城市</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.destination_city">
                                                 <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="valuesDestination_city"  formControlName="destination_city"></nz-cascader>
                                             </nz-form-control>
                                         </div>
@@ -62,8 +65,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee">费用包含</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee" nzRequired>费用包含</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.fee">
                                                 <input nz-input formControlName="fee" />
                                             </nz-form-control>
                                         </div>
@@ -90,12 +93,10 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-
-                      
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="pay">预约须知</nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="notice" nzRequired>预约须知</nz-form-label>
+                                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.notice">
                                                 <textarea nz-input formControlName="notice" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                                             </nz-form-control>
                                         </div>
@@ -121,7 +122,7 @@
                                 <form nz-form [formGroup]="addForm" nz-row>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">提前预定</nz-form-label>
+                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title" nzRequired>提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="18" [nzXs]="24">
                                                 <nz-input-number  formControlName="earlier1"  [nzMin]="1" [nzMax]="45" [nzStep]="1" ></nz-input-number><span style="line-height: 32px;padding: 0 9px;">天</span>
                                                 <nz-time-picker [(ngModel)]="earlierTime"  nzFormat="HH:mm" formControlName="earlier2"></nz-time-picker><span style="line-height: 32px;padding: 0 9px;">前可订</span>
@@ -146,8 +147,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num">可预定人数</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num" nzRequired>可预定人数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num" >
                                                 <nz-input-number style="width: 100%;" formControlName="reserve_num" [nzMin]="0"  [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
@@ -168,8 +169,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age">儿童年龄</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童年龄</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.children_age">
                                                 <nz-input-number style="width: 100%;" formControlName="children_age" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
@@ -178,8 +179,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min">儿童最低身高</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童最低身高</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
                                                 <div style="display: flex;align-items: center;">
                                                     <nz-input-number formControlName="child_height_min" [nzMin]="1" [nzMax]="170" [nzStep]="1"></nz-input-number>
                                                     <div style="margin-left: 5px;">cm</div>
@@ -190,8 +191,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_max">儿童最高身高</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_max" nzRequired>儿童最高身高</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_max">
                                                 <div style="display: flex;align-items: center;">
                                                     <nz-input-number formControlName="child_height_max" [nzMin]="1" [nzMax]="170"  [nzStep]="1"></nz-input-number>
                                                     <div style="margin-left: 5px;">cm</div>
@@ -199,9 +200,6 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-
-
-
                                 </form>
                             </nz-spin>
                         </div>

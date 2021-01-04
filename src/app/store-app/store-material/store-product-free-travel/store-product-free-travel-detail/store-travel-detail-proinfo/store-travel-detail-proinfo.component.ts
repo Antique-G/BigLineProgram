@@ -32,17 +32,58 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为225个字符',
+      'maxlength': '标题长度最多为64个字符',
       'required': '请填写标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
+    },
+    few_nights:{
+      'isNumber': '请输入非零的正整数',
+      'required': '请输入出行几晚！'
+    },
+    tag_id:{
+      'required': '请选择产品标签'!
+    },
+    departure_city:{
+      'required': '请输入出发城市！'
+    },
+    destination_city:{
+      'required': '请输入目的城市！'
+    },
+    fee:{
+      'required': '请输入费用信息！'
+    },
+    notice:{
+      'required': '请输入预约须知！'
+    },
+    reserve_num:{
+      'required': '请输入可预订人数！'
+    },
+    children_age:{
+      'required': '请输入儿童年龄！'
+    },
+    child_height_min:{
+      'required': '请输入儿童最低身高！'
+    },
+    child_height_max:{
+      'required': '请输入儿童最高身高！'
     }
   };
   formErrors: any = {
     title: '',
-    few_da: ''
+    few_days: '',
+    few_nights:'',
+    tag_id:'',
+    departure_city:'',
+    destination_city:'',
+    fee:'',
+    notice:'',
+    reserve_num:'',
+    children_age:'',
+    child_height_min:'',
+    child_height_max:''
   }
 
   @ViewChild("featureBox") featureBox: any;       //获取dom
@@ -90,7 +131,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   // 表单初始化
   buildForm(): void {
     this.addForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required,Validators.maxLength(64)]),
       few_days: new FormControl('', [Validators.required]),
       few_nights: new FormControl('', [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
