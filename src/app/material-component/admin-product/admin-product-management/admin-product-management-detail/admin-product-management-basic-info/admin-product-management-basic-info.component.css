@@ -1,0 +1,31 @@
+[nz-form] {
+    max-width: 1200px;
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}
+
+.ant-form-item-label {
+    text-align: left;
+}
+
+.nzChoice {
+    max-width: 120px !important;
+    width: 120px !important;
+}
+
+.wangeditor-feature {
+    border: 1px solid #c9d8dc;
+    overflow: hidden !important;
+    resize: both !important;
+    min-height: 300px;
+}
+
+.w-e-toolbar {
+    z-index: 500 !important;
+}
