@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import {AdminTravelDetailProinfoComponent} from '../admin-travel-detail-proinfo/admin-travel-detail-proinfo.component';
 import { never } from 'rxjs';
+import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
 @Component({
   selector: 'app-admin-choose-img',
   templateUrl: './admin-choose-img.component.html',
@@ -10,20 +11,39 @@ import { never } from 'rxjs';
 })
 export class AdminChooseImgComponent implements OnInit {
   addForm!: FormGroup;
-  constructor(private dialogRef:MatDialogRef<AdminTravelDetailProinfoComponent>) { }
+  constructor(private dialogRef:MatDialogRef<AdminTravelDetailProinfoComponent>,private adminRegionService:AdminRegionService) { }
   listOfData:any=[]
   setOfCheckedId = new Set<number>();
   checked=false
   indeterminate = false;
   listOfCurrentPageData:[] = [];
-
+  region_codes: any[] = [];
+  nzOptions: any[] | null = null;
 
   ngOnInit(): void {
     for (let index = 1; index <= 50; index++) {
       this.listOfData.push(index)
       
     }
+    this.buildForm();
+    this.getRegionList();
   }
+
+  buildForm(): void {
+    this.addForm = new FormGroup({
+      keyword: new FormControl(''),
+      region_code: new FormControl(''),
+    });
+  }
+
+
+   // 区域
+   getRegionList() {
+    this.adminRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+    })
+  }
+
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
