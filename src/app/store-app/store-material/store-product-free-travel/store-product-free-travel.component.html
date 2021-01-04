@@ -110,8 +110,8 @@
                                             <div style="cursor: pointer;"> 
                                                 <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
                                             </div>
-                                            <!-- *ngIf="data.check_status===2" -->
-                                            <div style="cursor: pointer;"  (click)="up(data)" title="上架">
+                                            <!--  -->
+                                            <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
                                                 <div *ngIf="data.status===0">
                                                     <mat-icon title="上架">arrow_circle_up</mat-icon>
                                                 </div>
