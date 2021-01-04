@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { StoreProductManagementUpComponent } from './store-product-management-up/store-product-management-up.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -27,7 +26,7 @@ export class StoreProductManagementComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-    public dialog: MatDialog) {
+  private modal: NzModalService) {
     this.searchForm = this.fb.group({
       checkStatus: ['' ],
       title: ['' ],
@@ -93,29 +92,16 @@ export class StoreProductManagementComponent implements OnInit {
   }
 
 
+  // 上下架操作
   up(data: any) {
     console.log("nadao", data);
-    const dialogRef = this.dialog.open(StoreProductManagementUpComponent, {
-      width: '550px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      this.getProductList();
-
-    });
-  }
-
-  down(data: any) {
-    console.log("nadao", data);
-    const dialogRef = this.dialog.open(StoreProductManagementUpComponent, {
-      width: '550px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      this.getProductList();
-
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>请确认操作</h6>',
+      nzOnOk: () =>
+      this.storeProductService.patchProductStatus(data.id).subscribe(res => {
+          this.getProductList();
+        })
     });
   }
 
