@@ -17,9 +17,9 @@ interface LinkModel {
     url?: string;
     label: number | string;
     active: boolean;
-  }
-  
-  interface DatumModel {
+}
+
+interface DatumModel {
     id: number;
     title: string;
     few_days: number;
@@ -33,9 +33,9 @@ interface LinkModel {
     updated_at: string;
     region_full_name: string;
     store: StoreModel;
-  }
-  
-  interface StoreModel {
+}
+
+interface StoreModel {
     store_id: number;
     name: string;
     region_code: string;
@@ -49,7 +49,7 @@ interface LinkModel {
     created_at: string;
     updated_at: string;
     region_full_name: string;
-  }
+}
 
 
 export interface AdminProductManagementUpdateModel {
@@ -134,6 +134,7 @@ export interface DataProductDetailModel {
     check_status: number;
     created_at: string;
     updated_at: string;
+    region_full_name: string;
     assembling_place: Assemblingplace;
     tag: Tag;
 }
