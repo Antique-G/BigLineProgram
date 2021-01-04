@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { DataProductDetailModel } from '../../../../../interfaces/adminProduct/product-management-model';
+import { AdminProductManagementService } from '../../../../../services/admin/admin-product-management.service';
 
 @Component({
   selector: 'app-admin-product-management-detail',
@@ -7,30 +10,42 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin-product-management-detail.component.css']
 })
 export class AdminProductManagementDetailComponent implements OnInit {
-  isIndex = 0;     //tab的index
   selectedTabIndex = 0;    //选中的tab 默认第一个
 
+  detailId: any;
+  adminProductDetailModel!: DataProductDetailModel;
 
-  constructor(public fb: FormBuilder,) {
+
+  constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
+    public activatedRoute: ActivatedRoute,) {
 
   }
+
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailDataId"]);
+    });
+    this.getProductDetail();
   }
+
+
+  getProductDetail() {
+    this.adminProductManagementService.productDetail(this.detailId).subscribe(res => {
+      this.adminProductDetailModel = res.data;
+      console.log('父组件', this.adminProductDetailModel);
+    })
+  }
+
 
 
   onTabChange(event: any) {
     this.selectedTabIndex = event;
+    this.getProductDetail();
   }
 
 
 
-  // getTabIndex(event: any) {
-  //   // 获取子组件传回来的index
-  //   console.log("子组件传过来的值", event)
-  //   this.selectedTabIndex = event;
-  //   this.isIndex = event;
-  // }
 
 
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../../util/validators';
-import { AdminProductManagementUpdateModel, DataProductDetailModel, Datum2 } from '../../../../../../interfaces/adminProduct/product-management-model';
+import { AdminProductDetailResponseModel, AdminProductManagementUpdateModel, DataProductDetailModel, Datum2 } from '../../../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
 import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
 import { AdminMeetingPlaceService } from '../../../../../../services/admin/admin-meeting-place.service';
@@ -10,13 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
 
 
-
 @Component({
   selector: 'app-admin-product-management-basic-info',
   templateUrl: './admin-product-management-basic-info.component.html',
   styleUrls: ['./admin-product-management-basic-info.component.css']
 })
 export class AdminProductManagementBasicInfoComponent implements OnInit {
+
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
@@ -25,8 +25,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   // 集合地以及标题
   selectedPlace: any[] = [];
   // 目的地
-  destinationPalce:any[] = [];
-  idDestin:any
+  destinationPalce: any[] = [];
+  idDestin: any
 
   selectedTag: any[] = [];
   assemblingPlaceList: any[] = [];
@@ -46,9 +46,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   public isSpinning: any = true;    //loading 
 
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
-  @ViewChild("featureBox") featureBox: any;       //获取dom
-  @ViewChild("detailBox") detailBox: any;     //获取dom
-  @ViewChild("noticeBox") noticeBox: any;     //获取dom
+
 
 
   validationMessage: any = {
@@ -106,7 +104,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     work_t_tem: {
       'required': '请输入成人工作时间！'
     },
-   
+
   };
   formErrors: any = {
     title: '',
@@ -118,13 +116,12 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     original_child_price: '',
     difference_price: '',
     destination: '',
-    child_age_max:'',
-    child_height_min:'',
-    child_height_max:'',
-    reserve_num_min:'',
-    reserve_num_max:'',
-    work_t_tem:'',
-
+    child_age_max: '',
+    child_height_min: '',
+    child_height_max: '',
+    reserve_num_min: '',
+    reserve_num_max: '',
+    work_t_tem: '',
   };
 
 
@@ -173,21 +170,21 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title:  ['', [Validators.required, Validators.maxLength(225)]],
+      title: ['', [Validators.required, Validators.maxLength(225)]],
       region_code: ['', [Validators.required, , Validators.maxLength(16)]],
       earlier: 0,
       earlier1: [0, [Validators.required]],
       earlier2: ['', [Validators.required]],
       earlier3: ['', [Validators.required]],
-      confirm:  ['', [Validators.required]],
+      confirm: ['', [Validators.required]],
       // pay_method: 0,
-      few_days:  ['', [Validators.required, isNumber]],
-      few_nights:  ['', [Validators.required, isNumber]],
-      adult_price:  ['', [Validators.required, isFloat]],
-      child_price:  ['', [Validators.required, isFloat]],
-      original_adult_price:  ['', [Validators.required, isFloat]],
-      original_child_price:  ['', [Validators.required, isFloat]],
-      difference_price:  ['', [Validators.required, isFloat]],
+      few_days: ['', [Validators.required, isNumber]],
+      few_nights: ['', [Validators.required, isNumber]],
+      adult_price: ['', [Validators.required, isFloat]],
+      child_price: ['', [Validators.required, isFloat]],
+      original_adult_price: ['', [Validators.required, isFloat]],
+      original_child_price: ['', [Validators.required, isFloat]],
+      difference_price: ['', [Validators.required, isFloat]],
       destination: ['', [Validators.required]],
       child_status: [0, [Validators.required]],
       child_age_max: ['', [Validators.required, isNumber]],
@@ -201,8 +198,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       inventory_num: [0, [isNumber]],
       inventory_exceed: [0, []],
       assembling_place_id: ['', [Validators.required]],
-      status:  [0, [Validators.required]],
+      status: [0, [Validators.required]],
       tag_id: ['', [Validators.required]],
+      advance: ['', [Validators.required]],
 
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -289,7 +287,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.assemblingPlaceList.push(a);
       }
       this.getProductDetail();
-      console.log( this.destinationPalce,' this.destinationPalce');
+      console.log(this.destinationPalce, ' this.destinationPalce');
     });
   }
 
@@ -297,7 +295,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   setValue() {
     this.adminProductManagementUpdateModel.title = this.addForm.value.title;
     this.adminProductManagementUpdateModel.confirm = this.addForm.value.confirm;
-    // this.adminProductManagementUpdateModel.pay_method = this.addForm.value.pay_method;
     this.adminProductManagementUpdateModel.few_days = this.addForm.value.few_days;;
     this.adminProductManagementUpdateModel.few_nights = this.addForm.value.few_nights;
     this.adminProductManagementUpdateModel.adult_price = this.addForm.value.adult_price;
@@ -305,11 +302,10 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.adminProductManagementUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
     this.adminProductManagementUpdateModel.original_child_price = this.addForm.value.original_child_price;
     this.adminProductManagementUpdateModel.difference_price = this.addForm.value.difference_price;
-    // this.adminProductManagementUpdateModel.fee = this.addForm.value.fee;
+    this.adminProductManagementUpdateModel.advance = this.addForm.value.advance;
     let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
     this.adminProductManagementUpdateModel.earlier = i;
     console.log("12121212", this.adminProductManagementUpdateModel.earlier);
-
     this.adminProductManagementUpdateModel.child_age_max = this.addForm.value.child_age_max;
     this.adminProductManagementUpdateModel.child_height_min = this.addForm.value.child_height_min;
     this.adminProductManagementUpdateModel.child_height_max = this.addForm.value.child_height_max;
@@ -323,11 +319,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.adminProductManagementUpdateModel.id = this.dataProductDetailModel.id;
     this.adminProductManagementUpdateModel.region_code = this.idRegion;
     this.adminProductManagementUpdateModel.destination = this.idDestin;
-    
+
     this.adminProductManagementUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.adminProductManagementUpdateModel.child_status = this.addForm.value.child_status;
-    
-    console.log( this.adminProductManagementUpdateModel);
+
+    console.log(this.adminProductManagementUpdateModel);
   }
 
 
@@ -387,6 +383,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.addForm.get('inventory')?.setValue(this.dataProductDetailModel.inventory);
     this.addForm.get('inventory_exceed')?.setValue(this.dataProductDetailModel.inventory_exceed);
     this.addForm.get('inventory_num')?.setValue(this.dataProductDetailModel.inventory_num);
+    this.addForm.get('advance')?.setValue(this.dataProductDetailModel.advance);
     let a = this.dataProductDetailModel.assembling_place.data;
     let aNums: any[] = []
     for (let int of a) {
@@ -394,7 +391,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.selectedPlace = aNums;
     }
     console.log("this.selectedPlace", this.selectedPlace);
- 
+
     let b = this.dataProductDetailModel.tag.data;
     let bNums: any[] = []
     for (let ints of b) {
@@ -408,16 +405,13 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.values.push(temp);
     }
     this.addForm.get('region_code')?.setValue(this.values);   //区域
-   // 目的地城市
+    // 目的地城市
     const strDest = this.dataProductDetailModel.destination;
     for (let i = 0; i < strDest.length / 4; i++) {
       let temp = this.destinationPalce[i] || '' + strDest.substr(0, 4 * (i + 1))
       this.destinationPalce.push(temp);
     }
     this.addForm.get('destination')?.setValue(this.destinationPalce);   //区域
-
-    // destinationPalce
-
     // 截止日期
     console.log("截止日期", this.dataProductDetailModel.earlier);
     console.log("分钟", this.dataProductDetailModel.earlier % 60)
@@ -456,7 +450,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   // 目的地
   onDestChange(arr: any): void {
-    console.log(arr);
     if (arr !== null) {
       console.log(arr[arr.length - 1]);
       this.idDestin = arr[arr.length - 1]
@@ -507,109 +500,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     }
 
 
-    // 预约须知
-    const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
-    console.log("拿到的notice", this.dataProductDetailModel.notice);
-    this.noticeBox.nativeElement.innerHTML = this.dataProductDetailModel.notice;    //赋值
-    this.adminProductManagementUpdateModel.notice = this.dataProductDetailModel.notice;
-    editorNotice.config.onchange = (newHtml: any) => {
-      this.adminProductManagementUpdateModel.notice = newHtml;
-    }
-    editorNotice.create();
-    // 上传图片
-    editorNotice.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorNotice.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
-
-
-    // 产品特色
-    const editorFeature = new wangEditor("#editorFeature", "#editor");
-    console.log("拿到的feature", this.dataProductDetailModel.feature);
-    this.featureBox.nativeElement.innerHTML = this.dataProductDetailModel.feature;    //赋值
-
-    this.adminProductManagementUpdateModel.feature = this.dataProductDetailModel.feature;
-    console.log("没改之前的model", this.adminProductManagementUpdateModel.feature);
-    editorFeature.config.onchange = (newHtml: any) => {
-      this.adminProductManagementUpdateModel.feature = newHtml;
-      console.log("修改后的model", this.adminProductManagementUpdateModel.feature)
-
-    }
-    editorFeature.create();
-    // 上传图片
-    editorFeature.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFeature.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
-
-
-
-
-    // 详情
-    const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-    console.log("拿到的details", this.dataProductDetailModel.details)
-    this.detailBox.nativeElement.innerHTML = this.dataProductDetailModel.details;    //赋值
-    this.adminProductManagementUpdateModel.details = this.dataProductDetailModel.details;
-    console.log("没改之前的model", this.adminProductManagementUpdateModel.details);
-    editorDetail.config.onchange = (newHtml: any) => {
-      this.adminProductManagementUpdateModel.details = newHtml;
-      console.log("修改后的model", this.adminProductManagementUpdateModel.details);
-
-    }
-    editorDetail.create();
-
-    // 上传图片
-    editorDetail.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-
-      console.log(files[0]);
-      let formDataDetail = new FormData();
-      formDataDetail.append('image', files[0] as any);
-      console.log("formData是什么", formDataDetail.get('file'));
-      this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
-
   }
 
 
@@ -630,7 +520,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     });
   }
 
-  refreshTag(){
+  refreshTag() {
     this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
