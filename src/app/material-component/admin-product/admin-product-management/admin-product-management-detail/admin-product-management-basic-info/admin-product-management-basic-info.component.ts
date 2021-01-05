@@ -16,6 +16,7 @@ import wangEditor from 'wangeditor';
   styleUrls: ['./admin-product-management-basic-info.component.css']
 })
 export class AdminProductManagementBasicInfoComponent implements OnInit {
+  addForm!: FormGroup;
 
   // 区域联动
   nzOptions: any[] | null = null;
@@ -38,13 +39,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   selectedDay: any;
   selectedHour: any;
   selectedMins: any;
-
-  addForm!: FormGroup;
-  detailId: any;
   dataProductDetailModel: any;
-  adminProductManagementUpdateModel: AdminProductManagementUpdateModel //更新
-  public isSpinning: any = true;    //loading 
-
+  // 更新model
+  detailUpdateModel: any;
+  detailId: any;
+  isSpinning = true;
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
 
 
@@ -58,70 +57,67 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
     },
-    few_nights: {
-      'isNumber': '请输入非零的正整数',
-      'required': '请输入出行几晚！'
-
+    departure_city: {
+      'required': '请选择出发城市'
+    },
+    destination_city: {
+      'required': '请选择目的城市'
+    },
+    work_t_tem: {
+      'required': '请输入工作时间模板'
     },
     adult_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入成人价格！'
     },
     child_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入儿童价格！'
     },
     original_adult_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入成人原价！'
     },
     original_child_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入儿童原价！'
     },
     difference_price: {
-      'isFloat': '请输入非零的正整数',
+      'isFloat': '请输入非零的正数',
       'required': '请输入补差价！'
     },
-    destination: {
-      'required': '请输入目的地！'
-    },
     child_age_max: {
-      'required': '请输入儿童最大年龄！'
-    },
-    child_height_min: {
-      'required': '请输入儿童最低身高！'
-    },
-    child_height_max: {
-      'required': '请输入儿童最高身高！'
+      'required': '请输入最大年龄'
     },
     reserve_num_min: {
-      'required': '请输入最小预订人数！'
+      'required': '请输入最小预订人数'
     },
     reserve_num_max: {
-      'required': '请输入最大预订人数！'
+      'required': '请输入最大预订人数'
     },
-    work_t_tem: {
-      'required': '请输入成人工作时间！'
+    earlier: {
+      'required': '请输入预定截止时间'
     },
-
+    advance: {
+      'required': '请输入提前预订时间'
+    },
   };
   formErrors: any = {
     title: '',
+    departure_city: '',
     few_days: '',
-    few_nights: '',
+    destination_city: '',
+    work_t_tem: '',
     adult_price: '',
     child_price: '',
     original_adult_price: '',
     original_child_price: '',
     difference_price: '',
-    destination: '',
     child_age_max: '',
-    child_height_min: '',
-    child_height_max: '',
     reserve_num_min: '',
     reserve_num_max: '',
-    work_t_tem: '',
+    earlier: '',
+    advance: '',
   };
 
 
@@ -130,13 +126,12 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     public adminProductTagService: AdminProductTagService,
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.buildForm();
-
-    this.adminProductManagementUpdateModel = {
+    this.detailUpdateModel = {
       title: '',
-      region_code: '',
+      departure_city: '',
+      destination_city: '',
       earlier: 0,
       confirm: 0,
-      pay_method: 0,
       few_days: 0,
       few_nights: 0,
       adult_price: 0,
@@ -144,7 +139,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       original_adult_price: 0,
       original_child_price: 0,
       difference_price: 0,
-      destination: '',
       advance: 0,
       child_status: 0,
       child_age_max: 0,
@@ -158,50 +152,44 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       inventory_num: 0,
       inventory_exceed: 0,
       assembling_place_id: [],
-      feature: '',
-      details: '',
       fee: '',
-      notice: '',
-      status: 0,
-      tag_id: []
+      tag_id: [],
+      step: 0
     }
 
   }
 
+
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(225)]],
-      region_code: ['', [Validators.required, , Validators.maxLength(16)]],
-      earlier: 0,
-      earlier1: [0, [Validators.required]],
-      earlier2: ['', [Validators.required]],
-      earlier3: ['', [Validators.required]],
-      confirm: ['', [Validators.required]],
-      // pay_method: 0,
-      few_days: ['', [Validators.required, isNumber]],
-      few_nights: ['', [Validators.required, isNumber]],
-      adult_price: ['', [Validators.required, isFloat]],
-      child_price: ['', [Validators.required, isFloat]],
-      original_adult_price: ['', [Validators.required, isFloat]],
-      original_child_price: ['', [Validators.required, isFloat]],
-      difference_price: ['', [Validators.required, isFloat]],
-      destination: ['', [Validators.required]],
-      child_status: [0, [Validators.required]],
-      child_age_max: ['', [Validators.required, isNumber]],
-      child_height_min: ['', [Validators.required, isFloat]],
-      child_height_max: ['', [Validators.required, isFloat]],
-      reserve_num_min: ['', [Validators.required, isNumber]],
-      reserve_num_max: ['', [Validators.required, isNumber]],
-      contacts_status: [0, [Validators.required]],
-      work_t_tem: [0, [Validators.required]],
-      inventory: [0, [Validators.required]],
-      inventory_num: [0, [isNumber]],
-      inventory_exceed: [0, []],
-      assembling_place_id: ['', [Validators.required]],
-      status: [0, [Validators.required]],
+      title: ['', [Validators.required]],
+      few_days: ['', [Validators.required]],
+      few_nights: ['', [Validators.required]],
       tag_id: ['', [Validators.required]],
+      departure_city: ['', [Validators.required]],
+      destination_city: ['', [Validators.required]],
+      assembling_place_id: ['', [Validators.required]],
+      work_t_tem: ['', [Validators.required]],
+      confirm: ['1', [Validators.required]],
+      contacts_status: ['1', [Validators.required]],
+      inventory: ['1', [Validators.required]],
+      inventory_num: ['1'],
+      inventory_exceed: ['1'],
+      adult_price: ['', [Validators.required]],
+      child_price: ['', [Validators.required]],
+      original_adult_price: ['', [Validators.required]],
+      original_child_price: ['', [Validators.required]],
+      difference_price: ['', [Validators.required]],
+      child_status: ['1', [Validators.required]],
+      child_age_max: ['', [Validators.required]],
+      child_height_min: [''],
+      child_height_max: [''],
+      reserve_num_min: ['', [Validators.required]],
+      reserve_num_max: ['', [Validators.required]],
+      earlier1: [0, [Validators.required]],
+      earlier2: [0, [Validators.required]],
+      earlier3: [0, [Validators.required]],
       advance: ['', [Validators.required]],
-
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -290,65 +278,32 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       console.log(this.destinationPalce, ' this.destinationPalce');
     });
   }
-
-
+  
   setValue() {
-    this.adminProductManagementUpdateModel.title = this.addForm.value.title;
-    this.adminProductManagementUpdateModel.confirm = this.addForm.value.confirm;
-    this.adminProductManagementUpdateModel.few_days = this.addForm.value.few_days;;
-    this.adminProductManagementUpdateModel.few_nights = this.addForm.value.few_nights;
-    this.adminProductManagementUpdateModel.adult_price = this.addForm.value.adult_price;
-    this.adminProductManagementUpdateModel.child_price = this.addForm.value.child_price;
-    this.adminProductManagementUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
-    this.adminProductManagementUpdateModel.original_child_price = this.addForm.value.original_child_price;
-    this.adminProductManagementUpdateModel.difference_price = this.addForm.value.difference_price;
-    this.adminProductManagementUpdateModel.advance = this.addForm.value.advance;
+    this.detailUpdateModel.title = this.addForm.value.title;
+    this.detailUpdateModel.few_days = this.addForm.value.few_days;
+    this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
+    this.detailUpdateModel.work_t_tem = this.addForm.value.work_t_tem;
+    this.detailUpdateModel.confirm = this.addForm.value.confirm;
+    this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
+    this.detailUpdateModel.inventory = this.addForm.value.inventory;
+    this.detailUpdateModel.inventory_num = this.addForm.value.inventory_num;
+    this.detailUpdateModel.inventory_exceed = this.addForm.value.inventory_exceed;
+    this.detailUpdateModel.adult_price = this.addForm.value.adult_price;
+    this.detailUpdateModel.child_price = this.addForm.value.child_price;
+    this.detailUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
+    this.detailUpdateModel.original_child_price = this.addForm.value.original_child_price;
+    this.detailUpdateModel.difference_price = this.addForm.value.difference_price;
+    this.detailUpdateModel.child_status = this.addForm.value.child_status;
+    this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
+    this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
+    this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
     let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
-    this.adminProductManagementUpdateModel.earlier = i;
-    console.log("12121212", this.adminProductManagementUpdateModel.earlier);
-    this.adminProductManagementUpdateModel.child_age_max = this.addForm.value.child_age_max;
-    this.adminProductManagementUpdateModel.child_height_min = this.addForm.value.child_height_min;
-    this.adminProductManagementUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    this.adminProductManagementUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
-    this.adminProductManagementUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
-    this.adminProductManagementUpdateModel.work_t_tem = this.addForm.value.work_t_tem;
-
-    this.adminProductManagementUpdateModel.inventory = this.addForm.value.inventory;
-    this.adminProductManagementUpdateModel.inventory_exceed = this.addForm.value.inventory_exceed;
-    this.adminProductManagementUpdateModel.inventory_num = this.addForm.value.inventory_num;
-    this.adminProductManagementUpdateModel.id = this.dataProductDetailModel.id;
-    this.adminProductManagementUpdateModel.region_code = this.idRegion;
-    this.adminProductManagementUpdateModel.destination = this.idDestin;
-
-    this.adminProductManagementUpdateModel.contacts_status = this.addForm.value.contacts_status;
-    this.adminProductManagementUpdateModel.child_status = this.addForm.value.child_status;
-
-    console.log(this.adminProductManagementUpdateModel);
-  }
-
-
-  updateProduct() {
-    this.setValue();
-    // 验证表单
-    for (const i in this.addForm.controls) {
-      this.addForm.controls[i].markAsDirty();
-      this.addForm.controls[i].updateValueAndValidity();
-    }
-    console.log(this.addForm.valid);
-    console.log(this.addForm);
-    if (this.addForm.valid) {
-      console.log("更新的model是", this.adminProductManagementUpdateModel);
-      this.adminProductManagementService.updateProduct(this.adminProductManagementUpdateModel).subscribe(res => {
-        console.log("res结果", res);
-        if (res?.status_code) {
-          // alert("更新失败");
-        }
-        else {
-          this.router.navigate(['/admin/main/productManagement']);
-        }
-      })
-
-    }
+    this.detailUpdateModel.earlier = i;
+    console.log("12121212", this.detailUpdateModel.earlier);
+    this.detailUpdateModel.advance = this.addForm.value.advance;
   }
 
 
@@ -373,9 +328,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.addForm.get('original_adult_price')?.setValue(this.dataProductDetailModel.original_adult_price);
     this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
     this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
-    this.addForm.get('fee')?.setValue(this.dataProductDetailModel.fee);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
+    this.addForm.get('confirm')?.setValue(this.dataProductDetailModel.confirm);
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
     this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
     this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);
@@ -391,7 +346,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.selectedPlace = aNums;
     }
     console.log("this.selectedPlace", this.selectedPlace);
-
     let b = this.dataProductDetailModel.tag.data;
     let bNums: any[] = []
     for (let ints of b) {
@@ -399,19 +353,19 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.selectedTag = bNums
     }
     console.log("this.selectedTag", this.selectedTag);
-    const str = this.dataProductDetailModel.region_code;
+    const str = this.dataProductDetailModel.departure_city;
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
       this.values.push(temp);
     }
-    this.addForm.get('region_code')?.setValue(this.values);   //区域
+    this.addForm.get('departure_city')?.setValue(this.values);   //区域
     // 目的地城市
-    const strDest = this.dataProductDetailModel.destination;
+    const strDest = this.dataProductDetailModel.destination_city;
     for (let i = 0; i < strDest.length / 4; i++) {
       let temp = this.destinationPalce[i] || '' + strDest.substr(0, 4 * (i + 1))
       this.destinationPalce.push(temp);
     }
-    this.addForm.get('destination')?.setValue(this.destinationPalce);   //区域
+    this.addForm.get('destination_city')?.setValue(this.destinationPalce);   //区域
     // 截止日期
     console.log("截止日期", this.dataProductDetailModel.earlier);
     console.log("分钟", this.dataProductDetailModel.earlier % 60)
@@ -431,39 +385,45 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
 
-
   changePlace(a: any): void {
-    this.adminProductManagementUpdateModel.assembling_place_id = a;
+    console.log('选择的值是sss', a);
+    this.detailUpdateModel.assembling_place_id = a;
   }
 
   changeTag(a: any): void {
-    this.adminProductManagementUpdateModel.tag_id = a;
+    console.log('选择的值是vvv', a);
+    this.detailUpdateModel.tag_id = a;
   }
 
 
-  // 区域
   onChanges(values: any): void {
+    console.log("点击的结果是", values);
     if (values !== null) {
-      this.idRegion = values[values.length - 1];
+      this.detailUpdateModel.departure_city = values[values.length - 1];
     }
   }
 
-  // 目的地
-  onDestChange(arr: any): void {
-    if (arr !== null) {
-      console.log(arr[arr.length - 1]);
-      this.idDestin = arr[arr.length - 1]
-      // this.destinationPalce = arr[arr.length - 1];
+
+  onDestChange(values: any): void {
+    console.log("点击的结果是", values);
+    if (values !== null) {
+      this.detailUpdateModel.destination_city = values[values.length - 1];
     }
   }
+
   changeHour(values: any) {
     this.addForm.value.earlier2 = values;
+    console.log("this.addForm.value.earlier2", this.addForm.value.earlier2);
   }
 
 
   changeMins(values: any) {
     this.addForm.value.earlier3 = values;
+    console.log("3333", this.addForm.value.earlier3);
+
   }
+
+
 
 
 
@@ -471,14 +431,18 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   textChange() {
     // 费用
     const editorFee = new wangEditor("#editorFee", "#feeContent");
-    console.log("拿到的fee", this.dataProductDetailModel.fee);
-    this.feeBox.nativeElement.innerHTML = this.dataProductDetailModel.fee;    //赋值
-    this.adminProductManagementUpdateModel.fee = this.dataProductDetailModel.fee;
+    editorFee.config.height = 250;  // 设置编辑区域高度
+    editorFee.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
+    editorFee.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    editorFee.config.uploadImgMaxLength = 1;
+    this.feeBox.nativeElement.innerHTML = this.dataProductDetailModel?.fee;    //赋值
+    this.detailUpdateModel.fee = this.dataProductDetailModel.fee;
     editorFee.config.onchange = (newHtml: any) => {
-      this.adminProductManagementUpdateModel.fee = newHtml;
+      console.log("213123", newHtml);
+      this.detailUpdateModel.fee = newHtml;
     }
     editorFee.create();
-    // 上传图片
+    //  上传图片
     editorFee.config.uploadImgParams = {
       token: (localStorage.getItem('userToken')!),
     }
@@ -530,6 +494,23 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     })
   }
 
+  nextTab() {
+    this.setValue();
+    // 验证表单
+    console.log("this.addForm", this.addForm)
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log("66666", this.addForm.valid)
+    if (this.addForm.valid) {
+      //更新
+      this.detailUpdateModel.id = this.detailId;
+      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        console.log("res结果", res);
+      })
+    }
+  }
 
 }
 

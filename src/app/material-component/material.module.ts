@@ -45,10 +45,10 @@ import { AdminChooseImgComponent } from './admin-product/admin-produc-free-trave
 import { AdminProductManagementBasicInfoComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/admin-product-management-basic-info.component';
 import { AdminPeoductManagementFeatureComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-feature/admin-peoduct-management-feature.component';
 import { AdminPeoductManagementEditordetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-editordetail/admin-peoduct-management-editordetail.component';
-import { AdminPeoductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-editornotice/admin-peoduct-management-editornotice.component';
 import { AdminTravelDetailFeatureComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-feature/admin-travel-detail-feature.component';
 import { AdminTravelDetailEditordetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editordetail/admin-travel-detail-editordetail.component';
 import { AdminTravelDetailEditornoticeComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editornotice/admin-travel-detail-editornotice.component';
+import { AdminProductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-editornotice/admin-product-management-editornotice.component';
 
 @NgModule({
   imports: [
@@ -112,10 +112,10 @@ import { AdminTravelDetailEditornoticeComponent } from './admin-product/admin-pr
     AdminProductManagementBasicInfoComponent,
     AdminPeoductManagementFeatureComponent,
     AdminPeoductManagementEditordetailComponent,
-    AdminPeoductManagementEditornoticeComponent,
     AdminTravelDetailFeatureComponent,
     AdminTravelDetailEditordetailComponent,
     AdminTravelDetailEditornoticeComponent,
+    AdminProductManagementEditornoticeComponent,
   ]
 })
 export class MaterialComponentsModule {}

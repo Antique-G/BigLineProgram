@@ -1,20 +1,32 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import wangEditor from 'wangeditor';
+import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
+
 
 
 @Component({
-  selector: 'app-admin-peoduct-management-editornotice',
-  templateUrl: './admin-peoduct-management-editornotice.component.html',
-  styleUrls: ['./admin-peoduct-management-editornotice.component.css']
+  selector: 'app-admin-product-management-editornotice',
+  templateUrl: './admin-product-management-editornotice.component.html',
+  styleUrls: ['./admin-product-management-editornotice.component.css']
 })
-export class AdminPeoductManagementEditornoticeComponent implements OnInit {
+export class AdminProductManagementEditornoticeComponent implements OnInit {
   @Input() adminProductDetailModel: any;
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
+  detailUpdateModel: any;
+  detailId: any;
 
-
-  constructor() { }
+  constructor(public activatedRoute: ActivatedRoute, public adminProductManagementService: AdminProductManagementService,) {
+    this.detailUpdateModel = {
+      step: 3,
+      notice: ''
+    }
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailDataId"]);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -26,9 +38,10 @@ export class AdminPeoductManagementEditornoticeComponent implements OnInit {
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
     console.log("拿到的notice", this.adminProductDetailModel?.notice);
     this.noticeBox.nativeElement.innerHTML = this.adminProductDetailModel.notice;    //赋值
+    this.detailUpdateModel.notice = this.adminProductDetailModel.notice;
 
     editorNotice.config.onchange = (newHtml: any) => {
-      // this.adminProductManagementUpdateModel.notice = newHtml;
+      this.detailUpdateModel.notice = newHtml;
     }
     editorNotice.create();
     // 上传图片
@@ -46,11 +59,20 @@ export class AdminPeoductManagementEditornoticeComponent implements OnInit {
       let formData = new FormData();
       formData.append('image', files[0] as any);
       console.log("formData是什么", formData.get('file'));
-      // this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-      //   console.log(res, 'res');
-      //   insert(res.data);
-      // })
+      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
+        console.log(res, 'res');
+        insert(res.data);
+      })
     }
 
   }
+
+
+  nextTab() {
+    this.detailUpdateModel.id = this.detailId;
+    this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+
+    })
+  }
 }
+
