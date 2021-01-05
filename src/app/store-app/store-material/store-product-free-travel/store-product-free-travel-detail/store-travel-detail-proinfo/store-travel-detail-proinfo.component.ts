@@ -7,6 +7,10 @@ import { StoreProductTreeTravelService } from '../../../../../../services/store/
 import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { CommonServiceService } from '../../../../../../services/store/common-service/common-service.service';
+import {InsertABCMenu} from '../../../InsertABCMenu';
+import { MatDialog } from '@angular/material/dialog';
+import {CommonModelComponent} from '../../../common/common-model/common-model.component';
+import {FullComponent} from '../../../../../layouts/full/full.component';
 
 @Component({
   selector: 'app-store-travel-detail-proinfo',
@@ -21,6 +25,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   freeTravelModel:StoreFreeTravelModel
   earlierTime = new Date();
 
+ 
 
   selectedTag: any[] = [];  //标签
   tagList: any[] = [];
@@ -88,10 +93,13 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   @ViewChild("featureBox") featureBox: any;       //获取dom
   @ViewChild("detailBox") detailBox: any;     //获取dom
+  @ViewChild("ttt")    //获取dom
+  full!:FullComponent
+  
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     private freeTravelService:StoreProductTreeTravelService,private storeRegionService:StoreRegionService,
-    private commonService:CommonServiceService) { 
+    private commonService:CommonServiceService,public dialog: MatDialog,) { 
     this.buildForm()
     this.freeTravelModel={
       title: '',
@@ -311,6 +319,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       })
     }
   }
+
   setValue(){
     if(this.detailId != undefined){
       this.freeTravelModel.id = this.dataModel.id;
@@ -341,7 +350,15 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.earlier = resMin
     console.log('拿到的值',this.freeTravelModel);
   }
-
+  getMenuInstance(editor: wangEditor, constructor: Function): any {
+    const menuInstance = editor.menus.menuList.filter(menu => {
+        return menu instanceof constructor
+    })[0]
+    if (menuInstance == null) {
+        throw new Error('找不到菜单实例')
+    }
+    return menuInstance
+}
 
    // 富文本
     textChange() {
@@ -354,7 +371,26 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       editorFeature.config.onchange = (newHtml: any) => {
         this.freeTravelModel.feature = newHtml;
       }
+      // InsertABCMenu
+        // 注册菜单
+      editorFeature.menus.extend('insertABC', InsertABCMenu)
+      // 重新配置 editor.config.menus
+      editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
+      editorFeature.config.customFunction = ()=>{
+        const dialogRef = this.dialog.open(CommonModelComponent, {
+          width: '550px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log("result", result);
+        });
+      }
       editorFeature.create();
+      // let ta:any = editorFeature.menus.menuList[editorFeature.menus.menuList.length-1]
+      // ta.clickHandler()
+      // console.log(ta,editorFeature);
+      // let t = this.getMenuInstance(editorFeature,ta)
+      // console.log(t,'tttttttt');
+
       // // 上传图片
       editorFeature.config.uploadImgParams = {
         token: (localStorage.getItem('userToken')!),
