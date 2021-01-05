@@ -64,8 +64,8 @@ export class StoreProductService {
 
 
   // 修改产品
-  updateProduct(detailModel: DetailModel) {
-    return this.httpClient.put<AddProductResponseModel>(this.urls.PutStoreProductUpdate + detailModel.id, detailModel, httpOptions)
+  updateProduct(detailUpdateModel: any) {
+    return this.httpClient.put<AddProductResponseModel>(this.urls.PutStoreProductUpdate + detailUpdateModel.id, detailUpdateModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

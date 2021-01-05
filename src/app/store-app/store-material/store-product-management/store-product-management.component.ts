@@ -72,13 +72,6 @@ export class StoreProductManagementComponent implements OnInit {
 
   }
 
-
-  // 添加
-  addProduct() {
-    this.router.navigate(['/store/main/storeProduct/create']);
-  }
-
-
   // 查看详情
   edit(data: any) {
     this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });

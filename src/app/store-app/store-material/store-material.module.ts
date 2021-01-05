@@ -18,7 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreMaterialRoutes } from './store-material.routing';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
-import { StoreProductManagementCreateComponent } from './store-product-management/store-product-management-create/store-product-management-create.component';
 import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place/store-meeting-place-create/store-meeting-place-create.component';
 import { StoreMeetingPlaceDetailComponent } from './store-meeting-place/store-meeting-place-detail/store-meeting-place-detail.component';
@@ -38,8 +37,11 @@ import { StoreProductDescComponent } from './store-product-management/store-prod
 import { StoreProductFreeTravelComponent } from './store-product-free-travel/store-product-free-travel.component';
 import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
 import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-proinfo/store-travel-detail-proinfo.component';
-import { StoreProductFreeTravelImageComponent } from './store-product-free-travel/store-product-free-travel-image/store-product-free-travel-image.component';
 import { CommonModelComponent } from './common/common-model/common-model.component';
+import { StoreProductFreeTravelImageComponent } from './store-product-free-travel/store-product-free-travel-image/store-product-free-travel-image.component';
+import { StoreProductFeatureComponent } from './store-product-management/store-product-create-bystep/store-product-feature/store-product-feature.component';
+import { StoreProductEditornoticeComponent } from './store-product-management/store-product-create-bystep/store-product-editornotice/store-product-editornotice.component';
+import { StoreProductEditordetailComponent } from './store-product-management/store-product-create-bystep/store-product-editordetail/store-product-editordetail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -55,7 +57,6 @@ import { CommonModelComponent } from './common/common-model/common-model.compone
   ],
   providers: [],
   entryComponents: [
-    StoreProductManagementCreateComponent,
     StoreMeetingPlaceCreateComponent,
     StoreMeetingPlaceDetailComponent,
     StoreTermsManagementCreateComponent,
@@ -65,7 +66,6 @@ import { CommonModelComponent } from './common/common-model/common-model.compone
   ],
   declarations: [
     StoreProductManagementComponent,
-    StoreProductManagementCreateComponent,
     StoreMeetingPlaceComponent,
     StoreMeetingPlaceCreateComponent,
     StoreMeetingPlaceDetailComponent,
@@ -86,6 +86,9 @@ import { CommonModelComponent } from './common/common-model/common-model.compone
     StoreTravelDetailProinfoComponent,
     StoreProductFreeTravelImageComponent,
     CommonModelComponent,
+    StoreProductFeatureComponent,
+    StoreProductEditornoticeComponent,
+    StoreProductEditordetailComponent,
     
   ]
 })
