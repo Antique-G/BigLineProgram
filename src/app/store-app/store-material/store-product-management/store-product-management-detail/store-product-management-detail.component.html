@@ -1,242 +1,54 @@
 <div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
-        <mat-card>
-            <div class="example-container" style="padding: 15px;">
-                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
-                    </div>
 
-                    <div style="padding: 5px;">
-                        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                            <form nz-form [formGroup]="addForm" nz-row>
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title" nzRequired>产品标题</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" [nzErrorTip]="formErrors.title">
-                                            <input nz-input formControlName="title" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="region_code" nzRequired>区域</nz-form-label>
-                                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域">
-                                            <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="region_code"></nz-cascader>
-                                        </nz-form-control>
-                                        <div>
-                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshRegion()">refresh</mat-icon>
-                                        </div>
-                                    </div>
-                                </nz-form-item>
-
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
-                                        <nz-form-control [nzSm]="17" [nzXs]="24" nzErrorTip="请输入集合地点！">
-                                            <nz-select nzMode="multiple" nzPlaceHolder="请选择" (ngModelChange)="changePlace($event)" [(ngModel)]="selectedPlace" formControlName="assembling_place_id">
-                                                <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label" [nzValue]="place.value">
-                                                </nz-option>
-                                            </nz-select>
-                                        </nz-form-control>
-                                        <div>
-                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshPlace()">refresh</mat-icon>
-                                        </div>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id" nzRequired>产品标签</nz-form-label>
-                                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入产品标签！">
-                                            <nz-select nzMode="multiple" nzPlaceHolder="请选择产品标签" (ngModelChange)="changeTag($event)" [(ngModel)]="selectedTag" formControlName="tag_id">
-                                                <nz-option *ngFor="let tagContent of tagList" [nzLabel]="tagContent.label" [nzValue]="tagContent.value">
-                                                </nz-option>
-                                            </nz-select>
-                                        </nz-form-control>
-                                        <div>
-                                            <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshTag()">refresh</mat-icon>
-                                        </div>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>几天</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.few_days">
-                                            <input nz-input formControlName="few_days" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_nights" nzRequired>几晚</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.few_nights">
-                                            <input nz-input formControlName="few_nights" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="adult_price" nzRequired>成人价格</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.adult_price">
-                                            <input nz-input formControlName="adult_price" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_price" nzRequired>儿童价格</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.child_price">
-                                            <input nz-input formControlName="child_price" />
-                                        </nz-form-control>
-                                    </div>
-
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="original_adult_price" nzRequired>成人原价</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.original_adult_price">
-                                            <input nz-input formControlName="original_adult_price" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="original_child_price" nzRequired>儿童原价</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.original_child_price">
-                                            <input nz-input formControlName="original_child_price" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="difference_price" nzRequired>补差价</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.difference_price">
-                                            <input nz-input formControlName="difference_price" />
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee" nzRequired>费用包含</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入费用包含！">
-                                            <textarea nz-input formControlName="fee" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier" nzRequired>预定截止时间</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24">
-                                            <nz-input-group nzCompact>
-                                                <input nz-input placeholder="请输入天数" style="width: 120px;" formControlName="earlier1" [(ngModel)]="selectedDay" /><span style="line-height: 32px;padding: 0 9px;">天</span>
-                                                <nz-select (ngModelChange)="changeHour($event)" [(ngModel)]="selectedHour" class="nzChoice" nzPlaceHolder="请选择小时" formControlName="earlier2">
-                                                    <nz-option *ngFor="let option of hourList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-                                                </nz-select>
-                                                <span style="line-height: 32px;padding: 0 9px;">时</span>
-                                                <nz-select (ngModelChange)="changeMins($event)" [(ngModel)]="selectedMins" class="nzChoice" nzPlaceHolder="请选择分钟" formControlName="earlier3">
-                                                    <nz-option *ngFor="let option of minsList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-                                                </nz-select>
-                                                <span style="line-height: 32px;padding: 0 9px;">分</span>
-                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">!该截止时间为距离购买产品出发日期前一天24点的时间。例：截止时间选择1天10小时，若客人要选择出发日期为1月3日，则必须在1月1日14点前购买</p>
-                                            </nz-input-group>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="confirm" nzRequired>是否需要客服确认</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24">
-                                            <nz-radio-group ngModel={{dataProductDetailModel?.confirm}} formControlName="confirm">
-                                                <label nz-radio nzValue=0>否 </label>
-                                                <label nz-radio nzValue=1>是</label>
-                                            </nz-radio-group>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pay_method" nzRequired>支付方式</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请选择支付方式">
-                                            <nz-radio-group ngModel={{dataProductDetailModel?.pay_method}} formControlName="pay_method">
-                                                <label nz-radio nzValue=1>在线支付</label>
-                                                <label nz-radio nzValue=2>景区现付</label>
-                                            </nz-radio-group>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-                                <!-- <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="notice" nzRequired>预约须知</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入预约须知！">
-                                            <div class="wangeditor-feature">
-                                                <div id="editorNotice" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                <div id="noticeContent" class="w-e-text">
-                                                    <div #noticeBox></div>
-                                                </div>
-                                            </div>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item> -->
-                                <!-- 
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="feature" nzRequired>产品特色</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品特色！">
-                                            <div class="wangeditor-feature">
-                                                <div id="editorFeature" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                <div id="editor" class="w-e-text">
-                                                    <div #featureBox></div>
-                                                </div>
-                                            </div>
-                                        </nz-form-control>
-                                    </div>
-
-                                </nz-form-item>
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="details" nzRequired>产品详情</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品详情!">
-                                            <div class="wangeditor-feature">
-                                                <div id="editorDetail" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                <div id="editorContent" class="w-e-text">
-                                                    <div #detailBox></div>
-                                                </div>
-                                            </div>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item> -->
-
-
-
-                                <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                                    <nz-form-control [nzSpan]="14" [nzOffset]="12">
-                                        <button nz-button nzType="primary" (click)="updateProduct()">更新</button>
-                                    </nz-form-control>
-                                </nz-form-item>
-                            </form>
-                        </nz-spin>
-                    </div>
-
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
                 </div>
 
+                <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+                    <mat-tab label="基本信息">
+                        <div class="content">
+                            <app-store-product-management-detail-info></app-store-product-management-detail-info>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="产品详情">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-management-detail-editordetail [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-editordetail>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="产品特色">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <div class="example-large-box mat-elevation-z4">
+                                    <app-store-product-management-detail-feature [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-feature>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="预约须知">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-management-detail-editornotice [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-editornotice>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="图片与视频">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-management-detail-desc></app-store-product-management-detail-desc>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+
             </div>
-        </mat-card>
+
+        </div>
+
     </div>
 </div>

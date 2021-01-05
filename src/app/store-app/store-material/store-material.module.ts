@@ -42,6 +42,11 @@ import { StoreProductFreeTravelImageComponent } from './store-product-free-trave
 import { StoreProductFeatureComponent } from './store-product-management/store-product-create-bystep/store-product-feature/store-product-feature.component';
 import { StoreProductEditornoticeComponent } from './store-product-management/store-product-create-bystep/store-product-editornotice/store-product-editornotice.component';
 import { StoreProductEditordetailComponent } from './store-product-management/store-product-create-bystep/store-product-editordetail/store-product-editordetail.component';
+import { StoreProductManagementDetailInfoComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-info/store-product-management-detail-info.component';
+import { StoreProductManagementDetailFeatureComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-feature/store-product-management-detail-feature.component';
+import { StoreProductManagementDetailEditornoticeComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-editornotice/store-product-management-detail-editornotice.component';
+import { StoreProductManagementDetailEditordetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-editordetail/store-product-management-detail-editordetail.component';
+import { StoreProductManagementDetailDescComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-desc/store-product-management-detail-desc.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -89,6 +94,11 @@ import { StoreProductEditordetailComponent } from './store-product-management/st
     StoreProductFeatureComponent,
     StoreProductEditornoticeComponent,
     StoreProductEditordetailComponent,
+    StoreProductManagementDetailInfoComponent,
+    StoreProductManagementDetailFeatureComponent,
+    StoreProductManagementDetailEditornoticeComponent,
+    StoreProductManagementDetailEditordetailComponent,
+    StoreProductManagementDetailDescComponent,
     
   ]
 })
