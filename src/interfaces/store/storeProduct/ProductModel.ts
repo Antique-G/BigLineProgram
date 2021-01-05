@@ -1,9 +1,9 @@
 export interface AddStoreProductModel {
   title: string;
-  region_code: string;
+  departure_city: string;
+  destination_city: string;
   earlier: number;
   confirm: number;
-  pay_method: number;
   few_days: number;
   few_nights: number;
   adult_price: number;
@@ -11,11 +11,20 @@ export interface AddStoreProductModel {
   original_adult_price: number;
   original_child_price: number;
   difference_price: number;
+  advance: number;
+  child_status: number;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
+  reserve_num_min: number;
+  reserve_num_max: number;
+  contacts_status: number;
+  work_t_tem: number;
+  inventory: number;
+  inventory_num: number;
+  inventory_exceed: number;
   assembling_place_id: number[];
-  feature: string;
-  details: string;
   fee: string;
-  notice: string;
   tag_id: number[];
 }
 
@@ -26,6 +35,7 @@ export interface AddProductResponseModel {
   debug?: object;
   status_code?: number;
   errors?: object;
+  id: number
 }
 
 // 查询

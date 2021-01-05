@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class StoreProductCreateBystepComponent implements OnInit {
   isIndex = 0;     //tab的index
   selectedTabIndex = 0;    //选中的tab 默认第一个
-
+  infoId: any;
 
   constructor(public fb: FormBuilder,) {
 
@@ -28,8 +28,10 @@ export class StoreProductCreateBystepComponent implements OnInit {
   getTabIndex(event: any) {
     // 获取子组件传回来的index
     console.log("子组件传过来的值", event)
-    this.selectedTabIndex = event;
-    this.isIndex = event;
+    this.selectedTabIndex = event.tabIndex;
+    this.isIndex = event.tabIndex;
+    this.infoId = event.id;
+
   }
 
 
