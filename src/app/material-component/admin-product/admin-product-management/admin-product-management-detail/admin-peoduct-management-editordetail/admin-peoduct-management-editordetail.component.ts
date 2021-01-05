@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import wangEditor from 'wangeditor';
+import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
+
 
 
 @Component({
@@ -10,11 +13,21 @@ import wangEditor from 'wangeditor';
 export class AdminPeoductManagementEditordetailComponent implements OnInit {
   @Input() adminProductDetailModel: any;
   @ViewChild("detailBox") detailBox: any;     //获取dom
+  detailUpdateModel: any;
+  detailId: any;
 
 
-  constructor() { }
+  constructor(public activatedRoute: ActivatedRoute, public adminProductManagementService: AdminProductManagementService,) {
+    this.detailUpdateModel = {
+      step: 1,
+      details: ''
+    }
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailDataId"]);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -28,12 +41,11 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
     console.log("拿到的details", this.adminProductDetailModel?.details)
-     this.detailBox.nativeElement.innerHTML = this.adminProductDetailModel.details;    //赋值
+    this.detailBox.nativeElement.innerHTML = this.adminProductDetailModel.details;    //赋值
+    this.detailUpdateModel.details = this.adminProductDetailModel.details;
 
     editorDetail.config.onchange = (newHtml: any) => {
-      //  this.adminProductManagementUpdateModel.details = newHtml;
-      //  console.log("修改后的model", this.adminProductManagementUpdateModel.details);
-
+      this.detailUpdateModel.details = newHtml;
     }
     editorDetail.create();
 
@@ -53,16 +65,18 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
       let formDataDetail = new FormData();
       formDataDetail.append('image', files[0] as any);
       console.log("formData是什么", formDataDetail.get('file'));
-      //  this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-      //    console.log(res, 'res');
-      //    insert(res.data);
-      //  })
+       this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
+         console.log(res, 'res');
+         insert(res.data);
+       })
     }
+  }
 
-
-
-
-
+  
+  nextTab(){
+    this.detailUpdateModel.id= this.detailId ;
+    this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res=>{
+    })
   }
 
 }

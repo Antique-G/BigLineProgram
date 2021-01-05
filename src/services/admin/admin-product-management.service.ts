@@ -40,7 +40,7 @@ export class AdminProductManagementService {
 
 
   // 更新
-  updateProduct(adminProductManagementUpdateModel: AdminProductManagementUpdateModel): Observable<any> {
+  updateProduct(adminProductManagementUpdateModel: any): Observable<any> {
     const id = adminProductManagementUpdateModel.id;
     return this.httpClient.put(this.urls.PutAdminProductManagementUpdate + id, adminProductManagementUpdateModel, httpOptions)
       .pipe(
