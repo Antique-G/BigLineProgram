@@ -1,0 +1,31 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <mat-card>
+                <div class="example-container">
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <h4 style="padding-left: 10px;padding-top: 10px;">产品特色</h4>
+                        <nz-divider></nz-divider>
+                        <div style="padding:10px 80px">
+                            <form nz-form nz-row>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="details" nzRequired>产品详情</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品详情!">
+                                            <div class="wangeditor-feature">
+                                                <div id="editorDetail" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
+                                                <div id="editorContent" class="w-e-text">
+                                                    <div #detailBox></div>
+                                                </div>
+                                            </div>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

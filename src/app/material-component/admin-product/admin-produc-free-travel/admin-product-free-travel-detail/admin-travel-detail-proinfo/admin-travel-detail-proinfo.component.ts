@@ -25,6 +25,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   values: any[] = [];
   valuesDestination_city: any[] = [];
   idRegion: any;
+  idDestin: any
 
 
   selectedTag: any[] = [];  //标签
@@ -35,8 +36,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   freeTravelUpdateModel:FreeTravelUpdateModel
 
-  @ViewChild("featureBox") featureBox: any;       //获取dom
-  @ViewChild("detailBox") detailBox: any;     //获取dom
+  @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
+
 
 
   validationMessage: any = {
@@ -64,7 +65,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       title:'',
       earlier: 0,
       confirm: 0,
-      // pay_method:0,
       few_days: 0,
       few_nights:0,
       departure_city: 0,
@@ -94,11 +94,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
-      fee: new FormControl('', [Validators.required]),
       service_phone: new FormControl('', [Validators.required]),
       confirm: new FormControl('', [Validators.required]),
-      // pay: new FormControl('', [Validators.required]),
-      notice: new FormControl(null, [Validators.required]),
       earlier1: new FormControl('', [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
       reserve_ahead: new FormControl('', [Validators.required]),
@@ -167,7 +164,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('title')?.setValue(this.dataDetailModel.title);
     this.addForm.controls['few_days'].setValue(this.dataDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataDetailModel.few_nights);
-    this.addForm.get('fee')?.setValue(this.dataDetailModel.fee);
     this.addForm.get('service_phone')?.setValue(this.dataDetailModel.service_phone);
     this.addForm.get('reserve_ahead')?.setValue(this.dataDetailModel.reserve_ahead);
     this.addForm.get('reserve_num')?.setValue(this.dataDetailModel.reserve_num);
@@ -175,7 +171,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('children_age')?.setValue(this.dataDetailModel.children_age);
     this.addForm.get('child_height_min')?.setValue(this.dataDetailModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataDetailModel.child_height_max);
-    this.addForm.get('notice')?.setValue(this.dataDetailModel.notice);
     console.log(this.dataDetailModel,'this.dataDetailModel');
     let b = this.dataDetailModel.tag.data;
     let bNums: any[] = []
@@ -183,9 +178,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       bNums.push(ints.id)
       this.selectedTag = bNums
     }
-    
     console.log("this.selectedTag", this.selectedTag);  //标签
-
     const str = this.dataDetailModel.departure_city;
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
@@ -216,15 +209,12 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     console.log(this.timeStamp(this.dataDetailModel.earlier));
   }
 
-
-
 //传入的分钟数  转换成天、时、分 [天,时,分]
  timeStamp(minutes:any) {
   var day = Math.floor(minutes / 60 / 24);
   var hour = Math.floor(minutes / 60 % 24);
   var min = Math.floor(minutes % 60); 
   let str:any = [day,hour,min]
-  
   //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
   return  str;
 }
@@ -250,13 +240,21 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
 
 
-  onChanges($event:any){
-    // console.log($event);
-    // console.log(this.values);
-    // if ($event !== null) {
-    //     // this.freeTravelUpdateModel.departure_city
-    //   this.idRegion = $event[$event.length - 1];
-    // }
+  onChanges(values:any){
+    if (values !== null) {
+      this.idRegion = values[values.length - 1];
+    }
+  }
+
+
+  
+  // 目的地
+  onDestChange(arr: any): void {
+    if (arr !== null) {
+      console.log(arr[arr.length - 1]);
+      this.idDestin = arr[arr.length - 1]
+      // this.destinationPalce = arr[arr.length - 1];
+    }
   }
 
 
@@ -265,14 +263,10 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   }
 
   setValue(){
-
-
     this.freeTravelUpdateModel.id = this.dataDetailModel.id;
-
     this.freeTravelUpdateModel.title = this.addForm.value.title;
     this.freeTravelUpdateModel.few_days = this.addForm.value.few_days;;
     this.freeTravelUpdateModel.few_nights = this.addForm.value.few_nights;
-    this.freeTravelUpdateModel.fee = this.addForm.value.fee;
     this.freeTravelUpdateModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
     this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
@@ -280,21 +274,15 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
     this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    this.freeTravelUpdateModel.notice = this.addForm.value.notice;
     this.freeTravelUpdateModel.confirm = this.addForm.value.confirm;
-    this.freeTravelUpdateModel.departure_city =  this.values[this.values.length-1]
-    this.freeTravelUpdateModel.destination_city =  this.valuesDestination_city[this.valuesDestination_city.length-1]
-    // let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
-    // this.dataDetailModel.earlier = i;
+    this.freeTravelUpdateModel.departure_city =  this.idRegion
+    this.freeTravelUpdateModel.destination_city = this.idDestin
     let earlier1 = this.addForm.value.earlier1
     let date = new Date(this.addForm.value.earlier2);
     let min = date.getMinutes();
     let hour = date.getHours();
     let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.freeTravelUpdateModel.earlier = resMin
-
-
-
+    this.freeTravelUpdateModel.earlier = resMin;
     console.log( this.freeTravelUpdateModel);
   }
 
@@ -330,82 +318,35 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   
   // 富文本
   textChange() {
-    // 产品特色
-    const editorFeature = new wangEditor("#editorFeature", "#editor");
-    console.log("拿到的feature", this.dataDetailModel.feature);
-    this.featureBox.nativeElement.innerHTML = this.dataDetailModel.feature;    //赋值
-
-    this.freeTravelUpdateModel.feature = this.dataDetailModel.feature;
-    console.log("没改之前的model", this.freeTravelUpdateModel.feature);
-    editorFeature.config.onchange = (newHtml: any) => {
-      this.freeTravelUpdateModel.feature = newHtml;
-      console.log("修改后的model", this.freeTravelUpdateModel.feature)
-
-    }
-
-    editorFeature.create();
-    // 上传图片
-    editorFeature.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFeature.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
-
-
-
-
-    // 详情
-    const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-     // 关闭菜单栏fixed
-    //  editorDetail.config.menuFixed = false;
-    console.log("拿到的details", this.dataDetailModel.details)
-    this.detailBox.nativeElement.innerHTML = this.dataDetailModel.details;    //赋值
-  
-    
-    this.freeTravelUpdateModel.details = this.dataDetailModel.details;
-    console.log("没改之前的model", this.freeTravelUpdateModel.details);
-    editorDetail.config.onchange = (newHtml: any) => {
-      this.freeTravelUpdateModel.details = newHtml;
-      console.log("修改后的model", this.freeTravelUpdateModel.details);
-
-    }
-    editorDetail.create();
- 
-    // 上传图片
-    editorDetail.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-
-      console.log(files[0]);
-      let formDataDetail = new FormData();
-      formDataDetail.append('image', files[0] as any);
-      console.log("formData是什么", formDataDetail.get('file'));
-      this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
+        // 费用
+        const editorFee = new wangEditor("#editorFee", "#feeContent");
+        console.log("拿到的fee", this.dataDetailModel.fee);
+        this.feeBox.nativeElement.innerHTML = this.dataDetailModel.fee;    //赋值
+        this.freeTravelUpdateModel.fee = this.dataDetailModel.fee;
+        editorFee.config.onchange = (newHtml: any) => {
+          this.freeTravelUpdateModel.fee = newHtml;
+        }
+        editorFee.create();
+        // 上传图片
+        editorFee.config.uploadImgParams = {
+          token: (localStorage.getItem('userToken')!),
+        }
+        editorFee.config.customUploadImg = (files: any, insert: any) => {
+          // 限制一次最多上传 1 张图片
+          if (files.length !== 1) {
+            alert('单次只能上传一个图片')
+            return
+          }
+          console.log("files是什么", files);
+          console.log(files[0]);
+          let formData = new FormData();
+          formData.append('image', files[0] as any);
+          console.log("formData是什么", formData.get('file'));
+          this.adminProductManagementService.uploadImg(formData).subscribe(res => {
+            console.log(res, 'res');
+            insert(res.data);
+          })
+        }
 
   }
 
