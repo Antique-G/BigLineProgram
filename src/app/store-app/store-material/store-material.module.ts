@@ -39,6 +39,7 @@ import { StoreProductFreeTravelComponent } from './store-product-free-travel/sto
 import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
 import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-proinfo/store-travel-detail-proinfo.component';
 import { StoreProductFreeTravelImageComponent } from './store-product-free-travel/store-product-free-travel-image/store-product-free-travel-image.component';
+import { CommonModelComponent } from './common/common-model/common-model.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -84,6 +85,7 @@ import { StoreProductFreeTravelImageComponent } from './store-product-free-trave
     StoreProductFreeTravelDetailComponent,
     StoreTravelDetailProinfoComponent,
     StoreProductFreeTravelImageComponent,
+    CommonModelComponent,
     
   ]
 })
