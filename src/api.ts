@@ -54,16 +54,22 @@ export const AdminUrls = {
   GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
   GetAdminFreeTravelDetail: api + '/admin/independent_product/', //自由行产品详情
   PutAdminFreeTravelUpdate: api + '/admin/independent_product/', //自由行产品更新
-  PostAdminFreeTRavelUp:api +'/admin/independent_product/set_status',//自由行产上下架
-  PostAdminFreeTCheckStatus:api +'/admin/independent_product/set_check',///自由行审核
+  PostAdminFreeTRavelUp: api + '/admin/independent_product/set_status',//自由行产上下架
+  PostAdminFreeTCheckStatus: api + '/admin/independent_product/set_check',///自由行审核
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
 
   GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
   PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
-  PostAdminTermsSetStatus: api + '/admin/terms/set_status'  // 条款管理开启
+  PostAdminTermsSetStatus: api + '/admin/terms/set_status', // 条款管理开启
 
 
+  GetAdminTermTemplateList: api + '/admin/terms_temp',   // 模版条款的列表
+  PostAdminTermTemplateCreate: api + '/admin/terms_temp',   // 模版条款的添加
+  PutAdminTermTemplateUpdate: api + '/admin/terms_temp/',   // 模版条款的更新
+  GetAdminTermTemplateDetail: api + '/admin/terms_temp/',   // 模版条款的详情
+  PostAdminTermTemplateSetStatus: api + '/admin/terms_temp/set_status',   // 模版条款的禁用、启用
+  DeleteAdminTermTemplate: api + '/admin/terms_temp/'  //删除
 };
 
 
@@ -87,17 +93,17 @@ export const StoreUrls = {
   PostStoreImgUpload: api + '/store/image',  //上传
 
   // 自由行产品
-  GetStoreFreeTravelList:api + '/store/independent_product',
-  GetStoreFreeTravelDetail:api + '/store/independent_product/',
-  PostStoreFreeTravelInfo:api + '/store/independent_product/',
-  PostSaveStoreFreeTravelInfo:api + '/store/independent_product',
-  PostUpDownFreeTravelInfo:api + '/store/independent_product/set_status',
+  GetStoreFreeTravelList: api + '/store/independent_product',
+  GetStoreFreeTravelDetail: api + '/store/independent_product/',
+  PostStoreFreeTravelInfo: api + '/store/independent_product/',
+  PostSaveStoreFreeTravelInfo: api + '/store/independent_product',
+  PostUpDownFreeTravelInfo: api + '/store/independent_product/set_status',
 
   // 自由行产品日期报价
   GetStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期列表
   PostStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期
   GetStoreFreeTravelQuoteDetail: api + '/store/independent_date_quote/',//获取自由行报价日期详情
-  PutStoreFreeTravelQuoteInfo:api + '/store/independent_date_quote/',//修改自由行报价日期
+  PutStoreFreeTravelQuoteInfo: api + '/store/independent_date_quote/',//修改自由行报价日期
 
   GetStoreMeetingPlace: api + '/store/assembling_place',   // 集合地点列表
   PostStoreMeetingPlaceCreate: api + '/store/assembling_place',   // 集合地点添加

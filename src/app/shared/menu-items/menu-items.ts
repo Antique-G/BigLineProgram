@@ -40,7 +40,8 @@ const MENUITEMS = [
   {
     title: '条款管理', icon: 'file',
     children: [
-      { state: 'termsManage', name: '条款审核' }
+      { state: 'termsManage', name: '条款审核' },
+      { state: 'termTemplate', name: '条款模板' }
     ]
   },
 

@@ -11,6 +11,7 @@ import { AdminProductManagementDetailComponent } from './admin-product/admin-pro
 import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
 import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-free-travel/admin-produc-free-travel.component';
 import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
+import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -88,20 +89,21 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '自由行详情'
         }
       },
-      
       {
         path: 'termsManage',
         component: AdminTermsManageComponent,
         data: {
           breadcrumb: '条款列表'
         }
+      },  
+      {
+        path: 'termTemplate',
+        component: AdminTermTemplateComponent,
+        data: {
+          breadcrumb: '条款模板列表'
+        }
       },
-      
-      
-      
-     
-
-      
+       
     ]
   }
 ];
