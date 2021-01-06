@@ -49,6 +49,7 @@ import { AdminTravelDetailFeatureComponent } from './admin-product/admin-produc-
 import { AdminTravelDetailEditordetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editordetail/admin-travel-detail-editordetail.component';
 import { AdminTravelDetailEditornoticeComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editornotice/admin-travel-detail-editornotice.component';
 import { AdminProductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-editornotice/admin-product-management-editornotice.component';
+import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
 
 @NgModule({
   imports: [
@@ -116,6 +117,7 @@ import { AdminProductManagementEditornoticeComponent } from './admin-product/adm
     AdminTravelDetailEditordetailComponent,
     AdminTravelDetailEditornoticeComponent,
     AdminProductManagementEditornoticeComponent,
+    AdminTermTemplateComponent,
   ]
 })
 export class MaterialComponentsModule {}
