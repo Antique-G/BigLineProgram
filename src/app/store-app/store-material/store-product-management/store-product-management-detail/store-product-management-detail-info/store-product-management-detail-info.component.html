@@ -189,6 +189,8 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="fee" nzRequired>费用包含</nz-form-label>
                                             <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入费用包含！">
+                                                <a nz-button nzType="link" (click)="importImg()">从图库导入资源</a>
+                                                <br>
                                                 <div class="wangeditor-feature">
                                                     <div id="editorFee" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
                                                     <div id="feeContent" class="w-e-text">

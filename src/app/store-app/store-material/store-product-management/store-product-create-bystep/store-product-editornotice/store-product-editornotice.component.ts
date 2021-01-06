@@ -1,6 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-store-product-editornotice',
@@ -8,18 +12,18 @@ import wangEditor from 'wangeditor';
   styleUrls: ['./store-product-editornotice.component.css']
 })
 export class StoreProductEditornoticeComponent implements OnInit {
-  @Output() tabIndex = new EventEmitter; 
+  @Output() tabIndex = new EventEmitter;
   @Input() infoId: any;
-  detailUpdateModel:any;
+  detailUpdateModel: any;
 
 
 
-  constructor(public storeProductService: StoreProductService,) {
-    this.detailUpdateModel={
-      step:3,
-      notice:''
+  constructor(public storeProductService: StoreProductService, public dialog: MatDialog,) {
+    this.detailUpdateModel = {
+      step: 3,
+      notice: ''
     }
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -32,41 +36,49 @@ export class StoreProductEditornoticeComponent implements OnInit {
     // 预约须知
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
     editorNotice.config.onchange = (newHtml: any) => {
-      this.detailUpdateModel.notice= newHtml;
+      this.detailUpdateModel.notice = newHtml;
+    }
+    // InsertABCMenu
+    // 注册菜单
+    editorNotice.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorNotice.config.menus = editorNotice.config.menus.concat('insertABC')
+    editorNotice.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item)
+        });
+      });
     }
     editorNotice.create();
-    // 上传图片
-    editorNotice.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorNotice.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.storeProductService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
+
 
   }
 
+  importImg() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+    });
+  }
 
-  
-nextTab(){
-  this.detailUpdateModel.id=this.infoId;
-  this.storeProductService.updateProduct( this.detailUpdateModel).subscribe(res=>{
-    if (res === null) {
-      this.tabIndex.emit({id:this.infoId,tabIndex:4})
-    }
 
-  })
-}
+
+  nextTab() {
+    this.detailUpdateModel.id = this.infoId;
+    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+      if (res === null) {
+        this.tabIndex.emit({ id: this.infoId, tabIndex: 4 })
+      }
+
+    })
+  }
 }

@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../../util/validators';
@@ -6,6 +7,9 @@ import { AddStoreProductModel, DetailModel } from '../../../../../../interfaces/
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 @Component({
   selector: 'app-store-product-info',
@@ -13,9 +17,9 @@ import wangEditor from 'wangeditor';
   styleUrls: ['./store-product-info.component.css']
 })
 export class StoreProductInfoComponent implements OnInit {
-  @Output() tabIndex = new EventEmitter;  
+  @Output() tabIndex = new EventEmitter;
 
-  
+
   addForm!: FormGroup;
 
   // 区域联动
@@ -83,7 +87,7 @@ export class StoreProductInfoComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public router: Router,
+  constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
     public storeProductService: StoreProductService,
     public storeRegionService: StoreRegionService,) {
     this.buildForm();
@@ -121,8 +125,8 @@ export class StoreProductInfoComponent implements OnInit {
       contacts_status: ['1', [Validators.required]],
       child_status: ['1', [Validators.required]],
       child_age_max: ['', [Validators.required]],
-      child_height_min:[''],
-      child_height_max:[''],
+      child_height_min: [''],
+      child_height_max: [''],
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
       earlier1: new FormControl('', [Validators.required]),
@@ -211,11 +215,11 @@ export class StoreProductInfoComponent implements OnInit {
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
     this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
     this.addStoreProductModel.confirm = this.addForm.value.confirm;
-    this.addStoreProductModel.contacts_status= this.addForm.value.contacts_status;
+    this.addStoreProductModel.contacts_status = this.addForm.value.contacts_status;
     this.addStoreProductModel.child_status = this.addForm.value.child_status;
     this.addStoreProductModel.child_age_max = this.addForm.value.child_age_max;
     this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
-    this.addStoreProductModel. child_height_max = this.addForm.value.child_height_max;
+    this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
     // 时间处理
@@ -258,36 +262,40 @@ export class StoreProductInfoComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorFee = new wangEditor("#editorFee", "#feeContent");
-    editorFee.config.height = 250;  // 设置编辑区域高度
-    editorFee.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
-    editorFee.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-    editorFee.config.uploadImgMaxLength = 1;
     editorFee.config.onchange = (newHtml: any) => {
       console.log("213123", newHtml);
       this.addStoreProductModel.fee = newHtml;
     }
+    // InsertABCMenu
+    // 注册菜单
+    editorFee.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorFee.config.menus = editorFee.config.menus.concat('insertABC')
+    editorFee.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item)
+        });
+      });
+    }
     editorFee.create();
-    //  上传图片
-    editorFee.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFee.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.storeProductService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
 
+
+  }
+
+  importImg() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+    });
   }
 
   // 刷新区域和集合地点，标签
@@ -318,24 +326,24 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
 
-  nextTab() { 
-      this.setValue();
-      // 验证表单
-      console.log("this.addForm", this.addForm)
-      for (const i in this.addForm.controls) {
-        this.addForm.controls[i].markAsDirty();
-        this.addForm.controls[i].updateValueAndValidity();
-      }
-      console.log("66666", this.addForm.valid)
-      if (this.addForm.valid) {
-        // 添加
-        this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
-          console.log("res结果", res);
-          if(res.id){
-            this.tabIndex.emit({id:res.id,tabIndex:1})
-          }
-          
-        })
+  nextTab() {
+    this.setValue();
+    // 验证表单
+    console.log("this.addForm", this.addForm)
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log("66666", this.addForm.valid)
+    if (this.addForm.valid) {
+      // 添加
+      this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
+        console.log("res结果", res);
+        if (res.id) {
+          this.tabIndex.emit({ id: res.id, tabIndex: 1 })
+        }
+
+      })
     }
   }
 }

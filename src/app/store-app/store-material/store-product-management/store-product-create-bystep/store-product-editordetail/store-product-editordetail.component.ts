@@ -1,6 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
+import { MatDialog } from '@angular/material/dialog';
+import { InsertABCMenu } from '../../../InsertABCMenu';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 
 
 @Component({
@@ -14,7 +18,7 @@ export class StoreProductEditordetailComponent implements OnInit {
   detailUpdateModel:any;
 
 
-  constructor(public storeProductService: StoreProductService,) {
+  constructor(public storeProductService: StoreProductService, public dialog: MatDialog,) {
     this.detailUpdateModel={
       step:1,
       details:''
@@ -38,29 +42,37 @@ export class StoreProductEditordetailComponent implements OnInit {
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details= newHtml;
     }
+    // InsertABCMenu
+    // 注册菜单
+    editorDetail.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
+    editorDetail.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item)
+        });
+      });
+    }
     editorDetail.create();
-    // 上传图片
-    editorDetail.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
 
-      console.log(files[0]);
-      let formDataDetail = new FormData();
-      formDataDetail.append('image', files[0] as any);
-      console.log("formData是什么", formDataDetail.get('file'));
-      this.storeProductService.uploadImg(formDataDetail).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
   }
+
+  importImg() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+    });
+  }
+
 
 
 
