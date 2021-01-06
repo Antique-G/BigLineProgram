@@ -2,13 +2,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FullComponent } from './layouts/full/full.component';
+import { ChooseGalleryComponent } from './layouts/choose-gallery/choose-gallery';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
 
@@ -30,6 +31,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   declarations: [
     AppComponent,
     FullComponent,
+    ChooseGalleryComponent,
     SpinnerComponent,
   ],
   imports: [
@@ -39,7 +41,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-   
+    ReactiveFormsModule,
     DemoNgZorroAntdModule,
     RouterModule.forRoot(AppRoutes)
   ],

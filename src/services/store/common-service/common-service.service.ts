@@ -9,9 +9,14 @@
 
 
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
+
+const httpOptions = {
+  headers: new HttpHeaders().set('Content-Type', 'application/json')
+};
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +25,32 @@ export class CommonServiceService {
   private urls = StoreUrls;
   constructor(public httpClient: HttpClient) { }
 
-  uploadImg(image: any): Observable<any> {
-    console.log('uploadImgModel',image);
+  uploadImg(reqData: any): Observable<any> {
+    console.log('uploadImgModel',reqData);
     const imgHttpOptions = {
       reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };
-    return this.httpClient.post<any>(this.urls.PostStoreImgUpload, image, imgHttpOptions)
+    return this.httpClient.post<any>(this.urls.PostStoreImgUpload, reqData, imgHttpOptions)
       .pipe(
       )
   }
 
+  getGalleryList(page: number,keyword:string, per_page: number,region_code:string){
+    const params = new HttpParams().set('page', page.toString())
+    .set('keyword', keyword)
+    .set('per_page', per_page.toString())
+    .set('region_code', region_code)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+
+    // return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreFreeTravelList, findhttpOptions)
+    // .pipe(
+     
+    // )
+    
+  }
 
 
 }
