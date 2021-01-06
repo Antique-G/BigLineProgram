@@ -11,7 +11,7 @@
                 <div nz-row>
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="keyword">关键字</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <input nz-input formControlName="keyword" />
+                        <input nz-input formControlName="keyword" [(ngModel)]="keyword" />
                     </nz-form-control>
                 </div>
             </nz-form-item>
@@ -27,12 +27,17 @@
 
             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                 <div nz-row [nzJustify]="'end'">
-                    <button nz-button nzType="primary" nzShape="round">查询</button>
+                    <button nz-button nzType="primary" nzShape="round" (click)="getImgList()">查询</button>
                 </div>
             </nz-form-item>
         </form>
         <div class="border"></div>
-        <nz-table #basicTable [nzData]="listOfData" [nzPageSize] = "20" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <nz-table #basicTable [nzData]="listOfData" [nzFrontPagination]="false"  
+        [nzPageSizeOptions]="[1,2,3]"  [(nzPageSize)]="per_page"  [nzLoading]="loading" 
+        [nzTotal]="total" 
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+        (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)"
+        [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
             <tr style="display: flex;justify-content: flex-start;">
                 <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)" style="display:flex;">全选</th>
             </tr>
@@ -43,13 +48,15 @@
                 (nzCheckedChange)="onItemChecked(data, $event)"
                 class="checked"
                 ></td>
-                <td class="item">{{ data }}</td>
+                <td class="item">
+                    <img class="item-img" [src]="data.url_sm" [alt]="data.store_id">
+                </td>
               </div>
             </tbody>
         </nz-table>
         <div class="border"></div>
         <div style="display: flex;justify-content: flex-end;">
-            <button nz-button nzType="primary">导入图片</button>
+            <button nz-button nzType="primary" (click)="importImg()">导入图片</button>
         </div>
     </div>
 </div>

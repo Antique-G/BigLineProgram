@@ -11,7 +11,7 @@ import {InsertABCMenu} from '../../../InsertABCMenu';
 import { MatDialog } from '@angular/material/dialog';
 import {CommonModelComponent} from '../../../common/common-model/common-model.component';
 import {ChooseGalleryComponent} from '../../../../../layouts/choose-gallery/choose-gallery';
-
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-store-travel-detail-proinfo',
   templateUrl: './store-travel-detail-proinfo.component.html',
@@ -25,6 +25,8 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   freeTravelModel:StoreFreeTravelModel
   earlierTime = new Date();
 
+  featureList:any[] = []
+  detailList:any[] = []
  
 
   selectedTag: any[] = [];  //标签
@@ -98,7 +100,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     private freeTravelService:StoreProductTreeTravelService,private storeRegionService:StoreRegionService,
-    private commonService:CommonServiceService,public dialog: MatDialog,) { 
+    private commonService:CommonServiceService,public dialog: MatDialog,private msg: NzMessageService) { 
     this.buildForm()
     this.freeTravelModel={
       title: '',
@@ -358,13 +360,33 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     return menuInstance
 }
-importImg(){
+importImg(box:any){
   console.log(123);
   const dialogRef = this.dialog.open(ChooseGalleryComponent, {
     width: '1105px'
   });
   dialogRef.afterClosed().subscribe(result => {
     console.log("result", result);
+    result.forEach((item:any) => {
+      if(box=='featureBox'){
+        this.featureList.push(result)
+        if(this.featureList.length>10){
+          this.msg.error('产品特色引用图片不能超过10张')
+          return 
+        }
+        this.featureBox.nativeElement.innerHTML+=`<img src="${item}" style="max-width:100%;"/><br>`
+
+      }else if(box=='detailBox'){
+        this.detailList.push(result)
+        if(this.detailList.length>10){
+          this.msg.error('产品详情引用图片不能超过10张')
+          return 
+        }
+        this.detailBox.nativeElement.innerHTML+=`<img src="${item}" style="max-width:100%;"/><br>`
+
+      }
+    });
+    // 
   });
 }
    // 富文本
@@ -397,24 +419,7 @@ importImg(){
         });
       }
       editorFeature.create();
-      // // 上传图片
-      // editorFeature.config.uploadImgParams = {
-      //   token: (localStorage.getItem('userToken')!),
-      // }
-      // editorFeature.config.customUploadImg = (files: any, insert: any) => {
-      //   // 限制一次最多上传 1 张图片
-      //   if (files.length !== 1) {
-      //     alert('单次只能上传一个图片')
-      //     return
-      //   }
-      //   let formData = new FormData();
-      //   formData.append('image', files[0] as any);
-
-      //   this.commonService.uploadImg(formData).subscribe(res => {
-      //     console.log(res, 'res');
-      //     insert(res.data);
-      //   })
-      // }
+      
 
 
 

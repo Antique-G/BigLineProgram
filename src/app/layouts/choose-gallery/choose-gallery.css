@@ -36,3 +36,11 @@ td{
     text-align: center;
     background-color: #ccc;
 }
+
+.ant-table-placeholder {
+    border: none !important;
+}
+.item-img{
+width: 100%;
+height: 100%;    
+}

@@ -12,6 +12,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
+import {GalleryResponseModel} from '../../../interfaces/store/common/common';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -45,10 +46,10 @@ export class CommonServiceService {
       params: params
     };
 
-    // return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreFreeTravelList, findhttpOptions)
-    // .pipe(
+    return this.httpClient.get<GalleryResponseModel>(this.urls.GetStoreImgList, findhttpOptions)
+    .pipe(
      
-    // )
+    )
     
   }
 
