@@ -5,6 +5,10 @@ import { StoreRegionService } from '../../../../../../services/store/store-regio
 import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
 import { format } from 'date-fns';
+import { MatDialog } from '@angular/material/dialog';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { InsertABCMenu } from '../../../InsertABCMenu';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 
 
 @Component({
@@ -96,7 +100,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
-    public storeProductService: StoreProductService,
+    public storeProductService: StoreProductService,public dialog: MatDialog,
     public storeRegionService: StoreRegionService,) {
     this.buildForm();
     this.detailUpdateModel = {
@@ -344,39 +348,44 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorFee = new wangEditor("#editorFee", "#feeContent");
-    editorFee.config.height = 250;  // 设置编辑区域高度
-    editorFee.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
-    editorFee.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-    editorFee.config.uploadImgMaxLength = 1;
     this.feeBox.nativeElement.innerHTML = this.dataProductDetailModel?.fee;    //赋值
     this.detailUpdateModel.fee = this.dataProductDetailModel.fee;
     editorFee.config.onchange = (newHtml: any) => {
       console.log("213123", newHtml);
       this.detailUpdateModel.fee = newHtml;
     }
+     // InsertABCMenu
+    // 注册菜单
+    editorFee.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorFee.config.menus = editorFee.config.menus.concat('insertABC')
+    editorFee.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item)
+        });
+      });
+    }
     editorFee.create();
-    //  上传图片
-    editorFee.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFee.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.storeProductService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
+  
 
   }
+
+  importImg(){
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+    });
+  }
+
 
   // 刷新区域和集合地点，标签
   refreshRegion() {

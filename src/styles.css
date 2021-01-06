@@ -23,9 +23,15 @@ body {
 .ant-picker-panel-container {
     z-index: 9999999999 !important;
 }
-.w-e-text-container{
+
+.w-e-text-container {
     z-index: 500 !important;
 }
-.ant-picker-calendar-date-content{
+
+.ant-picker-calendar-date-content {
     display: flex !important;
+}
+
+.cdk-overlay-pane {
+    z-index: 9999999999 !important;
 }
