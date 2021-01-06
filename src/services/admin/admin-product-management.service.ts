@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductManagementUpdateModel, AdminProductResponseModel, AdminProductSetStatusModel } from '../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel,  AdminProductResponseModel, AdminProductSetStatusModel } from '../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')

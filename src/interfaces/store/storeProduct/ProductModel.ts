@@ -6,12 +6,6 @@ export interface AddStoreProductModel {
   confirm: number;
   few_days: number;
   few_nights: number;
-  adult_price: number;
-  child_price: number;
-  original_adult_price: number;
-  original_child_price: number;
-  difference_price: number;
-  advance: number;
   child_status: number;
   child_age_max: number;
   child_height_min: number;
@@ -19,10 +13,6 @@ export interface AddStoreProductModel {
   reserve_num_min: number;
   reserve_num_max: number;
   contacts_status: number;
-  work_t_tem: number;
-  inventory: number;
-  inventory_num: number;
-  inventory_exceed: number;
   assembling_place_id: number[];
   fee: string;
   tag_id: number[];
@@ -37,6 +27,7 @@ export interface AddProductResponseModel {
   errors?: object;
   id: number
 }
+
 
 // 查询
 export interface Datum {
@@ -60,57 +51,33 @@ export interface DataModel {
   id: number;
   title: string;
   store_id: number;
-  region_code: string;
+  few_days: number;
+  few_nights: number;
+  departure_city: string;
+  destination_city: string;
   earlier: number;
   confirm: number;
   pay_method: number;
-  few_days: number;
-  few_nights: number;
-  adult_price: number;
-  child_price: number;
-  minimum_price: number;
-  maximum_price: number;
-  original_adult_price: number;
-  original_child_price: number;
-  original_minimum_price: number;
-  original_maximum_price: number;
-  difference_price: number;
+  service_phone: string;
+  min_price: number;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  children_height: number;
   feature: string;
   details: string;
   fee: string;
   notice: string;
   status: number;
   check_status: number;
-  created_at: string;
+  created_at?: any;
   updated_at: string;
-  assembling_place: AssemblingplaceModel;
-  tag: TagModel;
-}
-
-export interface TagModel {
-  data: Datum2Model[];
-}
-
-export interface Datum2Model {
-  id: number;
-  name: string;
-}
-
-export interface AssemblingplaceModel {
-  data: DatumModel[];
-}
-
-export interface DatumModel {
-  id: number;
-  name: string;
-  longitude?: any;
-  latitude?: any;
 }
 
 // 列表返回
 export interface ProductResponseListResponseModel {
   data: DatumListModel[];
-  // meta: MetaListModel;
   current_page: number;
   first_page_url: string;
   from: number;
@@ -124,21 +91,7 @@ export interface ProductResponseListResponseModel {
   to: number;
   total: number;
 }
-export interface MetaListModel {
-  pagination: PaginationListModel;
-}
 
-export interface PaginationListModel {
-  total: number;
-  count: number;
-  per_page: number;
-  current_page: number;
-  total_pages: number;
-  links: LinksListModel;
-}
-
-export interface LinksListModel {
-}
 
 export interface DatumListModel {
   id: number;
@@ -157,26 +110,28 @@ export interface DatumListModel {
 
 export interface DetailModel {
   title: string;
-  region_code: string;
   earlier: number;
   confirm: number;
   pay_method: number;
   few_days: number;
   few_nights: number;
-  adult_price: number;
-  child_price: number;
-  original_adult_price: number;
-  original_child_price: number;
-  difference_price: number;
-  assembling_place_id: number[];
+  departure_city: number;
+  destination_city: number;
+  service_phone: string;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  child_height_min: number;
+  child_height_max: number;
   feature: string;
   details: string;
   fee: string;
   notice: string;
+  status: number;
   tag_id: number[];
-  status?: number;
-  id?: any
 }
+
 
 
 export interface UploadImgModel {

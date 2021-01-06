@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { isNumber, isFloat } from '../../../../../util/validators';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import { AddStoreProductModel, DetailModel } from '../../../../../../interfaces/store/storeProduct/ProductModel';
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-store-product-management-detail-info',
@@ -31,11 +31,9 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   tagList: any[] = [];
 
   // 预定截止日期
-  hourList: any[] = [];
-  minsList: any[] = [];
-  selectedDay: any;
-  selectedHour: any;
-  selectedMins: any;
+  earlierTime = new Date();
+
+
   dataProductDetailModel: any;
   // 更新model
   detailUpdateModel: any;
@@ -60,43 +58,26 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     destination_city: {
       'required': '请选择目的城市'
     },
-    work_t_tem: {
-      'required': '请输入工作时间模板'
+    confirm: {
+      'required': '请选择'
     },
-    adult_price: {
-      'isFloat': '请输入非零的正数',
-      'required': '请输入成人价格！'
+    contacts_status: {
+      'required': '请选择'
     },
-    child_price: {
-      'isFloat': '请输入非零的正数',
-      'required': '请输入儿童价格！'
-    },
-    original_adult_price: {
-      'isFloat': '请输入非零的正数',
-      'required': '请输入成人原价！'
-    },
-    original_child_price: {
-      'isFloat': '请输入非零的正数',
-      'required': '请输入儿童原价！'
-    },
-    difference_price: {
-      'isFloat': '请输入非零的正数',
-      'required': '请输入补差价！'
+    child_status: {
+      'required': '请选择'
     },
     child_age_max: {
       'required': '请输入最大年龄'
     },
+    child_height_min: {
+      'required': '请输入儿童身高范围'
+    },
     reserve_num_min: {
-      'required': '请输入最小预订人数'
+      'required': '请输入预订人数范围'
     },
-    reserve_num_max: {
-      'required': '请输入最大预订人数'
-    },
-    earlier: {
+    earlier1: {
       'required': '请输入预定截止时间'
-    },
-    advance: {
-      'required': '请输入提前预订时间'
     },
   };
   formErrors: any = {
@@ -104,17 +85,13 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     departure_city: '',
     few_days: '',
     destination_city: '',
-    work_t_tem: '',
-    adult_price: '',
-    child_price: '',
-    original_adult_price: '',
-    original_child_price: '',
-    difference_price: '',
+    confirm: '',
+    contacts_status: '',
+    child_status: '',
     child_age_max: '',
+    child_height_min: '',
     reserve_num_min: '',
-    reserve_num_max: '',
-    earlier: '',
-    advance: '',
+    earlier1: '',
   };
 
 
@@ -130,12 +107,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       confirm: 0,
       few_days: 0,
       few_nights: 0,
-      adult_price: 0,
-      child_price: 0,
-      original_adult_price: 0,
-      original_child_price: 0,
-      difference_price: 0,
-      advance: 0,
       child_status: 0,
       child_age_max: 0,
       child_height_min: 0,
@@ -143,10 +114,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       reserve_num_min: 0,
       reserve_num_max: 0,
       contacts_status: 0,
-      work_t_tem: 0,
-      inventory: 0,
-      inventory_num: 0,
-      inventory_exceed: 0,
       assembling_place_id: [],
       fee: '',
       tag_id: [],
@@ -163,27 +130,16 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
-      work_t_tem: ['', [Validators.required]],
       confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
-      inventory: ['1', [Validators.required]],
-      inventory_num: ['1'],
-      inventory_exceed: ['1'],
-      adult_price: ['', [Validators.required]],
-      child_price: ['', [Validators.required]],
-      original_adult_price: ['', [Validators.required]],
-      original_child_price: ['', [Validators.required]],
-      difference_price: ['', [Validators.required]],
       child_status: ['1', [Validators.required]],
       child_age_max: ['', [Validators.required]],
       child_height_min: [''],
       child_height_max: [''],
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
-      earlier1: [0, [Validators.required]],
-      earlier2: [0, [Validators.required]],
-      earlier3: [0, [Validators.required]],
-      advance: ['', [Validators.required]],
+      earlier1: new FormControl('', [Validators.required]),
+      earlier2: new FormControl(null, [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -228,18 +184,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
     this.getTagList();
-    // 24小时遍历
-    for (var i = 0; i < 24; i++) {
-      // console.log('i是什么', i);
-      let a = { value: i, label: i };
-      this.hourList.push(a);
-    }
-    // 分钟
-    for (var i = 0; i <= 55; i += 5) {
-      // console.log('i是什么', i);
-      let a = { value: i, label: i };
-      this.minsList.push(a);
-    }
   }
 
 
@@ -295,22 +239,12 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
-    this.addForm.get('adult_price')?.setValue(this.dataProductDetailModel.adult_price);
-    this.addForm.get('child_price')?.setValue(this.dataProductDetailModel.child_price);
-    this.addForm.get('original_adult_price')?.setValue(this.dataProductDetailModel.original_adult_price);
-    this.addForm.get('original_child_price')?.setValue(this.dataProductDetailModel.original_child_price);
-    this.addForm.get('difference_price')?.setValue(this.dataProductDetailModel.difference_price);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
     this.addForm.get('confirm')?.setValue(this.dataProductDetailModel.confirm);
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
     this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
     this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);
-    this.addForm.get('work_t_tem')?.setValue(this.dataProductDetailModel.work_t_tem);
-    this.addForm.get('inventory')?.setValue(this.dataProductDetailModel.inventory);
-    this.addForm.get('inventory_exceed')?.setValue(this.dataProductDetailModel.inventory_exceed);
-    this.addForm.get('inventory_num')?.setValue(this.dataProductDetailModel.inventory_num);
-    this.addForm.get('advance')?.setValue(this.dataProductDetailModel.advance);
     let a = this.dataProductDetailModel.assembling_place.data;
     let aNums: any[] = []
     for (let int of a) {
@@ -338,24 +272,22 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.destinationPalce.push(temp);
     }
     this.addForm.get('destination_city')?.setValue(this.destinationPalce);   //区域
-    // 截止日期
-    console.log("截止日期", this.dataProductDetailModel.earlier);
-    console.log("分钟", this.dataProductDetailModel.earlier % 60)
-    console.log("小时", Math.floor(this.dataProductDetailModel.earlier / 60) % 24);
-    console.log("", Math.floor(this.dataProductDetailModel.earlier / 60 / 24));
-    this.selectedDay = Math.floor(this.dataProductDetailModel.earlier / 60 / 24); //天数
-    //小时
-    if (Math.floor(this.dataProductDetailModel.earlier / 60) > 25) {
-      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60) % 24;
-    }
-    else {
-      this.selectedHour = Math.floor(this.dataProductDetailModel.earlier / 60);
-
-    }
-    this.selectedMins = Math.floor(this.dataProductDetailModel.earlier % 60);  //分钟
+    // 时间处理
+    let timeArr = this.timeStamp(this.dataProductDetailModel.earlier);
+    this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
+    let timeDate = format(this.earlierTime, 'yyyy-MM-dd') + ' ' + timeArr[1] + ':' + timeArr[2];
+    this.earlierTime = new Date(timeDate)
   }
 
-
+  //传入的分钟数  转换成天、时、分 [天,时,分]
+  timeStamp(minutes: any) {
+    var day = Math.floor(minutes / 60 / 24);
+    var hour = Math.floor(minutes / 60 % 24);
+    var min = Math.floor(minutes % 60);
+    let str: any = [day, hour, min];
+    //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
+    return str;
+  }
 
 
 
@@ -363,27 +295,21 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.detailUpdateModel.title = this.addForm.value.title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
-    this.detailUpdateModel.work_t_tem = this.addForm.value.work_t_tem;
     this.detailUpdateModel.confirm = this.addForm.value.confirm;
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
-    this.detailUpdateModel.inventory = this.addForm.value.inventory;
-    this.detailUpdateModel.inventory_num = this.addForm.value.inventory_num;
-    this.detailUpdateModel.inventory_exceed = this.addForm.value.inventory_exceed;
-    this.detailUpdateModel.adult_price = this.addForm.value.adult_price;
-    this.detailUpdateModel.child_price = this.addForm.value.child_price;
-    this.detailUpdateModel.original_adult_price = this.addForm.value.original_adult_price;
-    this.detailUpdateModel.original_child_price = this.addForm.value.original_child_price;
-    this.detailUpdateModel.difference_price = this.addForm.value.difference_price;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
     this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
     this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
     this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
-    let i = this.addForm.value.earlier1 * 24 * 60 + this.addForm.value.earlier2 * 60 + this.addForm.value.earlier3;
-    this.detailUpdateModel.earlier = i;
-    console.log("12121212", this.detailUpdateModel.earlier);
-    this.detailUpdateModel.advance = this.addForm.value.advance;
+    // 时间处理
+    let earlier1 = this.addForm.value.earlier1
+    let date = new Date(this.addForm.value.earlier2);
+    let min = date.getMinutes();
+    let hour = date.getHours();
+    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+    this.detailUpdateModel.earlier = resMin;
   }
 
 
@@ -412,19 +338,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.detailUpdateModel.destination_city = values[values.length - 1];
     }
   }
-
-  changeHour(values: any) {
-    this.addForm.value.earlier2 = values;
-    console.log("this.addForm.value.earlier2", this.addForm.value.earlier2);
-  }
-
-
-  changeMins(values: any) {
-    this.addForm.value.earlier3 = values;
-    console.log("3333", this.addForm.value.earlier3);
-
-  }
-
 
 
   // 富文本

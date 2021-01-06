@@ -13,18 +13,19 @@
                             <app-admin-product-management-basic-info></app-admin-product-management-basic-info>
                         </div>
                     </mat-tab>
-                    <mat-tab label="产品特色">
-                        <ng-template matTabContent>
-                            <div class="content">
-                                <app-admin-peoduct-management-feature [adminProductDetailModel]='adminProductDetailModel'></app-admin-peoduct-management-feature>
-                            </div>
-                        </ng-template>
-                    </mat-tab>
 
                     <mat-tab label="产品详情">
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-admin-peoduct-management-editordetail [adminProductDetailModel]='adminProductDetailModel'></app-admin-peoduct-management-editordetail>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="产品特色">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-admin-peoduct-management-feature [adminProductDetailModel]='adminProductDetailModel'></app-admin-peoduct-management-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
