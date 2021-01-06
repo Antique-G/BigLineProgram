@@ -10,7 +10,7 @@ import { CommonServiceService } from '../../../../../../services/store/common-se
 import {InsertABCMenu} from '../../../InsertABCMenu';
 import { MatDialog } from '@angular/material/dialog';
 import {CommonModelComponent} from '../../../common/common-model/common-model.component';
-import {FullComponent} from '../../../../../layouts/full/full.component';
+import {ChooseGalleryComponent} from '../../../../../layouts/choose-gallery/choose-gallery';
 
 @Component({
   selector: 'app-store-travel-detail-proinfo',
@@ -93,8 +93,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   @ViewChild("featureBox") featureBox: any;       //获取dom
   @ViewChild("detailBox") detailBox: any;     //获取dom
-  @ViewChild("ttt")    //获取dom
-  full!:FullComponent
+
   
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -359,7 +358,15 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     return menuInstance
 }
-
+importImg(){
+  console.log(123);
+  const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+    width: '1105px'
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log("result", result);
+  });
+}
    // 富文本
     textChange() {
       // 产品特色
@@ -376,39 +383,38 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       editorFeature.menus.extend('insertABC', InsertABCMenu)
       // 重新配置 editor.config.menus
       editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
-      editorFeature.config.customFunction = ()=>{
+      editorFeature.config.customFunction = (insert:any)=>{
         const dialogRef = this.dialog.open(CommonModelComponent, {
-          width: '550px',
+          width: '660px',
+          disableClose: true
         });
         dialogRef.afterClosed().subscribe(result => {
           console.log("result", result);
+          let str =''
+          result.forEach((item:any) => {
+            insert(item)
+          });
         });
       }
       editorFeature.create();
-      // let ta:any = editorFeature.menus.menuList[editorFeature.menus.menuList.length-1]
-      // ta.clickHandler()
-      // console.log(ta,editorFeature);
-      // let t = this.getMenuInstance(editorFeature,ta)
-      // console.log(t,'tttttttt');
-
       // // 上传图片
-      editorFeature.config.uploadImgParams = {
-        token: (localStorage.getItem('userToken')!),
-      }
-      editorFeature.config.customUploadImg = (files: any, insert: any) => {
-        // 限制一次最多上传 1 张图片
-        if (files.length !== 1) {
-          alert('单次只能上传一个图片')
-          return
-        }
-        let formData = new FormData();
-        formData.append('image', files[0] as any);
+      // editorFeature.config.uploadImgParams = {
+      //   token: (localStorage.getItem('userToken')!),
+      // }
+      // editorFeature.config.customUploadImg = (files: any, insert: any) => {
+      //   // 限制一次最多上传 1 张图片
+      //   if (files.length !== 1) {
+      //     alert('单次只能上传一个图片')
+      //     return
+      //   }
+      //   let formData = new FormData();
+      //   formData.append('image', files[0] as any);
 
-        this.commonService.uploadImg(formData).subscribe(res => {
-          console.log(res, 'res');
-          insert(res.data);
-        })
-      }
+      //   this.commonService.uploadImg(formData).subscribe(res => {
+      //     console.log(res, 'res');
+      //     insert(res.data);
+      //   })
+      // }
 
 
 
@@ -424,26 +430,43 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       editorDetail.config.onchange = (newHtml: any) => {
         this.freeTravelModel.details = newHtml;
       }
+      editorDetail.menus.extend('insertABC', InsertABCMenu)
+       // 重新配置 editor.config.menus
+      editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
+      editorDetail.config.customFunction = (insert:any)=>{
+        const dialogRef = this.dialog.open(CommonModelComponent, {
+          width: '660px',
+          disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log("result", result);
+          let str =''
+          result.forEach((item:any) => {
+            insert(item)
+          });
+        });
+      }
       editorDetail.create();
   
       // // 上传图片
-      editorDetail.config.uploadImgParams = {
-        token: (localStorage.getItem('userToken')!),
-      }
-      editorDetail.config.customUploadImg = (files: any, insert: any) => {
-        // 限制一次最多上传 1 张图片
-        if (files.length !== 1) {
-          alert('单次只能上传一个图片')
-          return
-        }
-        let formDataDetail = new FormData();
-        formDataDetail.append('image', files[0] as any);
-        this.commonService.uploadImg(formDataDetail).subscribe(res => {
-          console.log(res, 'res');
-          insert(res.data);
-        })
-      }
+      // editorDetail.config.uploadImgParams = {
+      //   token: (localStorage.getItem('userToken')!),
+      // }
+      // editorDetail.config.customUploadImg = (files: any, insert: any) => {
+      //   // 限制一次最多上传 1 张图片
+      //   if (files.length !== 1) {
+      //     alert('单次只能上传一个图片')
+      //     return
+      //   }
+      //   let formDataDetail = new FormData();
+      //   formDataDetail.append('image', files[0] as any);
+      //   this.commonService.uploadImg(formDataDetail).subscribe(res => {
+      //     console.log(res, 'res');
+      //     insert(res.data);
+      //   })
+      // }
 
   }
+  
 
 }
