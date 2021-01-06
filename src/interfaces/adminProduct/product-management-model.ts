@@ -108,53 +108,30 @@ export interface AdminProductDetailResponseModel {
 }
 
 export interface DataProductDetailModel {
-    id?: number;
-    title: string;
-    store_id: number;
-    region_code: string;
-    earlier: number;
-    confirm: number;
-    pay_method: number;
-    few_days: number;
-    few_nights: number;
-    adult_price: number;
-    child_price: number;
-    minimum_price: number;
-    maximum_price: number;
-    original_adult_price: number;
-    original_child_price: number;
-    original_minimum_price: number;
-    original_maximum_price: number;
-    difference_price: number;
-    feature: string;
-    details: string;
-    fee: string;
-    notice: string;
-    status: number;
-    check_status: number;
-    created_at: string;
-    updated_at: string;
-    region_full_name: string;
-    assembling_place: Assemblingplace;
-    tag: Tag;
-}
-
-export interface Tag {
-    data: Datum2[];
-}
-
-export interface Datum2 {
     id: number;
-    name: string;
+  title: string;
+  store_id: number;
+  few_days: number;
+  few_nights: number;
+  departure_city: string;
+  destination_city: string;
+  earlier: number;
+  confirm: number;
+  pay_method: number;
+  service_phone: string;
+  min_price: number;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  children_height: number;
+  feature: string;
+  details: string;
+  fee: string;
+  notice: string;
+  status: number;
+  check_status: number;
+  created_at?: any;
+  updated_at: string;
 }
 
-export interface Assemblingplace {
-    data: Datum3[];
-}
-
-export interface Datum3 {
-    id: number;
-    name: string;
-    longitude?: any;
-    latitude?: any;
-}

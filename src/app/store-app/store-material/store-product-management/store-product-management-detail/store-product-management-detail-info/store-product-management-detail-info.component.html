@@ -84,18 +84,6 @@
                                     </nz-form-item>
 
 
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="work_t_tem" nzRequired>工作时间模板</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.work_t_tem">
-                                                <nz-input-number style="width: 100%;" formControlName="work_t_tem" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-
-
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="confirm" nzRequired>是否需要客服确认</nz-form-label>
@@ -120,40 +108,6 @@
                                         </div>
                                     </nz-form-item>
 
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="inventory" nzRequired>设置库存</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
-                                                <nz-radio-group formControlName="inventory" ngModel={{dataProductDetailModel?.inventory}}>
-                                                    <label nz-radio nzValue=0>否 </label>
-                                                    <label nz-radio nzValue=1>是</label>
-                                                </nz-radio-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="inventory_num">库存数量</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <nz-input-number style="width: 100%;" formControlName="inventory_num" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="inventory_exceed">可超卖库存</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <nz-radio-group formControlName="inventory_exceed" ngModel={{dataProductDetailModel?.inventory_exceed}}>
-                                                    <label nz-radio nzValue=0>否 </label>
-                                                    <label nz-radio nzValue=1>是</label>
-                                                </nz-radio-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
                                 </form>
                             </nz-spin>
                         </div>
@@ -172,51 +126,6 @@
                         <div style="padding:10px 80px;margin-bottom: 30px;">
                             <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                 <form nz-form [formGroup]="addForm" nz-row>
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="adult_price" nzRequired>成人价格</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.adult_price">
-                                                <input nz-input formControlName="adult_price" />
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="original_adult_price" nzRequired>成人原价</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.original_adult_price">
-                                                <input nz-input formControlName="original_adult_price" />
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_price" nzRequired>儿童价格</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_price">
-                                                <input nz-input formControlName="child_price" />
-                                            </nz-form-control>
-                                        </div>
-
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="original_child_price" nzRequired>儿童原价</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.original_child_price">
-                                                <input nz-input formControlName="original_child_price" />
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="difference_price" nzRequired>补差价</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.difference_price">
-                                                <input nz-input formControlName="difference_price" />
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
@@ -234,89 +143,47 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_age_max" nzRequired>儿童最大年龄</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_age_max">
-                                                <nz-input-number style="width: 100%;" formControlName="child_age_max" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+                                                <input type="text" disabled nz-input placeholder="2" style="width:100px; text-align: center;" />
+                                                <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                                                <nz-input-number class="demo-input-right" style="width: 100px;margin-top: 1px;" formControlName="child_age_max" [nzMin]="2" [nzMax]="18" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min">儿童最低身高</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <div style="display: flex;align-items: center;">
-                                                    <nz-input-number formControlName="child_height_min" [nzMin]="1" [nzMax]="170" [nzStep]="1"></nz-input-number>
-                                                    <div style="margin-left: 5px;">cm</div>
-                                                </div>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_max">儿童最高身高</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <div style="display: flex;align-items: center;">
-                                                    <nz-input-number formControlName="child_height_max" [nzMin]="1" [nzMax]="170" [nzStep]="1"></nz-input-number>
-                                                    <div style="margin-left: 5px;">cm</div>
-                                                </div>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童身高范围</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
+                                                <nz-input-number formControlName="child_height_min" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                                <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                                                <nz-input-number formControlName="child_height_max" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                                <span style="margin-left: 5px;">cm</span>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>最小预订人数</nz-form-label>
-                                            <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_min">
-                                                <div style="display: flex;align-items: center;">
-                                                    <nz-input-number formControlName="reserve_num_min" [nzMin]="1" [nzMax]="170" [nzStep]="1"></nz-input-number>
-                                                </div>
-                                            </nz-form-control>
-                                            <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="reserve_num_max" nzRequired>最大预订人数</nz-form-label>
-                                            <nz-form-control [nzSm]="6" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_max">
-                                                <div style="display: flex;align-items: center;">
-                                                    <nz-input-number formControlName="reserve_num_max" [nzMin]="1" [nzMax]="170" [nzStep]="1"></nz-input-number>
-                                                </div>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>预定人数范围</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
+                                                <nz-input-number formControlName="reserve_num_min" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                                <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                                                <nz-input-number formControlName="reserve_num_max" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-
-
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier" nzRequired>预定截止时间</nz-form-label>
-                                            <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.earlier">
-                                                <nz-input-group nzCompact>
-                                                    <input nz-input placeholder="请输入天数" style="width: 120px;" formControlName="earlier1" [(ngModel)]="selectedDay" /><span style="line-height: 32px;padding: 0 9px;">天</span>
-                                                    <nz-select (ngModelChange)="changeHour($event)" [(ngModel)]="selectedHour" class="nzChoice" nzPlaceHolder="请选择小时" formControlName="earlier2">
-                                                        <nz-option *ngFor="let option of hourList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-                                                    </nz-select>
-                                                    <span style="line-height: 32px;padding: 0 9px;">时</span>
-                                                    <nz-select (ngModelChange)="changeMins($event)" [(ngModel)]="selectedMins" class="nzChoice" nzPlaceHolder="请选择分钟" formControlName="earlier3">
-                                                        <nz-option *ngFor="let option of minsList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-                                                    </nz-select>
-                                                    <span style="line-height: 32px;padding: 0 9px;">分</span>
-                                                    <p style="font-size: 12px;color: red;letter-spacing: 1px;">!该截止时间为距离购买产品出发日期前一天24点的时间。例：截止时间选择1天10小时，若客人要选择出发日期为1月3日，则必须在1月1日14点前购买</p>
-                                                </nz-input-group>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier1" nzRequired>提前预定</nz-form-label>
+                                            <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.earlier1">
+                                                <nz-input-number formControlName="earlier1" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                                <nz-time-picker [(ngModel)]="earlierTime" nzFormat="HH:mm" formControlName="earlier2"></nz-time-picker><span style="line-height: 32px;padding: 0 9px;">前可订</span>
+                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">!该截止时间为距离购买产品出发日期前一天24点的时间。例：截止时间选择1天10小时，若客人要选择出发日期为1月3日，则必须在1月1日14点前购买</p>
+
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="advance" nzRequired>提前预订时间</nz-form-label>
-                                            <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.advance">
-                                                <nz-input-group nzCompact>
-                                                    <input nz-input style="width: 120px;" formControlName="advance" /><span style="line-height: 32px;padding: 0 9px;">秒</span>
-                                                    <p style="font-size: 12px;color: red;letter-spacing: 1px;line-height: 34px;">!出发日0点为准，提前多少秒可开始预定</p>
-                                                </nz-input-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-
 
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
