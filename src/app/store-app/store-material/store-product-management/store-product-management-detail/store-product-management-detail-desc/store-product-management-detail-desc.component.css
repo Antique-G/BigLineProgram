@@ -1,0 +1,13 @@
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
+
+.footer {
+    height: 50px;
+    margin-top: -50px;
+}
+
+.nzChoice {
+    max-width: 120px !important;
+    width: 120px !important;
+}
