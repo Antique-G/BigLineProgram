@@ -43,33 +43,57 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     console.log("拿到的details", this.adminProductDetailModel?.details)
     this.detailBox.nativeElement.innerHTML = this.adminProductDetailModel.details;    //赋值
     this.detailUpdateModel.details = this.adminProductDetailModel.details;
-
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details = newHtml;
     }
+     // 配置菜单栏
+     editorDetail.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'link',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'code',
+      'splitLine',
+      'undo',
+      'redo',
+  ]
     editorDetail.create();
 
     // 上传图片
-    editorDetail.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
+    // editorDetail.config.uploadImgParams = {
+    //   token: (localStorage.getItem('userToken')!),
+    // }
+    // editorDetail.config.customUploadImg = (files: any, insert: any) => {
+    //   // 限制一次最多上传 1 张图片
+    //   if (files.length !== 1) {
+    //     alert('单次只能上传一个图片')
+    //     return
+    //   }
+    //   console.log("files是什么", files);
 
-      console.log(files[0]);
-      let formDataDetail = new FormData();
-      formDataDetail.append('image', files[0] as any);
-      console.log("formData是什么", formDataDetail.get('file'));
-       this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-         console.log(res, 'res');
-         insert(res.data);
-       })
-    }
+    //   console.log(files[0]);
+    //   let formDataDetail = new FormData();
+    //   formDataDetail.append('image', files[0] as any);
+    //   console.log("formData是什么", formDataDetail.get('file'));
+    //    this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
+    //      console.log(res, 'res');
+    //      insert(res.data);
+    //    })
+    // }
   }
 
   
