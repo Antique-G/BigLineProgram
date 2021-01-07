@@ -48,6 +48,9 @@ import { StoreProductManagementDetailEditornoticeComponent } from './store-produ
 import { StoreProductManagementDetailEditordetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-editordetail/store-product-management-detail-editordetail.component';
 import { StoreProductManagementDetailDescComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-desc/store-product-management-detail-desc.component';
 import { AgreeComponent } from './common/common-model/agree/agree.component';
+import { StoreTravelDetailDescComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-desc/store-travel-detail-desc.component';
+import { StoreTravelDetailFeatureComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-feature/store-travel-detail-feature.component';
+import { StoreTravelDetailNoticeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-notice/store-travel-detail-notice.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -101,6 +104,9 @@ import { AgreeComponent } from './common/common-model/agree/agree.component';
     StoreProductManagementDetailEditordetailComponent,
     StoreProductManagementDetailDescComponent,
     AgreeComponent,
+    StoreTravelDetailDescComponent,
+    StoreTravelDetailFeatureComponent,
+    StoreTravelDetailNoticeComponent,
     
   ]
 })

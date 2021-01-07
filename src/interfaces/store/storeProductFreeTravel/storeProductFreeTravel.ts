@@ -15,12 +15,11 @@ export interface StoreFreeTravelModel {
     children_age: number;
     child_height_min: number;
     child_height_max: number;
-    feature: string;
-    details: string;
     fee: string;
-    notice: string;
+    // notice: string;
     status: number;
     tag_id: number[];
+    step:number
 }
 
 export interface ProductTabListModel{

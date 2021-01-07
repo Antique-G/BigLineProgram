@@ -10,32 +10,45 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-travel-detail-proinfo></app-store-travel-detail-proinfo>
+                            <app-store-travel-detail-proinfo ></app-store-travel-detail-proinfo>
                         </div>
                     </mat-tab>
-                    <mat-tab label="推荐玩法">
-                        <div class="content">
-                            <div class="example-large-box mat-elevation-z4">
-                                this is 3
+                    <mat-tab label="产品详情">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                                    <app-store-travel-detail-desc [dataDetailModel]='dataDetailModel'></app-store-travel-detail-desc>
+                                </nz-spin>
                             </div>
-                        </div>
-
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="产品特色">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'></app-store-travel-detail-feature>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="预约须知">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-travel-detail-notice [dataDetailModel]='dataDetailModel'></app-store-travel-detail-notice>
+                            </div>
+                        </ng-template>
                     </mat-tab>
 
                     <mat-tab label="图片与视频" >
-                        <div class="content">
-                            <div class="example-large-box mat-elevation-z4">
+                        <ng-template matTabContent>
+                            <div class="content">
                                 <app-store-product-free-travel-image></app-store-product-free-travel-image>
                             </div>
-                        </div>
-
+                        </ng-template>
                     </mat-tab>
 
 
                 </mat-tab-group>
-
             </div>
-
+          
         </div>
 
     </div>
