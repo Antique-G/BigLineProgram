@@ -24,13 +24,22 @@
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>上传图片</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
                         <nz-upload [(nzFileList)]="fileList" [nzSize]="5120" [nzBeforeUpload]="beforeUpload" [nzMultiple]='true' [nzLimit]='10'>
-                            <button nz-button><i nz-icon nzType="upload"></i>Select File</button>
-                          </nz-upload>
+                            <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
+                        </nz-upload>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                    <nz-form-control [nzSpan]="24" [nzOffset]="12">
-                        <button nz-button nzType="primary" (click)="add()">提交</button>
+                    <nz-form-control [nzSpan]="24">
+                        <div style="display: flex;flex-direction: column;align-items: center;">
+                            <ng-container *ngIf="agreeChecked; else elsebtn">
+                                <button style="width: 120px;"  nz-button nzType="primary" (click)="add()">提交</button>
+                            </ng-container>
+                            <ng-template #elsebtn>
+                                <button style="width: 120px;" disabled nz-button nzType="primary" >提交</button>
+                            </ng-template>
+                            
+                            <div> <label nz-checkbox style="margin-right: 5px;"  formControlName="agree" [(ngModel)]="agreeChecked"></label>我已仔细阅读并同意<a style="padding: 0;" (click)="showConfirm()" nz-button nzType="link">《授权协议》</a></div>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </form>

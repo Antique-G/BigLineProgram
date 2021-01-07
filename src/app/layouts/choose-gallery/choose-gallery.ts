@@ -26,6 +26,7 @@ export class ChooseGalleryComponent implements OnInit {
     page = 1;
     per_page = 20;
     total = 1;
+   
 
     ngOnInit(): void {
         // for (let index = 1; index <= 50; index++) {
@@ -120,10 +121,10 @@ export class ChooseGalleryComponent implements OnInit {
             return
         }
         let result:any[]= []
-        arr.forEach((ele:any) => {
-            result.push(ele.url)
-        });
-        this.dialogRef.close(result);
+        // arr.forEach((ele:any) => {
+        //     result.push(ele.url)
+        // });
+        this.dialogRef.close(arr);
     }
     
     close(){

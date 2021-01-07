@@ -369,20 +369,20 @@ importImg(box:any){
     console.log("result", result);
     result.forEach((item:any) => {
       if(box=='featureBox'){
-        this.featureList.push(result)
+        this.featureList.push(item)
         if(this.featureList.length>10){
           this.msg.error('产品特色引用图片不能超过10张')
           return 
         }
-        this.featureBox.nativeElement.innerHTML+=`<img src="${item}" style="max-width:100%;"/><br>`
+        this.featureBox.nativeElement.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`
 
       }else if(box=='detailBox'){
-        this.detailList.push(result)
+        this.detailList.push(item)
         if(this.detailList.length>10){
           this.msg.error('产品详情引用图片不能超过10张')
           return 
         }
-        this.detailBox.nativeElement.innerHTML+=`<img src="${item}" style="max-width:100%;"/><br>`
+        this.detailBox.nativeElement.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`
 
       }
     });
@@ -414,7 +414,7 @@ importImg(box:any){
           console.log("result", result);
           let str =''
           result.forEach((item:any) => {
-            insert(item)
+            insert(item.url)
           });
         });
       }
@@ -447,7 +447,7 @@ importImg(box:any){
           console.log("result", result);
           let str =''
           result.forEach((item:any) => {
-            insert(item)
+            insert(item.url)
           });
         });
       }
