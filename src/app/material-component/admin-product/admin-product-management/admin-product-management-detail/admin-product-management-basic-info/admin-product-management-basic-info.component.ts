@@ -36,7 +36,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   // 预定截止日期
   earlierTime = new Date();
 
- 
+
   dataProductDetailModel: any;
   // 更新model
   detailUpdateModel: any;
@@ -46,7 +46,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
 
- validationMessage: any = {
+  validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为225个字符',
       'required': '请填写标题'
@@ -211,7 +211,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       console.log(this.destinationPalce, ' this.destinationPalce');
     });
   }
-  
+
   setValue() {
     this.detailUpdateModel.title = this.addForm.value.title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
@@ -224,13 +224,13 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
-      // 时间处理
-      let earlier1 = this.addForm.value.earlier1
-      let date = new Date(this.addForm.value.earlier2);
-      let min = date.getMinutes();
-      let hour = date.getHours();
-      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-      this.detailUpdateModel.earlier = resMin;
+    // 时间处理
+    let earlier1 = this.addForm.value.earlier1
+    let date = new Date(this.addForm.value.earlier2);
+    let min = date.getMinutes();
+    let hour = date.getHours();
+    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+    this.detailUpdateModel.earlier = resMin;
   }
 
 
@@ -283,22 +283,22 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.destinationPalce.push(temp);
     }
     this.addForm.get('destination_city')?.setValue(this.destinationPalce);   //区域
-   // 时间处理
-   let timeArr = this.timeStamp(this.dataProductDetailModel.earlier);
-   this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
-   let timeDate = format(this.earlierTime, 'yyyy-MM-dd') + ' ' + timeArr[1] + ':' + timeArr[2];
-   this.earlierTime = new Date(timeDate)
- }
+    // 时间处理
+    let timeArr = this.timeStamp(this.dataProductDetailModel.earlier);
+    this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
+    let timeDate = format(this.earlierTime, 'yyyy-MM-dd') + ' ' + timeArr[1] + ':' + timeArr[2];
+    this.earlierTime = new Date(timeDate)
+  }
 
- //传入的分钟数  转换成天、时、分 [天,时,分]
- timeStamp(minutes: any) {
-   var day = Math.floor(minutes / 60 / 24);
-   var hour = Math.floor(minutes / 60 % 24);
-   var min = Math.floor(minutes % 60);
-   let str: any = [day, hour, min];
-   //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
-   return str;
- }
+  //传入的分钟数  转换成天、时、分 [天,时,分]
+  timeStamp(minutes: any) {
+    var day = Math.floor(minutes / 60 / 24);
+    var hour = Math.floor(minutes / 60 % 24);
+    var min = Math.floor(minutes % 60);
+    let str: any = [day, hour, min];
+    //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
+    return str;
+  }
 
 
 
@@ -332,37 +332,59 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   textChange() {
     // 费用
     const editorFee = new wangEditor("#editorFee", "#feeContent");
-    editorFee.config.height = 250;  // 设置编辑区域高度
-    editorFee.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
-    editorFee.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-    editorFee.config.uploadImgMaxLength = 1;
+
     this.feeBox.nativeElement.innerHTML = this.dataProductDetailModel?.fee;    //赋值
     this.detailUpdateModel.fee = this.dataProductDetailModel.fee;
     editorFee.config.onchange = (newHtml: any) => {
       console.log("213123", newHtml);
       this.detailUpdateModel.fee = newHtml;
     }
+    // 配置菜单栏
+    editorFee.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'link',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'code',
+      'splitLine',
+      'undo',
+      'redo',
+  ]
     editorFee.create();
-    //  上传图片
-    editorFee.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFee.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-        console.log(res, 'res');
-        insert(res.data);
-      })
-    }
+    //  上传图片 不用
+    // editorFee.config.uploadImgParams = {
+    //   token: (localStorage.getItem('userToken')!),
+    // }
+    // editorFee.config.customUploadImg = (files: any, insert: any) => {
+    //   // 限制一次最多上传 1 张图片
+    //   if (files.length !== 1) {
+    //     alert('单次只能上传一个图片')
+    //     return
+    //   }
+    //   console.log("files是什么", files);
+    //   console.log(files[0]);
+    //   let formData = new FormData();
+    //   formData.append('image', files[0] as any);
+    //   console.log("formData是什么", formData.get('file'));
+    //   this.adminProductManagementService.uploadImg(formData).subscribe(res => {
+    //     console.log(res, 'res');
+    //     insert(res.data);
+    //   })
+    // }
 
 
   }

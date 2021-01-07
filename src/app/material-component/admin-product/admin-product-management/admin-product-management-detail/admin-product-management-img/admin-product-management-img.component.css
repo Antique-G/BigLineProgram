@@ -1,0 +1,28 @@
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
+
+.footer {
+    height: 50px;
+    margin-top: -50px;
+}
+
+.nzChoice {
+    max-width: 120px !important;
+    width: 120px !important;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.baojia {
+    border: 0;
+    background-color: #fdfdfd;
+}
+
+img:hover {
+    transform: scale(5);
+    z-index: 9999999999999;
+}
