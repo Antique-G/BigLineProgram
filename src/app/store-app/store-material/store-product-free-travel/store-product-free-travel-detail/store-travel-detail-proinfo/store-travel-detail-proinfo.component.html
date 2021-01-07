@@ -17,7 +17,6 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
@@ -29,7 +28,6 @@
                                                 <nz-input-number style="width: 94px;" formControlName="few_nights" [nzMin]="0" [nzMax]="addForm.value.few_days" [nzStep]="1"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">晚</span>
                                             </nz-form-control>
-                                            
                                         </div>
                                     </nz-form-item>
 
@@ -93,16 +91,7 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
-                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="notice" nzRequired>预约须知</nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.notice">
-                                                <textarea nz-input formControlName="notice" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-
+                                   
                                 </form>
                             </nz-spin>
                         </div>
@@ -200,73 +189,10 @@
 
                 </div>
             </mat-card>
-            <mat-card>
-                <div class="example-container">
-                    <div fxLayout="column" fxLayoutAlign="start stretch">
-                        <h4 style="padding-left: 10px;padding-top: 10px;">产品描述</h4>
-                        <nz-divider></nz-divider>
-                        <div style="padding:10px 80px">
-                            <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                                <form nz-form [formGroup]="addForm" nz-row>
-                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">产品特色</nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                <a nz-button nzType="link" (click)="importImg('featureBox')">从图库导入资源</a>
-                                                <br>
-                                                <div class="wangeditor-feature">
-                                                    <div id="editorFeature" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                    <div id="editor" class="w-e-text">
-                                                        <div #featureBox></div>
-                                                    </div>
-                                                </div>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title"> 产品详情</nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                <a nz-button nzType="link" (click)="importImg('detailBox')">从图库导入资源</a>
-                                                <br>
-                                                <div class="wangeditor-feature">
-                                                    <div id="editorDetail" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
-                                                    <div id="editorContent" class="w-e-text">
-                                                        <div #detailBox></div>
-                                                    </div>
-                                                </div>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                                        <nz-form-control [nzSpan]="14" [nzOffset]="12">
-                                            <ng-container *ngIf="detailId; else elseBtn">
-                                                <button nz-button nzType="primary" (click)="updateInfo()" >更新</button>
-                                            </ng-container>
-                                            <ng-template #elseBtn>
-                                                <button nz-button nzType="primary" (click)="AddInfo()" >添加</button>
-                                            </ng-template>
-                                            
-                                        </nz-form-control>
-                                    </nz-form-item>
-
-                                </form>
-                            </nz-spin>
-                        </div>
-
-                    </div>
-
-                </div>
-            </mat-card>
-
-
-
+            
         </div>
-
-
-
-
+        <div class="btn">
+            <button nz-button nzType="primary" (click)="updateInfo()">更新</button>
+        </div>
     </div>
 </div>

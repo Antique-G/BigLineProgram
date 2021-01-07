@@ -64,7 +64,7 @@ export class StoreProductTreeTravelService {
   }
   
   // 修改自由行产品报价
-  UpdateFreeTravelInfo(freeTravelModel:StoreFreeTravelModel): Observable<any>{
+  UpdateFreeTravelInfo(freeTravelModel:any): Observable<any>{
     return this.httpClient.put<any>(this.urls.PostStoreFreeTravelInfo+freeTravelModel.id,freeTravelModel, httpOptions)
     .pipe(
     

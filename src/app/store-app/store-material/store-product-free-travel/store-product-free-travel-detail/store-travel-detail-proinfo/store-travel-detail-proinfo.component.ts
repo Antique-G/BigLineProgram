@@ -65,9 +65,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     fee:{
       'required': '请输入费用信息！'
     },
-    notice:{
-      'required': '请输入预约须知！'
-    },
+    
     reserve_num:{
       'required': '请输入可预订人数！'
     },
@@ -89,15 +87,12 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     departure_city:'',
     destination_city:'',
     fee:'',
-    notice:'',
     reserve_num:'',
     children_age:'',
     child_height_min:'',
     child_height_max:''
   }
 
-  @ViewChild("featureBox") featureBox: any;       //获取dom
-  @ViewChild("detailBox") detailBox: any;     //获取dom
 
   
 
@@ -121,12 +116,10 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       children_age: 0,
       child_height_min: 0,
       child_height_max: 0,
-      feature: '',
-      details: '',
       fee: '',
-      notice: '',
       status: 0,
-      tag_id: []
+      tag_id: [],
+      step:0
     }
     
   }
@@ -152,7 +145,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       fee: new FormControl('', [Validators.required]),
       service_phone: new FormControl('', [Validators.required]),
       confirm: new FormControl('', [Validators.required]),
-      notice: new FormControl(null, [Validators.required]),
       earlier1: new FormControl('', [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
       reserve_ahead: new FormControl('', [Validators.required]),
@@ -176,7 +168,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       this.isSpinning = false
       this.dataModel = res.data
       this.setFormValue();
-      this.textChange();
     })
   }
 
@@ -217,7 +208,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('children_age')?.setValue(this.dataModel.children_age);
     this.addForm.get('child_height_min')?.setValue(this.dataModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataModel.child_height_max);
-    this.addForm.get('notice')?.setValue(this.dataModel.notice);
 
     let b = this.dataModel.tag.data;
     let bNums: any[] = []
@@ -280,7 +270,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       console.log(this.detailId,1234123421341234);
       if(this.detailId === undefined){
         this.isSpinning = false
-        this.textChange();
       }else{
         this.getDetail()
       }
@@ -296,6 +285,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log(this.addForm.valid);
     if (this.addForm.valid) {
       this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res=>{
         if(res.message=="更新成功"){
@@ -340,7 +330,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.children_age = this.addForm.value.children_age;
     this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    this.freeTravelModel.notice = this.addForm.value.notice;
     this.freeTravelModel.confirm = this.addForm.value.confirm;
     this.freeTravelModel.departure_city =  this.departure_city[this.departure_city.length-1]
     this.freeTravelModel.destination_city =  this.valuesDestination_city[this.valuesDestination_city.length-1]
@@ -363,118 +352,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     return menuInstance
 }
-importImg(box:any){
-  console.log(123);
-  const dialogRef = this.dialog.open(ChooseGalleryComponent, {
-    width: '1105px'
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log("result", result);
-    result.forEach((item:any) => {
-      if(box=='featureBox'){
-        this.featureList.push(item)
-        if(this.featureList.length>10){
-          this.msg.error('产品特色引用图片不能超过10张')
-          return 
-        }
-        this.featureBox.nativeElement.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`
 
-      }else if(box=='detailBox'){
-        this.detailList.push(item)
-        if(this.detailList.length>10){
-          this.msg.error('产品详情引用图片不能超过10张')
-          return 
-        }
-        this.detailBox.nativeElement.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`
-
-      }
-    });
-    // 
-  });
-}
-   // 富文本
-    textChange() {
-      // 产品特色
-      const editorFeature = new wangEditor("#editorFeature", "#editor");
-      if(this.detailId!=undefined){
-        this.featureBox.nativeElement.innerHTML= this.dataModel.feature
-        this.freeTravelModel.feature = this.dataModel.feature
-      }
-      editorFeature.config.onchange = (newHtml: any) => {
-        this.freeTravelModel.feature = newHtml;
-      }
-      // InsertABCMenu
-        // 注册菜单
-      editorFeature.menus.extend('insertABC', InsertABCMenu)
-      // 重新配置 editor.config.menus
-      editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
-      editorFeature.config.customFunction = (insert:any)=>{
-        const dialogRef = this.dialog.open(CommonModelComponent, {
-          width: '660px',
-          disableClose: true
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          console.log("result", result);
-          let str =''
-          result.forEach((item:any) => {
-            insert(item.url)
-          });
-        });
-      }
-      editorFeature.create();
-      
-
-
-
-
-      // 详情
-      const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-      // 关闭菜单栏fixed
-      //  editorDetail.config.menuFixed = false;
-      if(this.detailId!=undefined){
-        this.detailBox.nativeElement.innerHTML = this.dataModel.details;    //赋值
-        this.freeTravelModel.details = this.dataModel.details;    
-      }
-      editorDetail.config.onchange = (newHtml: any) => {
-        this.freeTravelModel.details = newHtml;
-      }
-      editorDetail.menus.extend('insertABC', InsertABCMenu)
-       // 重新配置 editor.config.menus
-      editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
-      editorDetail.config.customFunction = (insert:any)=>{
-        const dialogRef = this.dialog.open(CommonModelComponent, {
-          width: '660px',
-          disableClose: true
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          console.log("result", result);
-          let str =''
-          result.forEach((item:any) => {
-            insert(item.url)
-          });
-        });
-      }
-      editorDetail.create();
-  
-      // // 上传图片
-      // editorDetail.config.uploadImgParams = {
-      //   token: (localStorage.getItem('userToken')!),
-      // }
-      // editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      //   // 限制一次最多上传 1 张图片
-      //   if (files.length !== 1) {
-      //     alert('单次只能上传一个图片')
-      //     return
-      //   }
-      //   let formDataDetail = new FormData();
-      //   formDataDetail.append('image', files[0] as any);
-      //   this.commonService.uploadImg(formDataDetail).subscribe(res => {
-      //     console.log(res, 'res');
-      //     insert(res.data);
-      //   })
-      // }
-
-  }
   
 
 }
