@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -44,6 +45,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   detailId: any;
   isSpinning = true;
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
+  feeList: any[] = []    //图片
+
 
 
 
@@ -88,7 +91,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
-    public storeProductService: StoreProductService,public dialog: MatDialog,
+    public storeProductService: StoreProductService, public dialog: MatDialog,private msg: NzMessageService,
     public storeRegionService: StoreRegionService,) {
     this.buildForm();
     this.detailUpdateModel = {
@@ -342,7 +345,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       console.log("213123", newHtml);
       this.detailUpdateModel.fee = newHtml;
     }
-     // InsertABCMenu
+    // InsertABCMenu
     // 注册菜单
     editorFee.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
@@ -356,21 +359,29 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         console.log("result", result);
         let str = ''
         result.forEach((item: any) => {
-          insert(item)
+          insert(item.url)
         });
       });
     }
     editorFee.create();
-  
+
 
   }
 
-  importImg(){
+  importImg() {
     const dialogRef = this.dialog.open(ChooseGalleryComponent, {
       width: '1105px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
+      result.forEach((item: any) => {
+        this.feeList.push(item)
+        if (this.feeList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.feeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+      });
     });
   }
 

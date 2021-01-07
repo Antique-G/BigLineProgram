@@ -22,9 +22,9 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
                                         <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.few_days">
-                                            <nz-input-number style="width: 110px;" formControlName="few_days" [nzMin]="0" [nzMax]="255" [nzStep]="1"></nz-input-number>
+                                            <nz-input-number style="width: 110px;" formControlName="few_days" [nzMin]="addForm.value.few_nights" [nzMax]="255"></nz-input-number>
                                             <span style="line-height: 32px;padding: 0 9px;">天</span>
-                                            <nz-input-number style="width: 110px;" formControlName="few_nights" [nzMin]="0" [nzMax]="255" [nzStep]="1"></nz-input-number>
+                                            <nz-input-number style="width: 110px;" formControlName="few_nights" [nzMin]="0" [nzMax]="addForm.value.few_days"></nz-input-number>
                                             <span style="line-height: 32px;padding: 0 9px;">晚</span>
                                         </nz-form-control>
                                     </div>
@@ -215,7 +215,7 @@
     </div>
 </div>
 
-<div style="position:fixed;left:0px;bottom:0px;width:100%;height:50px;background-color:ghostwhite;z-index:999; box-shadow: 4px;">
+<div style="position:fixed;left:0px;bottom:0px;width:100%;height:50px;background-color:ghostwhite;z-index:99999999; box-shadow: 4px;">
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
         <button mat-raised-button color="primary" style="height: 40px;margin-right: 20px;" (click)="nextTab()">下一步</button>
 
