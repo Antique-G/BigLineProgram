@@ -5,6 +5,8 @@ import { StoreRegionService } from '../../../../../services/store/store-region/s
 import { NzUploadFile,NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { CommonServiceService } from '../../../../../services/store/common-service/common-service.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AgreeComponent } from './agree/agree.component';
 @Component({
   selector: 'app-common-model',
   templateUrl: './common-model.component.html',
@@ -16,7 +18,7 @@ export class CommonModelComponent implements OnInit {
   nzOptions: any[] | null = null;
   region_code: any[] = [];//出发城市
   count:number = 0
-  isSpinning:Boolean = false
+  isSpinning:Boolean = true
   uploading = false;
   fileList: NzUploadFile[] = [
    
@@ -25,9 +27,10 @@ export class CommonModelComponent implements OnInit {
   previewImage: string | undefined = '';
   previewVisible = false;
   result:any[] = []
+  agreeChecked:boolean = false
 
   constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<any>,private storeRegionService:StoreRegionService,
-    private commonService:CommonServiceService,private msg: NzMessageService
+    private commonService:CommonServiceService,private msg: NzMessageService,private modal: NzModalService
   ) { 
 
     }
@@ -42,6 +45,7 @@ export class CommonModelComponent implements OnInit {
   buildForm(): void {
     this.addForm = new FormGroup({
       region_code: new FormControl('',[Validators.required]),
+      agree: new FormControl('',[Validators.required]),
       desc: new FormControl(''),
       // few_days: new FormControl('', [Validators.required]),
     });
@@ -103,16 +107,30 @@ handleChange(info:NzUploadChangeParam){
         formData.append('desc', this.addForm.value.desc);
         formData.append('region_code', this.region_code[this.region_code.length-1]);
         this.commonService.uploadImg(formData).subscribe(res=>{
+          this.result.push(res)
           if(index === this.fileList.length-1){
             this.isSpinning = false
             this.dialogRef.close(this.result);
           }
-          this.result.push(res.url)
         })
       })
     }
    
   }
+
+  showConfirm(): void {
+    const dialogRef = this.dialog.open(AgreeComponent, {
+      width: '600px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.agreeChecked = result
+      // 
+    });
+    
+  }
+
+
   close(){
     if(this.result.length != this.fileList.length){
       this.msg.error('图片还在上传,请稍等片刻')

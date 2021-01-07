@@ -47,6 +47,7 @@ import { StoreProductManagementDetailFeatureComponent } from './store-product-ma
 import { StoreProductManagementDetailEditornoticeComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-editornotice/store-product-management-detail-editornotice.component';
 import { StoreProductManagementDetailEditordetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-editordetail/store-product-management-detail-editordetail.component';
 import { StoreProductManagementDetailDescComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-desc/store-product-management-detail-desc.component';
+import { AgreeComponent } from './common/common-model/agree/agree.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -99,6 +100,7 @@ import { StoreProductManagementDetailDescComponent } from './store-product-manag
     StoreProductManagementDetailEditornoticeComponent,
     StoreProductManagementDetailEditordetailComponent,
     StoreProductManagementDetailDescComponent,
+    AgreeComponent,
     
   ]
 })
