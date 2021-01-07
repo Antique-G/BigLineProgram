@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -18,10 +19,13 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
 
   @Input() dataDetailModel: any;
   @ViewChild("featureBox") featureBox: any;       //获取dom
+  featureList: any[] = []    //图片
+
   detailId: any;
 
 
-  constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute, public dialog: MatDialog,) {
+  constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
+    private msg: NzMessageService, public dialog: MatDialog,) {
     this.detailUpdateModel = {
       step: 2,
       feature: ''
@@ -61,7 +65,7 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
         console.log("result", result);
         let str = ''
         result.forEach((item: any) => {
-          insert(item)
+          insert(item.url)
         });
       });
     }
@@ -76,6 +80,14 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
+      result.forEach((item: any) => {
+        this.featureList.push(item)
+        if (this.featureList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.featureBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+      });
     });
   }
 

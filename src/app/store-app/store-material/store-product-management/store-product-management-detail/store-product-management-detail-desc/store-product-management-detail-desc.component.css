@@ -11,3 +11,13 @@
     max-width: 120px !important;
     width: 120px !important;
 }
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.baojia {
+    border: 0;
+    background-color: #fdfdfd;
+}

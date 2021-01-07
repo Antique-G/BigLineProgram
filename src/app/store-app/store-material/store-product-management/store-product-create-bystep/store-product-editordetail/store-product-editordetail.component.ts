@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
 import { MatDialog } from '@angular/material/dialog';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -16,9 +17,11 @@ export class StoreProductEditordetailComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
   @Input() infoId: any;
   detailUpdateModel:any;
+  @ViewChild("detailBox") detailBox: any;     //获取dom
+  detailList: any[] = []    //图片
 
 
-  constructor(public storeProductService: StoreProductService, public dialog: MatDialog,) {
+  constructor(public storeProductService: StoreProductService,  public dialog: MatDialog,private msg: NzMessageService,) {
     this.detailUpdateModel={
       step:1,
       details:''
@@ -56,7 +59,7 @@ export class StoreProductEditordetailComponent implements OnInit {
         console.log("result", result);
         let str = ''
         result.forEach((item: any) => {
-          insert(item)
+          insert(item.url)
         });
       });
     }
@@ -70,6 +73,14 @@ export class StoreProductEditordetailComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
+      result.forEach((item: any) => {
+        this.detailList.push(item)
+        if (this.detailList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.detailBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+      });
     });
   }
 

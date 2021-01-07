@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-store-product-management-detail-editornotice',
@@ -17,10 +18,12 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
   @Input() dataDetailModel: any;
   detailId: any;
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
+  noticeList: any[] = []    //图片
 
 
 
-  constructor(public storeProductService: StoreProductService,public activatedRoute: ActivatedRoute,public dialog: MatDialog,) {
+  constructor(public storeProductService: StoreProductService,public activatedRoute: ActivatedRoute,
+    private msg: NzMessageService,public dialog: MatDialog,) {
     this.detailUpdateModel={
       step:3,
       notice:''
@@ -60,7 +63,7 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
         console.log("result", result);
         let str = ''
         result.forEach((item: any) => {
-          insert(item)
+          insert(item.url)
         });
       });
     }
@@ -74,6 +77,14 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
+      result.forEach((item: any) => {
+        this.noticeList.push(item)
+        if (this.noticeList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.noticeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+      });
     });
   }
 
