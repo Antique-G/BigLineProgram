@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StoreProductService } from '../../../../../services/store/store-product/store-product.service';
 
 @Component({
   selector: 'app-store-product-create-bystep',
@@ -11,7 +12,9 @@ export class StoreProductCreateBystepComponent implements OnInit {
   selectedTabIndex = 0;    //选中的tab 默认第一个
   infoId: any;
 
-  constructor(public fb: FormBuilder,) {
+  addDataDetailModel: any;
+
+  constructor(public fb: FormBuilder, public storeProductService: StoreProductService,) {
 
   }
 
@@ -31,8 +34,15 @@ export class StoreProductCreateBystepComponent implements OnInit {
     this.selectedTabIndex = event.tabIndex;
     this.isIndex = event.tabIndex;
     this.infoId = event.id;
-
+    this.getProductDetail();
   }
 
+
+  getProductDetail() {
+    this.storeProductService.getProductDetail(this.infoId).subscribe(res => {
+      this.addDataDetailModel = res.data;
+      console.log('父组件', this.addDataDetailModel);
+    })
+  }
 
 }

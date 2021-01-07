@@ -13,18 +13,20 @@
                             <app-store-product-info (tabIndex)="getTabIndex($event)"></app-store-product-info>
                         </div>
                     </mat-tab>
+
                     <mat-tab label="产品详情" [disabled]="isIndex<1">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-editordetail (tabIndex)="getTabIndex($event)" [infoId]='infoId'></app-store-product-editordetail>
+                                <app-store-product-editordetail (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-editordetail>
                             </div>
                         </ng-template>
                     </mat-tab>
+
                     <mat-tab label="产品特色" [disabled]="isIndex<2">
                         <ng-template matTabContent>
                             <div class="content">
                                 <div class="example-large-box mat-elevation-z4">
-                                    <app-store-product-feature (tabIndex)="getTabIndex($event)" [infoId]='infoId'></app-store-product-feature>
+                                    <app-store-product-feature (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-feature>
                                 </div>
                             </div>
                         </ng-template>
@@ -33,14 +35,15 @@
                     <mat-tab label="预约须知" [disabled]="isIndex<3">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-editornotice (tabIndex)="getTabIndex($event)" [infoId]='infoId'></app-store-product-editornotice>
+                                <app-store-product-editornotice (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-editornotice>
                             </div>
                         </ng-template>
                     </mat-tab>
+
                     <mat-tab label="图片与视频" [disabled]="isIndex<4">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-desc></app-store-product-desc>
+                                <app-store-product-desc [addDataDetailModel]='addDataDetailModel'></app-store-product-desc>
                             </div>
                         </ng-template>
                     </mat-tab>

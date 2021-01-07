@@ -15,7 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class StoreProductEditordetailComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
-  @Input() infoId: any;
+  @Input() addDataDetailModel: any;
+
   detailUpdateModel:any;
   @ViewChild("detailBox") detailBox: any;     //获取dom
   detailList: any[] = []    //图片
@@ -29,7 +30,6 @@ export class StoreProductEditordetailComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log("infoid是什么",this.infoId)
   }
 
   ngAfterViewInit(): void {
@@ -42,6 +42,13 @@ export class StoreProductEditordetailComponent implements OnInit {
   textChange() {
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
+    if(this.addDataDetailModel?.details===undefined){
+      this.detailBox.nativeElement.innerHTML = '';
+    }
+    else{
+      this.detailBox.nativeElement.innerHTML = this.addDataDetailModel.details;    //赋值
+    }
+    this.detailUpdateModel.details = this.addDataDetailModel?.details;
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details= newHtml;
     }
@@ -88,10 +95,10 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   nextTab() {
-    this.detailUpdateModel.id=this.infoId;
+    this.detailUpdateModel.id=this.addDataDetailModel.id;
     this.storeProductService.updateProduct( this.detailUpdateModel).subscribe(res=>{
       if (res === null) {
-        this.tabIndex.emit({id:this.infoId,tabIndex:2})
+        this.tabIndex.emit({id:this.addDataDetailModel.id,tabIndex:2})
       }
 
     })
