@@ -2,18 +2,17 @@
     <div fxFlex.gt-sm="100%" fxFlex="100">
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
             <mat-card>
-                <div class="example-container">
+                <div class="example-container" style="margin-bottom: 50px;">
                     <div fxLayout="column" fxLayoutAlign="start stretch">
                         <div style="padding-left: 10px;padding-top: 10px;">
-                            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;">上传图片</button>
-                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;">从图库导入</button>
+                            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="upload()">上传图片</button>
+                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;" (click)="import()">从图库导入</button>
                             <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;">批量删除</button>
                         </div>
                         <nz-divider></nz-divider>
                         <div style="padding:10px 80px">
                             <div class="mat-elevation-z8">
-                                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[1,2,3]" [nzData]="dataSource" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
-                                    (nzPageSizeChange)="changePageSize($event)">
+                                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
                                     <thead>
                                         <tr>
                                             <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
@@ -26,12 +25,21 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let data of rowSelectionTable.data">
-                                            <td (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                            <td>
+                                                <div><img src={{data.url}} style="width: 40px;height: 40px;" /></div>
+                                            </td>
                                             <td>{{data.id}}</td>
-                                            <td>{{data.title}}</td>
-                                            <td>{{data.few_days}}</td>
-                                            <td>{{data.few_nights}}</td>
-                                            <td>{{data.adult_price}}</td>
+                                            <td>{{data.region_name}}</td>
+                                            <td>{{data.desc}}</td>
+                                            <td>
+                                                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                                    <a>编辑</a>
+                                                    <a>删除</a>
+                                                    <a>设为封面</a>
+
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </nz-table>

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { CommonServiceService } from '../../../../../../services/store/common-service/common-service.service';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 
 @Component({
   selector: 'app-store-product-management-detail-desc',
@@ -6,41 +10,63 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./store-product-management-detail-desc.component.css']
 })
 export class StoreProductManagementDetailDescComponent implements OnInit {
+  @Input() dataDetailModel: any;
+
   dataSource: any[] = [];   //1.4将数据添加到dataSource
-  page = 1;
-  per_page = 20;
-  total = 1;
+
   checked = false;
+  setOfCheckedId = new Set<number>();
 
 
-  constructor() { }
+  constructor(public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-  }
-
-
-  changePageSize(per_page: number) {
-    this.per_page = per_page;
-    // this.getProductList();
-  }
-
-  changePageIndex(page: number) {
-    console.log("当前页", page);
-    this.page = page;
-    // this.getProductList();
+    console.log("更新", this.dataDetailModel.product_album.data)
+    this.dataSource = this.dataDetailModel.product_album.data;
   }
 
   onItemChecked(id: number, checked: boolean): void {
-    // this.updateCheckedSet(id, checked);
-    // this.refreshCheckedStatus();
+    this.updateCheckedSet(id, checked);
   }
 
   onAllChecked(checked: boolean): void {
-    // this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
-    // this.refreshCheckedStatus();
+    this.dataSource.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+
+  }
+
+  updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
   }
 
 
-  nextTab(){}
+  import() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+    });
+  }
+
+  upload() {
+    const dialogRef = this.dialog.open(CommonModelComponent, {
+      width: '660px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      // let str = ''
+      // result.forEach((item: any) => {
+      //   insert(item)
+      // });
+    });
+  }
+
+
+  nextTab() { }
 
 }

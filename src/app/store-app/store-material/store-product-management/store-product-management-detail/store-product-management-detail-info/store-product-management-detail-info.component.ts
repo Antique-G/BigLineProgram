@@ -62,15 +62,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     destination_city: {
       'required': '请选择目的城市'
     },
-    confirm: {
-      'required': '请选择'
-    },
-    contacts_status: {
-      'required': '请选择'
-    },
-    child_status: {
-      'required': '请选择'
-    },
     child_age_max: {
       'required': '请输入最大年龄'
     },
@@ -89,9 +80,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     departure_city: '',
     few_days: '',
     destination_city: '',
-    confirm: '',
-    contacts_status: '',
-    child_status: '',
     child_age_max: '',
     child_height_min: '',
     reserve_num_min: '',
