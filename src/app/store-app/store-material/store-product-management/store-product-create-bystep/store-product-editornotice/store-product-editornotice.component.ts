@@ -14,7 +14,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class StoreProductEditornoticeComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
-  @Input() infoId: any;
+  @Input() addDataDetailModel: any;
+
   detailUpdateModel: any;
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
   noticeList: any[] = []    //图片
@@ -39,6 +40,8 @@ export class StoreProductEditornoticeComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
+    this.noticeBox.nativeElement.innerHTML = this.addDataDetailModel?.notice;    //赋值
+    this.detailUpdateModel.notice = this.addDataDetailModel?.notice;
     editorNotice.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.notice = newHtml;
     }
@@ -85,10 +88,10 @@ export class StoreProductEditornoticeComponent implements OnInit {
 
 
   nextTab() {
-    this.detailUpdateModel.id = this.infoId;
+    this.detailUpdateModel.id = this.addDataDetailModel.id;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.tabIndex.emit({ id: this.infoId, tabIndex: 4 })
+        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 4 })
       }
 
     })
