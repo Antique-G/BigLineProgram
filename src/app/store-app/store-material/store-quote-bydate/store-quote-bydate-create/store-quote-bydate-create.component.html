@@ -4,19 +4,23 @@
     </div>
     <div style="padding: 0px; margin-top: 20px;">
         <form nz-form [formGroup]="addForm" nz-row>
+
+            <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="week">周几</nz-form-label>
+                <nz-form-control [nzSm]="20" [nzXs]="24">
+                    <!-- <nz-checkbox-group [(ngModel)]="checkOptionsOne" formControlName="week" (ngModelChange)="ngCheckBoxChange(checkOptionsOne)"></nz-checkbox-group> -->
+                    <nz-checkbox-wrapper style="width: 100%;"  (nzOnChange)="ngCheckBoxChange($event)">
+                        <div nz-row>
+                            <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
+                                <label nz-checkbox formControlName="week" [nzValue]="item.value" [ngModel]="item.checked">{{item.label}}</label>
+                            </div>
+                         
+                        </div>
+                      </nz-checkbox-wrapper>
+                </nz-form-control>
+            </nz-form-item>
+
             <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
-                <!-- <ng-container *ngIf="currentDate==''; else elseTemplate">
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择日期范围!">
-                        <nz-range-picker [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
-                    </nz-form-control>
-                </ng-container>
-                <ng-template #elseTemplate>
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>当前日期</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择当前日期!">
-                        <input nz-input [ngModel]="currentDate|date:'yyyy-MM-dd'"  formControlName="date" readonly [nzBorderless]="true"/>
-                    </nz-form-control>
-                </ng-template> -->
                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
                     <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
@@ -24,8 +28,6 @@
                 </nz-form-control>
             </nz-form-item>
 
-
-            
             <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                 <ng-container *ngIf="type=='management'; else elseAdult">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price">成人价格</nz-form-label>
@@ -69,28 +71,35 @@
                 </nz-form-control>
             </nz-form-item>
 
+            <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="set_inventory" nzRequired>设置库存</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.set_inventory">
+                    <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory" formControlName="set_inventory">
+                        <label nz-radio nzValue='0'>否 </label>
+                        <label nz-radio nzValue='1'>是</label>
+                    </nz-radio-group>
+                </nz-form-control> 
+            </nz-form-item>
+
             <ng-container *ngIf="type=='freeTravel'">
                 <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inventory_num" nzRequired>库存数量</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.inventory_num">
-                        <input nz-input formControlName="inventory_num" />
+                    <nz-form-control [nzSm]="16" [nzXs]="24"  [nzErrorTip]="formErrors.inventory_num">
+                        <!-- <ng-container *ngIf="isSetInventory == '1'; else numTemplate">
+                            <input nz-input  formControlName="inventory_num" disabled/>
+                        </ng-container>
+                        <ng-template #numTemplate>
+                            <input nz-input readonly formControlName="inventory_num"  value="0"/>
+                        </ng-template> -->
+                        <input nz-input [readonly]="isSetInventory != '1'" formControlName="inventory_num" disabled/>
+                        
                     </nz-form-control>
                 </nz-form-item>
     
                 <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="set_inventory" nzRequired>设置库存</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.set_inventory">
-                        <nz-radio-group class="nz-form-item" ngModel={{(freeTravelModel?.set_inventory)||0}} formControlName="set_inventory">
-                            <label nz-radio nzValue='0'>否 </label>
-                            <label nz-radio nzValue='1'>是</label>
-                        </nz-radio-group>
-                    </nz-form-control> 
-                </nz-form-item>
-                
-                <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="allow_over" nzRequired>设置超卖 </nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.allow_over">
-                        <nz-radio-group class="nz-form-item" ngModel={{(freeTravelModel?.allow_over)||0}} formControlName="allow_over">
+                        <nz-radio-group class="nz-form-item"  [nzDisabled]="isSetInventory != '1'" ngModel={{(freeTravelModel?.allow_over)||0}} formControlName="allow_over">
                             <label nz-radio nzValue='0'>否 </label>
                             <label nz-radio nzValue='1'>是</label>
                         </nz-radio-group>

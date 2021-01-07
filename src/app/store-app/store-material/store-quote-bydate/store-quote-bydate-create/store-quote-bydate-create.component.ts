@@ -10,6 +10,7 @@ import {StoreQuoteBydateRequestModel,StoreQuoteBydateModel,FreeTraveQuoteBydateM
 import {StoreQuoteBydateService} from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { DeleteComfirmComponent } from '../../common/delete-comfirm/delete-comfirm.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-store-quote-bydate-create',
@@ -35,9 +36,24 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   listDataMap:any
 
+  isSetInventory = '0'
+
   confirmValue:any
   freeTravelModel:any
   currentDate = null
+  // 选择了周几
+  weekValue:any[] = []
+  // 选择周几
+  checkWeeks = [
+    { label: '周一', value: 1, checked: true },
+    { label: '周二', value: 2, checked: true },
+    { label: '周三', value: 3, checked: true },
+    { label: '周四', value: 4, checked: true },
+    { label: '周五', value: 5, checked: true },
+    { label: '周六', value: 6, checked: true },
+    { label: '周日', value: 0, checked: true },
+  ]
+  
 
   validationMessage: any = {
     adult_price: {
@@ -72,7 +88,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   };
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService,private modal: NzModalService) { 
+    @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService,private modal: NzModalService,
+    private msg:NzMessageService) { 
       console.log(this.data,'this.data');
       this.productId = this.data.productId
       this.type = this.data.type
@@ -126,6 +143,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   buildProduct(){
     this.addForm = this.fb.group({
+      week: ['', ],
       date: ['', [Validators.required]],
       adult_price: ['',[isFloat]],
       child_price: ['',[isFloat]],
@@ -136,15 +154,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     });
   }
   buildFreeTravel(){
+    console.log('buildFreeTravel');
     this.addForm = this.fb.group({
       // date: [[new Date(),new Date()], [Validators.required]],
+      week: [false],
       date: ['', [Validators.required]],
       adult_price: ['',[Validators.required,isFloat]],
       child_price: ['',[isFloat]],
       difference_price: ['',[isFloat]],
-      inventory_num:['', [Validators.required,isNumber]],
+      inventory_num:[0, [Validators.required,isNumber]],
       set_inventory:['', [Validators.required]],
-      allow_over:['', [Validators.required]],
+      allow_over:[0, [Validators.required]],
     });
   }
 
@@ -184,8 +204,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price)
     this.addForm.controls["child_price"].setValue( this.freeTravelModel.child_price)
     this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price)
-    this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num)
-
+    this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num||0)
   }
 
   // 表单验证
@@ -219,6 +238,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     var date_all = []
     var i = 0
     while ((endTime.getTime() - startTime.getTime()) >= 0) {
+      if(this.weekValue.indexOf(startTime.getDay()) === -1) continue
       date_all[i] = format(startTime,'yyyy-MM-dd')
       startTime.setDate(startTime.getDate() + 1)
       i += 1
@@ -226,6 +246,10 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     return date_all
   }
 
+  ngCheckBoxChange(value: object[]): void {
+    this.weekValue = value
+    console.log(value);
+  }
   onDateChange(dateStr:any){
    
     
@@ -247,7 +271,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.quoteBydateRequestModel.data.push(...newList)
   
     this.dateArr.forEach((date:string) => {
-      
       this.quoteBydateModel = {
         date:'',
       }
@@ -272,12 +295,10 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
     });
   
-    
   }
 
   // 自由行报价
   setFreeTravelValue(){
-    console.log('this.currentDate',this.currentDate);
     this.freeTraveModel.id = this.freeTravelModel?this.freeTravelModel.id:0;
     this.freeTraveModel.independent_product_id = this.productId;
     this.freeTraveModel.start_date = format(this.selectDate[0],'yyyy-MM-dd');
@@ -297,15 +318,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.addForm);
-    console.log(this.addForm.valid);
+    // console.log(this.addForm);
+    console.log(this.addForm.valid,this.freeTraveModel);
+    
     if(this.selectDate===''){
-      alert("请输入日期范围");
+      this.msg.error("请输入日期范围")
       return
     }
-    
     if (this.addForm.valid) {
+      console.log('management',2);
       if(this.type==='management'){
+        console.log('management');
         this.setValue();
         this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
           this.dialogRef.close();
@@ -320,7 +343,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }else{
         // 自由行产品编辑
         this.setFreeTravelValue();
-        console.log( this.listDataMap,' this.listDataMap');
         if(this.selectItem){
           this.listDataMap = this.listDataMap.filter((ele:any)=>ele.id!=this.selectItem.id)
         }
@@ -336,7 +358,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           || selectBegin<=end_date && selectBegin>=start_date
           || selectBegin>=start_date && selectEnd<=end_date
           
-            
         })
         if(flag){
           this.modal['error']({
@@ -349,17 +370,13 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           setTimeout(() => this.modal.closeAll(), 2500);
           return false;
         }
-      
-        console.log(222);
+ 
         // 修改
         if(this.selectItem){
-
           this.quoteBydateService.updateFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
               this.dialogRef.close();
           })
         }else{
-            
-            
             // 添加
             this.quoteBydateService.createFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
               console.log(res);

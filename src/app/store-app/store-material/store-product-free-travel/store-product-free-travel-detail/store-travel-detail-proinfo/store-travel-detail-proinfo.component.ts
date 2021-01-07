@@ -28,7 +28,10 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   featureList:any[] = []
   detailList:any[] = []
  
-
+  formModel={
+    few_days:0,
+    few_nights:0,
+  }
   selectedTag: any[] = [];  //标签
   tagList: any[] = [];
 
