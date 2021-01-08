@@ -124,7 +124,7 @@ handleChange(info:NzUploadChangeParam){
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.agreeChecked = result
+      // this.agreeChecked = result
       // 
     });
     

@@ -147,8 +147,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       week: [false],
       date: ['', [Validators.required]],
       adult_price: ['',[Validators.required,isFloat]],
-      child_price: ['',[isFloat]],
-      difference_price: ['',[isFloat]],
+      child_price: [0,[isFloat]],
+      difference_price: [0,[isFloat]],
       inventory_num:[0, [Validators.required,isNumber]],
       set_inventory:[0, [Validators.required]],
       allow_over:[0, [Validators.required]],
@@ -281,12 +281,12 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }
       this.quoteBydateModel.date = date;
       this.quoteBydateModel.adult_price  = this.addForm.value.adult_price
-      this.quoteBydateModel.child_price = this.addForm.value.child_price;
-      this.quoteBydateModel.difference_price = this.addForm.value.difference_price;
+      this.quoteBydateModel.child_price = this.addForm.value.child_price.length>0? this.addForm.value.child_price:0;
+      this.quoteBydateModel.difference_price = this.addForm.value.difference_price.length>0? this.addForm.value.difference_price:0;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over
       this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
 
-      this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num
+      this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num || 0
       this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
     });
     console.log(this.quoteBydateRequestModel);
@@ -313,12 +313,12 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.freeTraveModel.date = date;
       this.freeTraveModel.independent_product_id = this.productId;
       this.freeTraveModel.adult_price = this.addForm.value.adult_price;
-      this.freeTraveModel.child_price = this.addForm.value.child_price;
-      this.freeTraveModel.difference_price = this.addForm.value.difference_price||0;
+      this.freeTraveModel.child_price = this.addForm.value.child_price.length>0?this.addForm.value.child_price:0;
+      this.freeTraveModel.difference_price = this.addForm.value.difference_price.length>0?this.addForm.value.difference_price:0;
       this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
       this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
       this.freeTraveModel.allow_over = this.addForm.value.allow_over;
-      this.freeTraveModel.check_status = this.addForm.value.check_status;
+      // this.freeTraveModel.check_status = this.addForm.value.check_status;
       this.resultArr.push(this.freeTraveModel)
     });
     console.log('添加值', this.resultArr);
