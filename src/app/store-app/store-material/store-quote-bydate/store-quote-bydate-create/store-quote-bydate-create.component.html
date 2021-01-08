@@ -68,7 +68,7 @@
             <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="set_inventory" nzRequired>设置库存</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.set_inventory">
-                    <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory" formControlName="set_inventory">
+                    <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory" (ngModelChange)="ngRadioChange($event)" formControlName="set_inventory">
                         <label nz-radio nzValue='0'>否 </label>
                         <label nz-radio nzValue='1'>是</label>
                     </nz-radio-group>
@@ -86,7 +86,7 @@
                 <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="allow_over" nzRequired>设置超卖 </nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.allow_over">
-                        <nz-radio-group class="nz-form-item"  [nzDisabled]="isSetInventory != '1'" ngModel={{(freeTravelModel?.allow_over)||0}} formControlName="allow_over">
+                        <nz-radio-group class="nz-form-item"  [nzDisabled]="isSetInventory != '1'"  [(ngModel)]="isAllowOver" formControlName="allow_over">
                             <label nz-radio nzValue='0'>否 </label>
                             <label nz-radio nzValue='1'>是</label>
                         </nz-radio-group>
