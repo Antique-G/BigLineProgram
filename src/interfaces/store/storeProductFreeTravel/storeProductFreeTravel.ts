@@ -87,4 +87,6 @@ export interface FreeTravelListModel {
     check_status: number;
     created_at?: any;
     updated_at: string;
+    departure: string;
+    destination: string;
   }
