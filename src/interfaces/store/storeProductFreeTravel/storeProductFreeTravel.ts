@@ -19,7 +19,7 @@ export interface StoreFreeTravelModel {
     // notice: string;
     status: number;
     tag_id: number[];
-    step:number
+    step:any
 }
 
 export interface ProductTabListModel{

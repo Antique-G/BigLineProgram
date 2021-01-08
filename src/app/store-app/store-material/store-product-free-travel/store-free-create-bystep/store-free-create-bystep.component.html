@@ -13,7 +13,7 @@
                         </div>
                     </mat-tab>
                     <mat-tab label="产品详情" [disabled]="isIndex<1">
-                        <ng-template matTabContent >
+                        <ng-template matTabContent>
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <app-store-free-desc (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-desc>
@@ -36,9 +36,11 @@
                         </ng-template>
                     </mat-tab>
 
-                    <mat-tab label="图片与视频" [disabled]="isIndex<4">
+                    <!-- [disabled]="isIndex<4" -->
+                    <mat-tab label="图片与视频">
                         <ng-template matTabContent>
                             <div class="content">
+                                <app-store-free-image [dataDetailModel]='dataDetailModel'></app-store-free-image>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -46,7 +48,7 @@
 
                 </mat-tab-group>
             </div>
-          
+
         </div>
 
     </div>
