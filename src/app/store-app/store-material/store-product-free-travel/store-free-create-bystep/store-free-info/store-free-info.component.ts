@@ -153,7 +153,7 @@ export class StoreFreeInfoComponent implements OnInit {
       reserve_num: new FormControl('', [Validators.required]),
       reserve_children: new FormControl('', [Validators.required]),
       children_age: new FormControl('', [Validators.required]),
-      child_height_min: new FormControl('', [Validators.required]),
+      child_height_min: new FormControl(2, [Validators.required]),
       child_height_max: new FormControl('', [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息

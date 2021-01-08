@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-11-30 10:51:31
- * @LastEditTime: 2021-01-04 14:53:47
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \angular\src\app\store-app\store-material\store-material.module.ts
- */
 import 'hammerjs';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -56,6 +48,8 @@ import { StoreFreeDescComponent } from './store-product-free-travel/store-free-c
 import { StoreFreeFeatureComponent } from './store-product-free-travel/store-free-create-bystep/store-free-feature/store-free-feature.component';
 import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-notice/store-free-notice.component';
 import { StoreTravelDetailImageComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-image/store-travel-detail-image.component';
+import { StoreFreeImageComponent } from './store-product-free-travel/store-free-create-bystep/store-free-image/store-free-image.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -117,6 +111,7 @@ import { StoreTravelDetailImageComponent } from './store-product-free-travel/sto
     StoreFreeFeatureComponent,
     StoreFreeNoticeComponent,
     StoreTravelDetailImageComponent,
+    StoreFreeImageComponent,
     
   ]
 })
