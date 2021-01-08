@@ -53,7 +53,6 @@
                                 <tr>
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;">产品名称</th>
-                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
                                     <th style="text-align: center;">最低价格</th>
@@ -71,14 +70,13 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
-                                    <td>{{data?.store?.name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
                                     <td>{{data.min_price}}</td>
                                     <td>{{data.departure}}</td>
                                     <td>{{data.destination}}</td>
                                     <td>{{data.children_age}}</td>
-                                    <td>{{data.children_height}}</td>
+                                    <td>{{data.child_height_min}}~{{data.child_height_max}}</td>
                                     <td>
                                         <div *ngIf="data.check_status===0">
                                             <!-- 未提交审核  -->
