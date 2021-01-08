@@ -35,7 +35,7 @@ export class StoreProductDescComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.storeProductService.getProductDetail( this.addDataDetailModel.id).subscribe(res => {
+    this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
       this.dataSource = res.data?.store_image?.data;
     })
   }
@@ -106,7 +106,7 @@ export class StoreProductDescComponent implements OnInit {
 
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.storeProductService.getProductDetail( this.addDataDetailModel.id).subscribe(res => {
+        this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
           this.dataSource = res.data.store_image.data;
 
         })
@@ -117,7 +117,7 @@ export class StoreProductDescComponent implements OnInit {
   }
 
 
- 
+
   deleteIt(id: any) {
     console.log("nadao", id);
     const dialogRef = this.dialog.open(DeleteComfirmComponent, {
@@ -128,34 +128,37 @@ export class StoreProductDescComponent implements OnInit {
       if (result !== undefined) {
         console.log("nadao", id);
         this.dataSource = this.dataSource.filter(d => d.id !== id);
-       
+
       }
     });
   }
 
 
-  allDelete(){
-    console.log("setOfCheckedId",this.setOfCheckedId)
-    console.log("1212",[...this.setOfCheckedId])
-    let newArr=[...this.setOfCheckedId];
-    for(let i of newArr){
-      console.log("3333",i)
+  allDelete() {
+    console.log("setOfCheckedId", this.setOfCheckedId)
+    console.log("1212", [...this.setOfCheckedId])
+    let newArr = [...this.setOfCheckedId];
+    for (let i of newArr) {
+      console.log("3333", i)
       this.dataSource = this.dataSource.filter(d => d.id !== i);
     }
-    
-  
+
+
   }
 
   top(data: any) {
-    let clickSort = data.sort;
-    console.log("第一个", this.dataSource[0]);
-    this.dataSource[0].sort = clickSort;
-    this.dataSource[clickSort].sort = 0;
     this.modal.confirm({
       nzTitle: '<h4>提示</h4>',
       nzContent: '<h6>请确认操作</h6>',
-      nzOnOk: () =>
+      nzOnOk: () => {
+        let clickSort = data.sort;
+        console.log("第1条数据", this.dataSource[0]);
+        this.dataSource[0].sort = clickSort;
+        console.log("点击的那条数据的sort", clickSort);
+        data.sort = 0;
         this.nextTab()
+      }
+
     });
   }
 

@@ -146,15 +146,18 @@ export class StoreFreeImageComponent implements OnInit {
   }
 
   top(data: any) {
-    let clickSort = data.sort;
-    console.log("第一个", this.dataSource[0]);
-    this.dataSource[0].sort = clickSort;
-    this.dataSource[clickSort].sort = 0;
     this.modal.confirm({
       nzTitle: '<h4>提示</h4>',
       nzContent: '<h6>请确认操作</h6>',
-      nzOnOk: () =>
+      nzOnOk: () => {
+        let clickSort = data.sort;
+        console.log("第1条数据", this.dataSource[0]);
+        this.dataSource[0].sort = clickSort;
+        console.log("点击的那条数据的sort", clickSort);
+        data.sort = 0;
         this.nextTab()
+      }
+
     });
   }
 
