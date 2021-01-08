@@ -119,7 +119,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
       few_days: ['', [Validators.required]],
-      few_nights: ['', [Validators.required]],
+      few_nights: [0, [Validators.required]],
       tag_id: ['', [Validators.required]],
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
@@ -132,7 +132,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       child_height_max: [''],
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
-      earlier1: new FormControl('', [Validators.required]),
+      earlier1: new FormControl(0, [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
