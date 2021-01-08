@@ -32,12 +32,12 @@ export class CommonModelComponent implements OnInit {
   constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<any>,private storeRegionService:StoreRegionService,
     private commonService:CommonServiceService,private msg: NzMessageService,private modal: NzModalService
   ) { 
-
+    this.buildForm();
     }
 
 
   ngOnInit(): void {
-    this.buildForm();
+    this.getRegionList()
   }
 
 
@@ -49,7 +49,7 @@ export class CommonModelComponent implements OnInit {
       desc: new FormControl(''),
       // few_days: new FormControl('', [Validators.required]),
     });
-    this.getRegionList()
+  
   }
 
   // 区域
