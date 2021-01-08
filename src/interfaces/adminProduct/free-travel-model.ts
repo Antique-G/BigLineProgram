@@ -96,7 +96,14 @@ export interface DataFreeTravelDetailModel {
     check_status: number;
     created_at?: any;
     updated_at: string;
+    albums: Storeimage;
 }
+
+interface Storeimage {
+  data: any[];
+}
+
+
 
 export interface FreeTravelUpdateModel {
     id?: number;
