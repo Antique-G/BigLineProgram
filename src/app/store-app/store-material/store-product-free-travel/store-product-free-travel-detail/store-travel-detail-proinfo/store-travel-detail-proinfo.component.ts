@@ -40,6 +40,9 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   nzOptions: any[] | null = null;
   departure_city: any[] = [];//出发城市
 
+  @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
+  feeList: any[] = []    //图片
+
   validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为64个字符',
@@ -62,9 +65,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     destination_city:{
       'required': '请输入目的城市！'
     },
-    fee:{
-      'required': '请输入费用信息！'
-    },
     
     reserve_num:{
       'required': '请输入可预订人数！'
@@ -86,7 +86,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     tag_id:'',
     departure_city:'',
     destination_city:'',
-    fee:'',
     reserve_num:'',
     children_age:'',
     child_height_min:'',
@@ -142,7 +141,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
-      fee: new FormControl('', [Validators.required]),
       service_phone: new FormControl('', [Validators.required]),
       confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl('', [Validators.required]),
@@ -168,6 +166,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       this.isSpinning = false
       this.dataModel = res.data
       this.setFormValue();
+      this.textChange()
     })
   }
 
@@ -200,7 +199,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('title')?.setValue(this.dataModel.title);
     this.addForm.controls['few_days'].setValue(this.dataModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataModel.few_nights);
-    this.addForm.get('fee')?.setValue(this.dataModel.fee);
     this.addForm.get('service_phone')?.setValue(this.dataModel.service_phone);
     this.addForm.get('reserve_ahead')?.setValue(this.dataModel.reserve_ahead);
     this.addForm.get('reserve_num')?.setValue(this.dataModel.reserve_num);
@@ -322,7 +320,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.title = this.addForm.value.title;
     this.freeTravelModel.few_days = this.addForm.value.few_days;;
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
-    this.freeTravelModel.fee = this.addForm.value.fee;
     this.freeTravelModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelModel.reserve_ahead = this.addForm.value.reserve_ahead;
     this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
@@ -353,6 +350,58 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     return menuInstance
 }
 
+   // 富文本
+   textChange() {
+    // 预约须知
+    const editorFee = new wangEditor("#editorFee", "#feeContent");
+     // 产品详情
+  
+      this.feeBox.nativeElement.innerHTML= this.dataModel.fee
+      this.freeTravelModel.fee = this.dataModel.fee
+  
+    editorFee.config.onchange = (newHtml: any) => {
+      console.log("213123", newHtml);
+      this.freeTravelModel.fee = newHtml;
+    }
+    // InsertABCMenu
+    // 注册菜单
+    editorFee.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorFee.config.menus = editorFee.config.menus.concat('insertABC')
+    editorFee.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item.url)
+        });
+      });
+    }
+    editorFee.create();
+
+  }
+
+  importImg() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      result.forEach((item: any) => {
+        this.feeList.push(item)
+        if (this.feeList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.feeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`;
+        console.log("this.addStoreProductModel.fee",this.freeTravelModel.fee)
+      });
+    });
+  }
   
 
 }

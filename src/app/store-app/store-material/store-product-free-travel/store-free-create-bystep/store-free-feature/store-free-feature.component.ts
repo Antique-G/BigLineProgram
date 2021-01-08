@@ -1,4 +1,4 @@
-import { Component,  Input, OnInit, ViewChild ,OnChanges} from '@angular/core';
+import { Component,  Input, OnInit, ViewChild ,OnChanges, EventEmitter, Output} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
@@ -14,7 +14,7 @@ import { StoreProductTreeTravelService } from '../../../../../../services/store/
   styleUrls: ['./store-free-feature.component.css']
 })
 export class StoreFreeFeatureComponent implements OnInit {
-
+  @Output() tabIndex = new EventEmitter;
   reqModel ={
     id:0,
     step:2,
@@ -43,9 +43,7 @@ export class StoreFreeFeatureComponent implements OnInit {
   updateInfo(){
     console.log('请求值',this.reqModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res=>{
-      if(res.message=="更新成功"){
-        // this.router.navigate(['/store/main/storeFreeTravel']);
-      }
+      this.tabIndex.emit({id:this.reqModel.id,tabIndex:3})
     })
   }
   importImg(){
