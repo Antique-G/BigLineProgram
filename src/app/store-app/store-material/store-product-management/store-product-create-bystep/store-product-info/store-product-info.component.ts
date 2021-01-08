@@ -66,7 +66,7 @@ export class StoreProductInfoComponent implements OnInit {
     child_age_max: {
       'required': '请输入最大年龄'
     },
-    child_height_min: {
+    child_height_max: {
       'required': '请输入儿童身高范围'
     },
     reserve_num_min: {
@@ -85,7 +85,7 @@ export class StoreProductInfoComponent implements OnInit {
     contacts_status: '',
     child_status: '',
     child_age_max: '',
-    child_height_min: '',
+    child_height_max: '',
     reserve_num_min: '',
     earlier1: '',
   };
@@ -120,7 +120,7 @@ export class StoreProductInfoComponent implements OnInit {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
       few_days: ['', [Validators.required]],
-      few_nights: ['', [Validators.required]],
+      few_nights: [0, [Validators.required]],
       tag_id: ['', [Validators.required]],
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
@@ -129,11 +129,11 @@ export class StoreProductInfoComponent implements OnInit {
       contacts_status: ['1', [Validators.required]],
       child_status: ['1', [Validators.required]],
       child_age_max: ['', [Validators.required]],
-      child_height_min: [''],
-      child_height_max: [''],
+      child_height_min: ['', [Validators.required]],
+      child_height_max: ['', [Validators.required]],
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
-      earlier1: new FormControl('', [Validators.required]),
+      earlier1: new FormControl(0, [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
