@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { AdminProductFreeTravelService } from '../../../../../services/admin/admin-product-free-travel.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-admin-product-free-travel-qutedate',
   templateUrl: './admin-product-free-travel-qutedate.component.html',
@@ -22,7 +22,8 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
   constructor(public adminProductFreeTravelService: AdminProductFreeTravelService,
     public activatedRoute: ActivatedRoute,
-    private msg: NzMessageService) { }
+    private msg: NzMessageService,
+    private modal: NzModalService) { }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -40,17 +41,26 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
     })
   }
 
-  checkStateClick(statu:any){
-    let ids:any[] = [...this.setOfCheckedId]
-    if(ids.length===0){
-      this.msg.error("请选择要审核的报价日期");
-      return
-    }
-    console.log(ids);
-    this.adminProductFreeTravelService.freeTravelQuteDateCheckState(ids,statu).subscribe(res=>{
-      console.log(res);
-      this.getQuteDateList();
-    })
+  checkStateClick(state:any){
+
+    this.modal.confirm({
+      nzTitle: '<h5>请确认操作是否正确?</h5>',
+      nzContent: `您点击的是:${state==2?'"通过"':'"未通过"'}`,
+      nzOnOk: () =>{
+        let ids:any[] = [...this.setOfCheckedId]
+        if(ids.length===0){
+          this.msg.error("请选择要审核的报价日期");
+          return
+        }
+        console.log(ids);
+        this.adminProductFreeTravelService.freeTravelQuteDateCheckState(ids,state).subscribe(res=>{
+          console.log(res);
+          this.getQuteDateList();
+        })
+      }
+    });
+
+    
   }
   changePageSize(per_page: number) {
     this.per_page = per_page;
