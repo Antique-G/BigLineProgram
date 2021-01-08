@@ -51,6 +51,11 @@ import { AgreeComponent } from './common/common-model/agree/agree.component';
 import { StoreTravelDetailDescComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-desc/store-travel-detail-desc.component';
 import { StoreTravelDetailFeatureComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-feature/store-travel-detail-feature.component';
 import { StoreTravelDetailNoticeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-notice/store-travel-detail-notice.component';
+import { StoreFreeCreateBystepComponent } from './store-product-free-travel/store-free-create-bystep/store-free-create-bystep.component';
+import { StoreFreeInfoComponent } from './store-product-free-travel/store-free-create-bystep/store-free-info/store-free-info.component';
+import { StoreFreeDescComponent } from './store-product-free-travel/store-free-create-bystep/store-free-desc/store-free-desc.component';
+import { StoreFreeFeatureComponent } from './store-product-free-travel/store-free-create-bystep/store-free-feature/store-free-feature.component';
+import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-notice/store-free-notice.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -107,6 +112,11 @@ import { StoreTravelDetailNoticeComponent } from './store-product-free-travel/st
     StoreTravelDetailDescComponent,
     StoreTravelDetailFeatureComponent,
     StoreTravelDetailNoticeComponent,
+    StoreFreeCreateBystepComponent,
+    StoreFreeInfoComponent,
+    StoreFreeDescComponent,
+    StoreFreeFeatureComponent,
+    StoreFreeNoticeComponent,
     
   ]
 })
