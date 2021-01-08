@@ -46,9 +46,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       'maxlength': '标题长度最多为225个字符',
       'required': '请填写标题'
     },
-    tag_id: {
-      'required': '请选择'
-    },
     few_days: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
@@ -75,7 +72,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   formErrors: any = {
     title: '',
     departure_city: '',
-    tag_id: '',
     few_days: '',
     destination_city: '',
     child_age_max: '',
