@@ -17,10 +17,10 @@
     overflow: hidden !important;
     resize: both !important;
     /* height: 300px; */
-    min-height: 300px;
+    min-height: 600px;
 }
 
-.btn{
+.btn {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -33,5 +33,4 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
 }
