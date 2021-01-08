@@ -104,7 +104,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_ahead" nzRequired>是否可提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <nz-radio-group ngModel={{(dataModel?.reserve_ahead)||0}} formControlName="reserve_ahead">
+                                                <nz-radio-group [(ngModel)]="isReserveAhead" (ngModelChange)="isReserveAheadChange($event)" formControlName="reserve_ahead">
                                                     <label nz-radio nzValue='1'>可以</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -112,7 +112,7 @@
                                         </div>
                                     </nz-form-item>
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveAhead==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
@@ -137,7 +137,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_children">儿童是否可预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group ngModel={{(dataModel?.reserve_children)||0}} formControlName="reserve_children">
+                                                <nz-radio-group [(ngModel)]="isReserveChildren" (ngModelChange)="isReserveChildrenChange($event)" formControlName="reserve_children">
                                                     <label nz-radio nzValue='1'>可以</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -146,7 +146,7 @@
                                     </nz-form-item>
 
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童年龄</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.children_age">
@@ -156,7 +156,7 @@
                                     </nz-form-item>
 
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童最低身高</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
