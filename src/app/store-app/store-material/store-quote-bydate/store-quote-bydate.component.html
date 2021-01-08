@@ -12,10 +12,12 @@
                         </ng-template>
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
                     </div>
+                    <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)" ></nz-pagination>
                     <div class="mat-elevation-z8">
                         <!--  (nzSelectChange)="onSelectChange($event)" -->
-                        <nz-calendar>
-                            <div *nzDateCell="let date" class="events">
+                        <nz-calendar  
+                         (nzPanelChange)="panelChange($event)"  [(ngModel)]="selectedDateValue">
+                            <div *nzDateCell="let date" class="events"  >
                                 <ng-container *ngFor="let item of listDataMap.data">
                                     <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
                                         <div class="item itemFree" (click)="onSelectChange(item)">

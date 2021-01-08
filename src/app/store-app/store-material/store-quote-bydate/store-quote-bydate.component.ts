@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef } from '@angular/core';
+import { Component, OnInit,ElementRef, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 // antd日历
 import { registerLocaleData } from '@angular/common';
@@ -15,6 +15,7 @@ import {StoreQuoteBydateRsponseListModel,FreeTraveRsponseListModel} from '../../
 import {differenceInCalendarDays,format} from 'date-fns';
 
 import {FreeTraveQuoteBydateModel} from '../../../../interfaces/store/storeQuote/store-quote-bydate';
+import { NzCalendarMode } from 'ng-zorro-antd/calendar';
 
 
 @Component({
@@ -28,14 +29,17 @@ export class StoreQuoteBydateComponent implements OnInit {
   type:any //freeTravel 自由行 management 产品管理   是从自由行 还是产品跳过来的
   toDay = new Date()
   listDataMap:StoreQuoteBydateRsponseListModel|FreeTraveRsponseListModel
+  seletMonth:any = format(new Date(),'yyyy-MM')
 
+  selectedDateValue = new Date();
 
   freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel
-
+  nzPageIndex = new Date().getMonth()+1
   constructor(public dialog:MatDialog,public activatedRoute: ActivatedRoute,public quoteBydateService:StoreQuoteBydateService,private el:ElementRef) {
     this.listDataMap={
         data:[]
     }
+  
     this.freeTraveQuoteBydateModel={
       id: 0,
       date:'',
@@ -62,17 +66,28 @@ export class StoreQuoteBydateComponent implements OnInit {
     
 
   }
+ 
+  nzPageIndexChange(index:any){
+    console.log(index);
+    let month = index<10?'0'+index:index;
+    let year = new Date().getFullYear();
+    let day = new Date().getDay();
+    this.selectedDateValue = new Date(year+'-'+month+'-'+day)
+    this.seletMonth = year+'-'+month
+    this.nzPageIndex = index
+    this.getQuoteList()
+  }
 
   getQuoteList(){
-    console.log(this.productId,'this.productId');
-      this.quoteBydateService.getQuoteDateList(this.productId,this.type).subscribe(data=>{
+    console.log(this.productId,'this.productId',this.seletMonth);
+      this.quoteBydateService.getQuoteDateList(this.productId,this.type,this.nzPageIndex).subscribe(data=>{
        
         this.listDataMap.data = data.data
         console.log('listDataMap', this.listDataMap);
       })
   }
 
-
+ 
   isMidDate(beginStr:any,endStr:any,str:any){
     let beginDate = new Date(beginStr);
     let endDate = new Date(endStr);
@@ -113,9 +128,20 @@ export class StoreQuoteBydateComponent implements OnInit {
     })
   }
 
-  panelChange(e:any){
-    console.log('panelChange',e);
+  mode: NzCalendarMode = 'month';
+
+  selectMonthHandle(date:any){
+    console.log(date,format(date,'yyyy-MM'));
+    this.seletMonth = format(date,'yyyy-MM')
+    this.getQuoteList();
   }
+
+  panelChange(change: { date: Date; mode: string }): void {
+    console.log('panelChange',change.date, change.mode);
+  }
+  // panelChange(e:any){
+  //   console.log('panelChange',e);
+  // }
 
   // 批量报价
   quoteClick(){
