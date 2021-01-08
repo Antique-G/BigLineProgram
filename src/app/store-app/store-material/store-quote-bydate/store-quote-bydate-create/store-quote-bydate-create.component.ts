@@ -314,7 +314,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.freeTraveModel.independent_product_id = this.productId;
       this.freeTraveModel.adult_price = this.addForm.value.adult_price;
       this.freeTraveModel.child_price = this.addForm.value.child_price;
-      this.freeTraveModel.difference_price = this.addForm.value.difference_price;
+      this.freeTraveModel.difference_price = this.addForm.value.difference_price||0;
       this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
       this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
       this.freeTraveModel.allow_over = this.addForm.value.allow_over;

@@ -128,7 +128,7 @@ export class ChooseGalleryComponent implements OnInit {
     }
     
     close(){
-        this.dialogRef.close();
+        this.dialogRef.close([]);
     }
 
     

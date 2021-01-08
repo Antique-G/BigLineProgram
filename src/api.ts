@@ -56,6 +56,9 @@ export const AdminUrls = {
   PutAdminFreeTravelUpdate: api + '/admin/independent_product/', //自由行产品更新
   PostAdminFreeTRavelUp: api + '/admin/independent_product/set_status',//自由行产上下架
   PostAdminFreeTCheckStatus: api + '/admin/independent_product/set_check',///自由行审核
+  // 自由行日期报价
+  GetAddminFreeTravelQuteDateList:api+'/admin/independent_date_quotes',
+  GetAddminFreeTravelQuteDateCheck:api+'/admin/indent_date_quotes/set_check',
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
 
