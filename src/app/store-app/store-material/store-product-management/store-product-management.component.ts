@@ -22,7 +22,7 @@ export class StoreProductManagementComponent implements OnInit {
   loading = true;
   page = 1;
   per_page = 20;
-  total = 1;
+  total:any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
@@ -45,8 +45,9 @@ export class StoreProductManagementComponent implements OnInit {
     this.loading = true;
     this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights).subscribe(res => {
       this.loading = false;
-      console.log("结果是", res);
-      this.total = res.total;   //总页数
+      console.log("11111", res);
+      this.total = res.meta.pagination.total;   //总页数
+      console.log("页码", this.total);
       this.dataSource = res.data;
     })
   }

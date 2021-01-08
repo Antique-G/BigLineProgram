@@ -120,35 +120,61 @@ interface Datum4 {
 // 列表返回
 export interface ProductResponseListResponseModel {
   data: DatumListModel[];
-  current_page: number;
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: any[];
-  next_page_url?: any;
-  path: string;
-  per_page: number;
-  prev_page_url?: any;
-  to: number;
-  total: number;
+  meta: Meta;
+
 }
 
+interface Meta {
+  pagination: Pagination;
+}
+
+
+interface Pagination {
+  total: number;
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+  links: Links;
+}
+
+interface Links {
+  next: string;
+}
 
 export interface DatumListModel {
   id: number;
   title: string;
   few_days: number;
   few_nights: number;
-  adult_price: number;
-  child_price: number;
+  store_id: number;
+  minimum_price: number;
+  maximum_price: number;
+  departure_city: string;
+  destination_city: string;
   status: number;
   check_status: number;
   created_at: string;
   updated_at: string;
+  finish_status: boolean;
+  departure_city_full_name: string;
+  destination_city_full_name: string;
+  store_image: Storeimage;
 }
 
+interface Storeimage {
+  data: StoreimageDatum[];
+}
 
+interface StoreimageDatum {
+  id: number;
+  region_code: string;
+  url: string;
+  url_sm: string;
+  desc: string;
+  region_name: string;
+  sort: number;
+}
 
 export interface DetailModel {
   title: string;
@@ -181,12 +207,12 @@ export interface UploadImgModel {
 }
 
 
-export interface  AssemblingPlaceListModel{
+export interface AssemblingPlaceListModel {
   data: DatumList[];
 }
 
 
-export interface  DatumList{
+export interface DatumList {
   id: number;
   name: string;
 }

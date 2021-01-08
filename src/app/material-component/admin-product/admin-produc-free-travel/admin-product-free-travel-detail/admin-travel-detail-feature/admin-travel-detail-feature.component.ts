@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import wangEditor from 'wangeditor';
-import { AdminChooseImgComponent } from '../admin-choose-img/admin-choose-img.component';
 
 
 
@@ -13,13 +14,21 @@ import { AdminChooseImgComponent } from '../admin-choose-img/admin-choose-img.co
 export class AdminTravelDetailFeatureComponent implements OnInit {
   @Input() dataFreeDetailModel: any;
   @ViewChild("featureBox") featureBox: any;       //获取dom
+  detailUpdateModel: any;
+  detailId: any;
 
 
-
-  constructor(public dialog: MatDialog,) { }
+  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminProductFreeTravelService: AdminProductFreeTravelService,) {
+    this.detailUpdateModel = {
+      step: 2,
+      feature: ''
+    }
+  }
 
   ngOnInit(): void {
-    // this.textChange();
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailId"]);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -33,50 +42,45 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
     const editorFeature = new wangEditor("#editorFeature", "#editor");
     console.log("拿到的feature", this.dataFreeDetailModel?.feature);
     this.featureBox.nativeElement.innerHTML = this.dataFreeDetailModel?.feature;    //赋值
-
+    this.detailUpdateModel.feature = this.dataFreeDetailModel.feature;
     editorFeature.config.onchange = (newHtml: any) => {
-
+      this.detailUpdateModel.feature = newHtml;
     }
     editorFeature.create();
-    // 上传图片
-    editorFeature.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorFeature.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      // this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-      //   console.log(res, 'res');
-      //   insert(res.data);
-      // })
-    }
-
-
-
-
-
+    // 配置菜单栏
+    editorFeature.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'link',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'code',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
   }
 
 
-  
-  chooseImgClick(){
-    const dialogRef = this.dialog.open(AdminChooseImgComponent, {
-      width: '1105px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-      }
 
-    });
+  nextTab() {
+    this.detailUpdateModel.id = this.detailId;
+    this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+
+    })
   }
-
 
 }
