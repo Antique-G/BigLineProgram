@@ -36,8 +36,8 @@
                         </ng-template>
                     </mat-tab>
 
-                    <!-- [disabled]="isIndex<4" -->
-                    <mat-tab label="图片与视频">
+                    <!--  -->
+                    <mat-tab label="图片与视频" [disabled]="isIndex<4">
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-store-free-image [dataDetailModel]='dataDetailModel'></app-store-free-image>
