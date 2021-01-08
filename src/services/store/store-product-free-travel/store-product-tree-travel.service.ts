@@ -84,4 +84,8 @@ export class StoreProductTreeTravelService {
     return this.httpClient.post<any>(this.urls.PostUpDownFreeTravelInfo,{id},httpOptions)
   }
 
+  // 审核自由行产品
+  checkStatusFreeTravel(id:number,check_status:number):Observable<any>{
+    return this.httpClient.post<any>(this.urls.PostUpDownFreeTravelInfo,{id,check_status},httpOptions)
+  }
 }

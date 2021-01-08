@@ -14,6 +14,6 @@ export class AgreeComponent implements OnInit {
   }
 
   agreeHandle(){
-    this.dialogRef.close(true);
+    this.dialogRef.close(false);
   }
 }

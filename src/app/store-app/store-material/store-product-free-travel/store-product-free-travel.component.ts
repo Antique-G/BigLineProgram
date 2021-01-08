@@ -70,7 +70,17 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   }
 
-
+  checkStatusClick(data:any){
+    this.modal.confirm({
+      nzTitle: '<h5>请确认操作?</h5>',
+      nzContent: '提交审核',
+      nzOnOk: () =>{
+        this.freeTrvelService.checkStatusFreeTravel(data.id,1).subscribe(res=>{
+          console.log(res);
+        })
+      }
+    });
+  }
   // 添加
   addProduct() {
     this.router.navigate(['/store/main/storeFreeTravel/create']);
