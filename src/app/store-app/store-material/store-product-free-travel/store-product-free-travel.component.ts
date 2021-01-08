@@ -73,7 +73,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   // 添加
   addProduct() {
-    this.router.navigate(['/store/main/storeFreeTravel/detail']);
+    this.router.navigate(['/store/main/storeFreeTravel/create']);
   }
 
 
