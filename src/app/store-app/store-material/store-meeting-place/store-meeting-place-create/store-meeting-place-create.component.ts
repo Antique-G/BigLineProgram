@@ -32,10 +32,6 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       'maxlength': '区域长度最多为16个字符',
       'required': '请选择区域！'
     },
-    address: {
-      'maxlength': '地址长度最多为255个字符',
-      'required': '请输入具体地址！'
-    },
     timeMeeting: {
       'required': '请输入集合时间！'
     }
@@ -94,7 +90,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       regionCode: [localStorage.getItem("storeRegion"), [Validators.required]],
-      address: ['', [Validators.required]],
+      address: [''],
       status: [1, [Validators.required]],
       timeMeeting: [null, [Validators.required]],
     });
