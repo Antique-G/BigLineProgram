@@ -141,7 +141,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
-      service_phone: new FormControl('', [Validators.required]),
+      service_phone: new FormControl(''),
       confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl(0, [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
