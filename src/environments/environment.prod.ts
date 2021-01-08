@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: "http://plat.bigline.cc"
+  baseUrl: "https://api.bigline.com.cn"
   
 };
