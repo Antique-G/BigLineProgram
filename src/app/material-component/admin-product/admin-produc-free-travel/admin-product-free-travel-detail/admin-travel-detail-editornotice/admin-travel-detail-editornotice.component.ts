@@ -1,5 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import wangEditor from 'wangeditor';
+
 
 
 @Component({
@@ -10,11 +14,21 @@ import wangEditor from 'wangeditor';
 export class AdminTravelDetailEditornoticeComponent implements OnInit {
   @Input() dataFreeDetailModel: any;
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
+  detailUpdateModel: any;
+  detailId: any;
 
 
-  constructor() { }
+  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminProductFreeTravelService: AdminProductFreeTravelService,) {
+    this.detailUpdateModel = {
+      step: 3,
+      notice: ''
+    }
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailId"]);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -26,31 +40,43 @@ export class AdminTravelDetailEditornoticeComponent implements OnInit {
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
     console.log("拿到的notice", this.dataFreeDetailModel?.notice);
     this.noticeBox.nativeElement.innerHTML = this.dataFreeDetailModel.notice;    //赋值
-
+    this.detailUpdateModel.notice = this.dataFreeDetailModel.notice;
     editorNotice.config.onchange = (newHtml: any) => {
-      // this.adminProductManagementUpdateModel.notice = newHtml;
+      this.detailUpdateModel.notice = newHtml
     }
+    // 配置菜单栏
+    editorNotice.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'link',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'code',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     editorNotice.create();
-    // 上传图片
-    editorNotice.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorNotice.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-      console.log(files[0]);
-      let formData = new FormData();
-      formData.append('image', files[0] as any);
-      console.log("formData是什么", formData.get('file'));
-      // this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-      //   console.log(res, 'res');
-      //   insert(res.data);
-      // })
-    }
-
   }
+
+  nextTab() {
+    this.detailUpdateModel.id = this.detailId;
+    this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+
+    })
+  }
+
 }

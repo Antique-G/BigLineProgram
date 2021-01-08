@@ -1,180 +1,171 @@
 export interface AdminProductManagementListResponseModel {
-    current_page: number;
-    data: DatumModel[];
-    first_page_url: string;
-    from: number;
-    last_page: number;
-    last_page_url: string;
-    links: LinkModel[];
-    next_page_url: string;
-    path: string;
-    per_page: boolean;
-    prev_page_url?: any;
-    to: number;
-    total: number;
+  meta: Meta;
+  data: DatumModel[];
+
 }
-interface LinkModel {
-    url?: string;
-    label: number | string;
-    active: boolean;
+interface Meta {
+  pagination: Pagination;
+}
+
+interface Pagination {
+  total: number;
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+  links: Links;
+}
+
+interface Links {
 }
 
 interface DatumModel {
-    id: number;
-    title: string;
-    few_days: number;
-    few_nights: number;
-    store_id: number;
-    adult_price: number;
-    child_price: number;
-    status: number;
-    check_status: number;
-    created_at: string;
-    updated_at: string;
-    region_full_name: string;
-    store: StoreModel;
+  id: number;
+  title: string;
+  few_days: number;
+  few_nights: number;
+  store_id: number;
+  minimum_price: number;
+  maximum_price: number;
+  departure_city: string;
+  destination_city: string;
+  status: number;
+  check_status: number;
+  created_at: string;
+  updated_at: string;
+  departure_city_full_name: string;
+  destination_city_full_name: string;
+  store_image: Storeimage;
 }
 
-interface StoreModel {
-    store_id: number;
-    name: string;
-    region_code: string;
-    address: string;
-    fax: string;
-    phone: string;
-    mobile: string;
-    contact: string;
-    profile_photo_path?: any;
-    status: number;
-    created_at: string;
-    updated_at: string;
-    region_full_name: string;
+interface Storeimage {
+  data: any[];
 }
 
 
 export interface AdminProductManagementUpdateModel {
-    title: string;
-    region_code: string;
-    earlier: number;
-    confirm: number;
-    pay_method: number;
-    few_days: number;
-    few_nights: number;
-    adult_price: number;
-    child_price: number;
-    original_adult_price: number;
-    original_child_price: number;
-    difference_price: number;
-    destination: string;
-    advance: number;
-    child_status: number;
-    child_age_max: number;
-    child_height_min: number;
-    child_height_max: number;
-    reserve_num_min: number;
-    reserve_num_max: number;
-    contacts_status: number;
-    work_t_tem: number;
-    inventory: number;
-    inventory_num: number;
-    inventory_exceed: number;
-    assembling_place_id: number[];
-    feature: string;
-    details: string;
-    fee: string;
-    notice: string;
-    status: number;
-    tag_id: number[];
-    id?: any;
+  title: string;
+  region_code: string;
+  earlier: number;
+  confirm: number;
+  pay_method: number;
+  few_days: number;
+  few_nights: number;
+  adult_price: number;
+  child_price: number;
+  original_adult_price: number;
+  original_child_price: number;
+  difference_price: number;
+  destination: string;
+  advance: number;
+  child_status: number;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
+  reserve_num_min: number;
+  reserve_num_max: number;
+  contacts_status: number;
+  work_t_tem: number;
+  inventory: number;
+  inventory_num: number;
+  inventory_exceed: number;
+  assembling_place_id: number[];
+  feature: string;
+  details: string;
+  fee: string;
+  notice: string;
+  status: number;
+  tag_id: number[];
+  id?: any;
 }
 
 export interface AdminProductSetStatusModel {
-    id: number;
-    status: number;
+  id: number;
+  status: number;
 }
 
 export interface AdminProductCheckStatusModel {
-    id: number;
-    check_status: number;
+  id: number;
+  check_status: number;
 }
 
 export interface AdminProductResponseModel {
-    message?: string;
-    status_code?: string;
+  message?: string;
+  status_code?: string;
 }
 
 export interface AdminProductDetailResponseModel {
-    data: DataProductDetailModel;
+  data: DataProductDetailModel;
 }
 
 export interface DataProductDetailModel {
-    id: number;
-    title: string;
-    store_id: number;
-    departure_city: string;
-    earlier: number;
-    confirm: number;
-    few_days: number;
-    few_nights: number;
-    minimum_price: number;
-    maximum_price: number;
-    original_minimum_price: number;
-    original_maximum_price: number;
-    difference_price: number;
-    destination_city: string;
-    child_status: number;
-    child_age_max: number;
-    child_height_min: number;
-    child_height_max: number;
-    reserve_num_min: number;
-    reserve_num_max: number;
-    contacts_status: number;
-    feature: string;
-    details: string;
-    fee: string;
-    notice: string;
-    status: number;
-    created_at: string;
-    updated_at: string;
-    check_status: number;
-    step_status: number;
-    departure_city_full_name: string;
-    destination_city_full_name: string;
-    assembling_place: Assemblingplace;
-    tag: Tag;
-    store_image: Productalbum;
-  }
+  id: number;
+  title: string;
+  store_id: number;
+  departure_city: string;
+  earlier: number;
+  confirm: number;
+  few_days: number;
+  few_nights: number;
+  minimum_price: number;
+  maximum_price: number;
+  original_minimum_price: number;
+  original_maximum_price: number;
+  difference_price: number;
+  destination_city: string;
+  child_status: number;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
+  reserve_num_min: number;
+  reserve_num_max: number;
+  contacts_status: number;
+  feature: string;
+  details: string;
+  fee: string;
+  notice: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+  check_status: number;
+  step_status: number;
+  departure_city_full_name: string;
+  destination_city_full_name: string;
+  assembling_place: Assemblingplace;
+  tag: Tag;
+  store_image: Productalbum;
+}
 
 
-  interface Productalbum {
-    data: Datum3[];
-  }
-  
-  interface Datum3 {
-    id: number;
-    url: string;
-    url_sm: string;
-    sort: number;
-  }
-  
-  interface Tag {
-    data: Datum2[];
-  }
-  
-  interface Datum2 {
-    id: number;
-    name: string;
-  }
-  
-  interface Assemblingplace {
-    data: Datum4[];
-  }
-  
-  interface Datum4 {
-    id: number;
-    name: string;
-    longitude?: any;
-    latitude?: any;
-  }
+interface Productalbum {
+  data: Datum3[];
+}
+
+interface Datum3 {
+  id: number;
+  url: string;
+  url_sm: string;
+  sort: number;
+}
+
+interface Tag {
+  data: Datum2[];
+}
+
+interface Datum2 {
+  id: number;
+  name: string;
+}
+
+interface Assemblingplace {
+  data: Datum4[];
+}
+
+interface Datum4 {
+  id: number;
+  name: string;
+  longitude?: any;
+  latitude?: any;
+}
 
 

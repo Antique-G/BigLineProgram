@@ -37,38 +37,39 @@ export class AdminProductFreeTravelService {
       )
   }
 
-    // 详情
-    freeTravelDetail(id:any): Observable<AdminFreeTravelDetailResponseModel> {
-      return this.httpClient.get<AdminFreeTravelDetailResponseModel>(this.urls.GetAdminFreeTravelDetail+id, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
-
-    // 更新
-    freeTravelUpdate(model:FreeTravelUpdateModel): Observable<any> {
-      return this.httpClient.put<FreeTravelUpdateModel>(this.urls.PutAdminFreeTravelUpdate+model.id,model, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
-
-    // 上架/下架
-    freeTravelUp(id:number): Observable<any>{
-      return this.httpClient.post(this.urls.PostAdminFreeTRavelUp, {id:id},httpOptions)
+  // 详情
+  freeTravelDetail(id: any): Observable<AdminFreeTravelDetailResponseModel> {
+    return this.httpClient.get<AdminFreeTravelDetailResponseModel>(this.urls.GetAdminFreeTravelDetail + id, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
-    }
+  }
 
-    // 审核
-    freeTravelReview(id:number,check_status:number): Observable<any>{
-      return this.httpClient.post(this.urls.PostAdminFreeTCheckStatus, {id,check_status},httpOptions)
+  // 更新
+  freeTravelUpdate(model: any): Observable<any> {
+    const id = model.id;
+    return this.httpClient.put(this.urls.PutAdminFreeTravelUpdate + id, model, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
-    }
-    
+  }
+
+  // 上架/下架
+  freeTravelUp(id: number): Observable<any> {
+    return this.httpClient.post(this.urls.PostAdminFreeTRavelUp, { id: id }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 审核
+  freeTravelReview(id: number, check_status: number): Observable<any> {
+    return this.httpClient.post(this.urls.PostAdminFreeTCheckStatus, { id, check_status }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
   private handleError(error: HttpErrorResponse) {

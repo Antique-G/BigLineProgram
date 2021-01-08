@@ -34,7 +34,7 @@ export class StoreProductService {
       params: params
     };
 
-    return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreFreeTravelList, findhttpOptions)
+    return this.httpClient.get<ProductResponseListResponseModel>(this.urls.GetStoreProductList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )

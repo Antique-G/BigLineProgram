@@ -9,11 +9,11 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-travel-detail-proinfo ></app-store-travel-detail-proinfo>
+                            <app-store-travel-detail-proinfo></app-store-travel-detail-proinfo>
                         </div>
                     </mat-tab>
                     <mat-tab label="产品详情">
-                        <ng-template matTabContent >
+                        <ng-template matTabContent>
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <app-store-travel-detail-desc [dataDetailModel]='dataDetailModel'></app-store-travel-detail-desc>
@@ -21,7 +21,7 @@
                             </div>
                         </ng-template>
                     </mat-tab>
-                    <mat-tab label="产品特色" >
+                    <mat-tab label="产品特色">
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'></app-store-travel-detail-feature>
@@ -46,7 +46,7 @@
 
                 </mat-tab-group>
             </div>
-          
+
         </div>
 
     </div>

@@ -12,8 +12,6 @@
                                     <div nz-row>
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">产品特色</nz-form-label>
                                         <nz-form-control [nzSm]="16" [nzXs]="24">
-                                            <a nz-button nzType="link" (click)="chooseImgClick()">从图库资源导入图片</a>
-                                            <br>
                                             <div class="wangeditor-feature">
                                                 <div id="editorFeature" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 10001"></div>
                                                 <div id="editor" class="w-e-text">
@@ -28,6 +26,10 @@
                     </div>
                 </div>
             </mat-card>
+
+            <div class="btn">
+                <button nz-button nzType="primary" (click)="nextTab()">更新</button>
+            </div>
         </div>
     </div>
 </div>

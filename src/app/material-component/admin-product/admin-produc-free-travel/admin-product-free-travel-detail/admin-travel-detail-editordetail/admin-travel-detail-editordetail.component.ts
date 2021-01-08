@@ -1,5 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import wangEditor from 'wangeditor';
+
 
 
 @Component({
@@ -7,14 +11,23 @@ import wangEditor from 'wangeditor';
   templateUrl: './admin-travel-detail-editordetail.component.html',
   styleUrls: ['./admin-travel-detail-editordetail.component.css']
 })
-export class AdminTravelDetailEditordetailComponent  implements OnInit {
+export class AdminTravelDetailEditordetailComponent implements OnInit {
   @Input() dataFreeDetailModel: any;
   @ViewChild("detailBox") detailBox: any;     //获取dom
+  detailUpdateModel: any;
+  detailId: any;
 
-
-  constructor() { }
+  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminProductFreeTravelService: AdminProductFreeTravelService,) {
+    this.detailUpdateModel = {
+      step: 1,
+      details: ''
+    }
+  }
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = JSON.parse(params["detailId"]);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -22,47 +35,49 @@ export class AdminTravelDetailEditordetailComponent  implements OnInit {
   }
 
 
-
   // 富文本
   textChange() {
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
     console.log("拿到的details", this.dataFreeDetailModel?.details)
-     this.detailBox.nativeElement.innerHTML = this.dataFreeDetailModel.details;    //赋值
-
+    this.detailBox.nativeElement.innerHTML = this.dataFreeDetailModel.details;    //赋值
+    this.detailUpdateModel.details = this.dataFreeDetailModel.details;
     editorDetail.config.onchange = (newHtml: any) => {
-      //  this.adminProductManagementUpdateModel.details = newHtml;
-      //  console.log("修改后的model", this.adminProductManagementUpdateModel.details);
-
+      this.detailUpdateModel.details = newHtml;
     }
+    // 配置菜单栏
+    editorDetail.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'link',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'code',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     editorDetail.create();
-
-    // 上传图片
-    editorDetail.config.uploadImgParams = {
-      token: (localStorage.getItem('userToken')!),
-    }
-    editorDetail.config.customUploadImg = (files: any, insert: any) => {
-      // 限制一次最多上传 1 张图片
-      if (files.length !== 1) {
-        alert('单次只能上传一个图片')
-        return
-      }
-      console.log("files是什么", files);
-
-      console.log(files[0]);
-      let formDataDetail = new FormData();
-      formDataDetail.append('image', files[0] as any);
-      console.log("formData是什么", formDataDetail.get('file'));
-      //  this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-      //    console.log(res, 'res');
-      //    insert(res.data);
-      //  })
-    }
-
-
-
-
-
   }
 
+
+  nextTab() {
+    this.detailUpdateModel.id = this.detailId;
+    this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+
+    })
+  }
 }

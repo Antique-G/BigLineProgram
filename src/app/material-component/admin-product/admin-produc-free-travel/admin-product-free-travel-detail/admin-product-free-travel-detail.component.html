@@ -13,13 +13,6 @@
                             <app-admin-travel-detail-proinfo></app-admin-travel-detail-proinfo>
                         </div>
                     </mat-tab>
-                    <mat-tab label="产品特色">
-                        <ng-template matTabContent>
-                            <div class="content">
-                                <app-admin-travel-detail-feature [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-feature>
-                            </div>
-                        </ng-template>
-                    </mat-tab>
 
                     <mat-tab label="产品详情">
                         <ng-template matTabContent>
@@ -28,6 +21,16 @@
                             </div>
                         </ng-template>
                     </mat-tab>
+
+                    <mat-tab label="产品特色">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-admin-travel-detail-feature [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-feature>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+
 
                     <mat-tab label="预约须知">
                         <ng-template matTabContent>

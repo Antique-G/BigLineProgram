@@ -50,7 +50,7 @@ export class AdminProductManagementComponent implements OnInit {
     this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
-      this.total = res.total;   //总页数
+      this.total = res.meta.pagination.total;   //总页数
       this.dataSource = res.data;
     })
   }
