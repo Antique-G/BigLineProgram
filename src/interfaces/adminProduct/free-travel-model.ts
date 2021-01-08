@@ -48,6 +48,8 @@ export interface DatumModel {
     created_at?: any;
     updated_at?: any;
     store: StoreModel;
+    departure: string;
+    destination: string;
 }
 
 export interface StoreModel {
@@ -100,7 +102,7 @@ export interface DataFreeTravelDetailModel {
 }
 
 interface Storeimage {
-  data: any[];
+    data: any[];
 }
 
 
