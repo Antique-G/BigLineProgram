@@ -1,0 +1,66 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <mat-card>
+                <div class="example-container" style="margin-bottom: 50px;">
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                        <div style="padding-left: 10px;padding-top: 10px;">
+                            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="upload()">上传图片</button>
+                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;" (click)="import()">从图库导入</button>
+                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;" (click)="allDelete()">批量删除</button>
+                        </div>
+                        <nz-divider></nz-divider>
+                        <div style="padding:10px 80px">
+                            <div class="mat-elevation-z8">
+                                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
+                                    <thead>
+                                        <tr>
+                                            <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
+
+                                            <th style="text-align: center;">图片</th>
+                                            <th style="text-align: center;">图片id</th>
+                                            <th style="text-align: center;">区域</th>
+                                            <th style="text-align: center;">描述</th>
+                                            <th style="text-align: center;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of rowSelectionTable.data">
+                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+
+                                            <td>
+                                                <div>
+                                                    <img src={{data.url}} style="width: 40px;height: 40px;" />
+                                                    <div *ngIf="data.sort===0" style="width: 40px;background-color: red;color: white; position: absolute;left: 108px;top: 34px;">封面</div>
+                                                </div>
+                                            </td>
+                                            <td>{{data.id}}</td>
+                                            <td>{{data.region_name}}</td>
+                                            <td>{{data.desc}}</td>
+                                            <td>
+                                                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                                    <a (click)="deleteIt(data.id)">删除</a>
+                                                    <a (click)="top(data)" *ngIf="data.sort!=0">设为封面</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+<div style="position:fixed;left:0px;bottom:0px;width:100%;height:50px;background-color:ghostwhite;z-index:999; box-shadow: 4px;">
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+        <button mat-raised-button color="primary" style="height: 40px;margin-right: 20px;" (click)="nextTab()">更新</button>
+
+    </div>
+</div>
