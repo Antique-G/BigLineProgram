@@ -17,26 +17,15 @@
                         <nz-calendar>
                             <div *nzDateCell="let date" class="events">
                                 <ng-container *ngFor="let item of listDataMap.data">
-                                        <ng-container *ngIf="type=='management'; else elseTemplate" >
-                                            <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                                <div class="item" (click)="onSelectChange(item)">
-                                                    <div>成人: <span style="color: red;">¥{{item.adult_price}}</span><span style="color: #999;"> (¥{{item.original_adult_price}})</span></div>
-                                                    <div>儿童: <span style="color: red;">¥{{item.child_price}}</span><span style="color: #999;"> (¥{{item.original_child_price}})</span></div>
-                                                    <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
-                                                </div>
-                                            </ng-container>
-                                        </ng-container>
-                                        <ng-template #elseTemplate>
-                                                <ng-container *ngIf="isMidDate(item.start_date,item.end_date,(date | date:'yyyy-MM-dd'))">
-                                                    <div class="item itemFree" (click)="onSelectChange(item)">
-                                                        <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
-                                                        <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
-                                                        <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
-                                                        <div>库存数量: <span style="color: red;">¥{{item.inventory_num}}</span></div>
-                                                    </div>
-                                                </ng-container>
-                                        </ng-template>
-                                    
+                                    <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                        <div class="item itemFree" (click)="onSelectChange(item)">
+                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
+                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
+                                            <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                            <div>库存数量: <span style="color: red;">¥{{item.inventory_num}}</span></div>
+                                        </div>
+                                    </ng-container>
+
                                 </ng-container>
                             </div>
                         </nz-calendar>

@@ -38,9 +38,8 @@ export class StoreQuoteBydateComponent implements OnInit {
     }
     this.freeTraveQuoteBydateModel={
       id: 0,
+      date:'',
       independent_product_id: 0,
-      start_date: '',
-      end_date: '',
       adult_price: 0,
       child_price: 0,
       difference_price: 0,
@@ -67,9 +66,9 @@ export class StoreQuoteBydateComponent implements OnInit {
   getQuoteList(){
     console.log(this.productId,'this.productId');
       this.quoteBydateService.getQuoteDateList(this.productId,this.type).subscribe(data=>{
-        console.log('listDataMap',data);
-        this.listDataMap = data
-        // this.transformData(data.data)
+       
+        this.listDataMap.data = data.data
+        console.log('listDataMap', this.listDataMap);
       })
   }
 
@@ -98,7 +97,6 @@ export class StoreQuoteBydateComponent implements OnInit {
   }
 
   onSelectChange(date:any){
-    console.log(123);
     if(differenceInCalendarDays(date,this.toDay)<0) return
       const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
         width:'700px',

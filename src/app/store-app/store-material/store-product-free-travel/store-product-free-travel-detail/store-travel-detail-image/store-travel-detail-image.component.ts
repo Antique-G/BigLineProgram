@@ -146,7 +146,6 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.dataSource = this.dataSource.filter(d => d.id !== i);
     }
 
-
   }
 
   // top(data: any) {
