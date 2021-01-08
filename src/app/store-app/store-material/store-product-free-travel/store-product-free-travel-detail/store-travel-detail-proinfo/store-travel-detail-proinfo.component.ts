@@ -340,15 +340,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.earlier = resMin
     console.log('拿到的值',this.freeTravelModel);
   }
-  getMenuInstance(editor: wangEditor, constructor: Function): any {
-    const menuInstance = editor.menus.menuList.filter(menu => {
-        return menu instanceof constructor
-    })[0]
-    if (menuInstance == null) {
-        throw new Error('找不到菜单实例')
-    }
-    return menuInstance
-}
+
 
    // 富文本
    textChange() {

@@ -55,6 +55,7 @@ import { StoreFreeInfoComponent } from './store-product-free-travel/store-free-c
 import { StoreFreeDescComponent } from './store-product-free-travel/store-free-create-bystep/store-free-desc/store-free-desc.component';
 import { StoreFreeFeatureComponent } from './store-product-free-travel/store-free-create-bystep/store-free-feature/store-free-feature.component';
 import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-notice/store-free-notice.component';
+import { StoreTravelDetailImageComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-image/store-travel-detail-image.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -115,6 +116,7 @@ import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free
     StoreFreeDescComponent,
     StoreFreeFeatureComponent,
     StoreFreeNoticeComponent,
+    StoreTravelDetailImageComponent,
     
   ]
 })
