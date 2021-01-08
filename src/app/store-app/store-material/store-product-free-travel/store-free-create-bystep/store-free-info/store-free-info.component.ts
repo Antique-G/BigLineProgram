@@ -149,7 +149,7 @@ export class StoreFreeInfoComponent implements OnInit {
       confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl(0, [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
-      reserve_ahead: new FormControl('', [Validators.required]),
+      reserve_ahead: new FormControl(0, [Validators.required]),
       reserve_num: new FormControl('', [Validators.required]),
       reserve_children: new FormControl('', [Validators.required]),
       children_age: new FormControl('', [Validators.required]),
