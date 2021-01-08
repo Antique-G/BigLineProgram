@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel } from '../../interfaces/adminProduct/free-travel-model';
+import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel,FreeTravelQuteDateModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AdminUrls } from '../../api';
 
 
@@ -70,7 +70,28 @@ export class AdminProductFreeTravelService {
       )
   }
 
+  // 日期报价列表
+  freeTravelQuteDateList(product_id:any,page: number, per_page: number){
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('per_page', per_page.toString())
+    .set('product_id', product_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<FreeTravelQuteDateModel>(this.urls.GetAddminFreeTravelQuteDateList ,findhttpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
 
+  freeTravelQuteDateCheckState(date_id:any[],check_status:number){
+    return this.httpClient.post<any>(this.urls.GetAddminFreeTravelQuteDateCheck ,{date_id,check_status},httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

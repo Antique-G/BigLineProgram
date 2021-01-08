@@ -12,6 +12,7 @@ import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-mana
 import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-free-travel/admin-produc-free-travel.component';
 import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
 import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
+import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-qutedate/admin-product-free-travel-qutedate.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -87,6 +88,13 @@ export const MaterialRoutes: Routes = [
         component: AdminProductFreeTravelDetailComponent,
         data: {
           breadcrumb: '自由行详情'
+        }
+      },
+      {
+        path: 'freeTravel/qutedate',
+        component: AdminProductFreeTravelQutedateComponent,
+        data: {
+          breadcrumb: '自由行报价'
         }
       },
       {

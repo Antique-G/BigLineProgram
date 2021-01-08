@@ -129,3 +129,18 @@ export interface FreeTravelUpdateModel {
     step: any;
 }
 
+export interface FreeTravelQuteDateModel{
+    current_page: number;
+    data: DatumModel[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: LinksModel[];
+    next_page_url?: any;
+    path: string;
+    per_page: string;
+    prev_page_url?: any;
+    to: number;
+    total: number;
+}

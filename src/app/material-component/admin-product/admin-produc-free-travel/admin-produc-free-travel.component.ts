@@ -106,5 +106,8 @@ export class AdminProducFreeTravelComponent implements OnInit {
     })
     
   }
+  quteDateClick(data: any){
+    this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id } });
+  }
 
 }
