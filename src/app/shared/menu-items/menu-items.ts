@@ -27,7 +27,7 @@ const MENUITEMS = [
     title: '产品模块', icon: 'project',
     children: [
       { state: 'productTag', name: '产品标签' },
-      { state: 'productManagement', name: '产品管理' },
+      { state: 'productManagement', name: '跟团游管理' },
       { state: 'freeTravel', name: "自由行管理" }
     ]
   },
@@ -63,7 +63,7 @@ const StoreMENUITEMS = [
   {
     title: '产品模块', icon: 'project',
     children: [
-      { state: 'storeProduct', name: '产品管理' },
+      { state: 'storeProduct', name: '跟团游' },
       { state: 'storeFreeTravel', name: '自由行' }
     ]
   },

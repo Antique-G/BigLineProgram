@@ -36,6 +36,10 @@ body {
     z-index: 99999999999999999999999 !important;
 }
 
+#cdk-overlay-1 {
+    z-index: 99999999999999999999999 !important;
+}
+
 .btn {
     z-index: 99999999999 !important;
 }
