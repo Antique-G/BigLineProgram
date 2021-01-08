@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {differenceInCalendarDays,format} from 'date-fns';
@@ -37,6 +37,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   listDataMap:any
 
   isSetInventory = '0'
+  isAllowOver='0'
   
   resultArr:FreeTraveQuoteBydateModel[] =[]
 
@@ -133,8 +134,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       
 }
 
-
-
   ngOnInit(): void {
     
   
@@ -162,18 +161,21 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           // 修改
           if(this.selectItem){
             this.selectDate=[new Date(this.selectItem.date),new Date(this.selectItem.date)]
+            console.log( this.selectDate);
+           
             this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
             this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
             this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
-
             this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num)
-            this.addForm.controls["set_inventory"].setValue(this.selectItem.set_inventory)
-            this.addForm.controls["allow_over"].setValue(this.selectItem.allow_over)
+            // this.addForm.controls["set_inventory"].setValue(this.selectItem.set_inventory)
+            this.isSetInventory = (this.selectItem.set_inventory).toString()|| '0'
+            this.isAllowOver = (this.selectItem.allow_over).toString()|| '0'
+            // this.addForm.controls["allow_over"].setValue(this.selectItem.allow_over)
           }
   
       }else{
         if(this.selectItem){
-        console.log('GetDetail');
+          console.log('GetDetail');
           console.log(this.productId,'this.productId');
             this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res=>{
               if(res.data){
@@ -190,14 +192,14 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   setfreeTravelFormValue(){
     console.log(this.freeTravelModel,'freeTravelModel');
     this.selectDate = [new Date(this.freeTravelModel.date),new Date(this.freeTravelModel.date)]
+   
     this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price)
     this.addForm.controls["child_price"].setValue( this.freeTravelModel.child_price)
     this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price)
     this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num||0)
     console.log(this.freeTravelModel.set_inventory,' this.freeTravelModel.set_inventory');
-    this.isSetInventory = this.freeTravelModel.set_inventor.toString() || '0'
-    // this.addForm.controls["set_inventory"].setValue(this.freeTravelModel.set_inventory||0)
-    // this.addForm.controls["allow_over"].setValue(this.freeTravelModel.allow_over||0)
+    this.isSetInventory = (this.freeTravelModel.set_inventory).toString()|| '0'
+    this.isAllowOver = (this.freeTravelModel.allow_over).toString()||0
   }
 
   // 表单验证
@@ -250,8 +252,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     console.log(value);
   }
   onDateChange(dateStr:any){
+   
   }
-
+  ngRadioChange(status:EventEmitter<string>){
+    console.log(status,'status');
+    if(status.toString() == '0'){
+      this.addForm.controls["inventory_num"].setValue(0)
+      this.isAllowOver = '0'
+    }
+  }
   disabledDate= (current: Date): boolean => {
     // 禁用之前的日期
     return differenceInCalendarDays(current, this.today) < 0;
@@ -276,6 +285,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateModel.difference_price = this.addForm.value.difference_price;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over
       this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
+
       this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num
       this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
     });
@@ -285,7 +295,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   // 自由行报价
   setFreeTravelValue(){
     this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
-    console.log(this.dateArr);
     this.dateArr.forEach((date:any) => {
       this.freeTraveModel = {
         id: 0,
@@ -313,8 +322,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.resultArr.push(this.freeTraveModel)
     });
     console.log('添加值', this.resultArr);
-
-  
   }
 
   add(){
@@ -336,14 +343,13 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         })
       }else{
         console.log('自由行产品编辑 ');
-        // 自由行产品编辑
+         // 自由行添加
         this.setFreeTravelValue();
- 
-        
         // 修改
         if(this.selectItem){
-          this.quoteBydateService.updateFreeTravelQuteDate(this.resultArr,this.productId).subscribe(res=>{
-              this.dialogRef.close();
+          this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res=>{
+            console.log(res);
+            this.dialogRef.close();
           })
         }else{
             // // 添加
@@ -367,6 +373,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       nzContent:  `<h6>请确认是否删除</h6>`,
       nzOnOk: () =>{
         if(this.type=='management'){
+          this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
+          console.log(this.dateArr);
           let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
             let str = this.dateArr.map((e:string)=>e)
             return str.indexOf(item.date)==-1
@@ -374,25 +382,16 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           this.quoteBydateRequestModel.data.push(...newList)
           this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
             this.dialogRef.close();
-            if(res ==null){
-              // alert("删除成功")
-            }else{
-              // alert("删除成功")
-            }
             this.quoteBydateRequestModel.data =[]
           })
-        }else{
-          console.log('删除');
+        }else if(this.type=='freeTravel'){
+       
+     
+        
           this.quoteBydateService.delQuoteInfo(this.selectItem.id).subscribe(res=>{
             this.dialogRef.close();
-            if(res ==null){
-              // alert("删除成功")
-            }else{
-              // alert("删除成功")
-            }
           })
         }
-       
       }
 
     });
