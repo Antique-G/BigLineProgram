@@ -25,7 +25,7 @@ export class StoreQuoteBydateService {
   constructor(public httpClient: HttpClient) { }
 
    // 获取产品列表
-   getQuoteDateList(id:number,type:string):Observable<StoreQuoteBydateRsponseListModel>{
+   getQuoteDateList(id:number,type:string,page:any):Observable<StoreQuoteBydateRsponseListModel>{
      if(type == 'management'){
         return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreQuoteByDate+id+'/date_quote', httpOptions)
         .pipe(
@@ -33,6 +33,8 @@ export class StoreQuoteBydateService {
      }else{
      
       const params = new HttpParams().set('product_id', id.toString())
+      .set('page', page)
+      .set('per_page', (42).toString())
       const findhttpOptions = {
         headers: new HttpHeaders().set('Content-Type', 'application/json'),
         params: params
