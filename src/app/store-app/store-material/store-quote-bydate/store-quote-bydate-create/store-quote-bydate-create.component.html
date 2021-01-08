@@ -14,7 +14,6 @@
                             <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
                                 <label nz-checkbox formControlName="week" [nzValue]="item.value" [ngModel]="item.checked">{{item.label}}</label>
                             </div>
-                         
                         </div>
                       </nz-checkbox-wrapper>
                 </nz-form-control>
@@ -29,12 +28,7 @@
             </nz-form-item>
 
             <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
-                <ng-container *ngIf="type=='management'; else elseAdult">
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price">成人价格</nz-form-label>
-                </ng-container>
-                <ng-template #elseAdult>
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price" nzRequired>成人价格</nz-form-label>
-                </ng-template>
+             <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price" nzRequired>成人价格</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.adult_price">
                     <input nz-input formControlName="adult_price" />
                 </nz-form-control>
@@ -47,7 +41,7 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <ng-container *ngIf="type=='management'">
+            <!-- <ng-container *ngIf="type=='management'">
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="original_adult_price">成人原价</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.original_adult_price">
@@ -62,7 +56,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </ng-container>
-           
+            -->
 
             <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="difference_price">补 差 价</nz-form-label>
@@ -81,18 +75,11 @@
                 </nz-form-control> 
             </nz-form-item>
 
-            <ng-container *ngIf="type=='freeTravel'">
+            
                 <nz-form-item  class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inventory_num" nzRequired>库存数量</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24"  [nzErrorTip]="formErrors.inventory_num">
-                        <!-- <ng-container *ngIf="isSetInventory == '1'; else numTemplate">
-                            <input nz-input  formControlName="inventory_num" disabled/>
-                        </ng-container>
-                        <ng-template #numTemplate>
-                            <input nz-input readonly formControlName="inventory_num"  value="0"/>
-                        </ng-template> -->
                         <input nz-input [readonly]="isSetInventory != '1'" formControlName="inventory_num" disabled/>
-                        
                     </nz-form-control>
                 </nz-form-item>
     
@@ -105,8 +92,7 @@
                         </nz-radio-group>
                     </nz-form-control>
                 </nz-form-item>
-            </ng-container>
-
+          
             <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
                 <ng-container *ngIf="!data.date; else elseType">
                     <nz-form-control [nzSpan]="14" [nzOffset]="12">

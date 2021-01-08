@@ -59,13 +59,13 @@ export class StoreQuoteBydateService {
     }
   
     // 自由行产品修改报价日期
-    updateFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
-      return this.httpClient.put(this.urls.PutStoreFreeTravelQuoteInfo+freeTraveQuoteBydateModel.id,freeTraveQuoteBydateModel, httpOptions)
+    updateFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel[],id:any):Observable<any>{
+      return this.httpClient.put(this.urls.PutStoreFreeTravelQuoteInfo+id,freeTraveQuoteBydateModel, httpOptions)
       .pipe()
     }
 
     // 自由行产品添加报价日期
-    createFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel):Observable<any>{
+    createFreeTravelQuteDate(freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel[]):Observable<any>{
       return this.httpClient.post(this.urls.PostStoreFreeTravelQuote,freeTraveQuoteBydateModel, httpOptions)
       .pipe()
     }

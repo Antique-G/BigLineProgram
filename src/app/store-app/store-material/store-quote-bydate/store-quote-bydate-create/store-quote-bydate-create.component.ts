@@ -37,12 +37,14 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   listDataMap:any
 
   isSetInventory = '0'
+  
+  resultArr:FreeTraveQuoteBydateModel[] =[]
 
   confirmValue:any
   freeTravelModel:any
   currentDate = null
   // 选择了周几
-  weekValue:any[] = []
+  weekValue:any[] = [1,2,3,4,5,6,0]
   // 选择周几
   checkWeeks = [
     { label: '周一', value: 1, checked: true },
@@ -98,9 +100,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
       this.freeTraveModel={
         id: 0,
+        date:'',
         independent_product_id: 0,
-        start_date: '',
-        end_date: '',
         adult_price: 0,
         child_price: 0,
         difference_price: 0,
@@ -116,11 +117,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateModel = {
         date:''
       }
-      if(this.type==='freeTravel'){
-        this.buildFreeTravel();
-      }else{
-          this.buildProduct();
-      }
+      this.buildForm();
+    
     
     // 拼接之前的
     // this.quoteBydateRequestModel.data.push(...this.listDataMap)
@@ -136,25 +134,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 }
 
 
+
   ngOnInit(): void {
     
   
   }
 
-  buildProduct(){
-    this.addForm = this.fb.group({
-      week: ['', ],
-      date: ['', [Validators.required]],
-      adult_price: ['',[isFloat]],
-      child_price: ['',[isFloat]],
-      original_adult_price: ['',[isFloat]],
-      original_child_price: ['',[isFloat]],
-      difference_price: ['',[isFloat]],
-    
-    });
-  }
-  buildFreeTravel(){
-    console.log('buildFreeTravel');
+  
+  buildForm(){
+    console.log('buildForm');
     this.addForm = this.fb.group({
       // date: [[new Date(),new Date()], [Validators.required]],
       week: [false],
@@ -163,7 +151,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       child_price: ['',[isFloat]],
       difference_price: ['',[isFloat]],
       inventory_num:[0, [Validators.required,isNumber]],
-      set_inventory:['', [Validators.required]],
+      set_inventory:[0, [Validators.required]],
       allow_over:[0, [Validators.required]],
     });
   }
@@ -176,16 +164,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
             this.selectDate=[new Date(this.selectItem.date),new Date(this.selectItem.date)]
             this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
             this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
-            this.addForm.controls["original_adult_price"].setValue(this.selectItem.original_adult_price)
-            this.addForm.controls["original_child_price"].setValue(this.selectItem.original_child_price)
             this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
+
+            this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num)
+            this.addForm.controls["set_inventory"].setValue(this.selectItem.set_inventory)
+            this.addForm.controls["allow_over"].setValue(this.selectItem.allow_over)
           }
   
       }else{
         if(this.selectItem){
-          console.log(this.listDataMap,'this.listDataMap');
+        console.log('GetDetail');
           console.log(this.productId,'this.productId');
-          console.log(this.selectItem);
             this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res=>{
               if(res.data){
                 this.freeTravelModel = res.data
@@ -200,11 +189,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   setfreeTravelFormValue(){
     console.log(this.freeTravelModel,'freeTravelModel');
-    this.selectDate = [new Date(this.freeTravelModel.start_date),new Date(this.freeTravelModel.end_date)]
+    this.selectDate = [new Date(this.freeTravelModel.date),new Date(this.freeTravelModel.date)]
     this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price)
     this.addForm.controls["child_price"].setValue( this.freeTravelModel.child_price)
     this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price)
     this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num||0)
+    console.log(this.freeTravelModel.set_inventory,' this.freeTravelModel.set_inventory');
+    this.isSetInventory = this.freeTravelModel.set_inventor.toString() || '0'
+    // this.addForm.controls["set_inventory"].setValue(this.freeTravelModel.set_inventory||0)
+    // this.addForm.controls["allow_over"].setValue(this.freeTravelModel.allow_over||0)
   }
 
   // 表单验证
@@ -237,12 +230,18 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     if(!endTime) return [format(startTime,'yyyy-MM-dd')]
     var date_all = []
     var i = 0
+
     while ((endTime.getTime() - startTime.getTime()) >= 0) {
-      if(this.weekValue.indexOf(startTime.getDay()) === -1) continue
-      date_all[i] = format(startTime,'yyyy-MM-dd')
+      console.log(this.weekValue,startTime.getDay());
+      if(this.weekValue.indexOf(startTime.getDay()) >-1){
+        console.log(123);
+        date_all[date_all.length] = format(startTime,'yyyy-MM-dd')
+      }
+      console.log(date_all,'date_all');
       startTime.setDate(startTime.getDate() + 1)
       i += 1
     }
+
     return date_all
   }
 
@@ -251,8 +250,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     console.log(value);
   }
   onDateChange(dateStr:any){
-   
-    
   }
 
   disabledDate= (current: Date): boolean => {
@@ -269,48 +266,55 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       return str.indexOf(item.date)==-1
     })
     this.quoteBydateRequestModel.data.push(...newList)
-  
     this.dateArr.forEach((date:string) => {
       this.quoteBydateModel = {
         date:'',
       }
       this.quoteBydateModel.date = date;
-      if (this.addForm.value.adult_price!=0) {
-        this.quoteBydateModel.adult_price = Number(this.addForm.value.adult_price);
-      }
-      if (this.addForm.value.child_price!=0) {
-        this.quoteBydateModel.child_price = Number(this.addForm.value.child_price);
-        
-      }
-      if (this.addForm.value.original_adult_price!=0) {
-        this.quoteBydateModel.original_adult_price = Number(this.addForm.value.original_adult_price);
-        
-      }
-      if (this.addForm.value.original_child_price!=0) {
-        this.quoteBydateModel.original_child_price = Number(this.addForm.value.original_child_price);
-      }
-      if (this.addForm.value.difference_price!=0) {
-        this.quoteBydateModel.difference_price = Number(this.addForm.value.difference_price);
-      }
+      this.quoteBydateModel.adult_price  = this.addForm.value.adult_price
+      this.quoteBydateModel.child_price = this.addForm.value.child_price;
+      this.quoteBydateModel.difference_price = this.addForm.value.difference_price;
+      this.quoteBydateModel.allow_over = this.addForm.value.allow_over
+      this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
+      this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num
       this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
     });
-  
+    console.log(this.quoteBydateRequestModel);
   }
 
   // 自由行报价
   setFreeTravelValue(){
-    this.freeTraveModel.id = this.freeTravelModel?this.freeTravelModel.id:0;
-    this.freeTraveModel.independent_product_id = this.productId;
-    this.freeTraveModel.start_date = format(this.selectDate[0],'yyyy-MM-dd');
-    this.freeTraveModel.end_date = format(this.selectDate[1],'yyyy-MM-dd');
-    this.freeTraveModel.adult_price = this.addForm.value.adult_price;
-    this.freeTraveModel.child_price = this.addForm.value.child_price;
-    this.freeTraveModel.difference_price = this.addForm.value.difference_price;
-    this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
-    this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
-    this.freeTraveModel.allow_over = this.addForm.value.allow_over;
-    this.freeTraveModel.check_status = this.addForm.value.check_status;
-    console.log(this.freeTraveModel,'this.freeTraveModel');
+    this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
+    console.log(this.dateArr);
+    this.dateArr.forEach((date:any) => {
+      this.freeTraveModel = {
+        id: 0,
+        date:'',
+        independent_product_id: 0,
+        adult_price: 0,
+        child_price: 0,
+        difference_price: 0,
+        inventory_num: 0,
+        set_inventory: 0,
+        allow_over: 0,
+        check_status: 0,
+        created_at: '',
+        updated_at: '',
+      }
+      this.freeTraveModel.date = date;
+      this.freeTraveModel.independent_product_id = this.productId;
+      this.freeTraveModel.adult_price = this.addForm.value.adult_price;
+      this.freeTraveModel.child_price = this.addForm.value.child_price;
+      this.freeTraveModel.difference_price = this.addForm.value.difference_price;
+      this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
+      this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
+      this.freeTraveModel.allow_over = this.addForm.value.allow_over;
+      this.freeTraveModel.check_status = this.addForm.value.check_status;
+      this.resultArr.push(this.freeTraveModel)
+    });
+    console.log('添加值', this.resultArr);
+
+  
   }
 
   add(){
@@ -318,67 +322,32 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    // console.log(this.addForm);
-    console.log(this.addForm.valid,this.freeTraveModel);
     
     if(this.selectDate===''){
       this.msg.error("请输入日期范围")
       return
     }
     if (this.addForm.valid) {
-      console.log('management',2);
       if(this.type==='management'){
-        console.log('management');
         this.setValue();
         this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
           this.dialogRef.close();
-          if(res ==null){
-            // alert("报价成功");
-          }else{
-            // alert("报价失败");
-          }
-        
           this.quoteBydateRequestModel.data =[]
         })
       }else{
+        console.log('自由行产品编辑 ');
         // 自由行产品编辑
         this.setFreeTravelValue();
-        if(this.selectItem){
-          this.listDataMap = this.listDataMap.filter((ele:any)=>ele.id!=this.selectItem.id)
-        }
-        //判断添加日期是否在已有的日期内,若有,就不让加
-        let flag = this.listDataMap.some((ele:any)=>{
-          let start_date = new Date(ele.start_date).getTime()
-          let end_date = new Date(ele.end_date).getTime()
-          let selectBegin = new Date(this.selectDate[0]).getTime()
-          let selectEnd = new Date(this.selectDate[1]).getTime()
-        
-          return selectBegin<=start_date && selectEnd>=end_date 
-          || selectEnd<=end_date && selectEnd>=start_date
-          || selectBegin<=end_date && selectBegin>=start_date
-          || selectBegin>=start_date && selectEnd<=end_date
-          
-        })
-        if(flag){
-          this.modal['error']({
-            nzMask: false,
-            nzTitle: `<h3>提示</h3>`,
-            nzContent: `<h6>存在日期有报价</h6>`,
-            nzStyle: { position: 'absolute', top: `70px`, left: `40%` }
-          })
-          this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-          setTimeout(() => this.modal.closeAll(), 2500);
-          return false;
-        }
  
+        
         // 修改
         if(this.selectItem){
-          this.quoteBydateService.updateFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
+          this.quoteBydateService.updateFreeTravelQuteDate(this.resultArr,this.productId).subscribe(res=>{
               this.dialogRef.close();
           })
         }else{
-            // 添加
-            this.quoteBydateService.createFreeTravelQuteDate(this.freeTraveModel).subscribe(res=>{
+            // // 添加
+            this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res=>{
               console.log(res);
               this.dialogRef.close();
             })
