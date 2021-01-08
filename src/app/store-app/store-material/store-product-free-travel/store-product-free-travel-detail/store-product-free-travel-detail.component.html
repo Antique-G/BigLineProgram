@@ -12,7 +12,7 @@
                             <app-store-travel-detail-proinfo ></app-store-travel-detail-proinfo>
                         </div>
                     </mat-tab>
-                    <mat-tab label="产品详情" [disabled]="detailId=='undefined' || isIndex<1">
+                    <mat-tab label="产品详情">
                         <ng-template matTabContent >
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
@@ -21,14 +21,14 @@
                             </div>
                         </ng-template>
                     </mat-tab>
-                    <mat-tab label="产品特色" [disabled]="detailId =='undefined' || isIndex<2">
+                    <mat-tab label="产品特色" >
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'></app-store-travel-detail-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
-                    <mat-tab label="预约须知" [disabled]="detailId=='undefined' || isIndex<3">
+                    <mat-tab label="预约须知">
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-store-travel-detail-notice [dataDetailModel]='dataDetailModel'></app-store-travel-detail-notice>
@@ -36,10 +36,9 @@
                         </ng-template>
                     </mat-tab>
 
-                    <mat-tab label="图片与视频" [disabled]="detailId =='undefined' || isIndex<4">
+                    <mat-tab label="图片与视频">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-free-travel-image></app-store-product-free-travel-image>
                             </div>
                         </ng-template>
                     </mat-tab>

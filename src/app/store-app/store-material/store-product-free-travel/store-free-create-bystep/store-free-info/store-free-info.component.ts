@@ -1,4 +1,4 @@
-import { Component, OnInit,  Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import wangEditor from 'wangeditor';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,9 @@ import { StoreRegionService } from '../../../../../../services/store/store-regio
 import { CommonServiceService } from '../../../../../../services/store/common-service/common-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
 
 @Component({
   selector: 'app-store-free-info',
@@ -40,6 +43,9 @@ export class StoreFreeInfoComponent implements OnInit {
   nzOptions: any[] | null = null;
   departure_city: any[] = [];//出发城市
 
+  @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
+  feeList: any[] = []    //图片
+
   validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为64个字符',
@@ -62,9 +68,7 @@ export class StoreFreeInfoComponent implements OnInit {
     destination_city:{
       'required': '请输入目的城市！'
     },
-    fee:{
-      'required': '请输入费用信息！'
-    },
+   
     
     reserve_num:{
       'required': '请输入可预订人数！'
@@ -86,7 +90,6 @@ export class StoreFreeInfoComponent implements OnInit {
     tag_id:'',
     departure_city:'',
     destination_city:'',
-    fee:'',
     reserve_num:'',
     children_age:'',
     child_height_min:'',
@@ -142,7 +145,6 @@ export class StoreFreeInfoComponent implements OnInit {
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
-      fee: new FormControl('', [Validators.required]),
       service_phone: new FormControl('', [Validators.required]),
       confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl('', [Validators.required]),
@@ -162,15 +164,7 @@ export class StoreFreeInfoComponent implements OnInit {
     this.onValueChanged();
   }
 
-  getDetail(){
-    this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any)=>{
-      console.log(res);
-      this.isSpinning = false
-      this.dataModel = res.data
-      this.setFormValue();
-    })
-  }
-
+  
    // 表单验证
   onValueChanged(data?: any) {
     // 如果表单不存在则返回
@@ -196,58 +190,6 @@ export class StoreFreeInfoComponent implements OnInit {
     }
   }
 
-  setFormValue(){
-    this.addForm.get('title')?.setValue(this.dataModel.title);
-    this.addForm.controls['few_days'].setValue(this.dataModel.few_days);
-    this.addForm.get('few_nights')?.setValue(this.dataModel.few_nights);
-    this.addForm.get('fee')?.setValue(this.dataModel.fee);
-    this.addForm.get('service_phone')?.setValue(this.dataModel.service_phone);
-    this.addForm.get('reserve_ahead')?.setValue(this.dataModel.reserve_ahead);
-    this.addForm.get('reserve_num')?.setValue(this.dataModel.reserve_num);
-    this.addForm.get('reserve_children')?.setValue(this.dataModel.reserve_children);
-    this.addForm.get('children_age')?.setValue(this.dataModel.children_age);
-    this.addForm.get('child_height_min')?.setValue(this.dataModel.child_height_min);
-    this.addForm.get('child_height_max')?.setValue(this.dataModel.child_height_max);
-
-    let b = this.dataModel.tag.data;
-    let bNums: any[] = []
-    for (let ints of b) {
-      bNums.push(ints.id)
-      this.selectedTag = bNums
-    }
-    const str = this.dataModel.departure_city;
-    for (let i = 0; i < str.length / 4; i++) {
-      let temp = this.departure_city[i] || '' + str.substr(0, 4 * (i + 1))
-      this.departure_city.push(temp);
-    }
-    console.log(this.departure_city,'this.values');
-    this.addForm.get('departure_city')?.setValue(this.departure_city);   //出发城市
-
-    const strs = this.dataModel.destination_city;
-    for (let i = 0; i < strs.length / 4; i++) {
-      let temp = this.valuesDestination_city[i] || '' + strs.substr(0, 4 * (i + 1))
-      this.valuesDestination_city.push(temp);
-    }
-    console.log(this.valuesDestination_city,'目的城市');
-    this.addForm.get('destination_city')?.setValue(this.valuesDestination_city);   //目的城市
-     // 时间处理
-     let timeArr = this.timeStamp(this.dataModel.earlier);
-     this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
-     let timeDate = format(this.earlierTime,'yyyy-MM-dd')+ ' ' +timeArr[1]+':'+timeArr[2];
-     this.earlierTime = new Date(timeDate)
-  }
-
-  
-//传入的分钟数  转换成天、时、分 [天,时,分]
- timeStamp(minutes:any) {
-  var day = Math.floor(minutes / 60 / 24);
-  var hour = Math.floor(minutes / 60 % 24);
-  var min = Math.floor(minutes % 60); 
-  let str:any = [day,hour,min]
-  
-  //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
-  return  str;
-}
 
   changeTag(a:any){
     this.freeTravelModel.tag_id = a;
@@ -267,12 +209,9 @@ export class StoreFreeInfoComponent implements OnInit {
   getRegionList() {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
-      console.log(this.detailId,1234123421341234);
-      if(this.detailId === undefined){
-        this.isSpinning = false
-      }else{
-        this.getDetail()
-      }
+      this.isSpinning = false
+      this.textChange();
+      
       
     })
   }
@@ -288,6 +227,7 @@ export class StoreFreeInfoComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log(this.addForm.valid);
     if (this.addForm.valid) {
       this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res=>{
         if (res.id) {
@@ -305,7 +245,7 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.title = this.addForm.value.title;
     this.freeTravelModel.few_days = this.addForm.value.few_days;;
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
-    this.freeTravelModel.fee = this.addForm.value.fee;
+    // this.freeTravelModel.fee = this.addForm.value.fee;
     this.freeTravelModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelModel.reserve_ahead = this.addForm.value.reserve_ahead;
     this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
@@ -328,5 +268,52 @@ export class StoreFreeInfoComponent implements OnInit {
     console.log('拿到的值',this.freeTravelModel);
   }
  
+   // 富文本
+   textChange() {
+    // 预约须知
+    const editorFee = new wangEditor("#editorFee", "#feeContent");
+    editorFee.config.onchange = (newHtml: any) => {
+      console.log("213123", newHtml);
+      this.freeTravelModel.fee = newHtml;
+    }
+    // InsertABCMenu
+    // 注册菜单
+    editorFee.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    editorFee.config.menus = editorFee.config.menus.concat('insertABC')
+    editorFee.config.customFunction = (insert: any) => {
+      const dialogRef = this.dialog.open(CommonModelComponent, {
+        width: '660px',
+        disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+        let str = ''
+        result.forEach((item: any) => {
+          insert(item.url)
+        });
+      });
+    }
+    editorFee.create();
+
+  }
+
+  importImg() {
+    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
+      width: '1105px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      result.forEach((item: any) => {
+        this.feeList.push(item)
+        if (this.feeList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        this.feeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`;
+        console.log("this.addStoreProductModel.fee",this.freeTravelModel.fee)
+      });
+    });
+  }
   
 }

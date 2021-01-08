@@ -38,7 +38,6 @@ import { StoreProductFreeTravelComponent } from './store-product-free-travel/sto
 import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
 import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-proinfo/store-travel-detail-proinfo.component';
 import { CommonModelComponent } from './common/common-model/common-model.component';
-import { StoreProductFreeTravelImageComponent } from './store-product-free-travel/store-product-free-travel-image/store-product-free-travel-image.component';
 import { StoreProductFeatureComponent } from './store-product-management/store-product-create-bystep/store-product-feature/store-product-feature.component';
 import { StoreProductEditornoticeComponent } from './store-product-management/store-product-create-bystep/store-product-editornotice/store-product-editornotice.component';
 import { StoreProductEditordetailComponent } from './store-product-management/store-product-create-bystep/store-product-editordetail/store-product-editordetail.component';
@@ -98,7 +97,6 @@ import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free
     StoreProductFreeTravelComponent,
     StoreProductFreeTravelDetailComponent,
     StoreTravelDetailProinfoComponent,
-    StoreProductFreeTravelImageComponent,
     CommonModelComponent,
     StoreProductFeatureComponent,
     StoreProductEditornoticeComponent,

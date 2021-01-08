@@ -9,14 +9,14 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-free-info></app-store-free-info>
+                            <app-store-free-info (tabIndex)="getTabIndex($event)"></app-store-free-info>
                         </div>
                     </mat-tab>
                     <mat-tab label="产品详情" [disabled]="isIndex<1">
                         <ng-template matTabContent >
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                                    <app-store-travel-detail-desc (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-travel-detail-desc>
+                                    <app-store-free-desc (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-desc>
                                 </nz-spin>
                             </div>
                         </ng-template>
@@ -24,14 +24,14 @@
                     <mat-tab label="产品特色" [disabled]="isIndex<2">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'></app-store-travel-detail-feature>
+                                <app-store-free-feature (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
                     <mat-tab label="预约须知" [disabled]="isIndex<3">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-notice [dataDetailModel]='dataDetailModel'></app-store-travel-detail-notice>
+                                <app-store-free-notice (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-notice>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -39,7 +39,6 @@
                     <mat-tab label="图片与视频" [disabled]="isIndex<4">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-free-travel-image></app-store-product-free-travel-image>
                             </div>
                         </ng-template>
                     </mat-tab>

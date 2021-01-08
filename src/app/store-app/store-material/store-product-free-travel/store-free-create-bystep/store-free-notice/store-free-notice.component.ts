@@ -1,4 +1,4 @@
-import { Component,  Input, OnInit, ViewChild } from '@angular/core';
+import { Component,  EventEmitter,  Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +16,7 @@ import { StoreProductTreeTravelService } from '../../../../../../services/store/
   styleUrls: ['./store-free-notice.component.css']
 })
 export class StoreFreeNoticeComponent implements OnInit {
+  @Output() tabIndex = new EventEmitter;
   @Input() dataDetailModel: any;
   dataModel:any
   featureList:any[] = []
@@ -45,9 +46,7 @@ export class StoreFreeNoticeComponent implements OnInit {
   updateInfo(){
     console.log('请求值',this.reqModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res=>{
-      if(res.message=="更新成功"){
-        // this.router.navigate(['/store/main/storeFreeTravel']);
-      }
+      this.tabIndex.emit({id:this.reqModel.id,tabIndex:4})
     })
   }
 
