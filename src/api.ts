@@ -103,6 +103,7 @@ export const StoreUrls = {
   PostStoreFreeTravelInfo: api + '/store/independent_product/',
   PostSaveStoreFreeTravelInfo: api + '/store/independent_product',
   PostUpDownFreeTravelInfo: api + '/store/independent_product/set_status',
+  PostUpDownFreeTravelInfoSetCheck: api + '/store/independent_product/set_check',
 
   // 自由行产品日期报价
   GetStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期列表

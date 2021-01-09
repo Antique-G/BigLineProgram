@@ -61,6 +61,7 @@ export class StoreQuoteBydateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.productId = params.productId;
        this.type = params.type
+       console.log(this.seletMonth,'ngOnInit');
        this.getQuoteList();
     });
     
@@ -80,7 +81,7 @@ export class StoreQuoteBydateComponent implements OnInit {
 
   getQuoteList(){
     console.log(this.productId,'this.productId',this.seletMonth);
-      this.quoteBydateService.getQuoteDateList(this.productId,this.type,this.nzPageIndex).subscribe(data=>{
+      this.quoteBydateService.getQuoteDateList(this.productId,this.type,this.nzPageIndex,this.seletMonth).subscribe(data=>{
        
         this.listDataMap.data = data.data
         console.log('listDataMap', this.listDataMap);

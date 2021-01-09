@@ -285,7 +285,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateModel.difference_price = this.addForm.value.difference_price.length>0? this.addForm.value.difference_price:0;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over
       this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
-
+      this.quoteBydateModel.check_status =1
       this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num || 0
       this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
     });

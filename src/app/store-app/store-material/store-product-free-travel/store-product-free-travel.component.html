@@ -105,11 +105,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
-                                            <div *ngIf="data.status===0">
+                                        <div style="cursor: pointer;" *ngIf="data.check_status==2" (click)="up(data)" title="上架">
+                                            <div *ngIf="data.status==0">
                                                 <mat-icon title="上架">arrow_circle_up</mat-icon>
                                             </div>
-                                            <div *ngIf="data.status===1">
+                                            <div *ngIf="data.status==1">
                                                 <mat-icon title="下架">arrow_circle_down</mat-icon>
                                             </div>
                                         </div>
