@@ -79,6 +79,12 @@ export class StoreProductService {
       )
   }
 
+  // 提交审核
+  // 审核自由行产品
+  checkStatusFreeTravel(id:number,check_status:number):Observable<any>{
+    return this.httpClient.post<any>(this.urls.PostStoreQuoteByDateSetCheck,{id,check_status},httpOptions)
+  }
+
 
   // 产品集合地点
   productAssemblingPlaceList(): Observable<AssemblingPlaceListModel> {

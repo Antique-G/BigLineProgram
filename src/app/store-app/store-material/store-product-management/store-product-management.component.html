@@ -61,6 +61,7 @@
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">报价</th>
                                     <th style="text-align: center;">上下架</th>
+                                    <th style="text-align: center;">提交审核</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,6 +108,15 @@
                                             <div *ngIf="data.status===1">
                                                 <mat-icon title="下架">arrow_circle_down</mat-icon>
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <div *ngIf="data.check_status==0">
+                                                <!-- 未提交审核  -->
+                                                <mat-icon (click)="checkStatusClick(data)" title="提交审核">sim_card</mat-icon>
+                                            </div>
+                                           
                                         </div>
                                     </td>
                                 </tr>
