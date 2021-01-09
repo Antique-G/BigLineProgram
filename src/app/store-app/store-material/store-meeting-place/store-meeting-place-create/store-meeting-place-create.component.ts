@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AddStoreMeetingPlaceRequestModel } from '../../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { DatePipe } from '@angular/common';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class StoreMeetingPlaceCreateComponent implements OnInit {
+
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
@@ -45,10 +47,11 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceCreateComponent>,
+  constructor(public fb: FormBuilder,
     private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
-    // 拿到缓存的集合地点
+   
+      // 拿到缓存的集合地点
     console.log("234234", localStorage.getItem("storeRegion"));
     console.log("353535", localStorage.getItem("lastRegion"));
     // 缓存上一次输入的区域
@@ -134,7 +137,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       console.log("结果是", res);
       this.nzOptions = res;
     })
-
+ 
   }
 
 
@@ -169,7 +172,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
         if (res === null) {
           // alert("创建成功");
           localStorage.setItem("lastRegion", this.addStoreMeetingPlaceRequestModel.region_code);
-          this.dialogRef.close(1);
+          // this.dialogRef.close(1);
         }
         else {
           // alert("创建失败，请重新填写");
@@ -180,7 +183,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
 
   close(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   onChanges(values: any): void {

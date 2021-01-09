@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreMeetingPlaceService } from '../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place-create/store-meeting-place-create.component';
@@ -22,7 +23,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
   name: any;
   status: any;
 
-  constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog,private modal: NzModalService) {
     this.searchForm = fb.group({
       status: ['' ],
       name: ['' ],
@@ -81,16 +82,26 @@ export class StoreMeetingPlaceComponent implements OnInit {
   }
 
   add() {
-    const dialogRef = this.dialog.open(StoreMeetingPlaceCreateComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      if (result !== undefined) {
-        this.storeMeetingPlaceList();
+   const addmodal =  this.modal.create({
+      nzTitle: '添加集合地',
+      nzContent: StoreMeetingPlaceCreateComponent,
+      nzOnOk:componentInstance =>{
+        componentInstance.add()
       }
+    })
+    addmodal.afterClose.subscribe(res=>{
+      this.storeMeetingPlaceList();
+    })
+    // const dialogRef = this.dialog.open(StoreMeetingPlaceCreateComponent, {
+    //   width: '550px',
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log("result", result);
+    //   if (result !== undefined) {
+    //     this.storeMeetingPlaceList();
+    //   }
 
-    });
+    // });
   }
 
 
