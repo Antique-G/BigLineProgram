@@ -93,6 +93,8 @@ export const StoreUrls = {
   PatchStoreProductStatus: api + '/store/product/',   //产品上下架
   GetStoreQuoteByDate: api + '/store/product/',//产品报价列表
   PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
+  PostStoreQuoteByDateSetCheck:api + '/store/product/set_check',//产品报价提交审核
+  
 
   PostStoreImgUpload: api + '/store/image',  //上传
   GetStoreImgList: api + '/store/image',  //上传

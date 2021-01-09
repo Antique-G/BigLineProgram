@@ -78,7 +78,17 @@ export class StoreProductManagementComponent implements OnInit {
     this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
   }
 
-
+  checkStatusClick(data:any){
+    this.modal.confirm({
+      nzTitle: '<h5>请确认操作?</h5>',
+      nzContent: '提交审核',
+      nzOnOk: () =>{
+        this.storeProductService.checkStatusFreeTravel(data.id,1).subscribe(res=>{
+          console.log(res);
+        })
+      }
+    });
+  }
   // 报价
   goToQuoteClick(data: any) {
     console.log(data);
