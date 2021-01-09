@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
@@ -21,13 +21,14 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   addForm!: FormGroup;
 
   updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel;
-  detailModel: Datum;
+  detailModel!: Datum;
 
   public isSpinning: any = true;    //loading 
 
   newtime = new Date();
-  todayDate:any;
+  todayDate: any;
 
+  @Input() data: any
 
   validationMessage: any = {
     name: {
@@ -51,24 +52,9 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreMeetingPlaceDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private datePipe: DatePipe,
+  constructor(public fb: FormBuilder,
+    private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
-    this.detailModel = this.data;
-    const str = this.detailModel.region_code;
-    for (let i = 0; i < str.length / 4; i++) {
-      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
-      this.values.push(temp);
-    }
-    console.log("111", this.values);    //区域
-    console.log("newtime",this.datePipe.transform(this.newtime,'yyyy-mm-dd '))
-    let today = this.datePipe.transform(this.newtime,'yyyy-MM-dd')+' ' + this.detailModel.time;
-    this.todayDate = new Date(today)
-      console.log('today',this.todayDate);
-
-    // this.newtime = this.detailModel.time?this.detailModel.time:null;
-
-
     this.forms();
     this.updateStoreMeetingPlaceRequestModel = {
       name: '',
@@ -81,11 +67,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
   forms() {
     this.addForm = this.fb.group({
-      name: [this.detailModel.name, [Validators.required]],
-      regionCode: [this.detailModel.region_code, [Validators.required]],
-      address: [this.detailModel.address],
-      status: [this.detailModel.status, [Validators.required]],
-      timeMeeting: [this.todayDate, [Validators.required]],
+      name: ['', [Validators.required]],
+      regionCode: ['', [Validators.required]],
+      address: ['', ],
+      status: ['',  [Validators.required]],
+      timeMeeting: [null, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -123,6 +109,24 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.detailModel = this.data;
+    const str = this.detailModel.region_code;
+    for (let i = 0; i < str.length / 4; i++) {
+      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+      this.values.push(temp);
+    }
+    console.log("111", this.values);    //区域
+    console.log("newtime", this.datePipe.transform(this.newtime, 'yyyy-mm-dd '))
+    let today = this.datePipe.transform(this.newtime, 'yyyy-MM-dd') + ' ' + this.detailModel.time;
+    this.todayDate = new Date(today)
+    console.log('today', this.todayDate);
+    this.addForm.setValue({
+      name:this.detailModel.name,
+      regionCode:this.detailModel.region_code,
+      address:this.detailModel.address,
+      status:this.detailModel.status,
+      timeMeeting:this.todayDate,
+    })
     this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
@@ -155,7 +159,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
         console.log("res结果", res);
         if (res === null) {
           // alert("更新成功");
-          this.dialogRef.close(1);
+          // this.dialogRef.close(1);
         }
         else {
           // alert("更新失败，请重新填写");
@@ -172,7 +176,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
 
   close(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   onChanges(values: any): void {
