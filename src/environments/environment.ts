@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   // baseUrl: "http://p.carl.beennn.cn"     //旧的
-  // baseUrl: "http://plat.bigline.cc",
-  baseUrl: "http://jiaxiang.p.bigline.cc"    //张家祥
+  baseUrl: "http://plat.bigline.cc",
+  // baseUrl: "http://jiaxiang.p.bigline.cc"    //张家祥
 };
 
 /*
