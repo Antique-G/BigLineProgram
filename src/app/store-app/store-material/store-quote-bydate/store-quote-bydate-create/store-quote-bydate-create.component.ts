@@ -25,7 +25,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   quoteBydateRequestModel:StoreQuoteBydateRequestModel
   quoteBydateModel:StoreQuoteBydateModel
   type:any;//freeTravel 自由行 management 产品管理   是从自由行 还是产品跳过来的
-
+  public isSpinning:boolean = true
   //自由行
   freeTraveModel:FreeTraveQuoteBydateModel 
 
@@ -34,7 +34,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   dateArr:any
   selectItem:any ////当前点击项
 
-  listDataMap:any
+  listDataMap:any[]= []
 
   isSetInventory = '0'
   isAllowOver='0'
@@ -96,7 +96,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       console.log(this.data,'this.data');
       this.productId = this.data.productId
       this.type = this.data.type
-      this.listDataMap = this.data.listDataMap.data
+      // this.listDataMap = this.data.listDataMap.data
       this.selectItem = this.data.date; //当前点击项
 
       this.freeTraveModel={
@@ -158,11 +158,11 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   // 获取详情
   GetDetail(){
       if(this.type==='management'){
+        this.getAllData();
           // 修改
           if(this.selectItem){
             this.selectDate=[new Date(this.selectItem.date),new Date(this.selectItem.date)]
             console.log( this.selectDate);
-           
             this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
             this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
             this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
@@ -178,15 +178,28 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           console.log('GetDetail');
           console.log(this.productId,'this.productId');
             this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res=>{
+              this.isSpinning = false
               if(res.data){
                 this.freeTravelModel = res.data
                 console.log('拿到的data',res.data);
                 this.setfreeTravelFormValue()
               }
             })
+          }else{
+            this.isSpinning = false
           }
       }
       
+  }
+
+  // 获取产品报价所有数据
+  getAllData(){
+    this.quoteBydateService.getQuoteDateList(this.productId,'management','','','').subscribe(res=>{
+     console.log(res,'获取产品报价所有数据');
+     this.listDataMap.push(...res.data)
+     console.log(this.listDataMap);
+     this.isSpinning = false
+    })
   }
 
   setfreeTravelFormValue(){
@@ -268,12 +281,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   // 产品报价
   setValue(){
+    
     this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
+    console.log(this.listDataMap,this.dateArr);
     // 过滤已存在的日期
     let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
       let str = this.dateArr.map((e:string)=>e)
       return str.indexOf(item.date)==-1
     })
+    console.log(newList,'newList');
     this.quoteBydateRequestModel.data.push(...newList)
     this.dateArr.forEach((date:string) => {
       this.quoteBydateModel = {
@@ -281,8 +297,9 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }
       this.quoteBydateModel.date = date;
       this.quoteBydateModel.adult_price  = this.addForm.value.adult_price
-      this.quoteBydateModel.child_price = this.addForm.value.child_price.length>0? this.addForm.value.child_price:0;
-      this.quoteBydateModel.difference_price = this.addForm.value.difference_price.length>0? this.addForm.value.difference_price:0;
+    
+      this.quoteBydateModel.child_price = this.addForm.value.child_price>0? this.addForm.value.child_price:0;
+      this.quoteBydateModel.difference_price = this.addForm.value.difference_price>0? this.addForm.value.difference_price:0;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over
       this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
       this.quoteBydateModel.check_status =1
@@ -313,8 +330,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.freeTraveModel.date = date;
       this.freeTraveModel.independent_product_id = this.productId;
       this.freeTraveModel.adult_price = this.addForm.value.adult_price;
-      this.freeTraveModel.child_price = this.addForm.value.child_price.length>0?this.addForm.value.child_price:0;
-      this.freeTraveModel.difference_price = this.addForm.value.difference_price.length>0?this.addForm.value.difference_price:0;
+      this.freeTraveModel.child_price = this.addForm.value.child_price>0?this.addForm.value.child_price:0;
+      this.freeTraveModel.difference_price = this.addForm.value.difference_price>0?this.addForm.value.difference_price:0;
       this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
       this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
       this.freeTraveModel.allow_over = this.addForm.value.allow_over;
