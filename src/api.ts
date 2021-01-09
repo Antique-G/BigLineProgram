@@ -34,6 +34,8 @@ export const AdminUrls = {
   GetAdminRegionDetail: api + '/admin/region/', //区域列表接口的编辑详情
   PutAdminRegionUpdate: api + '/admin/region/', //区域列表接口信息修改保存
   PostAdminUpload: api + '/admin/image',  //区域创建的图片上传
+  GetAdminQuteDateList:api + '/admin/date_quotes',  //日期报价列表
+  PostAdminQuteDateSetCheck:api + '/admin/date_quotes/set_check',  //日期报价列表
 
 
   GetAdminProductTagList: api + '/admin/tag', //产品标签列表

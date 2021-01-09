@@ -118,4 +118,8 @@ export class AdminProductManagementComponent implements OnInit {
     });
   }
 
+  quteDateClick(data: any){
+    this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id } });
+  }
+
 }

@@ -13,7 +13,7 @@ import { AdminProducFreeTravelComponent } from './admin-product/admin-produc-fre
 import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-free-travel-detail.component';
 import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
 import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-qutedate/admin-product-free-travel-qutedate.component';
-
+import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
 export const MaterialRoutes: Routes = [
 
   {
@@ -74,6 +74,13 @@ export const MaterialRoutes: Routes = [
         component: AdminProductManagementDetailComponent,
         data: {
           breadcrumb: '产品详情'
+        }
+      },
+      {
+        path: 'productManagement/qutedate',
+        component: AdminProductQutedateComponent,
+        data: {
+          breadcrumb: '跟团游报价'
         }
       },
       {
