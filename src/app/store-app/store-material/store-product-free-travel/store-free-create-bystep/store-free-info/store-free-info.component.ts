@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 
 @Component({
   selector: 'app-store-free-info',
@@ -47,6 +48,8 @@ export class StoreFreeInfoComponent implements OnInit {
   feeList: any[] = []    //图片
   isReserveAhead = '0';
   isReserveChildren = '0';
+
+  cateId: any;
 
   validationMessage: any = {
     title: {
@@ -88,6 +91,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
+    public storeProductService: StoreProductService,
     private freeTravelService: StoreProductTreeTravelService, private storeRegionService: StoreRegionService,
     private commonService: CommonServiceService, public dialog: MatDialog, private msg: NzMessageService) {
     this.buildForm()
@@ -121,7 +125,7 @@ export class StoreFreeInfoComponent implements OnInit {
     });
     console.log('this.detailId', this.detailId);
     this.addForm.controls['tag_id'].setValue([]);
-    this.getTagList();
+    this.getCateList();
   }
 
   // 表单初始化
@@ -183,8 +187,27 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.tag_id = a;
   }
 
+
+  // 标签分类列表
+  getCateList() {
+    this.storeProductService.productCateList().subscribe(res => {
+      console.log("结果是111", res.data)
+      console.log("name", res.data[0].name)
+      console.log("name", res.data[1].name)
+      let name1 = res.data[0].name;
+      let name2 = res.data[1].name;
+      if (name1 === '自由行') {
+        this.cateId = res.data[0].id
+      }
+      else if (name2 === '自由行') {
+        this.cateId = res.data[1].id
+      }
+      this.getTagList();
+    })
+  }
+
   getTagList() {
-    this.freeTravelService.GetProductTagList().subscribe((res: any) => {
+    this.freeTravelService.GetProductTagList(this.cateId).subscribe((res: any) => {
       for (let i of res.data) {
         this.tagList.push({ value: i.id, label: i.name });
       }
@@ -216,9 +239,9 @@ export class StoreFreeInfoComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     console.log(this.addForm);
-    
+
     if (this.addForm.valid) {
-    console.log('提交的model',this.freeTravelModel);
+      console.log('提交的model', this.freeTravelModel);
 
       this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
         if (res.id) {
@@ -237,11 +260,11 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
     this.freeTravelModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelModel.reserve_ahead = this.addForm.value.reserve_ahead;
-    console.log("fsfsdf",this.freeTravelModel.reserve_ahead);
-    if (parseInt(this.isReserveAhead) ===0) {
+    console.log("fsfsdf", this.freeTravelModel.reserve_ahead);
+    if (parseInt(this.isReserveAhead) === 0) {
       this.freeTravelModel.earlier = 0;
     }
-    else if(parseInt(this.isReserveAhead) ===1){
+    else if (parseInt(this.isReserveAhead) === 1) {
       let earlier1 = this.addForm.value.earlier1
       let date = new Date(this.addForm.value.earlier2);
       let min = date.getMinutes();
@@ -253,14 +276,14 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
 
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
-    console.log("fdgdfg",this.freeTravelModel.reserve_children);
+    console.log("fdgdfg", this.freeTravelModel.reserve_children);
 
     if (parseInt(this.isReserveChildren) === 0) {
       this.freeTravelModel.children_age = 0;
       this.freeTravelModel.child_height_min = 0;
       this.freeTravelModel.child_height_max = 0;
     }
-    else  if (parseInt(this.isReserveChildren) === 1){
+    else if (parseInt(this.isReserveChildren) === 1) {
       this.freeTravelModel.children_age = this.addForm.value.children_age;
       this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
       this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;

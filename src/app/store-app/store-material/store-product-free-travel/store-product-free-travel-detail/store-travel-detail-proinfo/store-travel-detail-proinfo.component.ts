@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 @Component({
   selector: 'app-store-travel-detail-proinfo',
   templateUrl: './store-travel-detail-proinfo.component.html',
@@ -41,6 +42,8 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   isReserveAhead = '0';
   isReserveChildren = '0';
+
+  cateId:any
 
 
   validationMessage: any = {
@@ -79,6 +82,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
+    public storeProductService: StoreProductService,
     private freeTravelService: StoreProductTreeTravelService, private storeRegionService: StoreRegionService,
     private commonService: CommonServiceService, public dialog: MatDialog, private msg: NzMessageService) {
     this.buildForm()
@@ -112,7 +116,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     });
     console.log('this.detailId', this.detailId);
     this.addForm.controls['tag_id'].setValue([]);
-    this.getTagList();
+    this.getCateList();
   }
 
   // 表单初始化
@@ -234,8 +238,26 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.tag_id = a;
   }
 
+    // 标签分类列表
+    getCateList() {
+      this.storeProductService.productCateList().subscribe(res => {
+        console.log("结果是111", res.data)
+        console.log("name", res.data[0].name)
+        console.log("name", res.data[1].name)
+        let name1 = res.data[0].name;
+        let name2 = res.data[1].name;
+        if (name1 === '自由行') {
+          this.cateId = res.data[0].id
+        }
+        else if (name2 === '自由行') {
+          this.cateId = res.data[1].id
+        }
+        this.getTagList();
+      })
+    }
+
   getTagList() {
-    this.freeTravelService.GetProductTagList().subscribe((res: any) => {
+    this.freeTravelService.GetProductTagList( this.cateId).subscribe((res: any) => {
       for (let i of res.data) {
         this.tagList.push({ value: i.id, label: i.name });
       }

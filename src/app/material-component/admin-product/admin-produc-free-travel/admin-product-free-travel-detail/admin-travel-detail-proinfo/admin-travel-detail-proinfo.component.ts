@@ -41,7 +41,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   isReserveAhead = '0';
   isReserveChildren = '0';
 
-
+  cateId: any;
 
   validationMessage: any = {
     title: {
@@ -161,12 +161,28 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailId"]);
     });
-    this.getTagList()
+    this.getCateList()
   }
 
+  getCateList() {
+    this.adminProductTagService.getProdectCateList().subscribe(res => {
+      console.log("结果是111", res.data)
+      console.log("name", res.data[0].name)
+      console.log("name", res.data[1].name)
+      let name1 = res.data[0].name;
+      let name2 = res.data[1].name;
+      if (name1 === '自由行') {
+        this.cateId = res.data[0].id
+      }
+      else if (name2 === '自由行') {
+        this.cateId = res.data[1].id
+      }
+      this.getTagList();
+    })
+  }
 
   getTagList() {
-    this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
+    this.adminProductTagService.getProductTagList(1, 1000, this.cateId, '', '').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);

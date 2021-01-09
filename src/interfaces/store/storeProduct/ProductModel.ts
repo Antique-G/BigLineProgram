@@ -218,4 +218,15 @@ export interface DatumList {
 }
 
 
+export interface ProductTagCateListModel {
+  data: DataProductTagCateList[];
+}
+
+export interface DataProductTagCateList {
+  id: string;
+  name: string;
+}
+
+
+
 
