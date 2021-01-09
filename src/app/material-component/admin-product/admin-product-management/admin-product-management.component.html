@@ -54,6 +54,7 @@
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">审核</th>
                                     <th style="text-align: center;">上下架</th>
+                                    <th style="text-align: center;">日期报价审核</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +106,11 @@
                                             <div *ngIf="data.status===1">
                                                 <mat-icon title="下架">arrow_circle_down</mat-icon>
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" >
+                                            <mat-icon style="color: #272727;" title="日期报价" (click)="quteDateClick(data)">assignment_ind</mat-icon>
                                         </div>
                                     </td>
                                 </tr>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel,  AdminProductResponseModel, AdminProductSetStatusModel } from '../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel,  AdminProductResponseModel, AdminProductSetStatusModel,ProductQuteDateModel } from '../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -88,8 +88,28 @@ export class AdminProductManagementService {
       )
   }
 
+// 日期报价列表
+  QuteDateList(product_id:any,page: number, per_page: number){
+  const params = new HttpParams()
+  .set('page', page.toString())
+  .set('per_page', per_page.toString())
+  .set('product_id', product_id)
+  const findhttpOptions = {
+    headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+    params: params
+  };
+  return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminQuteDateList ,findhttpOptions)
+  .pipe(
+    catchError(this.handleError)
+  )
+}
 
-
+QuteDateCheckState(date_id:any[],check_status:number){
+  return this.httpClient.post<any>(this.urls.PostAdminQuteDateSetCheck ,{date_id,check_status},httpOptions)
+  .pipe(
+    catchError(this.handleError)
+  )
+}
 
 
 
