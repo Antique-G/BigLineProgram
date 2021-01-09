@@ -29,10 +29,11 @@ export class StoreQuoteBydateComponent implements OnInit {
   type:any //freeTravel 自由行 management 产品管理   是从自由行 还是产品跳过来的
   toDay = new Date()
   listDataMap:StoreQuoteBydateRsponseListModel|FreeTraveRsponseListModel
-  seletMonth:any = format(new Date(),'yyyy-MM')
-
+  seletYearMonth:any = format(new Date(),'yyyy-MM')
+  selectedYear =  format(new Date(),'yyyy')
+  yearList =  ['2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030','2031']
   selectedDateValue = new Date();
-
+  public isSpinning:boolean = true
   freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel
   nzPageIndex = new Date().getMonth()+1
   constructor(public dialog:MatDialog,public activatedRoute: ActivatedRoute,public quoteBydateService:StoreQuoteBydateService,private el:ElementRef) {
@@ -61,7 +62,7 @@ export class StoreQuoteBydateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.productId = params.productId;
        this.type = params.type
-       console.log(this.seletMonth,'ngOnInit');
+       console.log(this.seletYearMonth,'ngOnInit');
        this.getQuoteList();
     });
     
@@ -74,19 +75,21 @@ export class StoreQuoteBydateComponent implements OnInit {
     let year = new Date().getFullYear();
     let day = new Date().getDay();
     this.selectedDateValue = new Date(year+'-'+month+'-'+day)
-    this.seletMonth = year+'-'+month
+    this.seletYearMonth = this.selectedYear +'-'+ month
     this.nzPageIndex = index
+    this.isSpinning = true
     this.getQuoteList()
   }
 
   getQuoteList(){
-    console.log(this.productId,'this.productId',this.seletMonth);
-      this.quoteBydateService.getQuoteDateList(this.productId,this.type,this.nzPageIndex,this.seletMonth).subscribe(data=>{
-
+    console.log(this.productId,'this.productId',this.seletYearMonth);
+      this.quoteBydateService.getQuoteDateList(this.productId,this.type,1,this.seletYearMonth,42).subscribe(data=>{
         this.listDataMap.data = data.data
+        this.isSpinning = false
         console.log('listDataMap', this.listDataMap);
       })
   }
+
 
  
   isMidDate(beginStr:any,endStr:any,str:any){
@@ -131,12 +134,13 @@ export class StoreQuoteBydateComponent implements OnInit {
 
   mode: NzCalendarMode = 'month';
 
-  selectMonthHandle(date:any){
-    console.log(date,format(date,'yyyy-MM'));
-    this.seletMonth = format(date,'yyyy-MM')
-    this.getQuoteList();
+  
+  // 选择年
+  ngYearChange(year:any){
+    let month = this.nzPageIndex<10?'0'+this.nzPageIndex:this.nzPageIndex;
+    this.seletYearMonth = this.selectedYear +'-' + month;
+    this.getQuoteList()
   }
-
   panelChange(change: { date: Date; mode: string }): void {
     console.log('panelChange',change.date, change.mode);
   }
@@ -147,6 +151,8 @@ export class StoreQuoteBydateComponent implements OnInit {
   // 批量报价
   quoteClick(){
     console.log(123);
+    
+
     const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
       width:'700px',
       data:{
