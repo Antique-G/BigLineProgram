@@ -10,9 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreMaterialRoutes } from './store-material.routing';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
-import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place/store-meeting-place-create/store-meeting-place-create.component';
-import { StoreMeetingPlaceDetailComponent } from './store-meeting-place/store-meeting-place-detail/store-meeting-place-detail.component';
 import { StoreTermsManagementComponent } from './store-terms-management/store-terms-management.component';
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
 import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
@@ -49,6 +47,8 @@ import { StoreFreeFeatureComponent } from './store-product-free-travel/store-fre
 import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-notice/store-free-notice.component';
 import { StoreTravelDetailImageComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-image/store-travel-detail-image.component';
 import { StoreFreeImageComponent } from './store-product-free-travel/store-free-create-bystep/store-free-image/store-free-image.component';
+import { StoreMeetingPlaceDetailComponent } from './store-meeting-place/store-meeting-place-detail/store-meeting-place-detail.component';
+import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 
 @NgModule({
   imports: [

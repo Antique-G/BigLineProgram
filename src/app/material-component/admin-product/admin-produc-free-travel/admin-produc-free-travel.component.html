@@ -67,11 +67,11 @@
                                     <td>{{data?.store?.name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
-                                    <td>{{data.min_price}}</td>
+                                    <td>{{data.min_price}}&nbsp;元</td>
                                     <td>{{data.departure}}</td>
                                     <td>{{data.destination}}</td>
-                                    <td>{{data.children_age}}</td>
-                                    <td>{{data.children_height}}</td>
+                                    <td>{{data.children_age}}&nbsp;岁</td>
+                                    <td>{{data.children_height}}&nbsp;cm</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架
@@ -124,7 +124,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" >
+                                        <div style="cursor: pointer;">
                                             <mat-icon style="color: #272727;" title="日期报价" (click)="quteDateClick(data)">assignment_ind</mat-icon>
                                         </div>
                                     </td>
