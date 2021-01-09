@@ -85,6 +85,7 @@ export class StoreProductManagementComponent implements OnInit {
       nzOnOk: () =>{
         this.storeProductService.checkStatusFreeTravel(data.id,1).subscribe(res=>{
           console.log(res);
+          this.getProductList();
         })
       }
     });
