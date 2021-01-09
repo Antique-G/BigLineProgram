@@ -28,10 +28,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   featureList: any[] = []
   detailList: any[] = []
 
-  formModel = {
-    few_days: 0,
-    few_nights: 0,
-  }
   selectedTag: any[] = [];  //标签
   tagList: any[] = [];
 
@@ -43,7 +39,10 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
   feeList: any[] = []    //图片
 
-  
+  isReserveAhead = '0';
+  isReserveChildren = '0';
+
+
   validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为64个字符',
@@ -56,9 +55,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     few_nights: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几晚！'
-    },
-    tag_id: {
-      'required': '请选择产品标签'!
     },
     departure_city: {
       'required': '请输入出发城市！'
@@ -74,7 +70,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     title: '',
     few_days: '',
     few_nights: '',
-    tag_id: '',
     departure_city: '',
     destination_city: '',
     reserve_num: '',
@@ -126,7 +121,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
-      tag_id: new FormControl('', [Validators.required]),
+      tag_id: new FormControl(''),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
@@ -309,10 +304,10 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
     this.freeTravelModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelModel.reserve_ahead = this.addForm.value.reserve_ahead;
-    if (parseInt(this.addForm.value.reserve_ahead) === 0) {
+    if (parseInt(this.isReserveAhead) === 0) {
       this.freeTravelModel.earlier = 0;
     }
-    else if (parseInt(this.addForm.value.reserve_ahead) === 1) {
+    else if (parseInt(this.isReserveAhead) === 1) {
       let earlier1 = this.addForm.value.earlier1
       let date = new Date(this.addForm.value.earlier2);
       let min = date.getMinutes();
@@ -323,12 +318,12 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
-    if (parseInt(this.addForm.value.reserve_children) === 0) {
+    if (parseInt(this.isReserveChildren) === 0) {
       this.freeTravelModel.children_age = 0;
       this.freeTravelModel.child_height_min = 0;
       this.freeTravelModel.child_height_max = 0;
     }
-    else if (parseInt(this.addForm.value.reserve_children) === 1) {
+    else if (parseInt(this.isReserveChildren) === 1) {
       this.freeTravelModel.children_age = this.addForm.value.children_age;
       this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
       this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
@@ -398,13 +393,14 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   isReserveAheadChange(status: any) {
     console.log(status, 'status');
-    this.addForm.value.reserve_ahead = status;
+    this.isReserveAhead = status;
+    this.addForm.value.reserve_ahead = this.isReserveAhead
   }
 
   isReserveChildrenChange(status: any) {
     console.log(status, 'status');
-
-    this.addForm.value.reserve_children = status;
+    this.isReserveChildren = status
+    this.addForm.value.reserve_children = this.isReserveChildren
   }
 
 }
