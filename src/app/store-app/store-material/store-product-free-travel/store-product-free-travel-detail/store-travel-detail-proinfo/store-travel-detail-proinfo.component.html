@@ -34,7 +34,7 @@
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tag_id" nzRequired>产品标签</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.departure_city">
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
                                                 <nz-select nzMode="multiple" nzPlaceHolder="请选择产品标签" (ngModelChange)="changeTag($event)" [(ngModel)]="selectedTag" formControlName="tag_id">
                                                     <nz-option *ngFor="let option of tagList" [nzLabel]="option.label" [nzValue]="option.value">
                                                     </nz-option>
@@ -113,7 +113,7 @@
                                     </nz-form-item>
 
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="dataModel?.reserve_ahead===1">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveAhead==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
@@ -148,7 +148,7 @@
                                     </nz-form-item>
 
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="dataModel?.reserve_children===1">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童年龄</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.children_age">
@@ -158,7 +158,7 @@
                                     </nz-form-item>
 
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="dataModel?.reserve_children===1">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童最低身高</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">

@@ -34,7 +34,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   tagList: any[] = [];
 
   // 预定截止日期
-  earlierTime = new Date();
+  earlierTime = new Date('2021-01-01 18:00');
+  isReserveChildren = '0';
 
 
   dataProductDetailModel: any;
@@ -45,45 +46,41 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
 
 
-
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为225个字符',
+      'maxlength': '标题长度最多为64个字符',
       'required': '请填写标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
     },
+    few_nights: {
+      'isNumber': '请输入非零的正整数',
+      'required': '请输入出行几晚！'
+    },
+    tag_id: {
+      'required': '请选择产品标签'!
+    },
     departure_city: {
-      'required': '请选择出发城市'
+      'required': '请输入出发城市！'
     },
     destination_city: {
-      'required': '请选择目的城市'
+      'required': '请输入目的城市！'
     },
-    child_age_max: {
-      'required': '请输入最大年龄'
-    },
-    child_height_min: {
-      'required': '请输入儿童身高范围'
-    },
-    reserve_num_min: {
-      'required': '请输入预订人数范围'
-    },
-    earlier1: {
-      'required': '请输入预定截止时间'
+    reserve_num: {
+      'required': '请输入可预订人数！'
     },
   };
   formErrors: any = {
     title: '',
-    departure_city: '',
     few_days: '',
+    few_nights: '',
+    tag_id: '',
+    departure_city: '',
     destination_city: '',
-    child_age_max: '',
-    child_height_min: '',
-    reserve_num_min: '',
-    earlier1: '',
-  };
+    reserve_num: '',
+  }
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -118,8 +115,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   buildForm(): void {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
-      few_days: ['', [Validators.required]],
-      few_nights: [0, [Validators.required]],
+      few_days: [2, [Validators.required]],
+      few_nights: [1, [Validators.required]],
       tag_id: ['', [Validators.required]],
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
@@ -127,12 +124,12 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
       child_status: ['1', [Validators.required]],
-      child_age_max: ['', [Validators.required]],
+      child_age_max: [14],
       child_height_min: [''],
       child_height_max: [''],
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
-      earlier1: new FormControl(0, [Validators.required]),
+      earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null, [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -219,9 +216,17 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.detailUpdateModel.confirm = this.addForm.value.confirm;
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
-    this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
-    this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
-    this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    if (parseInt(this.isReserveChildren) === 0) {
+      this.detailUpdateModel.child_age_max = 14;
+      this.detailUpdateModel.child_height_min = 0;
+      this.detailUpdateModel.child_height_max = 0;
+    }
+    else if (parseInt(this.isReserveChildren) === 1) {
+      this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
+      this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
+      this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    }
+    
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
     // 时间处理
@@ -433,6 +438,15 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         console.log("res结果", res);
       })
     }
+  }
+
+
+  
+
+  isReserveChildrenChange(status: any) {
+    console.log(status, 'status');
+    this.isReserveChildren = status;
+    this.addForm.value.child_status = this.isReserveChildren;
   }
 
 }

@@ -33,53 +33,47 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   tagList: any[] = [];
   public isSpinning: any = true;    //loading 
 
-  time = new Date();
+  time = new Date('2021-01-01 18:00');
 
   freeTravelUpdateModel: FreeTravelUpdateModel
 
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
+  isReserveAhead = '0';
+  isReserveChildren = '0';
 
 
 
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为225个字符',
+      'maxlength': '标题长度最多为64个字符',
       'required': '请填写标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几天！'
     },
+    few_nights: {
+      'isNumber': '请输入非零的正整数',
+      'required': '请输入出行几晚！'
+    },
     departure_city: {
-      'required': '请选择出发城市'
+      'required': '请输入出发城市！'
     },
     destination_city: {
-      'required': '请选择目的城市'
+      'required': '请输入目的城市！'
     },
-    child_age_max: {
-      'required': '请输入最大年龄'
-    },
-    child_height_min: {
-      'required': '请输入儿童身高范围'
-    },
-    reserve_num_min: {
-      'required': '请输入预订人数范围'
-    },
-    earlier: {
-      'required': '请输入预定截止时间'
+    reserve_num: {
+      'required': '请输入可预订人数！'
     },
   };
   formErrors: any = {
     title: '',
-    departure_city: '',
     few_days: '',
+    few_nights: '',
+    departure_city: '',
     destination_city: '',
-    child_age_max: '',
-    child_height_min: '',
-    reserve_num_min: '',
-    earlier: '',
-  };
-
+    reserve_num: '',
+  }
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, public dialog: MatDialog,
@@ -105,29 +99,29 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       fee: '',
       status: 0,
       tag_id: [],
-      step:0
+      step: 0
     }
   }
 
 
   buildForm(): void {
     this.addForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      few_days: new FormControl('', [Validators.required]),
-      few_nights: new FormControl(0, [Validators.required]),
-      tag_id: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+      few_days: new FormControl(2, [Validators.required]),
+      few_nights: new FormControl(1, [Validators.required]),
+      tag_id: new FormControl(''),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
-      service_phone: new FormControl('', [Validators.required]),
+      service_phone: new FormControl(''),
       confirm: new FormControl('', [Validators.required]),
-      earlier1: new FormControl(0, [Validators.required]),
-      earlier2: new FormControl(null, [Validators.required]),
-      reserve_ahead: new FormControl('', [Validators.required]),
+      earlier1: new FormControl(1, [Validators.required]),
+      earlier2: new FormControl(null),
+      reserve_ahead: new FormControl(1, [Validators.required]),
       reserve_num: new FormControl('', [Validators.required]),
-      reserve_children: new FormControl('', [Validators.required]),
-      children_age: new FormControl('', [Validators.required]),
-      child_height_min: new FormControl('', [Validators.required]),
-      child_height_max: new FormControl('', [Validators.required]),
+      reserve_children: new FormControl(0, [Validators.required]),
+      children_age: new FormControl(''),
+      child_height_min: new FormControl(''),
+      child_height_max: new FormControl(''),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -287,22 +281,35 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.few_nights = this.addForm.value.few_nights;
     this.freeTravelUpdateModel.service_phone = this.addForm.value.service_phone;
     this.freeTravelUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
+    if (parseInt(this.isReserveAhead) === 0) {
+      this.freeTravelUpdateModel.earlier = 0;
+    }
+    else if (parseInt(this.isReserveAhead) === 1) {
+      // 时间处理
+      let earlier1 = this.addForm.value.earlier1
+      let date = new Date(this.addForm.value.earlier2);
+      let min = date.getMinutes();
+      let hour = date.getHours();
+      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+      this.freeTravelUpdateModel.earlier = resMin;
+      console.log(this.freeTravelUpdateModel);
+    }
     this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
-    this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
-    this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
-    this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    if (parseInt(this.isReserveChildren) === 0) {
+      this.freeTravelUpdateModel.children_age = 0;
+      this.freeTravelUpdateModel.child_height_min = 0;
+      this.freeTravelUpdateModel.child_height_max = 0;
+    }
+    else if (parseInt(this.isReserveChildren) === 1) {
+      this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
+      this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
+      this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    }
     this.freeTravelUpdateModel.confirm = this.addForm.value.confirm;
     this.freeTravelUpdateModel.departure_city = this.idRegion;
     this.freeTravelUpdateModel.destination_city = this.idDestin;
-    // 时间处理
-    let earlier1 = this.addForm.value.earlier1
-    let date = new Date(this.addForm.value.earlier2);
-    let min = date.getMinutes();
-    let hour = date.getHours();
-    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.freeTravelUpdateModel.earlier = resMin;
-    console.log(this.freeTravelUpdateModel);
+
   }
 
 
@@ -368,6 +375,19 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       })
     }
 
+  }
+
+
+  isReserveAheadChange(status: any) {
+    console.log(status, 'status');
+    this.isReserveAhead = status;
+    this.addForm.value.reserve_ahead = this.isReserveAhead
+  }
+
+  isReserveChildrenChange(status: any) {
+    console.log(status, 'status');
+    this.isReserveChildren = status
+    this.addForm.value.reserve_children = this.isReserveChildren
   }
 
 }
