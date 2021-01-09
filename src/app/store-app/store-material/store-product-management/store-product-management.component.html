@@ -55,8 +55,8 @@
                                     <th style="text-align: center;">标题</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
-                                    <th style="text-align: center;">成人价格</th>
-                                    <th style="text-align: center;">儿童价格</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">产品状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">报价</th>
@@ -69,8 +69,8 @@
                                     <td>{{data.title}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
-                                    <td>{{data.adult_price}}</td>
-                                    <td>{{data.child_price}}</td>
+                                    <td>{{data.departure_city_full_name}}</td>
+                                    <td>{{data.destination_city_full_name}}</td>
                                     <td>
                                         <div *ngIf="data.check_status===0">
                                             <!-- 未提交审核  -->

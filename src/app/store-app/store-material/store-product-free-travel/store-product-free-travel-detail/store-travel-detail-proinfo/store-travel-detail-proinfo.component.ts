@@ -23,7 +23,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   detailId: any //产品id
   dataModel: any //数据存储容器
   freeTravelModel: StoreFreeTravelModel
-  earlierTime = new Date();
+  earlierTime = new Date('2021-01-01 18:00');
 
   featureList: any[] = []
   detailList: any[] = []
@@ -124,14 +124,14 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   buildForm(): void {
     this.addForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
-      few_days: new FormControl('', [Validators.required]),
-      few_nights: new FormControl(0, [Validators.required]),
+      few_days: new FormControl(2, [Validators.required]),
+      few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
       confirm: new FormControl('', [Validators.required]),
-      earlier1: new FormControl(0, [Validators.required]),
+      earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
       reserve_ahead: new FormControl(1, [Validators.required]),
       reserve_num: new FormControl('', [Validators.required]),
