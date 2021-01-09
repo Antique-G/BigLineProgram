@@ -40,6 +40,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   isReserveChildren = '0';
 
+  cateId: any;
 
   validationMessage: any = {
     title: {
@@ -139,13 +140,31 @@ export class StoreProductInfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
-    this.getTagList();
+    this.getCateList();
+  }
+
+  // 标签分类列表
+  getCateList() {
+    this.storeProductService.productCateList().subscribe(res => {
+      console.log("结果是111", res.data)
+      console.log("name", res.data[0].name)
+      console.log("name", res.data[1].name)
+      let name1 = res.data[0].name;
+      let name2 = res.data[1].name;
+      if (name1 === '跟团游') {
+        this.cateId = res.data[0].id
+      }
+      else if (name2 === '跟团游') {
+        this.cateId = res.data[1].id
+      }
+      this.getTagList();
+    })
   }
 
 
   // 标签  --按顺序执行
   getTagList() {
-    this.storeProductService.productTagList().subscribe(res => {
+    this.storeProductService.productTagList(this.cateId).subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
@@ -326,7 +345,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   refreshTag() {
-    this.storeProductService.productTagList().subscribe(res => {
+    this.storeProductService.productTagList(this.cateId).subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };

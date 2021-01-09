@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -21,7 +21,7 @@ export class StoreProductService {
   constructor(public httpClient: HttpClient) { }
 
   // 获取产品列表
-  getProduct(page: number, per_page: number,check_status:any,title:any,few_days:any,few_nights:any): Observable<ProductResponseListResponseModel> {
+  getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any): Observable<ProductResponseListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
@@ -81,8 +81,8 @@ export class StoreProductService {
 
   // 提交审核
   // 审核自由行产品
-  checkStatusFreeTravel(id:number,check_status:number):Observable<any>{
-    return this.httpClient.post<any>(this.urls.PostStoreQuoteByDateSetCheck,{id,check_status},httpOptions)
+  checkStatusFreeTravel(id: number, check_status: number): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreQuoteByDateSetCheck, { id, check_status }, httpOptions)
   }
 
 
@@ -93,20 +93,35 @@ export class StoreProductService {
         catchError(this.handleError)
       )
   }
-  
-    // 产品标签
-    productTagList(): Observable<AssemblingPlaceListModel> {
-      return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreTagList, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
 
 
-// uploadImgModel: UploadImgModel
+
+  // 产品标签
+  productTagList(cate_id: any): Observable<AssemblingPlaceListModel> {
+    const params = new HttpParams().set('cate_id', cate_id.toString())
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreTagList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 标签分类列表
+  productCateList(): Observable<ProductTagCateListModel> {
+    return this.httpClient.get<ProductTagCateListModel>(this.urls.GetStoreCateList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // uploadImgModel: UploadImgModel
   // 上传图片
   uploadImg(image: any): Observable<any> {
-    console.log('uploadImgModel',image);
+    console.log('uploadImgModel', image);
     const imgHttpOptions = {
       reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };

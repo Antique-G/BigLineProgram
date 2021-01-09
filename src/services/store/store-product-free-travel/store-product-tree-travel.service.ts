@@ -56,10 +56,14 @@ export class StoreProductTreeTravelService {
   }
   // 产品标签列表
    // 产品标签
-  GetProductTagList(): Observable<AssemblingPlaceListModel> {
-    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreTagList, httpOptions)
+  GetProductTagList(cate_id: any): Observable<AssemblingPlaceListModel> {
+    const params = new HttpParams().set('cate_id', cate_id.toString())
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreTagList, findhttpOptions)
       .pipe(
-      
       )
   }
   

@@ -46,6 +46,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
 
 
+  cateId: any;
+
+
   validationMessage: any = {
     title: {
       'maxlength': '标题长度最多为64个字符',
@@ -173,13 +176,31 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    this.getTagList();
+    this.getCateList();
   }
 
 
+  getCateList() {
+    this.adminProductTagService.getProdectCateList().subscribe(res => {
+      console.log("结果是111", res.data)
+      console.log("name", res.data[0].name)
+      console.log("name", res.data[1].name)
+      let name1 = res.data[0].name;
+      let name2 = res.data[1].name;
+      if (name1 === '跟团游') {
+        this.cateId = res.data[0].id
+      }
+      else if (name2 === '跟团游') {
+        this.cateId = res.data[1].id
+      }
+
+      this.getTagList();
+    })
+  }
+
   // 标签  --按顺序执行
   getTagList() {
-    this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
+    this.adminProductTagService.getProductTagList(1, 1000, this.cateId, '', '').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);
@@ -226,7 +247,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
       this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     }
-    
+
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
     // 时间处理
@@ -368,7 +389,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-  ]
+    ]
     editorFee.create();
     //  上传图片 不用
     // editorFee.config.uploadImgParams = {
@@ -441,7 +462,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
 
-  
+
 
   isReserveChildrenChange(status: any) {
     console.log(status, 'status');

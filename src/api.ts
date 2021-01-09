@@ -89,6 +89,7 @@ export const StoreUrls = {
   PostStoreProductCreate: api + '/store/product', //添加产品api
   GetStoreAssemblingPlaceList: api + '/store/assembling_place/list',  // 产品管理获取集合地点
   GetStoreTagList: api + '/store/product/tag',  // 产品管理获取标签
+  GetStoreCateList: api + '/store/tags/cate_list',  // 产品管理获取标签
   GetStoreProductList: api + '/store/product', //获取产品列表api
   GetStoreProductDetail: api + '/store/product/', //获取产品详情api
   PutStoreProductUpdate: api + '/store/product/', //修改产品api
