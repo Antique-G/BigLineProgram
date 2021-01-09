@@ -15,7 +15,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   providers: [DatePipe]
 })
 export class StoreMeetingPlaceCreateComponent implements OnInit {
-
+  public isSpinning: any = true;    //loading 
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
@@ -62,8 +62,10 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
           let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
           this.values.push(temp);
         }
+      
         console.log("111", this.values);    //区域
       }
+        
     }
     // 刚登陆的店铺区域
     else if (localStorage.getItem("lastRegion") != null) {
@@ -75,6 +77,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
         }
         console.log("111", this.values);    //区域
       }
+      
     }
 
 
@@ -136,6 +139,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
+      this.isSpinning= false
     })
  
   }

@@ -1,7 +1,7 @@
 <div fxLayoutWrap="wrap">
   
     <div style="padding: 5px;">
-
+        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>集合地点名称</nz-form-label>
@@ -43,6 +43,6 @@
 
           
         </form>
-
+        </nz-spin>
     </div>
 </div>
