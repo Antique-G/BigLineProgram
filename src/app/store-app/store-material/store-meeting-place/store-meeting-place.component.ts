@@ -67,18 +67,31 @@ export class StoreMeetingPlaceComponent implements OnInit {
   }
 
   edit(element: any): void {
-    console.log("拿到的值", element);
-    const dialogRef = this.dialog.open(StoreMeetingPlaceDetailComponent, {
-      width: '550px',
-      data: element
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log("result", result);
-      if (result !== undefined) {
-        this.storeMeetingPlaceList();
+    const editmodal =  this.modal.create({
+      nzTitle: '修改集合地',
+      nzContent: StoreMeetingPlaceDetailComponent,
+      nzComponentParams:{
+        data:element
+      },
+      nzOnOk:componentInstance =>{
+        componentInstance.update()
       }
+    })
+    editmodal.afterClose.subscribe(res=>{
+      this.storeMeetingPlaceList();
+    })
+    // console.log("拿到的值", element);
+    // const dialogRef = this.dialog.open(StoreMeetingPlaceDetailComponent, {
+    //   width: '550px',
+    //   data: element
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   // console.log("result", result);
+    //   if (result !== undefined) {
+    //     this.storeMeetingPlaceList();
+    //   }
 
-    });
+    // });
   }
 
   add() {
