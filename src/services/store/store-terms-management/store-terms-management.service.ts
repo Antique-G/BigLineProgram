@@ -101,6 +101,16 @@ export class StoreTermsManagementService {
       )
   }
 
+  // 详情
+  templateDetail(id: any): Observable<any> {
+    return this.httpClient.get<any>(this.urls.GetStoreTemplateDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+
   // 上传图片
   uploadImg(image: any): Observable<any> {
     console.log('uploadImgModel',image);

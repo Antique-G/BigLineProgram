@@ -53,3 +53,7 @@ body {
 .w-e-toolbar {
     z-index: 800 !important;
 }
+
+.placeholder {
+    display: none !important;
+}

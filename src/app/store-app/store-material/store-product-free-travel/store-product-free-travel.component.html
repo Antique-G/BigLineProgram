@@ -11,11 +11,11 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
                                 <mat-form-field>
-                                    <mat-select placeholder="产品状态" formControlName="checkStatus">
+                                    <mat-select placeholder="审核状态" formControlName="checkStatus">
                                         <mat-option value=''>全部</mat-option>
-                                        <mat-option value=0>未上架</mat-option>
+                                        <mat-option value=0>未提交审核</mat-option>
                                         <mat-option value=1>审核中</mat-option>
-                                        <mat-option value=2>上架</mat-option>
+                                        <mat-option value=2>已通过</mat-option>
                                         <mat-option value=3>未通过</mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -60,7 +60,8 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">儿童年龄</th>
                                     <th style="text-align: center;">儿童身高</th>
-                                    <th style="text-align: center;">产品状态</th>
+                                    <th style="text-align: center;">审核状态</th>
+                                    <th style="text-align: center;">上下架状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">报价</th>
                                     <th style="text-align: center;">上下架</th>
@@ -93,19 +94,22 @@
 
                                     <td>
                                         <div *ngIf="data.check_status===0">
-                                            <!-- 未提交审核  -->
-                                            未上架
+                                            未提交审核
                                         </div>
                                         <div *ngIf="data.check_status===1">
                                             审核中
                                         </div>
                                         <div *ngIf="data.check_status===2">
-                                            <!-- 已通过 -->
-                                            上架
+
+                                            已通过
                                         </div>
                                         <div *ngIf="data.check_status===3">
                                             未通过
                                         </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.status===0">上架</div>
+                                        <div *ngIf="data.status===1">下架</div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="edit(data)" title="详情">

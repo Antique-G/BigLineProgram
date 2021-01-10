@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import wangEditor from 'wangeditor';
 import { AddStoreTermsManagementRequestModel } from '../../../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 import { StoreTermsManagementService } from '../../../../../services/store/store-terms-management/store-terms-management.service';
+import { StoreTemplateExampleComponent } from './store-template-example/store-template-example.component';
 
 
 @Component({
@@ -28,8 +30,10 @@ export class StoreTermsManagementCreateComponent implements OnInit {
     temp_id: '',
   };
 
+  templateId: any;
 
-  constructor(public fb: FormBuilder,  public router: Router,
+
+  constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
     public storeTermsManagementService: StoreTermsManagementService) {
     this.forms();
     this.addStoreTermsManagementRequestModel = {
@@ -101,6 +105,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
     console.log("event", event)
     this.isCheck = true;
     this.addStoreTermsManagementRequestModel.temp_id = event;
+    this.templateId = event;
   }
 
 
@@ -118,18 +123,18 @@ export class StoreTermsManagementCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    console.log("this.addForm.",this.addForm)
+    console.log("this.addForm.", this.addForm)
     if (this.addForm.valid) {
       this.storeTermsManagementService.addStoreTerms(this.addStoreTermsManagementRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res.status_code) {
+        if (res === null) {
           // alert("更新成功");
           // this.dialogRef.close(1);
-         
+          this.router.navigate(['/store/main/storeTermsManage']);
         }
         else {
           // alert("更新失败");
-          this.router.navigate(['/store/main/storeTermsManage']);
+
         }
       })
     }
@@ -150,6 +155,17 @@ export class StoreTermsManagementCreateComponent implements OnInit {
 
 
   detail() {
+    this.storeTermsManagementService.templateDetail(this.templateId).subscribe(res => {
+      const dialogRef = this.dialog.open(StoreTemplateExampleComponent, {
+        width: '1000px',
+        data: res.data
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("result", result);
+
+
+      });
+    })
 
   }
 
