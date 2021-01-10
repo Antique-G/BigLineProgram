@@ -50,7 +50,7 @@ export interface UpdateStoreTermsManagementeRequestModel {
   id?: any
   title: string;
   content: string;
-  status: number;
+  status?: number;
   temp_id?:number;
 }
 

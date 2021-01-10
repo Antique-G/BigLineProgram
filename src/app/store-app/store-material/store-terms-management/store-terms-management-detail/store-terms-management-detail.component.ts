@@ -47,7 +47,6 @@ export class StoreTermsManagementDetailComponent implements OnInit {
     this.updateStoreTermsManagementeRequestModel = {
       title: '',
       content: '',
-      status: 1
     }
 
   }
@@ -55,7 +54,6 @@ export class StoreTermsManagementDetailComponent implements OnInit {
   forms() {
     this.addForm = this.fb.group({
       title: [this.dataDetailModel.title, [Validators.required]],
-      status: [this.dataDetailModel.status, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -104,7 +102,7 @@ export class StoreTermsManagementDetailComponent implements OnInit {
 
   setValue() {
     this.updateStoreTermsManagementeRequestModel.title = this.addForm.value.title;
-    this.updateStoreTermsManagementeRequestModel.status = this.addForm.value.status;
+  
 
   }
 
