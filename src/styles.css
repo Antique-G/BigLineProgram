@@ -57,3 +57,8 @@ body {
 .placeholder {
     display: none !important;
 }
+.w-e-icon-image-xt,.w-e-menu-xt{
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0;
+}

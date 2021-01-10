@@ -36,7 +36,7 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let data of rowSelectionTable.data">
-                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                             <td>{{data.id}}</td>
                                             <td>{{data.date}}</td>
                                             <td>{{data.adult_price}}</td>
@@ -45,7 +45,9 @@
                                             <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                             <td>{{data.inventory_num}}</td>
                                             <td>{{data.allow_over =='1'?'是':'否'}}</td>
-                                            <td>{{getState(data.check_status)}}</td>
+                                            <td>
+                                                <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </nz-table>

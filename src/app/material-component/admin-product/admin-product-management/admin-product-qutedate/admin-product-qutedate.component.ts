@@ -20,7 +20,7 @@ export class AdminProductQutedateComponent implements OnInit {
   indeterminate = false;
   listOfCurrentPageData: Data[] = [];
   setOfCheckedId = new Set<number>();
-
+  setArr = new Set<any>();
   constructor(public adminProductManagementService: AdminProductManagementService,
     public activatedRoute: ActivatedRoute,
     private msg: NzMessageService,
@@ -43,7 +43,12 @@ export class AdminProductQutedateComponent implements OnInit {
   }
 
   checkStateClick(state:any){
-
+    let objList = [...this.setArr]
+    let flag = objList.every(item=> item.check_status === 1);
+    if(!flag){
+      this.msg.error("请勿审核已审核过的报价日期");
+      return;
+    }
     this.modal.confirm({
       nzTitle: '<h5>请确认操作是否正确?</h5>',
       nzContent: `您点击的是:${state==2?'"通过"':'"未通过"'}`,
@@ -57,6 +62,8 @@ export class AdminProductQutedateComponent implements OnInit {
         this.adminProductManagementService.QuteDateCheckState(ids,state).subscribe(res=>{
           console.log(res);
           this.getQuteDateList();
+          this.setOfCheckedId.clear()
+          this.setArr.clear()
         })
       }
     });
@@ -75,7 +82,7 @@ export class AdminProductQutedateComponent implements OnInit {
   }
 
   onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
     this.refreshCheckedStatus();
   }
   refreshCheckedStatus(): void {
@@ -84,11 +91,14 @@ export class AdminProductQutedateComponent implements OnInit {
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
   }
 
-  updateCheckedSet(id: number, checked: boolean): void {
+  updateCheckedSet(data: any, checked: boolean): void {
     if (checked) {
-      this.setOfCheckedId.add(id);
+      this.setOfCheckedId.add(data.id);
+      this.setArr.add(data);
+      
     } else {
-      this.setOfCheckedId.delete(id);
+      this.setOfCheckedId.delete(data.id);
+      this.setArr.delete(data);
     }
   }
 
@@ -97,8 +107,8 @@ export class AdminProductQutedateComponent implements OnInit {
     this.refreshCheckedStatus();
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
+  onItemChecked(data: any, checked: boolean): void {
+    this.updateCheckedSet(data, checked);
     this.refreshCheckedStatus();
   }
 
