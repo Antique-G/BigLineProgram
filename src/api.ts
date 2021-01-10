@@ -34,8 +34,8 @@ export const AdminUrls = {
   GetAdminRegionDetail: api + '/admin/region/', //区域列表接口的编辑详情
   PutAdminRegionUpdate: api + '/admin/region/', //区域列表接口信息修改保存
   PostAdminUpload: api + '/admin/image',  //区域创建的图片上传
-  GetAdminQuteDateList:api + '/admin/date_quotes',  //日期报价列表
-  PostAdminQuteDateSetCheck:api + '/admin/date_quotes/set_check',  //日期报价列表
+  GetAdminQuteDateList: api + '/admin/date_quotes',  //日期报价列表
+  PostAdminQuteDateSetCheck: api + '/admin/date_quotes/set_check',  //日期报价列表
 
 
   GetAdminProductTagList: api + '/admin/tag', //产品标签列表
@@ -59,8 +59,8 @@ export const AdminUrls = {
   PostAdminFreeTRavelUp: api + '/admin/independent_product/set_status',//自由行产上下架
   PostAdminFreeTCheckStatus: api + '/admin/independent_product/set_check',///自由行审核
   // 自由行日期报价
-  GetAddminFreeTravelQuteDateList:api+'/admin/independent_date_quotes',
-  GetAddminFreeTravelQuteDateCheck:api+'/admin/indent_date_quotes/set_check',
+  GetAddminFreeTravelQuteDateList: api + '/admin/independent_date_quotes',
+  GetAddminFreeTravelQuteDateCheck: api + '/admin/indent_date_quotes/set_check',
 
   GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
 
@@ -75,6 +75,7 @@ export const AdminUrls = {
   GetAdminTermTemplateDetail: api + '/admin/terms_temp/',   // 模版条款的详情
   PostAdminTermTemplateSetStatus: api + '/admin/terms_temp/set_status',   // 模版条款的禁用、启用
   DeleteAdminTermTemplate: api + '/admin/terms_temp/'  //删除
+
 };
 
 
@@ -96,8 +97,8 @@ export const StoreUrls = {
   PatchStoreProductStatus: api + '/store/product/',   //产品上下架
   GetStoreQuoteByDate: api + '/store/product/',//产品报价列表
   PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
-  PostStoreQuoteByDateSetCheck:api + '/store/product/set_check',//产品报价提交审核
-  
+  PostStoreQuoteByDateSetCheck: api + '/store/product/set_check',//产品报价提交审核
+
 
   PostStoreImgUpload: api + '/store/image',  //上传
   GetStoreImgList: api + '/store/image',  //上传
@@ -131,6 +132,7 @@ export const StoreUrls = {
   DeleteStoreTerms: api + '/store/terms/',   // 条款管理删除
   GetStoreTermsDetail: api + '/store/terms/',   // 条款管理详情
   PostStoreTermsUpdateCheck: api + '/store/terms/update_check',  // 条款审核
+  GetStoreTemplate: api + '/store/terms_temp',  // 条款模板
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据

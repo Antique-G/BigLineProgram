@@ -42,7 +42,8 @@ export interface AdminTermsTemplateSetStatusRequestModel {
 export interface AddAdminTermsTemplateRequestModel {
   title: string;
   content: string;
-  status: string;
+  status: any;
+  id?: any;
 }
 
 export interface AdminTermsTemplateResponseModel {
@@ -52,7 +53,7 @@ export interface AdminTermsTemplateResponseModel {
 
 
 export interface AdminTermsTemplateUpdateRequestModel {
-  id?:string;
+  id?: string;
   title: string;
   content: string;
   status: string;

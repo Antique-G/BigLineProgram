@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreTermsManagementService } from '../../../../services/store/store-terms-management/store-terms-management.service';
-import { StoreTermsManagementCreateComponent } from './store-terms-management-create/store-terms-management-create.component';
-import { StoreTermsManagementDetailComponent } from './store-terms-management-detail/store-terms-management-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
 import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
@@ -90,16 +88,18 @@ export class StoreTermsManagementComponent implements OnInit {
   }
 
   add() {
-    const dialogRef = this.dialog.open(StoreTermsManagementCreateComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      if (result !== undefined) {
-        this.termsList();
-      }
+    this.router.navigate(['/store/main/storeTermsManage/create']);
 
-    });
+    // const dialogRef = this.dialog.open(StoreTermsManagementCreateComponent, {
+    //   width: '550px',
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log("result", result);
+    //   if (result !== undefined) {
+    //     this.termsList();
+    //   }
+
+    // });
   }
 
 

@@ -33,18 +33,23 @@ body {
 }
 
 .cdk-overlay-pane {
-    z-index: 99999999999999999999999 !important;
+    z-index: 10000000000000000000000000000001 !important;
 }
 
 #cdk-overlay-1 {
-    z-index: 99999999999999999999999 !important;
+    z-index: 10000000000000000000000000000001 !important;
 }
 
 .btn {
     z-index: 99999999999 !important;
 }
-.ant-picker-calendar-header{
-    opacity: 0;
-    height: 0;
+
+.ant-picker-calendar-header {
+    /* opacity: 0; */
+    /* height: 0; */
     pointer-events: none;
+}
+
+.w-e-toolbar {
+    z-index: 500 !important;
 }

@@ -51,6 +51,26 @@ export class AdminTermTemplateService {
       )
   }
 
+  
+  //商户信息修改
+  updateTemplate(addAdminTermsTemplateRequestModel: AddAdminTermsTemplateRequestModel): Observable<any> {
+    const id = addAdminTermsTemplateRequestModel.id;
+    return this.httpClient.put(this.urls.PutAdminTermTemplateUpdate + id, addAdminTermsTemplateRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 上架/下架
+  templateSetStatus(adminProductSetStatusModel: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminTermTemplateSetStatus, adminProductSetStatusModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
 
   // 删除
   deleteTemplate(id: any): Observable<any> {
