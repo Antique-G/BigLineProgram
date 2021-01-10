@@ -18,7 +18,7 @@ export const AppRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'admin/login',
+    path: 'admin',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule), data : { title : "管理后台" }
   },
   {
