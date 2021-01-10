@@ -85,8 +85,18 @@ export class StoreTermsManagementService {
   }
 
 
+
+  // 上架/下架
+  setStatus(id: number): Observable<any> {
+    return this.httpClient.post(this.urls.PostStoreTemplateSetStatus, { id: id }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
   // 条款模板
-  termsTemplateList(page: number, per_page: number,status:any, title:any): Observable<TermplateModel> {
+  termsTemplateList(page: number, per_page: number, status: any, title: any): Observable<TermplateModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -114,7 +124,7 @@ export class StoreTermsManagementService {
 
   // 上传图片
   uploadImg(image: any): Observable<any> {
-    console.log('uploadImgModel',image);
+    console.log('uploadImgModel', image);
     const imgHttpOptions = {
       reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };
