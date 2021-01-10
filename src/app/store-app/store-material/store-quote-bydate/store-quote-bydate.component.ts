@@ -16,6 +16,7 @@ import {differenceInCalendarDays,format} from 'date-fns';
 
 import {FreeTraveQuoteBydateModel} from '../../../../interfaces/store/storeQuote/store-quote-bydate';
 import { NzCalendarMode } from 'ng-zorro-antd/calendar';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   public isSpinning:boolean = true
   freeTraveQuoteBydateModel:FreeTraveQuoteBydateModel
   nzPageIndex = new Date().getMonth()+1
-  constructor(public dialog:MatDialog,public activatedRoute: ActivatedRoute,public quoteBydateService:StoreQuoteBydateService,private el:ElementRef) {
+  constructor(private modal: NzModalService,public dialog:MatDialog,public activatedRoute: ActivatedRoute,public quoteBydateService:StoreQuoteBydateService,private el:ElementRef) {
     this.listDataMap={
         data:[]
     }
@@ -117,19 +118,41 @@ export class StoreQuoteBydateComponent implements OnInit {
 
   onSelectChange(date:any){
     if(differenceInCalendarDays(date,this.toDay)<0) return
-      const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
-        width:'700px',
-        data:{
+
+    const modal:NzModalRef  = this.modal.create({
+      nzTitle:'批量报价',
+      nzWidth:720,
+      nzContent:StoreQuoteBydateCreateComponent,
+      nzComponentParams:{
+         data:{
           date:date,
           type:this.type,
           productId:this.productId,
           listDataMap:this.listDataMap
         }
+      },
+      nzFooter:[
+        {
+          label: '取消',
+          onClick: () => modal.destroy()
+        },
+        {
+          label: '删除',
+          type:'danger',
+          onClick: componentInstance => componentInstance?.deleteInfo()
+        },
+        {
+          label: '确认',
+          type: 'primary',
+          onClick: componentInstance => componentInstance?.add()
+        },
+      ]
+     
     })
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log('result',result);
+    modal.afterClose.subscribe(res=>{
       this.getQuoteList()
     })
+    
   }
 
   mode: NzCalendarMode = 'month';
@@ -151,21 +174,25 @@ export class StoreQuoteBydateComponent implements OnInit {
   // 批量报价
   quoteClick(){
     console.log(123);
-    
-
-    const dialogRef = this.dialog.open(StoreQuoteBydateCreateComponent,{
-      width:'700px',
-      data:{
-        productId:this.productId,
-        type:this.type,
-        listDataMap:this.listDataMap
-      }
+    const modal:NzModalRef  = this.modal.create({
+      nzTitle:'批量报价',
+      nzWidth:720,
+      nzContent:StoreQuoteBydateCreateComponent,
+      nzComponentParams:{
+         data:{
+          productId:this.productId,
+          type:this.type,
+          listDataMap:this.listDataMap
+        }
+      },
+      nzOnOk:(componentInstance)=> componentInstance.add()
+     
     })
-    dialogRef.afterClosed().subscribe(result=>{
+    modal.afterClose.subscribe(res=>{
       this.getQuoteList()
-      console.log('result',result);
-    
     })
+
+   
   }
   
 }
