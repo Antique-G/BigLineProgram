@@ -5,6 +5,7 @@ import { AdminTermTemplateService } from '../../../services/admin/admin-term-tem
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AdminTermTemplateCreateComponent } from './admin-term-template-create/admin-term-template-create.component';
 import { AdminTermTemplateEditComponent } from './admin-term-template-edit/admin-term-template-edit.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AdminTermTemplateComponent implements OnInit {
   setStatusModel: any;
 
 
-  constructor(public dialog: MatDialog, public adminTermTemplateService: AdminTermTemplateService,
+  constructor(public dialog: MatDialog, public adminTermTemplateService: AdminTermTemplateService,private router: Router,
     public fb: FormBuilder, private modal: NzModalService) {
     this.setStatusModel = {
       id: 0,
@@ -71,16 +72,7 @@ export class AdminTermTemplateComponent implements OnInit {
     this.adminTemplateList();
   }
 
-  edit(data: any) {
-    console.log("拿到的值", data);
-    const dialogRef = this.dialog.open(AdminTermTemplateEditComponent, {
-      width: '550px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.adminTemplateList();
-    });
-  }
+
 
 
   // 上下架操作
@@ -116,16 +108,29 @@ export class AdminTermTemplateComponent implements OnInit {
   }
 
   add() {
-    const dialogRef = this.dialog.open(AdminTermTemplateCreateComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      if (result !== undefined) {
-        this.adminTemplateList();
-      }
+    this.router.navigate(['/admin/main/termTemplate/create']);
+    // const dialogRef = this.dialog.open(AdminTermTemplateCreateComponent, {
+    //   width: '550px',
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log("result", result);
+    //   if (result !== undefined) {
+    //     this.adminTemplateList();
+    //   }
 
-    });
+    // });
+  }
+
+  edit(data: any) {
+    this.router.navigate(['/admin/main/termTemplate/detail'], { queryParams: { detailId: data.id } });
+    // console.log("拿到的值", data);
+    // const dialogRef = this.dialog.open(AdminTermTemplateEditComponent, {
+    //   width: '550px',
+    //   data: data
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.adminTemplateList();
+    // });
   }
 
 

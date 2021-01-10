@@ -6,7 +6,7 @@
         <form nz-form [formGroup]="addForm" nz-row>
             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                 <div nz-row>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="title" nzRequired>标题</nz-form-label>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="title">标题</nz-form-label>
                     <nz-form-control [nzSm]="19" [nzXs]="24">
                         <input nz-input formControlName="title" />
                     </nz-form-control>
@@ -15,9 +15,15 @@
 
             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                 <div nz-row>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="content" nzRequired>内容</nz-form-label>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="content">内容</nz-form-label>
                     <nz-form-control [nzSm]="19" [nzXs]="24">
-                        <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                        <div class="wangeditor-feature">
+                            <div id="editorFeature" style="background-color: ghostwhite;border-bottom: 1px solid #EEE;z-index: 1;"></div>
+                            <div id="editor" class="w-e-text">
+                                <div #featureBox></div>
+                            </div>
+                        </div>
+                        <!-- <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea> -->
                     </nz-form-control>
                 </div>
             </nz-form-item>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { AdminTermTemplateService } from '../../../../services/admin/admin-term-template.service';
 import { AddAdminTermsTemplateRequestModel } from '../../../../interfaces/adminTermTemplate/admin-term-template-model';
+import wangEditor from 'wangeditor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-term-template-create',
@@ -19,18 +20,14 @@ export class AdminTermTemplateCreateComponent implements OnInit {
     title: {
       'required': '请输入标题！'
     },
-    content: {
-      'required': '请输入内容！'
-    }
   };
   formErrors: any = {
     title: '',
-    content: '',
+
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminTermTemplateCreateComponent>,
-    public adminTermTemplateService: AdminTermTemplateService,) { 
+  constructor(public fb: FormBuilder, public adminTermTemplateService: AdminTermTemplateService, private router: Router,) {
     this.forms();
     this.addAdminTermsTemplateRequestModel = {
       title: '',
@@ -42,7 +39,6 @@ export class AdminTermTemplateCreateComponent implements OnInit {
   forms() {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
-      content: ['', [Validators.required]],
       status: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -80,13 +76,14 @@ export class AdminTermTemplateCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.textChange();  //富文本初始化
+
   }
 
 
-  
+
   setValue() {
     this.addAdminTermsTemplateRequestModel.title = this.addForm.value.title;
-    this.addAdminTermsTemplateRequestModel.content = this.addForm.value.content;
     this.addAdminTermsTemplateRequestModel.status = this.addForm.value.status;
   }
 
@@ -101,21 +98,25 @@ export class AdminTermTemplateCreateComponent implements OnInit {
     if (this.addForm.valid) {
       this.adminTermTemplateService.addTemplate(this.addAdminTermsTemplateRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res === null) {
-          // alert("创建成功");
-          this.dialogRef.close(1);
+        if (res.status) {
         }
         else {
-          // alert("创建失败，请重新填写");
-          this.dialogRef.close(1);
+          this.router.navigate(['/admin/main/termTemplate']);
         }
       })
     }
   }
 
 
-  close(): void {
-    this.dialogRef.close();
+  // 富文本
+  textChange() {
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    editorFeature.config.onchange = (newHtml: any) => {
+      console.log(newHtml);
+      this.addAdminTermsTemplateRequestModel.content = newHtml;
+    }
+    editorFeature.create();
   }
 
 

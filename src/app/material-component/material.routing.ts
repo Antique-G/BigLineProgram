@@ -14,6 +14,8 @@ import { AdminProductFreeTravelDetailComponent } from './admin-product/admin-pro
 import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
 import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-qutedate/admin-product-free-travel-qutedate.component';
 import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
+import { AdminTermTemplateCreateComponent } from './admin-term-template/admin-term-template-create/admin-term-template-create.component';
+import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term-template-edit/admin-term-template-edit.component';
 export const MaterialRoutes: Routes = [
 
   {
@@ -118,7 +120,20 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '条款模板列表'
         }
       },
-       
+      {
+        path: 'termTemplate/create',
+        component: AdminTermTemplateCreateComponent,
+        data: {
+          breadcrumb: '条款模板添加'
+        }
+      },
+      {
+        path: 'termTemplate/detail',
+        component: AdminTermTemplateEditComponent,
+        data: {
+          breadcrumb: '条款模板详情'
+        }
+      },
     ]
   }
 ];

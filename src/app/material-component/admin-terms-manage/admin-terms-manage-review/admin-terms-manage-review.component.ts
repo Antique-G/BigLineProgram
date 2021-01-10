@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import wangEditor from 'wangeditor';
 import { AdminTermsManagementSetCheckRequestModel } from '../../../../interfaces/adminTerms/admin-terms-manage-model';
 import { AdminTermsManageService } from '../../../../services/admin/admin-terms-manage.service';
 
@@ -15,12 +16,13 @@ export class AdminTermsManageReviewComponent implements OnInit {
   disabled = true;
   isdisabled = true;
   adminTermsManagementSetCheckRequestModel: AdminTermsManagementSetCheckRequestModel;
+  @ViewChild("featureBox") featureBox: any;       //获取dom
+
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminTermsManageReviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public adminTermsManageService: AdminTermsManageService) {
     this.addForm = this.fb.group({
       title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
-      content: new FormControl({ value: this.data.content, disabled: true }, Validators.required),
       check_status: new FormControl({ value: this.data.check_status }, Validators.required)
     });
     this.adminTermsManagementSetCheckRequestModel = {
@@ -30,6 +32,12 @@ export class AdminTermsManageReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   
+  }
+
+ 
+  ngAfterViewInit(): void {
+    this.textChange();
   }
 
   setValue() {
@@ -54,5 +62,15 @@ export class AdminTermsManageReviewComponent implements OnInit {
 
       }
     })
+  }
+
+  
+  // 富文本
+  textChange() {
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    this.featureBox.nativeElement.innerHTML = this.data.content;    //赋值
+    editorFeature.create();
+    editorFeature.$textElem.attr('contenteditable', 'false')
   }
 }
