@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { AddStoreTermsManagementRequestModel, AddStoreTermsManagementResponseModel, StoreTermsManagementDetailResponseModel, StoreTermsManagementListResponseModel, StoreTermsManagementRequestModel, UpdateStoreTermsManagementeRequestModel, UpdateStoreTermsManagementResponseModel } from '../../../interfaces/store/storeTermsManagement/store-terms-management-model';
+import { AddStoreTermsManagementRequestModel, AddStoreTermsManagementResponseModel, StoreTermsManagementDetailResponseModel, StoreTermsManagementListResponseModel, StoreTermsManagementRequestModel, TermplateModel, UpdateStoreTermsManagementeRequestModel, UpdateStoreTermsManagementResponseModel } from '../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 
 
 const httpOptions = {
@@ -79,6 +79,23 @@ export class StoreTermsManagementService {
   //审核
   productCheckStatus(storeTermsManagementRequestModel: StoreTermsManagementRequestModel): Observable<UpdateStoreTermsManagementResponseModel> {
     return this.httpClient.post<UpdateStoreTermsManagementResponseModel>(this.urls.PostStoreTermsUpdateCheck, storeTermsManagementRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 条款模板
+  termsTemplateList(page: number, per_page: number, title:any): Observable<TermplateModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('title', title ? title : '')
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<TermplateModel>(this.urls.GetStoreTemplate, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )

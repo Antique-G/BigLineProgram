@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { FullComponent } from '../../../app/layouts/full/full.component';
-import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { StoreProductFreeTravelComponent } from './store-product-free-travel/store-product-free-travel.component';
 import { StoreProductCreateBystepComponent } from './store-product-management/store-product-create-bystep/store-product-create-bystep.component';
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
@@ -10,6 +9,8 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTermsManagementDetailComponent } from './store-terms-management/store-terms-management-detail/store-terms-management-detail.component';
 import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
 import { StoreFreeCreateBystepComponent } from './store-product-free-travel/store-free-create-bystep/store-free-create-bystep.component';
+import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
+import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -87,6 +88,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreTermsManagementComponent,
         data: {
           breadcrumb: '条款列表'
+        }
+      },
+      {
+        path: 'storeTermsManage/create',
+        component: StoreTermsManagementCreateComponent,
+        data: {
+          breadcrumb: '条款添加'
         }
       },
       {

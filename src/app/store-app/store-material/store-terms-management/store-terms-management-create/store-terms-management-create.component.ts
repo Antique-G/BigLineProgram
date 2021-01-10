@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import wangEditor from 'wangeditor';
 import { AddStoreTermsManagementRequestModel } from '../../../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 import { StoreTermsManagementService } from '../../../../../services/store/store-terms-management/store-terms-management.service';
 
@@ -13,38 +13,37 @@ import { StoreTermsManagementService } from '../../../../../services/store/store
 export class StoreTermsManagementCreateComponent implements OnInit {
   addForm!: FormGroup;
   status = '1';
+  listOfOption: any[] = [];
+  isCheck = false;
 
   addStoreTermsManagementRequestModel: AddStoreTermsManagementRequestModel;
 
   validationMessage: any = {
-    title: {
-      'required': '请输入标题！'
+    temp_id: {
+      'required': '请选择模板！'
     },
-    content: {
-      'required': '请输入内容！'
-    }
   };
   formErrors: any = {
-    title: '',
-    content: '',
+    temp_id: '',
   };
 
 
-
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreTermsManagementCreateComponent>,
+  constructor(public fb: FormBuilder,
     public storeTermsManagementService: StoreTermsManagementService) {
     this.forms();
     this.addStoreTermsManagementRequestModel = {
       title: '',
       content: '',
       status: 1,
+      temp_id: 1,
     }
   }
 
   forms() {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required]],
-      content: ['', [Validators.required]],
+      temp_id: [''],
+      title: [''],
+      content: [''],
       status: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -82,13 +81,31 @@ export class StoreTermsManagementCreateComponent implements OnInit {
   }
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.templateList();
+    this.textChange();  //富文本初始化
+  }
+
+  templateList() {
+    this.storeTermsManagementService.termsTemplateList(1, 1000, '').subscribe(res => {
+      console.log("结果", res);
+      for (let i of res.data) {
+        let a = { value: i.id, label: i.title };
+        this.listOfOption.push(a);
+      }
+    })
+  }
+
+  selectTemplate(event: any) {
+    console.log("event", event)
+    this.isCheck = true;
+    this.addStoreTermsManagementRequestModel.temp_id = event;
+  }
 
 
 
   setValue() {
     this.addStoreTermsManagementRequestModel.title = this.addForm.value.title;
-    this.addStoreTermsManagementRequestModel.content = this.addForm.value.content;
     this.addStoreTermsManagementRequestModel.status = this.addForm.value.status;
   }
 
@@ -100,12 +117,13 @@ export class StoreTermsManagementCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("this.addForm.",this.addForm)
     if (this.addForm.valid) {
       this.storeTermsManagementService.addStoreTerms(this.addStoreTermsManagementRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
-          this.dialogRef.close(1);
+
         }
         else {
           // alert("创建失败，请重新填写");
@@ -115,9 +133,21 @@ export class StoreTermsManagementCreateComponent implements OnInit {
   }
 
 
-  close(): void {
-    this.dialogRef.close();
+  // 富文本
+  textChange() {
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    editorFeature.config.onchange = (newHtml: any) => {
+      console.log(newHtml);
+      this.addStoreTermsManagementRequestModel.content = newHtml;
+    }
+    editorFeature.create();
   }
 
+
+
+  detail() {
+
+  }
 
 }

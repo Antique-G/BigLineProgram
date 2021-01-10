@@ -36,6 +36,7 @@ export interface AddStoreTermsManagementRequestModel {
   title: string;
   content: string;
   status: number;
+  temp_id?:number;
 
 }
 
@@ -50,6 +51,7 @@ export interface UpdateStoreTermsManagementeRequestModel {
   title: string;
   content: string;
   status: number;
+  temp_id?:number;
 }
 
 
@@ -72,10 +74,40 @@ export interface DataDetailModel {
   deleted_at?: any;
   created_at: string;
   updated_at: string;
+  temp_id?:string;
 }
 
 
 export interface StoreTermsManagementRequestModel{
   id: number;
   check_status: number;
+}
+
+
+export interface TermplateModel{
+  current_page: number;
+  data: DatumTermplateModel[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: LinkTermplateModel[];
+  next_page_url: string;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+interface DatumTermplateModel{
+  id: number;
+  title: string;
+  content: string;
+  status: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface LinkTermplateModel{
 }
