@@ -381,7 +381,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   nextTab() {
-    this.isLoadingBtn = true;
+   
     this.setValue();
     // 验证表单
     console.log("this.addForm", this.addForm)
@@ -392,6 +392,7 @@ export class StoreProductInfoComponent implements OnInit {
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
       // 添加
+      this.isLoadingBtn = true;
       this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
         console.log("res结果", res);
         if (res.id) {

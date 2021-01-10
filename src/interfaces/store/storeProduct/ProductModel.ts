@@ -160,7 +160,7 @@ export interface DatumListModel {
   finish_status: boolean;
   departure_city_full_name: string;
   destination_city_full_name: string;
-  store_image: Storeimage;
+  albums: Storeimage;
 }
 
 interface Storeimage {
