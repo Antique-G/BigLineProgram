@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminTermTemplateService } from '../../../../services/admin/admin-term-template.service';
 import { AddAdminTermsTemplateRequestModel } from '../../../../interfaces/adminTermTemplate/admin-term-template-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import wangEditor from 'wangeditor';
 
 @Component({
   selector: 'app-admin-term-template-edit',
@@ -13,40 +15,42 @@ export class AdminTermTemplateEditComponent implements OnInit {
   addForm!: FormGroup;
   addAdminTermsTemplateRequestModel: AddAdminTermsTemplateRequestModel
   addAdminTermDetail: any;
+  detailId: any
+  @ViewChild("featureBox") featureBox: any;       //获取dom
+  public isSpinning: any = true;    //loading 
+  status = 1;
 
 
   validationMessage: any = {
     title: {
       'required': '请输入标题！'
     },
-    content: {
-      'required': '请输入内容！'
-    }
   };
   formErrors: any = {
-    title: '',
-    content: '',
+    title: ''
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminTermTemplateEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, private router: Router,
     public adminTermTemplateService: AdminTermTemplateService,) {
-    this.addAdminTermDetail = data;
-    this.forms();
+    this.addAdminTermDetail = {
+      status: 1,
+      title: '',
+      constent: ''
+    }
     this.addAdminTermsTemplateRequestModel = {
       title: '',
       content: '',
       status: 1,
       id: ''
     }
+    this.forms();
   }
 
   forms() {
     this.addForm = this.fb.group({
-      title: [this.addAdminTermDetail.title, [Validators.required]],
-      content: [this.addAdminTermDetail.content, [Validators.required]],
-      status: [this.addAdminTermDetail.content, [Validators.required]],
+      title: ['', [Validators.required]],
+      status: [this.addAdminTermDetail.status, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -84,11 +88,33 @@ export class AdminTermTemplateEditComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.detailId = params.detailId;
+      this.getDetail();
+    });
+
   }
+
+
+  getDetail() {
+    this.adminTermTemplateService.templateDetail(this.detailId).subscribe(res => {
+      this.addAdminTermDetail = res.data;
+      this.status = this.addAdminTermDetail.status;
+      this.setFormValue();
+      this.isSpinning = false;
+      this.textChange();  //富文本初始化
+
+
+    })
+
+  }
+  setFormValue() {
+    this.addForm.get('title')?.setValue(this.addAdminTermDetail.title);
+  }
+
 
   setValue() {
     this.addAdminTermsTemplateRequestModel.title = this.addForm.value.title;
-    this.addAdminTermsTemplateRequestModel.content = this.addForm.value.content;
     this.addAdminTermsTemplateRequestModel.status = this.addForm.value.status;
   }
 
@@ -104,20 +130,31 @@ export class AdminTermTemplateEditComponent implements OnInit {
       this.addAdminTermsTemplateRequestModel.id = this.addAdminTermDetail.id;
       this.adminTermTemplateService.updateTemplate(this.addAdminTermsTemplateRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res === null) {
-          // alert("创建成功");
-          this.dialogRef.close(1);
+        if (res.status) {
         }
         else {
-          // alert("创建失败，请重新填写");
-          this.dialogRef.close(1);
+          this.router.navigate(['/admin/main/termTemplate']);
+
+
         }
       })
     }
   }
 
-  close(): void {
-    this.dialogRef.close();
+
+  // 富文本
+  textChange() {
+    // 产品特色
+    const editorFeature = new wangEditor("#editorFeature", "#editor");
+    this.featureBox.nativeElement.innerHTML = this.addAdminTermDetail.content;    //赋值
+    this.addAdminTermsTemplateRequestModel.content = this.addAdminTermDetail.content;
+    editorFeature.config.onchange = (newHtml: any) => {
+      console.log(newHtml);
+      this.addAdminTermsTemplateRequestModel.content = newHtml;
+    }
+    editorFeature.create();
+
   }
+
 
 }

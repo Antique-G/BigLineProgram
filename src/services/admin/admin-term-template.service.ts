@@ -81,6 +81,17 @@ export class AdminTermTemplateService {
   }
 
 
+ // 详情
+ templateDetail(id:any): Observable<any> {
+  return this.httpClient.get<any>(this.urls.GetAdminTermTemplateDetail+id, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+}
+
+
+
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
