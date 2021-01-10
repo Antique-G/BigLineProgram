@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
@@ -29,8 +29,9 @@ export class CommonModelComponent implements OnInit {
   result:any[] = []
   agreeChecked:boolean = false
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<any>,private storeRegionService:StoreRegionService,
-    private commonService:CommonServiceService,private msg: NzMessageService,private modal: NzModalService
+  constructor(private storeRegionService:StoreRegionService,
+    private commonService:CommonServiceService,private msg: NzMessageService,private modalRef: NzModalRef,
+    private modal:NzModalService,private viewContainerRef:ViewContainerRef
   ) { 
     this.buildForm();
     }
@@ -110,7 +111,7 @@ handleChange(info:NzUploadChangeParam){
           this.result.push(res)
           if(index === this.fileList.length-1){
             this.isSpinning = false
-            this.dialogRef.close(this.result);
+            this.modalRef.destroy({ data: this.result});
           }
         })
       })
@@ -119,23 +120,23 @@ handleChange(info:NzUploadChangeParam){
   }
 
   showConfirm(): void {
-    const dialogRef = this.dialog.open(AgreeComponent, {
-      width: '600px',
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // this.agreeChecked = result
-      // 
-    });
+    this.modal.create({
+      nzWidth:600,
+      nzContent:AgreeComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzFooter:null
+    })
+    // const dialogRef = this.dialog.open(AgreeComponent, {
+    //   width: '600px',
+    //   disableClose: true
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   // this.agreeChecked = result
+    //   // 
+    // });
     
   }
 
 
-  close(){
-    if(this.result.length != this.fileList.length){
-      this.msg.error('图片还在上传,请稍等片刻')
-      return;
-    }
-    this.dialogRef.close(this.result);
-  }
+
 }

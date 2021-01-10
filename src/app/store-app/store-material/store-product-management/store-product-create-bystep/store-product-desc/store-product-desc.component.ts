@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { DeleteComfirmComponent } from '../../../common/delete-comfirm/delete-comfirm.component';
 import { ActivatedRoute } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-product-desc',
@@ -27,7 +27,8 @@ export class StoreProductDescComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, public storeProductService: StoreProductService,
-    public activatedRoute: ActivatedRoute, private modal: NzModalService) {
+    public activatedRoute: ActivatedRoute, private modal: NzModalService,
+   private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
       store_image: []
@@ -75,12 +76,15 @@ export class StoreProductDescComponent implements OnInit {
   }
 
   upload() {
-    const dialogRef = this.dialog.open(CommonModelComponent, {
-      width: '660px',
-      disableClose: true
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const modal:NzModalRef = this.modal.create({
+      nzTitle:'图片上传',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent:CommonModelComponent,
+      nzWidth:660,
+      nzFooter:null
+    })
+    modal.afterClose.subscribe(res =>{
+      let result = res?.data||[]
       let idx = this.dataSource?.length ? this.dataSource.length : 0;
       result.forEach((ele: any) => {
         ele['sort'] = idx;
@@ -90,6 +94,7 @@ export class StoreProductDescComponent implements OnInit {
       console.log("this.imgList", this.imgList);
       this.dataSource = this.dataSource.concat(this.imgList);
     });
+   
   }
 
 
