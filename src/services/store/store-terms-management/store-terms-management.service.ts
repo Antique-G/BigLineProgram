@@ -86,9 +86,10 @@ export class StoreTermsManagementService {
 
 
   // 条款模板
-  termsTemplateList(page: number, per_page: number, title:any): Observable<TermplateModel> {
+  termsTemplateList(page: number, per_page: number,status:any, title:any): Observable<TermplateModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
       .set('title', title ? title : '')
 
     const findhttpOptions = {

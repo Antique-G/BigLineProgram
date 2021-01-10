@@ -15,8 +15,8 @@
                                         <input nz-input formControlName="title" />
                                     </nz-form-control>
                                 </nz-form-item>
-                    
-                    
+
+
                                 <nz-form-item>
                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="content" nzRequired>内容</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.content">
@@ -29,24 +29,24 @@
                                         <!-- <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea> -->
                                     </nz-form-control>
                                 </nz-form-item>
-                    
+
                                 <nz-form-item>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态 {{dataDetailModel.status}}</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <nz-radio-group ngModel={{dataDetailModel.status}} formControlName="status">
-                                            <label nz-radio nzValue=0>禁用</label>
-                                            <label nz-radio nzValue=1>启用</label>
+                                        <nz-radio-group formControlName="status" ngModel={{dataDetailModel?.status}}>
+                                            <label nz-radio nzValue='0'>禁用</label>
+                                            <label nz-radio nzValue='1'>启用</label>
                                         </nz-radio-group>
                                     </nz-form-control>
                                 </nz-form-item>
-                    
+
                                 <nz-form-item nz-row class="register-area">
                                     <nz-form-control [nzSpan]="14" [nzOffset]="11">
                                         <button nz-button nzType="primary" (click)="update()">更新</button>
                                     </nz-form-control>
                                 </nz-form-item>
                             </form>
-                    
+
                         </nz-spin>
                     </div>
 

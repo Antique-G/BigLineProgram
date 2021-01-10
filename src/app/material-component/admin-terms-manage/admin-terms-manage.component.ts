@@ -83,7 +83,7 @@ export class AdminTermsManageComponent implements OnInit {
   review(element: any): void {
     console.log("拿到的值", element);
     const dialogRef = this.dialog.open(AdminTermsManageReviewComponent, {
-      width: '800px',
+      width: '1000px',
       data: element
     });
     dialogRef.afterClosed().subscribe(result => {
