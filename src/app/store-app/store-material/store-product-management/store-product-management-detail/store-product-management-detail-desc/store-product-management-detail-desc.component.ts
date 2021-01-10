@@ -30,7 +30,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     public activatedRoute: ActivatedRoute, private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
-      store_image: []
+      albums: []
     }
   }
 
@@ -110,11 +110,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
     console.log("更新的meodl", this.dataSource);
-    this.detailUpdateModel.store_image = [];
+    this.detailUpdateModel.albums = [];
     this.dataSource.forEach(element => {
       console.log("element", element);
       let a = { id: element.id, sort: element.sort }
-      this.detailUpdateModel.store_image.push(a)
+      this.detailUpdateModel.albums.push(a)
     });
     console.log("更新", this.detailUpdateModel);
 
@@ -173,7 +173,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   //       this.dataSource[clickSort].sort = 0;
   //       this.nextTab();
   //       this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-  //         this.dataSource = res.data.store_image.data;
+  //         this.dataSource = res.data.albums.data;
 
   //       })
   //     }

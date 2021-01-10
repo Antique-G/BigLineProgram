@@ -234,7 +234,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
   // 添加
   nextTab() {
-    this.isLoadingBtn = true;
+   
     console.log(123);
     this.setValue();
     // 验证表单
@@ -246,7 +246,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
     if (this.addForm.valid) {
       console.log('提交的model', this.freeTravelModel);
-
+      this.isLoadingBtn = true;
       this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
         if (res.id) {
           this.isLoadingBtn = false;
