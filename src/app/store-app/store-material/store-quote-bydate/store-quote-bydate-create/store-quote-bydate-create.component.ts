@@ -290,12 +290,12 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
     console.log(this.listDataMap,this.dateArr);
     // 过滤已存在的日期
-    let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-      let str = this.dateArr.map((e:string)=>e)
-      return str.indexOf(item.date)==-1
-    })
-    console.log(newList,'newList');
-    this.quoteBydateRequestModel.data.push(...newList)
+    // let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
+    //   let str = this.dateArr.map((e:string)=>e)
+    //   return str.indexOf(item.date)==-1
+    // })
+    // console.log(newList,'newList');
+    // this.quoteBydateRequestModel.data.push(...newList)
     this.dateArr.forEach((date:string) => {
       this.quoteBydateModel = {
         date:'',
@@ -362,6 +362,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
           this.quoteBydateRequestModel.data =[]
         })
+
+        
       }else{
         console.log('自由行产品编辑 ');
          // 自由行添加
@@ -394,14 +396,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       nzContent:  `<h6>请确认是否删除</h6>`,
       nzOnOk: () =>{
         if(this.type=='management'){
-          this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
-          console.log(this.dateArr);
-          let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-            let str = this.dateArr.map((e:string)=>e)
-            return str.indexOf(item.date)==-1
-          })
-          this.quoteBydateRequestModel.data.push(...newList)
-          this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
+          // this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
+          // console.log(this.dateArr);
+          // let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
+          //   let str = this.dateArr.map((e:string)=>e)
+          //   return str.indexOf(item.date)==-1
+          // })
+          // this.quoteBydateRequestModel.data.push(...newList)
+          // this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
+          //   this.quoteBydateRequestModel.data =[]
+          // })
+           this.quoteBydateService.deleteQuoteInfo(this.selectItem.id).subscribe(res=>{
             this.quoteBydateRequestModel.data =[]
           })
         }else if(this.type=='freeTravel'){
