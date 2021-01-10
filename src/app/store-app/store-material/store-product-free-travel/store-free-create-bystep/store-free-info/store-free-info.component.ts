@@ -134,7 +134,7 @@ export class StoreFreeInfoComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
-      tag_id: new FormControl('', [Validators.required]),
+      tag_id: new FormControl(''),
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
