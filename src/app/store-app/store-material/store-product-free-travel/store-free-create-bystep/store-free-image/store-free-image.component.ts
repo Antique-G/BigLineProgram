@@ -122,7 +122,7 @@ export class StoreFreeImageComponent implements OnInit {
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       this.freeTravelService.GetFreeTravelDetail( this.dataDetailModel.id).subscribe((res: any) => {
         this.dataSource = res.data.albums.data;
-
+        this.router.navigate(['/store/main/storeFreeTravel'],);
       })
     })
   }

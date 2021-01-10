@@ -154,7 +154,7 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童年龄</nz-form-label>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童最大年龄</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_age_max">
                                                 <nz-input-number style="width: 100%;" formControlName="children_age" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
@@ -163,7 +163,7 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童身高</nz-form-label>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童身高范围</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
                                                 <nz-input-number formControlName="child_height_min" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="addForm.value.child_height_max"></nz-input-number>
                                                 <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />

@@ -16,6 +16,7 @@ export interface AddStoreProductModel {
   assembling_place_id: number[];
   fee: string;
   tag_id: number[];
+  reserve_ahead: number;
 }
 
 // 返回
@@ -198,6 +199,7 @@ export interface DetailModel {
   notice: string;
   status: number;
   tag_id: number[];
+  
 }
 
 
