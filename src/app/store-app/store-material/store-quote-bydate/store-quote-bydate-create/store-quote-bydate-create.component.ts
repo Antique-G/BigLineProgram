@@ -61,20 +61,20 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   validationMessage: any = {
     adult_price: {
-      'isFloat': '请输入正确的数字',
+      'isNumber': '请输入非零的正数',
       'required':'成人价格数量必填'
     },
     child_price: {
-      'isFloat': '请输入正确的数字',
+      'isNumber': '请输入非零的正数',
     },
     original_adult_price: {
-      'isFloat': '请输入正确的数字',
+      'isNumber': '请输入非零的正数',
     },
     original_child_price: {
-      'isFloat': '请输入正确的数字',
+      'isNumber': '请输入非零的正数',
     },
     difference_price: {
-      'isFloat': '请输入正确的数字',
+      'isNumber': '请输入非零的正数',
     },
     inventory_num:{
       'isNumber': '请输入非零的正数',
@@ -141,16 +141,19 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     console.log(this.selectItem,'this.selectItem');
   }
 
-  
+  updateLoading(){
+    this.isSpinning = true
+  }
+
   buildForm(){
     console.log('buildForm');
     this.addForm = this.fb.group({
       // date: [[new Date(),new Date()], [Validators.required]],
       week: [false],
       date: ['', [Validators.required]],
-      adult_price: ['',[Validators.required,isFloat]],
-      child_price: [0,[isFloat]],
-      difference_price: [0,[isFloat]],
+      adult_price: ['',[Validators.required,isNumber]],
+      child_price: [0,[isNumber]],
+      difference_price: [0,[isNumber]],
       inventory_num:[0, [Validators.required,isNumber]],
       set_inventory:[0, [Validators.required]],
       allow_over:[0, [Validators.required]],
@@ -378,6 +381,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         
       }
       
+    }else{
+     this.isSpinning = false
     }
   }
 

@@ -139,12 +139,18 @@ export class StoreQuoteBydateComponent implements OnInit {
         {
           label: '删除',
           type:'danger',
-          onClick: componentInstance => componentInstance?.deleteInfo()
+          onClick(componentInstance) {
+            componentInstance?.deleteInfo()
+          }
         },
         {
           label: '确认',
           type: 'primary',
-          onClick: componentInstance => componentInstance?.add()
+          onClick(componentInstance) {
+            if(componentInstance?.isSpinning == true) return;
+            componentInstance?.updateLoading()
+            componentInstance?.add()
+          }
         },
       ]
      
@@ -185,8 +191,24 @@ export class StoreQuoteBydateComponent implements OnInit {
           listDataMap:this.listDataMap
         }
       },
-      nzOnOk:(componentInstance)=> componentInstance.add()
-     
+      nzFooter:[
+        {
+          label: '取消',
+          onClick: () => modal.destroy()
+        },{
+          label: '确认',
+          type: 'primary',
+          loading: false,
+          onClick(componentInstance) {
+            if(componentInstance?.isSpinning == true) return;
+            componentInstance?.updateLoading()
+            componentInstance?.add()
+          },
+
+
+        }
+      ]
+    
     })
     modal.afterClose.subscribe(res=>{
       this.getQuoteList()
