@@ -43,6 +43,8 @@ export class StoreProductInfoComponent implements OnInit {
   isReserveChildren = '0';
   isReserveAhead = '0';
 
+  isLoadingBtn = false;
+
 
   cateId: any;
 
@@ -88,7 +90,7 @@ export class StoreProductInfoComponent implements OnInit {
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
     public storeProductService: StoreProductService, private msg: NzMessageService,
     public storeRegionService: StoreRegionService,
-    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.addStoreProductModel = {
       title: '',
@@ -108,7 +110,7 @@ export class StoreProductInfoComponent implements OnInit {
       assembling_place_id: [],
       fee: '',
       tag_id: [],
-      reserve_ahead:1
+      reserve_ahead: 1
     }
   }
 
@@ -131,7 +133,7 @@ export class StoreProductInfoComponent implements OnInit {
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
       earlier1: new FormControl(1, [Validators.required]),
-      earlier2: new FormControl(null, [Validators.required]),
+      earlier2: new FormControl(null),
 
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -243,13 +245,13 @@ export class StoreProductInfoComponent implements OnInit {
       this.addStoreProductModel.earlier = 0;
     }
     else if (parseInt(this.isReserveAhead) === 1) {
-       // 时间处理
-    let earlier1 = this.addForm.value.earlier1
-    let date = new Date(this.addForm.value.earlier2);
-    let min = date.getMinutes();
-    let hour = date.getHours();
-    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.addStoreProductModel.earlier = resMin;
+      // 时间处理
+      let earlier1 = this.addForm.value.earlier1
+      let date = new Date(this.addForm.value.earlier2);
+      let min = date.getMinutes();
+      let hour = date.getHours();
+      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+      this.addStoreProductModel.earlier = resMin;
     }
     if (parseInt(this.isReserveChildren) === 0) {
       this.addStoreProductModel.child_age_max = 14;
@@ -263,7 +265,7 @@ export class StoreProductInfoComponent implements OnInit {
     }
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
-   
+
   }
 
 
@@ -307,20 +309,20 @@ export class StoreProductInfoComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC')
     editorFee.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
-      
+
     }
     editorFee.create();
 
@@ -328,15 +330,15 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
@@ -347,7 +349,7 @@ export class StoreProductInfoComponent implements OnInit {
         console.log("this.addStoreProductModel.fee", this.addStoreProductModel.fee)
       });
     });
-    
+
   }
 
   // 刷新区域和集合地点，标签
@@ -379,6 +381,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.setValue();
     // 验证表单
     console.log("this.addForm", this.addForm)
@@ -392,6 +395,8 @@ export class StoreProductInfoComponent implements OnInit {
       this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
         console.log("res结果", res);
         if (res.id) {
+          this.isLoadingBtn = false;
+
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
 

@@ -51,6 +51,7 @@ export class StoreFreeInfoComponent implements OnInit {
   isReserveChildren = '0';
 
   cateId: any;
+  isLoadingBtn = false;
 
   validationMessage: any = {
     title: {
@@ -95,7 +96,7 @@ export class StoreFreeInfoComponent implements OnInit {
     public storeProductService: StoreProductService,
     private freeTravelService: StoreProductTreeTravelService, private storeRegionService: StoreRegionService,
     public dialog: MatDialog, private msg: NzMessageService,
-    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm()
     this.freeTravelModel = {
       title: '',
@@ -233,6 +234,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
   // 添加
   nextTab() {
+    this.isLoadingBtn = true;
     console.log(123);
     this.setValue();
     // 验证表单
@@ -247,6 +249,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
       this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
         if (res.id) {
+          this.isLoadingBtn = false;
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
       })
@@ -311,18 +314,18 @@ export class StoreFreeInfoComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC')
     editorFee.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
     }
     editorFee.create();
@@ -330,15 +333,15 @@ export class StoreFreeInfoComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
@@ -349,7 +352,7 @@ export class StoreFreeInfoComponent implements OnInit {
         console.log("this.addStoreProductModel.fee", this.freeTravelModel.fee)
       });
     });
-    
+
   }
 
 
