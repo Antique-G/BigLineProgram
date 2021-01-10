@@ -47,6 +47,10 @@
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
                                     <th style="text-align: center;">最低价格</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">儿童年龄</th>
+                                    <th style="text-align: center;">儿童身高</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">查看详情</th>
@@ -65,7 +69,10 @@
                                         <div *ngIf="data.minimum_price===0"> - </div>
                                         <div *ngIf="data.minimum_price!=0"> {{data.minimum_price}}&nbsp;元 </div>
                                     </td>
-
+                                    <td>{{data.departure_city_full_name}}</td>
+                                    <td>{{data.destination_city_full_name}}</td>
+                                    <td>{{data.child_age_info}}</td>
+                                    <td>{{data.child_height_info}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架
