@@ -10,7 +10,7 @@ export interface StoreQuoteBydateModel{
     // original_adult_price?: number;
     // original_child_price?:number;
     // difference_price?: number;
-
+    product_id?: number;
     id?: number;
     independent_product_id?: number;
     adult_price?: number;

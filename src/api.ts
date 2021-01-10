@@ -95,7 +95,7 @@ export const StoreUrls = {
   GetStoreProductDetail: api + '/store/product/', //获取产品详情api
   PutStoreProductUpdate: api + '/store/product/', //修改产品api
   PatchStoreProductStatus: api + '/store/product/',   //产品上下架
-  GetStoreQuoteByDate: api + '/store/product/',//产品报价列表
+  GetStoreQuoteByDate: api + '/store/date_quote',//产品报价列表
   PostStoreQuoteByDate: api + '/store/product/',//添加产品报价
   PostStoreQuoteByDateSetCheck: api + '/store/product/set_check',//产品报价提交审核
 

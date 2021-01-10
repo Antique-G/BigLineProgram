@@ -302,7 +302,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }
       this.quoteBydateModel.date = date;
       this.quoteBydateModel.adult_price  = this.addForm.value.adult_price
-    
+      this.quoteBydateModel.product_id = this.productId;
       this.quoteBydateModel.child_price = this.addForm.value.child_price>0? this.addForm.value.child_price:0;
       this.quoteBydateModel.difference_price = this.addForm.value.difference_price>0? this.addForm.value.difference_price:0;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over
