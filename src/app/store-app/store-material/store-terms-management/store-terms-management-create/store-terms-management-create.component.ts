@@ -92,7 +92,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
   }
 
   templateList() {
-    this.storeTermsManagementService.termsTemplateList(1, 1000, '').subscribe(res => {
+    this.storeTermsManagementService.termsTemplateList(1, 1000,1, '').subscribe(res => {
       console.log("结果", res);
       for (let i of res.data) {
         let a = { value: i.id, label: i.title };

@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit,ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataDetailModel, UpdateStoreTermsManagementeRequestModel } from '../../../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 import { StoreTermsManagementService } from '../../../../../services/store/store-terms-management/store-terms-management.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +14,7 @@ export class StoreTermsManagementDetailComponent implements OnInit {
   dataDetailModel: DataDetailModel;
   updateStoreTermsManagementeRequestModel: UpdateStoreTermsManagementeRequestModel;
   public isSpinning: any = true;    //loading 
-  detailId:any
+  detailId: any
   @ViewChild("featureBox") featureBox: any;       //获取dom
   validationMessage: any = {
     title: {
@@ -30,36 +29,33 @@ export class StoreTermsManagementDetailComponent implements OnInit {
     content: '',
   };
 
+  status = 1;
 
-  constructor(public fb: FormBuilder,  public storeTermsManagementService: StoreTermsManagementService,
+
+
+  constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService,
     public router: Router, public activatedRoute: ActivatedRoute,) {
-    // this.dataDetailModel = this.data;  
-    this.forms();
     this.dataDetailModel = {
-      id:0,
-      title:'',
-      content:'',
-      status:0,
-      created_at:'',
-      updated_at:''
+      id: 0,
+      title: '',
+      content: '',
+      status: 0,
+      created_at: '',
+      updated_at: ''
     };
-  
+    this.forms();
     this.updateStoreTermsManagementeRequestModel = {
       title: '',
       content: '',
-      status:1
-    
+      status: 1
     }
+
   }
 
   forms() {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required]],
-      content: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      // title: [this.dataDetailModel.title, [Validators.required]],
-      // content: [this.dataDetailModel.content, [Validators.required]],
-      // status: [this.dataDetailModel.status, [Validators.required]],
+      title: [this.dataDetailModel.title, [Validators.required]],
+      status: [this.dataDetailModel.status, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -72,7 +68,7 @@ export class StoreTermsManagementDetailComponent implements OnInit {
 
   // 表单验证
   onValueChanged(data?: any) {
-   
+
     // 如果表单不存在则返回
     if (!this.addForm) return;
     // 获取当前的表单
@@ -99,32 +95,32 @@ export class StoreTermsManagementDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = params.detailId
+      this.detailId = params.detailId;
+      this.getTermsDetail();
     });
-    this.getTermsDetail();
+
   }
 
 
   setValue() {
     this.updateStoreTermsManagementeRequestModel.title = this.addForm.value.title;
-    // this.updateStoreTermsManagementeRequestModel.content = this.addForm.value.content;
     this.updateStoreTermsManagementeRequestModel.status = this.addForm.value.status;
 
   }
 
- getTermsDetail() {
-   this.storeTermsManagementService.storeTermsDetail(this.detailId).subscribe(res=>{
-     this.dataDetailModel = res.data
-     this.isSpinning = false;
-     this.setFormValue()
-     this.textChange();  //富文本初始化
-     console.log(  this.dataDetailModel);
-   })
-   
+  getTermsDetail() {
+    this.storeTermsManagementService.storeTermsDetail(this.detailId).subscribe(res => {
+      this.dataDetailModel = res.data;
+      this.status = this.dataDetailModel.status;
+      this.isSpinning = false;
+      this.setFormValue()
+      this.textChange();  //富文本初始化
+      console.log(this.dataDetailModel);
+    })
+
   }
-  setFormValue(){
+  setFormValue() {
     this.addForm.get('title')?.setValue(this.dataDetailModel.title);
-    this.addForm.get('content')?.setValue(this.dataDetailModel.content);
     this.addForm.get('status')?.setValue(this.dataDetailModel.status);
   }
 
@@ -136,18 +132,18 @@ export class StoreTermsManagementDetailComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    console.log(this.addForm.valid,this.addForm);
+    console.log(this.addForm.valid, this.addForm);
     if (this.addForm.valid) {
       this.storeTermsManagementService.updateStoreTerms(this.updateStoreTermsManagementeRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res.status_code) {
+        if (res===null) {
           // alert("更新成功");
           // this.dialogRef.close(1);
-         
+          this.router.navigate(['/store/main/storeTermsManage']);
         }
         else {
           // alert("更新失败");
-          this.router.navigate(['/store/main/storeTermsManage']);
+          
         }
       })
     }
@@ -192,7 +188,7 @@ export class StoreTermsManagementDetailComponent implements OnInit {
     }
 
 
-    
+
   }
 
 }
