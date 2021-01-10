@@ -61,11 +61,15 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
 
 
   import() {
-    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
-      width: '1105px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const modal:NzModalRef = this.modal.create({
+      nzTitle:'从图库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent:ChooseGalleryComponent,
+      nzWidth:1105,
+      nzFooter:null
+    })
+    modal.afterClose.subscribe(res =>{
+      let result = res||[]
       let idx = this.dataSource?.length ? this.dataSource.length : 0;
       result.forEach((ele: any) => {
         ele['sort'] = idx;
@@ -73,7 +77,6 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       });
       this.importImgList = result;
       console.log("this.dataSource", this.dataSource);
-
       this.dataSource = this.dataSource.concat(this.importImgList);
     });
   }

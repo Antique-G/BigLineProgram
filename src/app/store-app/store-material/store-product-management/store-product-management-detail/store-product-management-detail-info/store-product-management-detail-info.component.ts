@@ -397,11 +397,15 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
   importImg() {
-    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
-      width: '1105px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const modal:NzModalRef = this.modal.create({
+      nzTitle:'从图库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent:ChooseGalleryComponent,
+      nzWidth:1105,
+      nzFooter:null
+    })
+    modal.afterClose.subscribe(res =>{
+      let result = res||[]
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
@@ -411,6 +415,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         this.feeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
+
   }
 
 

@@ -73,11 +73,15 @@ export class StoreProductFeatureComponent implements OnInit {
 
 
   importImg() {
-    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
-      width: '1105px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const modal:NzModalRef = this.modal.create({
+      nzTitle:'从图库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent:ChooseGalleryComponent,
+      nzWidth:1105,
+      nzFooter:null
+    })
+    modal.afterClose.subscribe(res =>{
+      let result = res||[]
       result.forEach((item: any) => {
         this.featureList.push(item)
         if (this.featureList.length > 10) {
@@ -87,6 +91,7 @@ export class StoreProductFeatureComponent implements OnInit {
         this.featureBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
+   
   }
 
 

@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import {CommonServiceService} from '../../../services/store/common-service/common-service.service';
 import { StoreRegionService } from '../../../services/store/store-region/store-region.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 @Component({
     selector: 'choose-gallery',
     templateUrl: 'choose-gallery.html',
@@ -12,8 +13,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   
 export class ChooseGalleryComponent implements OnInit {
     addForm!: FormGroup;
-    constructor(private dialogRef:MatDialogRef<any>,private commonService:CommonServiceService,private storeRegionService:StoreRegionService
-        ,private msg: NzMessageService) { }
+    constructor(private commonService:CommonServiceService,private storeRegionService:StoreRegionService
+        ,private msg: NzMessageService,private modalRef: NzModalRef) { }
     listOfData:any=[]
     setOfCheckedId = new Set<number>();
     checked=false
@@ -120,16 +121,11 @@ export class ChooseGalleryComponent implements OnInit {
             this.msg.error('图片不能引用超过10张');
             return
         }
-        let result:any[]= []
-        // arr.forEach((ele:any) => {
-        //     result.push(ele.url)
-        // });
-        this.dialogRef.close(arr);
+     
+        this.modalRef.close(arr);
     }
     
-    close(){
-        this.dialogRef.close([]);
-    }
+   
 
     
 }

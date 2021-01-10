@@ -315,11 +315,15 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   importImg() {
-    const dialogRef = this.dialog.open(ChooseGalleryComponent, {
-      width: '1105px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const modal:NzModalRef = this.modal.create({
+      nzTitle:'从图库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent:ChooseGalleryComponent,
+      nzWidth:1105,
+      nzFooter:null
+    })
+    modal.afterClose.subscribe(res =>{
+      let result = res||[]
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
@@ -330,6 +334,7 @@ export class StoreProductInfoComponent implements OnInit {
         console.log("this.addStoreProductModel.fee", this.addStoreProductModel.fee)
       });
     });
+    
   }
 
   // 刷新区域和集合地点，标签
