@@ -134,6 +134,7 @@ export const StoreUrls = {
   PostStoreTermsUpdateCheck: api + '/store/terms/update_check',  // 条款审核
   GetStoreTemplate: api + '/store/terms_temp',  // 条款模板
   GetStoreTemplateDetail: api + '/store/terms_temp/',  // 条款模板详情
+  PostStoreTemplateSetStatus: api + '/store/terms/set_status',  // 条款模板启用   
 
 
 

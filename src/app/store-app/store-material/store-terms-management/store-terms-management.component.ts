@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreTermManagementReviewComponent } from './store-term-management-review/store-term-management-review.component';
 import { DeleteComfirmComponent } from '../common/delete-comfirm/delete-comfirm.component';
 import { Router } from '@angular/router';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-terms-management',
@@ -20,9 +21,11 @@ export class StoreTermsManagementComponent implements OnInit {
   per_page = 20;
   total = 1;
   loading = true;
+  confirmModal?: NzModalRef; // g-zorro model 提示框
+
 
   constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog,
-    private router: Router) {
+    private router: Router,private modal: NzModalService, ) {
     this.searchForm = this.fb.group({
       status: [''],
       checkStatus: [''], 
@@ -144,6 +147,21 @@ export class StoreTermsManagementComponent implements OnInit {
     });
   }
 
+
+
+
+    // 上下架操作
+    up(data: any) {
+      console.log("nadao", data);
+      this.modal.confirm({
+        nzTitle: '<h4>提示</h4>',
+        nzContent: '<h6>请确认操作</h6>',
+        nzOnOk: () =>
+        this.storeTermsManagementService.setStatus(data.id).subscribe(res => {
+            this.termsList();
+          })
+      });
+    }
 
 }
 
