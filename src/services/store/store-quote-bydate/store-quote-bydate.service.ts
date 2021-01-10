@@ -39,7 +39,7 @@ export class StoreQuoteBydateService {
     };
 
      if(type == 'management'){
-        return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreQuoteByDate+id+'/date_quote', findhttpOptions)
+        return this.httpClient.get<StoreQuoteBydateRsponseListModel>(this.urls.GetStoreQuoteByDate, findhttpOptions)
         .pipe(
         )
      }else{
