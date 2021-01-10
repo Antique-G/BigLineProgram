@@ -2,7 +2,7 @@
     <div fxFlex.gt-sm="100%" fxFlex="100">
         <mat-card>
             <div class="example-container" style="padding: 15px;">
-                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
                     <div fxLayout="row" fxLayoutGap="20px">
                         <ng-container *ngIf="type == 'management'; else elseTemplate">
                             <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
@@ -11,6 +11,11 @@
                             <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
                         </ng-template>
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
+
+                        <div style="display: flex;align-items: center;">
+                            <div><span class="dot item-bg-success"></span>审核通过</div>
+                            <div style="margin-left: 5px;"><span class="dot item-bg-error"></span>审核未通过</div>
+                        </div>
                     </div>
                     <nz-alert nzMessage="当前时间: {{ seletYearMonth}}"></nz-alert>
                     <div style="display: flex; align-items: center;">
@@ -29,7 +34,8 @@
                             <div *nzDateCell="let date" class="events"  >
                                 <ng-container *ngFor="let item of listDataMap.data">
                                     <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                        <div class="item itemFree" (click)="onSelectChange(item)" [class]="item.check_status==2?'item-bg':''">
+                                        <div class="item itemFree" (click)="onSelectChange(item)" 
+                                        [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
                                             <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
                                             <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>

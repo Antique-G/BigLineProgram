@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject, EventEmitter } from '@angular/core';
+import { Component, OnInit,Inject, EventEmitter, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {differenceInCalendarDays,format} from 'date-fns';
@@ -20,6 +20,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 export class StoreQuoteBydateCreateComponent implements OnInit {
+  @Input() data:any
   today = new Date();
   addForm!: FormGroup;
   quoteBydateRequestModel:StoreQuoteBydateRequestModel
@@ -29,7 +30,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   //自由行
   freeTraveModel:FreeTraveQuoteBydateModel 
 
-  productId:number;
+  productId:number = 0;
   selectDate:any
   dateArr:any
   selectItem:any ////当前点击项
@@ -90,14 +91,11 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     inventory_num:''
   };
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<StoreQuoteBydateComponent>, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,public quoteBydateService:StoreQuoteBydateService,private modal: NzModalService,
+  constructor(public fb: FormBuilder,
+    public quoteBydateService:StoreQuoteBydateService,private modal: NzModalService,
     private msg:NzMessageService) { 
       console.log(this.data,'this.data');
-      this.productId = this.data.productId
-      this.type = this.data.type
-      // this.listDataMap = this.data.listDataMap.data
-      this.selectItem = this.data.date; //当前点击项
+   
 
       this.freeTraveModel={
         id: 0,
@@ -130,13 +128,17 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     });
     // 初始化错误信息
     this.onValueChanged();
-    this.GetDetail();
+   
       
 }
 
   ngOnInit(): void {
-    
-  
+    this.productId = this.data.productId
+    this.type = this.data.type
+    // this.listDataMap = this.data.listDataMap.data
+    this.selectItem = this.data.date; //当前点击项
+    this.GetDetail();
+    console.log(this.selectItem,'this.selectItem');
   }
 
   
@@ -355,7 +357,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       if(this.type==='management'){
         this.setValue();
         this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-          this.dialogRef.close();
           this.quoteBydateRequestModel.data =[]
         })
       }else{
@@ -366,13 +367,11 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         if(this.selectItem){
           this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res=>{
             console.log(res);
-            this.dialogRef.close();
           })
         }else{
             // // 添加
             this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res=>{
               console.log(res);
-              this.dialogRef.close();
             })
           
         }
@@ -398,7 +397,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           })
           this.quoteBydateRequestModel.data.push(...newList)
           this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-            this.dialogRef.close();
             this.quoteBydateRequestModel.data =[]
           })
         }else if(this.type=='freeTravel'){
@@ -406,7 +404,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
      
         
           this.quoteBydateService.delQuoteInfo(this.selectItem.id).subscribe(res=>{
-            this.dialogRef.close();
           })
         }
       }
@@ -415,6 +412,5 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   }
 
   close(){
-    this.dialogRef.close();
   }
 }

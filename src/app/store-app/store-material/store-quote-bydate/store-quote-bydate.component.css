@@ -50,6 +50,17 @@
     opacity: 0 !important;
 } */
 
-.item-bg{
+.item-bg-success{
     background: rgba(20, 247, 20, 0.2) !important;
+}
+
+.item-bg-error{
+    background: rgba(243, 33, 33, 0.2) !important;
+}
+
+.dot{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
 }
