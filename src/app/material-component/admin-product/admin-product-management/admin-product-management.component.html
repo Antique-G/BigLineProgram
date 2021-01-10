@@ -72,12 +72,14 @@
                                     <td>{{data.departure_city_full_name}}</td>
                                     <td>{{data.destination_city_full_name}}</td>
                                     <td>
-                                        <div *ngIf="data.child_age_info==='0-0'">-</div>
-                                        <div *ngIf="data.child_age_info!='0-0'">{{data.child_age_info}}</div>
+                                        <div *ngIf="data.child_age_max===0"> - </div>
+                                        <div *ngIf="data.child_age_max!=0"> {{data.child_age_max}}&nbsp;岁 </div>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.child_height_info==='未设置-未设置'">-</div>
-                                        <div *ngIf="data.child_height_info!='未设置-未设置'"> {{data.child_height_info}}</div>
+                                        <div *ngIf="data.child_height_min===0&&data.child_height_max===0"> - </div>
+                                        <div *ngIf="!(data.child_height_min===0&&data.child_height_max===0)">
+                                            {{data.child_height_min}}&nbsp;~{{data.child_height_max}}&nbsp;cm
+                                        </div>
 
                                     </td>
                                     <td>
