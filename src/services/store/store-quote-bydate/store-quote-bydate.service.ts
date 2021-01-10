@@ -52,11 +52,17 @@ export class StoreQuoteBydateService {
 
    // 添加报价信息
    createQuoteInfo(quoteBydateRequestModel: StoreQuoteBydateRequestModel,id:number) {
-    return this.httpClient.post(this.urls.PostStoreQuoteByDate+id+'/date_quote', quoteBydateRequestModel.data, httpOptions)
+    return this.httpClient.post(this.urls.PostStoreQuoteByDate, quoteBydateRequestModel.data, httpOptions)
       .pipe(
       )
   }
 
+  // 产品删除
+  deleteQuoteInfo(id:any){
+    return this.httpClient.delete(this.urls.DelStoreQuoteByDate+id, httpOptions)
+    .pipe(
+    )
+  }
     // 获取自由行产品报价详情
     getFreeTravelQuoteDateDetail(id:any):Observable<FreeTraveRsponseListModel>{
       return this.httpClient.get<FreeTraveRsponseListModel>(this.urls.GetStoreFreeTravelQuoteDetail+id, httpOptions)
