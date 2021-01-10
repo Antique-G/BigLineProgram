@@ -1,4 +1,4 @@
-import { Component,  Input, OnInit, ViewChild } from '@angular/core';
+import { Component,  Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import {InsertABCMenu} from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { SimpleChanges } from '@angular/core';
 import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class StoreTravelDetailNoticeComponent implements OnInit {
   }
   @ViewChild("noticeBox") noticeBox: any;       //获取dom
   constructor(public dialog: MatDialog,private msg: NzMessageService,
-    private freeTravelService:StoreProductTreeTravelService,public router: Router,) { }
+    private freeTravelService:StoreProductTreeTravelService,public router: Router,
+    private modal: NzModalService,private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit(): void {
     
@@ -90,16 +92,18 @@ export class StoreTravelDetailNoticeComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
     editorDetail.config.customFunction = (insert:any)=>{
-      const dialogRef = this.dialog.open(CommonModelComponent, {
-        width: '660px',
-        disableClose: true
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        let str =''
-        result.forEach((item:any) => {
-          insert(item.url)
-        });
+      const modal:NzModalRef = this.modal.create({
+        nzTitle:'图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent:CommonModelComponent,
+        nzWidth:660,
+        nzFooter:null
+      })
+      modal.afterClose.subscribe(result =>{
+        let res = result?.data||[]
+        res.forEach((item: any) => {
+              insert(item.url)
+            });
       });
     }
     editorDetail.create();

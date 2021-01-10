@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
 
 
   constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
-    private msg: NzMessageService, public dialog: MatDialog,) {
+    private msg: NzMessageService, public dialog: MatDialog,private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 2,
       feature: ''
@@ -57,16 +58,18 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
     editorFeature.config.customFunction = (insert: any) => {
-      const dialogRef = this.dialog.open(CommonModelComponent, {
-        width: '660px',
-        disableClose: true
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        let str = ''
-        result.forEach((item: any) => {
-          insert(item.url)
-        });
+      const modal:NzModalRef = this.modal.create({
+        nzTitle:'图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent:CommonModelComponent,
+        nzWidth:660,
+        nzFooter:null
+      })
+      modal.afterClose.subscribe(result =>{
+        let res = result?.data||[]
+        res.forEach((item: any) => {
+              insert(item.url)
+            });
       });
     }
     editorFeature.create();

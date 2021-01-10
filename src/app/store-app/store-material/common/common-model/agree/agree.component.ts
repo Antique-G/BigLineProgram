@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-agree',
@@ -8,12 +8,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class AgreeComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<any>) { }
+  constructor(private modalRef: NzModalRef,) { }
 
   ngOnInit(): void {
   }
-
   agreeHandle(){
-    this.dialogRef.close(false);
+    this.modalRef.destroy()
   }
+ 
 }

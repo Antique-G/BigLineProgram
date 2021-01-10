@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { isNumber, isFloat } from '../../../../../util/validators';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
@@ -11,6 +11,7 @@ import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gal
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-product-info',
@@ -83,7 +84,8 @@ export class StoreProductInfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
     public storeProductService: StoreProductService, private msg: NzMessageService,
-    public storeRegionService: StoreRegionService,) {
+    public storeRegionService: StoreRegionService,
+    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.addStoreProductModel = {
       title: '',
@@ -292,17 +294,20 @@ export class StoreProductInfoComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC')
     editorFee.config.customFunction = (insert: any) => {
-      const dialogRef = this.dialog.open(CommonModelComponent, {
-        width: '660px',
-        disableClose: true
+      const modal:NzModalRef = this.modal.create({
+        nzTitle:'图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent:CommonModelComponent,
+        nzWidth:660,
+        nzFooter:null
+      })
+      modal.afterClose.subscribe(result =>{
+        let res = result?.data||[]
+        res.forEach((item: any) => {
+              insert(item.url)
+            });
       });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        let str = ''
-        result.forEach((item: any) => {
-          insert(item.url)
-        });
-      });
+      
     }
     editorFee.create();
 

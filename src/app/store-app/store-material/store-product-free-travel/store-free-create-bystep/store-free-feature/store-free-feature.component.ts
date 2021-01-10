@@ -1,4 +1,4 @@
-import { Component,  Input, OnInit, ViewChild ,OnChanges, EventEmitter, Output} from '@angular/core';
+import { Component,  Input, OnInit, ViewChild ,OnChanges, EventEmitter, Output, ViewContainerRef} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
@@ -7,6 +7,7 @@ import {InsertABCMenu} from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { SimpleChanges } from '@angular/core';
 import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-free-feature',
@@ -25,7 +26,8 @@ export class StoreFreeFeatureComponent implements OnInit {
   featureList:any[] = []
  
   @ViewChild("featureBox") featureBox: any;       //获取dom
-  constructor(public dialog: MatDialog,private msg: NzMessageService,private freeTravelService:StoreProductTreeTravelService) { }
+  constructor(public dialog: MatDialog,private msg: NzMessageService,private freeTravelService:StoreProductTreeTravelService,
+    private modal: NzModalService,private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit(): void {
     
@@ -84,16 +86,18 @@ export class StoreFreeFeatureComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
     editorFeature.config.customFunction = (insert:any)=>{
-      const dialogRef = this.dialog.open(CommonModelComponent, {
-        width: '660px',
-        disableClose: true
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        let str =''
-        result.forEach((item:any) => {
-          insert(item.url)
-        });
+      const modal:NzModalRef = this.modal.create({
+        nzTitle:'图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent:CommonModelComponent,
+        nzWidth:660,
+        nzFooter:null
+      })
+      modal.afterClose.subscribe(result =>{
+        let res = result?.data||[]
+        res.forEach((item: any) => {
+              insert(item.url)
+            });
       });
     }
     editorFeature.create();

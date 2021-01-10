@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import wangEditor from 'wangeditor';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-free-info',
@@ -93,7 +94,8 @@ export class StoreFreeInfoComponent implements OnInit {
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     public storeProductService: StoreProductService,
     private freeTravelService: StoreProductTreeTravelService, private storeRegionService: StoreRegionService,
-    private commonService: CommonServiceService, public dialog: MatDialog, private msg: NzMessageService) {
+    public dialog: MatDialog, private msg: NzMessageService,
+    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.buildForm()
     this.freeTravelModel = {
       title: '',
@@ -309,16 +311,18 @@ export class StoreFreeInfoComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC')
     editorFee.config.customFunction = (insert: any) => {
-      const dialogRef = this.dialog.open(CommonModelComponent, {
-        width: '660px',
-        disableClose: true
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        let str = ''
-        result.forEach((item: any) => {
-          insert(item.url)
-        });
+      const modal:NzModalRef = this.modal.create({
+        nzTitle:'图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent:CommonModelComponent,
+        nzWidth:660,
+        nzFooter:null
+      })
+      modal.afterClose.subscribe(result =>{
+        let res = result?.data||[]
+        res.forEach((item: any) => {
+              insert(item.url)
+            });
       });
     }
     editorFee.create();
