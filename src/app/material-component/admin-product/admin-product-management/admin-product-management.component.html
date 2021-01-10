@@ -44,11 +44,9 @@
                                 <tr>
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;">产品名称</th>
-                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
-                                    <th style="text-align: center;">成人价格</th>
-                                    <th style="text-align: center;">儿童价格</th>
+                                    <th style="text-align: center;">最低价格</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">查看详情</th>
@@ -61,11 +59,13 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
-                                    <td>{{data?.store?.name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
-                                    <td>{{data.adult_price}}</td>
-                                    <td>{{data.child_price}}</td>
+                                    <td>
+                                        <div *ngIf="data.minimum_price===0"> - </div>
+                                        <div *ngIf="data.minimum_price!=0"> {{data.minimum_price}}&nbsp;元 </div>
+                                    </td>
+
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架
@@ -109,7 +109,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" >
+                                        <div style="cursor: pointer;">
                                             <mat-icon style="color: #272727;" title="日期报价" (click)="quteDateClick(data)">assignment_ind</mat-icon>
                                         </div>
                                     </td>
