@@ -82,7 +82,7 @@
                                             <div style="cursor: pointer;" (click)="delete(data)" title="删除">
                                                 <mat-icon>delete</mat-icon>
                                             </div>
-                                            <div style="cursor: pointer;" *ngIf="data.check_status===2||data.check_status===1" (click)="review(data)" title="提交审核">
+                                            <div style="cursor: pointer;" *ngIf="data.check_status===0||data.check_status===3" (click)="review(data)" title="提交审核">
                                                 <mat-icon>assignment_ind</mat-icon>
                                             </div>
                                         </div>

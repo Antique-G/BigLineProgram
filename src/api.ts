@@ -133,6 +133,8 @@ export const StoreUrls = {
   GetStoreTermsDetail: api + '/store/terms/',   // 条款管理详情
   PostStoreTermsUpdateCheck: api + '/store/terms/update_check',  // 条款审核
   GetStoreTemplate: api + '/store/terms_temp',  // 条款模板
+  GetStoreTemplateDetail: api + '/store/terms_temp/',  // 条款模板详情
+
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
