@@ -4,7 +4,7 @@ import { StoreProductService } from '../../../../../../services/store/store-prod
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { DeleteComfirmComponent } from '../../../common/delete-comfirm/delete-comfirm.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -27,7 +27,7 @@ export class StoreProductDescComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, public storeProductService: StoreProductService,
-    public activatedRoute: ActivatedRoute, private modal: NzModalService,
+    public activatedRoute: ActivatedRoute, private modal: NzModalService,public router: Router,
    private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
@@ -118,6 +118,7 @@ export class StoreProductDescComponent implements OnInit {
       if (res === null) {
         this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
           this.dataSource = res.data.store_image.data;
+          this.router.navigate(['/store/main/storeProduct'],);
 
         })
       }

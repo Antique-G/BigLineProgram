@@ -38,6 +38,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   // 预定截止日期
   earlierTime = new Date('2021-01-01 18:00');
+  isReserveAhead = '0';
   isReserveChildren = '0';
 
 
@@ -112,7 +113,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       assembling_place_id: [],
       fee: '',
       tag_id: [],
-      step: 0
+      step: 0,
+      reserve_ahead:0
     }
   }
 
@@ -127,6 +129,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       assembling_place_id: ['', [Validators.required]],
       confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
+      reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
       child_age_max: [14],
       child_height_min: [''],
@@ -312,6 +315,19 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.detailUpdateModel.confirm = this.addForm.value.confirm;
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
+    this.detailUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
+    if (parseInt(this.isReserveAhead) === 0) {
+      this.detailUpdateModel.earlier = 0;
+    }
+    else if (parseInt(this.isReserveAhead) === 1) {
+       // 时间处理
+    let earlier1 = this.addForm.value.earlier1
+    let date = new Date(this.addForm.value.earlier2);
+    let min = date.getMinutes();
+    let hour = date.getHours();
+    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+    this.detailUpdateModel.earlier = resMin;
+    }
     if (parseInt(this.isReserveChildren) === 0) {
       this.detailUpdateModel.child_age_max = 14;
       this.detailUpdateModel.child_height_min = 0;
@@ -324,13 +340,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     }
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
-    // 时间处理
-    let earlier1 = this.addForm.value.earlier1
-    let date = new Date(this.addForm.value.earlier2);
-    let min = date.getMinutes();
-    let hour = date.getHours();
-    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.detailUpdateModel.earlier = resMin;
+  
   }
 
 
@@ -466,6 +476,12 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     }
   }
 
+
+  isReserveAheadChange(status: any) {
+    console.log(status, 'status');
+    this.isReserveAhead = status;
+    this.addForm.value.reserve_ahead = this.isReserveAhead;
+  }
 
 
   isReserveChildrenChange(status: any) {

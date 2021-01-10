@@ -12,6 +12,7 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-store-product-info',
@@ -40,6 +41,8 @@ export class StoreProductInfoComponent implements OnInit {
   feeList: any[] = []    //图片
 
   isReserveChildren = '0';
+  isReserveAhead = '0';
+
 
   cateId: any;
 
@@ -105,6 +108,7 @@ export class StoreProductInfoComponent implements OnInit {
       assembling_place_id: [],
       fee: '',
       tag_id: [],
+      reserve_ahead:1
     }
   }
 
@@ -119,6 +123,7 @@ export class StoreProductInfoComponent implements OnInit {
       assembling_place_id: ['', [Validators.required]],
       confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
+      reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
       child_age_max: [14],
       child_height_min: [''],
@@ -143,6 +148,7 @@ export class StoreProductInfoComponent implements OnInit {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.getCateList();
+
   }
 
   // 标签分类列表
@@ -232,6 +238,19 @@ export class StoreProductInfoComponent implements OnInit {
     this.addStoreProductModel.confirm = this.addForm.value.confirm;
     this.addStoreProductModel.contacts_status = this.addForm.value.contacts_status;
     this.addStoreProductModel.child_status = this.addForm.value.child_status;
+    this.addStoreProductModel.reserve_ahead = this.addForm.value.reserve_ahead;
+    if (parseInt(this.isReserveAhead) === 0) {
+      this.addStoreProductModel.earlier = 0;
+    }
+    else if (parseInt(this.isReserveAhead) === 1) {
+       // 时间处理
+    let earlier1 = this.addForm.value.earlier1
+    let date = new Date(this.addForm.value.earlier2);
+    let min = date.getMinutes();
+    let hour = date.getHours();
+    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+    this.addStoreProductModel.earlier = resMin;
+    }
     if (parseInt(this.isReserveChildren) === 0) {
       this.addStoreProductModel.child_age_max = 14;
       this.addStoreProductModel.child_height_min = 0;
@@ -244,13 +263,7 @@ export class StoreProductInfoComponent implements OnInit {
     }
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
-    // 时间处理
-    let earlier1 = this.addForm.value.earlier1
-    let date = new Date(this.addForm.value.earlier2);
-    let min = date.getMinutes();
-    let hour = date.getHours();
-    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.addStoreProductModel.earlier = resMin;
+   
   }
 
 
@@ -384,6 +397,13 @@ export class StoreProductInfoComponent implements OnInit {
 
       })
     }
+  }
+
+
+  isReserveAheadChange(status: any) {
+    console.log(status, 'status');
+    this.isReserveAhead = status;
+    this.addForm.value.reserve_ahead = this.isReserveAhead;
   }
 
   isReserveChildrenChange(status: any) {

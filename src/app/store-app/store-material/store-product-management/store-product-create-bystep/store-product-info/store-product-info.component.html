@@ -124,11 +124,47 @@
                         <nz-divider></nz-divider>
                         <div style="padding:10px 80px;margin-bottom: 30px;">
                             <form nz-form [formGroup]="addForm" nz-row>
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_ahead" nzRequired>是否可提前预定</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                            <nz-radio-group [(ngModel)]="isReserveAhead" (ngModelChange)="isReserveAheadChange($event)" formControlName="reserve_ahead">
+                                                <label nz-radio nzValue='1'>可以</label>
+                                                <label nz-radio nzValue='0'>否 </label>
+                                            </nz-radio-group>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveAhead==='1'">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier1" nzRequired>提前预定</nz-form-label>
+                                        <nz-form-control [nzSm]="10" [nzXs]="24" [nzErrorTip]="formErrors.earlier1">
+                                            <nz-input-number formControlName="earlier1" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">天</span>
+                                            <nz-time-picker [(ngModel)]="earlierTime" nzFormat="HH:mm" formControlName="earlier2"></nz-time-picker><span style="line-height: 32px;padding: 0 9px;">前可订</span>
+                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;">假设今天为5月1号，设置提前2天，18∶00前可订，则表示客人在今天18：00前可以预订到5月3号出发的产品，在今天18：00后能订到5月4号出发的产品。若客人预订时的时区和设置时区不同，系统会自动转换。</p>
+
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>预定人数范围</nz-form-label>
+                                        <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_min">
+                                            <nz-input-number formControlName="reserve_num_min" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                            <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                                            <nz-input-number formControlName="reserve_num_max" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
 
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_status" nzRequired>儿童是否可预订</nz-form-label>
-                                        <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_status">
+                                        <nz-form-control [nzSm]="10" [nzXs]="24" [nzErrorTip]="formErrors.child_status">
                                             <nz-radio-group formControlName="child_status" [(ngModel)]="isReserveChildren" (ngModelChange)="isReserveChildrenChange($event)">
                                                 <label nz-radio nzValue='1'>是</label>
                                                 <label nz-radio nzValue='0'>否 </label>
@@ -139,7 +175,7 @@
 
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                     <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_age_max" nzRequired>儿童最大年龄</nz-form-label>
+                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_age_max" nzRequired>儿童年龄</nz-form-label>
                                         <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入">
                                             <input type="text" disabled nz-input placeholder="2" style="width:100px; text-align: center;" />
                                             <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
@@ -160,31 +196,10 @@
                                     </div>
                                 </nz-form-item>
 
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>预定人数范围</nz-form-label>
-                                        <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_min">
-                                            <nz-input-number formControlName="reserve_num_min" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
-                                            <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
-                                            <nz-input-number formControlName="reserve_num_max" style="width: 100px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
 
 
 
 
-                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="earlier1" nzRequired>提前预定</nz-form-label>
-                                        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.earlier1">
-                                            <nz-input-number formControlName="earlier1" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">天</span>
-                                            <nz-time-picker [(ngModel)]="earlierTime" nzFormat="HH:mm" formControlName="earlier2"></nz-time-picker><span style="line-height: 32px;padding: 0 9px;">前可订</span>
-                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;">假设今天为5月1号，设置提前2天，18∶00前可订，则表示客人在今天18：00前可以预订到5月3号出发的产品，在今天18：00后能订到5月4号出发的产品。若客人预订时的时区和设置时区不同，系统会自动转换。</p>
-
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
 
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
