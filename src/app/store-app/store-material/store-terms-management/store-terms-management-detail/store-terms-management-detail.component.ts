@@ -140,13 +140,14 @@ export class StoreTermsManagementDetailComponent implements OnInit {
     if (this.addForm.valid) {
       this.storeTermsManagementService.updateStoreTerms(this.updateStoreTermsManagementeRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res === null) {
+        if (res.status_code) {
           // alert("更新成功");
           // this.dialogRef.close(1);
-          this.router.navigate(['/store/main/storeTermsManage']);
+         
         }
         else {
           // alert("更新失败");
+          this.router.navigate(['/store/main/storeTermsManage']);
         }
       })
     }

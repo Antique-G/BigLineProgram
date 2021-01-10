@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import wangEditor from 'wangeditor';
 import { AddStoreTermsManagementRequestModel } from '../../../../../interfaces/store/storeTermsManagement/store-terms-management-model';
 import { StoreTermsManagementService } from '../../../../../services/store/store-terms-management/store-terms-management.service';
@@ -28,7 +29,7 @@ export class StoreTermsManagementCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder,
+  constructor(public fb: FormBuilder,  public router: Router,
     public storeTermsManagementService: StoreTermsManagementService) {
     this.forms();
     this.addStoreTermsManagementRequestModel = {
@@ -121,12 +122,14 @@ export class StoreTermsManagementCreateComponent implements OnInit {
     if (this.addForm.valid) {
       this.storeTermsManagementService.addStoreTerms(this.addStoreTermsManagementRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res === null) {
-          // alert("创建成功");
-
+        if (res.status_code) {
+          // alert("更新成功");
+          // this.dialogRef.close(1);
+         
         }
         else {
-          // alert("创建失败，请重新填写");
+          // alert("更新失败");
+          this.router.navigate(['/store/main/storeTermsManage']);
         }
       })
     }
