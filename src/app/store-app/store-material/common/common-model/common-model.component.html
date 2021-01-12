@@ -25,6 +25,7 @@
                         </nz-upload> -->
                         <nz-upload
                         [nzBeforeUpload]="beforeUpload"
+                        [nzSize]="5120" 
                         [(nzFileList)]="fileList"
                         [nzShowButton]="fileList.length < 8"
                         [nzMultiple]='true' [nzLimit]='10'
