@@ -42,7 +42,12 @@ export class StoreProductFeatureComponent implements OnInit {
   textChange() {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
-    this.featureBox.nativeElement.innerHTML = this.addDataDetailModel?.feature;    //赋值
+    if(this.addDataDetailModel?.feature===undefined){
+      this.featureBox.nativeElement.innerHTML = '';
+    }
+    else{
+      this.featureBox.nativeElement.innerHTML = this.addDataDetailModel.feature;    //赋值
+    }
     this.detailUpdateModel.feature = this.addDataDetailModel?.feature;
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
@@ -99,7 +104,7 @@ export class StoreProductFeatureComponent implements OnInit {
     this.detailUpdateModel.id = this.addDataDetailModel.id;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 2 })
       }
 
     })

@@ -14,20 +14,20 @@
                         </div>
                     </mat-tab>
 
-                    <mat-tab label="产品详情" [disabled]="isIndex<1">
-                        <ng-template matTabContent>
-                            <div class="content">
-                                <app-store-product-editordetail (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-editordetail>
-                            </div>
-                        </ng-template>
-                    </mat-tab>
-
-                    <mat-tab label="产品特色" [disabled]="isIndex<2">
+                    <mat-tab label="产品特色" [disabled]="isIndex<1">
                         <ng-template matTabContent>
                             <div class="content">
                                 <div class="example-large-box mat-elevation-z4">
                                     <app-store-product-feature (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-feature>
                                 </div>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="产品详情" [disabled]="isIndex<2">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-editordetail (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-editordetail>
                             </div>
                         </ng-template>
                     </mat-tab>

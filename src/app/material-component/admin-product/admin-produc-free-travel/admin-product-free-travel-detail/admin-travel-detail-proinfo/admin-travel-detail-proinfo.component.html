@@ -130,7 +130,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num" nzRequired>可预定人数</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_min">
-                                                <nz-input-number style="width: 100%;" formControlName="reserve_num" [nzMin]="1"></nz-input-number>
+                                                <nz-input-number style="width: 100%;" formControlName="reserve_num" [nzMin]="1" [nzMax]="255"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

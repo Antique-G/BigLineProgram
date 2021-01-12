@@ -13,19 +13,20 @@
                             <app-store-product-management-detail-info></app-store-product-management-detail-info>
                         </div>
                     </mat-tab>
-                    <mat-tab label="产品详情">
-                        <ng-template matTabContent>
-                            <div class="content">
-                                <app-store-product-management-detail-editordetail [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-editordetail>
-                            </div>
-                        </ng-template>
-                    </mat-tab>
                     <mat-tab label="产品特色">
                         <ng-template matTabContent>
                             <div class="content">
                                 <div class="example-large-box mat-elevation-z4">
                                     <app-store-product-management-detail-feature [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-feature>
                                 </div>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="产品详情">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-management-detail-editordetail [dataDetailModel]='dataDetailModel'></app-store-product-management-detail-editordetail>
                             </div>
                         </ng-template>
                     </mat-tab>
