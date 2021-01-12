@@ -64,15 +64,20 @@ export class CommonModelComponent implements OnInit {
 
   // 上传图片之前
   beforeUpload = (file: NzUploadFile): boolean => {
+    // let url = window.URL.createObjectURL(file)
+    // this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(url)
+    // console.log(this.imgUrl,url);
     if(this.fileList.length <=10){
-      this.fileList = this.fileList.concat(file);
+      let id:any = this.fileList.length
+      // this.fileList = this.fileList.concat(file);
+      this.fileList = this.fileList.concat({
+        uid: id,
+        name: file.name,
+        status: 'uploading',
+      });
       this.imageList = this.imageList.concat(file);
     }
-    let url = window.URL.createObjectURL(file)
-    this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(url)
-    // console.log(file.size,this.imgUrl);
-    this.previewImage = this.imgUrl;
-    this.previewVisible = true;
+  
     return false
   };
   
@@ -115,28 +120,38 @@ handleChange(info:NzUploadChangeParam){
 }
 
   add(){
-    console.log(this.fileList);
+    console.log(this.imageList);
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    if(this.fileList.length ===0 ){
+    if(this.imageList.length ===0 ){
       this.msg.error('请选择上传图片')
       return
     }
     if (this.addForm.valid) {
       this.isSpinning =true
-      this.fileList.forEach((item:any,index)=>{
+      this.imageList.forEach((item:any,index)=>{
         const formData = new FormData();
         formData.append('image', item);
         formData.append('desc', this.addForm.value.desc);
         formData.append('region_code', this.region_code[this.region_code.length-1]);
         this.commonService.uploadImg(formData).subscribe(res=>{
           this.result.push(res)
-          if(index === this.fileList.length-1){
+          this.fileList[index].status= 'done';
+          if(index === this.imageList.length-1){
             this.isSpinning = false
             this.modalRef.destroy({ data: this.result});
+            this.modal.success({
+              nzMask: false,
+              nzTitle: `操作成功`,
+            })
+            this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+            setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+
           }
+        },err=>{
+          this.fileList[index].status= 'done';
         })
       })
     }

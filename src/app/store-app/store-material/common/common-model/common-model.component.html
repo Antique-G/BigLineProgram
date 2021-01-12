@@ -24,7 +24,6 @@
                             <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
                         </nz-upload> -->
                         <nz-upload
-                        nzListType="picture"
                         [nzBeforeUpload]="beforeUpload"
                         [(nzFileList)]="fileList"
                         [nzShowButton]="fileList.length < 8"
