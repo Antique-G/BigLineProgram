@@ -27,7 +27,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,private msg: NzMessageService,private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
-      step: 1,
+      step: 2,
       details: ''
     }
   }

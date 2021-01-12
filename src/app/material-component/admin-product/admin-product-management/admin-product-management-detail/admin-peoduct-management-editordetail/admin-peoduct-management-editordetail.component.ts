@@ -19,7 +19,7 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute, public adminProductManagementService: AdminProductManagementService,) {
     this.detailUpdateModel = {
-      step: 1,
+      step: 2,
       details: ''
     }
   }

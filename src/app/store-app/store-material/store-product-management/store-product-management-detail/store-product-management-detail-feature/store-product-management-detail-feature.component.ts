@@ -28,7 +28,7 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
   constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public dialog: MatDialog,private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
-      step: 2,
+      step: 1,
       feature: ''
     }
   }

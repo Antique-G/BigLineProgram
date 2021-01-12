@@ -31,13 +31,13 @@ export class StoreProductDescComponent implements OnInit {
    private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
-      albums: []
+      album: []
     }
   }
 
   ngOnInit(): void {
     this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-      this.dataSource = res.data?.store_image?.data;
+      this.dataSource = res.data?.album?.data;
       console.log(" this.dataSource111", this.dataSource,res.data)
     })
   }
@@ -108,18 +108,18 @@ export class StoreProductDescComponent implements OnInit {
   nextTab() {
     this.detailUpdateModel.id = this.addDataDetailModel.id;
     console.log("更新的meodl", this.dataSource);
-    this.detailUpdateModel.albums = [];
+    this.detailUpdateModel.album = [];
     this.dataSource.forEach(element => {
       console.log("element", element);
       let a = { id: element.id, sort: element.sort }
-      this.detailUpdateModel.albums.push(a)
+      this.detailUpdateModel.album.push(a)
     });
     console.log("更新", this.detailUpdateModel);
 
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-          this.dataSource = res.data.store_image.data;
+          this.dataSource = res.data.album.data;
           this.router.navigate(['/store/main/storeProduct'],);
 
         })

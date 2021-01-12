@@ -29,7 +29,7 @@ export class StoreProductFeatureComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailUpdateModel = {
-      step: 2,
+      step: 1,
       feature: ''
     }
   }
