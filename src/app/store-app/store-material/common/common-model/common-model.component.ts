@@ -7,6 +7,7 @@ import { CommonServiceService } from '../../../../../services/store/common-servi
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AgreeComponent } from './agree/agree.component';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-common-model',
   templateUrl: './common-model.component.html',
@@ -20,9 +21,9 @@ export class CommonModelComponent implements OnInit {
   count:number = 0
   isSpinning:Boolean = true
   uploading = false;
-  fileList: NzUploadFile[] = [
-   
-  ];
+  fileList: NzUploadFile[] = [];
+  imageList: NzUploadFile[] = [];
+  imgUrl:any
   reqData:any
   previewImage: string | undefined = '';
   previewVisible = false;
@@ -31,7 +32,7 @@ export class CommonModelComponent implements OnInit {
 
   constructor(private storeRegionService:StoreRegionService,
     private commonService:CommonServiceService,private msg: NzMessageService,private modalRef: NzModalRef,
-    private modal:NzModalService,private viewContainerRef:ViewContainerRef
+    private modal:NzModalService,private viewContainerRef:ViewContainerRef,private sanitizer:DomSanitizer
   ) { 
     this.buildForm();
     }
@@ -63,13 +64,24 @@ export class CommonModelComponent implements OnInit {
 
   // 上传图片之前
   beforeUpload = (file: NzUploadFile): boolean => {
-    console.log(123);
     if(this.fileList.length <=10){
       this.fileList = this.fileList.concat(file);
+      this.imageList = this.imageList.concat(file);
     }
+    let url = window.URL.createObjectURL(file)
+    this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(url)
+    // console.log(file.size,this.imgUrl);
+    this.previewImage = this.imgUrl;
+    this.previewVisible = true;
     return false
   };
   
+
+  uploadCustomRequest= (file: any) => {
+    const fd = new FormData();
+    fd.append("file", file.file as any);
+    console.log(123,'uploadCustomRequest');
+  }
 
 getExtraData = (file: NzUploadFile) => {
   return {
@@ -77,6 +89,18 @@ getExtraData = (file: NzUploadFile) => {
     desc: this.addForm.value.desc
   };
 };
+
+
+removeImg =  (file: NzUploadFile) => {
+  console.log(this.imageList);
+
+  let index = this.imageList.indexOf(file)
+  if(index>-1){
+    this.imageList.splice(index, 1); 
+  }
+  console.log(this.imageList);
+  return true
+}
 getExtraHeader = ()=>{
   return {
     Authorization: 'Bearer '+(localStorage.getItem('userToken')!),
