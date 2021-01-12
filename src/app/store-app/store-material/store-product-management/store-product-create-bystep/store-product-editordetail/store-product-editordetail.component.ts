@@ -26,7 +26,7 @@ export class StoreProductEditordetailComponent implements OnInit {
   constructor(public storeProductService: StoreProductService,  public dialog: MatDialog,private msg: NzMessageService,
     private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel={
-      step:1,
+      step:2,
       details:''
     }
    }

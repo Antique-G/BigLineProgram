@@ -83,7 +83,7 @@ export interface DataModel {
   destination_city_full_name: string;
   assembling_place: Assemblingplace;
   tag: Tag;
-  store_image: Productalbum;
+  album: Productalbum;
 }
 
 interface Productalbum {

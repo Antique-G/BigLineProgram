@@ -35,7 +35,7 @@ interface DatumModel {
   updated_at: string;
   departure_city_full_name: string;
   destination_city_full_name: string;
-  store_image: Storeimage;
+  album: Storeimage;
 }
 
 interface Storeimage {
@@ -133,7 +133,7 @@ export interface DataProductDetailModel {
   destination_city_full_name: string;
   assembling_place: Assemblingplace;
   tag: Tag;
-  store_image: Productalbum;
+  album: Productalbum;
 }
 
 

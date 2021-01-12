@@ -30,7 +30,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     public activatedRoute: ActivatedRoute, private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
-      albums: []
+      album: []
     }
   }
 
@@ -38,8 +38,8 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    console.log("更新", this.dataDetailModel?.store_image?.data)
-    this.dataSource = this.dataDetailModel?.store_image?.data;
+    console.log("更新", this.dataDetailModel?.album?.data)
+    this.dataSource = this.dataDetailModel?.album?.data;
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -110,18 +110,18 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
     console.log("更新的meodl", this.dataSource);
-    this.detailUpdateModel.albums = [];
+    this.detailUpdateModel.album = [];
     this.dataSource.forEach(element => {
       console.log("element", element);
       let a = { id: element.id, sort: element.sort }
-      this.detailUpdateModel.albums.push(a)
+      this.detailUpdateModel.album.push(a)
     });
     console.log("更新", this.detailUpdateModel);
 
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-          this.dataSource = res.data.store_image.data;
+          this.dataSource = res.data.album.data;
 
         })
       }
@@ -173,7 +173,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   //       this.dataSource[clickSort].sort = 0;
   //       this.nextTab();
   //       this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-  //         this.dataSource = res.data.albums.data;
+  //         this.dataSource = res.data.album.data;
 
   //       })
   //     }

@@ -21,7 +21,7 @@ export class AdminPeoductManagementFeatureComponent implements OnInit {
 
   constructor(public activatedRoute: ActivatedRoute, public adminProductManagementService: AdminProductManagementService,) {
     this.detailUpdateModel = {
-      step: 2,
+      step: 1,
       feature: ''
     }
   }
