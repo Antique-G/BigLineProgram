@@ -47,7 +47,7 @@ export class StoreFreeDescComponent implements OnInit {
   updateInfo(){
     console.log('请求值',this.reqModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res=>{
-      this.tabIndex.emit({id:this.reqModel.id,tabIndex:2})
+      this.tabIndex.emit({id:this.reqModel.id,tabIndex:3})
     })
   }
 

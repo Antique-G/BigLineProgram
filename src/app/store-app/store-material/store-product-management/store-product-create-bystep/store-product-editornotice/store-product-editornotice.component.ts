@@ -42,7 +42,12 @@ export class StoreProductEditornoticeComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
-    this.noticeBox.nativeElement.innerHTML = this.addDataDetailModel?.notice;    //赋值
+    if(this.addDataDetailModel?.notice===undefined){
+      this.noticeBox.nativeElement.innerHTML = '';
+    }
+    else{
+      this.noticeBox.nativeElement.innerHTML = this.addDataDetailModel.notice;    //赋值
+    }
     this.detailUpdateModel.notice = this.addDataDetailModel?.notice;
     editorNotice.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.notice = newHtml;

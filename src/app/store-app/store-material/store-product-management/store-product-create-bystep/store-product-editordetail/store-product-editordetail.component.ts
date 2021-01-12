@@ -107,7 +107,7 @@ export class StoreProductEditordetailComponent implements OnInit {
     this.detailUpdateModel.id=this.addDataDetailModel.id;
     this.storeProductService.updateProduct( this.detailUpdateModel).subscribe(res=>{
       if (res === null) {
-        this.tabIndex.emit({id:this.addDataDetailModel.id,tabIndex:2})
+        this.tabIndex.emit({id:this.addDataDetailModel.id,tabIndex:3})
       }
 
     })
