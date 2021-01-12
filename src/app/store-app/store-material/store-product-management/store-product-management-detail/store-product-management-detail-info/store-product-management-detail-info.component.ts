@@ -11,6 +11,7 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef,NzModalService } from 'ng-zorro-antd/modal';
+import { InsertBRUSHMenu } from '../../../InsertBRUSHMenu';
 
 
 @Component({
@@ -371,7 +372,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
 
-  // 富文本
+  // 富文本  
   textChange() {
     // 预约须知
     const editorFee = new wangEditor("#editorFee", "#feeContent");
@@ -385,7 +386,11 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     // 注册菜单
     editorFee.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
-    editorFee.config.menus = editorFee.config.menus.concat('insertABC')
+    editorFee.config.menus = editorFee.config.menus.concat('insertABC');
+      // 注册菜单
+      editorFee.menus.extend('insertBRUSH', InsertBRUSHMenu)
+      // 重新配置 editor.config.menus
+      editorFee.config.menus = editorFee.config.menus.concat('insertBRUSH')
     editorFee.config.customFunction = (insert: any) => {
     const modal:NzModalRef = this.modal.create({
       nzTitle:'图片上传',
