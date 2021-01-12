@@ -64,7 +64,7 @@ export class Interceptor implements HttpInterceptor {
             this.alertMessage = event.body.message;
             this.alertSuccess();
           }
-          else if (event.status === 201) {
+          else if (event.status === 201 && event.url?.lastIndexOf('/store/image') === -1) {
             this.createSuccess();   // 更新 添加
           }
           else if (event.status === 204) {
