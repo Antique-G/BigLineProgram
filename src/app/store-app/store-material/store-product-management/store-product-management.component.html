@@ -47,8 +47,8 @@
                     </form>
 
                     <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[1,2,3]" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
-                            (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
