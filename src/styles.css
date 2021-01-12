@@ -5,6 +5,28 @@ body {
     font-size: 14px;
 }
 
+@font-face {font-family: "iconfont";
+    src: url('//at.alicdn.com/t/font_2323254_jf448kpv4jj.eot?t=1610438373825'); /* IE9 */
+    src: url('//at.alicdn.com/t/font_2323254_jf448kpv4jj.eot?t=1610438373825#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAKYAAsAAAAABlQAAAJOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcApccAE2AiQDCAsGAAQgBYRtBzMbmQUR1Yt9si8SeE668Qyo9hNczSEwUx3EBM9/c5/3ZSZ/Z5MFVgDoCKmEaHvqWg/o0FUiy+q0KGrztc3N0DUqQrEk58H/8h3pmJDmVwD0iI10Np+4d/on0Af5jXfe5bj2pkldgHEgBboHRpGVSt4wdoFLeAwBHGLJRmrrW3sxaKxVAsjKpYUpTC6GRrOiQfDVHNTIWWyMdcx6BZwJvy9/KBQDFrbCauucr5ul8nt2mdrr7R31CeIgoOM2oIBsQIP01ubaUQjjFE5Okwj7ahb4nuf5DmSvVoT9dVZjAADRUHZPcldxq5IWABqmQySQPOpXgNKO35aBvt7p5yfcfBMxf+XeucHlEzc86M7Zs24/+lPjD/c+3bGwseRi46bV18w/eS/4Vp8aN6upBMB7pp6oSgQQcH/cDhPBpf+NqwF4y5ZvYcR7pukXALMvv8A/kfcc0rrSsltaldeWLCJR5+pwcAAPHArj/VhT5A2UBEPkbQT8iEk9CqPJIanZbNi4FMOHoQIOWTQcdwlnPQrR/kAmhwCEEO7CIojHUITwmtTsO9hE8Q8+QkTBoV/CL3RJFS6IGkLJaED9IehWreNkETXf0L2zpKwy5F9IPSRhGedi8cCKNMeW/nErswVLrcAOnsOcG5zUImoePfO5TZOte9OoWxkENYSS0YD6Q9CtWn88i9Lnb+jeWVLLQE36hdTD7LCMcw/y0NVeA/fySv+4ldmCpVZgB/Mw5wZn/byImkc/InNukz3K9tWN6xvK150AHCyzJXabwn8Buw9O9C2HAQ==') format('woff2'),
+    url('//at.alicdn.com/t/font_2323254_jf448kpv4jj.woff?t=1610438373825') format('woff'),
+    url('//at.alicdn.com/t/font_2323254_jf448kpv4jj.ttf?t=1610438373825') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url('//at.alicdn.com/t/font_2323254_jf448kpv4jj.svg?t=1610438373825#iconfont') format('svg'); /* iOS 4.1- */
+  }
+  
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-geshishua:before {
+    content: "\e6d2";
+  }
+  
+  
 
 /* @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import "~ng-zorro-antd/style/index.min.css";
@@ -62,3 +84,4 @@ body {
     height: 0 !important;
     opacity: 0;
 }
+

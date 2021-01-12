@@ -27,7 +27,6 @@ export class CommonServiceService {
   constructor(public httpClient: HttpClient) { }
 
   uploadImg(reqData: any): Observable<any> {
-    console.log('uploadImgModel',reqData);
     const imgHttpOptions = {
       reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };
