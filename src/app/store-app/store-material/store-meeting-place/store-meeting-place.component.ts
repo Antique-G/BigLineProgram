@@ -23,10 +23,10 @@ export class StoreMeetingPlaceComponent implements OnInit {
   name: any;
   status: any;
 
-  constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog,private modal: NzModalService) {
+  constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog, private modal: NzModalService) {
     this.searchForm = fb.group({
-      status: ['' ],
-      name: ['' ],
+      status: [''],
+      name: [''],
     })
   }
 
@@ -67,19 +67,23 @@ export class StoreMeetingPlaceComponent implements OnInit {
   }
 
   edit(element: any): void {
-    const editmodal =  this.modal.create({
-      nzTitle: '修改集合地',
-      nzContent: StoreMeetingPlaceDetailComponent,
-      nzComponentParams:{
-        data:element
-      },
-      nzOnOk:componentInstance =>{
-        componentInstance.update()
-      }
+    this.storeMeetingPlaceService.getStoreMeetingPlaceDetail(element.id).subscribe(res => {
+      console.log("res", res.data);
+      const editmodal = this.modal.create({
+        nzTitle: '修改集合地',
+        nzContent: StoreMeetingPlaceDetailComponent,
+        nzComponentParams: {
+          data: res.data
+        },
+        nzOnOk: componentInstance => {
+          componentInstance.update()
+        }
+      })
+      editmodal.afterClose.subscribe(res => {
+        this.storeMeetingPlaceList();
+      })
     })
-    editmodal.afterClose.subscribe(res=>{
-      this.storeMeetingPlaceList();
-    })
+
     // console.log("拿到的值", element);
     // const dialogRef = this.dialog.open(StoreMeetingPlaceDetailComponent, {
     //   width: '550px',
@@ -95,14 +99,14 @@ export class StoreMeetingPlaceComponent implements OnInit {
   }
 
   add() {
-   const addmodal =  this.modal.create({
+    const addmodal = this.modal.create({
       nzTitle: '添加集合地',
       nzContent: StoreMeetingPlaceCreateComponent,
-      nzOnOk:componentInstance =>{
+      nzOnOk: componentInstance => {
         componentInstance.add()
       }
     })
-    addmodal.afterClose.subscribe(res=>{
+    addmodal.afterClose.subscribe(res => {
       this.storeMeetingPlaceList();
     })
     // const dialogRef = this.dialog.open(StoreMeetingPlaceCreateComponent, {
