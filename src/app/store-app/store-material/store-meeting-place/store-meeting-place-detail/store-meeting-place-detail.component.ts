@@ -19,6 +19,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   values: any[] = [];
   idRegion: any;
   addForm!: FormGroup;
+  isChoiceValue = '1';
 
   updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel;
   detailModel!: Datum;
@@ -30,30 +31,23 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
   @Input() data: any
 
+
   validationMessage: any = {
     name: {
       'maxlength': '集合地点名称长度最多为32个字符',
       'required': '请输入集合地点名称！'
     },
-    regionCode: {
-      'maxlength': '区域长度最多为16个字符',
-      'required': '请选择区域！'
-    },
-    timeMeeting: {
-      'required': '请输入集合时间！'
-    }
+
+
   };
   formErrors: any = {
     name: '',
-    regionCode: '',
-    address: '',
-    timeMeeting: ''
+
   };
 
 
 
-  constructor(public fb: FormBuilder,
-    private datePipe: DatePipe,
+  constructor(public fb: FormBuilder, private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
     this.forms();
     this.updateStoreMeetingPlaceRequestModel = {
@@ -61,7 +55,8 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       region_code: '',
       address: '',
       status: 1,
-      time: ''
+      time: '',
+      time_state: 0
     }
   }
 
@@ -69,9 +64,10 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       regionCode: ['', [Validators.required]],
-      address: ['', ],
-      status: ['',  [Validators.required]],
-      timeMeeting: [null, [Validators.required]],
+      address: ['',],
+      status: ['', [Validators.required]],
+      timeMeeting: [null],
+      time_state: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -110,6 +106,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailModel = this.data;
+    console.log("this.detailModel", this.detailModel)
     const str = this.detailModel.region_code;
     for (let i = 0; i < str.length / 4; i++) {
       let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
@@ -120,12 +117,14 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     let today = this.datePipe.transform(this.newtime, 'yyyy-MM-dd') + ' ' + this.detailModel.time;
     this.todayDate = new Date(today)
     console.log('today', this.todayDate);
+    this.isChoiceValue = this.detailModel?.time_state;
     this.addForm.setValue({
-      name:this.detailModel.name,
-      regionCode:this.detailModel.region_code,
-      address:this.detailModel.address,
-      status:this.detailModel.status,
-      timeMeeting:this.todayDate,
+      name: this.detailModel.name,
+      regionCode: this.detailModel.region_code,
+      address: this.detailModel.address,
+      status: this.detailModel.status,
+      timeMeeting: this.todayDate,
+      time_state: this.detailModel?.time_state
     })
     this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
@@ -139,9 +138,15 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.updateStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.updateStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.updateStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
-    console.log(" this.addForm.value.timeMeeting", this.addForm.value.timeMeeting);
-    let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
-    this.updateStoreMeetingPlaceRequestModel.time = times;
+    this.updateStoreMeetingPlaceRequestModel.time_state = this.addForm.value.time_state;
+    if (this.updateStoreMeetingPlaceRequestModel.time_state === '1') {
+      let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
+      this.updateStoreMeetingPlaceRequestModel.time = times;
+    }
+    else if (this.updateStoreMeetingPlaceRequestModel.time_state === 0) {
+      let times = this.datePipe.transform(new Date(), 'HH:mm');
+      this.updateStoreMeetingPlaceRequestModel.time = times;
+    }
   }
 
 
@@ -188,4 +193,16 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
   }
 
 
+
+  isChoice(element: any) {
+    console.log("this.values", element);
+    if (element === '1') {
+      this.isChoiceValue = '1';
+      console.log("this.isChoiceValue", this.isChoiceValue)
+    }
+    else{
+      this.isChoiceValue = '0';
+    }
+  
+  }
 }

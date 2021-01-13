@@ -1,48 +1,58 @@
 <div fxLayoutWrap="wrap">
-  
+
     <div style="padding: 5px;">
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-        <form nz-form [formGroup]="addForm">
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>集合地点名称</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.name">
-                    <input nz-input formControlName="name" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.regionCode">
-                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
-                </nz-form-control>
-            </nz-form-item>
+            <form nz-form [formGroup]="addForm">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>集合地点名称</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
+                        <input nz-input formControlName="name" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.regionCode">
+                        <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
+                    </nz-form-control>
+                </nz-form-item>
 
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">具体地址</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <input nz-input formControlName="address" />
-                </nz-form-control>
-            </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address">具体地址</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input formControlName="address" />
+                    </nz-form-control>
+                </nz-form-item>
 
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="timeMeeting" nzRequired>集合时间</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.timeMeeting">
-                    <nz-time-picker nzFormat="HH:mm" (ngModelChange)="log($event)" formControlName="timeMeeting"></nz-time-picker>
-                </nz-form-control>
-            </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="time_state" nzRequired>是否选择集合时间</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.time_state">
+                        <nz-radio-group (ngModelChange)="isChoice($event)" [(ngModel)]="isChoiceValue" formControlName="time_state">
+                            <label nz-radio nzValue='0'>否 </label>
+                            <label nz-radio nzValue='1'>是</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
 
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <nz-radio-group [(ngModel)]="status" formControlName="status">
-                        <label nz-radio nzValue='0'>禁用</label>
-                        <label nz-radio nzValue='1'>启用</label>
-                    </nz-radio-group>
-                </nz-form-control>
-            </nz-form-item>
+                <nz-form-item *ngIf="isChoiceValue==='1'">
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="timeMeeting">集合时间</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-time-picker nzFormat="HH:mm" (ngModelChange)="log($event)" formControlName="timeMeeting"></nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-radio-group [(ngModel)]="status" formControlName="status">
+                            <label nz-radio nzValue='0'>禁用</label>
+                            <label nz-radio nzValue='1'>启用</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
 
 
-          
-        </form>
+
+            </form>
         </nz-spin>
     </div>
 </div>

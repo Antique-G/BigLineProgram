@@ -1,11 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AddStoreMeetingPlaceRequestModel } from '../../../../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { StoreMeetingPlaceService } from '../../../../../services/store/store-meeting-place/store-meeting-place.service';
 import { DatePipe } from '@angular/common';
-import { NzModalRef } from 'ng-zorro-antd/modal';
 
 
 @Component({
@@ -22,6 +20,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   idRegion: any;
   addForm!: FormGroup;
   status = '1';
+  isChoiceValue = '1';
 
   addStoreMeetingPlaceRequestModel: AddStoreMeetingPlaceRequestModel;
 
@@ -34,24 +33,21 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       'maxlength': '区域长度最多为16个字符',
       'required': '请选择区域！'
     },
-    timeMeeting: {
-      'required': '请输入集合时间！'
-    }
+    time_state: {
+      'required': '请选择'
+    },
   };
   formErrors: any = {
     name: '',
     regionCode: '',
-    address: '',
-    timeMeeting: '',
+    time_state: ''
   };
 
 
 
-  constructor(public fb: FormBuilder,
-    private datePipe: DatePipe,
+  constructor(public fb: FormBuilder, private datePipe: DatePipe,
     public storeRegionService: StoreRegionService, public storeMeetingPlaceService: StoreMeetingPlaceService) {
-   
-      // 拿到缓存的集合地点
+    // 拿到缓存的集合地点
     console.log("234234", localStorage.getItem("storeRegion"));
     console.log("353535", localStorage.getItem("lastRegion"));
     // 缓存上一次输入的区域
@@ -62,10 +58,10 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
           let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
           this.values.push(temp);
         }
-      
+
         console.log("111", this.values);    //区域
       }
-        
+
     }
     // 刚登陆的店铺区域
     else if (localStorage.getItem("lastRegion") != null) {
@@ -77,7 +73,6 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
         }
         console.log("111", this.values);    //区域
       }
-      
     }
 
 
@@ -87,7 +82,8 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       region_code: '',
       address: '',
       status: 1,
-      time: ''
+      time: '',
+      time_state: 0
     }
   }
 
@@ -98,7 +94,8 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       regionCode: [localStorage.getItem("storeRegion"), [Validators.required]],
       address: [''],
       status: [1, [Validators.required]],
-      timeMeeting: [null, [Validators.required]],
+      timeMeeting: [null],
+      time_state: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -139,9 +136,9 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
-      this.isSpinning= false
+      this.isSpinning = false
     })
- 
+
   }
 
 
@@ -150,9 +147,16 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.region_code = this.addForm.value.regionCode;
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
-    console.log(" this.addForm.value.timeMeeting", this.addForm.value.timeMeeting);
-    let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
-    this.addStoreMeetingPlaceRequestModel.time = times;
+    this.addStoreMeetingPlaceRequestModel.time_state = this.addForm.value.time_state;
+    if (this.addStoreMeetingPlaceRequestModel.time_state === 1) {
+      let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
+      this.addStoreMeetingPlaceRequestModel.time = times;
+    }
+    else if (this.addStoreMeetingPlaceRequestModel.time_state === 0) {
+      let times = this.datePipe.transform(new Date(), 'HH:mm');
+      this.addStoreMeetingPlaceRequestModel.time = times;
+    }
+
 
   }
 
@@ -171,6 +175,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
+
       this.storeMeetingPlaceService.addStoreMeetingPlace(this.addStoreMeetingPlaceRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
@@ -198,5 +203,15 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     }
   }
 
+
+  isChoice(data: any) {
+    console.log("this.values", data);
+    if (data === 1) {
+      this.isChoiceValue = '1';
+    }
+  }
+
+
+  
 
 }

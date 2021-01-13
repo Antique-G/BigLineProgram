@@ -37,6 +37,7 @@ export interface Datum {
   id?: any
   time: string;
   region_full_name: string;
+  time_state?: any
 }
 
 
@@ -45,7 +46,8 @@ export interface AddStoreMeetingPlaceRequestModel {
   status: number;
   region_code: string;
   address: string;
-  time: any;
+  time?: any;
+  time_state: any;
 }
 
 
@@ -60,8 +62,8 @@ export interface UpdateStoreMeetingPlaceRequestModel {
   status: number;
   region_code: string;
   address: string;
-  time: any;
-
+  time?: any;
+  time_state: any;
 }
 
 
