@@ -10,7 +10,7 @@ import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gal
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef,NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { InsertBRUSHMenu } from '../../../InsertBRUSHMenu';
 
 
@@ -94,7 +94,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
-    public storeRegionService: StoreRegionService,private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    public storeRegionService: StoreRegionService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.detailUpdateModel = {
       title: '',
@@ -115,7 +115,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       fee: '',
       tag_id: [],
       step: 0,
-      reserve_ahead:0
+      reserve_ahead: 0
     }
   }
 
@@ -197,7 +197,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       if (name1 === '跟团游') {
         this.cateId = res.data[0].id
       }
-      else if(name2 === '跟团游'){
+      else if (name2 === '跟团游') {
         this.cateId = res.data[1].id
       }
       this.getTagList();
@@ -321,13 +321,13 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.detailUpdateModel.earlier = 0;
     }
     else if (parseInt(this.isReserveAhead) === 1) {
-       // 时间处理
-    let earlier1 = this.addForm.value.earlier1
-    let date = new Date(this.addForm.value.earlier2);
-    let min = date.getMinutes();
-    let hour = date.getHours();
-    let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-    this.detailUpdateModel.earlier = resMin;
+      // 时间处理
+      let earlier1 = this.addForm.value.earlier1
+      let date = new Date(this.addForm.value.earlier2);
+      let min = date.getMinutes();
+      let hour = date.getHours();
+      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
+      this.detailUpdateModel.earlier = resMin;
     }
     if (parseInt(this.isReserveChildren) === 0) {
       this.detailUpdateModel.child_age_max = 14;
@@ -341,7 +341,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     }
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
-  
+
   }
 
 
@@ -384,27 +384,28 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     }
     // InsertABCMenu
     // 注册菜单
-    editorFee.menus.extend('insertABC', InsertABCMenu)
+    editorFee.menus.extend('insertABC', InsertABCMenu);
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC');
-      // 注册菜单
-      editorFee.menus.extend('insertBRUSH', InsertBRUSHMenu)
-      // 重新配置 editor.config.menus
-      editorFee.config.menus = editorFee.config.menus.concat('insertBRUSH')
+    
+    // 添加格式刷
+    // editorFee.menus.extend('insertBRUSH', InsertBRUSHMenu);
+    // editorFee.config.menus = editorFee.config.menus.concat('insertBRUSH');
+
     editorFee.config.customFunction = (insert: any) => {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'图片上传',
-      nzViewContainerRef: this.viewContainerRef,
-      nzContent:CommonModelComponent,
-      nzWidth:660,
-      nzFooter:null
-    })
-    modal.afterClose.subscribe(result =>{
-      let res = result?.data||[]
-      res.forEach((item: any) => {
-            insert(item.url)
-          });
-    });
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
+      })
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
+        res.forEach((item: any) => {
+          insert(item.url)
+        });
+      });
     }
     editorFee.create();
 
@@ -412,15 +413,15 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
