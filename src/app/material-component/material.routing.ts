@@ -16,6 +16,7 @@ import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-p
 import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
 import { AdminTermTemplateCreateComponent } from './admin-term-template/admin-term-template-create/admin-term-template-create.component';
 import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term-template-edit/admin-term-template-edit.component';
+import { AdminOrderComponent } from './admin-order/admin-order.component';
 export const MaterialRoutes: Routes = [
 
   {
@@ -132,6 +133,13 @@ export const MaterialRoutes: Routes = [
         component: AdminTermTemplateEditComponent,
         data: {
           breadcrumb: '条款模板详情'
+        }
+      },
+      {
+        path: 'orderList',
+        component: AdminOrderComponent,
+        data: {
+          breadcrumb: '订单列表'
         }
       },
     ]
