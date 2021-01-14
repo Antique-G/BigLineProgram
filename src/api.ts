@@ -74,7 +74,14 @@ export const AdminUrls = {
   PutAdminTermTemplateUpdate: api + '/admin/terms_temp/',   // 模版条款的更新
   GetAdminTermTemplateDetail: api + '/admin/terms_temp/',   // 模版条款的详情
   PostAdminTermTemplateSetStatus: api + '/admin/terms_temp/set_status',   // 模版条款的禁用、启用
-  DeleteAdminTermTemplate: api + '/admin/terms_temp/'  //删除
+  DeleteAdminTermTemplate: api + '/admin/terms_temp/',  //删除
+
+  GetAdminSaleTitleList: api + '/admin/sale/title',   // 销售头衔列表
+  PostAdminSaleTitleCreate: api + '/admin/sale/title',   // 销售头衔添加
+  PutAdminSaleTitleUpdate: api + '/admin/sale/title/',   // 销售头衔修改
+  PutAdminSaleTitleStatus: api + '/admin/sale/title/status/',   // 销售头衔审核
+
+  GetAdminInsuranceList: api + '/admin/insurance',   // 保险列表
 
 };
 

@@ -17,6 +17,9 @@ import { AdminProductQutedateComponent } from './admin-product/admin-product-man
 import { AdminTermTemplateCreateComponent } from './admin-term-template/admin-term-template-create/admin-term-template-create.component';
 import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term-template-edit/admin-term-template-edit.component';
 import { AdminOrderComponent } from './admin-order/admin-order.component';
+import { AdminSaleTitleComponent } from './admin-sale-title/admin-sale-title.component';
+import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
+
 export const MaterialRoutes: Routes = [
 
   {
@@ -139,7 +142,20 @@ export const MaterialRoutes: Routes = [
         path: 'orderList',
         component: AdminOrderComponent,
         data: {
-          breadcrumb: '订单列表'
+          breadcrumb: '订单列表'}
+        },
+        {
+        path: 'saleTitle',
+        component: AdminSaleTitleComponent,
+        data: {
+          breadcrumb: '销售头衔列表'
+        }
+      },
+      {
+        path: 'insurance',
+        component: AdminInsuranceComponent,
+        data: {
+          breadcrumb: '保险管理列表'
         }
       },
     ]
