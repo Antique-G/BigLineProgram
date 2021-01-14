@@ -48,14 +48,19 @@ import { AdminPeoductManagementEditordetailComponent } from './admin-product/adm
 import { AdminTravelDetailFeatureComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-feature/admin-travel-detail-feature.component';
 import { AdminTravelDetailEditordetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editordetail/admin-travel-detail-editordetail.component';
 import { AdminTravelDetailEditornoticeComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-editornotice/admin-travel-detail-editornotice.component';
-import { AdminProductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-editornotice/admin-product-management-editornotice.component';
-import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
-import { AdminProductManagementImgComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-img/admin-product-management-img.component';
 import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-qutedate/admin-product-free-travel-qutedate.component';
 import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
 import { AdminTermTemplateCreateComponent } from './admin-term-template/admin-term-template-create/admin-term-template-create.component';
 import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term-template-edit/admin-term-template-edit.component';
 import { AdminOrderComponent } from './admin-order/admin-order.component';
+import { AdminProductManagementEditornoticeComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-editornotice/admin-product-management-editornotice.component';
+import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
+import { AdminProductManagementImgComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-img/admin-product-management-img.component';
+import { AdminSaleTitleComponent } from './admin-sale-title/admin-sale-title.component';
+import { AdminSaleTitleCreateComponent } from './admin-sale-title/admin-sale-title-create/admin-sale-title-create.component';
+import { AdminSaleTitleDetailComponent } from './admin-sale-title/admin-sale-title-detail/admin-sale-title-detail.component';
+import { AdminSaleTitleStatusComponent } from './admin-sale-title/admin-sale-title-status/admin-sale-title-status.component';
+import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
 
 @NgModule({
   imports: [
@@ -130,6 +135,11 @@ import { AdminOrderComponent } from './admin-order/admin-order.component';
     AdminTermTemplateCreateComponent,
     AdminTermTemplateEditComponent,
     AdminOrderComponent,
+    AdminSaleTitleComponent,
+    AdminSaleTitleCreateComponent,
+    AdminSaleTitleDetailComponent,
+    AdminSaleTitleStatusComponent,
+    AdminInsuranceComponent,
   ]
 })
 export class MaterialComponentsModule {}

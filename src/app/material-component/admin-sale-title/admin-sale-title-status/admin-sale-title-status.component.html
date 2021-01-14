@@ -1,0 +1,38 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>销售头衔</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="title" placeholder="请输入门店头衔！" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reward_rate" nzRequired>提成率</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-input-number ngModel={{saleTitleDetailModel.reward_rate}} [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzPrecision]="precision" nzPlaceHolder="0.00" formControlName="reward_rate"></nz-input-number>
+                    <span style="margin-left: 5px;">%</span>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group ngModel={{saleTitleDetailModel.status}} formControlName="status">
+                        <label nz-radio nzValue=0>未通过 </label>
+                        <label nz-radio nzValue=1>通过</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" (click)="review()">提交</button>
+                </nz-form-control>
+            </nz-form-item>
+            
+        </form>
+
+    </div>
+</div>    

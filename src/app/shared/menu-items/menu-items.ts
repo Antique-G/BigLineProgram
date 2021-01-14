@@ -14,7 +14,7 @@ export interface Menus {
   
 const MENUITEMS = [
   {
-    title: '系统设置模块', icon: 'user',
+    title: '系统设置模块', icon: 'setting',
     children: [{ state: 'adminAccount', name: '管理员账号' }
     ]
   },
@@ -51,6 +51,18 @@ const MENUITEMS = [
       { state: 'termTemplate', name: '条款模板' }
     ]
   },
+  {
+    title: '用户管理', icon: 'user',
+    children: [
+      { state: 'saleTitle', name: '销售头衔' },
+    ]
+  },
+  {
+    title: '保险管理', icon: 'safety-certificate',
+    children: [
+      { state: 'insurance', name: '保险' },
+    ]
+  }
 
 ];
 
