@@ -55,6 +55,7 @@ import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-p
 import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
 import { AdminTermTemplateCreateComponent } from './admin-term-template/admin-term-template-create/admin-term-template-create.component';
 import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term-template-edit/admin-term-template-edit.component';
+import { AdminOrderComponent } from './admin-order/admin-order.component';
 
 @NgModule({
   imports: [
@@ -128,6 +129,7 @@ import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term
     AdminProductQutedateComponent,
     AdminTermTemplateCreateComponent,
     AdminTermTemplateEditComponent,
+    AdminOrderComponent,
   ]
 })
 export class MaterialComponentsModule {}

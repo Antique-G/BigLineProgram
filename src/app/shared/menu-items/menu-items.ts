@@ -32,6 +32,13 @@ const MENUITEMS = [
     ]
   },
   {
+    title: '订单模块', icon: 'ordered-list',
+    children: [
+      { state: 'orderList', name: '订单列表' },
+     
+    ]
+  },
+  {
     title: '区域模块', icon: 'environment',
     children: [
       { state: 'settingArea', name: '区域' }

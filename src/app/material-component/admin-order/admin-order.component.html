@@ -1,0 +1,78 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+                    <!-- 
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>暂停</mat-option>
+                                        <mat-option value=1>正常</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>姓名/账号/手机号:</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入关键字">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form> -->
+
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">团队id</th>
+                                    <th style="text-align: center;">团队编号</th>
+                                    <th style="text-align: center;">已确认&支付订单/人数</th>
+                                    <th style="text-align: center;">子团数</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">订单最早出发日期</th>
+                                    <th style="text-align: center;">出发日期/返回日期</th>
+                                    <th style="text-align: center;">自动成团日期/成团日期</th>
+                                    <th style="text-align: center;">出团通知书/导游</th>
+                                    <th style="text-align: center;">团队状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.real_name}}</td>
+                                    <td>{{data.account}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>{{data.real_name}}</td>
+                                    <td>{{data.account}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>{{data.real_name}}</td>
+                                    <td>{{data.account}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>{{data.mobile}}</td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>
