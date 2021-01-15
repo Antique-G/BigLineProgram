@@ -94,6 +94,10 @@ const StoreMENUITEMS = [
     title: '条款管理模块', icon: 'file',
     children: [{ state: 'storeTermsManage', name: '条款管理' }]
   },
+  {
+    title: '导游管理模块', icon: 'flag',
+    children: [{ state: 'storeTourist', name: '导游列表' }]
+  },
 
 
 ];
