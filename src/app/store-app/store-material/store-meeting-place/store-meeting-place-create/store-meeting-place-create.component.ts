@@ -148,11 +148,11 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
     this.addStoreMeetingPlaceRequestModel.time_state = this.addForm.value.time_state;
-    if (this.addStoreMeetingPlaceRequestModel.time_state === 1) {
+    if (this.addStoreMeetingPlaceRequestModel.time_state === '1') {
       let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
       this.addStoreMeetingPlaceRequestModel.time = times;
     }
-    else if (this.addStoreMeetingPlaceRequestModel.time_state === 0) {
+    else if (this.addStoreMeetingPlaceRequestModel.time_state === '0') {
       let times = this.datePipe.transform(new Date(), 'HH:mm');
       this.addStoreMeetingPlaceRequestModel.time = times;
     }
