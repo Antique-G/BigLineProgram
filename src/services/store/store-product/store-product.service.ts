@@ -140,7 +140,7 @@ export class StoreProductService {
         break
 
     }
-    return throwError('');
+    return throwError('0.21');
   }
 
 }

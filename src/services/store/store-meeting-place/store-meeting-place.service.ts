@@ -21,8 +21,8 @@ export class StoreMeetingPlaceService {
 
 
   // 集合地点列表
-  storeMeetingPlaceList(page: number, per_page: number, name: any, status: any): Observable<StoreMeetingPlaceListResponseModel> {
-    let time = new Date().getTime()
+  storeMeetingPlaceList(page: number, per_page: number, name: any, status: any,time:any): Observable<StoreMeetingPlaceListResponseModel> {
+   time = new Date().getTime()
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('name', name ? name : '')
