@@ -154,9 +154,9 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>预定人数范围</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
-                                                <nz-input-number formControlName="reserve_num_min" style="width: 100px;margin-top: 1px;" [nzMin]="1"></nz-input-number>
+                                                <nz-input-number formControlName="reserve_num_min" (keyup)="numTest($event)" style="width: 100px;margin-top: 1px;" [nzMin]="1"></nz-input-number>
                                                 <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
-                                                <nz-input-number formControlName="reserve_num_max" style="width: 100px;margin-top: 1px;" [nzMin]="1"></nz-input-number>
+                                                <nz-input-number formControlName="reserve_num_max" (keyup)="numTest($event)" style="width: 100px;margin-top: 1px;" [nzMin]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -177,9 +177,9 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_age_max" nzRequired>儿童最大年龄</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_age_max">
-                                                <input type="text" disabled nz-input placeholder="2" style="width:100px; text-align: center;" />
+                                                <input type="text" disabled nz-input placeholder="2" (keyup)="numTest($event)" style="width:100px; text-align: center;" />
                                                 <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
-                                                <nz-input-number class="demo-input-right" style="width: 100px;margin-top: 1px;" formControlName="child_age_max" [nzMin]="2" [nzMax]="18" [nzStep]="1"></nz-input-number>
+                                                <nz-input-number class="demo-input-right" (keyup)="numTest($event)" style="width: 100px;margin-top: 1px;" formControlName="child_age_max" [nzMin]="2" [nzMax]="18" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -188,8 +188,9 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童身高范围</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
+                                                <nz-input-number formControlName="child_height_min" (keyup)="numTest($event)" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
                                                 <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
-                                                <nz-input-number formControlName="child_height_max" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
+                                                <nz-input-number formControlName="child_height_max" (keyup)="numTest($event)" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
                                                 <span style="margin-left: 5px;">cm</span>
                                             </nz-form-control>
                                         </div>

@@ -108,6 +108,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
     })
     addmodal.afterClose.subscribe(res => {
       this.storeMeetingPlaceList();
+      console.log("3223423")
     })
     // const dialogRef = this.dialog.open(StoreMeetingPlaceCreateComponent, {
     //   width: '550px',
