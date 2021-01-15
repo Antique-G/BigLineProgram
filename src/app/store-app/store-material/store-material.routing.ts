@@ -11,6 +11,7 @@ import { StoreProductFreeTravelDetailComponent } from './store-product-free-trav
 import { StoreFreeCreateBystepComponent } from './store-product-free-travel/store-free-create-bystep/store-free-create-bystep.component';
 import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
+import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -102,6 +103,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreTermsManagementDetailComponent,
         data: {
           breadcrumb: '条款详情'
+        }
+      },
+      {
+        path: 'storeTourist',
+        component: StoreTouristComponent,
+        data: {
+          breadcrumb: '导游列表'
         }
       },
     ]
