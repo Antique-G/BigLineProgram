@@ -252,6 +252,9 @@ export class StoreFreeInfoComponent implements OnInit {
           this.isLoadingBtn = false;
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
+      },
+      error=>{
+        this.isLoadingBtn = false;
       })
     }
   }

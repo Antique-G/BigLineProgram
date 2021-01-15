@@ -22,6 +22,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
   loading = true;
   name: any;
   status: any;
+  time = new Date().getTime();
 
   constructor(public fb: FormBuilder, public storeMeetingPlaceService: StoreMeetingPlaceService, public dialog: MatDialog, private modal: NzModalService) {
     this.searchForm = fb.group({
@@ -39,7 +40,7 @@ export class StoreMeetingPlaceComponent implements OnInit {
 
   storeMeetingPlaceList(): void {
     this.loading = true;
-    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page, this.name, this.status).subscribe((result: any) => {
+    this.storeMeetingPlaceService.storeMeetingPlaceList(this.page, this.per_page, this.name, this.status,this.time).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.meta.pagination.total;   //总页数

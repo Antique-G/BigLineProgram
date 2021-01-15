@@ -400,9 +400,12 @@ export class StoreProductInfoComponent implements OnInit {
 
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
-
+      },
+      error=>{
+        this.isLoadingBtn = false;
       })
     }
+  
   }
 
 
