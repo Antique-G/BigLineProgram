@@ -44,7 +44,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   isReserveAhead = '0';
   isReserveChildren = '0';
 
-  cateId:any
+  cateId: any
 
 
   validationMessage: any = {
@@ -86,7 +86,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     public storeProductService: StoreProductService,
     private freeTravelService: StoreProductTreeTravelService, private storeRegionService: StoreRegionService,
     public dialog: MatDialog, private msg: NzMessageService,
-    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm()
     this.freeTravelModel = {
       title: '',
@@ -240,26 +240,26 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel.tag_id = a;
   }
 
-    // 标签分类列表
-    getCateList() {
-      this.storeProductService.productCateList().subscribe(res => {
-        console.log("结果是111", res.data)
-        console.log("name", res.data[0].name)
-        console.log("name", res.data[1].name)
-        let name1 = res.data[0].name;
-        let name2 = res.data[1].name;
-        if (name1 === '自由行') {
-          this.cateId = res.data[0].id
-        }
-        else if (name2 === '自由行') {
-          this.cateId = res.data[1].id
-        }
-        this.getTagList();
-      })
-    }
+  // 标签分类列表
+  getCateList() {
+    this.storeProductService.productCateList().subscribe(res => {
+      console.log("结果是111", res.data)
+      console.log("name", res.data[0].name)
+      console.log("name", res.data[1].name)
+      let name1 = res.data[0].name;
+      let name2 = res.data[1].name;
+      if (name1 === '自由行') {
+        this.cateId = res.data[0].id
+      }
+      else if (name2 === '自由行') {
+        this.cateId = res.data[1].id
+      }
+      this.getTagList();
+    })
+  }
 
   getTagList() {
-    this.freeTravelService.GetProductTagList( this.cateId).subscribe((res: any) => {
+    this.freeTravelService.GetProductTagList(this.cateId).subscribe((res: any) => {
       for (let i of res.data) {
         this.tagList.push({ value: i.id, label: i.name });
       }
@@ -380,18 +380,18 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC')
     editorFee.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
     }
     editorFee.create();
@@ -399,15 +399,15 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.feeList.push(item)
         if (this.feeList.length > 10) {
@@ -418,7 +418,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
         console.log("this.addStoreProductModel.fee", this.freeTravelModel.fee)
       });
     });
-    
+
   }
 
 
@@ -432,6 +432,13 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     console.log(status, 'status');
     this.isReserveChildren = status
     this.addForm.value.reserve_children = this.isReserveChildren
+  }
+
+
+
+  // 只输入整数
+  numTest($event: any) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 
 }

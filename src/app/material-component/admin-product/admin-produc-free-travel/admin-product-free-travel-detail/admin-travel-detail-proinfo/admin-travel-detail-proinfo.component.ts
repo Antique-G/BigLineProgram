@@ -406,4 +406,10 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.value.reserve_children = this.isReserveChildren
   }
 
+
+  // 只输入整数
+  numTest($event: any) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+  }
+
 }

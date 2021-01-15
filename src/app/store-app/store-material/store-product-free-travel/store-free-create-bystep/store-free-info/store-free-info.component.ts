@@ -234,7 +234,7 @@ export class StoreFreeInfoComponent implements OnInit {
 
   // 添加
   nextTab() {
-   
+
     console.log(123);
     this.setValue();
     // 验证表单
@@ -368,4 +368,9 @@ export class StoreFreeInfoComponent implements OnInit {
     this.addForm.value.reserve_children = this.isReserveChildren;
   }
 
+
+  // 只输入整数
+  numTest($event: any) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+  }
 }

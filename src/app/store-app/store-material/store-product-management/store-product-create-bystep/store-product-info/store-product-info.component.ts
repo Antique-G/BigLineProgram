@@ -381,7 +381,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   nextTab() {
-   
+
     this.setValue();
     // 验证表单
     console.log("this.addForm", this.addForm)
@@ -416,6 +416,12 @@ export class StoreProductInfoComponent implements OnInit {
     console.log(status, 'status');
     this.isReserveChildren = status;
     this.addForm.value.child_status = this.isReserveChildren;
+  }
+
+
+  // 只输入整数
+  numTest($event: any) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 }
 

@@ -387,7 +387,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     editorFee.menus.extend('insertABC', InsertABCMenu);
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC');
-    
+
     // 添加格式刷
     // editorFee.menus.extend('insertBRUSH', InsertBRUSHMenu);
     // editorFee.config.menus = editorFee.config.menus.concat('insertBRUSH');
@@ -494,6 +494,12 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     console.log(status, 'status');
     this.isReserveChildren = status;
     this.addForm.value.child_status = this.isReserveChildren;
+  }
+
+
+  // 只输入整数
+  numTest($event: any) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 }
 
