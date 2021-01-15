@@ -153,8 +153,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       this.addStoreMeetingPlaceRequestModel.time = times;
     }
     else if (this.addStoreMeetingPlaceRequestModel.time_state === '0') {
-      let times = this.datePipe.transform(new Date(), 'HH:mm');
-      this.addStoreMeetingPlaceRequestModel.time = times;
+      this.addStoreMeetingPlaceRequestModel.time = '00:00';
     }
 
 
