@@ -23,7 +23,7 @@
                 </nz-form-item>
 
                 <nz-form-item>
-                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="time_state" nzRequired>是否选择集合时间</nz-form-label>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="time_state" nzRequired>集合时间是否待定</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
                         <nz-radio-group (ngModelChange)="isChoice($event)" ngModel={{detailModel?.time_state}} formControlName="time_state">
                             <label nz-radio nzValue='0'>否 </label>
@@ -33,7 +33,7 @@
                 </nz-form-item>
 
 
-                <nz-form-item *ngIf="isChoiceValue==='1'">
+                <nz-form-item *ngIf="isChoiceValue==='0'">
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="timeMeeting">集合时间</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.timeMeeting">
                         <nz-time-picker nzFormat="HH:mm" [(ngModel)]="todayDate" (ngModelChange)="log($event)" formControlName="timeMeeting"></nz-time-picker>

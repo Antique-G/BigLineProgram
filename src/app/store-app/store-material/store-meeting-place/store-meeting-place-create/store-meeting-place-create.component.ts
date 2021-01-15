@@ -36,9 +36,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     time_state: {
       'required': '请选择'
     },
-    timeMeeting: {
-      'required': '请输入'
-    },
+ 
   };
   formErrors: any = {
     name: '',
@@ -95,7 +93,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       regionCode: [localStorage.getItem("storeRegion"), [Validators.required]],
       address: [''],
       status: [1, [Validators.required]],
-      timeMeeting: [null, [Validators.required]],
+      timeMeeting: [null],
       time_state: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -149,11 +147,11 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     this.addStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.addStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
     this.addStoreMeetingPlaceRequestModel.time_state = this.addForm.value.time_state;
-    if (this.addStoreMeetingPlaceRequestModel.time_state === '1') {
+    if (this.addStoreMeetingPlaceRequestModel.time_state === '0') {
       let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
       this.addStoreMeetingPlaceRequestModel.time = times;
     }
-    else if (this.addStoreMeetingPlaceRequestModel.time_state === '0') {
+    else if (this.addStoreMeetingPlaceRequestModel.time_state === '1') {
       this.addStoreMeetingPlaceRequestModel.time = '00:00';
     }
 
@@ -174,6 +172,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("this.addForm.valid",this.addForm)
     if (this.addForm.valid) {
       this.storeMeetingPlaceService.addStoreMeetingPlace(this.addStoreMeetingPlaceRequestModel).subscribe(res => {
         console.log("res结果", res);
@@ -205,8 +204,8 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
   isChoice(data: any) {
     console.log("this.values", data);
-    if (data === 1) {
-      this.isChoiceValue = '1';
+    if (data === 0) {
+      this.isChoiceValue = '0';
     }
   }
 

@@ -102,13 +102,19 @@ export class StoreMeetingPlaceComponent implements OnInit {
     const addmodal = this.modal.create({
       nzTitle: '添加集合地',
       nzContent: StoreMeetingPlaceCreateComponent,
-      nzOnOk: componentInstance => {
-        componentInstance.add()
-      }
+      nzFooter: [
+        {
+          label: '添加',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.add()
+
+          }
+        }
+      ]
     })
     addmodal.afterClose.subscribe(res => {
       this.storeMeetingPlaceList();
-      console.log("3223423")
     })
     // const dialogRef = this.dialog.open(StoreMeetingPlaceCreateComponent, {
     //   width: '550px',

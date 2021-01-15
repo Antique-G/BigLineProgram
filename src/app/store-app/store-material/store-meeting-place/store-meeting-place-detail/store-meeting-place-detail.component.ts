@@ -141,11 +141,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.updateStoreMeetingPlaceRequestModel.address = this.addForm.value.address;
     this.updateStoreMeetingPlaceRequestModel.status = this.addForm.value.status;
     this.updateStoreMeetingPlaceRequestModel.time_state = this.addForm.value.time_state;
-    if (this.updateStoreMeetingPlaceRequestModel.time_state === '1') {
+    if (this.updateStoreMeetingPlaceRequestModel.time_state === '0') {
       let times = this.datePipe.transform(this.addForm.value.timeMeeting, 'HH:mm');
       this.updateStoreMeetingPlaceRequestModel.time = times;
     }
-    else if (this.updateStoreMeetingPlaceRequestModel.time_state === 0) {
+    else if (this.updateStoreMeetingPlaceRequestModel.time_state === '1') {
       this.updateStoreMeetingPlaceRequestModel.time = '00:00';
     }
   }
@@ -197,12 +197,12 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
   isChoice(element: any) {
     console.log("this.values", element);
-    if (element === '1') {
-      this.isChoiceValue = '1';
+    if (element === '0') {
+      this.isChoiceValue = '0';
       console.log("this.isChoiceValue", this.isChoiceValue)
     }
     else{
-      this.isChoiceValue = '0';
+      this.isChoiceValue = '1';
     }
   
   }
