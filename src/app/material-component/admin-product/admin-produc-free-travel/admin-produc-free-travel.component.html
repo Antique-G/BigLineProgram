@@ -43,7 +43,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
-                                    <th style="text-align: center; width: 20%;">产品名称</th>
+                                    <th style="text-align: center; width: 15%;">产品名称</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
@@ -112,7 +112,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status===1">
+                                        <div style="cursor: pointer;" *ngIf="data.check_status!=0">
                                             <a nz-dropdown [nzDropdownMenu]="menu" title="审核">
                                                 <mat-icon style="color: #272727;">assignment_ind</mat-icon>
                                             </a>
