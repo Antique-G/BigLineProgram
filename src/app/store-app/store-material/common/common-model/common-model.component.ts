@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { NzUploadFile,NzUploadChangeParam } from 'ng-zorro-antd/upload';
@@ -73,7 +72,7 @@ export class CommonModelComponent implements OnInit {
       this.fileList = this.fileList.concat({
         uid: id,
         name: file.name,
-        status: 'uploading',
+        // status: 'uploading',
       });
       this.imageList = this.imageList.concat(file);
     }
