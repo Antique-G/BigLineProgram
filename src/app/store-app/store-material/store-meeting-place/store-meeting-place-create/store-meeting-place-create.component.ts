@@ -36,13 +36,16 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     time_state: {
       'required': '请选择'
     },
+    timeMeeting: {
+      'required': '请输入'
+    },
   };
   formErrors: any = {
     name: '',
     regionCode: '',
-    time_state: ''
+    time_state: '',
+    timeMeeting: ''
   };
-
 
 
   constructor(public fb: FormBuilder, private datePipe: DatePipe,
@@ -74,8 +77,6 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
         console.log("111", this.values);    //区域
       }
     }
-
-
     this.forms();
     this.addStoreMeetingPlaceRequestModel = {
       name: '',
@@ -94,7 +95,7 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       regionCode: [localStorage.getItem("storeRegion"), [Validators.required]],
       address: [''],
       status: [1, [Validators.required]],
-      timeMeeting: [null],
+      timeMeeting: [null, [Validators.required]],
       time_state: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -174,7 +175,6 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-
       this.storeMeetingPlaceService.addStoreMeetingPlace(this.addStoreMeetingPlaceRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
