@@ -31,13 +31,13 @@ const MENUITEMS = [
       { state: 'freeTravel', name: "自由行管理" }
     ]
   },
-  {
-    title: '订单模块', icon: 'ordered-list',
-    children: [
-      { state: 'orderList', name: '订单列表' },
+  // {
+  //   title: '订单模块', icon: 'ordered-list',
+  //   children: [
+  //     { state: 'orderList', name: '订单列表' },
      
-    ]
-  },
+  //   ]
+  // },
   {
     title: '区域模块', icon: 'environment',
     children: [
@@ -51,18 +51,18 @@ const MENUITEMS = [
       { state: 'termTemplate', name: '条款模板' }
     ]
   },
-  {
-    title: '用户管理', icon: 'user',
-    children: [
-      { state: 'saleTitle', name: '销售头衔' },
-    ]
-  },
-  {
-    title: '保险管理', icon: 'safety-certificate',
-    children: [
-      { state: 'insurance', name: '保险' },
-    ]
-  }
+  // {
+  //   title: '用户管理', icon: 'user',
+  //   children: [
+  //     { state: 'saleTitle', name: '销售头衔' },
+  //   ]
+  // },
+  // {
+  //   title: '保险管理', icon: 'safety-certificate',
+  //   children: [
+  //     { state: 'insurance', name: '保险' },
+  //   ]
+  // }
 
 ];
 
@@ -94,10 +94,10 @@ const StoreMENUITEMS = [
     title: '条款管理模块', icon: 'file',
     children: [{ state: 'storeTermsManage', name: '条款管理' }]
   },
-  {
-    title: '导游管理模块', icon: 'flag',
-    children: [{ state: 'storeTourist', name: '导游列表' }]
-  },
+  // {
+  //   title: '导游管理模块', icon: 'flag',
+  //   children: [{ state: 'storeTourist', name: '导游列表' }]
+  // },
 
 
 ];
