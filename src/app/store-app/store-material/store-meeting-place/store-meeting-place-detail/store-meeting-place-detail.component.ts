@@ -37,12 +37,14 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       'maxlength': '集合地点名称长度最多为32个字符',
       'required': '请输入集合地点名称！'
     },
-
+    timeMeeting: {
+      'required': '请输入'
+    },
 
   };
   formErrors: any = {
     name: '',
-
+    timeMeeting: ''
   };
 
 
@@ -66,7 +68,7 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       regionCode: ['', [Validators.required]],
       address: ['',],
       status: ['', [Validators.required]],
-      timeMeeting: [null],
+      timeMeeting: [null, [Validators.required]],
       time_state: [1, [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
