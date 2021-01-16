@@ -36,13 +36,12 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
     time_state: {
       'required': '请选择'
     },
- 
+
   };
   formErrors: any = {
     name: '',
     regionCode: '',
     time_state: '',
-    timeMeeting: ''
   };
 
 
@@ -96,8 +95,19 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
       timeMeeting: [null],
       time_state: [1, [Validators.required]],
     });
+
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
+      this.addForm.controls['time_state'].valueChanges.subscribe(result => {
+        console.log("result",result)
+        if (result!=1) {
+          this.addForm.controls['timeMeeting'].setValidators(Validators.required);
+          this.addForm.controls['timeMeeting'].updateValueAndValidity();
+        } else {
+          this.addForm.controls['timeMeeting'].setValidators(null);
+          this.addForm.controls['timeMeeting'].updateValueAndValidity();
+        }
+      });
       this.onValueChanged(data);
     });
     // 初始化错误信息
@@ -210,6 +220,5 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
   }
 
 
-  
 
 }
