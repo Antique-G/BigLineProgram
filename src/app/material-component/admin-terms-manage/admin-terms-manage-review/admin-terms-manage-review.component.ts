@@ -15,6 +15,7 @@ export class AdminTermsManageReviewComponent implements OnInit {
   statusValue: any;
   disabled = true;
   isdisabled = true;
+  isReason = false;
   adminTermsManagementSetCheckRequestModel: AdminTermsManagementSetCheckRequestModel;
   @ViewChild("featureBox") featureBox: any;       //获取dom
 
@@ -23,11 +24,14 @@ export class AdminTermsManageReviewComponent implements OnInit {
     public adminTermsManageService: AdminTermsManageService) {
     this.addForm = this.fb.group({
       title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
-      check_status: new FormControl({ value: this.data.check_status }, Validators.required)
+      check_status: new FormControl({ value: this.data.check_status }, Validators.required),
+      reason: new FormControl(this.data.reason)
+
     });
     this.adminTermsManagementSetCheckRequestModel = {
       id: this.data.id,
-      check_status: 0
+      check_status: 0,
+      reason: ''
     }
   }
 
@@ -42,7 +46,15 @@ export class AdminTermsManageReviewComponent implements OnInit {
 
   setValue() {
     this.adminTermsManagementSetCheckRequestModel.check_status = parseInt(this.addForm.value.check_status);
+    if(this.adminTermsManagementSetCheckRequestModel.check_status===3){
+      this.adminTermsManagementSetCheckRequestModel.reason = this.addForm.value.reason;
+    }
+    else{
+      this.adminTermsManagementSetCheckRequestModel.reason = ''
+    }
   }
+
+
 
   close() {
     this.dialogRef.close();
@@ -62,6 +74,17 @@ export class AdminTermsManageReviewComponent implements OnInit {
 
       }
     })
+  }
+
+  
+  isCheck(element: any) {
+    console.log("element", element);
+    if (element === '3') {
+      this.isReason = true;
+    }
+    else {
+      this.isReason = false;
+    }
   }
 
   

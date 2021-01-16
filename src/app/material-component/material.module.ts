@@ -61,6 +61,7 @@ import { AdminSaleTitleCreateComponent } from './admin-sale-title/admin-sale-tit
 import { AdminSaleTitleDetailComponent } from './admin-sale-title/admin-sale-title-detail/admin-sale-title-detail.component';
 import { AdminSaleTitleStatusComponent } from './admin-sale-title/admin-sale-title-status/admin-sale-title-status.component';
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
+import { AdminProductFreeReviewComponent } from './admin-product/admin-produc-free-travel/admin-product-free-review/admin-product-free-review.component';
 
 @NgModule({
   imports: [
@@ -140,6 +141,7 @@ import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.compo
     AdminSaleTitleDetailComponent,
     AdminSaleTitleStatusComponent,
     AdminInsuranceComponent,
+    AdminProductFreeReviewComponent,
   ]
 })
 export class MaterialComponentsModule {}

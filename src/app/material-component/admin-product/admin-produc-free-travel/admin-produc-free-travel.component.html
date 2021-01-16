@@ -103,7 +103,10 @@
                                             已通过
                                         </div>
                                         <div *ngIf="data.check_status===3">
-                                            未通过
+                                            <div>
+                                                <span>未通过</span>
+                                                <mat-icon nz-tooltip nzTooltipTitle={{data.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
@@ -112,16 +115,8 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status!=0">
-                                            <a nz-dropdown [nzDropdownMenu]="menu" title="审核">
-                                                <mat-icon style="color: #272727;">assignment_ind</mat-icon>
-                                            </a>
-                                            <nz-dropdown-menu #menu="nzDropdownMenu">
-                                                <ul nz-menu>
-                                                    <li nz-menu-item (click)="review(data.id,2)">已通过</li>
-                                                    <li nz-menu-item (click)="review(data.id,3)">未通过</li>
-                                                </ul>
-                                            </nz-dropdown-menu>
+                                        <div style="cursor: pointer;" *ngIf="data.check_status!=0" title="审核" (click)="review(data)">
+                                            <mat-icon>assignment_ind</mat-icon>
                                         </div>
                                     </td>
                                     <td>

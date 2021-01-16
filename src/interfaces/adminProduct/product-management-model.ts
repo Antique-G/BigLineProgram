@@ -36,6 +36,8 @@ interface DatumModel {
   departure_city_full_name: string;
   destination_city_full_name: string;
   album: Storeimage;
+  reason?: string;
+
 }
 
 interface Storeimage {
@@ -87,6 +89,8 @@ export interface AdminProductSetStatusModel {
 export interface AdminProductCheckStatusModel {
   id: number;
   check_status: number;
+  reason?: string;
+
 }
 
 export interface AdminProductResponseModel {
