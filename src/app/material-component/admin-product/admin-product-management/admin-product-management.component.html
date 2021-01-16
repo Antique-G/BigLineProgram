@@ -101,7 +101,10 @@
                                             已通过
                                         </div>
                                         <div *ngIf="data.check_status===3">
-                                            未通过
+                                            <div>
+                                                <span>未通过</span>
+                                                <mat-icon nz-tooltip nzTooltipTitle={{data.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>

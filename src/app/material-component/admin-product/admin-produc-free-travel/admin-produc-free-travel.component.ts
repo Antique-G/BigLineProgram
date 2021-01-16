@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
 
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AdminProductFreeReviewComponent } from './admin-product-free-review/admin-product-free-review.component';
 
 @Component({
   selector: 'app-admin-produc-free-travel',
@@ -76,17 +77,15 @@ export class AdminProducFreeTravelComponent implements OnInit {
   }
 
 
-  // 审核
-  review(id:number,status:number){
-    console.log(id,status);
-    this.confirmModal = this.modal.confirm({
-      nzTitle: '是否确定该操作?',
-      nzContent: '请确认操作的数据是否正确',
-      nzOnOk: () =>{
-        this.adminProductFreeTravelService.freeTravelReview(id,status).subscribe(res => {
-          console.log("结果是res", res)
-          this.getFeeTravelList();
-        })
+  review(data:any){
+    console.log("编辑", data);
+    const dialogRef = this.dialog.open(AdminProductFreeReviewComponent, {
+      width: '800px',
+      data: data
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.getFeeTravelList();
       }
     })
   }

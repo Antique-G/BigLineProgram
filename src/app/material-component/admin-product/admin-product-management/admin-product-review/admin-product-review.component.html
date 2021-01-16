@@ -57,8 +57,7 @@
                 <div nz-row>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status" nzRequired>审核</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <nz-radio-group ngModel="{{data.check_status}}" formControlName="check_status">
-
+                        <nz-radio-group ngModel="{{data.check_status}}" formControlName="check_status" (ngModelChange)="isCheck($event)">
                             <label nz-radio nzValue=1>审核中</label>
                             <label nz-radio nzValue=2>已通过 </label>
                             <label nz-radio nzValue=3>未通过 </label>
@@ -66,6 +65,16 @@
                     </nz-form-control>
                 </div>
             </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="isReason">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="reason">审核失败原因</nz-form-label>
+                    <nz-form-control [nzSm]="19" [nzXs]="24">
+                        <input nz-input formControlName="reason" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
 
             <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
                 <nz-form-control [nzSpan]="14" [nzOffset]="12">

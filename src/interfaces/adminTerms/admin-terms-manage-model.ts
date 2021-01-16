@@ -32,6 +32,7 @@ export interface DatumModel {
   created_at: string;
   updated_at: string;
   store?: StoreModel;
+  reason?: string;
 }
 
 export interface StoreModel {
@@ -54,6 +55,7 @@ export interface StoreModel {
 export interface AdminTermsManagementSetCheckRequestModel {
   id: number;
   check_status: number;
+  reason?: string;
 }
 
 

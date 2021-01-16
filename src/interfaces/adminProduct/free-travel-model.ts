@@ -50,6 +50,7 @@ export interface DatumModel {
     store: StoreModel;
     departure: string;
     destination: string;
+    reason: string;
 }
 
 export interface StoreModel {
@@ -129,7 +130,7 @@ export interface FreeTravelUpdateModel {
     step: any;
 }
 
-export interface FreeTravelQuteDateModel{
+export interface FreeTravelQuteDateModel {
     current_page: number;
     data: DatumModel[];
     first_page_url: string;
@@ -143,4 +144,10 @@ export interface FreeTravelQuteDateModel{
     prev_page_url?: any;
     to: number;
     total: number;
+}
+
+export interface SetCheckModel {
+    id: number;
+    check_status: number;
+    reason?: string;
 }
