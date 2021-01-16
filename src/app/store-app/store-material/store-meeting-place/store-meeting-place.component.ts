@@ -76,9 +76,14 @@ export class StoreMeetingPlaceComponent implements OnInit {
         nzComponentParams: {
           data: res.data
         },
-        nzOnOk: componentInstance => {
-          componentInstance.update()
-        }
+        nzFooter: [
+          {
+            label: '提交',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
+          }
+        ]
       })
       editmodal.afterClose.subscribe(res => {
         this.storeMeetingPlaceList();

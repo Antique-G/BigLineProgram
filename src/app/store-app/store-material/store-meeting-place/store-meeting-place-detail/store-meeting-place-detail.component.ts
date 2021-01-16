@@ -14,17 +14,17 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class StoreMeetingPlaceDetailComponent implements OnInit {
+  public isSpinning: any = true;    //loading 
+
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
   idRegion: any;
   addForm!: FormGroup;
   isChoiceValue = '1';
-
   updateStoreMeetingPlaceRequestModel: UpdateStoreMeetingPlaceRequestModel;
   detailModel!: Datum;
 
-  public isSpinning: any = true;    //loading 
 
   newtime = new Date();
   todayDate: any;
@@ -37,14 +37,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       'maxlength': '集合地点名称长度最多为32个字符',
       'required': '请输入集合地点名称！'
     },
-    timeMeeting: {
-      'required': '请输入'
-    },
-
+ 
   };
   formErrors: any = {
     name: '',
-    timeMeeting: ''
+ 
   };
 
 
@@ -66,43 +63,11 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       regionCode: ['', [Validators.required]],
-      address: ['',],
-      status: ['', [Validators.required]],
-      timeMeeting: [null, [Validators.required]],
+      address: [''],
+      status: [1, [Validators.required]],
+      timeMeeting: [null],
       time_state: [1, [Validators.required]],
     });
-    // 每次表单数据发生变化的时候更新错误信息
-    this.addForm.valueChanges.subscribe(data => {
-      this.onValueChanged(data);
-    });
-    // 初始化错误信息
-    this.onValueChanged();
-  }
-
-
-  // 表单验证
-  onValueChanged(data?: any) {
-    // 如果表单不存在则返回
-    if (!this.addForm) return;
-    // 获取当前的表单
-    const form = this.addForm;
-    // 遍历错误消息对象
-    for (const field in this.formErrors) {
-      // 清空当前的错误消息
-      this.formErrors[field] = '';
-      // 获取当前表单的控件
-      const control: any = form.get(field);
-      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
-      if (control && !control.valid) {
-        // 获取验证不通过的控件名，为了获取更详细的不通过信息
-        const messages = this.validationMessage[field];
-        // 遍历当前控件的错误对象，获取到验证不通过的属性
-        for (const key in control.errors) {
-          // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] = messages[key];
-        }
-      }
-    }
   }
 
 
@@ -159,8 +124,9 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("this.addForm.valid", this.addForm.valid);
+    console.log("this.addForm.valid", this.addForm);
     if (this.addForm.valid) {
-      console.log("提交的model是什么", this.updateStoreMeetingPlaceRequestModel);
       this.storeMeetingPlaceService.updateStoreMeetingPlace(this.updateStoreMeetingPlaceRequestModel).subscribe(res => {
         console.log("res结果", res);
         if (res === null) {
@@ -174,9 +140,12 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
     }
   }
 
+  
+
   log(time: Date): void {
     console.log(time && time.toTimeString());
-    console.log("time是什么", time)
+    console.log("time是什么", time);
+
   }
 
 
@@ -195,15 +164,18 @@ export class StoreMeetingPlaceDetailComponent implements OnInit {
 
 
 
-  isChoice(element: any) {
-    console.log("this.values", element);
-    if (element === '0') {
+
+  isChoice(data: any) {
+    if (data === '0') {
       this.isChoiceValue = '0';
-      console.log("this.isChoiceValue", this.isChoiceValue)
+      this?.addForm?.controls['timeMeeting'].setValidators(Validators.required);
+      console.log("this?.addForm?.controls['timeMeeting']",this?.addForm?.controls['timeMeeting']);
+      this?.addForm?.controls['timeMeeting'].updateValueAndValidity();
     }
     else{
       this.isChoiceValue = '1';
+
     }
-  
   }
+
 }
