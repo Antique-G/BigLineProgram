@@ -33,10 +33,12 @@ interface DatumModel {
   check_status: number;
   created_at: string;
   updated_at: string;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
+  store_name: string;
   departure_city_full_name: string;
   destination_city_full_name: string;
-  album: Storeimage;
-  reason?: string;
 
 }
 

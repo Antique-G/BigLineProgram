@@ -92,7 +92,7 @@
                                         <div *ngIf="data.check_status===3">
                                             <div>
                                                 <span>未通过</span>
-                                                <mat-icon nz-tooltip nzTooltipTitle={{data.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
+                                                <mat-icon nz-tooltip nzTooltipTitle={{data?.check_log[0]?.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
                                             </div>
                                         </div>
                                     </td>

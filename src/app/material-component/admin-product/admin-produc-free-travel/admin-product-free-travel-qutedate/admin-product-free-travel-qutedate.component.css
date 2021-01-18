@@ -1,6 +1,17 @@
-.statu-success{
+.statu-success {
     color: green;
 }
-.statu-error{
+
+.statu-error {
     color: red;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.baojia {
+    border: 0;
+    background-color: #fdfdfd;
 }
