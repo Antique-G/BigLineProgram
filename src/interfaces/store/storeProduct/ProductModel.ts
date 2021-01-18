@@ -217,6 +217,8 @@ export interface AssemblingPlaceListModel {
 export interface DatumList {
   id: number;
   name: string;
+  time?: string;
+  time_state?: number;
 }
 
 

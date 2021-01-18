@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, } from 'rxjs/operators';
-import { StoreMeetingPlaceListResponseModel } from '../../interfaces/store/storeMeetingPlace/store-meeting-place-model';
 import { AdminUrls } from '../../api';
+import { AssemblingPlaceListModel } from '../../interfaces/store/storeProduct/ProductModel';
 
 
 const httpOptions = {
@@ -21,18 +21,16 @@ export class AdminMeetingPlaceService {
 
 
   // 集合地点列表
-  adminMeetingPlaceList(page: number, per_page: number): Observable<StoreMeetingPlaceListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
-      .set('per_page', per_page.toString())
-    const findhttpOptions = {
-      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: params
-    };
-    return this.httpClient.get<StoreMeetingPlaceListResponseModel>(this.urls.GetAdminMeetingPlace, findhttpOptions)
+  adminMeetingPlaceList(): Observable<AssemblingPlaceListModel> {
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetAdminMeetingPlace, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+
+
+  
 
 
   private handleError(error: HttpErrorResponse) {

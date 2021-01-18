@@ -61,8 +61,8 @@ export const AdminUrls = {
   // 自由行日期报价
   GetAddminFreeTravelQuteDateList: api + '/admin/independent_date_quotes',
   GetAddminFreeTravelQuteDateCheck: api + '/admin/indent_date_quotes/set_check',
-
-  GetAdminMeetingPlace: api + '/admin/assembling_place',   // 集合地点列表
+ 
+  GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
 
   GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
   PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
