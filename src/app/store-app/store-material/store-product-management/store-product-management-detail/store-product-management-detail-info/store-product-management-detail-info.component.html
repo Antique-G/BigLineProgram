@@ -73,9 +73,9 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入集合地点！">
                                                 <nz-select nzMode="multiple" nzPlaceHolder="请选择" (ngModelChange)="changePlace($event)" [(ngModel)]="selectedPlace" formControlName="assembling_place_id">
-                                                    <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label" [nzValue]="place.value">
-                                                    </nz-option>
+                                                    <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+place.time" [nzValue]="place.value"></nz-option>
                                                 </nz-select>
+
                                             </nz-form-control>
                                             <div>
                                                 <mat-icon style=" margin-top: 3px;color: #000000a0;cursor: pointer;" (click)="refreshPlace()">refresh</mat-icon>
