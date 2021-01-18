@@ -39,11 +39,8 @@ interface DatumModel {
   store_name: string;
   departure_city_full_name: string;
   destination_city_full_name: string;
-
-}
-
-interface Storeimage {
-  data: any[];
+  departure_city_name: string;
+  destination_city_name: string;
 }
 
 
@@ -189,4 +186,20 @@ export interface ProductQuteDateModel {
   prev_page_url?: any;
   to: number;
   total: number;
+}
+
+
+export interface CheckLogModule {
+  data: LogModel[];
+}
+
+export interface LogModel {
+  id: number;
+  product_id: number;
+  check_status: number;
+  reason: string;
+  admin_id: number;
+  created_at: string;
+  updated_at: string;
+  admin_name: string;
 }

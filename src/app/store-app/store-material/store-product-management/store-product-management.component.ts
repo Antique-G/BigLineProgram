@@ -22,16 +22,18 @@ export class StoreProductManagementComponent implements OnInit {
   loading = true;
   page = 1;
   per_page = 20;
-  total:any;
+  total: any;
+
+  isReason: any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-  private modal: NzModalService) {
+    private modal: NzModalService) {
     this.searchForm = this.fb.group({
-      checkStatus: ['' ],
-      title: ['' ],
-      few_days: ['' ],
-      few_nights: ['' ],
+      checkStatus: [''],
+      title: [''],
+      few_days: [''],
+      few_nights: [''],
     })
   }
 
@@ -78,12 +80,12 @@ export class StoreProductManagementComponent implements OnInit {
     this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
   }
 
-  checkStatusClick(data:any){
+  checkStatusClick(data: any) {
     this.modal.confirm({
       nzTitle: '<h5>请确认操作?</h5>',
       nzContent: '提交审核',
-      nzOnOk: () =>{
-        this.storeProductService.checkStatusFreeTravel(data.id,1).subscribe(res=>{
+      nzOnOk: () => {
+        this.storeProductService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
           console.log(res);
           this.getProductList();
         })
@@ -93,7 +95,7 @@ export class StoreProductManagementComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log(data);
-    this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id,type:'management' } });
+    this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id, type: 'management' } });
   }
 
 
@@ -104,7 +106,7 @@ export class StoreProductManagementComponent implements OnInit {
       nzTitle: '<h4>提示</h4>',
       nzContent: '<h6>请确认操作</h6>',
       nzOnOk: () =>
-      this.storeProductService.patchProductStatus(data.id).subscribe(res => {
+        this.storeProductService.patchProductStatus(data.id).subscribe(res => {
           this.getProductList();
         })
     });
@@ -113,8 +115,17 @@ export class StoreProductManagementComponent implements OnInit {
 
 
 
-  addStep(){
+  addStep() {
     this.router.navigate(['/store/main/storeProduct/createByStep']);
   }
 
+
+
+  // 审核日志
+  viewLog(data: any) {
+    this.storeProductService.checkLog(data.id).subscribe(res => {
+      console.log("122", res[0]?.reason);
+      this.isReason = res[0]?.reason;
+    })
+  }
 }

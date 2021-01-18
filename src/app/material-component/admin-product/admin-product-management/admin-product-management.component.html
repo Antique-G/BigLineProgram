@@ -67,8 +67,8 @@
                                         <div *ngIf="data.minimum_price===0"> - </div>
                                         <div *ngIf="data.minimum_price!=0"> {{data.minimum_price}}&nbsp;元 </div>
                                     </td>
-                                    <td>{{data.departure_city_full_name}}</td>
-                                    <td>{{data.destination_city_full_name}}</td>
+                                    <td>{{data.departure_city_name}}</td>
+                                    <td>{{data.destination_city_name}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架
@@ -90,7 +90,7 @@
                                         <div *ngIf="data.check_status===3">
                                             <div>
                                                 <span>未通过</span>
-                                                <!-- <mat-icon nz-tooltip nzTooltipTitle={{data.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon> -->
+                                                <mat-icon (mouseenter)="viewLog(data)" nz-tooltip nzTooltipTitle={{isReason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
                                             </div>
                                         </div>
                                     </td>
