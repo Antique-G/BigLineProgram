@@ -50,8 +50,6 @@
                                     <th style="text-align: center;">最低价格</th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
-                                    <th style="text-align: center;">儿童年龄</th>
-                                    <th style="text-align: center;">儿童身高</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">查看详情</th>
@@ -73,17 +71,6 @@
                                     </td>
                                     <td>{{data.departure}}</td>
                                     <td>{{data.destination}}</td>
-                                    <td>
-                                        <div *ngIf="data.children_age===0"> - </div>
-                                        <div *ngIf="data.children_age!=0"> {{data.children_age}}&nbsp;岁 </div>
-                                    </td>
-                                    <td>
-                                        <div *ngIf="data.child_height_min===0&&data.child_height_max===0"> - </div>
-                                        <div *ngIf="!(data.child_height_min===0&&data.child_height_max===0)">
-                                            {{data.child_height_min}}&nbsp;cm~{{data.child_height_max}}&nbsp;cm
-                                        </div>
-                                    </td>
-
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架

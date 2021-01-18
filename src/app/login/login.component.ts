@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginRequestModel: LoginRequestModel;
 
 
-  constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService,public router:Router) {
+  constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService, public router: Router) {
     this.loginForm = fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required]
@@ -34,17 +34,23 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login() { 
+  login() {
     this.setValue();
     console.log("提交的model是什么", this.loginRequestModel);
     this.adminLoginService.login(this.loginRequestModel).subscribe(res => {
       // console.log("res结果", res);
-      if(res.access_token!=''){
+      if (res.access_token != '') {
         this.adminLoginService.setToken(res.access_token);
-        localStorage.setItem('account',res.admin.account);  
-        localStorage.setItem('adminId',res.admin.admin_id);  
+        localStorage.setItem('account', res.admin.account);
+        localStorage.setItem('adminId', res.admin.admin_id);
         this.router.navigate(['/admin/main/adminAccount'])
       }
     })
+  }
+
+
+  // enter键进入首页
+  onEnter() {
+    this.login();
   }
 }
