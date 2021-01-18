@@ -190,8 +190,15 @@ export class StoreProductInfoComponent implements OnInit {
     this.storeProductService.productAssemblingPlaceList().subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
-        let a = { value: i.id, label: i.name };
-        this.assemblingPlaceList.push(a);
+        console.log("集合地点ii", i,i.time_state === 0);
+        if (i.time_state === 0) {
+          let a = { value: i.id, label: i.name,time:i.time};
+          this.assemblingPlaceList.push(a);
+        }
+        else if (i.time_state ===1) {
+          let a = { value: i.id, label: i.name,time:'' };
+          this.assemblingPlaceList.push(a);
+        }
       }
       this.regionList();
     });
@@ -361,9 +368,15 @@ export class StoreProductInfoComponent implements OnInit {
     this.storeProductService.productAssemblingPlaceList().subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
-        // console.log('iiiiii', i);
-        let a = { value: i.id, label: i.name };
-        this.assemblingPlaceList.push(a);
+        console.log("集合地点ii", i,i.time_state === 0);
+        if (i.time_state === 0) {
+          let a = { value: i.id, label: i.name,time:i.time};
+          this.assemblingPlaceList.push(a);
+        }
+        else if (i.time_state ===1) {
+          let a = { value: i.id, label: i.name,time:'' };
+          this.assemblingPlaceList.push(a);
+        }
       }
     });
   }
