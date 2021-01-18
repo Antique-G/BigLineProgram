@@ -157,10 +157,12 @@ export interface DatumListModel {
   check_status: number;
   created_at: string;
   updated_at: string;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
   finish_status: boolean;
   departure_city_full_name: string;
   destination_city_full_name: string;
-  albums: Storeimage;
 }
 
 interface Storeimage {

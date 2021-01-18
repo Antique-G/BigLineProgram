@@ -12,6 +12,7 @@ export interface AdminFreeTravelListResponseModel {
     prev_page_url?: any;
     to: number;
     total: number;
+
 }
 
 
@@ -31,26 +32,29 @@ export interface DatumModel {
     destination_city: string;
     earlier: number;
     confirm: number;
-    pay_method: number;
     service_phone: string;
     min_price: number;
+    price_range: number;
     reserve_num: number;
     reserve_children: number;
     reserve_ahead: number;
     children_age: number;
-    children_height: number;
-    feature: string;
-    details: string;
+    child_height_min: number;
+    child_height_max: number;
+    feature?: string;
+    details?: string;
     fee: string;
-    notice: string;
+    notice?: string;
     status: number;
     check_status: number;
-    created_at?: any;
-    updated_at?: any;
-    store: StoreModel;
+    created_at?: string;
+    updated_at: string;
     departure: string;
     destination: string;
-    reason: string;
+    store: StoreModel;
+    check_log: LogModel[];
+    date_quotes?: DatequoteModel;
+    quote_status: number;
 }
 
 export interface StoreModel {
@@ -66,6 +70,34 @@ export interface StoreModel {
     created_at: string;
     updated_at: string;
     region_full_name: string;
+}
+
+
+export interface LogModel {
+    id: number;
+    inden_product_id: number;
+    check_status: number;
+    reason: string;
+    admin_id: number;
+    created_at: string;
+    updated_at: string;
+
+}
+
+export interface DatequoteModel {
+    id: number;
+    independent_product_id: number;
+    date: string;
+    adult_price: number;
+    child_price: number;
+    difference_price: number;
+    inventory_num: number;
+    sold_num: number;
+    set_inventory: number;
+    allow_over: number;
+    check_status: number;
+    created_at: string;
+    updated_at: string;
 }
 
 

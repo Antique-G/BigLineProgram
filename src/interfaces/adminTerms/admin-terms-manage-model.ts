@@ -28,11 +28,13 @@ export interface DatumModel {
   title: string;
   content: string;
   status: number;
-  check_status: number;
   created_at: string;
   updated_at: string;
-  store?: StoreModel;
-  reason?: string;
+  check_status: number;
+  reason: string;
+  type: number;
+  store: StoreModel;
+
 }
 
 export interface StoreModel {

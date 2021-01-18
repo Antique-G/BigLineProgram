@@ -26,9 +26,13 @@ export interface Links {
 }
 
 export interface Datum {
+  id: number;
   title: string;
   status: number;
-  id: any,
+  check_status: number;
+  reason: string;
+  created_at: string;
+  updated_at: string;
 }
 
 
