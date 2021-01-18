@@ -4,14 +4,13 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
 };
 
 
-
-// multipart/form-data
 @Injectable({
   providedIn: 'root'
 })
@@ -49,6 +48,21 @@ export class StoreProductService {
         catchError(this.handleError)
       )
   }
+
+
+  // 审核日志
+  checkLog(id: any): Observable<CheckLogModule> {
+    const params = new HttpParams().set('id', id.toString());
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<CheckLogModule>(this.urls.GetStoreProductCheckLog, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 

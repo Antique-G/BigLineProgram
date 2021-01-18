@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel,  AdminProductResponseModel, AdminProductSetStatusModel,ProductQuteDateModel } from '../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel } from '../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -20,13 +20,13 @@ export class AdminProductManagementService {
   constructor(public httpClient: HttpClient) { }
 
 
- // 产品列表
-  productList(page:number, per_page:number,status:any,check_status:any,title:string): Observable<AdminProductManagementListResponseModel> {
+  // 产品列表
+  productList(page: number, per_page: number, status: any, check_status: any, title: string): Observable<AdminProductManagementListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
-    .set('per_page', per_page.toString())
-    .set('status', status ? status : '')
-    .set('check_status', check_status ? check_status : '')
-    .set('title', title ? title : '')
+      .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
+      .set('check_status', check_status ? check_status : '')
+      .set('title', title ? title : '')
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -49,15 +49,15 @@ export class AdminProductManagementService {
   }
 
   // 详情
-  productDetail(id:any): Observable<AdminProductDetailResponseModel> {
-    return this.httpClient.get<AdminProductDetailResponseModel>(this.urls.GetAdminProductManagementDetail+id, httpOptions)
+  productDetail(id: any): Observable<AdminProductDetailResponseModel> {
+    return this.httpClient.get<AdminProductDetailResponseModel>(this.urls.GetAdminProductManagementDetail + id, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
 
 
-  
+
   // 产品的上架/下架
   productSetStatus(adminProductSetStatusModel: AdminProductSetStatusModel): Observable<AdminProductResponseModel> {
     return this.httpClient.post<AdminProductResponseModel>(this.urls.PostAdminProductSetStatus, adminProductSetStatusModel, httpOptions)
@@ -67,18 +67,33 @@ export class AdminProductManagementService {
   }
 
 
-    // 产品的审核
-    productCheckStatus(adminProductCheckStatusModel: AdminProductCheckStatusModel): Observable<AdminProductResponseModel> {
-      return this.httpClient.post<AdminProductResponseModel>(this.urls.PostAdminProductCheckStatus, adminProductCheckStatusModel, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
+  // 产品的审核
+  productCheckStatus(adminProductCheckStatusModel: AdminProductCheckStatusModel): Observable<AdminProductResponseModel> {
+    return this.httpClient.post<AdminProductResponseModel>(this.urls.PostAdminProductCheckStatus, adminProductCheckStatusModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
-      // 上传图片
+  // 审核日志
+  checkLog(id: any): Observable<CheckLogModule> {
+    const params = new HttpParams().set('id', id.toString());
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<CheckLogModule>(this.urls.GetAdminProductCheckLog, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
+  // 上传图片
   uploadImg(image: any): Observable<any> {
-    console.log('uploadImgModel',image);
+    console.log('uploadImgModel', image);
     const imgHttpOptions = {
       reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
     };
@@ -88,28 +103,28 @@ export class AdminProductManagementService {
       )
   }
 
-// 日期报价列表
-  QuteDateList(product_id:any,page: number, per_page: number){
-  const params = new HttpParams()
-  .set('page', page.toString())
-  .set('per_page', per_page.toString())
-  .set('product_id', product_id)
-  const findhttpOptions = {
-    headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-    params: params
-  };
-  return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminQuteDateList ,findhttpOptions)
-  .pipe(
-    catchError(this.handleError)
-  )
-}
+  // 日期报价列表
+  QuteDateList(product_id: any, page: number, per_page: number) {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('product_id', product_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminQuteDateList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
-QuteDateCheckState(date_id:any[],check_status:number){
-  return this.httpClient.post<any>(this.urls.PostAdminQuteDateSetCheck ,{date_id,check_status},httpOptions)
-  .pipe(
-    catchError(this.handleError)
-  )
-}
+  QuteDateCheckState(date_id: any[], check_status: number) {
+    return this.httpClient.post<any>(this.urls.PostAdminQuteDateSetCheck, { date_id, check_status }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
 

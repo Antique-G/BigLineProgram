@@ -24,6 +24,8 @@ export class AdminProductManagementComponent implements OnInit {
   title: any;
   adminProductSetStatusModel: AdminProductSetStatusModel;
 
+  isReason: any
+
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
     public router: Router, private modal: NzModalService) {
@@ -118,8 +120,19 @@ export class AdminProductManagementComponent implements OnInit {
     });
   }
 
-  quteDateClick(data: any){
+  quteDateClick(data: any) {
     this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id } });
   }
+
+
+
+  // 审核日志
+  viewLog(data: any) {
+    this.adminProductManagementService.checkLog(data.id).subscribe(res => {
+      console.log("122", res[0]?.reason);
+      this.isReason = res[0]?.reason;
+    })
+  }
+
 
 }

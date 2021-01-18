@@ -51,6 +51,8 @@ export const AdminUrls = {
   GetAdminProductManagementDetail: api + '/admin/product/', //产品详情
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
+  GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
+  
 
 
   GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
@@ -106,6 +108,8 @@ export const StoreUrls = {
   PostStoreQuoteByDate: api + '/store/date_quote',//添加产品报价
   PutStoreQuoteByDate: api + '/store/date_quote/',//添加产品报价
   DelStoreQuoteByDate: api + '/store/date_quote/',
+  GetStoreProductCheckLog: api + '/store/product/check_log', // 审核日志
+
 
   PostStoreQuoteByDateSetCheck: api + '/store/product/set_check',//产品报价提交审核
 

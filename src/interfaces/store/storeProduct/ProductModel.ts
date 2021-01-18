@@ -163,7 +163,11 @@ export interface DatumListModel {
   finish_status: boolean;
   departure_city_full_name: string;
   destination_city_full_name: string;
+  departure_city_name: string;
+  destination_city_name: string;
 }
+
+
 
 interface Storeimage {
   data: StoreimageDatum[];
