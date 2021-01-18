@@ -15,7 +15,7 @@
                                 </mat-form-field>
 
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="密码" value="" formControlName="password" type="password">
+                                    <input matInput placeholder="密码" value="" formControlName="password" type="password" (keyup.enter)="onEnter()">
                                 </mat-form-field>
                             </div>
                         </form>

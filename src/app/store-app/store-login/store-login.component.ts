@@ -49,4 +49,10 @@ export class StoreLoginComponent implements OnInit {
     })
   }
 
+
+  // enter键进入首页
+  onEnter() {
+    this.login();
+  }
+
 }
