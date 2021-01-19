@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
-import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel } from '../../interfaces/adminProduct/product-management-model';
+import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel, StoreListModel } from '../../interfaces/adminProduct/product-management-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -21,12 +21,14 @@ export class AdminProductManagementService {
 
 
   // 产品列表
-  productList(page: number, per_page: number, status: any, check_status: any, title: string): Observable<AdminProductManagementListResponseModel> {
+  productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string): Observable<AdminProductManagementListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
+      .set('store_id', store_id ? store_id : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -84,6 +86,19 @@ export class AdminProductManagementService {
       params: params
     };
     return this.httpClient.get<CheckLogModule[]>(this.urls.GetAdminProductCheckLog, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 查询店铺
+  storeList(keyword: string): Observable<StoreListModel[]> {
+    const params = new HttpParams().set('keyword', keyword ? keyword : '')
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreListModel[]>(this.urls.GetAdminProductManagementStoreList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
