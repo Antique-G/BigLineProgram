@@ -18,7 +18,7 @@
                                 <mat-form-field>
                                     <mat-label required>页面名称</mat-label>
                                     <mat-select formControlName="name" placeholder="请选择页面名称" (ngModelChange)="changeList($event)">
-                                        <mat-option *ngFor="let data of dataList" [value]="data.page_name">{{data.page_name}}</mat-option>
+                                        <mat-option *ngFor="let data of dataList" [value]="data">{{data.page_name}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -26,7 +26,7 @@
                             <div fxFlex=30>
                                 <mat-form-field>
                                     <mat-label required>页面key</mat-label>
-                                    <input matInput value="" formControlName="key">
+                                    <input matInput [(value)]="isValue" formControlName="key">
                                 </mat-form-field>
                             </div>
                             <div fxFlex=20>
