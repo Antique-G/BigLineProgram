@@ -44,6 +44,7 @@ export class StoreProductInfoComponent implements OnInit {
   isReserveAhead = '0';
 
   isLoadingBtn = false;
+  isPlaceRegion: any;
 
 
   cateId: any;
@@ -180,6 +181,14 @@ export class StoreProductInfoComponent implements OnInit {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);
       }
+      this.regionList();
+    })
+  }
+
+  // 区域
+  regionList() {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
       this.getAccemList();
     })
   }
@@ -187,31 +196,25 @@ export class StoreProductInfoComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
+        console.log("集合地点ii", i, i.time_state === 0);
         if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
+          let a = { value: i.id, label: i.name, time: i.time };
           this.assemblingPlaceList.push(a);
         }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
           this.assemblingPlaceList.push(a);
         }
       }
-      this.regionList();
+      this.textChange();
     });
 
   }
 
-  // 区域
-  regionList() {
-    this.storeRegionService.getAllRegionList().subscribe(res => {
-      this.nzOptions = res;
-      this.textChange();
-    })
-  }
+
 
 
   // 表单验证
@@ -291,6 +294,8 @@ export class StoreProductInfoComponent implements OnInit {
     console.log("点击的结果是", values);
     if (values !== null) {
       this.addStoreProductModel.departure_city = values[values.length - 1];
+      this.isPlaceRegion = this.addStoreProductModel.departure_city;
+      this.getAccemList();
     }
   }
 
@@ -365,16 +370,16 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   refreshPlace() {
-    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', '').subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
+        console.log("集合地点ii", i, i.time_state === 0);
         if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
+          let a = { value: i.id, label: i.name, time: i.time };
           this.assemblingPlaceList.push(a);
         }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
           this.assemblingPlaceList.push(a);
         }
       }
@@ -414,11 +419,11 @@ export class StoreProductInfoComponent implements OnInit {
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
       },
-      error=>{
-        this.isLoadingBtn = false;
-      })
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
-  
+
   }
 
 

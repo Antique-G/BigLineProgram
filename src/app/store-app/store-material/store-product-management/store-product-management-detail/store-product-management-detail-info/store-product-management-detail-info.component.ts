@@ -29,6 +29,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   // 集合地以及标题
   selectedPlace: any[] = [];
+  isPlaceRegion: any;
+
   // 目的地
   destinationPalce: any[] = [];
   idDestin: any
@@ -200,8 +202,38 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       else if (name2 === '跟团游') {
         this.cateId = res.data[1].id
       }
+      this.regionList();
+    })
+  }
+
+  // 区域
+  regionList() {
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
       this.getTagList();
     })
+  }
+
+
+  // 集合地点
+  getAccemList() {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
+      console.log("集合地点", res.data);
+      for (let i of res.data) {
+        console.log("集合地点ii", i, i.time_state === 0);
+        if (i.time_state === 0) {
+          let a = { value: i.id, label: i.name, time: i.time };
+          this.assemblingPlaceList.push(a);
+        }
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
+          this.assemblingPlaceList.push(a);
+        }
+      }
+      console.log("最后的记过是", this.assemblingPlaceList)
+
+    });
+
   }
 
 
@@ -213,39 +245,10 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         let a = { value: i.id, label: i.name };
         this.tagList.push(a);
       }
-      this.getAccemList();
-    })
-  }
-
-
-  // 集合地点
-  getAccemList() {
-    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
-      console.log("集合地点", res.data);
-      for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
-        if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
-          this.assemblingPlaceList.push(a);
-        }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
-          this.assemblingPlaceList.push(a);
-        }
-      }
-      console.log("最后的记过是",this.assemblingPlaceList)
-      this.regionList();
-    });
-
-  }
-
-  // 区域
-  regionList() {
-    this.storeRegionService.getAllRegionList().subscribe(res => {
-      this.nzOptions = res;
       this.getProductDetail();
     })
   }
+
 
 
   getProductDetail() {
@@ -291,6 +294,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.values.push(temp);
     }
     this.addForm.get('departure_city')?.setValue(this.values);   //区域
+    
     // 目的地城市
     const strDest = this.dataProductDetailModel.destination_city;
     for (let i = 0; i < strDest.length / 4; i++) {
@@ -364,10 +368,13 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
 
-  onChanges(values: any): void {
-    console.log("点击的结果是", values);
-    if (values !== null) {
-      this.detailUpdateModel.departure_city = values[values.length - 1];
+  onChanges(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.detailUpdateModel.departure_city = data[data.length - 1];
+      this.isPlaceRegion = this.detailUpdateModel.departure_city;
+      this.getAccemList();
+   
     }
   }
 
@@ -449,16 +456,16 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
   refreshPlace() {
-    this.storeProductService.productAssemblingPlaceList().subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
+        console.log("集合地点ii", i, i.time_state === 0);
         if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
+          let a = { value: i.id, label: i.name, time: i.time };
           this.assemblingPlaceList.push(a);
         }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
           this.assemblingPlaceList.push(a);
         }
       }

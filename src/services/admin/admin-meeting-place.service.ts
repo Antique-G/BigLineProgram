@@ -21,8 +21,17 @@ export class AdminMeetingPlaceService {
 
 
   // 集合地点列表
-  adminMeetingPlaceList(): Observable<AssemblingPlaceListModel> {
-    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetAdminMeetingPlace, httpOptions)
+  adminMeetingPlaceList(name: string, region_code: string): Observable<AssemblingPlaceListModel> {
+
+    const params = new HttpParams().set('name', name ? name : '')
+    .set('region_code', region_code ? region_code : '');
+    
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetAdminMeetingPlace, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
