@@ -219,17 +219,23 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   getAccemList() {
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
-      for (let i of res.data) {
-        console.log("集合地点ii", i, i.time_state === 0);
-        if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name, time: i.time };
-          this.assemblingPlaceList.push(a);
-        }
-        else if (i.time_state === 1) {
-          let a = { value: i.id, label: i.name, time: '' };
-          this.assemblingPlaceList.push(a);
+      if (res.data.length === 0) {
+        this.assemblingPlaceList = [];
+      }
+      else{
+        for (let i of res.data) {
+          console.log("集合地点ii", i, i.time_state === 0);
+          if (i.time_state === 0) {
+            let a = { value: i.id, label: i.name, time: i.time };
+            this.assemblingPlaceList.push(a);
+          }
+          else if (i.time_state === 1) {
+            let a = { value: i.id, label: i.name, time: '' };
+            this.assemblingPlaceList.push(a);
+          }
         }
       }
+  
       console.log("最后的记过是", this.assemblingPlaceList)
 
     });
