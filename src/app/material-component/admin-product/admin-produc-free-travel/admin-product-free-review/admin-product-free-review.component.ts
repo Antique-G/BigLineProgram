@@ -16,11 +16,11 @@ export class AdminProductFreeReviewComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductFreeReviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public adminProductFreeTravelService: AdminProductFreeTravelService,) {
-    console.log("data", this.data.reason)
+    console.log("data", this.data)
     this.addForm = this.fb.group({
       title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
       check_status: new FormControl({ value: this.data.check_status }, Validators.required),
-      reason: new FormControl(this.data.reason)
+      reason: new FormControl(this.data?.check_log[0]?.reason)
     });
     this.setCheckModel = {
       id: this.data.id,
