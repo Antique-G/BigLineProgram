@@ -219,6 +219,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   getAccemList() {
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
+      this.assemblingPlaceList = [];
       if (res.data.length === 0) {
         this.assemblingPlaceList = [];
       }

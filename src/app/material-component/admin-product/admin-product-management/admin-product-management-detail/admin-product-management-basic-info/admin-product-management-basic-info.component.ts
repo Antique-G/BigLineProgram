@@ -225,6 +225,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   getAccemList() {
     this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
+      this.assemblingPlaceList = [];
+
       if (res.data.length === 0) {
         this.assemblingPlaceList = [];
       }
