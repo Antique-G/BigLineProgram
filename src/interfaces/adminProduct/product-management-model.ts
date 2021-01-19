@@ -199,3 +199,8 @@ export interface CheckLogModule {
   updated_at: string;
   admin_name: string;
 }
+
+export interface  StoreListModel{
+  store_id: number;
+  name: string;
+}

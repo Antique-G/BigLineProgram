@@ -52,6 +52,7 @@ export const AdminUrls = {
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
   GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
+  GetAdminProductManagementStoreList: api + '/admin/store/list',// 查询店铺
 
 
 

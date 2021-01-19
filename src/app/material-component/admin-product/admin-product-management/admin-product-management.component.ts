@@ -22,9 +22,10 @@ export class AdminProductManagementComponent implements OnInit {
   status: any;
   check_status: any;
   title: any;
+  store_id: any;
   adminProductSetStatusModel: AdminProductSetStatusModel;
-
-  isReason: any
+  storeList: any[] = [];
+  isReason: any;
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
@@ -37,19 +38,25 @@ export class AdminProductManagementComponent implements OnInit {
       status: [''],
       checkStatus: [''],
       title: [''],
+      store_id: [''],
     })
 
   }
 
 
   ngOnInit(): void {
-    this.getProductList();
+    this.adminProductManagementService.storeList('').subscribe(res => {
+      console.log("24234", res);
+      this.storeList = res;
+      this.getProductList();
+    })
+
   }
 
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.meta.pagination.total;   //总页数
@@ -73,6 +80,7 @@ export class AdminProductManagementComponent implements OnInit {
     this.status = this.searchForm.value.status;
     this.check_status = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
+    this.store_id = this.searchForm.value.store_id;
     this.getProductList();
 
   }

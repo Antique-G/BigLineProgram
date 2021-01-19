@@ -18,6 +18,7 @@ export class AdminWechatPageconfigComponent implements OnInit {
   page_key: any;
   loading = false;
   status = '0';
+  dataList: any[] = [];
 
 
   constructor(public dialog: MatDialog, public fb: FormBuilder, public adminWechatPageconfigService: AdminWechatPageconfigService) {
@@ -32,12 +33,15 @@ export class AdminWechatPageconfigComponent implements OnInit {
     // 可配置的页面
     this.adminWechatPageconfigService.pageList().subscribe(res => {
       console.log("结果是", res.data);
+      this.dataList = res.data;
+      console.log("结果是this.dataList", this.dataList);
     })
   }
 
   pageConfigList() {
     this.adminWechatPageconfigService.pageConfigList(this.page, this.per_page, this.status, this.page_name, this.page_key).subscribe(res => {
       console.log("结果是", res.data);
+     
     })
   }
 
@@ -62,6 +66,11 @@ export class AdminWechatPageconfigComponent implements OnInit {
 
 
   edit(data: any) { }
+
+
+  changeList(event:any){
+
+  }
 
 
 }

@@ -25,7 +25,16 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div fxFlex=50>
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-label>店铺名称</mat-label>
+                                    <mat-select formControlName="store_id" placeholder="请选择店铺名称">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option *ngFor="let data of storeList" [value]="data.store_id">{{data.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=30>
                                 <mat-form-field>
                                     <mat-label>产品名称</mat-label>
                                     <input matInput value="" formControlName="title" placeholder="请输入产品名称">
@@ -44,6 +53,7 @@
                                 <tr>
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;width: 15%;">产品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">几天</th>
                                     <th style="text-align: center;">几晚</th>
                                     <th style="text-align: center;">最低价格</th>
@@ -61,6 +71,7 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
+                                    <td>{{data.store_name}}</td>
                                     <td>{{data.few_days}}</td>
                                     <td>{{data.few_nights}}</td>
                                     <td>
