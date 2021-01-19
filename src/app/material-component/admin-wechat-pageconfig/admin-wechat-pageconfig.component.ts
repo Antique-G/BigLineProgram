@@ -10,7 +10,7 @@ import { AdminWechatPageconfigService } from '../../../services/admin/admin-wech
 })
 export class AdminWechatPageconfigComponent implements OnInit {
   searchForm!: FormGroup;
-  dataSource = [];
+  dataSource :any[]=[];
   page = 1;
   per_page = 10;
   total = 1;
@@ -42,8 +42,10 @@ export class AdminWechatPageconfigComponent implements OnInit {
 
   pageConfigList() {
     this.adminWechatPageconfigService.pageConfigList(this.page, this.per_page, this.status, this.page_name, this.page_key).subscribe(res => {
-      console.log("结果是", res.data);
-
+      console.log("结果是", res);
+      this.loading = false;
+      this.total = res.total;   //总页数
+      this.dataSource = res?.data;
     })
   }
 
@@ -75,5 +77,8 @@ export class AdminWechatPageconfigComponent implements OnInit {
     this.isValue = this.page_key;
   }
 
+  add(){
+    
+  }
 
 }
