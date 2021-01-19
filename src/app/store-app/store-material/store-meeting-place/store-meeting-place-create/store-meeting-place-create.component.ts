@@ -170,9 +170,17 @@ export class StoreMeetingPlaceCreateComponent implements OnInit {
 
 
   isChoice(data: any) {
+    console.log("data",data)
+    console.log("fafa",data === '0')
     if (data === '0') {
+      console.log("fafa",data === '0')
       this.isChoiceValue = '0';
       this?.addForm?.controls['timeMeeting'].setValidators(Validators.required);
+      this?.addForm?.controls['timeMeeting'].updateValueAndValidity();
+    }
+    else if(data === '1'){
+      this.isChoiceValue = '1';
+      this?.addForm?.controls['timeMeeting'].setValidators(null);
       this?.addForm?.controls['timeMeeting'].updateValueAndValidity();
     }
   }

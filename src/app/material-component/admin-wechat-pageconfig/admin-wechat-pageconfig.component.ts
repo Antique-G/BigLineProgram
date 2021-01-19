@@ -19,6 +19,8 @@ export class AdminWechatPageconfigComponent implements OnInit {
   loading = false;
   status = '0';
   dataList: any[] = [];
+  isValue: any;
+
 
 
   constructor(public dialog: MatDialog, public fb: FormBuilder, public adminWechatPageconfigService: AdminWechatPageconfigService) {
@@ -41,14 +43,12 @@ export class AdminWechatPageconfigComponent implements OnInit {
   pageConfigList() {
     this.adminWechatPageconfigService.pageConfigList(this.page, this.per_page, this.status, this.page_name, this.page_key).subscribe(res => {
       console.log("结果是", res.data);
-     
+
     })
   }
 
   search() {
     this.status = this.searchForm.value.status;
-    this.page_name = this.searchForm.value.name;
-    this.page_key = this.searchForm.value.key;
     this.pageConfigList();
   }
 
@@ -68,8 +68,11 @@ export class AdminWechatPageconfigComponent implements OnInit {
   edit(data: any) { }
 
 
-  changeList(event:any){
-
+  changeList(event: any) {
+    console.log("event", event);
+    this.page_name = event.page_name;
+    this.page_key = event.page_key;
+    this.isValue = this.page_key;
   }
 
 
