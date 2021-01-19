@@ -25,6 +25,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   // 集合地以及标题
   selectedPlace: any[] = [];
+  isPlaceRegion: any;
   // 目的地
   destinationPalce: any[] = [];
   idDestin: any
@@ -196,7 +197,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       else if (name2 === '跟团游') {
         this.cateId = res.data[1].id
       }
-
       this.getTagList();
     })
   }
@@ -217,13 +217,13 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   getRegionList() {
     this.adminRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
-      this.getAccemList();
+      this.getProductDetail();
     })
   }
 
   // 集合地点
   getAccemList() {
-    this.adminMeetingPlaceService.adminMeetingPlaceList().subscribe(res => {
+    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
       for (let i of res.data) {
         console.log("集合地点ii", i,i.time_state === 0);
         if (i.time_state === 0) {
@@ -235,7 +235,6 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
           this.assemblingPlaceList.push(a);
         }
       }
-      this.getProductDetail();
       console.log(this.destinationPalce, ' this.destinationPalce');
     });
   }
@@ -356,10 +355,12 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
 
-  onChanges(values: any): void {
-    console.log("点击的结果是", values);
-    if (values !== null) {
-      this.detailUpdateModel.departure_city = values[values.length - 1];
+  onChanges(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.detailUpdateModel.departure_city = data[data.length - 1];
+      this.isPlaceRegion = this.detailUpdateModel.departure_city;
+      this.getAccemList();
     }
   }
 
@@ -442,7 +443,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
   refreshPlace() {
-    this.adminMeetingPlaceService.adminMeetingPlaceList().subscribe(res => {
+    this.adminMeetingPlaceService.adminMeetingPlaceList('',this.isPlaceRegion).subscribe(res => {
       for (let i of res.data) {
         console.log("集合地点ii", i,i.time_state === 0);
         if (i.time_state === 0) {

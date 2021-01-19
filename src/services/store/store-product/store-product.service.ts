@@ -101,8 +101,16 @@ export class StoreProductService {
 
 
   // 产品集合地点
-  productAssemblingPlaceList(): Observable<AssemblingPlaceListModel> {
-    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreAssemblingPlaceList, httpOptions)
+  productAssemblingPlaceList(name: string, region_code: string): Observable<AssemblingPlaceListModel> {
+    const params = new HttpParams().set('name', name ? name : '')
+      .set('region_code', region_code ? region_code : '');
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+
+    return this.httpClient.get<AssemblingPlaceListModel>(this.urls.GetStoreAssemblingPlaceList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
