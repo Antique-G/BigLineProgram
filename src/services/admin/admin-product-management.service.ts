@@ -77,13 +77,13 @@ export class AdminProductManagementService {
 
 
   // 审核日志
-  checkLog(id: any): Observable<CheckLogModule> {
+  checkLog(id: any): Observable<CheckLogModule[]> {
     const params = new HttpParams().set('id', id.toString());
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
-    return this.httpClient.get<CheckLogModule>(this.urls.GetAdminProductCheckLog, findhttpOptions)
+    return this.httpClient.get<CheckLogModule[]>(this.urls.GetAdminProductCheckLog, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
