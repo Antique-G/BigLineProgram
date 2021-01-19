@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { ConfigPageList, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
+import { AddPageConfigRequestModel, ConfigPageList, PageConfigResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminUrls } from '../../../api';
 
 
@@ -38,8 +38,6 @@ export class AdminWechatPageconfigService {
   }
 
 
-
-
   //可配置的页面
   pageList(): Observable<ConfigPageList> {
     return this.httpClient.get<ConfigPageList>(this.urls.GetWeChatConfigPageList, httpOptions)
@@ -49,24 +47,23 @@ export class AdminWechatPageconfigService {
   }
 
 
+  // 添加
+  addPageConfig(addPageConfigRequestModel: AddPageConfigRequestModel): Observable<PageConfigResponseModel> {
+    return this.httpClient.post<PageConfigResponseModel>(this.urls.PostWeChatPageConfigCreate, addPageConfigRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
-  // 注册
-  // register(registerRequestModel: RegisterRequestModel): Observable<RegisterResponseModel> {
-  //   return this.httpClient.post<RegisterResponseModel>(this.urls.PostAdminAccountCreate, registerRequestModel, httpOptions)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
 
-
-  // // 更新
-  // updateUser(updateRequestModel: UpdateRequestModel): Observable<any> {
-  //   const id = updateRequestModel.admin_id;
-  //   return this.httpClient.put(this.urls.PutAdminAccountUpdate + id, updateRequestModel, httpOptions)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
+  //更新
+  updatePageConfig(updatePageConfigRequestModel: AddPageConfigRequestModel): Observable<any> {
+    const id = updatePageConfigRequestModel.id;
+    return this.httpClient.put(this.urls.PutWeChatPageConfigUpdate + id, updatePageConfigRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   // // 详情

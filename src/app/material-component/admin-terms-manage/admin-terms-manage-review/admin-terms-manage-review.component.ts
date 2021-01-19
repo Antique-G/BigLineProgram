@@ -25,7 +25,7 @@ export class AdminTermsManageReviewComponent implements OnInit {
     this.addForm = this.fb.group({
       title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
       check_status: new FormControl({ value: this.data.check_status }, Validators.required),
-      reason: new FormControl(this.data.reason)
+      reason: new FormControl(this.data?.reason)
 
     });
     this.adminTermsManagementSetCheckRequestModel = {
