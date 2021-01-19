@@ -224,17 +224,24 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   // 集合地点
   getAccemList() {
     this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
-      for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
-        if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
-          this.assemblingPlaceList.push(a);
-        }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
-          this.assemblingPlaceList.push(a);
+      console.log("集合地点", res.data);
+      if (res.data.length === 0) {
+        this.assemblingPlaceList = [];
+      }
+      else{
+        for (let i of res.data) {
+          console.log("集合地点ii", i,i.time_state === 0);
+          if (i.time_state === 0) {
+            let a = { value: i.id, label: i.name,time:i.time};
+            this.assemblingPlaceList.push(a);
+          }
+          else if (i.time_state ===1) {
+            let a = { value: i.id, label: i.name,time:'' };
+            this.assemblingPlaceList.push(a);
+          }
         }
       }
+
       console.log(this.destinationPalce, ' this.destinationPalce');
     });
   }

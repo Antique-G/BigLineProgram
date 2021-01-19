@@ -151,7 +151,10 @@ export class StoreProductInfoComponent implements OnInit {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.getCateList();
+  }
 
+  ngAfterViewInit(): void {
+    this.textChange();
   }
 
   // 标签分类列表
@@ -168,6 +171,7 @@ export class StoreProductInfoComponent implements OnInit {
       else if (name2 === '跟团游') {
         this.cateId = res.data[1].id
       }
+
       this.getTagList();
     })
   }
@@ -198,18 +202,24 @@ export class StoreProductInfoComponent implements OnInit {
   getAccemList() {
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
-      for (let i of res.data) {
-        console.log("集合地点ii", i, i.time_state === 0);
-        if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name, time: i.time };
-          this.assemblingPlaceList.push(a);
-        }
-        else if (i.time_state === 1) {
-          let a = { value: i.id, label: i.name, time: '' };
-          this.assemblingPlaceList.push(a);
+      if (res.data.length === 0) {
+        this.assemblingPlaceList = [];
+      }
+      else {
+        for (let i of res.data) {
+          console.log("集合地点ii", i, i.time_state === 0);
+          if (i.time_state === 0) {
+            let a = { value: i.id, label: i.name, time: i.time };
+            this.assemblingPlaceList.push(a);
+          }
+          else if (i.time_state === 1) {
+            let a = { value: i.id, label: i.name, time: '' };
+            this.assemblingPlaceList.push(a);
+          }
         }
       }
-      this.textChange();
+      console.log("this.assemblingPlaceList", this.assemblingPlaceList)
+
     });
 
   }
@@ -370,7 +380,7 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   refreshPlace() {
-    this.storeProductService.productAssemblingPlaceList('', '').subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);
