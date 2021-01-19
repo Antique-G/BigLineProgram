@@ -62,6 +62,8 @@ import { AdminSaleTitleDetailComponent } from './admin-sale-title/admin-sale-tit
 import { AdminSaleTitleStatusComponent } from './admin-sale-title/admin-sale-title-status/admin-sale-title-status.component';
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
 import { AdminProductFreeReviewComponent } from './admin-product/admin-produc-free-travel/admin-product-free-review/admin-product-free-review.component';
+import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
+import { AdminWechatPageblockComponent } from './admin-wechat-pageblock/admin-wechat-pageblock.component';
 
 @NgModule({
   imports: [
@@ -142,6 +144,8 @@ import { AdminProductFreeReviewComponent } from './admin-product/admin-produc-fr
     AdminSaleTitleStatusComponent,
     AdminInsuranceComponent,
     AdminProductFreeReviewComponent,
+    AdminWechatPageconfigComponent,
+    AdminWechatPageblockComponent,
   ]
 })
 export class MaterialComponentsModule {}
