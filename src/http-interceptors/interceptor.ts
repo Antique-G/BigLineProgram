@@ -77,99 +77,103 @@ export class Interceptor implements HttpInterceptor {
           if (error instanceof HttpErrorResponse) {
             switch (error.status) {
               case 401:
-                  console.log("当前页", window.location.pathname)
-                  if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
-                    // alert(error.error.message);
-                    this.createFail(error.error.message)
+                console.log("当前页", window.location.pathname)
+                if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
+                  // alert(error.error.message);
+                  this.createFail(error.error.message)
+                }
+                else {
+                  alert('token已过期，请重新登陆');
+                  if (pathName === 'admin') {
+                    this.router.navigate(['/admin/login']);
                   }
-                  else {
-                    alert('token已过期，请重新登陆');
-                    if (pathName === 'admin') {
-                      this.router.navigate(['/admin/login']);
-                    }
-                    else if (pathName === 'store') {
-                      this.router.navigate(['/store/login']);
-                    }
+                  else if (pathName === 'store') {
+                    this.router.navigate(['/store/login']);
                   }
+                }
                 break;
               case 500:
               case 504:
               case 404:
-                  this.createFail(error.message)
-                  break;
+                this.createFail(error.message)
+                break;
               case 422:
-                  console.log("弹出的错误", error.error.errors);
-                  let errorObj = error.error.errors;
-                  for (let key in errorObj) {
-                      this.createFail(errorObj[key])
-    
-                    // alert(errorObj[key]);
-                  }
-                  console.log("422", localStorage.getItem('userToken'));
-                  const oldToken = (localStorage.getItem('userToken')!);
-                  localStorage.setItem('userToken', oldToken);
-                  break;
+                console.log("弹出的错误", error.error.errors);
+                let errorObj = error.error.errors;
+                for (let key in errorObj) {
+                  this.createFail(errorObj[key])
+
+                  // alert(errorObj[key]);
+                }
+                console.log("422", localStorage.getItem('userToken'));
+                const oldToken = (localStorage.getItem('userToken')!);
+                localStorage.setItem('userToken', oldToken);
+                break;
               case 400:
               case 403:
-                  this.createFail(error.error.message)
-                  break;
+                this.createFail(error.error.message)
+                break;
+              case 442:
+                console.log("弹出的错误", error.error.message);
+                this.createFail(error.error.message)
+                break;
               default:
-                  this.createFail('未知错误')
-                  break;
+                this.createFail('未知错误')
+                break;
             }
-                // if (error.status == 401) {
-                //   console.log("当前页", window.location.pathname)
-                //   if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
-                //     // alert(error.error.message);
-                //     this.createFail(error.error.message)
-                //   }
-                //   else {
-                //     alert('token已过期，请重新登陆');
-                //     if (pathName === 'admin') {
-                //       this.router.navigate(['/admin/login']);
-                //     }
-                //     else if (pathName === 'store') {
-                //       this.router.navigate(['/store/login']);
-                //     }
-                //   }
-                // }
-                // else if (error.status == 500) {
-                //   this.createFail(error.message)
+            // if (error.status == 401) {
+            //   console.log("当前页", window.location.pathname)
+            //   if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
+            //     // alert(error.error.message);
+            //     this.createFail(error.error.message)
+            //   }
+            //   else {
+            //     alert('token已过期，请重新登陆');
+            //     if (pathName === 'admin') {
+            //       this.router.navigate(['/admin/login']);
+            //     }
+            //     else if (pathName === 'store') {
+            //       this.router.navigate(['/store/login']);
+            //     }
+            //   }
+            // }
+            // else if (error.status == 500) {
+            //   this.createFail(error.message)
 
-                //   // alert(error.message);
-                // }
-                // else if (error.status == 504) {
-                //   this.createFail(error.message)
+            //   // alert(error.message);
+            // }
+            // else if (error.status == 504) {
+            //   this.createFail(error.message)
 
-                //   // alert(error.message);
-                // }
-                // else if (error.status == 422) {
-                //   console.log("弹出的错误", error.error.errors);
-                //   let errorObj = error.error.errors;
-                //   for (let key in errorObj) {
-                //   this.createFail(errorObj[key])
+            //   // alert(error.message);
+            // }
+            // else if (error.status == 422) {
+            //   console.log("弹出的错误", error.error.errors);
+            //   let errorObj = error.error.errors;
+            //   for (let key in errorObj) {
+            //   this.createFail(errorObj[key])
 
-                //     // alert(errorObj[key]);
-                //   }
-                //   console.log("422", localStorage.getItem('userToken'));
-                //   const oldToken = (localStorage.getItem('userToken')!);
-                //   localStorage.setItem('userToken', oldToken);
-                // }
-                // else if (error.status == 400) {
-                //   // alert(error.error.message);
-                //   this.createFail(error.error.message)
-                  
-                // }
-                // else if (error.status == 403) {
-                //   this.createFail(error.error.message)
+            //     // alert(errorObj[key]);
+            //   }
+            //   console.log("422", localStorage.getItem('userToken'));
+            //   const oldToken = (localStorage.getItem('userToken')!);
+            //   localStorage.setItem('userToken', oldToken);
+            // }
+            // else if (error.status == 400) {
+            //   // alert(error.error.message);
+            //   this.createFail(error.error.message)
 
-                //   // alert(error.error.message);
-                // }
-                // else if (error.status == 404) {
-                //   this.createFail(error.message)
+            // }
+            // else if (error.status == 403) {
+            //   this.createFail(error.error.message)
 
-                //   // alert(error.message);
-                // }
+            //   // alert(error.error.message);
+            // }
+            // else if (error.status == 404) {
+            //   this.createFail(error.message)
+
+            //   // alert(error.message);
+            // }
           }
         }
       )
@@ -219,12 +223,12 @@ export class Interceptor implements HttpInterceptor {
 
 
 
-  createFail(content:any): void {
+  createFail(content: any): void {
     this.modal['error']({
       nzMask: true,
       nzTitle: "<h3>错误提示</h3>",
       nzContent: `<h5>${content}</h5>`,
-      nzStyle: { position: 'fixed', top: `70px`, left: `40%`,zIndex:1000}
+      nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
       // ,transform:translate 
     })
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
