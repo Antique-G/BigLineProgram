@@ -44,7 +44,8 @@
                 <div nz-row>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="reason">审核失败原因</nz-form-label>
                     <nz-form-control [nzSm]="19" [nzXs]="24">
-                        <input nz-input formControlName="reason" />
+                        <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+
                     </nz-form-control>
                 </div>
             </nz-form-item>

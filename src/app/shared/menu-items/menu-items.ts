@@ -62,7 +62,14 @@ const MENUITEMS = [
   //   children: [
   //     { state: 'insurance', name: '保险' },
   //   ]
-  // }
+  // },
+  // {
+  //   title: '小程序模块', icon: 'wechat',
+  //   children: [
+  //     { state: 'pageConfig', name: '页面设置' },
+  //     { state: 'pageBlock', name: '页面模块设置' }
+  //   ]
+  // },
 
 ];
 

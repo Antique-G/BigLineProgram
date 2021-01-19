@@ -19,6 +19,8 @@ import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term
 import { AdminOrderComponent } from './admin-order/admin-order.component';
 import { AdminSaleTitleComponent } from './admin-sale-title/admin-sale-title.component';
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
+import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
+import { AdminWechatPageblockComponent } from './admin-wechat-pageblock/admin-wechat-pageblock.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -156,6 +158,23 @@ export const MaterialRoutes: Routes = [
         component: AdminInsuranceComponent,
         data: {
           breadcrumb: '保险管理列表'
+        }
+      },
+
+
+
+      {
+        path: 'pageConfig',
+        component: AdminWechatPageconfigComponent,
+        data: {
+          breadcrumb: '小程序页面设置列表'
+        }
+      },
+      {
+        path: 'pageBlock',
+        component: AdminWechatPageblockComponent,
+        data: {
+          breadcrumb: '小程序页面模块设置列表'
         }
       },
     ]

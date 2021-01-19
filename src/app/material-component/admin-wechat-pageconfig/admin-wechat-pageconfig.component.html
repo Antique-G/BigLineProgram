@@ -1,0 +1,82 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>禁用</mat-option>
+                                        <mat-option value=1>启用</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=30>
+                                <mat-form-field>
+                                    <mat-label required>页面名称</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入页面名称">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex=30>
+                                <mat-form-field>
+                                    <mat-label required>页面key</mat-label>
+                                    <input matInput value="" formControlName="key" placeholder="请输入页面key">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">区域编码</th>
+                                    <th style="text-align: center;">页面名称</th>
+                                    <th style="text-align: center;">页面对应的key</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data?.region_code}}</td>
+                                    <td>{{data.page_name}}</td>
+                                    <td>{{data.page_key}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            禁用
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            启用
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                                            <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
+                                                <mat-icon>edit</mat-icon>
+                                            </div>
+                                            <div style="cursor: pointer;">
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

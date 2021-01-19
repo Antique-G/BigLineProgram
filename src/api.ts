@@ -52,7 +52,7 @@ export const AdminUrls = {
   PostAdminProductSetStatus: api + '/admin/products/set_status', //产品的上架/下架
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
   GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
-  
+
 
 
   GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
@@ -63,7 +63,7 @@ export const AdminUrls = {
   // 自由行日期报价
   GetAddminFreeTravelQuteDateList: api + '/admin/independent_date_quotes',
   GetAddminFreeTravelQuteDateCheck: api + '/admin/indent_date_quotes/set_check',
- 
+
   GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
 
   GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
@@ -84,6 +84,15 @@ export const AdminUrls = {
   PutAdminSaleTitleStatus: api + '/admin/sale/title/status/',   // 销售头衔审核
 
   GetAdminInsuranceList: api + '/admin/insurance',   // 保险列表
+
+
+
+
+  // 小程序
+  GetWeChatPageConfigList: api + '/admin/page_config',  // 页面设置列表
+  PostWeChatPageConfigCreate: api + '/admin/page_config',   // 添加
+  PutWeChatPageConfigUpdate: api + '/admin/page_config/',   // 修改
+  GetWeChatConfigPageList: api + '/admin/page_list',  // 可配置列表
 
 };
 
