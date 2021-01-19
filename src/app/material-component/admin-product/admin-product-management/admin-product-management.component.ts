@@ -129,7 +129,8 @@ export class AdminProductManagementComponent implements OnInit {
   // 审核日志
   viewLog(data: any) {
     this.adminProductManagementService.checkLog(data.id).subscribe(res => {
-      console.log("122", res[0]?.reason);
+      console.log("122", res);
+      console.log("24452", res[0]);
       this.isReason = res[0]?.reason;
     })
   }

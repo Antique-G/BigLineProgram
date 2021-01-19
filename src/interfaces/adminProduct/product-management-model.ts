@@ -190,10 +190,6 @@ export interface ProductQuteDateModel {
 
 
 export interface CheckLogModule {
-  data: LogModel[];
-}
-
-export interface LogModel {
   id: number;
   product_id: number;
   check_status: number;
