@@ -63,7 +63,9 @@ import { AdminSaleTitleStatusComponent } from './admin-sale-title/admin-sale-tit
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
 import { AdminProductFreeReviewComponent } from './admin-product/admin-produc-free-travel/admin-product-free-review/admin-product-free-review.component';
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
-import { AdminWechatPageblockComponent } from './admin-wechat-pageblock/admin-wechat-pageblock.component';
+import { AdminWechatPageconfigCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig-create/admin-wechat-pageconfig-create.component';
+import { AdminWechatPageconfigDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig-detail/admin-wechat-pageconfig-detail.component';
+import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
 
 @NgModule({
   imports: [
@@ -145,6 +147,8 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageblock/admin-we
     AdminInsuranceComponent,
     AdminProductFreeReviewComponent,
     AdminWechatPageconfigComponent,
+    AdminWechatPageconfigCreateComponent,
+    AdminWechatPageconfigDetailComponent,
     AdminWechatPageblockComponent,
   ]
 })
