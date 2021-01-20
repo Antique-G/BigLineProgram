@@ -100,7 +100,7 @@ export class AdminWechatPageconfigComponent implements OnInit {
 
   edit(data: any) {
     const addmodal = this.modal.create({
-      nzTitle: '添加页面设置',
+      nzTitle: '修改页面设置',
       nzContent: AdminWechatPageconfigDetailComponent,
       nzComponentParams: {
         data: data
@@ -122,7 +122,7 @@ export class AdminWechatPageconfigComponent implements OnInit {
 
 
    redirectTo(data:any){
-    this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: data.id } });
+    this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: data.page_id } });
    }
 
 }

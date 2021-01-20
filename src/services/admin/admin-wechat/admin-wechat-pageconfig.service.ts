@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { AddPageConfigRequestModel, ConfigPageList, PageConfigResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
+import { AddBlockRequestModel, AddPageConfigRequestModel, BlockTypeRequestModel, ConfigPageList, PageConfigResponseModel, WeChatPageBlockListResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminUrls } from '../../../api';
 
 
@@ -66,14 +66,51 @@ export class AdminWechatPageconfigService {
   }
 
 
-  // // 详情
-  // accountDetail(id: any): Observable<AdminDetailModel> {
-  //   return this.httpClient.get<AdminDetailModel>(this.urls.GetAdminDetail + id, httpOptions)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
+  // 页面模块列表
+  pageBlockList(page: number, per_page: number, status: any, page_id: any, block_name: any, block_key: any): Observable<WeChatPageBlockListResponseModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
+      .set('page_id', page_id)
+      .set('block_name', block_name ? block_name : '')
+      .set('block_key', block_key ? block_key : '');
 
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<WeChatPageBlockListResponseModel>(this.urls.GetWeChatPageBlockList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 添加
+  addPageBlock(addBlockRequestModel: AddBlockRequestModel): Observable<PageConfigResponseModel> {
+    return this.httpClient.post<PageConfigResponseModel>(this.urls.PostWeChatPageBlockCreate, addBlockRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  //更新
+  updatePageBlock(addBlockRequestModel: AddBlockRequestModel): Observable<any> {
+    const id = addBlockRequestModel.id;
+    return this.httpClient.put(this.urls.PutWeChatPageBlockUpdate + id, addBlockRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 可配置列表
+  typeList(): Observable<BlockTypeRequestModel> {
+    return this.httpClient.get<BlockTypeRequestModel>(this.urls.GetWeChatBlockTypePageList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
 
