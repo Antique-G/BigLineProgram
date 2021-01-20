@@ -71,3 +71,60 @@ export interface DetailModel {
   updated_at: string;
   status: number;
 }
+
+
+
+// 模块配置
+export interface WeChatPageBlockListResponseModel {
+  current_page: number;
+  data: DatumBlockModel[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: LinkBlockModel[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+export interface LinkBlockModel {
+  url?: string;
+  label: number | string;
+  active: boolean;
+}
+
+export interface DatumBlockModel {
+  block_id: number;
+  page_id: number;
+  block_name: string;
+  block_key: string;
+  type: number;
+  num: number;
+  status: number;
+  created_at: string;
+  updated_at: string;
+  content: string;
+}
+
+export interface AddBlockRequestModel {
+  page_id: string;
+  block_name: string;
+  block_key: string;
+  type: number;
+  status: number;
+  content: any[];
+  id?: any;
+}
+
+export interface BlockTypeRequestModel {
+  data: DatumTypeListModel[];
+}
+
+interface DatumTypeListModel {
+  name: string;
+  id: number;
+}

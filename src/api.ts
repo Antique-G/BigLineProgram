@@ -94,7 +94,11 @@ export const AdminUrls = {
   PostWeChatPageConfigCreate: api + '/admin/page_config',   // 添加
   PutWeChatPageConfigUpdate: api + '/admin/page_config/',   // 修改
   GetWeChatConfigPageList: api + '/admin/page_list',  // 可配置列表
-
+  
+  GetWeChatPageBlockList: api + '/admin/page_block',  // 页面模块列表
+  PostWeChatPageBlockCreate: api + '/admin/page_block',   // 添加
+  PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
+  GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
 };
 
 
