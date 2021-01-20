@@ -25,8 +25,8 @@ export class AdminWechatPageconfigService {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
-      .set('page_name', page_name)
-      .set('page_key', page_key);
+      .set('page_name', page_name ? page_name : '')
+      .set('page_key', page_key ? page_key : '');
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -58,8 +58,8 @@ export class AdminWechatPageconfigService {
 
   //更新
   updatePageConfig(updatePageConfigRequestModel: AddPageConfigRequestModel): Observable<any> {
-    const id = updatePageConfigRequestModel.id;
-    return this.httpClient.put(this.urls.PutWeChatPageConfigUpdate + id, updatePageConfigRequestModel, httpOptions)
+    const page_id = updatePageConfigRequestModel.page_id;
+    return this.httpClient.put(this.urls.PutWeChatPageConfigUpdate + page_id, updatePageConfigRequestModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

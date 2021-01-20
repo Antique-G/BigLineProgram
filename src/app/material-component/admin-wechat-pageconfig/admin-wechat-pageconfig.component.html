@@ -19,8 +19,9 @@
                             </div>
                             <div fxFlex=15>
                                 <mat-form-field>
-                                    <mat-label required>页面名称</mat-label>
+                                    <mat-label>页面名称</mat-label>
                                     <mat-select formControlName="name" placeholder="请选择页面名称" (ngModelChange)="changeList($event)">
+                                        <nz-option nzValue="" nzLabel="全部"></nz-option>
                                         <mat-option *ngFor="let data of dataList" [value]="data">{{data.page_name}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -28,7 +29,7 @@
 
                             <div fxFlex=30>
                                 <mat-form-field>
-                                    <mat-label required>页面key</mat-label>
+                                    <mat-label>页面key</mat-label>
                                     <input matInput [(value)]="isValue" formControlName="key">
                                 </mat-form-field>
                             </div>
@@ -55,7 +56,9 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data?.region_code}}</td>
-                                    <td>{{data.page_name}}</td>
+                                    <td>
+                                        <a (click)="redirectTo(data)">{{data.page_name}}</a>
+                                    </td>
                                     <td>{{data.page_key}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">

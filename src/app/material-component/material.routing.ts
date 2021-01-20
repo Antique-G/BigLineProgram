@@ -20,7 +20,7 @@ import { AdminOrderComponent } from './admin-order/admin-order.component';
 import { AdminSaleTitleComponent } from './admin-sale-title/admin-sale-title.component';
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
-import { AdminWechatPageblockComponent } from './admin-wechat-pageblock/admin-wechat-pageblock.component';
+import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
 
 export const MaterialRoutes: Routes = [
 

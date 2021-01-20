@@ -49,7 +49,7 @@ export interface AddPageConfigRequestModel {
   page_name: string;
   page_key: string;
   status: string;
-  id?: number;
+  page_id?: any;
 }
 
 export interface PageConfigResponseModel {

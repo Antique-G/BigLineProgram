@@ -1,7 +1,11 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminWechatPageconfigService } from '../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
+import { AdminWechatPageconfigCreateComponent } from './admin-wechat-pageconfig-create/admin-wechat-pageconfig-create.component';
+import { AdminWechatPageconfigDetailComponent } from './admin-wechat-pageconfig-detail/admin-wechat-pageconfig-detail.component';
 
 @Component({
   selector: 'app-admin-wechat-pageconfig',
@@ -17,26 +21,26 @@ export class AdminWechatPageconfigComponent implements OnInit {
   page_name: any;
   page_key: any;
   loading = false;
-  status = '0';
+  status: any;
   dataList: any[] = [];
   isValue: any;
 
 
 
-  constructor(public dialog: MatDialog, public fb: FormBuilder, public adminWechatPageconfigService: AdminWechatPageconfigService) {
+  constructor(public dialog: MatDialog, public fb: FormBuilder, private modal: NzModalService,
+    public adminWechatPageconfigService: AdminWechatPageconfigService,public router:Router) {
     this.searchForm = this.fb.group({
       status: [''],
-      name: ['', [Validators.required]],
-      key: ['', [Validators.required]],
+      name: [''],
+      key: [''],
     })
   }
 
   ngOnInit(): void {
     // 可配置的页面
     this.adminWechatPageconfigService.pageList().subscribe(res => {
-      console.log("结果是", res.data);
       this.dataList = res.data;
-      console.log("结果是this.dataList", this.dataList);
+      this.pageConfigList();
     })
   }
 
@@ -67,9 +71,6 @@ export class AdminWechatPageconfigComponent implements OnInit {
   }
 
 
-  edit(data: any) { }
-
-
   changeList(event: any) {
     console.log("event", event);
     this.page_name = event.page_name;
@@ -77,8 +78,51 @@ export class AdminWechatPageconfigComponent implements OnInit {
     this.isValue = this.page_key;
   }
 
-  add(){
-    
+
+  add() {
+    const addmodal = this.modal.create({
+      nzTitle: '添加页面设置',
+      nzContent: AdminWechatPageconfigCreateComponent,
+      nzFooter: [
+        {
+          label: '添加',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.add()
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this. pageConfigList();
+    })
   }
+
+  edit(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '添加页面设置',
+      nzContent: AdminWechatPageconfigDetailComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.update()
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this. pageConfigList();
+    })
+   }
+
+
+   redirectTo(data:any){
+    this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: data.id } });
+   }
 
 }
