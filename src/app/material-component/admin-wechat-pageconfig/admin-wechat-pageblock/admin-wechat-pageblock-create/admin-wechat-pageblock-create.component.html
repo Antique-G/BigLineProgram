@@ -29,8 +29,8 @@
 
                 <div *ngIf="isTypeId===2" formGroupName="imageList">
                     <nz-form-item>
-                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title" nzRequired>title</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入title">
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title" nzRequired>图片名称</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入图片名称">
                             <input nz-input formControlName="title" />
                         </nz-form-control>
                     </nz-form-item>
@@ -46,8 +46,8 @@
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="imgUrl" nzRequired>url </nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入url ">
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="imgUrl" nzRequired>跳转链接</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入跳转链接 ">
                             <input nz-input formControlName="imgUrl" />
                         </nz-form-control>
                     </nz-form-item>
@@ -55,8 +55,8 @@
 
                 <div *ngIf="isTypeId===3" formGroupName="sortList">
                     <nz-form-item>
-                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>name</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入name">
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>分类名称</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入分类名称">
                             <input nz-input formControlName="name" />
                         </nz-form-control>
                     </nz-form-item>
@@ -72,7 +72,7 @@
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="sortUrl" nzRequired>url </nz-form-label>
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="sortUrl" nzRequired>跳转链接 </nz-form-label>
                         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入url ">
                             <input nz-input formControlName="sortUrl" />
                         </nz-form-control>

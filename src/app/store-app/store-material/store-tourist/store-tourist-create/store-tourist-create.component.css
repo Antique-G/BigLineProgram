@@ -1,0 +1,37 @@
+[nz-form] {
+    max-width: 800px;
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}
+
+.btn {
+    background: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    margin-left: 3px;
+    cursor: pointer;
+    width: 120px;
+    text-align: center;
+}
+
+.btn1 {
+    border-color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    border: none;
+    color: red;
+    border-radius: 4px;
+    margin-left: 3px;
+    width: 120px;
+    text-align: center;
+}
