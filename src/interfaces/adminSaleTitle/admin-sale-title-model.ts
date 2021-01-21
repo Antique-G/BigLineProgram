@@ -54,7 +54,7 @@ export interface AdminSaleTitleListRequestModel {
     status_code?: string;
   }
 
-  export interface SaleTitleDetailtModel {
+  export interface SaleTitleDetailModel {
     id:number;
     title: string;
     reward_rate: number;

@@ -69,6 +69,9 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-w
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
 
+import { AdminInsuranceDetailComponent } from './admin-insurance/admin-insurance-detail/admin-insurance-detail.component';
+import { AdminInsuranceStatusComponent } from './admin-insurance/admin-insurance-status/admin-insurance-status.component';
+import { AdminInsuranceCreateComponent } from './admin-insurance/admin-insurance-create/admin-insurance-create.component';
 
 @NgModule({
   imports: [
@@ -155,6 +158,9 @@ import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/a
     AdminWechatPageblockComponent,
     AdminWechatPageblockCreateComponent,
     AdminWechatPageblockDetailComponent,
+    AdminInsuranceDetailComponent,
+    AdminInsuranceStatusComponent,
+    AdminInsuranceCreateComponent,
   ]
 })
 export class MaterialComponentsModule {}

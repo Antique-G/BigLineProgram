@@ -1,0 +1,38 @@
+<div fxLayoutWrap="wrap">
+  <div style="padding:  5px;">
+      <form nz-form [formGroup]="validateForm">
+          <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>保险名称</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
+                  <input nz-input formControlName="name" placeholder="请输入保险名称！" />
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item style="margin-bottom: 0px;">
+              <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="phone" nzRequired>保险价格 </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24"  nzErrorTip="请输入价格！">
+                  <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index" >
+                      <nz-form-control [nzSm]="24" [nzXs]="24" style="margin-bottom: 20px;">
+                          <ng-template #prefix>
+                              <span>第{{dateIndex+1}}天</span>
+                          </ng-template>
+                          <nz-input-group [nzAddOnBefore]="prefix" nzPrefix="￥" [nzAddOnAfter]="suffixIconButton">
+                              <input nz-input placeholder="请输入保险价格！" [formControlName]="dateIndex" />
+                          </nz-input-group>
+                          <ng-template #suffixIconButton >
+                              <i nz-icon nzType="minus" style="cursor: pointer;" (click)="remove(dateIndex)"></i>
+                          </ng-template>
+                      </nz-form-control>
+                  </nz-row>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+              <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 14, offset: 6 }">
+                <button nz-button nzType="dashed" class="add-button" (click)="add()">
+                  <i nz-icon nzType="plus"></i>
+                  添加更多
+                </button>
+              </nz-form-control>
+          </nz-form-item>
+      </form>
+  </div>
+</div>
