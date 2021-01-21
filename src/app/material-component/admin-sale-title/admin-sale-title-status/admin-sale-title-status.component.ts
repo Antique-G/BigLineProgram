@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminSaleTitleService } from '../../../../services/admin/admin-sale-title.service';
-import { SaleTitleDetailtModel, SaleTitleStatusReviewRequestModel } from '../../../../interfaces/adminSaleTitle/admin-sale-title-model';
+import { SaleTitleDetailModel, SaleTitleStatusReviewRequestModel } from '../../../../interfaces/adminSaleTitle/admin-sale-title-model';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
@@ -12,7 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class AdminSaleTitleStatusComponent implements OnInit {
   addForm!: FormGroup;
-  saleTitleDetailModel:SaleTitleDetailtModel;
+  saleTitleDetailModel:SaleTitleDetailModel;
   saleTitleStatusReviewRequestModel:SaleTitleStatusReviewRequestModel;
 
   precision = 2;

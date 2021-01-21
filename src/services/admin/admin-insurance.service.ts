@@ -1,5 +1,5 @@
 import { catchError } from 'rxjs/operators';
-import { AdminInsuranceListResponseModel } from '../../interfaces/adminInsurance/admin-insurance-model';
+import { AdminInsuranceCreateRequestModel, AdminInsuranceListResponseModel, AdminInsuranceUpdateRequestModel } from '../../interfaces/adminInsurance/admin-insurance-model';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -31,6 +31,48 @@ export class AdminInsuranceService {
       catchError(this.handleError)
     )
   }
+
+  //保险添加
+  addAdminInsurance(adminInsuranceCreateRequestModel:AdminInsuranceCreateRequestModel):Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminInsuranceCreate,adminInsuranceCreateRequestModel,httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  //保险详情
+  getAdminInsuranceDetail(id:any) {
+    return this.httpClient.get<any>(this.urls.GetAdminInsuranceDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+ //保险详情更新
+  insuranceUpdate(adminInsuranceUpdateRequestModel:AdminInsuranceUpdateRequestModel):Observable<any>{
+    const id = adminInsuranceUpdateRequestModel.id;
+    return this.httpClient.put(this.urls.PutAdminInsuranceUpdate + id, adminInsuranceUpdateRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+    }
+    
+  //保险状态修改
+  insuranceStatus(data:any):Observable<any>{
+    return this.httpClient.post(this.urls.PostAdminInsuranceStatus, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  //删除
+  deleteInsurance(id: any):Observable<any> {
+    return this.httpClient.delete<any>(this.urls.DeleteAdminInsurance + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

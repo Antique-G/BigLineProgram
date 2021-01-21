@@ -99,6 +99,11 @@ export const AdminUrls = {
   PostWeChatPageBlockCreate: api + '/admin/page_block',   // 添加
   PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
   GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
+  PostAdminInsuranceCreate: api + '/admin/insurance',   // 保险添加
+  GetAdminInsuranceDetail: api + '/admin/insurance/',   // 保险详情
+  PutAdminInsuranceUpdate: api + '/admin/insurance/',   // 保险详情更新
+  PostAdminInsuranceStatus: api + '/admin/insurance/set_status',   // 保险状态修改
+  DeleteAdminInsurance: api + '/admin/insurance/',       //删除
 };
 
 

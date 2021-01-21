@@ -1,0 +1,21 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>保险名称</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="name" placeholder="请输入保险名称！" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group ngModel={{insuranceDetailModel.status}} formControlName="status">
+                        <label nz-radio nzValue=0>禁用 </label>
+                        <label nz-radio nzValue=1>开启</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>    

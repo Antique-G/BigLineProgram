@@ -3,10 +3,9 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <!-- <div>
+                    <div>
                         <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
-                    </div> -->
-
+                    </div>
                     <form [formGroup]="searchForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
@@ -20,7 +19,7 @@
                             </div>
                             <div fxFlex=50>
                                 <mat-form-field>
-                                    <mat-label>销售头衔</mat-label>
+                                    <mat-label>保险名称</mat-label>
                                     <input matInput value="" formControlName="name" placeholder="请输入关键字">
                                 </mat-form-field>
 
@@ -38,21 +37,23 @@
                             <thead>
                                 <tr>
                                     <th>保险名称</th>
-                                    <!-- <th>价格</th> -->
+                                    <th>价格</th>
                                     <th>状态</th>
                                     <th>操作</th>
+                                    <th>修改状态</th>
+                                    <th>删除</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.name}}</td>
-                                    <!-- <td>{{data.insured_date}}</td> -->
+                                    <td>{{data.insured_date}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
-                                            未通过
+                                            禁用
                                         </div>
                                         <div *ngIf="data.status===1">
-                                            通过
+                                            开启
                                         </div>
                                     </td>
                                     <td>
@@ -60,10 +61,19 @@
                                             <mat-icon>edit</mat-icon>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="statusEdit(data)">
+                                            <mat-icon>assignment_ind</mat-icon>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="delete(data)">
+                                            <mat-icon>delete</mat-icon>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </nz-table>
-
                     </div>
                 </div>
             </div>

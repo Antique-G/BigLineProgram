@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AdminSaleTitleService } from '../../../../services/admin/admin-sale-title.service';
-import { SaleTitleDetailtModel, SaleTitleUpdateRequestModel } from '../../../../interfaces/adminSaleTitle/admin-sale-title-model';
+import { SaleTitleDetailModel, SaleTitleUpdateRequestModel } from '../../../../interfaces/adminSaleTitle/admin-sale-title-model';
 import { isclearNoNum } from '../../../../app/util/validators';
 
 @Component({
@@ -12,7 +12,7 @@ import { isclearNoNum } from '../../../../app/util/validators';
 })
 export class AdminSaleTitleDetailComponent implements OnInit {
   addForm!: FormGroup;
-  saleTitleDetailModel:SaleTitleDetailtModel;
+  saleTitleDetailModel:SaleTitleDetailModel;
   saleTitleUpdateRequestModel:SaleTitleUpdateRequestModel;
 
   precision = 2;

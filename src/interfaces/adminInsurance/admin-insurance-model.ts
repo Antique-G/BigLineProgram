@@ -34,3 +34,29 @@ export  interface Datum {
     created_at: string;
     updated_at: string;
   }
+
+  export interface InsuranceDetailModel {
+    id:number;
+    name: string;
+    insured_date: number[];
+    status: number;
+  }
+  export interface AdminInsuranceStatusResponseModel {
+    id:number;
+    status: number;
+  }
+
+  export interface AdminInsuranceCreateRequestModel {
+    name: string;
+    insured_date: number[];
+    status: number;
+  }
+  export interface AdminInsuranceCreateResponseModel {
+    status_code?: any
+  }
+  export interface AdminInsuranceUpdateRequestModel {
+    id:number;
+    name: string;
+    insured_date: number[];
+    status: number;
+  }
