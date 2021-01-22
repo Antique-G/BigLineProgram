@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { AddBlockRequestModel } from '../../../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminWechatPageconfigService } from '../../../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
 
@@ -19,17 +23,20 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   status = '1';
   page_id: any;
 
-
   // 上传图片
-  fileList: any[] = [];
   iconList: any[] = [];
+  result: any[] = [];
+
+  firmwareFileList: NzUploadFile[] = [];   // 上传文件列表
+
+
 
   addBlockRequestModel: AddBlockRequestModel;
 
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,
-    public adminWechatPageconfigService: AdminWechatPageconfigService,) {
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, 
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,) {
     this.forms();
-    this.addBlockRequestModel={
+    this.addBlockRequestModel = {
       page_id: '',
       block_name: '',
       block_key: '',
@@ -47,12 +54,12 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       type: ['', [Validators.required]],
       status: [1],
       imageList: this.fb.group({
-        title:[''],
-        imgUrl:[''],
+        title: [''],
+        imgUrl: [''],
       }),
       sortList: this.fb.group({
-        name:[''],
-        sortUrl:[''],
+        name: [''],
+        sortUrl: [''],
       }),
     });
   }
@@ -69,37 +76,15 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   }
 
 
-  
+
   setValue() {
-    this.addBlockRequestModel.page_id =  this.page_id ;
+    this.addBlockRequestModel.page_id = this.page_id;
     this.addBlockRequestModel.block_name = this.addForm.value.name;
     this.addBlockRequestModel.block_key = this.addForm.value.key;
     this.addBlockRequestModel.status = this.addForm.value.status;
-    this.addBlockRequestModel.type=this.isTypeId;
-    // TODO
-    // if(this.addBlockRequestModel.type===2){
-    //   this.addBlockRequestModel.content=[{title:this.addForm.controls['imageList'].}];
-    // }
-    this.addBlockRequestModel.content=[{title:'',img:'',url:''}]
+    this.addBlockRequestModel.type = this.isTypeId;
+    this.addBlockRequestModel.content = [{ title: '', img: '', url: '' }]
   }
-
-
-
-  add() { 
-    this.setValue();
-    console.log("提交的model是什么", this.addBlockRequestModel);
-    for (const i in this.addForm.controls) {
-      this.addForm.controls[i].markAsDirty();
-      this.addForm.controls[i].updateValueAndValidity();
-    }
-    console.log("this.addForm.valid", this.addForm)
-    if (this.addForm.valid) {
-      this.adminWechatPageconfigService.addPageBlock(this.addBlockRequestModel).subscribe(res=>{
-
-      })
-    }
-  }
-
 
 
   changeType(event: any) {
@@ -109,6 +94,55 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
 
 
 
-  
+
+  add() {
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    if (this.addForm.valid) {
+      this.isSpinning = true;
+    }
+
+
+
+  }
+
+
+  // 上传
+  beforeUpload = (file: NzUploadFile): any => {
+    this.firmwareFileList = this.firmwareFileList.concat(file);
+  }
+
+  firmwareFileCustomRequest = (file: any) => {
+    console.log("file是什么", file)
+    const fd = new FormData();
+    fd.append("image", file.file as any);
+    fd.append('title', '');
+    console.log('dddddd', fd);
+    this.adminWechatPageconfigService.uploadImg(fd).subscribe((event: HttpEvent<{}>) => {
+      (event as any).percent = 100;  // 进度条的值直接设置为100
+      console.log("event", event);
+      file.onProgress!(event, file.file!);  // 进度事件回调
+
+    },
+      err => {
+        file.onError!(err, file.file!);
+      }
+    );
+  }
+
+
+  removeImg = (file: NzUploadFile) => {
+    console.log(this.firmwareFileList);
+
+    let index = this.firmwareFileList.indexOf(file)
+    if (index > -1) {
+      this.firmwareFileList.splice(index, 1);
+    }
+    console.log(this.firmwareFileList);
+    return true
+  }
+
 
 }

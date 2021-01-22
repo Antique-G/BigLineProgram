@@ -107,6 +107,8 @@ export const AdminUrls = {
   PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
   GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
   
+  PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
+
 };
 
 

@@ -22,6 +22,7 @@ import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.compo
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
 import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
 import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
+import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -183,6 +184,13 @@ export const MaterialRoutes: Routes = [
         component: AdminWechatPageblockComponent,
         data: {
           breadcrumb: '小程序页面模块设置列表'
+        }
+      },
+      {
+        path: 'pageBlock/create',
+        component: AdminWechatPageblockCreateComponent,
+        data: {
+          breadcrumb: '小程序页面模块设置添加'
         }
       },
     ]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminWechatPageconfigService } from '../../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
@@ -25,7 +25,7 @@ export class AdminWechatPageblockComponent implements OnInit {
   dataList: any[] = [];
   isValue: any;
 
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, private modal: NzModalService,
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog,
     public adminWechatPageconfigService: AdminWechatPageconfigService, public router: Router) {
     this.searchForm = this.fb.group({
       status: [''],
@@ -75,45 +75,12 @@ export class AdminWechatPageblockComponent implements OnInit {
 
 
   add() {
-    const addmodal = this.modal.create({
-      nzTitle: '添加页面模块设置',
-      nzContent: AdminWechatPageblockCreateComponent,
-      nzFooter: [
-        {
-          label: '添加',
-          type: 'primary',
-          onClick: componentInstance => {
-            componentInstance?.add()
-          }
-        }
-      ]
-    })
-    addmodal.afterClose.subscribe(res => {
-      this.getBlockList();
-    })
+    this.router.navigate(['/admin/main/pageBlock/create'], { queryParams: { pageId:this.page_id } });
+
   }
 
-  edit(data: any) {
-    const addmodal = this.modal.create({
-      nzTitle: '添加页面设置',
-      nzContent: AdminWechatPageblockDetailComponent,
-      nzComponentParams: {
-        data: data
-      },
-      nzFooter: [
-        {
-          label: '提交',
-          type: 'primary',
-          onClick: componentInstance => {
-            componentInstance?.update()
-          }
-        }
-      ]
-    })
-    addmodal.afterClose.subscribe(res => {
-      this.getBlockList();
-    })
-  }
+
+
 
 
 }
