@@ -55,12 +55,14 @@ const MENUITEMS = [
     title: '用户管理', icon: 'user',
     children: [
       { state: 'saleTitle', name: '销售头衔' },
+      { state: 'user', name: '用户信息' },
     ]
   },
   {
     title: '保险管理', icon: 'safety-certificate',
     children: [
       { state: 'insurance', name: '保险' },
+      
     ]
   },
   {

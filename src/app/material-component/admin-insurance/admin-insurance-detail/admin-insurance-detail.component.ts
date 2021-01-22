@@ -38,6 +38,7 @@ export class AdminInsuranceDetailComponent implements OnInit {
     this.validateForm = this.fb.group({
       name: new FormControl(null, [Validators.required,Validators.maxLength(32)]),
       insured_date: new FormArray([new FormControl(null, [Validators.required,])]),
+      
     });
   
   };
@@ -63,7 +64,7 @@ export class AdminInsuranceDetailComponent implements OnInit {
   removeNull(){
     let dataList = this.insuredDateArray.value;
     dataList.forEach((value:any,index:any) =>{
-      if (value == null) {
+      if (value == null || value == 0 || value == '') {
         this.insuredDateArray.removeAt(index);
       }
     })
@@ -78,16 +79,14 @@ export class AdminInsuranceDetailComponent implements OnInit {
     console.log('insuredDateArray',this.insuredDateArray.value)
   }
   setValue(){
-    console.log('value',this.validateForm.value,this.insuranceDetailModel)
+    // let flag = newList.every((item:any)=>item!=null || item!='' || item!='0')
+    // console.log(flag);
+    // if(!flag) return false
+    // console.log('newList',newList)
+    if(this.insuredDateArray.length > 1) {
+      this.removeNull();
+    }
     this.adminInsuranceUpdateRequestModel.name = this.validateForm.value.name;
-    this.insuredDateArray.value.forEach((value:any,index:any) =>{
-      if (value == null) {
-        this.insuredDateArray.removeAt(index);
-      }
-      if(value == ''){
-        this.insuredDateArray.removeAt(index);
-      }
-    })
     this.adminInsuranceUpdateRequestModel.insured_date = this.insuredDateArray.value;
     this.adminInsuranceUpdateRequestModel.id = this.insuranceDetailModel.id;
     this.adminInsuranceUpdateRequestModel.status = this.insuranceDetailModel.status;
@@ -95,22 +94,21 @@ export class AdminInsuranceDetailComponent implements OnInit {
   }
   update(){
     this.setValue();
+    // console.log(t,'t');
+    // if(t != undefined ) return
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if ( this.validateForm.valid ) {
-      
       this.adminInsuranceService.insuranceUpdate(this.adminInsuranceUpdateRequestModel).subscribe(res => {
         console.log('res结果',res)
         if (res === null) {
-          
-        } else {
 
+        } else {
+          
         }
       })
     }
-
   }
-
 }

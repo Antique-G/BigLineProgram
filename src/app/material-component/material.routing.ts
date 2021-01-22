@@ -21,6 +21,7 @@ import { AdminSaleTitleComponent } from './admin-sale-title/admin-sale-title.com
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
 import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
+import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -156,6 +157,13 @@ export const MaterialRoutes: Routes = [
       {
         path: 'insurance',
         component: AdminInsuranceComponent,
+        data: {
+          breadcrumb: '用户信息列表'
+        }
+      },
+      {
+        path: 'user',
+        component: AdminUserinfoComponent,
         data: {
           breadcrumb: '保险管理列表'
         }

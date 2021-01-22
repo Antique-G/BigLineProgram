@@ -19,7 +19,7 @@
                             </div>
                             <div fxFlex=50>
                                 <mat-form-field>
-                                    <mat-label>保险名称</mat-label>
+                                    <mat-label>昵称/真实姓名</mat-label>
                                     <input matInput value="" formControlName="name" placeholder="请输入关键字">
                                 </mat-form-field>
 
@@ -36,16 +36,27 @@
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource"  [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th>保险名称</th>
+                                    <th>昵称</th>
+                                    <th>真实姓名</th>
+                                    <th>性别</th>
+                                    <th>电话</th>
                                     <th>状态</th>
-                                    <th>操作</th>
-                                    <th>修改状态</th>
-                                    <th>删除</th>
+                                    <th>修改</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.name}}</td>
+                                    <td>{{data.real_name}}</td>
+                                    <td>
+                                        <div *ngIf="data.gender===0">
+                                            男
+                                        </div>
+                                        <div *ngIf="data.gender===1">
+                                            女
+                                        </div>
+                                    </td>
+                                    <td>{{data.phone}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             禁用
@@ -57,16 +68,6 @@
                                     <td>
                                         <div style="cursor: pointer;" (click)="edit(data)">
                                             <mat-icon>edit</mat-icon>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;" (click)="statusEdit(data)">
-                                            <mat-icon>assignment_ind</mat-icon>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;" (click)="delete(data)">
-                                            <mat-icon>delete</mat-icon>
                                         </div>
                                     </td>
                                 </tr>
