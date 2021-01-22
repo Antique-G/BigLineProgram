@@ -13,11 +13,5 @@ export function isFloat(control: FormControl):any{
     const result = number.test(newV);
     return result ? null : { isFloat: true };
 }
-export function isclearNoNum(control: FormControl):any{
-    const number = /^(\d{1,2})\.(\d{1,2})*$/;
-    let newV =control.value;
-    const result = number.test(newV);
-    return result ? null : { isclearNoNum: true}
-}
 
 

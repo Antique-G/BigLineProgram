@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import {FormArray,FormBuilder,FormControl,FormGroup,Validators,} from "@angular/forms";
 import { AdminInsuranceCreateRequestModel } from "../../../../interfaces/adminInsurance/admin-insurance-model";
 import { AdminInsuranceService } from "../../../../services/admin/admin-insurance.service";
 
@@ -96,20 +90,28 @@ export class AdminInsuranceCreateComponent implements OnInit {
   }
 
   setValue() {
-    let insuredDate: any = [];
     let dataList = this.validateForm.value.insured_date;
-    console.log("dataList", dataList);
-    for (let i of dataList) {
-      if (i != "") {
-        if (i != null) {
-          insuredDate.push(i);
-          console.log("insuredDate", insuredDate);
-          this.adminInsuranceCreateRequestModel.insured_date = insuredDate;
+    dataList.forEach((value: any, index: any) => {
+      if (dataList.length > 1) {
+        if (value == null || value == "" || value == "0") {
+          this.insuredDateArray.removeAt(index);
         }
       }
-    }
+    });
+    // console.log("dataList", dataList);
+    // let insuredDate: any = [];
+    // for (let i of dataList) {
+    //   if (i != "" ) {
+    //     if (i != null) {
+    //       insuredDate.push(i);
+    //       console.log("insuredDate", insuredDate);
+    //       this.adminInsuranceCreateRequestModel.insured_date = insuredDate;
+    //     }
+    //   }
+    // }
+    // console.log("dataList", dataList);
     this.adminInsuranceCreateRequestModel.name = this.validateForm.value.name;
-    // this.adminInsuranceCreateRequestModel.insured_date = this.validateForm.value.insured_date;
+    this.adminInsuranceCreateRequestModel.insured_date = this.validateForm.value.insured_date;
   }
   submitForm(): void {
     this.setValue();
