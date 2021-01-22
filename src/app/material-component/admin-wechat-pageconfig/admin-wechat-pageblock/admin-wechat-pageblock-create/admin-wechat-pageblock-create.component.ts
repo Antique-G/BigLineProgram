@@ -1,6 +1,6 @@
 import { HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -30,10 +30,9 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   firmwareFileList: NzUploadFile[] = [];   // 上传文件列表
 
 
-
   addBlockRequestModel: AddBlockRequestModel;
 
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, 
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder,
     public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,) {
     this.forms();
     this.addBlockRequestModel = {
@@ -53,15 +52,30 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       key: ['', [Validators.required]],
       type: ['', [Validators.required]],
       status: [1],
-      imageList: this.fb.group({
-        title: [''],
-        imgUrl: [''],
-      }),
+      imageList: new FormArray([
+        new FormControl(null, [Validators.required]),
+      ]),
       sortList: this.fb.group({
         name: [''],
         sortUrl: [''],
       }),
     });
+  }
+
+
+  get imgageArray() {
+    return this.addForm.get("imageList") as FormArray;
+  }
+
+  //添加
+  addMore() {
+    this.imgageArray.push(new FormControl(null));
+  }
+  //删除
+  remove(index: number) {
+    if (this.imgageArray.length > 1) {
+      this.imgageArray.removeAt(index);
+    }
   }
 
   ngOnInit(): void {

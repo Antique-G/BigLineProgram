@@ -42,35 +42,47 @@
                                         </nz-form-item>
                                     </div>
 
-                                    <div *ngIf="isTypeId===2" formGroupName="imageList" nz-row>
-                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title" nzRequired>图片名称</nz-form-label>
-                                                <nz-form-control [nzSm]="10 " [nzXs]="24" nzErrorTip="请输入图片名称">
-                                                    <input nz-input formControlName="title" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
+                                    <div *ngIf="isTypeId===2">
+                                        <div formArrayName="imageList" nz-row *ngFor="let image of imgageArray.controls;let dateIndex = index">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title" nzRequired>图片名称</nz-form-label>
+                                                    <nz-form-control [nzSm]="10 " [nzXs]="24" nzErrorTip="请输入图片名称">
+                                                        <input nz-input [formControlName]="dateIndex" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
 
-                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>上传图片</nz-form-label>
-                                                <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                    <nz-upload [nzCustomRequest]="firmwareFileCustomRequest" [nzFileList]='firmwareFileList' [nzBeforeUpload]="beforeUpload" [nzRemove]="removeImg">
-                                                        <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
-                                                    </nz-upload>
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>上传图片</nz-form-label>
+                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
+                                                        <nz-upload [nzCustomRequest]="firmwareFileCustomRequest" nzFileList={{firmwareFileList}} [nzBeforeUpload]="beforeUpload" [nzRemove]="removeImg">
+                                                            <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
+                                                        </nz-upload>
 
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="imgUrl" nzRequired>跳转链接</nz-form-label>
-                                                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入跳转链接 ">
-                                                    <input nz-input formControlName="imgUrl" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="imgUrl" nzRequired>跳转链接</nz-form-label>
+                                                    <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入跳转链接 ">
+                                                        <input nz-input [formControlName]="dateIndex" />
+                                                    </nz-form-control>
+                                                    <button nz-button nzType="dashed" class="add-button" (click)="remove(dateIndex)">
+                                                        <i nz-icon nzType="minus"></i>
+                                                        删除
+                                                    </button>
+                                                </div>
+                                            </nz-form-item>
+
+
+                                        </div>
+                                        <button nz-button nzType="dashed" class="add-button" (click)="addMore()">
+                                            <i nz-icon nzType="plus"></i>
+                                            添加
+                                        </button>
                                     </div>
 
                                     <div *ngIf="isTypeId===3" formGroupName="sortList">
