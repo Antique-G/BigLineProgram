@@ -22,7 +22,7 @@ export interface LinkListModel {
 }
 
 export interface DatumListModel {
-  page_id: number;
+  page_id: any;
   region_code: string;
   page_name: string;
   page_key: string;
@@ -63,7 +63,7 @@ export interface WeChatPageConfigDetailModel {
 }
 
 export interface DetailModel {
-  page_id: number;
+  page_id: any;
   region_code: string;
   page_name: string;
   page_key: string;
@@ -99,7 +99,7 @@ export interface LinkBlockModel {
 
 export interface DatumBlockModel {
   block_id: number;
-  page_id: number;
+  page_id: any;
   block_name: string;
   block_key: string;
   type: number;
@@ -127,4 +127,33 @@ export interface BlockTypeRequestModel {
 interface DatumTypeListModel {
   name: string;
   id: number;
+}
+
+
+export interface BlockDetailResponseModel {
+  data: BlockDetailModel[];
+}
+
+export interface BlockDetailModel {
+  block_id: number;
+  page_id: any;
+  block_name: string;
+  block_key: string;
+  type: number;
+  num: number;
+  status: number;
+  created_at?: any;
+  updated_at?: any;
+  content?: any[];
+}
+
+
+export interface UpdateBlockRequestModel {
+  page_id: any;
+  block_name: string;
+  block_key: string;
+  type: number;
+  status: number;
+  content: any[];
+  block_id?: any;
 }

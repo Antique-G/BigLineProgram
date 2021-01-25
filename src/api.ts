@@ -105,6 +105,7 @@ export const AdminUrls = {
   GetWeChatPageBlockList: api + '/admin/page_block',  // 页面模块列表
   PostWeChatPageBlockCreate: api + '/admin/page_block',   // 添加
   PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
+  GetWeChatPageBlockDeatil: api + '/admin/page_block/',   // 详情
   GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
   
   PostAdminUploadImg: api + '/admin/upload_image', // 图片上传

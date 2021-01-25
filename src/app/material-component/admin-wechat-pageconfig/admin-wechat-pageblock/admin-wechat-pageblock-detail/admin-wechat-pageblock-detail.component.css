@@ -1,0 +1,20 @@
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}
+
+.wangeditor-feature {
+    border: 1px solid #c9d8dc;
+    overflow: hidden !important;
+    resize: both !important;
+    /* height: 300px; */
+    min-height: 600px;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
