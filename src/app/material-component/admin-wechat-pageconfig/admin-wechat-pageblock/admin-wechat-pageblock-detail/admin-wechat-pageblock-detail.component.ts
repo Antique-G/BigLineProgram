@@ -171,10 +171,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   //添加
   addMore() {
     this.imgageArray.push(this.fb.group({
-      title: null,
-      img: null,
-      url: null,
-      imgTitle: null,
+      title: [null],
+      img:  [null,Validators.required],
+      url:  [null],
+      imgTitle:  [null]
     }))
 
   }
@@ -197,10 +197,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   //添加
   addIcon() {
     this.iconArray.push(this.fb.group({
-      name: null,
-      icon: null,
-      url: null,
-      iconTitle: null
+      name: [null],
+      icon:  [null,Validators.required],
+      url: [null],
+      iconTitle:[null]
     }))
 
   }
