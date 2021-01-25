@@ -27,16 +27,6 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
   addPageConfigRequestModel: AddPageConfigRequestModel;
 
 
-  validationMessage: any = {
-    regionCode: {
-      'maxlength': '区域长度最多为16个字符',
-      'required': '请选择区域！'
-    },
-  };
-  formErrors: any = {
-    regionCode: '',
-  };
-
 
   constructor(public fb: FormBuilder, public adminRegionService: AdminRegionService,
     public adminWechatPageconfigService: AdminWechatPageconfigService) {
@@ -52,7 +42,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
 
   forms() {
     this.addForm = this.fb.group({
-      regionCode: ['', [Validators.required]],
+      regionCode: [''],
       name: ['', [Validators.required]],
       key: ['', [Validators.required]],
       status: [1, [Validators.required]]
