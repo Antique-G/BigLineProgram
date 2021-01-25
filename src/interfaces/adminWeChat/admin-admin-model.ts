@@ -24,6 +24,7 @@ export interface LinkListModel {
 export interface DatumListModel {
   page_id: any;
   region_code: string;
+  region_name: string;
   page_name: string;
   page_key: string;
   created_at?: any;

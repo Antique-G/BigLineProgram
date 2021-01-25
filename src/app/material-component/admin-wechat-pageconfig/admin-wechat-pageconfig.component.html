@@ -21,7 +21,7 @@
                                 <mat-form-field>
                                     <mat-label>页面名称</mat-label>
                                     <mat-select formControlName="name" placeholder="请选择页面名称" (ngModelChange)="changeList($event)">
-                                        <nz-option nzValue="" nzLabel="全部"></nz-option>
+                                        <mat-option value=''>全部</mat-option>
                                         <mat-option *ngFor="let data of dataList" [value]="data">{{data.page_name}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -46,7 +46,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">区域编码</th>
+                                    <th style="text-align: center;">区域名称</th>
                                     <th style="text-align: center;">页面名称</th>
                                     <th style="text-align: center;">页面对应的key</th>
                                     <th style="text-align: center;">状态</th>
@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data?.region_code}}</td>
+                                    <td>{{data?.region_name}}</td>
                                     <td>
                                         <a (click)="redirectTo(data)">{{data.page_name}}</a>
                                     </td>
