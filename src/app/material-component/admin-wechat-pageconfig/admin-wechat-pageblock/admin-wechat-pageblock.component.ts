@@ -75,13 +75,13 @@ export class AdminWechatPageblockComponent implements OnInit {
 
 
   add() {
-    this.router.navigate(['/admin/main/pageBlock/create'], { queryParams: { pageId:this.page_id } });
-
+    this.router.navigate(['/admin/main/pageBlock/create'], { queryParams: { pageId: this.page_id } });
   }
 
 
-  edit(data:any){
-    
+  edit(data: any) {
+    this.router.navigate(['/admin/main/pageBlock/detail'], { queryParams: { blockId: data.block_id } });
+
   }
 
 

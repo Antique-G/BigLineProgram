@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { AddBlockRequestModel, AddPageConfigRequestModel, BlockTypeRequestModel, ConfigPageList, PageConfigResponseModel, WeChatPageBlockListResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
+import { AddBlockRequestModel, AddPageConfigRequestModel, BlockDetailResponseModel, BlockTypeRequestModel, ConfigPageList, PageConfigResponseModel, UpdateBlockRequestModel, WeChatPageBlockListResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminUrls } from '../../../api';
 
 
@@ -96,13 +96,22 @@ export class AdminWechatPageconfigService {
 
 
   //更新
-  updatePageBlock(addBlockRequestModel: AddBlockRequestModel): Observable<any> {
-    const id = addBlockRequestModel.id;
-    return this.httpClient.put(this.urls.PutWeChatPageBlockUpdate + id, addBlockRequestModel, httpOptions)
+  updatePageBlock(updateBlockRequestModel: UpdateBlockRequestModel): Observable<any> {
+    const id = updateBlockRequestModel.block_id;
+    return this.httpClient.put(this.urls.PutWeChatPageBlockUpdate + id, updateBlockRequestModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+  // 详情
+  pageBlockDetail(id: any): Observable<BlockDetailResponseModel> {
+    return this.httpClient.get<BlockDetailResponseModel>(this.urls.GetWeChatPageBlockDeatil + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
   // 可配置列表
   typeList(): Observable<BlockTypeRequestModel> {

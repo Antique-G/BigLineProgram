@@ -63,7 +63,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
   }
 
   setValue() {
-    this.addPageConfigRequestModel.region_code = this.idRegion;
+    this.addPageConfigRequestModel.region_code = this.idRegion ? this.idRegion : '';
     this.addPageConfigRequestModel.page_name = this.page_name;
     this.addPageConfigRequestModel.page_key = this.addForm.value.key;
     this.addPageConfigRequestModel.status = this.addForm.value.status;

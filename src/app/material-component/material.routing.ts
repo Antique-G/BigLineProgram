@@ -23,6 +23,7 @@ import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-
 import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
 import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
+import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -191,6 +192,13 @@ export const MaterialRoutes: Routes = [
         component: AdminWechatPageblockCreateComponent,
         data: {
           breadcrumb: '小程序页面模块设置添加'
+        }
+      },
+      {
+        path: 'pageBlock/detail',
+        component: AdminWechatPageblockDetailComponent,
+        data: {
+          breadcrumb: '小程序页面模块设置修改'
         }
       },
     ]
