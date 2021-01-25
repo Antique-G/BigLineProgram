@@ -24,9 +24,11 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   page_id: any;
 
   addBlockRequestModel: AddBlockRequestModel;
+  isSrc: any;
+  isTitle: any;
 
-  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog,public router: Router,
-    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,) {
+  constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog, public router: Router,
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,private message: NzMessageService) {
     this.forms();
     this.addBlockRequestModel = {
       page_id: '',
@@ -48,15 +50,17 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       imageList: this.fb.array([
         new FormGroup({
           title: new FormControl(null),
-          img: new FormControl(null),
+          img: new FormControl('', Validators.required),
           url: new FormControl(null),
+          imgTitle: new FormControl(null),
         })
       ]),
       iconList: this.fb.array([
         new FormGroup({
           name: new FormControl(null),
-          icon: new FormControl(null),
+          icon: new FormControl('', Validators.required),
           url: new FormControl(null),
+          iconTitle: new FormControl(null),
         })
       ]),
     });
@@ -74,6 +78,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       title: null,
       img: null,
       url: null,
+      imgTitle: null,
     }))
 
   }
@@ -81,6 +86,9 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   remove(index: number) {
     if (this.imgageArray.length > 1) {
       this.imgageArray.removeAt(index);
+    }
+    else{
+      this.message.create('warning', '无法删除，至少存在一组');
     }
   }
 
@@ -96,6 +104,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       name: null,
       icon: null,
       url: null,
+      iconTitle: null
     }))
 
   }
@@ -103,6 +112,9 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   removeIcon(index: number) {
     if (this.iconArray.length > 1) {
       this.iconArray.removeAt(index);
+    }
+    else{
+      this.message.create('warning', '无法删除，至少存在一组');
     }
   }
 
@@ -143,13 +155,13 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     }
     if (this.addForm.valid) {
       console.log("提交的model是什么", this.addBlockRequestModel);
-      this.adminWechatPageconfigService.addPageBlock(this.addBlockRequestModel).subscribe(res=>{
-        console.log("res",res);
-        if(res?.code){
-          console.log("res",res);
+      this.adminWechatPageconfigService.addPageBlock(this.addBlockRequestModel).subscribe(res => {
+        console.log("res", res);
+        if (res?.code) {
+          console.log("res", res);
         }
-        else{
-          this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId:this.page_id} });
+        else {
+          this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: this.page_id } });
         }
       })
     }
@@ -173,8 +185,8 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.imgageArray.controls[i].patchValue({ 'img': result.url });
-        console.log(" this.imgageArray", this.imgageArray)
+        this.imgageArray.controls[i].patchValue({ 'img': result.url ,'imgTitle':result.title});
+        console.log(" this.imgageArray", this.imgageArray);
       }
 
     });
@@ -190,7 +202,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.iconArray.controls[i].patchValue({ 'icon': result.url });
+        this.iconArray.controls[i].patchValue({ 'icon': result.url,'iconTitle':result.title });
         console.log(" this.iconArray", this.iconArray)
       }
 
@@ -198,7 +210,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   }
 
 
-  return(){
-    this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId:this.page_id} });
+  return() {
+    this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: this.page_id } });
   }
 }

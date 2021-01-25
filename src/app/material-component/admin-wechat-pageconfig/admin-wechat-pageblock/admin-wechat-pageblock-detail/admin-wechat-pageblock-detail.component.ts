@@ -30,7 +30,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   editModel: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog, public router: Router,
-    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,) {
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,private message: NzMessageService) {
     this.forms();
     this.updateBlockRequestModel = {
       page_id: '',
@@ -174,6 +174,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       title: null,
       img: null,
       url: null,
+      imgTitle: null,
     }))
 
   }
@@ -181,6 +182,9 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   remove(index: number) {
     if (this.imgageArray.length > 1) {
       this.imgageArray.removeAt(index);
+    }
+    else{
+      this.message.create('warning', '无法删除，至少存在一组');
     }
   }
 
@@ -196,6 +200,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       name: null,
       icon: null,
       url: null,
+      iconTitle: null
     }))
 
   }
@@ -203,6 +208,9 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   removeIcon(index: number) {
     if (this.iconArray.length > 1) {
       this.iconArray.removeAt(index);
+    }
+    else{
+      this.message.create('warning', '无法删除，至少存在一组');
     }
   }
 
@@ -222,7 +230,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.imgageArray.controls[i].patchValue({ 'img': result.url });
+        this.imgageArray.controls[i].patchValue({ 'img': result.url ,'imgTitle':result.title});
         console.log(" this.imgageArray", this.imgageArray)
       }
 
@@ -239,7 +247,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.iconArray.controls[i].patchValue({ 'icon': result.url });
+        this.iconArray.controls[i].patchValue({ 'icon': result.url,'iconTitle':result.title });
         console.log(" this.iconArray", this.iconArray)
       }
 
