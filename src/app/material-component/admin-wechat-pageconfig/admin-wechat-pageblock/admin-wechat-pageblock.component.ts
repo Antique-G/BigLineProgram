@@ -80,7 +80,9 @@ export class AdminWechatPageblockComponent implements OnInit {
   }
 
 
-
+  edit(data:any){
+    
+  }
 
 
 }

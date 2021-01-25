@@ -1,0 +1,36 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>上传图片</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-upload [nzBeforeUpload]="beforeUpload" [nzDisabled]="fileList.length===1" [(nzFileList)]="fileList" [nzRemove]="removeImg">
+                        <div>
+                            <button nz-button>
+                            <span><i nz-icon nzType="upload"></i> 选择图片(只能上传一张)</span>
+                          </button>
+                        </div>
+                    </nz-upload>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">图片描述</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="title" />
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" [nzLoading]="isLoadingBtn" (click)="add()">提交</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
