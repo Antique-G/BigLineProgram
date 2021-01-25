@@ -23,6 +23,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
   page_key: any;
   isValue: any;
   status = '1';
+  isDisabled = true;
 
   addPageConfigRequestModel: AddPageConfigRequestModel;
 
@@ -31,7 +32,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
   constructor(public fb: FormBuilder, public adminRegionService: AdminRegionService,
     public adminWechatPageconfigService: AdminWechatPageconfigService) {
     this.forms();
-    this.addPageConfigRequestModel={
+    this.addPageConfigRequestModel = {
       region_code: '',
       page_name: '',
       page_key: '',
@@ -68,7 +69,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
     this.addPageConfigRequestModel.status = this.addForm.value.status;
   }
 
-  add() { 
+  add() {
     this.setValue();
     console.log("提交的model是什么", this.addPageConfigRequestModel);
     for (const i in this.addForm.controls) {
@@ -77,7 +78,7 @@ export class AdminWechatPageconfigCreateComponent implements OnInit {
     }
     console.log("this.addForm.valid", this.addForm)
     if (this.addForm.valid) {
-      this.adminWechatPageconfigService.addPageConfig(this.addPageConfigRequestModel).subscribe(res=>{
+      this.adminWechatPageconfigService.addPageConfig(this.addPageConfigRequestModel).subscribe(res => {
 
       })
     }
