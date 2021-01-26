@@ -30,7 +30,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   editModel: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog, public router: Router,
-    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,private message: NzMessageService) {
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService, private message: NzMessageService) {
     this.forms();
     this.updateBlockRequestModel = {
       page_id: '',
@@ -80,8 +80,6 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
         })
       });
     })
-
-
   }
 
 
@@ -145,6 +143,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("提交的valid", this.addForm)
     if (this.addForm.valid) {
       console.log("提交的model是什么", this.updateBlockRequestModel);
       this.updateBlockRequestModel.block_id = this.blockDetailModel.block_id;
@@ -158,7 +157,14 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
         }
       })
     }
-
+    else {
+      if (this.addForm.controls.imageList.valid === false) {
+        this.message.create('error', '请上传图片');
+      }
+      else if (this.addForm.controls.iconList.valid === false) {
+        this.message.create('error', '请上传图标');
+      }
+    }
 
   }
 
@@ -171,10 +177,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   //添加
   addMore() {
     this.imgageArray.push(this.fb.group({
-      title: [null],
-      img:  [null,Validators.required],
-      url:  [null],
-      imgTitle:  [null]
+      title: new FormControl(''),
+      img: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      imgTitle: new FormControl('')
     }))
 
   }
@@ -183,7 +189,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     if (this.imgageArray.length > 1) {
       this.imgageArray.removeAt(index);
     }
-    else{
+    else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
@@ -197,10 +203,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   //添加
   addIcon() {
     this.iconArray.push(this.fb.group({
-      name: [null],
-      icon:  [null,Validators.required],
-      url: [null],
-      iconTitle:[null]
+      name: new FormControl(''),
+      icon: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      iconTitle: new FormControl('')
     }))
 
   }
@@ -209,7 +215,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     if (this.iconArray.length > 1) {
       this.iconArray.removeAt(index);
     }
-    else{
+    else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
@@ -230,7 +236,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.imgageArray.controls[i].patchValue({ 'img': result.url ,'imgTitle':result.title});
+        this.imgageArray.controls[i].patchValue({ 'img': result.url, 'imgTitle': result.title });
         console.log(" this.imgageArray", this.imgageArray)
       }
 
@@ -247,7 +253,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.iconArray.controls[i].patchValue({ 'icon': result.url,'iconTitle':result.title });
+        this.iconArray.controls[i].patchValue({ 'icon': result.url, 'iconTitle': result.title });
         console.log(" this.iconArray", this.iconArray)
       }
 

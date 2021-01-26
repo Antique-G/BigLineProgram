@@ -1,4 +1,3 @@
-import { HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -28,7 +27,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   isTitle: any;
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog, public router: Router,
-    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService,private message: NzMessageService) {
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public msg: NzMessageService, private message: NzMessageService) {
     this.forms();
     this.addBlockRequestModel = {
       page_id: '',
@@ -48,22 +47,44 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       type: ['', [Validators.required]],
       status: [1],
       imageList: this.fb.array([
-        new FormGroup({
-          title: new FormControl(null),
-          img: new FormControl('', Validators.required),
-          url: new FormControl(null),
-          imgTitle: new FormControl(null),
-        })
+        // this.fb.group({
+        //   title: new FormControl(''),
+        //   img: new FormControl(''),
+        //   url: new FormControl(''),
+        //   imgTitle: new FormControl('')
+        // })
       ]),
       iconList: this.fb.array([
-        new FormGroup({
-          name: new FormControl(null),
-          icon: new FormControl('', Validators.required),
-          url: new FormControl(null),
-          iconTitle: new FormControl(null),
-        })
-      ]),
+        // new FormGroup({
+        //   name: new FormControl(''),
+        //   icon: new FormControl(''),
+        //   url: new FormControl(''),
+        //   iconTitle: new FormControl('')
+        // })
+      ])
     });
+  }
+
+
+  addImgControl() {
+    let control = <FormArray>this.addForm.controls['imageList'];
+    control.push(new FormGroup({
+      title: new FormControl(''),
+      img: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      imgTitle: new FormControl('')
+    }));
+  }
+
+
+  addIconControl() {
+    let control = <FormArray>this.addForm.controls['iconList'];
+    control.push(new FormGroup({
+      name: new FormControl(''),
+      icon: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      iconTitle: new FormControl('')
+    }));
   }
 
 
@@ -75,10 +96,10 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   //添加
   addMore() {
     this.imgageArray.push(this.fb.group({
-      title: [null],
-      img:  [null,Validators.required],
-      url:  [null],
-      imgTitle:  [null]
+      title: new FormControl(''),
+      img: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      imgTitle: new FormControl('')
     }))
 
   }
@@ -87,7 +108,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     if (this.imgageArray.length > 1) {
       this.imgageArray.removeAt(index);
     }
-    else{
+    else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
@@ -101,10 +122,10 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   //添加
   addIcon() {
     this.iconArray.push(this.fb.group({
-      name: [null],
-      icon:  [null,Validators.required],
-      url: [null],
-      iconTitle:[null]
+      name: new FormControl(''),
+      icon: new FormControl('', Validators.required),
+      url: new FormControl(''),
+      iconTitle: new FormControl('')
     }))
 
   }
@@ -113,7 +134,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     if (this.iconArray.length > 1) {
       this.iconArray.removeAt(index);
     }
-    else{
+    else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
@@ -153,6 +174,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
+    console.log("this.addForm.valid", this.addForm)
     if (this.addForm.valid) {
       console.log("提交的model是什么", this.addBlockRequestModel);
       this.adminWechatPageconfigService.addPageBlock(this.addBlockRequestModel).subscribe(res => {
@@ -165,7 +187,14 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
         }
       })
     }
-
+    else {
+      if (this.addForm.controls.imageList.valid === false) {
+        this.message.create('error', '请上传图片');
+      }
+      else if (this.addForm.controls.iconList.valid === false) {
+        this.message.create('error', '请上传图标');
+      }
+    }
 
   }
 
@@ -173,6 +202,22 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   changeType(event: any) {
     console.log("event", event);
     this.isTypeId = event;
+    if (this.isTypeId === 2) {
+      // alert(1);
+      this.addImgControl()
+      this?.addForm?.controls['imageList'].setValidators(Validators.required);
+      this?.addForm?.controls['imageList'].updateValueAndValidity();
+      this?.addForm?.controls['iconList'].setValidators(null);
+      this?.addForm?.controls['iconList'].updateValueAndValidity();
+    }
+    else if (this.isTypeId === 3) {
+      // alert(2);
+      this.addIconControl();
+      this?.addForm?.controls['iconList'].setValidators(Validators.required);
+      this?.addForm?.controls['iconList'].updateValueAndValidity();
+      this?.addForm?.controls['imageList'].setValidators(null);
+      this?.addForm?.controls['imageList'].updateValueAndValidity();
+    }
   }
 
 
@@ -185,7 +230,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.imgageArray.controls[i].patchValue({ 'img': result.url ,'imgTitle':result.title});
+        this.imgageArray.controls[i].patchValue({ 'img': result.url, 'imgTitle': result.title });
         console.log(" this.imgageArray", this.imgageArray);
       }
 
@@ -202,7 +247,7 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-        this.iconArray.controls[i].patchValue({ 'icon': result.url,'iconTitle':result.title });
+        this.iconArray.controls[i].patchValue({ 'icon': result.url, 'iconTitle': result.title });
         console.log(" this.iconArray", this.iconArray)
       }
 
