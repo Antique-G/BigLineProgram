@@ -95,15 +95,21 @@ export class AdminProductManagementComponent implements OnInit {
   // 审核
   review(data: any) {
     console.log("编辑", data);
-    const dialogRef = this.dialog.open(AdminProductReviewComponent, {
-      width: '800px',
-      data: data
+    this.adminProductManagementService.checkLog(data.id).subscribe(res => {
+      console.log("122", res);
+      console.log("24452", res[0]);
+      this.isReason = res[0]?.reason;
+      const dialogRef = this.dialog.open(AdminProductReviewComponent, {
+        width: '800px',
+        data: [data, this.isReason]
+      })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.getProductList();
+        }
+      })
     })
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.getProductList();
-      }
-    })
+
   }
 
 
