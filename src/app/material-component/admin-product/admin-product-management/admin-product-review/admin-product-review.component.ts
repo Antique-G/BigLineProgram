@@ -18,14 +18,15 @@ export class AdminProductReviewComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductReviewComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public adminProductManagementService: AdminProductManagementService) {
+    console.log("data是什么", this.data)
     this.addForm = this.fb.group({
-      title: new FormControl({ value: this.data.title, disabled: true }, Validators.required),
-      few_days: new FormControl({ value: this.data.few_days, disabled: true }, Validators.required),
-      few_nights: new FormControl({ value: this.data.few_nights, disabled: true }, Validators.required),
-      adult_price: new FormControl({ value: this.data.adult_price, disabled: true }, Validators.required),
-      child_price: new FormControl({ value: this.data.child_price, disabled: true }, Validators.required),
-      check_status: new FormControl({ value: this.data.check_status }, Validators.required),
-      reason: new FormControl(this.data.reason)
+      title: new FormControl({ value: this.data[0].title, disabled: true }, Validators.required),
+      few_days: new FormControl({ value: this.data[0].few_days, disabled: true }, Validators.required),
+      few_nights: new FormControl({ value: this.data[0].few_nights, disabled: true }, Validators.required),
+      adult_price: new FormControl({ value: this.data[0].adult_price, disabled: true }, Validators.required),
+      child_price: new FormControl({ value: this.data[0].child_price, disabled: true }, Validators.required),
+      check_status: new FormControl({ value: this.data[0].check_status }, Validators.required),
+      reason: new FormControl(this.data[1])
     });
     this.adminProductCheckStatusModel = {
       id: this.data.id,
@@ -69,7 +70,7 @@ export class AdminProductReviewComponent implements OnInit {
     })
   }
 
-  
+
   isCheck(element: any) {
     console.log("element", element);
     if (element === '3') {
