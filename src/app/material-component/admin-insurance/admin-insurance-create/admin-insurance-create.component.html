@@ -9,7 +9,7 @@
           </nz-form-item>
           <nz-form-item style="margin-bottom: 0px;">
               <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="phone">保险价格 </nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24"  nzErrorTip="请输入价格！">
+              <nz-form-control [nzSm]="14" [nzXs]="24">
                   <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index" >
                       <nz-form-control [nzSm]="24" [nzXs]="24" style="margin-bottom: 20px;">
                           <ng-template #prefix>
