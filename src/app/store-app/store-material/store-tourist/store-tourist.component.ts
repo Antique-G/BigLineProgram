@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { SetStatusModel } from '../../../../interfaces/store/storeTourist/store-tourist-model';
 import { StoreTouristService } from '../../../../services/store/store-tourist/store-tourist.service';
 import { StoreTouristCreateComponent } from './store-tourist-create/store-tourist-create.component';
+import { StoreTouristDetailComponent } from './store-tourist-detail/store-tourist-detail.component';
 
 @Component({
   selector: 'app-store-tourist',
@@ -71,11 +72,26 @@ export class StoreTouristComponent implements OnInit {
 
   // 查看详情
   edit(data: any) {
-    this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
+   const dialogRef = this.dialog.open(StoreTouristDetailComponent,{
+    width: '550px',
+    data:data
+   });
+   dialogRef.afterClosed().subscribe(result => {
+    console.log("result", result);
+    this.getTouristList();
+  });
   }
 
-  deleteData(data: any) {
-
+  delete(data: any) {
+    console.log("data",data);
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>是否删除</h6>',
+      nzOnOk: () =>
+        this.storeTouristService.deleteTourist(data.id).subscribe(res => {
+          this.getTouristList();
+        })
+    })
   }
 
 
@@ -104,6 +120,7 @@ export class StoreTouristComponent implements OnInit {
     else if (data.status === 0) {
       this.setStatusModel.status = 1;
     }
+    console.log("this.setStatusModel", this.setStatusModel);
     this.modal.confirm({
       nzTitle: '<h4>提示</h4>',
       nzContent: '<h6>请确认操作</h6>',
