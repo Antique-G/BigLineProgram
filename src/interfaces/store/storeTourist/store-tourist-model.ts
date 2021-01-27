@@ -39,11 +39,24 @@ export interface AddTouristModel {
   status: any;
 }
 
-
-
-
-
-
+export interface TouristDetailModel {
+  id: any;
+  name: any;
+  mobile: any;
+  code: any;
+  status: any;
+}
+export interface TouristUpdateRequestModel {
+  id: any;
+  name: any;
+  mobile: any;
+  code: any;
+  status: any;
+}
+export interface TouristUpdateResponseModel {
+  message: string;
+  status?: string;
+}
 
 
 // 上下架

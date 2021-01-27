@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AddTouristModel, SetStatusModel, StoreTouristListResponse } from '../../../interfaces/store/storeTourist/store-tourist-model';
+import { AddTouristModel, StoreTouristListResponse, TouristUpdateRequestModel, TouristUpdateResponseModel } from '../../../interfaces/store/storeTourist/store-tourist-model';
 import { StoreUrls } from '../../../api';
 
 
@@ -38,8 +38,6 @@ export class StoreTouristService {
       )
   }
 
-
-  
   // 添加
   addTourist(addTouristModel:AddTouristModel): Observable<any>{
     return this.httpClient.post<any>(this.urls.PostStoreGuideCreate,addTouristModel, httpOptions)
@@ -47,18 +45,30 @@ export class StoreTouristService {
     
     )
   }
-
-
-
-
-  // 上架/下架
-  setStatus(setStatusModel: SetStatusModel): Observable<any> {
-    return this.httpClient.post(this.urls.GetStoreGuideSetStatus, setStatusModel, httpOptions)
+  //修改
+  updataTourist(touristUpdateRequestModel:TouristUpdateRequestModel):Observable<TouristUpdateResponseModel>{
+    const id =  touristUpdateRequestModel.id;
+    return this.httpClient.put<any>(this.urls.PutStoreGuideUpdate + id,touristUpdateRequestModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
 
+  // 上架/下架
+  setStatus(setStatusModel: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreGuideSetStatus, setStatusModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  //删除
+  deleteTourist(id: any):Observable<any> {
+    return this.httpClient.delete<any>(this.urls.DeleteStoreGuide + id, httpOptions)
+     .pipe(
+       catchError(this.handleError)
+     )
+  }
 
 
   private handleError(error: HttpErrorResponse) {

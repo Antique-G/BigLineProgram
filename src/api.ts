@@ -182,7 +182,7 @@ export const StoreUrls = {
   PutStoreGuideUpdate: api + '/store/guide/',   // 导游修改
   GetStoreGuideDetail: api + '/store/guide/',   // 导游详情
   DeleteStoreGuide: api + '/store/guide/',   // 导游删除
-  GetStoreGuideSetStatus: api + ' /store/guide/set_status',   // 导游启用 
+  PostStoreGuideSetStatus: api + '/store/guide/set_status',   // 导游启用 
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据

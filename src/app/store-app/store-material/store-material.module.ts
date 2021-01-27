@@ -52,6 +52,7 @@ import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-
 import { StoreTemplateExampleComponent } from './store-terms-management/store-terms-management-create/store-template-example/store-template-example.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
+import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 
 @NgModule({
   imports: [
@@ -118,6 +119,7 @@ import { StoreTouristCreateComponent } from './store-tourist/store-tourist-creat
     StoreTemplateExampleComponent,
     StoreTouristComponent,
     StoreTouristCreateComponent,
+    StoreTouristDetailComponent,
     
   ]
 })

@@ -2,6 +2,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminInsuranceUpdateRequestModel, InsuranceDetailModel } from '../../../../interfaces/adminInsurance/admin-insurance-model';
 import { AdminInsuranceService } from '../../../../services/admin/admin-insurance.service';
+import { Observable, Observer } from 'rxjs';
+// import { isNumber } from '../../../../app/util/validators';
 
 @Component({
   selector: 'app-admin-insurance-detail',
@@ -15,15 +17,15 @@ export class AdminInsuranceDetailComponent implements OnInit {
 
   @Input() data:any;
 
-  // validationMessage: any = {
-  //   name: {
-  //     'maxlength': '保险名称长度最多为32个字符',
-  //     'required': '请输入保险名称！'
-  //   },
-  // };
-  // formErrors: any = {
-  //   name: '',
-  // };
+  validationMessage: any = {
+    name: {
+      'maxlength': '保险名称长度最多为32个字符',
+      'required': '请输入保险名称！'
+    },
+  };
+  formErrors: any = {
+    name: '',
+  };
   
   constructor(public fb:FormBuilder,private adminInsuranceService:AdminInsuranceService) { 
     this.forms();
@@ -37,7 +39,7 @@ export class AdminInsuranceDetailComponent implements OnInit {
   forms(){
     this.validateForm = this.fb.group({
       name: new FormControl(null, [Validators.required,Validators.maxLength(32)]),
-      insured_date: new FormArray([new FormControl(null, [Validators.required,])]),
+      insured_date: new FormArray([new FormControl(null, )]),
       
     });
   
