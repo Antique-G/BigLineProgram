@@ -1,0 +1,53 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <form [formGroup]="addForm">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                    <div fxFlex=30>
+                        <mat-form-field>
+                            <mat-select placeholder="选择产品类型" formControlName="type" required>
+                                <mat-option value=''>全部</mat-option>
+                                <mat-option value=1>自由行</mat-option>
+                                <mat-option value=2>跟团游</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex=50>
+                        <mat-form-field>
+                            <mat-label required>搜索关键字</mat-label>
+                            <input matInput formControlName="key_word">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex=20>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mat-elevation-z8">
+                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
+                    <thead>
+                        <tr>
+
+                            <th style="text-align: center;">产品id</th>
+                            <th style="text-align: center;">产品名称</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data;let i=index" (click)="rowClick(data,i)" [ngClass]="{'table-row-selected':selectedIndex===i}">
+                            <td>{{data?.id}}</td>
+                            <td>{{data?.title}}</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="submit()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

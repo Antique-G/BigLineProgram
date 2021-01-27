@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AddBlockRequestModel, BlockDetailModel, UpdateBlockRequestModel } from '../../../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminWechatPageconfigService } from '../../../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
+import { AdminWechatPageblockProlistComponent } from '../admin-wechat-pageblock-create/admin-wechat-pageblock-prolist/admin-wechat-pageblock-prolist.component';
 import { AdminWechatPageblockUploadComponent } from '../admin-wechat-pageblock-create/admin-wechat-pageblock-upload/admin-wechat-pageblock-upload.component';
 
 
@@ -49,19 +50,9 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       key: ['', [Validators.required]],
       type: ['', [Validators.required]],
       status: [1],
-      imageList: this.fb.array([
-        // new FormGroup({
-        //   title: new FormControl(null),
-        //   img: new FormControl(null),
-        //   url: new FormControl(null),
-        // })
-      ]),
+      productList: this.fb.array([]),
+      imageList: this.fb.array([]),
       iconList: this.fb.array([
-        // new FormGroup({
-        //   name: new FormControl(null),
-        //   icon: new FormControl(null),
-        //   url: new FormControl(null),
-        // })
       ]),
     });
   }
@@ -95,7 +86,16 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     this.isStatus = this.blockDetailModel.status;
     this.selectedType = this.blockDetailModel.type;
     this.isTypeId = this.blockDetailModel.type;
-    if (this.isTypeId === 2) {
+    if (this.isTypeId === 1) {
+      const proArray = this.blockDetailModel.content;
+      for (let i of proArray) {
+        (this.addForm.controls['productList'] as FormArray).push(new FormGroup({
+          product_id: new FormControl(i.product_id),
+          type: new FormControl(i.type)
+        }));
+      }
+    }
+    else if (this.isTypeId === 2) {
       const imgArray = this.blockDetailModel.content;
       for (let i of imgArray) {
         (this.addForm.controls['imageList'] as FormArray).push(new FormGroup({
@@ -127,7 +127,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     this.updateBlockRequestModel.block_key = this.addForm.value.key;
     this.updateBlockRequestModel.status = this.addForm.value.status;
     this.updateBlockRequestModel.type = this.isTypeId;
-    if (this.isTypeId === 2) {
+    if (this.isTypeId === 1) {
+      this.updateBlockRequestModel.content = this.addForm.value.productList;
+    }
+    else if (this.isTypeId === 2) {
       this.updateBlockRequestModel.content = this.addForm.value.imageList;
     }
     else if (this.isTypeId === 3) {
@@ -158,7 +161,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       })
     }
     else {
-      if (this.addForm.controls.imageList.valid === false) {
+      if (this.addForm.controls.productList.valid === false) {
+        this.message.create('error', '请选择产品内容');
+      }
+      else  if (this.addForm.controls.imageList.valid === false) {
         this.message.create('error', '请上传图片');
       }
       else if (this.addForm.controls.iconList.valid === false) {
@@ -166,6 +172,31 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       }
     }
 
+  }
+
+
+  // 产品
+  get productArray() {
+    return this.addForm.get("productList") as FormArray;
+  }
+
+  // 添加
+  addPro() {
+    this.productArray.push(this.fb.group({
+      product_id: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required)
+    }))
+
+  }
+
+
+  removePro(index: number) {
+    if (this.productArray.length > 1) {
+      this.productArray.removeAt(index);
+    }
+    else {
+      this.message.create('warning', '无法删除，至少存在一组');
+    }
   }
 
 
@@ -224,6 +255,21 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   changeType(event: any) {
     console.log("event", event);
     this.isTypeId = event;
+  }
+
+
+  choicePro(i: any) {
+    const dialogRef = this.dialog.open(AdminWechatPageblockProlistComponent, {
+      width: '650px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        this.productArray.controls[i].patchValue({ 'product_id': result.id });
+        console.log(" this.productArray", this.productArray);
+      }
+
+    });
   }
 
 
