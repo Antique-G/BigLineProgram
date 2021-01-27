@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
-import { AddBlockRequestModel, AddPageConfigRequestModel, BlockDetailResponseModel, BlockTypeRequestModel, ConfigPageList, PageConfigResponseModel, UpdateBlockRequestModel, WeChatPageBlockListResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
+import { AddBlockRequestModel, AddPageConfigRequestModel, BlockDetailResponseModel, BlockTypeRequestModel, ConfigPageList, PageConfigResponseModel, ProListModel, UpdateBlockRequestModel, WeChatPageBlockListResponseModel, WeChatPageConfigListResponseModel } from '../../../interfaces/adminWeChat/admin-admin-model';
 import { AdminUrls } from '../../../api';
 
 
@@ -133,6 +133,20 @@ export class AdminWechatPageconfigService {
   }
 
 
+  //产品搜索 GetWeChatBlockProList
+  proList(key_word: any, type: any): Observable<ProListModel> {
+    const params = new HttpParams().set('key_word', key_word ? key_word : '')
+      .set('type', type ? type : '');
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<ProListModel>(this.urls.GetWeChatBlockProList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {

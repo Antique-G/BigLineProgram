@@ -158,3 +158,40 @@ export interface UpdateBlockRequestModel {
   content: any[];
   block_id?: any;
 }
+
+
+// 产品
+export interface  ProListModel{
+  data: DatumProListModel[];
+}
+
+export interface  DatumProListModel{
+  id: number;
+  title: string;
+  store_id: number;
+  few_days: number;
+  few_nights: number;
+  departure_city: string;
+  destination_city: string;
+  earlier: number;
+  confirm: number;
+  service_phone: string;
+  min_price: number;
+  price_range: number;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  child_height_min: number;
+  child_height_max: number;
+  feature?: string;
+  details?: string;
+  fee?: string;
+  notice?: string;
+  status: number;
+  check_status: number;
+  created_at?: string;
+  updated_at?: string;
+  departure: string;
+  destination: string;
+}
