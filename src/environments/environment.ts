@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://plat.bigline.cc",
+  baseUrl: "https://plat.bigline.cc",
   // baseUrl: "http://jiaxiang.p.bigline.cc"    
 };
 
