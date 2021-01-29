@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { SetStatusRequestModel } from '../../../interfaces/adminUserinfo/admin-userinfo-model';
 import { AdminUserinfoService } from '../../../services/admin/admin-userinfo.service';
 
 @Component({
@@ -16,11 +18,17 @@ export class AdminUserinfoComponent implements OnInit {
   loading = true;
   keyword: any;
   status: any;
-  constructor(public fb:FormBuilder,private adminUserinfoService:AdminUserinfoService) {
+  setStatusRequestModel:SetStatusRequestModel
+  // confirmModal?: NzModalRef; // g-zorro model 提示框
+  constructor(public fb:FormBuilder,private adminUserinfoService:AdminUserinfoService,private modal: NzModalService) {
     this.searchForm = fb.group({
       status: [""],
       name: [""],
     });
+    this.setStatusRequestModel = {
+      user_id: 0,
+      status: 0,
+    }
    }
 
   ngOnInit(): void {
@@ -51,7 +59,25 @@ export class AdminUserinfoComponent implements OnInit {
     this.getDataList();
     console.log("value", this.searchForm.value);
   }
-  add(){
+
+  //修改状态
+  up(data:any){
+    console.log('11111',data)
+    this.setStatusRequestModel.user_id = data.user_id;
+    if ( data.status === 1 ) {
+      this.setStatusRequestModel.status = 0;
+    }else if (data.status === 0 ){
+      this.setStatusRequestModel.status = 1;
+    }
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>请确认操作</h6>',
+      nzOnOk: () =>{
+        this.adminUserinfoService.userinfoSetStatus(this.setStatusRequestModel).subscribe(res => {
+          this.getDataList();
+        })
+      }
+    })
 
   }
 }

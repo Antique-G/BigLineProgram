@@ -3,9 +3,6 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div>
-                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
-                    </div>
                     <form [formGroup]="searchForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
@@ -30,8 +27,6 @@
 
                         </div>
                     </form>
-
-
                     <div class="mat-elevation-z8 ListBox">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource"  [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
                             <thead>
@@ -41,21 +36,14 @@
                                     <th>性别</th>
                                     <th>电话</th>
                                     <th>状态</th>
-                                    <th>修改</th>
+                                    <th>修改状态</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.name}}</td>
                                     <td>{{data.real_name}}</td>
-                                    <td>
-                                        <div *ngIf="data.gender===0">
-                                            男
-                                        </div>
-                                        <div *ngIf="data.gender===1">
-                                            女
-                                        </div>
-                                    </td>
+                                    <td>{{data.gender}}</td>
                                     <td>{{data.phone}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
@@ -66,8 +54,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)">
-                                            <mat-icon>edit</mat-icon>
+                                        <div style="cursor: pointer;" (click)="up(data)">
+                                            <div *ngIf="data.status===0">
+                                                <mat-icon title="开启">arrow_circle_up</mat-icon>
+                                            </div>
+                                            <div *ngIf="data.status===1">
+                                                <mat-icon title="禁用">arrow_circle_down</mat-icon>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

@@ -41,3 +41,8 @@ export interface Datum {
     email_verified_at?: any;
     profile_photo_url: string;
   }
+
+  export interface SetStatusRequestModel { 
+    user_id: number;
+    status: number;
+  }
