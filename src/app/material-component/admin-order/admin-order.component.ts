@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-order',
@@ -17,8 +17,8 @@ export class AdminOrderComponent implements OnInit {
   keyword: any;
   status: any;
 
-  
-  constructor(public fb: FormBuilder, public dialog: MatDialog) {
+
+  constructor(public fb: FormBuilder, public router: Router) {
     this.searchForm = fb.group({
       status: [''],
       name: ['']
@@ -29,7 +29,7 @@ export class AdminOrderComponent implements OnInit {
   }
 
 
-  edit(data:any){
+  edit(data: any) {
 
   }
 
@@ -37,22 +37,23 @@ export class AdminOrderComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
-  
+
   }
   changePageSize(per_page: number) {
     console.log("一页显示多少", per_page);
     this.per_page = per_page;
-   
+
   }
 
 
   search() {
     this.keyword = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
-  
+    this.router.navigate(['/admin/main/orderList/detail']);
+
 
   }
 
-  add(){}
+  add() { }
 
 }

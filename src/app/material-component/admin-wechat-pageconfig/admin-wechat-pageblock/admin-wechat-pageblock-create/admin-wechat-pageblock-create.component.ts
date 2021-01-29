@@ -26,8 +26,11 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
   addBlockRequestModel: AddBlockRequestModel;
 
   optionList: any[] = [];
+  isProType: any;
   idProType = false;
   idPro = false;
+  selectedValue: any[] = [];
+
 
 
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public dialog: MatDialog, public router: Router,
@@ -51,8 +54,8 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
       type: ['', [Validators.required]],
       status: [1],
       proControl: this.fb.group({
-        type: ['', [Validators.required]],
-        product_id: [[], [Validators.required]],
+        type: new FormControl(''),
+        product_id: new FormControl([]),
       }),
       imageList: this.fb.array([]),
       iconList: this.fb.array([])
@@ -61,9 +64,9 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
 
 
   search(value: any): void {
-    if(value){
-      this.optionList=[];
-      this.adminWechatPageconfigService.proList(value, this.isTypeId).subscribe(res => {
+    if (value) {
+      this.optionList = [];
+      this.adminWechatPageconfigService.proList(value, this.isProType).subscribe(res => {
         console.log("222", res)
         for (let i of res.data) {
           let a = { value: i.id, label: i.title };
@@ -72,8 +75,11 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
         }
       })
     }
-  
+
   }
+
+
+
 
 
   addImgControl() {
@@ -219,39 +225,51 @@ export class AdminWechatPageblockCreateComponent implements OnInit {
     console.log("event", event);
     this.isTypeId = event;
     if (this.isTypeId === 1) {
-        // alert(1);
-      this?.addForm?.controls['proControl'].setValidators(Validators.required);
-      this?.addForm?.controls['proControl'].updateValueAndValidity();
+      const group = this.addForm.controls['proControl'] as FormGroup;
+      const items = group.controls;
+      for (const key2 in items) {
+        group.controls[key2].setValidators(Validators.required);
+        group.controls[key2].updateValueAndValidity();
+      }
       this?.addForm?.controls['imageList'].setValidators(null);
       this?.addForm?.controls['imageList'].updateValueAndValidity();
       this?.addForm?.controls['iconList'].setValidators(null);
       this?.addForm?.controls['iconList'].updateValueAndValidity();
+
     }
     else if (this.isTypeId === 2) {
-    
       this.addImgControl()
       this?.addForm?.controls['imageList'].setValidators(Validators.required);
       this?.addForm?.controls['imageList'].updateValueAndValidity();
       this?.addForm?.controls['iconList'].setValidators(null);
       this?.addForm?.controls['iconList'].updateValueAndValidity();
-      this?.addForm?.controls['proControl'].setValidators(null);
-      this?.addForm?.controls['proControl'].updateValueAndValidity();
+      const group = this.addForm.controls['proControl'] as FormGroup;
+      const items = group.controls;
+      for (const key2 in items) {
+        group.controls[key2].setValidators(null);
+        group.controls[key2].updateValueAndValidity();
+      }
     }
     else if (this.isTypeId === 3) {
-      // alert(2);
       this.addIconControl();
       this?.addForm?.controls['iconList'].setValidators(Validators.required);
       this?.addForm?.controls['iconList'].updateValueAndValidity();
       this?.addForm?.controls['imageList'].setValidators(null);
       this?.addForm?.controls['imageList'].updateValueAndValidity();
-      this?.addForm?.controls['proControl'].setValidators(null);
-      this?.addForm?.controls['proControl'].updateValueAndValidity();
+      const group = this.addForm.controls['proControl'] as FormGroup;
+      const items = group.controls;
+      for (const key2 in items) {
+        group.controls[key2].setValidators(null);
+        group.controls[key2].updateValueAndValidity();
+      }
     }
   }
 
   changeProType(event: any) {
     this.idProType = true;
-    this.optionList=[];
+    this.isProType = event;
+    this.optionList = [];
+    this.selectedValue = [];
   }
 
 
