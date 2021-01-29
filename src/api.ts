@@ -92,6 +92,7 @@ export const AdminUrls = {
   DeleteAdminInsurance: api + '/admin/insurance/',       //删除
 
   GetAdminUserinfoList: api + '/admin/user',      // 用户信息列表
+  PostAdminUserinfoStatus: api + '/admin/user/set_status',      // 用户状态修改
 
 
 

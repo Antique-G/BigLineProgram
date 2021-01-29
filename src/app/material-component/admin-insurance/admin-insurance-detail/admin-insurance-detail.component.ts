@@ -39,7 +39,12 @@ export class AdminInsuranceDetailComponent implements OnInit {
   forms(){
     this.validateForm = this.fb.group({
       name: new FormControl(null, [Validators.required,Validators.maxLength(32)]),
-      insured_date: new FormArray([new FormControl(null, )]),
+      insured_date: new FormArray([
+        new FormControl(null, [
+          Validators.required,
+          Validators.min(0),
+        ]),
+      ]),
       
     });
   
@@ -55,7 +60,7 @@ export class AdminInsuranceDetailComponent implements OnInit {
   }
   //添加
   add() {
-    this.insuredDateArray.push(new FormControl(null));
+    this.insuredDateArray.push(new FormControl(null,[Validators.required,Validators.min(0),]));
   }
   //删除
   remove(index: number) {

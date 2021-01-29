@@ -39,7 +39,10 @@ export class AdminInsuranceCreateComponent implements OnInit {
         Validators.maxLength(32),
       ]),
       insured_date: new FormArray([
-        new FormControl(null, [Validators.required]),
+        new FormControl(null, [
+          Validators.required,
+          Validators.min(0),
+        ]),
       ]),
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -80,7 +83,7 @@ export class AdminInsuranceCreateComponent implements OnInit {
   }
   //添加
   add() {
-    this.insuredDateArray.push(new FormControl(null));
+    this.insuredDateArray.push(new FormControl(null,[Validators.required,Validators.min(0),]));
   }
   //删除
   remove(index: number) {

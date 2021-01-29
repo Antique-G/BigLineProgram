@@ -1,9 +1,9 @@
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/internal/operators/catchError';
 import { AdminUrls } from '../../api';
-import { AdminUserinfoListResponseModel } from '../../interfaces/adminUserinfo/admin-userinfo-model';
+import { AdminUserinfoListResponseModel, SetStatusRequestModel } from '../../interfaces/adminUserinfo/admin-userinfo-model';
 
 const httpOptions = {
   headers : new HttpHeaders().set('Content-Type','application/json')
@@ -31,6 +31,14 @@ export class AdminUserinfoService {
       catchError(this.handleError)
     )
   }
+
+  userinfoSetStatus(setStatusRequestModel:SetStatusRequestModel):Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminUserinfoStatus,setStatusRequestModel,httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
