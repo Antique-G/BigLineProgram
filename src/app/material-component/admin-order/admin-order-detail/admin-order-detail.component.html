@@ -1,0 +1,41 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
+                </div>
+
+                <mat-card>
+                    <div class="example-container">
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <h4 style="padding-left: 10px;padding-top: 10px;">团队基本信息</h4>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">订单批量导出</button>
+                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">查看团队操作日志</button>
+                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">班期下线</button>
+                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;">不成团关联</button>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 80px">
+                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+
+                                </nz-spin>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </mat-card>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

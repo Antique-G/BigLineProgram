@@ -5,7 +5,7 @@ import { AdminStoreBankAccountComponent } from './admin-store-bank-account/admin
 import { AdminStoreComponent } from './admin-store/admin-store.component';
 import { AdminSystemAreaComponent } from './admin-system-area/admin-system-area.component';
 import { AdminComponent } from './admin/admin.component';
-import {AdminProductTagComponent} from './admin-product/admin-product-tag/admin-product-tag.component';
+import { AdminProductTagComponent } from './admin-product/admin-product-tag/admin-product-tag.component';
 import { AdminProductManagementComponent } from './admin-product/admin-product-management/admin-product-management.component';
 import { AdminProductManagementDetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-detail.component';
 import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
@@ -24,6 +24,7 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-w
 import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
+import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -121,7 +122,7 @@ export const MaterialRoutes: Routes = [
         data: {
           breadcrumb: '条款列表'
         }
-      },  
+      },
       {
         path: 'termTemplate',
         component: AdminTermTemplateComponent,
@@ -147,9 +148,17 @@ export const MaterialRoutes: Routes = [
         path: 'orderList',
         component: AdminOrderComponent,
         data: {
-          breadcrumb: '订单列表'}
-        },
-        {
+          breadcrumb: '订单列表'
+        }
+      },
+      {
+        path: 'orderList/detail',
+        component: AdminOrderDetailComponent,
+        data: {
+          breadcrumb: '订单详情'
+        }
+      },
+      {
         path: 'saleTitle',
         component: AdminSaleTitleComponent,
         data: {

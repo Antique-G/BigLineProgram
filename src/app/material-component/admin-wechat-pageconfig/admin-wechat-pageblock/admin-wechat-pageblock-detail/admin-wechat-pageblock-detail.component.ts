@@ -23,6 +23,8 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   proType: any;
   optionList: any[] = [];
   idProType = false;
+  isProType: any;
+
   idPro = false;
   selectedValue: any[] = [];
 
@@ -54,8 +56,8 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       type: ['', [Validators.required]],
       status: [1],
       proControl: this.fb.group({
-        type: ['', [Validators.required]],
-        product_id: [[], [Validators.required]],
+        type: new FormControl(''),
+        product_id: new FormControl([]),
       }),
       imageList: this.fb.array([]), 
       iconList: this.fb.array([
@@ -292,6 +294,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   changeProType(event: any) {
     this.idProType = true;
     this.optionList=[];
+    this.isProType = event;
     console.log("wrewrw",event,this.proType,event!= this.blockDetailModel?.content?.type)
     if(event!= this.blockDetailModel?.content?.type){
       this.selectedValue=[];
@@ -306,7 +309,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   search(value: any): void {
     if(value){
       this.optionList=[];
-      this.adminWechatPageconfigService.proList(value, this.isTypeId).subscribe(res => {
+      this.adminWechatPageconfigService.proList(value, this.isProType).subscribe(res => {
         console.log("222", res)
         for (let i of res.data) {
           let a = { value: i.id, label: i.title };
