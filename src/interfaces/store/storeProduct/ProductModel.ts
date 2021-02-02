@@ -3,7 +3,6 @@ export interface AddStoreProductModel {
   departure_city: string;
   destination_city: string;
   earlier: number;
-  confirm: number;
   few_days: number;
   few_nights: number;
   child_status: number;
@@ -54,7 +53,6 @@ export interface DataModel {
   store_id: number;
   departure_city: string;
   earlier: number;
-  confirm: number;
   few_days: number;
   few_nights: number;
   minimum_price: number;
@@ -186,7 +184,6 @@ interface StoreimageDatum {
 export interface DetailModel {
   title: string;
   earlier: number;
-  confirm: number;
   pay_method: number;
   few_days: number;
   few_nights: number;

@@ -29,7 +29,7 @@ export class AdminProductReviewComponent implements OnInit {
       reason: new FormControl(this.data[1])
     });
     this.adminProductCheckStatusModel = {
-      id: this.data.id,
+      id: this.data[0].id,
       check_status: 0,
       reason: ''
 

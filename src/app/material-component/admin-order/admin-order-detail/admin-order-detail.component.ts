@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminOrderDetailComponent implements OnInit {
   public isSpinning = false;
+  addForm!: FormGroup;
 
-  constructor() { }
+
+  constructor(public fb: FormBuilder,) {
+     this.addForm = this.fb.group({
+      teamId: ['', [Validators.required]],
+      returnDate: ['', [Validators.required]],
+      orderDate: ['', [Validators.required]],
+      groupPeople: ['', [Validators.required]],
+      automaticGroupDate: ['', [Validators.required]],
+      groupDate: ['', [Validators.required]]
+     })
+   }
 
   ngOnInit(): void {
   }

@@ -48,7 +48,7 @@ export interface AdminProductManagementUpdateModel {
   title: string;
   region_code: string;
   earlier: number;
-  confirm: number;
+ 
   pay_method: number;
   few_days: number;
   few_nights: number;
@@ -107,7 +107,7 @@ export interface DataProductDetailModel {
   store_id: number;
   departure_city: string;
   earlier: number;
-  confirm: number;
+
   few_days: number;
   few_nights: number;
   minimum_price: number;

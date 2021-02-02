@@ -12,7 +12,6 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-store-product-info',
@@ -41,7 +40,7 @@ export class StoreProductInfoComponent implements OnInit {
   feeList: any[] = []    //图片
 
   isReserveChildren = '0';
-  isReserveAhead = '0';
+  isReserveAhead = '1';
 
   isLoadingBtn = false;
   isPlaceRegion: any;
@@ -98,7 +97,6 @@ export class StoreProductInfoComponent implements OnInit {
       departure_city: '',
       destination_city: '',
       earlier: 0,
-      confirm: 0,
       few_days: 0,
       few_nights: 0,
       child_status: 0,
@@ -124,15 +122,14 @@ export class StoreProductInfoComponent implements OnInit {
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
-      confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
       reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
       child_age_max: [14],
       child_height_min: [''],
       child_height_max: [''],
-      reserve_num_min: ['', [Validators.required]],
-      reserve_num_max: ['', [Validators.required]],
+      reserve_num_min: [0, [Validators.required]],
+      reserve_num_max: [0, [Validators.required]],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
 
@@ -256,7 +253,6 @@ export class StoreProductInfoComponent implements OnInit {
     this.addStoreProductModel.title = this.addForm.value.title;
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
     this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
-    this.addStoreProductModel.confirm = this.addForm.value.confirm;
     this.addStoreProductModel.contacts_status = this.addForm.value.contacts_status;
     this.addStoreProductModel.child_status = this.addForm.value.child_status;
     this.addStoreProductModel.reserve_ahead = this.addForm.value.reserve_ahead;

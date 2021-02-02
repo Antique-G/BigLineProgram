@@ -84,7 +84,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel = {
       title: '',
       earlier: 0,
-      confirm: 0,
       few_days: 0,
       few_nights: 0,
       departure_city: 0,
@@ -113,7 +112,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
-      confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
       reserve_ahead: new FormControl(1, [Validators.required]),
@@ -322,7 +320,6 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
       this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
     }
-    this.freeTravelUpdateModel.confirm = this.addForm.value.confirm;
     this.freeTravelUpdateModel.departure_city = this.idRegion;
     this.freeTravelUpdateModel.destination_city = this.idDestin;
 
