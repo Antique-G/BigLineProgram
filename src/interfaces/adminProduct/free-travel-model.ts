@@ -31,7 +31,7 @@ export interface DatumModel {
     departure_city: string;
     destination_city: string;
     earlier: number;
-    confirm: number;
+   
     service_phone: string;
     min_price: number;
     price_range: number;
@@ -114,7 +114,7 @@ export interface DataFreeTravelDetailModel {
     departure_city: string;
     destination_city: string;
     earlier: number;
-    confirm: number;
+  
     pay_method: number;
     service_phone: string;
     min_price: number;
@@ -144,7 +144,7 @@ export interface FreeTravelUpdateModel {
     id?: number;
     title: string;
     earlier: number;
-    confirm: number;
+  
     few_days: number;
     few_nights: number;
     departure_city: number;

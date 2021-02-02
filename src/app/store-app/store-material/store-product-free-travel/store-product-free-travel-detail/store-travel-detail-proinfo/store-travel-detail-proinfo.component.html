@@ -71,18 +71,6 @@
                                         </div>
                                     </nz-form-item>
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>是否需要客服确认</nz-form-label>
-                                            <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group ngModel={{dataModel?.confirm}} formControlName="confirm">
-                                                    <label nz-radio nzValue='1'>是</label>
-                                                    <label nz-radio nzValue='0'>否 </label>
-                                                </nz-radio-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
                                 </form>
                             </nz-spin>
                         </div>
@@ -102,11 +90,11 @@
                                 <form nz-form [formGroup]="addForm" nz-row>
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_ahead" nzRequired>是否可提前预定</nz-form-label>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_ahead" nzRequired>是否需要提前预定</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-radio-group ngModel={{dataModel?.reserve_ahead}} (ngModelChange)="isReserveAheadChange($event)" formControlName="reserve_ahead">
-                                                    <label nz-radio nzValue='1'>可以</label>
-                                                    <label nz-radio nzValue='0'>否 </label>
+                                                    <label nz-radio nzValue='1'>需要</label>
+                                                    <label nz-radio nzValue='0'>不需要 </label>
                                                 </nz-radio-group>
                                             </nz-form-control>
                                         </div>
@@ -130,7 +118,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num" nzRequired>可预定人数</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num">
-                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="reserve_num" [nzMin]="1"></nz-input-number>
+                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="reserve_num" [nzMin]="0"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -160,8 +148,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min" nzRequired>儿童身高范围</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min">儿童身高范围</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-input-number formControlName="child_height_min" (keyup)="numTest($event)" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>
                                                 <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
                                                 <nz-input-number formControlName="child_height_max" (keyup)="numTest($event)" style="width: 90px;margin-top: 1px;" [nzMin]="1" [nzMax]="170"></nz-input-number>

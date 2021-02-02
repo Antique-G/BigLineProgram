@@ -2,7 +2,6 @@ export interface StoreFreeTravelModel {
   id?: number;
   title: string;
   earlier: number;
-  confirm: number;
   pay_method: number;
   few_days: number;
   few_nights: number;
@@ -70,7 +69,6 @@ export interface Datum {
   departure_city: string;
   destination_city: string;
   earlier: number;
-  confirm: number;
   service_phone: string;
   min_price: number;
   price_range: number;

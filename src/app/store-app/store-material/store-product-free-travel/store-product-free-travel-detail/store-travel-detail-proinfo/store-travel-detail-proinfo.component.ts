@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
-import { CommonServiceService } from '../../../../../../services/store/common-service/common-service.service';
 import { InsertABCMenu } from '../../../InsertABCMenu';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
@@ -14,6 +13,8 @@ import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/ch
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+
+
 @Component({
   selector: 'app-store-travel-detail-proinfo',
   templateUrl: './store-travel-detail-proinfo.component.html',
@@ -91,7 +92,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.freeTravelModel = {
       title: '',
       earlier: 0,
-      confirm: 0,
       pay_method: 0,
       few_days: 0,
       few_nights: 0,
@@ -131,11 +131,10 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       departure_city: new FormControl('', [Validators.required]),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
-      confirm: new FormControl('', [Validators.required]),
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
       reserve_ahead: new FormControl(1, [Validators.required]),
-      reserve_num: new FormControl('', [Validators.required]),
+      reserve_num: new FormControl('0', [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
       children_age: new FormControl(''),
       child_height_min: new FormControl(''),
@@ -352,8 +351,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
       this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
     }
-
-    this.freeTravelModel.confirm = this.addForm.value.confirm;
     this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1]
     this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1]
 

@@ -11,7 +11,6 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { InsertBRUSHMenu } from '../../../InsertBRUSHMenu';
 
 
 @Component({
@@ -103,7 +102,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       departure_city: '',
       destination_city: '',
       earlier: 0,
-      confirm: 0,
       few_days: 0,
       few_nights: 0,
       child_status: 0,
@@ -130,7 +128,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       departure_city: ['', [Validators.required]],
       destination_city: ['', [Validators.required]],
       assembling_place_id: ['', [Validators.required]],
-      confirm: ['1', [Validators.required]],
       contacts_status: ['1', [Validators.required]],
       reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
@@ -277,7 +274,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
-    this.addForm.get('confirm')?.setValue(this.dataProductDetailModel.confirm);
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
     this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
     this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);
@@ -332,7 +328,6 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.detailUpdateModel.title = this.addForm.value.title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
-    this.detailUpdateModel.confirm = this.addForm.value.confirm;
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
     this.detailUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
@@ -459,7 +454,9 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   // 刷新区域和集合地点，标签
   refreshRegion() {
-    this.regionList();
+    this.storeRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+    })
   }
 
   refreshPlace() {
