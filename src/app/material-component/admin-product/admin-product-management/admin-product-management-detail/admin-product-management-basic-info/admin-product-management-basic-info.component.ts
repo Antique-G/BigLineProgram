@@ -228,15 +228,15 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       if (res.data.length === 0) {
         this.assemblingPlaceList = [];
       }
-      else{
+      else {
         for (let i of res.data) {
-          console.log("集合地点ii", i,i.time_state === 0);
+          console.log("集合地点ii", i, i.time_state === 0);
           if (i.time_state === 0) {
-            let a = { value: i.id, label: i.name,time:i.time};
+            let a = { value: i.id, label: i.name, time: i.time };
             this.assemblingPlaceList.push(a);
           }
-          else if (i.time_state ===1) {
-            let a = { value: i.id, label: i.name,time:'' };
+          else if (i.time_state === 1) {
+            let a = { value: i.id, label: i.name, time: '' };
             this.assemblingPlaceList.push(a);
           }
         }
@@ -250,7 +250,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.detailUpdateModel.title = this.addForm.value.title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
-   
+
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
     this.detailUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
@@ -301,7 +301,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
-   
+
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
     this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
     this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);
@@ -450,15 +450,16 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
   refreshPlace() {
-    this.adminMeetingPlaceService.adminMeetingPlaceList('',this.isPlaceRegion).subscribe(res => {
+    this.assemblingPlaceList=[];
+    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
       for (let i of res.data) {
-        console.log("集合地点ii", i,i.time_state === 0);
+        console.log("集合地点ii", i, i.time_state === 0);
         if (i.time_state === 0) {
-          let a = { value: i.id, label: i.name,time:i.time};
+          let a = { value: i.id, label: i.name, time: i.time };
           this.assemblingPlaceList.push(a);
         }
-        else if (i.time_state ===1) {
-          let a = { value: i.id, label: i.name,time:'' };
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
           this.assemblingPlaceList.push(a);
         }
       }
@@ -466,6 +467,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
   refreshTag() {
+    this.tagList = [];
     this.adminProductTagService.getProductTagList(1, 1000, '', '', '').subscribe(res => {
       for (let i of res.data) {
         let a = { value: i.id, label: i.name };

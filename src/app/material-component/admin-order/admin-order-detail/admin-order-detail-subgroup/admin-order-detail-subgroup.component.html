@@ -1,0 +1,22 @@
+<nz-tabset [(nzSelectedIndex)]="index" nzType="editable-card" nzHideAdd (nzClose)="closeTab($event)">
+    <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1" [nzTitle]="tab">
+
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                    <div>未派导游，未发通知</div>
+                    <div>子团编号：重庆洪崖洞2天1晚</div>
+                    <div>共21人：成人19|儿童2</div>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">派遣导游</button>
+                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团通知</button>
+                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单通知</button>
+                    <button mat-raised-button color="basic" style="letter-spacing: 2px;">移动订单</button>
+                </div>
+            </div>
+
+        </div>
+
+        {{ tab }}</nz-tab>
+</nz-tabset>

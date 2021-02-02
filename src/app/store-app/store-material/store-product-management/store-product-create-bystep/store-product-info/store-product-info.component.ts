@@ -375,6 +375,7 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   refreshPlace() {
+    this.assemblingPlaceList=[];
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
@@ -393,6 +394,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   refreshTag() {
+    this.tagList=[];
     this.storeProductService.productTagList(this.cateId).subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {

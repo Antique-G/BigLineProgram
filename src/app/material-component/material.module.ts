@@ -76,6 +76,7 @@ import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.componen
 import { AdminWechatPageblockUploadComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-upload/admin-wechat-pageblock-upload.component';
 import { AdminWechatPageblockProlistComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-prolist/admin-wechat-pageblock-prolist.component';
 import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
+import { AdminOrderDetailSubgroupComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-detail-subgroup.component';
 
 @NgModule({
   imports: [
@@ -169,6 +170,7 @@ import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admi
     AdminWechatPageblockUploadComponent,
     AdminWechatPageblockProlistComponent,
     AdminOrderDetailComponent,
+    AdminOrderDetailSubgroupComponent,
   ]
 })
 export class MaterialComponentsModule {}
