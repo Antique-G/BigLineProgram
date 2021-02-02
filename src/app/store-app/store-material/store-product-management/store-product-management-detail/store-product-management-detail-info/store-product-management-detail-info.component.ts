@@ -220,7 +220,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       if (res.data.length === 0) {
         this.assemblingPlaceList = [];
       }
-      else{
+      else {
         for (let i of res.data) {
           console.log("集合地点ii", i, i.time_state === 0);
           if (i.time_state === 0) {
@@ -233,7 +233,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
           }
         }
       }
-  
+
       console.log("最后的记过是", this.assemblingPlaceList)
 
     });
@@ -297,7 +297,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.values.push(temp);
     }
     this.addForm.get('departure_city')?.setValue(this.values);   //区域
-    
+
     // 目的地城市
     const strDest = this.dataProductDetailModel.destination_city;
     for (let i = 0; i < strDest.length / 4; i++) {
@@ -376,7 +376,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       this.detailUpdateModel.departure_city = data[data.length - 1];
       this.isPlaceRegion = this.detailUpdateModel.departure_city;
       this.getAccemList();
-   
+
     }
   }
 
@@ -460,6 +460,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
   refreshPlace() {
+    this.assemblingPlaceList = [];
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
@@ -478,6 +479,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
 
   refreshTag() {
+    this.tagList = [];
     this.storeProductService.productTagList(this.cateId).subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {
