@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StoreOrderService } from 'src/services/store/store-order/store-order.service';
+import { StoreOrderService } from '../../../../services/store/store-order/store-order.service';
 
 @Component({
   selector: 'app-store-order-group',
