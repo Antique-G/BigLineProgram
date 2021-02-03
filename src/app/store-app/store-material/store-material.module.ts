@@ -54,6 +54,7 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreOrderGroupComponent } from './store-order-group/store-order-group.component';
+import { StoreOrderGroupDetailComponent } from './store-order-group/store-order-group-detail/store-order-group-detail.component';
 
 @NgModule({
   imports: [
@@ -122,6 +123,7 @@ import { StoreOrderGroupComponent } from './store-order-group/store-order-group.
     StoreTouristCreateComponent,
     StoreTouristDetailComponent,
     StoreOrderGroupComponent,
+    StoreOrderGroupDetailComponent,
     
   ]
 })
