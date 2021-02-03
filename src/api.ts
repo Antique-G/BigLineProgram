@@ -110,7 +110,7 @@ export const AdminUrls = {
   GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
   GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
 
-  
+
   PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
 };
@@ -187,6 +187,9 @@ export const StoreUrls = {
 
 
   GetStoreOrderGroupList: api + '/store/group',  //订单团列表
+  GetStoreOrderGroupDetail: api + '/store/group/',   //订单团详情
+  PostStoreOrderGroupSetGuide: api + '/store/group/set_guide',   // 派遣导游
+
 
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
