@@ -12,6 +12,7 @@ import { StoreFreeCreateBystepComponent } from './store-product-free-travel/stor
 import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
+import { StoreOrderGroupComponent } from './store-order-group/store-order-group.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -110,6 +111,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreTouristComponent,
         data: {
           breadcrumb: '导游列表'
+        }
+      },
+      {
+        path: 'storeOrderGroup',
+        component: StoreOrderGroupComponent,
+        data: {
+          breadcrumb: '订单团列表'
         }
       },
     ]

@@ -137,7 +137,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       reserve_num_min: ['', [Validators.required]],
       reserve_num_max: ['', [Validators.required]],
       earlier1: new FormControl(1, [Validators.required]),
-      earlier2: new FormControl(null, [Validators.required]),
+      earlier2: new FormControl(null),
 
     });
     // 每次表单数据发生变化的时候更新错误信息

@@ -53,6 +53,7 @@ import { StoreTemplateExampleComponent } from './store-terms-management/store-te
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
+import { StoreOrderGroupComponent } from './store-order-group/store-order-group.component';
 
 @NgModule({
   imports: [
@@ -120,6 +121,7 @@ import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detai
     StoreTouristComponent,
     StoreTouristCreateComponent,
     StoreTouristDetailComponent,
+    StoreOrderGroupComponent,
     
   ]
 })

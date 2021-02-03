@@ -106,7 +106,11 @@ const StoreMENUITEMS = [
     title: '导游管理模块', icon: 'flag',
     children: [{ state: 'storeTourist', name: '导游列表' }]
   },
-
+  {
+    title: '订单管理模块', icon: 'ordered-list',
+    children: [{ state: 'storeOrderGroup', name: '团订单列表' }]
+  },
+  
 
 ];
 
