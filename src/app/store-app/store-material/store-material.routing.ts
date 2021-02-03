@@ -13,6 +13,7 @@ import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { StoreOrderGroupComponent } from './store-order-group/store-order-group.component';
+import { StoreOrderGroupDetailComponent } from './store-order-group/store-order-group-detail/store-order-group-detail.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -118,6 +119,13 @@ export const StoreMaterialRoutes: Routes = [
         component: StoreOrderGroupComponent,
         data: {
           breadcrumb: '订单团列表'
+        }
+      },
+      {
+        path: 'storeOrderGroup/detail',
+        component: StoreOrderGroupDetailComponent,
+        data: {
+          breadcrumb: '订单团详情'
         }
       },
     ]

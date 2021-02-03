@@ -98,19 +98,19 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
       this.proType = this.blockDetailModel.content.type;
       this.selectedValue = this.blockDetailModel?.content?.product_id;
       console.log('this.selectedValue是什么 ', this.selectedValue);
-      if( this.selectedValue?.length!=0&& this.selectedValue!=undefined){
-        for(let i of this.selectedValue){
-          console.log("1111111",i);
-          this.adminWechatPageconfigService.proList(i,this.proType).subscribe(res => {
-            console.log("222", res)
-            for (let i of res.data) {
-              let a = { value: i.id, label: i.title };
-              this.optionList.push(a);
-            }
-          })
-        }
-        console.log("tagList", this.optionList)
-      }
+      // if( this.selectedValue?.length!=0&& this.selectedValue!=undefined){
+      //   for(let i of this.selectedValue){
+      //     console.log("1111111",i);
+      //     this.adminWechatPageconfigService.proList(i,this.proType).subscribe(res => {
+      //       console.log("222", res)
+      //       for (let i of res.data) {
+      //         let a = { value: i.id, label: i.title };
+      //         this.optionList.push(a);
+      //       }
+      //     })
+      //   }
+      //   console.log("tagList", this.optionList)
+      // }
     }
     else if (this.isTypeId === 2) {
       const imgArray = this.blockDetailModel.content;
@@ -297,10 +297,26 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
     this.isProType = event;
     console.log("wrewrw",event,this.proType,event!= this.blockDetailModel?.content?.type)
     if(event!= this.blockDetailModel?.content?.type){
+      alert(1)
       this.selectedValue=[];
     }
     else{
-      this.getValue();
+      alert(2) 
+      this.selectedValue = this.blockDetailModel?.content?.product_id;
+      console.log('this.selectedValue是什么 ', this.selectedValue);
+      if( this.selectedValue?.length!=0&& this.selectedValue!=undefined){
+        for(let i of this.selectedValue){
+          console.log("1111111",i);
+          this.adminWechatPageconfigService.proList(i,this.proType).subscribe(res => {
+            console.log("222", res)
+            for (let i of res.data) {
+              let a = { value: i.id, label: i.title };
+              this.optionList.push(a);
+            }
+          })
+        }
+        console.log("tagList", this.optionList)
+      }
     }
   }
 
