@@ -59,7 +59,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
         type: new FormControl(''),
         product_id: new FormControl([]),
       }),
-      imageList: this.fb.array([]), 
+      imageList: this.fb.array([]),
       iconList: this.fb.array([
       ]),
     });
@@ -192,7 +192,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   }
 
 
- 
+
 
   // 图片
   get imgageArray() {
@@ -290,24 +290,22 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   }
 
 
-  
+
   changeProType(event: any) {
     this.idProType = true;
-    this.optionList=[];
+    this.optionList = [];
     this.isProType = event;
-    console.log("wrewrw",event,this.proType,event!= this.blockDetailModel?.content?.type)
-    if(event!= this.blockDetailModel?.content?.type){
-      alert(1)
-      this.selectedValue=[];
+    console.log("wrewrw", event, this.proType, event != this.blockDetailModel?.content?.type)
+    if (event != this.blockDetailModel?.content?.type) {
+      this.selectedValue = [];
     }
-    else{
-      alert(2) 
+    else {
       this.selectedValue = this.blockDetailModel?.content?.product_id;
       console.log('this.selectedValue是什么 ', this.selectedValue);
-      if( this.selectedValue?.length!=0&& this.selectedValue!=undefined){
-        for(let i of this.selectedValue){
-          console.log("1111111",i);
-          this.adminWechatPageconfigService.proList(i,this.proType).subscribe(res => {
+      if (this.selectedValue?.length != 0 && this.selectedValue != undefined) {
+        for (let i of this.selectedValue) {
+          console.log("1111111", i);
+          this.adminWechatPageconfigService.proList(i, this.proType).subscribe(res => {
             console.log("222", res)
             for (let i of res.data) {
               let a = { value: i.id, label: i.title };
@@ -321,10 +319,10 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
   }
 
 
-  
+
   search(value: any): void {
-    if(value){
-      this.optionList=[];
+    if (value) {
+      this.optionList = [];
       this.adminWechatPageconfigService.proList(value, this.isProType).subscribe(res => {
         console.log("222", res)
         for (let i of res.data) {
@@ -334,7 +332,7 @@ export class AdminWechatPageblockDetailComponent implements OnInit {
         }
       })
     }
-  
+
   }
 
 }
