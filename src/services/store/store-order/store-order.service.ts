@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { GetGuideListModel } from '../../../interfaces/store/storeTourist/store-tourist-model';
 import { StoreUrls } from '../../../api';
 import { SetGuideModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../../interfaces/store/storeOrder/store-order-model';
 
@@ -56,6 +57,14 @@ export class StoreOrderService {
       .pipe(
         catchError(this.handleError)
       )
+  }
+
+  //获取导游数据 
+  getGuide(): Observable<GetGuideListModel> {
+    return this.httpClient.get<GetGuideListModel>(this.urls.GetStoreOrderGroupGuideList,httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 

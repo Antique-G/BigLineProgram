@@ -31,7 +31,7 @@ export interface DatumStoreOrderListModel {
   days: number;
   start_date: string;
   end_date: string;
-  active_date: string;
+  active_date?: string;
   group_status: number;
   store_id: number;
   created_at: string;
@@ -39,7 +39,7 @@ export interface DatumStoreOrderListModel {
   group_code: string;
   departure_city_name: string;
   destination_city_name: string;
-  members_num: string;
+  members_num: number | string;
   sub_groups_num: number;
   guide_status: boolean;
   notice_status: boolean;
@@ -88,6 +88,7 @@ export interface SubgroupDeatilModel {
   created_at: string;
   updated_at: string;
   notice_status: number;
+  guide_status: boolean;
   sub_group_status: number;
   store_id: number;
   sub_group_code: string;
@@ -131,11 +132,12 @@ export interface OrderDetailModel {
   contact_phone: string;
   contact_wechat: string;
   contact_qq: string;
+  contact_email: string;
   customer_remarks: string;
-  created_at?: string;
+  internal_remarks: string;
+  created_at: string;
   updated_at: string;
   deleted_at?: any;
-  contact_email: string;
   assembling_place: string;
   assembling_time: string;
   member: MemberModel;
@@ -148,14 +150,14 @@ export interface MemberModel {
 
 export interface MemberDetailModel {
   id: number;
+  order_id: number;
+  member_id: number;
   name: string;
   is_kid: number;
   phone: string;
   id_type: number;
   id_num: string;
   sms_status: number;
-  deleted_at?: any;
-  user_id: number;
 }
 
 

@@ -66,4 +66,15 @@ export interface SetStatusModel {
 }
 
 
+// 导游数据
+export interface GetGuideListModel {
+  data: GetGuideList[];
+}
+
+export interface GetGuideList {
+  id: number;
+  name: string;
+  mobile: string;
+}
+
 

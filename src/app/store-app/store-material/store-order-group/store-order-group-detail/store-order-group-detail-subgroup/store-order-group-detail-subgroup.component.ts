@@ -1,24 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-
-
-interface ParentItemData {
-  key: number;
-  name: string;
-  platform: string;
-  version: string;
-  upgradeNum: number | string;
-  creator: string;
-  createdAt: string;
-  expand: boolean;
-}
-
-interface ChildrenItemData {
-  key: number;
-  name: string;
-  date: string;
-  upgradeNum: string;
-}
-
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 
 @Component({
   selector: 'app-store-order-group-detail-subgroup',
@@ -31,7 +14,6 @@ interface ChildrenItemData {
 export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   @Input() subGroupModel: any;   //父组件拿到的值
   cursubGroupModelValue: any[] = [];
-  proName: any;
   isSubgroup!: boolean;
   index = 0;
 
@@ -43,15 +25,15 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(public message: NzMessageService,public modal: NzModalService) { }
 
   ngOnInit(): void { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['subGroupModel']?.currentValue != undefined) {
+      // 子团的值
       this.cursubGroupModelValue = changes['subGroupModel'].currentValue?.sub_group?.data;
-      this.proName = changes['subGroupModel'].currentValue?.product_name;
       console.log("1111111", this.cursubGroupModelValue);
       // 赋值
       if (this.cursubGroupModelValue?.length === 0) {
@@ -62,7 +44,9 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
         this.isSubgroup = true;
         this.cursubGroupModelValue.forEach((value: any, index: any) => {
           value['tabs'] = '子团' + (index + 1);
-          value['expand'] = false; //展开属性
+          value?.order?.data.forEach((value: any, index: any) => {
+            value['expand'] = false; //展开属性
+          });
           console.log("33435434", this.cursubGroupModelValue);
           this.listOfParentData = this.cursubGroupModelValue;
         })
@@ -82,7 +66,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   }
 
   onAllChecked(checked: boolean): void {
-    // this.dataSource.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.listOfParentData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
 
   }
 
@@ -92,5 +76,28 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
     } else {
       this.setOfCheckedId.delete(id);
     }
+  }
+
+
+  setGuide(data: any) {
+    console.log('object :>> ', data);
+    const editmodal = this.modal.create({
+      nzTitle: '派遣导游',
+      nzContent: StoreOrderGroupDetailSubgroupSetguideComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      
+    })
   }
 }
