@@ -189,6 +189,7 @@ export const StoreUrls = {
   GetStoreOrderGroupList: api + '/store/group',  //订单团列表
   GetStoreOrderGroupDetail: api + '/store/group/',   //订单团详情
   PostStoreOrderGroupSetGuide: api + '/store/group/set_guide',   // 派遣导游
+  GetStoreOrderGroupGuideList: api + '/store/guide/data',   // 获取导游数据
 
 
 

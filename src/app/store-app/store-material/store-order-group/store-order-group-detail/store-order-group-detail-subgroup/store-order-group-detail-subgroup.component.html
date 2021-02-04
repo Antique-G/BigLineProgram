@@ -11,16 +11,24 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutAlign="space-between stretch">
                         <div style="color: red;">
-                            <p *ngIf="tab.notice_status===0">
-                                <nz-badge nzColor="yellow"></nz-badge>待派发出团通知</p>
-                            <p *ngIf="tab.notice_status===1">
-                                <nz-badge nzColor="green"></nz-badge>已派发出团通知</p>
+                            <span *ngIf="tab.guide_status===0">
+                                <nz-badge nzColor="yellow"></nz-badge>未派导游,
+                            </span>
+                            <span *ngIf="tab.guide_status===1">
+                                <nz-badge nzColor="yellow"></nz-badge>已派导游,
+                            </span>
+                            <span *ngIf="tab.notice_status===0">
+                                <nz-badge nzColor="yellow"></nz-badge>待派发出团通知
+                            </span>
+                            <span *ngIf="tab.notice_status===1">
+                                <nz-badge nzColor="green"></nz-badge>已派发出团通知
+                            </span>
                         </div>
                         <div>子团编号：{{tab.sub_group_code}}</div>
                         <div>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">派遣导游</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;">移动订单</button>
@@ -28,7 +36,7 @@
                 </div>
 
                 <div class="mat-elevation-z8">
-                    <nz-table #rowSelectionTable [nzData]="listOfParentData" [nzPageSize]="10" [nzTitle]="proName">
+                    <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10" [nzTitle]="tab.sub_group_code">
                         <thead>
                             <tr>
                                 <th [nzChecked]="checked"  (nzCheckedChange)="onAllChecked($event)"></th>
@@ -44,21 +52,29 @@
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
                                     <td [nzChecked]="setOfCheckedId.has(data.id)"  (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-                                        <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.sub_group_code }}</td>
+                                        <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.product_name }}</td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
-                                    <nz-table #innerTable [nzData]="data?.order?.data" [nzShowPagination]="false">
+                                    <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
                                         <tbody>
-                                            <tr *ngFor="let data of innerTable.data">
-                                                <td style="width: 12%;">{{ data.contact_name }}</td>
-                                                <td style="width: 13%;">类型成人儿童</td>
-                                                <td style="width: 15%;">{{data.contact_phone}}</td>
+                                            <tr *ngFor="let dataChild of innerTable.data">
+                                                <td style="width: 12%;">{{ dataChild.name }}</td>
+                                                <td style="width: 13%;">
+                                                    <p *ngIf="dataChild.is_kid===0">成人</p>
+                                                    <p *ngIf="dataChild.is_kid===1">儿童</p>
+                                                </td>
+                                                <td style="width: 15%;">{{dataChild.phone}}</td>
                                                 <td style="width: 18%;">
                                                     <p *ngIf="data.shared_status===0">不拼房</p>
                                                     <p *ngIf="data.shared_status===1">同性拼房</p>
                                                 </td>
-                                                <td style="width: 15%;">{{ data.customer_remarks }}备注</td>
-                                                <td style="width: 15%;">出团通知书</td>
+                                                <td style="width: 15%;">{{ data.customer_remarks }}</td>
+                                                <td style="width: 15%;">
+                                                    <p *ngIf="dataChild.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
+                                                    <p *ngIf="dataChild.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </nz-table>
