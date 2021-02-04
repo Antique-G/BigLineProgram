@@ -22,6 +22,7 @@ interface Links {
 interface DatumModel {
   id: number;
   title: string;
+  sub_title: string;
   few_days: number;
   few_nights: number;
   store_id: number;
@@ -46,9 +47,9 @@ interface DatumModel {
 
 export interface AdminProductManagementUpdateModel {
   title: string;
+  sub_title: string;
   region_code: string;
   earlier: number;
- 
   pay_method: number;
   few_days: number;
   few_nights: number;
@@ -104,10 +105,10 @@ export interface AdminProductDetailResponseModel {
 export interface DataProductDetailModel {
   id: number;
   title: string;
+  sub_title: string;
   store_id: number;
   departure_city: string;
   earlier: number;
-
   few_days: number;
   few_nights: number;
   minimum_price: number;

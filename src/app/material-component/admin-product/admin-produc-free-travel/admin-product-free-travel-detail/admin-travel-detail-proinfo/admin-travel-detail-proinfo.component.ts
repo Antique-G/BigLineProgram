@@ -35,7 +35,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   time = new Date('2021-01-01 18:00');
 
-  freeTravelUpdateModel: FreeTravelUpdateModel
+  freeTravelUpdateModel: any
 
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
   isReserveAhead = '0';
@@ -45,8 +45,12 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为64个字符',
-      'required': '请填写标题'
+      'maxlength': '主要景区长度最多为64个字符',
+      'required': '请填写主要景区'
+    },
+    sub_title: {
+      'maxlength': '副标题长度最多为64个字符',
+      'required': '请填写副标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -68,6 +72,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   };
   formErrors: any = {
     title: '',
+    sub_title: '',
     few_days: '',
     few_nights: '',
     departure_city: '',
@@ -80,9 +85,9 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     public adminProductFreeTravelService: AdminProductFreeTravelService, public adminProductManagementService: AdminProductManagementService,
     public adminRegionService: AdminRegionService, public adminProductTagService: AdminProductTagService) {
     this.buildForm();
-
     this.freeTravelUpdateModel = {
       title: '',
+      sub_title: '',
       earlier: 0,
       few_days: 0,
       few_nights: 0,
@@ -105,7 +110,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+      title: new FormControl('', [Validators.required]),
+      sub_title: new FormControl('', [Validators.required]),
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl(''),
@@ -215,6 +221,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   setFormValue() {
     console.log("拿到的值是", this.dataDetailModel)
     this.addForm.get('title')?.setValue(this.dataDetailModel.title);
+    this.addForm.get('sub_title')?.setValue(this.dataDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataDetailModel.few_nights);
     this.addForm.get('service_phone')?.setValue(this.dataDetailModel.service_phone);
@@ -291,6 +298,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   setValue() {
     this.freeTravelUpdateModel.id = this.dataDetailModel.id;
     this.freeTravelUpdateModel.title = this.addForm.value.title;
+    this.freeTravelUpdateModel.sub_title = this.addForm.value.sub_title;
     this.freeTravelUpdateModel.few_days = this.addForm.value.few_days;;
     this.freeTravelUpdateModel.few_nights = this.addForm.value.few_nights;
     this.freeTravelUpdateModel.service_phone = this.addForm.value.service_phone;

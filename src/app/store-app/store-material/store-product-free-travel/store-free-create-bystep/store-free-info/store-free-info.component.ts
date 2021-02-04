@@ -53,8 +53,12 @@ export class StoreFreeInfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为64个字符',
-      'required': '请填写标题'
+      'maxlength': '主要景区长度最多为64个字符',
+      'required': '请填写主要景区'
+    },
+    sub_title: {
+      'maxlength': '副标题长度最多为64个字符',
+      'required': '请填写副标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -79,6 +83,7 @@ export class StoreFreeInfoComponent implements OnInit {
   };
   formErrors: any = {
     title: '',
+    sub_title: '',
     few_days: '',
     few_nights: '',
     tag_id: '',
@@ -98,6 +103,7 @@ export class StoreFreeInfoComponent implements OnInit {
     this.buildForm()
     this.freeTravelModel = {
       title: '',
+      sub_title: '',
       earlier: 0,
       pay_method: 0,
       few_days: 0,
@@ -131,8 +137,9 @@ export class StoreFreeInfoComponent implements OnInit {
   // 表单初始化
   buildForm(): void {
     this.addForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
-      few_days: new FormControl(2, [Validators.required]),
+      title: new FormControl('', [Validators.required]),
+      sub_title: new FormControl('', [Validators.required]),
+      few_days: new FormControl(2, [Validators.required]), 
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
@@ -260,6 +267,7 @@ export class StoreFreeInfoComponent implements OnInit {
       this.freeTravelModel.id = this.dataModel.id;
     }
     this.freeTravelModel.title = this.addForm.value.title;
+    this.freeTravelModel.sub_title = this.addForm.value.sub_title;
     this.freeTravelModel.few_days = this.addForm.value.few_days;;
     this.freeTravelModel.few_nights = this.addForm.value.few_nights;
     this.freeTravelModel.service_phone = this.addForm.value.service_phone;

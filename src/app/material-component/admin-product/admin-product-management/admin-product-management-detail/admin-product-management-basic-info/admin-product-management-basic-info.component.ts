@@ -53,8 +53,12 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '标题长度最多为64个字符',
-      'required': '请填写标题'
+      'maxlength': '主要景区长度最多为64个字符',
+      'required': '请填写主要景区'
+    },
+    sub_title: {
+      'maxlength': '副标题长度最多为64个字符',
+      'required': '请填写副标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -79,6 +83,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   };
   formErrors: any = {
     title: '',
+    sub_title: '',
     few_days: '',
     few_nights: '',
     tag_id: '',
@@ -94,7 +99,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.buildForm();
     this.detailUpdateModel = {
-      title: '',
+      scenic_spot: '',
+      sub_title: '',
       departure_city: '',
       destination_city: '',
       earlier: 0,
@@ -120,6 +126,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   buildForm(): void {
     this.addForm = this.fb.group({
       title: ['', [Validators.required]],
+      sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
       tag_id: ['', [Validators.required]],
@@ -247,10 +254,10 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
   setValue() {
-    this.detailUpdateModel.title = this.addForm.value.title;
+    this.detailUpdateModel.scenic_spot = this.addForm.value.title;
+    this.detailUpdateModel.sub_title = this.addForm.value.sub_title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
-
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;
     this.detailUpdateModel.child_status = this.addForm.value.child_status;
     this.detailUpdateModel.reserve_ahead = this.addForm.value.reserve_ahead;
@@ -297,11 +304,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
     this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
-
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
     this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
     this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);

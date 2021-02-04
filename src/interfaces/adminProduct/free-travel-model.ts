@@ -25,13 +25,13 @@ export interface LinksModel {
 export interface DatumModel {
     id: number;
     title: string;
+    sub_title: string;
     store_id: number;
     few_days: number;
     few_nights: number;
     departure_city: string;
     destination_city: string;
     earlier: number;
-   
     service_phone: string;
     min_price: number;
     price_range: number;
@@ -107,7 +107,9 @@ export interface AdminFreeTravelDetailResponseModel {
 
 export interface DataFreeTravelDetailModel {
     id: number;
-    title: string;
+    title?: string;
+    scenic_spot?: string;
+    sub_title: string;
     store_id: number;
     few_days: number;
     few_nights: number;
@@ -144,7 +146,7 @@ export interface FreeTravelUpdateModel {
     id?: number;
     title: string;
     earlier: number;
-  
+    sub_title: '',
     few_days: number;
     few_nights: number;
     departure_city: number;

@@ -49,9 +49,13 @@ export class StoreProductInfoComponent implements OnInit {
   cateId: any;
 
   validationMessage: any = {
-    title: {
-      'maxlength': '标题长度最多为64个字符',
-      'required': '请填写标题'
+    scenic_spot: {
+      'maxlength': '主要景区长度最多为64个字符',
+      'required': '请填写主要景区'
+    },
+    sub_title: {
+      'maxlength': '副标题长度最多为64个字符',
+      'required': '请填写副标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -75,7 +79,8 @@ export class StoreProductInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    title: '',
+    scenic_spot: '',
+    sub_title: '',
     few_days: '',
     few_nights: '',
     tag_id: '',
@@ -93,7 +98,8 @@ export class StoreProductInfoComponent implements OnInit {
     private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.addStoreProductModel = {
-      title: '',
+      scenic_spot: '',
+      sub_title: '',
       departure_city: '',
       destination_city: '',
       earlier: 0,
@@ -115,7 +121,8 @@ export class StoreProductInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required]],
+      scenic_spot: ['', [Validators.required]],
+      sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
       tag_id: ['', [Validators.required]],
@@ -194,7 +201,7 @@ export class StoreProductInfoComponent implements OnInit {
     })
   }
 
-  
+
   // 集合地点
   getAccemList() {
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
@@ -250,7 +257,8 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   setValue() {
-    this.addStoreProductModel.title = this.addForm.value.title;
+    this.addStoreProductModel.scenic_spot = this.addForm.value.scenic_spot;
+    this.addStoreProductModel.sub_title = this.addForm.value.sub_title;
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
     this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
     this.addStoreProductModel.contacts_status = this.addForm.value.contacts_status;
@@ -375,7 +383,7 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   refreshPlace() {
-    this.assemblingPlaceList=[];
+    this.assemblingPlaceList = [];
     this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
@@ -394,7 +402,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   refreshTag() {
-    this.tagList=[];
+    this.tagList = [];
     this.storeProductService.productTagList(this.cateId).subscribe(res => {
       console.log("标签", res.data);
       for (let i of res.data) {

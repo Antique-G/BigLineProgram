@@ -11,10 +11,10 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutAlign="space-between stretch">
                         <div style="color: red;">
-                            <span *ngIf="tab.guide_status===0">
+                            <span *ngIf="tab.guide_status===null">
                                 <nz-badge nzColor="yellow"></nz-badge>未派导游,
                             </span>
-                            <span *ngIf="tab.guide_status===1">
+                            <span *ngIf="tab.guide_status!=null">
                                 <nz-badge nzColor="yellow"></nz-badge>已派导游,
                             </span>
                             <span *ngIf="tab.notice_status===0">
