@@ -1,5 +1,6 @@
 export interface AddStoreProductModel {
-  title: string;
+  scenic_spot: string;
+  sub_title: string;
   departure_city: string;
   destination_city: string;
   earlier: number;
@@ -50,6 +51,7 @@ export interface ProductDateilResponseModel {
 export interface DataModel {
   id: number;
   title: string;
+  sub_title: string;
   store_id: number;
   departure_city: string;
   earlier: number;

@@ -58,9 +58,13 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
 
   validationMessage: any = {
-    title: {
-      'maxlength': '标题长度最多为64个字符',
-      'required': '请填写标题'
+    scenic_spot: {
+      'maxlength': '主要景区长度最多为64个字符',
+      'required': '请填写主要景区'
+    },
+    sub_title: {
+      'maxlength': '副标题长度最多为64个字符',
+      'required': '请填写副标题'
     },
     few_days: {
       'isNumber': '请输入非零的正整数',
@@ -84,7 +88,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    title: '',
+    scenic_spot: '',
+    sub_title: '',
     few_days: '',
     few_nights: '',
     tag_id: '',
@@ -98,7 +103,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     public storeRegionService: StoreRegionService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.detailUpdateModel = {
-      title: '',
+      scenic_spot: '',
+      sub_title: '',
       departure_city: '',
       destination_city: '',
       earlier: 0,
@@ -121,7 +127,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required]],
+      scenic_spot: ['', [Validators.required]],
+      sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
       tag_id: ['', [Validators.required]],
@@ -269,7 +276,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
-    this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
@@ -325,7 +333,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
 
   setValue() {
-    this.detailUpdateModel.title = this.addForm.value.title;
+    this.detailUpdateModel.scenic_spot = this.addForm.value.scenic_spot;
+    this.detailUpdateModel.sub_title = this.addForm.value.sub_title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
     this.detailUpdateModel.contacts_status = this.addForm.value.contacts_status;

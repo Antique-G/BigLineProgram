@@ -1,6 +1,7 @@
 export interface StoreFreeTravelModel {
   id?: number;
   title: string;
+  sub_title: string;
   earlier: number;
   pay_method: number;
   few_days: number;
@@ -63,6 +64,7 @@ export interface Link {
 export interface Datum {
   id: number;
   title: string;
+  sub_title: string;
   store_id: number;
   few_days: number;
   few_nights: number;
