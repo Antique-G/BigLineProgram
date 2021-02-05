@@ -175,3 +175,10 @@ export interface MoveOrderModel {
   order_numbers: [];
   new_sub_group_id: number;
 }
+
+
+// 不成团关团
+export interface ShuffOrderModel {
+  group_id: string;
+  reason?: string;
+}

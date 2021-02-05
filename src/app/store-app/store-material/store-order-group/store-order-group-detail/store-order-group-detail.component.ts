@@ -1,8 +1,10 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoreOrderService } from '../../../../../services/store/store-order/store-order.service';
 import { DataOrderDetail, SubgroupDeatilModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreOrderGroupDetailShutoffComponent } from './store-order-group-detail-shutoff/store-order-group-detail-shutoff.component';
 
 
 
@@ -20,7 +22,8 @@ export class StoreOrderGroupDetailComponent implements OnInit {
   isActiveDate: any;
   subGroupModel!: DataOrderDetail;
 
-  constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public storeOrderService: StoreOrderService,) {
+  constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
+    public modal: NzModalService, public storeOrderService: StoreOrderService,) {
     this.addForm = this.fb.group({
       group_id: ['', [Validators.required]],
       member_min: ['', [Validators.required]],
@@ -47,5 +50,25 @@ export class StoreOrderGroupDetailComponent implements OnInit {
   }
 
 
+  shutoff(data: any) {
+    const editmodal = this.modal.create({
+      nzTitle: '关闭不成团订单',
+      nzContent: StoreOrderGroupDetailShutoffComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.router.navigate(['/store/main/storeOrderGroup']);
+    })
+  }
 }
 

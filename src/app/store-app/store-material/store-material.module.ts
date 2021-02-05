@@ -58,6 +58,7 @@ import { StoreOrderGroupDetailComponent } from './store-order-group/store-order-
 import { StoreOrderGroupDetailSubgroupComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup.component';
 import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
+import { StoreOrderGroupDetailShutoffComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-shutoff/store-order-group-detail-shutoff.component';
 
 @NgModule({
   imports: [
@@ -130,6 +131,7 @@ import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-g
     StoreOrderGroupDetailSubgroupComponent,
     StoreOrderGroupDetailSubgroupSetguideComponent,
     StoreOrderGroupDetailSubgroupMoveorderComponent,
+    StoreOrderGroupDetailShutoffComponent,
     
   ]
 })
