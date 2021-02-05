@@ -1,1 +1,25 @@
-<p>store-order-group-detail-subgroup-moveorder works!</p>
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="sub_group_id">当前订单所在的子团</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="sub_group_id" nzBorderless [(ngModel)]="isValue" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="guide_name" nzRequired>选择移动到</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择子团">
+                    <nz-select nzPlaceHolder="请选择子团" (ngModelChange)="changeSub($event)" formControlName="new_sub_group_id">
+                        <nz-option *ngFor="let data of dataList" [nzValue]="data.value" [nzLabel]="data.label">
+                        </nz-option>
+                        <nz-option [nzValue]="0" [nzLabel]="'新建子团'">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
