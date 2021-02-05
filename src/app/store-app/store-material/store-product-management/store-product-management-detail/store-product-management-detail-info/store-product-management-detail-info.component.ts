@@ -276,7 +276,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
-    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.scenic_spot);
     this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);

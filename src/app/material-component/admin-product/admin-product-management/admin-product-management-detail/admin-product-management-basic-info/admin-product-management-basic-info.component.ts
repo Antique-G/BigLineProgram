@@ -52,7 +52,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
   validationMessage: any = {
-    title: {
+    scenic_spot: {
       'maxlength': '主要景区长度最多为64个字符',
       'required': '请填写主要景区'
     },
@@ -82,7 +82,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    title: '',
+    scenic_spot: '',
     sub_title: '',
     few_days: '',
     few_nights: '',
@@ -125,7 +125,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required]],
+      scenic_spot: ['', [Validators.required]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
@@ -254,7 +254,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
   setValue() {
-    this.detailUpdateModel.scenic_spot = this.addForm.value.title;
+    this.detailUpdateModel.scenic_spot = this.addForm.value.scenic_spot;
     this.detailUpdateModel.sub_title = this.addForm.value.sub_title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
@@ -303,7 +303,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
-    this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.scenic_spot);
     this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
