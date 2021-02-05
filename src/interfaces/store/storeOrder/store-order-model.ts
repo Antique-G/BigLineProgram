@@ -43,6 +43,7 @@ export interface DatumStoreOrderListModel {
   sub_groups_num: number;
   guide_status: boolean;
   notice_status: boolean;
+  store_name?:string;
 }
 
 // 详情
