@@ -95,6 +95,8 @@ export const AdminUrls = {
   PostAdminUserinfoStatus: api + '/admin/user/set_status',      // 用户状态修改
 
 
+  GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
+  GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
 
 
   // 小程序
@@ -112,6 +114,8 @@ export const AdminUrls = {
 
 
   PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
+
+
 
 };
 

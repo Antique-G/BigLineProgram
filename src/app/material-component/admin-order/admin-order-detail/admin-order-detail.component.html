@@ -4,7 +4,7 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
+                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/orderList">返回团订单列表</button>
                 </div>
 
                 <mat-card>
@@ -15,70 +15,56 @@
                                     <h4 style="padding-left: 10px;padding-top: 10px;">团队基本信息</h4>
                                 </div>
                                 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">订单批量导出</button>
+                                    <!-- <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">订单批量导出</button>
                                     <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">查看团队操作日志</button>
-                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">班期下线</button>
-                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;">不成团关联</button>
+                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">班期下线</button> -->
+                                    <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="shutoff(detailModel.group_id)">不成团关团</button> -->
                                 </div>
                             </div>
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <div>
-                                        <h5>重庆+武隆区5日4晚跟团游(4钻)·【新春送大礼丨喜迎2021·减200/成人】多人下单送暖冬好礼 升一晚5钻华美达酒店</h5>
+                                        <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
                                     </div>
-                                    <div><span>已确认1&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>待确认1&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>已取消1</span></div>
                                     <div style="margin-top:13px">
                                         <form nz-form [formGroup]="addForm" nz-row>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="teamId" nzRequired>团队id</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="teamId" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="returnDate" nzRequired>往返日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="returnDate" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="orderDate" nzRequired>订单最早出发日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="orderDate" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
+                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                        <input nz-input formControlName="group_id" nzBorderless [ngModel]="detailModel?.group_id" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="groupPeople" nzRequired>最小成团人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="groupPeople" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
+                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                        <input nz-input formControlName="member_min" nzBorderless [ngModel]="detailModel?.member_min" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="automaticGroupDate" nzRequired>自动成团日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="automaticGroupDate" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="active_date">成团日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                        <input nz-input formControlName="active_date" nzBorderless [ngModel]="isActiveDate" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="groupDate" nzRequired>成团日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                        <input nz-input formControlName="groupDate" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                        <input nz-input formControlName="returnDate" nzBorderless [ngModel]="isReturnDate" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
+
                                         </form>
                                     </div>
                                 </nz-spin>
@@ -100,7 +86,7 @@
                             </div>
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <app-admin-order-detail-subgroup></app-admin-order-detail-subgroup>
+                                <app-admin-order-detail-subgroup [subGroupModel]='subGroupModel'></app-admin-order-detail-subgroup>
                             </div>
                         </div>
 
