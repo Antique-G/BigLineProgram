@@ -11,17 +11,18 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutAlign="space-between stretch">
                         <div style="color: red;">
-                            <span *ngIf="tab.guide_status===null">
-                                <nz-badge nzColor="yellow"></nz-badge>未派导游,
+                            <span style="color: black;">子团状态：</span>
+                            <span *ngIf="tab.sub_group_status===0">
+                                <nz-badge nzColor="pink"></nz-badge>已取消
                             </span>
-                            <span *ngIf="tab.guide_status!=null">
-                                <nz-badge nzColor="yellow"></nz-badge>已派导游,
+                            <span *ngIf="tab.sub_group_status===1">
+                                <nz-badge nzColor="red"></nz-badge>未成团
                             </span>
-                            <span *ngIf="tab.notice_status===0">
-                                <nz-badge nzColor="yellow"></nz-badge>待派发出团通知
+                            <span *ngIf="tab.sub_group_status===2">
+                                <nz-badge nzColor="green"></nz-badge>已成团
                             </span>
-                            <span *ngIf="tab.notice_status===1">
-                                <nz-badge nzColor="green"></nz-badge>已派发出团通知
+                            <span *ngIf="tab.sub_group_status===3">
+                                <nz-badge nzColor="lime"></nz-badge>已出团
                             </span>
                         </div>
                         <div>子团编号：{{tab.sub_group_code}}</div>
@@ -31,7 +32,7 @@
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单短信通知</button>
-                        <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="moveOrder(tab,tab.sub_group_id)">移动订单</button> -->
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
                     </div>
                 </div>
 
@@ -39,7 +40,7 @@
                     <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10" [nzTitle]="tab.sub_group_code">
                         <thead>
                             <tr>
-                                <th [nzChecked]="checked"  (nzCheckedChange)="onAllChecked($event)"></th>
+                                <th ></th>
                                     <th>姓名</th>
                                     <th>类型</th>
                                     <th>联系方式</th>
@@ -51,7 +52,7 @@
                         <tbody>
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
-                                    <td [nzChecked]="setOfCheckedId.has(data.id)"  (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                    <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                         <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.product_name }}</td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">

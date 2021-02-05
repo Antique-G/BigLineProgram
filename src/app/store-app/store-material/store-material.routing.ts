@@ -126,6 +126,7 @@ export const StoreMaterialRoutes: Routes = [
       {
         path: 'storeOrderGroup/detail',
         component: StoreOrderGroupDetailComponent,
+        runGuardsAndResolvers: 'always' ,
         data: {
           breadcrumb: '团订单详情'
         }

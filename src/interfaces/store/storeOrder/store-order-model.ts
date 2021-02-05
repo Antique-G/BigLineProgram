@@ -171,9 +171,9 @@ export interface SetGuideModel {
 
 // 移动订单
 export interface MoveOrderModel {
-  sub_group_id: number;
-  order_numbers: [];
-  new_sub_group_id: number;
+  sub_group_id: any;
+  order_numbers: any[];
+  new_sub_group_id: any;
 }
 
 
