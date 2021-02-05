@@ -148,14 +148,14 @@ export const MaterialRoutes: Routes = [
         path: 'orderList',
         component: AdminOrderComponent,
         data: {
-          breadcrumb: '订单列表'
+          breadcrumb: '团订单列表'
         }
       },
       {
         path: 'orderList/detail',
         component: AdminOrderDetailComponent,
         data: {
-          breadcrumb: '订单详情'
+          breadcrumb: '团订单详情'
         }
       },
       {
