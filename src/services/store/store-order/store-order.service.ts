@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GetGuideListModel } from '../../../interfaces/store/storeTourist/store-tourist-model';
 import { StoreUrls } from '../../../api';
-import { MoveOrderModel, SetGuideModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../../interfaces/store/storeOrder/store-order-model';
+import { MoveOrderModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../../interfaces/store/storeOrder/store-order-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -77,8 +77,8 @@ export class StoreOrderService {
 
 
   // 不成团关团
-  shutoff(group_id: any): Observable<any> {
-    return this.httpClient.post<any>(this.urls.PostStoreOrderGroupShutoff, group_id, httpOptions)
+  shutoff(shuffOrderModel: ShuffOrderModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderGroupShutoff, shuffOrderModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
