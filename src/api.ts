@@ -190,6 +190,9 @@ export const StoreUrls = {
   GetStoreOrderGroupDetail: api + '/store/group/',   //订单团详情
   PostStoreOrderGroupSetGuide: api + '/store/group/set_guide',   // 派遣导游
   GetStoreOrderGroupGuideList: api + '/store/guide/data',   // 获取导游数据
+  PostStoreOrderGroupMoveOrder: api + '/store/group/move_order',   // 移动订单
+  PostStoreOrderGroupShutoff: api + '/store/group/shut_off',   // 不成团关团
+
 
 
 

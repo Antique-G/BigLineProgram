@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
 import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 
 @Component({
@@ -25,7 +26,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
 
-  constructor(public message: NzMessageService,public modal: NzModalService) { }
+  constructor(public message: NzMessageService, public modal: NzModalService) { }
 
   ngOnInit(): void { }
 
@@ -79,6 +80,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   }
 
 
+  // 派遣导游
   setGuide(data: any) {
     console.log('object :>> ', data);
     const editmodal = this.modal.create({
@@ -97,7 +99,37 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-      
+
     })
+  }
+
+  // 移动订单
+  moveOrder(data: any,event:any) {
+    console.log('选择的订单是 ', data);
+    let newArray = [...this.setOfCheckedId];
+    console.log('选择的订单是newArray ', newArray);
+    if (newArray.length === 0) {
+      this.message.create('error', `请选择订单`);
+    }
+    else {
+      const editmodal = this.modal.create({
+        nzTitle: '移动订单',
+        nzContent: StoreOrderGroupDetailSubgroupMoveorderComponent,
+        nzComponentParams: {
+          data: [this.cursubGroupModelValue,data,event]
+        },
+        nzFooter: [
+          {
+            label: '提交',
+            onClick: componentInstance => {
+              componentInstance?.add()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+
+      })
+    }
   }
 }

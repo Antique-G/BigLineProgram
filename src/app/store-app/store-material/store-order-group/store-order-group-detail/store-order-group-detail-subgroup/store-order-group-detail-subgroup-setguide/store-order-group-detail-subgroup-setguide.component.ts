@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SetGuideModel } from 'src/interfaces/store/storeOrder/store-order-model';
+import { SetGuideModel } from '../../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../../services/store/store-order/store-order.service';
 
 @Component({
