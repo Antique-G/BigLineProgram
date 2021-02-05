@@ -1,22 +1,89 @@
-<nz-tabset [(nzSelectedIndex)]="index" nzType="editable-card" nzHideAdd (nzClose)="closeTab($event)">
-    <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1" [nzTitle]="tab">
+<div *ngIf="!isSubgroup">
+    <p style="text-align: center;">暂时没有订单信息</p>
+</div>
 
-        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+
+<div *ngIf="isSubgroup">
+    <nz-tabset [(nzSelectedIndex)]="index" nzType="editable-card" nzHideAdd>
+        <nz-tab *ngFor="let tab of cursubGroupModelValue; let i = index" [nzClosable]="i > 1" [nzTitle]="tab.tabs">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                <div fxLayout="row" fxLayoutAlign="space-between stretch">
-                    <div>未派导游，未发通知</div>
-                    <div>子团编号：重庆洪崖洞2天1晚</div>
-                    <div>共21人：成人19|儿童2</div>
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                        <div style="color: red;">
+                            <span *ngIf="tab.guide_status===null">
+                                <nz-badge nzColor="yellow"></nz-badge>未派导游,
+                            </span>
+                            <span *ngIf="tab.guide_status!=null">
+                                <nz-badge nzColor="yellow"></nz-badge>已派导游,
+                            </span>
+                            <span *ngIf="tab.notice_status===0">
+                                <nz-badge nzColor="yellow"></nz-badge>待派发出团通知
+                            </span>
+                            <span *ngIf="tab.notice_status===1">
+                                <nz-badge nzColor="green"></nz-badge>已派发出团通知
+                            </span>
+                        </div>
+                        <div>子团编号：{{tab.sub_group_code}}</div>
+                        <div>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</div>
+                    </div>
+                    <!-- <div fxLayout="row" fxLayoutGap="10px">
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团短信通知</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单短信通知</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="moveOrder(tab,tab.sub_group_id)">移动订单</button>
+                    </div> -->
                 </div>
-                <div fxLayout="row" fxLayoutGap="10px">
-                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">派遣导游</button>
-                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团通知</button>
-                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单通知</button>
-                    <button mat-raised-button color="basic" style="letter-spacing: 2px;">移动订单</button>
+
+                <div class="mat-elevation-z8">
+                    <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10" [nzTitle]="tab.sub_group_code">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>类型</th>
+                                <th>联系方式</th>
+                                <th>拼房类型</th>
+                                <th>备注</th>
+                                <th>出团通知书</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
+                                <tr>
+                                    <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.product_name }}</td>
+                                </tr>
+                                <tr [nzExpand]="data.expand">
+                                    <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
+                                        <tbody>
+                                            <tr *ngFor="let dataChild of innerTable.data">
+                                                <td style="width: 12%;">{{ dataChild.name }}</td>
+                                                <td style="width: 13%;">
+                                                    <p *ngIf="dataChild.is_kid===0">成人</p>
+                                                    <p *ngIf="dataChild.is_kid===1">儿童</p>
+                                                </td>
+                                                <td style="width: 15%;">{{dataChild.phone}}</td>
+                                                <td style="width: 18%;">
+                                                    <p *ngIf="data.shared_status===0">不拼房</p>
+                                                    <p *ngIf="data.shared_status===1">同性拼房</p>
+                                                </td>
+                                                <td style="width: 15%;">{{ data.customer_remarks }}</td>
+                                                <td style="width: 15%;">
+                                                    <p *ngIf="dataChild.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
+                                                    <p *ngIf="dataChild.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </nz-table>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </nz-table>
                 </div>
+
             </div>
 
-        </div>
-
-        {{ tab }}</nz-tab>
-</nz-tabset>
+        </nz-tab>
+    </nz-tabset>
+</div>

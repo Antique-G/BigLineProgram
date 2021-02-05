@@ -34,7 +34,7 @@ const MENUITEMS = [
   {
     title: '订单模块', icon: 'ordered-list',
     children: [
-      { state: 'orderList', name: '订单列表' },
+      { state: 'orderList', name: '团订单列表' },
      
     ]
   },
