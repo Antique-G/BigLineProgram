@@ -5,13 +5,12 @@ import { StoreRegionService } from '../../../../services/store/store-region/stor
 import { StoreOrderService } from '../../../../services/store/store-order/store-order.service';
 import { DatePipe } from '@angular/common';
 
-
 @Component({
-  selector: 'app-store-order-group',
-  templateUrl: './store-order-group.component.html',
-  styleUrls: ['./store-order-group.component.css']
+  selector: 'app-store-order-freetravel',
+  templateUrl: './store-order-freetravel.component.html',
+  styleUrls: ['./store-order-freetravel.component.css']
 })
-export class StoreOrderGroupComponent implements OnInit {
+export class StoreOrderFreetravelComponent implements OnInit {
   searchForm: FormGroup;
   dataSource: any;
   page = 1;
@@ -51,9 +50,9 @@ export class StoreOrderGroupComponent implements OnInit {
       this.nzOptions = res;
       this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
         console.log("结果是", res)
-        this.dataSource = res?.data;
-        this.total = res.meta?.pagination?.total;
-        this.loading = false;
+        // this.dataSource = res?.data;
+        // this.total = res.meta?.pagination?.total;
+        // this.loading = false;
       })
     })
 
@@ -79,11 +78,12 @@ export class StoreOrderGroupComponent implements OnInit {
     this.destination_city = this.idRegion;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
-    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
-      console.log("结果是", res)
-      this.dataSource = res?.data;
-      this.total = res.meta?.pagination?.total;
-    })
+    // this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+    //   console.log("结果是", res)
+    //   this.dataSource = res?.data;
+    //   this.total = res.meta?.pagination?.total;
+    // })
+    this.router.navigate(['/store/main/storeOrderFreeTravel/detail'],{ queryParams: { detailId: 1} });
 
 
   }
@@ -108,7 +108,7 @@ export class StoreOrderGroupComponent implements OnInit {
 
 
   edit(data: any) {
-    this.router.navigate(['/store/main/storeOrderGroup/detail'],{ queryParams: { detailId: data.group_id } });
+    this.router.navigate(['/store/main/storeOrderFreeTravel/detail'],{ queryParams: { detailId: data.group_id } });
   }
 
 }

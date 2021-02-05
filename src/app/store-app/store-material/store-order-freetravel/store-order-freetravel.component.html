@@ -1,0 +1,116 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id" nzRequired>产品id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="product_id" placeholder="请输入产品id" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name" nzRequired>产品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_number" nzRequired>订单号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="order_number" placeholder="请输入订单号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_number" nzRequired>出发日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="date_start"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_number" nzRequired>目的城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="destination_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+
+
+                    </form>
+
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;width: 20%;">产品名称</th>
+                                    <th style="text-align: center;">已确认&支付订单</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">订单出发日期/返回日期</th>
+                                    <th style="text-align: center;">订单通知书</th>
+                                    <th style="text-align: center;">订单状态</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.group_code}}</td>
+                                    <td>{{data.group_id}}</td>
+                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}-{{data.end_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>
+                                        <div fxLayout="column" fxLayoutAlign="center center">
+                                            <div style="color: red;">
+                                                <p *ngIf="data.notice_status===true">已派发</p>
+                                                <p *ngIf="data.notice_status===false">待派发</p>
+                                            </div>
+                                            <div style="color: red;">
+                                                <p *ngIf="data.guide_status===true">已派发</p>
+                                                <p *ngIf="data.guide_status===false">待派发</p>
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <p *ngIf="data.group_status===0">已取消</p>
+                                            <p *ngIf="data.group_status===1">正常</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>

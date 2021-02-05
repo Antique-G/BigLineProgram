@@ -108,7 +108,10 @@ const StoreMENUITEMS = [
   },
   {
     title: '订单管理模块', icon: 'ordered-list',
-    children: [{ state: 'storeOrderGroup', name: '团订单列表' }]
+    children: [
+      { state: 'storeOrderGroup', name: '团订单列表' },
+      { state: 'storeOrderFreeTravel', name: '自由行订单列表' }
+    ]
   },
   
 
