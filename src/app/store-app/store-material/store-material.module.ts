@@ -59,6 +59,8 @@ import { StoreOrderGroupDetailSubgroupComponent } from './store-order-group/stor
 import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
 import { StoreOrderGroupDetailShutoffComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-shutoff/store-order-group-detail-shutoff.component';
+import { StoreOrderFreetravelComponent } from './store-order-freetravel/store-order-freetravel.component';
+import { StoreOrderFreetravelDetailComponent } from './store-order-freetravel/store-order-freetravel-detail/store-order-freetravel-detail.component';
 
 @NgModule({
   imports: [
@@ -132,6 +134,8 @@ import { StoreOrderGroupDetailShutoffComponent } from './store-order-group/store
     StoreOrderGroupDetailSubgroupSetguideComponent,
     StoreOrderGroupDetailSubgroupMoveorderComponent,
     StoreOrderGroupDetailShutoffComponent,
+    StoreOrderFreetravelComponent,
+    StoreOrderFreetravelDetailComponent,
     
   ]
 })

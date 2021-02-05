@@ -105,7 +105,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
   // 移动订单
   moveOrder(data: any,event:any) {
-    console.log('选择的订单是 ', data);
+    console.log('选择的tabs是 ', data);
     let newArray = [...this.setOfCheckedId];
     console.log('选择的订单是newArray ', newArray);
     if (newArray.length === 0) {
