@@ -1,0 +1,51 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        <div style="padding: 5px;">
+            <form nz-form [formGroup]="addForm" nz-row>
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>负责人姓名</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="name" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone" nzRequired>负责人电话</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="phone" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+            </form>
+
+        </div>
+        <div>
+            <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource">
+                <thead>
+                    <tr>
+                        <th style="width:4%"></th>
+                            <th style="text-align: center;">产品名称</th>
+                            <th style="text-align: center;">集合地点</th>
+                            <th style="text-align: center;">集合时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of rowSelectionTable.data">
+                        <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
+                            <td>{{data.product_name}}</td>
+                            <td>
+                                <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="data.assembling_place" />
+                            </td>
+                            <td>
+                                <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="data.assembling_time" />
+                            </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+
+        </div>
+    </div>
+</div>
