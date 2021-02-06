@@ -44,7 +44,6 @@
                                 <tr>
                                     <th style="text-align: center;">名称</th>
                                     <th style="text-align: center;">手机号码</th>
-                                    <th style="text-align: center;">店铺id</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
@@ -53,7 +52,6 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.name}}</td>
                                     <td>{{data.mobile}}</td>
-                                    <td>{{data.store_id}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             禁用
