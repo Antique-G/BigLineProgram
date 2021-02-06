@@ -53,7 +53,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   validationMessage: any = {
     scenic_spot: {
-      'maxlength': '主要景区长度最多为64个字符',
+      'maxlength': '主要景区长度最多为20个字符',
       'required': '请填写主要景区'
     },
     sub_title: {
@@ -125,7 +125,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      scenic_spot: ['', [Validators.required]],
+      scenic_spot: ['', [Validators.required, Validators.maxLength(20)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
