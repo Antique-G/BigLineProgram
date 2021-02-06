@@ -5,6 +5,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataOrderDetail } from '../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../services/store/store-order/store-order.service';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
+import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
 import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 
 @Component({
@@ -148,6 +149,31 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
     }
 
+  }
+
+
+  // 发送出团短信通知
+  sendSms(data: any) {
+    console.log('object :>> ', data);
+    const editmodal = this.modal.create({
+      nzTitle: '发送出团通知书',
+      nzWidth: '800px',
+      nzContent: StoreOrderGroupDetailSubgroupSentsmsComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+
+    })
   }
 
 }

@@ -30,7 +30,7 @@
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px">
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送出团短信通知</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms(tab?.order?.data)">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
                     </div>
@@ -40,23 +40,28 @@
                     <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10" [nzTitle]="tab.sub_group_code">
                         <thead>
                             <tr>
-                                <th ></th>
-                                    <th>姓名</th>
-                                    <th>类型</th>
-                                    <th>联系方式</th>
-                                    <th>拼房类型</th>
-                                    <th>备注</th>
-                                    <th>出团通知书</th>
+                                <th style="width:4%"></th>
+                                    <th colspan="6" style="text-align: left;">订单号</th>
                             </tr>
                         </thead>
                         <tbody>
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
                                     <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
-                                        <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.product_name }}</td>
+                                        <td [(nzExpand)]="data.expand" colspan="6">{{ data.product_name }}</td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
                                     <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
+                                        <thead>
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>类型</th>
+                                                <th>联系方式</th>
+                                                <th>拼房类型</th>
+                                                <th>备注</th>
+                                                <th>出团通知书</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr *ngFor="let dataChild of innerTable.data">
                                                 <td style="width: 12%;">{{ dataChild.name }}</td>
