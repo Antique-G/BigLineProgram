@@ -26,6 +26,9 @@
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <div>
                                         <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                        <div *ngIf="detailModel?.group_status===0">
+                                            <button class="btn">已关团</button>
+                                        </div>
                                     </div>
                                     <div style="margin-top:13px">
                                         <form nz-form [formGroup]="addForm" nz-row>
