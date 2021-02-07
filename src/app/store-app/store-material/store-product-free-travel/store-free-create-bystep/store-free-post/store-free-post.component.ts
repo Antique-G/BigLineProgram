@@ -1,18 +1,21 @@
 import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 
 @Component({
-  selector: 'app-store-product-post',
-  templateUrl: './store-product-post.component.html',
-  styleUrls: ['./store-product-post.component.css']
+  selector: 'app-store-free-post',
+  templateUrl: './store-free-post.component.html',
+  styleUrls: ['./store-free-post.component.css']
 })
-export class StoreProductPostComponent implements OnInit {
-  @Input() addDataDetailModel: any;
+export class StoreFreePostComponent implements OnInit {
+  @Input() dataDetailModel: any;
+
 
   imgSrc: any;
   isShow = false;
@@ -21,8 +24,9 @@ export class StoreProductPostComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog, public storeProductService: StoreProductService,public router: Router,
-    public activatedRoute: ActivatedRoute, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
+  constructor(public dialog: MatDialog, private msg: NzMessageService, private modal: NzModalService,
+    private freeTravelService: StoreProductTreeTravelService, public router: Router,
+    private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 5,
       poster_url: ''
@@ -30,9 +34,7 @@ export class StoreProductPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
-    });
+  
   }
 
 
@@ -72,10 +74,10 @@ export class StoreProductPostComponent implements OnInit {
 
 
   nextTab() {
-    this.detailUpdateModel.id = this.detailId;
+    this.detailUpdateModel.id = this.dataDetailModel.id;
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
-    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+    this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       this.router.navigate(['/store/main/storeProduct'],);
       })
 
@@ -83,3 +85,7 @@ export class StoreProductPostComponent implements OnInit {
 
   
 }
+
+
+
+//    this.router.navigate(['/store/main/storeFreeTravel'],);
