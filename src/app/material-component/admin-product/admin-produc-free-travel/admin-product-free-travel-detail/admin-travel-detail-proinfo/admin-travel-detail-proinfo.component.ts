@@ -34,6 +34,9 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   public isSpinning: any = true;    //loading 
 
   time = new Date('2021-01-01 18:00');
+  newDay: any;
+  newHour: any;
+  newMin: any;
 
   freeTravelUpdateModel: any
 
@@ -263,10 +266,18 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   //传入的分钟数  转换成天、时、分 [天,时,分]
   timeStamp(minutes: any) {
-    var day = Math.floor(minutes / 60 / 24);
-    var hour = Math.floor(minutes / 60 % 24);
-    var min = Math.floor(minutes % 60);
-    let str: any = [day, hour, min]
+    console.log("minutes11111111111", minutes)
+    this.newDay = Math.floor(minutes / 60 / 24);
+    this.newMin = Math.floor(minutes % 60);
+    if (this.newMin === 0) {
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    else if (this.newMin != 0) {
+      this.newMin = 60 - this.newMin;
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    let str: any = [this.newDay, this.newHour, this.newMin];
+    console.log('2423423', this.newDay, this.newHour, this.newMin)
     //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
     return str;
   }
@@ -307,14 +318,20 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       this.freeTravelUpdateModel.earlier = 0;
     }
     else if (parseInt(this.isReserveAhead) === 1) {
-      // 时间处理
-      let earlier1 = this.addForm.value.earlier1
-      let date = new Date(this.addForm.value.earlier2);
-      let min = date.getMinutes();
-      let hour = date.getHours();
-      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-      this.freeTravelUpdateModel.earlier = resMin;
-      console.log(this.freeTravelUpdateModel);
+       // 时间处理
+       let earlier1 = this.addForm.value.earlier1;
+       let date = new Date(this.addForm.value.earlier2);
+       let min = date.getMinutes();
+       let hour = date.getHours();
+       if (min > 0) {
+         let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
+         this.freeTravelUpdateModel.earlier = resMin;
+       }
+       else if (min === 0) {
+         let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
+         this.freeTravelUpdateModel.earlier = resMin;
+       }
+       console.log('date是多少', this.freeTravelUpdateModel.earlier);
     }
     this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;

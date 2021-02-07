@@ -139,7 +139,7 @@ export class StoreFreeInfoComponent implements OnInit {
     this.addForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       sub_title: new FormControl('', [Validators.required]),
-      few_days: new FormControl(2, [Validators.required]), 
+      few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
       departure_city: new FormControl('', [Validators.required]),
@@ -256,9 +256,9 @@ export class StoreFreeInfoComponent implements OnInit {
           this.tabIndex.emit({ id: res.id, tabIndex: 1 })
         }
       },
-      error=>{
-        this.isLoadingBtn = false;
-      })
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
   }
 
@@ -277,13 +277,20 @@ export class StoreFreeInfoComponent implements OnInit {
       this.freeTravelModel.earlier = 0;
     }
     else if (parseInt(this.isReserveAhead) === 1) {
-      let earlier1 = this.addForm.value.earlier1
+      // 时间处理
+      let earlier1 = this.addForm.value.earlier1;
       let date = new Date(this.addForm.value.earlier2);
       let min = date.getMinutes();
       let hour = date.getHours();
-      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-      this.freeTravelModel.earlier = resMin;
-      console.log('拿到的值', this.freeTravelModel);
+      if (min > 0) {
+        let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
+        this.freeTravelModel.earlier = resMin;
+      }
+      else if (min === 0) {
+        let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
+        this.freeTravelModel.earlier = resMin;
+      }
+      console.log('date是多少', this.freeTravelModel.earlier);
     }
     this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
 

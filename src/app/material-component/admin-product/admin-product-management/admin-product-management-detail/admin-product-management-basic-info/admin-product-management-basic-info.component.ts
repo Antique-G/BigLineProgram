@@ -50,6 +50,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   cateId: any;
 
+  newDay: any;
+  newHour: any;
+  newMin: any;
+
+
 
   validationMessage: any = {
     scenic_spot: {
@@ -266,12 +271,19 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     }
     else if (parseInt(this.isReserveAhead) === 1) {
       // 时间处理
-      let earlier1 = this.addForm.value.earlier1
+      let earlier1 = this.addForm.value.earlier1;
       let date = new Date(this.addForm.value.earlier2);
       let min = date.getMinutes();
       let hour = date.getHours();
-      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-      this.detailUpdateModel.earlier = resMin;
+      if (min > 0) {
+        let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
+        this.detailUpdateModel.earlier = resMin;
+      }
+      else if (min === 0) {
+        let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
+        this.detailUpdateModel.earlier = resMin;
+      }
+      console.log('date是多少', this.detailUpdateModel.earlier);
     }
     if (parseInt(this.isReserveChildren) === 0) {
       this.detailUpdateModel.child_age_max = 14;
@@ -347,15 +359,23 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
   //传入的分钟数  转换成天、时、分 [天,时,分]
+  //传入的分钟数  转换成天、时、分 [天,时,分]
   timeStamp(minutes: any) {
-    var day = Math.floor(minutes / 60 / 24);
-    var hour = Math.floor(minutes / 60 % 24);
-    var min = Math.floor(minutes % 60);
-    let str: any = [day, hour, min];
+    console.log("minutes11111111111", minutes)
+    this.newDay = Math.floor(minutes / 60 / 24);
+    this.newMin = Math.floor(minutes % 60);
+    if (this.newMin === 0) {
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    else if (this.newMin != 0) {
+      this.newMin = 60 - this.newMin;
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    let str: any = [this.newDay, this.newHour, this.newMin];
+    console.log('2423423', this.newDay, this.newHour, this.newMin)
     //三元运算符 传入的分钟数不够一分钟 默认为0分钟，else return 运算后的minutes 
     return str;
   }
-
 
 
   changePlace(a: any): void {
@@ -457,7 +477,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
   refreshPlace() {
-    this.assemblingPlaceList=[];
+    this.assemblingPlaceList = [];
     this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);
