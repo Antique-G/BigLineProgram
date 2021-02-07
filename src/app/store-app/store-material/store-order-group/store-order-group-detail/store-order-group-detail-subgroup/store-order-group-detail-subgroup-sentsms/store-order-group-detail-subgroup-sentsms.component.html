@@ -5,7 +5,7 @@
                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                     <div nz-row>
                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>负责人姓名</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入负责人姓名">
                             <input nz-input formControlName="name" />
                         </nz-form-control>
                     </div>
@@ -14,7 +14,7 @@
                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                     <div nz-row>
                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone" nzRequired>负责人电话</nz-form-label>
-                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入负责人电话">
                             <input nz-input formControlName="phone" />
                         </nz-form-control>
                     </div>
@@ -37,10 +37,10 @@
                         <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
                             <td>{{data.product_name}}</td>
                             <td>
-                                <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="data.assembling_place" />
+                                <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="data.address" />
                             </td>
                             <td>
-                                <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="data.assembling_time" />
+                                <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="data.time" />
                             </td>
                     </tr>
                 </tbody>

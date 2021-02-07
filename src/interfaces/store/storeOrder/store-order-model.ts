@@ -196,5 +196,5 @@ export interface GroupSmsModel {
   sub_group_id: string;
   contact_name?: string;
   contact_phone?: string;
-  orders: []
+  orders: any[]
 }
