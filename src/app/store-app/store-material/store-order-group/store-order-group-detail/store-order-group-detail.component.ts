@@ -67,7 +67,20 @@ export class StoreOrderGroupDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-      this.router.navigate(['/store/main/storeOrderGroup']);
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          // 成团日期
+          this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
+          // 往返日期
+          this.isReturnDate = this.detailModel?.start_date + '~' + this.detailModel?.end_date;
+          this.subGroupModel = this.detailModel;
+        })
+      });
     })
   }
 }
