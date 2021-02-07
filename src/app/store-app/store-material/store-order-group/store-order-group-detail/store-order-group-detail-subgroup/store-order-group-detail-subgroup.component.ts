@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -33,7 +34,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
-    public storeOrderService: StoreOrderService,) {
+    public storeOrderService: StoreOrderService, public dialog: MatDialog) {
     this.orderSmsModel = {
       order_ids: []
     }
@@ -158,27 +159,31 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
   // 发送出团短信通知
-  sendSms(data: any) {
-    console.log('object :>> ', data);
-    const editmodal = this.modal.create({
-      nzTitle: '发送出团通知书',
-      nzWidth: '800px',
-      nzContent: StoreOrderGroupDetailSubgroupSentsmsComponent,
-      nzComponentParams: {
-        data: data
-      },
-      nzFooter: [
-        {
-          label: '提交',
-          onClick: componentInstance => {
-            componentInstance?.add()
-          }
-        }
-      ]
-    })
-    editmodal.afterClose.subscribe(res => {
+  sendSms(data: any): void {
+    const dialogRef = this.dialog.open(StoreOrderGroupDetailSubgroupSentsmsComponent, {
+      width: '800px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res.data);
+          this.detailModel = res.data;
+          this.cursubGroupModelValue = this.detailModel.sub_group.data;
+          this.cursubGroupModelValue.forEach((value: any, index: any) => {
+            value['tabs'] = '子团' + (index + 1);
+            value?.order?.data.forEach((value: any, index: any) => {
+              value['expand'] = false; //展开属性
+            });
+            console.log("33435434", this.cursubGroupModelValue);
+          })
+        })
+      })
 
-    })
+    });
   }
 
 
@@ -193,13 +198,13 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
       newArray.forEach((value: any) => {
         console.log('value是什么 ', value);
         this.orderArray.push(value.id);
-        this.orderSmsModel.order_ids=this.orderArray;
+        this.orderSmsModel.order_ids = this.orderArray;
         this.storeOrderService.orderSms(this.orderSmsModel).subscribe(res => {
           console.log('res ', res);
-          if(res.status_code==='200'){
+          if (res.status_code === '200') {
             this.message.create('success', `成功发送 ${res.success}条信息，失败${res.failed}条信息`);
           }
-          else{
+          else {
             this.message.create('error', ` ${res.message}`);
           }
         })

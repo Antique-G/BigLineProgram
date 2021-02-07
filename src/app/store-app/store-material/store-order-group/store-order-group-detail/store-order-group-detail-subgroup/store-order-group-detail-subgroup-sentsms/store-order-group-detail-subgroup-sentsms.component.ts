@@ -1,10 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { GroupSmsModel } from '../../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../../services/store/store-order/store-order.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 // 手机号码校验
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -39,7 +40,6 @@ export class MyValidators extends Validators {
 })
 export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
   addForm!: FormGroup;
-  @Input() data: any;
   dataSource: any;
 
   tbsArr: any[] = [];
@@ -49,7 +49,7 @@ export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
 
   groupSmsModel: GroupSmsModel;
 
-  constructor(public fb: FormBuilder, public message: NzMessageService, public storeOrderService: StoreOrderService) {
+  constructor(public dialogRef: MatDialogRef<StoreOrderGroupDetailSubgroupSentsmsComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder, public message: NzMessageService, public storeOrderService: StoreOrderService) {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
@@ -90,30 +90,42 @@ export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
   }
 
   setValue() {
-    this.groupSmsModel.sub_group_id = this.data.sub_group_id;
     this.groupSmsModel.contact_name = this.addForm.value.name;
     this.groupSmsModel.contact_phone = this.addForm.value.phone;
   }
 
   add() {
-    let arr = [...this.setOfCheckedId];
-    this.groupSmsModel.orders = arr;
-    console.log('arr是什么 ', arr);
-    if (arr.length === 0) {
-      this.message.create('error', `请选择订单`);
+    this.setValue();
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
     }
-    else {
-      this.setValue();
-      for (const i in this.addForm.controls) {
-        this.addForm.controls[i].markAsDirty();
-        this.addForm.controls[i].updateValueAndValidity();
+    if (this.addForm.valid) {
+      let arr = [...this.setOfCheckedId];
+      this.groupSmsModel.orders = arr;
+      this.groupSmsModel.sub_group_id = this.data[0].sub_group_id;
+      if (arr.length === 0) {
+        this.message.create('error', `请选择订单`);
       }
-      if (this.addForm.valid) {
+      else {
         this.storeOrderService.groupSms(this.groupSmsModel).subscribe(res => {
-          console.log('res是什么', res);
+          console.log('res是什么', res, res.status_code, res.status_code === '200');
+          if (res.status_code === 200) {
+            this.message.create('success', `成功发送${res.success}条信息，失败${res.failed}条信息`);
+            this.dataSource.close()
+          }
+          else {
+            this.message.create('error', ` ${res.message}`);
+            this.dataSource.close()
+          }
         })
       }
+
     }
   }
 
+
+  close() {
+    this.dialogRef.close()
+  }
 }
