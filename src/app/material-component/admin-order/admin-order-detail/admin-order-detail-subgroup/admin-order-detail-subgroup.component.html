@@ -39,12 +39,7 @@
                     <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10" [nzTitle]="tab.sub_group_code">
                         <thead>
                             <tr>
-                                <th>姓名</th>
-                                <th>类型</th>
-                                <th>联系方式</th>
-                                <th>拼房类型</th>
-                                <th>备注</th>
-                                <th>出团通知书</th>
+                                <th colspan="6" style="text-align: left;">订单号</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,6 +49,16 @@
                                 </tr>
                                 <tr [nzExpand]="data.expand">
                                     <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
+                                        <thead>
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>类型</th>
+                                                <th>联系方式</th>
+                                                <th>拼房类型</th>
+                                                <th>备注</th>
+                                                <th>出团通知短信</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr *ngFor="let dataChild of innerTable.data">
                                                 <td style="width: 12%;">{{ dataChild.name }}</td>
