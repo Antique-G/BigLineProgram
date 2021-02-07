@@ -196,6 +196,9 @@ export const StoreUrls = {
   GetStoreOrderGroupGuideList: api + '/store/guide/data',   // 获取导游数据
   PostStoreOrderGroupMoveOrder: api + '/store/group/move_order',   // 移动订单
   PostStoreOrderGroupShutoff: api + '/store/group/shut_off',   // 不成团关团
+  PostStoreOrderGroupOrderSms: api + '/store/group/sendOrderSms',   // 发送订单预定成功通知短信接口
+  PostStoreOrderGroupGroupSms: api + '/store/group/sendGroupSms',   // 发送出团通知短信接口
+
 
 
 

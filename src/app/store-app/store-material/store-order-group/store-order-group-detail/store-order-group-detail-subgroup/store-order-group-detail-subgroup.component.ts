@@ -2,7 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DataOrderDetail } from '../../../../../../interfaces/store/storeOrder/store-order-model';
+import { DataOrderDetail, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../services/store/store-order/store-order.service';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
 import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
@@ -28,10 +28,15 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   detailId: any;
   detailModel!: DataOrderDetail;
 
+  orderArray: any[] = [];
+  orderSmsModel: OrderSmsModel;
+
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
     public storeOrderService: StoreOrderService,) {
-
+    this.orderSmsModel = {
+      order_ids: []
+    }
   }
 
   ngOnInit(): void { }
@@ -176,4 +181,30 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
     })
   }
 
+
+  // 发送订单
+  sendOrderSms() {
+    let newArray = [...this.setOfCheckedId];
+    console.log('拿到的订单内容 ', newArray);
+    if (newArray.length === 0) {
+      this.message.create('error', `请选择订单`);
+    }
+    else {
+      newArray.forEach((value: any) => {
+        console.log('value是什么 ', value);
+        this.orderArray.push(value.id);
+        this.orderSmsModel.order_ids=this.orderArray;
+        this.storeOrderService.orderSms(this.orderSmsModel).subscribe(res => {
+          console.log('res ', res);
+          if(res.status_code==='200'){
+            this.message.create('success', `成功发送 ${res.success}条信息，失败${res.failed}条信息`);
+          }
+          else{
+            this.message.create('error', ` ${res.message}`);
+          }
+        })
+
+      })
+    }
+  }
 }

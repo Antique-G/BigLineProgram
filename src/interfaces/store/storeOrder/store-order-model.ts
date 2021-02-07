@@ -43,7 +43,7 @@ export interface DatumStoreOrderListModel {
   sub_groups_num: number;
   guide_status: boolean;
   notice_status: boolean;
-  store_name?:string;
+  store_name?: string;
 }
 
 // 详情
@@ -107,6 +107,7 @@ export interface OrderModel {
 
 export interface OrderDetailModel {
   id: number;
+  order_sms: number;
   user_id: number;
   product_id: number;
   product_name: string;
@@ -159,6 +160,7 @@ export interface MemberDetailModel {
   id_type: number;
   id_num: string;
   sms_status: number;
+  // member.sms_status:number;
 }
 
 
@@ -182,4 +184,17 @@ export interface MoveOrderModel {
 export interface ShuffOrderModel {
   group_id: string;
   reason?: string;
+}
+
+// 发送出团通知短信
+export interface OrderSmsModel {
+  order_ids: any
+}
+
+// 发送出团通知短信
+export interface GroupSmsModel {
+  sub_group_id: string;
+  contact_name?: string;
+  contact_phone?: string;
+  orders: []
 }
