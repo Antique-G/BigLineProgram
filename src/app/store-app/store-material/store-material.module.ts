@@ -62,6 +62,8 @@ import { StoreOrderGroupDetailShutoffComponent } from './store-order-group/store
 import { StoreOrderFreetravelComponent } from './store-order-freetravel/store-order-freetravel.component';
 import { StoreOrderFreetravelDetailComponent } from './store-order-freetravel/store-order-freetravel-detail/store-order-freetravel-detail.component';
 import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
+import { StoreProductPostComponent } from './store-product-management/store-product-create-bystep/store-product-post/store-product-post.component';
+import { StoreProductManagementDetailPostComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-post/store-product-management-detail-post.component';
 
 @NgModule({
   imports: [
@@ -138,6 +140,8 @@ import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-gro
     StoreOrderFreetravelComponent,
     StoreOrderFreetravelDetailComponent,
     StoreOrderGroupDetailSubgroupSentsmsComponent,
+    StoreProductPostComponent,
+    StoreProductManagementDetailPostComponent,
     
   ]
 })
