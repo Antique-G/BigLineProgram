@@ -49,10 +49,16 @@
                                 <tr>
                                     <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                         <td [(nzExpand)]="data.expand" colspan="6">
-                                            {{ data.product_name }}
-                                            <button nz-button nzType="default" *ngIf="data.order_sms===0">未发送订单短信通知</button>
-                                            <button nz-button nzType="primary" *ngIf="data.order_sms===1">成功发送订单短信通知</button>
-                                            <button nz-button nzType="primary" nzDanger *ngIf="data.order_sms===2">失败订单短信通知</button>
+                                            {{ data.id }}
+                                            <span *ngIf="data.order_sms===0">
+                                                <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
+                                            </span>
+                                            <span *ngIf="data.order_sms===1">
+                                                <nz-badge nzColor="green"></nz-badge>成功发送订单短信通知
+                                            </span>
+                                            <span *ngIf="data.order_sms===2">
+                                                <nz-badge nzColor="red"></nz-badge>失败订单短信通知
+                                            </span>
                                         </td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
