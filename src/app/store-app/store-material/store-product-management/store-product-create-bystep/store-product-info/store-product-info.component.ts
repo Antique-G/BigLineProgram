@@ -269,12 +269,20 @@ export class StoreProductInfoComponent implements OnInit {
     }
     else if (parseInt(this.isReserveAhead) === 1) {
       // 时间处理
-      let earlier1 = this.addForm.value.earlier1
+      let earlier1 = this.addForm.value.earlier1;
       let date = new Date(this.addForm.value.earlier2);
       let min = date.getMinutes();
       let hour = date.getHours();
-      let resMin = earlier1 * 24 * 60 + hour * 60 + min;
-      this.addStoreProductModel.earlier = resMin;
+      if (min > 0) {
+        let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
+        this.addStoreProductModel.earlier = resMin;
+      }
+      else if (min === 0) {
+        let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
+        this.addStoreProductModel.earlier = resMin;
+      }
+      console.log('date是多少', this.addStoreProductModel.earlier);
+
     }
     if (parseInt(this.isReserveChildren) === 0) {
       this.addStoreProductModel.child_age_max = 14;
