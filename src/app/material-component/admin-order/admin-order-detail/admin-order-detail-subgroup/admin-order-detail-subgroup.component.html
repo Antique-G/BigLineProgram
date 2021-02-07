@@ -45,7 +45,8 @@
                         <tbody>
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
-                                    <td [(nzExpand)]="data.expand" colspan="6">订单号：{{ data.product_name }}</td>
+                                    <td [(nzExpand)]="data.expand" colspan="6"> {{ data.id }}
+                                    </td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
                                     <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">

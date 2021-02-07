@@ -201,7 +201,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
         this.orderSmsModel.order_ids = this.orderArray;
         this.storeOrderService.orderSms(this.orderSmsModel).subscribe(res => {
           console.log('res ', res);
-          if (res.status_code === '200') {
+          if (res.status_code === 200) {
             this.message.create('success', `成功发送 ${res.success}条信息，失败${res.failed}条信息`);
           }
           else {
