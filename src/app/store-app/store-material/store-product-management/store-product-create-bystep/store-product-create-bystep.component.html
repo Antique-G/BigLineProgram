@@ -43,7 +43,15 @@
                     <mat-tab label="图片与视频" [disabled]="isIndex<4">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-desc [addDataDetailModel]='addDataDetailModel'></app-store-product-desc>
+                                <app-store-product-desc (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-desc>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="海报" [disabled]="isIndex<5">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-post [addDataDetailModel]='addDataDetailModel'></app-store-product-post>
                             </div>
                         </ng-template>
                     </mat-tab>

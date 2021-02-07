@@ -17,6 +17,8 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class StoreFreeImageComponent implements OnInit {
   @Input() dataDetailModel: any;
+  @Output() tabIndex = new EventEmitter;
+
   dataSource: any[] = [];   //1.4将数据添加到dataSource
 
   imgList: any[] = [];
@@ -122,7 +124,8 @@ export class StoreFreeImageComponent implements OnInit {
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       this.freeTravelService.GetFreeTravelDetail( this.dataDetailModel.id).subscribe((res: any) => {
         this.dataSource = res.data.albums.data;
-        this.router.navigate(['/store/main/storeFreeTravel'],);
+        this.tabIndex.emit({id:this.detailUpdateModel.id,tabIndex:5})
+     
       })
     })
   }

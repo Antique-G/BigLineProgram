@@ -14,6 +14,8 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class StoreProductDescComponent implements OnInit {
   @Input() addDataDetailModel: any;
+  @Output() tabIndex = new EventEmitter;
+
 
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   detailUpdateModel: any;  //更新
@@ -120,8 +122,7 @@ export class StoreProductDescComponent implements OnInit {
       if (res === null) {
         this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
           this.dataSource = res.data.album.data;
-          this.router.navigate(['/store/main/storeProduct'],);
-
+          this.tabIndex.emit({id:this.addDataDetailModel.id,tabIndex:5})
         })
       }
 
