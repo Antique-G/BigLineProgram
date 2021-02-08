@@ -18,14 +18,11 @@ export class AdminInsuranceComponent implements OnInit {
   per_page = 20;
   total = 1;
   loading = true;
-  keyword: any;
+  name: any;
   status: any;
 
   constructor(
-    public fb: FormBuilder,
-    public adminInsuranceService: AdminInsuranceService,
-    private modal: NzModalService
-  ) {
+    public fb: FormBuilder,public adminInsuranceService: AdminInsuranceService, private modal: NzModalService ) {
     this.searchForm = fb.group({
       status: [""],
       name: [""],
@@ -39,7 +36,7 @@ export class AdminInsuranceComponent implements OnInit {
   getDataList(): void {
     this.loading = true;
     this.adminInsuranceService
-      .insuranceList(this.page, this.per_page, this.keyword, this.status)
+      .insuranceList(this.page, this.per_page, this.name, this.status)
       .subscribe((result: any) => {
         console.log("保险列表接口返回什么", result);
         this.loading = false;
@@ -58,7 +55,7 @@ export class AdminInsuranceComponent implements OnInit {
     this.getDataList();
   }
   search() {
-    this.keyword = this.searchForm.value.name;
+    this.name = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
     this.getDataList();
     console.log("value", this.searchForm.value);

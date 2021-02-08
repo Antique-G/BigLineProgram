@@ -17,10 +17,10 @@ export class AdminInsuranceService {
   constructor(public httpClient:HttpClient) { }
 
   //保险列表
-  insuranceList(page:number,per_page:number,keyword:any,status:any):Observable<AdminInsuranceListResponseModel>{
+  insuranceList(page:number,per_page:number,name:any,status:any):Observable<AdminInsuranceListResponseModel>{
     const params = new HttpParams().set('page',page.toString())
     .set('per_page',per_page.toString())
-    .set('keyword',keyword ? keyword : '')
+    .set('name',name ? name : '')
     .set('status',status ? status : '');
     const findhttpOptions = {
       header: new HttpHeaders({ 'content-Type' : 'application/json'}),
