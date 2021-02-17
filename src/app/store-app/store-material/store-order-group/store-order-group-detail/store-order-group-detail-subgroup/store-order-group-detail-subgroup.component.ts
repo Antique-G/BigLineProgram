@@ -32,6 +32,8 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   orderArray: any[] = [];
   orderSmsModel: OrderSmsModel;
 
+  isClosed: any;
+
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
     public storeOrderService: StoreOrderService, public dialog: MatDialog) {
@@ -45,6 +47,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['subGroupModel']?.currentValue != undefined) {
+      this.isClosed = changes['subGroupModel'].currentValue?.group_status;
       // 子团的值
       this.cursubGroupModelValue = changes['subGroupModel'].currentValue?.sub_group?.data;
       console.log("1111111", this.cursubGroupModelValue);

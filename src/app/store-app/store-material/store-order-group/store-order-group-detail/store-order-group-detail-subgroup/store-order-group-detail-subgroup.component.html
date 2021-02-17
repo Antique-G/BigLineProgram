@@ -29,8 +29,8 @@
                         <div>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms(tab?.order?.data)">发送出团短信通知</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)"  [disabled]="isClosed===0">派遣导游</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms(tab?.order?.data)"  [disabled]="isClosed===0">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
                     </div>

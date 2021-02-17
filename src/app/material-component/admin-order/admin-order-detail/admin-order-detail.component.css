@@ -21,3 +21,12 @@
     height: 50px;
     margin-top: -50px;
 }
+.btn {
+    width: 59px;
+    height: 20px;
+    line-height: 10px;
+    background: pink;
+    border: none;
+    border-radius: 5px;
+    color: red;
+}
