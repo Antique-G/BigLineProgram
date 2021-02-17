@@ -27,14 +27,14 @@ export class StoreOrderGroupComponent implements OnInit {
   date_end: any;
 
 
-  dateArray: any[] =[];
+  dateArray: any[] = [];
   // 城市
   nzOptions: any[] | null = null;
   idRegion: any;
 
 
   constructor(public fb: FormBuilder, public router: Router, public storeOrderService: StoreOrderService,
-    public storeRegionService: StoreRegionService,) {
+    public storeRegionService: StoreRegionService, ) {
     this.searchForm = fb.group({
       product_id: [''],
       product_name: [''],
@@ -49,25 +49,37 @@ export class StoreOrderGroupComponent implements OnInit {
     // 城市
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
-      this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
-        console.log("结果是", res)
-        this.dataSource = res?.data;
-        this.total = res.meta?.pagination?.total;
-        this.loading = false;
-      })
+      this.getStoreOrderGroup();
+      // this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+      //   console.log("结果是", res)
+      //   this.dataSource = res?.data;
+      //   this.total = res.meta?.pagination?.total;
+      //   this.loading = false;
+      // })
     })
 
   }
 
+  getStoreOrderGroup() {
+    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+      console.log("结果是", res)
+      this.dataSource = res?.data;
+      this.total = res.meta?.pagination?.total;
+      this.loading = false;
+    })
+  }
 
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
-
+    this.getStoreOrderGroup();
   }
+
+
   changePageSize(per_page: number) {
     console.log("一页显示多少", per_page);
     this.per_page = per_page;
+    this.getStoreOrderGroup();
   }
 
 
@@ -108,7 +120,7 @@ export class StoreOrderGroupComponent implements OnInit {
 
 
   edit(data: any) {
-    this.router.navigate(['/store/main/storeOrderGroup/detail'],{ queryParams: { detailId: data.group_id } });
+    this.router.navigate(['/store/main/storeOrderGroup/detail'], { queryParams: { detailId: data.group_id } });
   }
 
 }
