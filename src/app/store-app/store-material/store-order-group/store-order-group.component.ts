@@ -34,7 +34,7 @@ export class StoreOrderGroupComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public router: Router, public storeOrderService: StoreOrderService,
-    public storeRegionService: StoreRegionService, ) {
+    public storeRegionService: StoreRegionService,) {
     this.searchForm = fb.group({
       product_id: [''],
       product_name: [''],
@@ -102,7 +102,9 @@ export class StoreOrderGroupComponent implements OnInit {
 
 
   onChangeDate(event: any) {
+    this.dateArray = [];
     const datePipe = new DatePipe('en-US');
+    console.log('object :>> ', event);
     const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate);
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
