@@ -102,14 +102,16 @@ export class AdminOrderComponent implements OnInit {
 
 
   onChangeDate(event: any) {
+    this.dateArray = [];
     const datePipe = new DatePipe('en-US');
     const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate);
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate1);
     console.log("event", this.dateArray);
-
   }
+
+
   onChanges(data: any): void {
     console.log("点击的结果是", data);
     if (data !== null) {
