@@ -58,7 +58,7 @@
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status" nzRequired>审核</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-radio-group ngModel="{{data[0].check_status}}" formControlName="check_status" (ngModelChange)="isCheck($event)">
-                            <label nz-radio nzValue=2>已通过 </label>
+                            <label nz-radio nzValue=2 [nzDisabled]="data[0].check_status===3">已通过 </label>
                             <label nz-radio nzValue=3>未通过 </label>
                         </nz-radio-group>
                     </nz-form-control>
