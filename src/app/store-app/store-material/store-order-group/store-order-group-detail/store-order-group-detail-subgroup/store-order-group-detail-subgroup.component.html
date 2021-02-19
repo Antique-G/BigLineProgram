@@ -24,13 +24,19 @@
                             <span *ngIf="tab.sub_group_status===3">
                                 <nz-badge nzColor="lime"></nz-badge>已出团
                             </span>
+                            <span *ngIf="tab.guide_name===''">
+                                <nz-badge nzColor="red"></nz-badge>未派遣导游
+                            </span>
+                            <span *ngIf="tab.guide_name!=''">
+                                <nz-badge nzColor="green"></nz-badge>导游:{{tab.guide_name}},{{tab.guide_phone}}
+                            </span>
                         </div>
                         <div>子团编号：{{tab.sub_group_code}}</div>
                         <div>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px">
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)"  [disabled]="isClosed===0">派遣导游</button>
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms(tab?.order?.data)"  [disabled]="isClosed===0">发送出团短信通知</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)" [disabled]="isClosed===0">派遣导游</button>
+                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms(tab?.order?.data)" [disabled]="isClosed===0">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
                     </div>
@@ -50,6 +56,18 @@
                                     <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                         <td [(nzExpand)]="data.expand" colspan="6">
                                             {{ data.id }}
+                                            <span *ngIf="data.order_status===0">
+                                                <nz-badge nzColor="yellow"></nz-badge>已取消
+                                            </span>
+                                            <span *ngIf="data.order_status===1">
+                                                <nz-badge nzColor="red"></nz-badge>待支付
+                                            </span>
+                                            <span *ngIf="data.order_status===2">
+                                                <nz-badge nzColor="pink"></nz-badge>待出行
+                                            </span>
+                                            <span *ngIf="data.order_status===3">
+                                                <nz-badge nzColor="green"></nz-badge>已完成
+                                            </span>
                                             <span *ngIf="data.order_sms===0">
                                                 <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
                                             </span>
