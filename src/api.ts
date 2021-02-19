@@ -200,6 +200,10 @@ export const StoreUrls = {
   PostStoreOrderGroupGroupSms: api + '/store/group/sendGroupSms',   // 发送出团通知短信接口
 
 
+  GetStoreOrderfreeTravelList: api + '/store/order/free_travel',  //自由行订单列表
+  GetStoreOrderGroupProductList: api + '/store/order/group_product',  //跟团游订单列表
+
+  
 
 
 
