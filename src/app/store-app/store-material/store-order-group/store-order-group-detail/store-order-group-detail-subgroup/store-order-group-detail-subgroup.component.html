@@ -6,7 +6,7 @@
 
 <div *ngIf="isSubgroup">
     <nz-tabset [(nzSelectedIndex)]="index" nzType="editable-card" nzHideAdd (nzClose)="closeTab($event)">
-        <nz-tab *ngFor="let tab of cursubGroupModelValue; let i = index" [nzClosable]="i > 1" [nzTitle]="tab.tabs">
+        <nz-tab *ngFor="let tab of cursubGroupModelValue; let i = index" nzClosable [nzTitle]="tab.tabs">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutAlign="space-between stretch">

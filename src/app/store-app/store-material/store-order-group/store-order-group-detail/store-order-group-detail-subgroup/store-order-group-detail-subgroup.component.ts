@@ -71,7 +71,8 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
   closeTab({ index }: { index: number }): void {
-    this.cursubGroupModelValue.splice(index, 1);
+    console.log('object :>> ', index);
+    // this.cursubGroupModelValue.splice(index, 1);
   }
 
 
@@ -205,7 +206,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
         this.storeOrderService.orderSms(this.orderSmsModel).subscribe(res => {
           console.log('res ', res);
           if (res.status_code === 200) {
-            this.message.create('success', `成功发送 ${res.success}条信息，失败${res.failed}条信息`);
+            this.message.create('success', `成功发送 ${res.success}条信息，${res.failed}条失败信息`);
           }
           else {
             this.message.create('error', ` ${res.message}`);

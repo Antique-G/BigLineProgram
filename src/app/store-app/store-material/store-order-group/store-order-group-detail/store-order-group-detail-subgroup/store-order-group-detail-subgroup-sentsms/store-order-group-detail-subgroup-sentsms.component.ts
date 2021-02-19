@@ -111,12 +111,12 @@ export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
         this.storeOrderService.groupSms(this.groupSmsModel).subscribe(res => {
           console.log('res是什么', res, res.status_code, res.status_code === '200');
           if (res.status_code === 200) {
-            this.message.create('success', `成功发送${res.success}条信息，失败${res.failed}条信息`);
-            this.dataSource.close()
+            this.message.create('success', `成功发送${res.success}条信息，${res.failed}条失败信息`);
+            this.dialogRef.close()
           }
           else {
             this.message.create('error', ` ${res.message}`);
-            this.dataSource.close()
+            this.dialogRef.close()
           }
         })
       }
