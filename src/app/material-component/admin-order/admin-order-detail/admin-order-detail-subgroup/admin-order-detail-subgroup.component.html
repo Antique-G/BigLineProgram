@@ -11,17 +11,24 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                     <div fxLayout="row" fxLayoutAlign="space-between stretch">
                         <div style="color: red;">
-                            <span *ngIf="tab.guide_status===null">
-                                <nz-badge nzColor="yellow"></nz-badge>未派导游,
+                            <span style="color: black;">子团状态：</span>
+                            <span *ngIf="tab.sub_group_status===0">
+                                <nz-badge nzColor="pink"></nz-badge>已取消
                             </span>
-                            <span *ngIf="tab.guide_status!=null">
-                                <nz-badge nzColor="yellow"></nz-badge>已派导游,
+                            <span *ngIf="tab.sub_group_status===1">
+                                <nz-badge nzColor="red"></nz-badge>未成团
                             </span>
-                            <span *ngIf="tab.notice_status===0">
-                                <nz-badge nzColor="yellow"></nz-badge>待派发出团通知
+                            <span *ngIf="tab.sub_group_status===2">
+                                <nz-badge nzColor="green"></nz-badge>已成团
                             </span>
-                            <span *ngIf="tab.notice_status===1">
-                                <nz-badge nzColor="green"></nz-badge>已派发出团通知
+                            <span *ngIf="tab.sub_group_status===3">
+                                <nz-badge nzColor="lime"></nz-badge>已出团
+                            </span>
+                            <span *ngIf="tab.guide_name===''">
+                                <nz-badge nzColor="red"></nz-badge>未派遣导游
+                            </span>
+                            <span *ngIf="tab.guide_name!=''">
+                                <nz-badge nzColor="green"></nz-badge>导游:{{tab.guide_name}},{{tab.guide_phone}}
                             </span>
                         </div>
                         <div>子团编号：{{tab.sub_group_code}}</div>
@@ -45,7 +52,29 @@
                         <tbody>
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
-                                    <td [(nzExpand)]="data.expand" colspan="6"> {{ data.id }}
+                                    <td [(nzExpand)]="data.expand" colspan="6">
+                                        {{ data.id }}
+                                        <span *ngIf="data.order_status===0">
+                                            <nz-badge nzColor="yellow"></nz-badge>已取消
+                                        </span>
+                                        <span *ngIf="data.order_status===1">
+                                            <nz-badge nzColor="red"></nz-badge>待支付
+                                        </span>
+                                        <span *ngIf="data.order_status===2">
+                                            <nz-badge nzColor="pink"></nz-badge>待出行
+                                        </span>
+                                        <span *ngIf="data.order_status===3">
+                                            <nz-badge nzColor="green"></nz-badge>已完成
+                                        </span>
+                                        <span *ngIf="data.order_sms===0">
+                                            <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
+                                        </span>
+                                        <span *ngIf="data.order_sms===1">
+                                            <nz-badge nzColor="green"></nz-badge>成功发送订单短信通知
+                                        </span>
+                                        <span *ngIf="data.order_sms===2">
+                                            <nz-badge nzColor="red"></nz-badge>失败订单短信通知
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
@@ -78,6 +107,8 @@
                                                         <nz-badge nzColor="yellow"></nz-badge>未发</p>
                                                     <p *ngIf="dataChild.sms_status===1">
                                                         <nz-badge nzColor="green"></nz-badge>已发</p>
+                                                    <p *ngIf="dataChild.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
                                                 </td>
                                             </tr>
                                         </tbody>
