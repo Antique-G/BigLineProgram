@@ -96,15 +96,14 @@ getExtraData = (file: NzUploadFile) => {
 
 
 removeImg =  (file: NzUploadFile) => {
-  console.log(this.imageList);
-
-  let index = this.imageList.indexOf(file)
-  if(index>-1){
-    this.imageList.splice(index, 1); 
-  }
-  console.log(this.imageList);
+  console.log('this.imageList上传前',this.imageList);
+  console.log('fileList',file);
+  this.imageList = this.imageList.filter(d => d.name !==file.name);
+  console.log('删除后',this.imageList);
   return true
 }
+
+
 getExtraHeader = ()=>{
   return {
     Authorization: 'Bearer '+(localStorage.getItem('userToken')!),
