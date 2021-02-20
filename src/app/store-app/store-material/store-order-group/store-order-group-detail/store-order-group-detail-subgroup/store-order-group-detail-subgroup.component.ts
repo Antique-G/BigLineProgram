@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DataOrderDetail, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
+import { DataOrderDetail, DeleteSubGroup, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../services/store/store-order/store-order.service';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
 import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
@@ -33,13 +33,17 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   orderSmsModel: OrderSmsModel;
 
   isClosed: any;
+  // deleteSubGroup: DeleteSubGroup;
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
     public storeOrderService: StoreOrderService, public dialog: MatDialog) {
     this.orderSmsModel = {
       order_ids: []
-    }
+    };
+    // this.deleteSubGroup = {
+    //   sub_group_id: ''
+    // }
   }
 
   ngOnInit(): void { }
@@ -72,7 +76,41 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
   closeTab({ index }: { index: number }): void {
     console.log('object :>> ', index);
-    // this.cursubGroupModelValue.splice(index, 1);
+    console.log("1111", this.cursubGroupModelValue, this.cursubGroupModelValue[index], this.cursubGroupModelValue[index].order?.data.length === 0);
+    if (this.cursubGroupModelValue[index].order?.data.length === 0) {
+      // this.deleteSubGroup.sub_group_id = this.cursubGroupModelValue[index].sub_group_id;
+      this.modal.confirm({
+        nzTitle: '<h4>提示</h4>',
+        nzContent: '<h6>是否删除</h6>',
+        nzOnOk: () =>
+          this.storeOrderService.deleteSubGroup(this.cursubGroupModelValue[index].sub_group_id).subscribe(res => {
+            console.log("res", res);
+            this.cursubGroupModelValue.splice(index, 1);
+            this.activatedRoute.queryParams.subscribe(params => {
+              console.log("params", params)
+              this.detailId = JSON.parse(params["detailId"]);
+              // 详情
+              this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+                console.log("结果是", res.data);
+                this.detailModel = res.data;
+                this.cursubGroupModelValue = this.detailModel.sub_group.data;
+                this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                  value['tabs'] = '子团' + (index + 1);
+                  value?.order?.data.forEach((value: any, index: any) => {
+                    value['expand'] = false; //展开属性
+                  });
+                  console.log("33435434", this.cursubGroupModelValue);
+                })
+              })
+            })
+          })
+      })
+    }
+    else {
+      this.message.create('error', `该子团有订单，不能删除`);
+
+    }
+
   }
 
 

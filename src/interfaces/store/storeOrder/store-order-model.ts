@@ -198,3 +198,7 @@ export interface GroupSmsModel {
   contact_phone?: string;
   orders: any[]
 }
+
+export interface DeleteSubGroup {
+  sub_group_id: any
+}
