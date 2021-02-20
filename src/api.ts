@@ -198,7 +198,7 @@ export const StoreUrls = {
   PostStoreOrderGroupShutoff: api + '/store/group/shut_off',   // 不成团关团
   PostStoreOrderGroupOrderSms: api + '/store/group/sendOrderSms',   // 发送订单预定成功通知短信接口
   PostStoreOrderGroupGroupSms: api + '/store/group/sendGroupSms',   // 发送出团通知短信接口
-  DeletetStoreOrderGroupSubGroup: api + '/store/group/delSubGroup',   // 发送出团通知短信接口
+  DeletetStoreOrderGroupSubGroup: api + '/store/group/delSubGroup/',   // 发送出团通知短信接口
 
   
 
