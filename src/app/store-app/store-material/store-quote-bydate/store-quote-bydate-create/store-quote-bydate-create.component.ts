@@ -281,7 +281,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   }
   disabledDate= (current: Date): boolean => {
     // 禁用之前的日期
-    return differenceInCalendarDays(current, this.today) < 0;
+    return differenceInCalendarDays(current, this.today) < 1;
   };
 
   // 产品报价
