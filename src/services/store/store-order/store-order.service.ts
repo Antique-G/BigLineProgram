@@ -86,7 +86,7 @@ export class StoreOrderService {
 
 
   // 发送订单预定成功通知短信
-  orderSms(orderSmsModel: OrderSmsModel ): Observable<any> {
+  orderSms(orderSmsModel: OrderSmsModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupOrderSms, orderSmsModel, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -97,6 +97,14 @@ export class StoreOrderService {
   // 发送出团通知短信
   groupSms(groupSmsModel: GroupSmsModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupGroupSms, groupSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 删除子团
+  deleteSubGroup(sub_group_id: any): Observable<any> {
+    return this.httpClient.delete<any>(this.urls.DeletetStoreOrderGroupSubGroup + sub_group_id, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
