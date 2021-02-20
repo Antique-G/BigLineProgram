@@ -87,8 +87,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     destination_city: {
       'required': '请输入目的城市！'
     },
-    reserve_num: {
-      'required': '请输入可预订人数！'
+    reserve_num_min: {
+      'required': '请输入最少成团人数！'
     },
   };
   formErrors: any = {
@@ -99,7 +99,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     tag_id: '',
     departure_city: '',
     destination_city: '',
-    reserve_num: '',
+    reserve_num_min: '',
   }
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -145,8 +145,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       child_age_max: [14],
       child_height_min: [''],
       child_height_max: [''],
-      reserve_num_min: ['', [Validators.required]],
-      reserve_num_max: ['', [Validators.required]],
+      reserve_num_min: [1, [Validators.required]],
+      reserve_num_max: [''],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
 
