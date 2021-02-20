@@ -1,4 +1,4 @@
-<!-- <div fxLayoutWrap="wrap">
+<div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
         <mat-card>
             <div class="example-container" style="padding: 15px;">
@@ -70,59 +70,22 @@
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">集合地点</th>
                                     <th style="text-align: center;">集合时间</th>
-                                    <th style="text-align: center;">出行人信息</th>
+                                    <th style="text-align: left;">出行人信息</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                     <tr>
-                                        <td>{{data.id}}</td>
-                                        <td [(nzExpand)]="data.product.data" style="text-align: left;">{{data.product_name}}</td>
-                                        <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
-                                        <td>{{data.assembling_place}}</td>
-                                        <td>{{data.assembling_time}}</td>
-                                        <td [(nzExpand)]="data.member.data" style="text-align: left;">
+                                        <td style="text-align: center;">{{data.id}}</td>
+                                        <td style="text-align: center;">{{data.product_name}}</td>
+                                        <td style="text-align: center;">{{data.start_date|date:'yyyy-MM-dd'}}</td>
+                                        <td style="text-align: center;">{{data.assembling_place}}</td>
+                                        <td style="text-align: center;">{{data.assembling_time}}</td>
+                                        <td [(nzExpand)]="data.expand">
                                             出行人
                                         </td>
                                     </tr>
-                                    <tr [nzExpand]="data.product.data">
-                                        <nz-table #innerTable [nzData]="data?.product?.data" [nzShowPagination]="false">
-                                            <thead>
-                                                <tr>
-                                                    <th>姓名</th>
-                                                    <th>类型</th>
-                                                    <th>联系方式</th>
-                                                    <th>拼房类型</th>
-                                                    <th>备注</th>
-                                                    <th>出团通知短信</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let dataChild of innerTable.data">
-                                                    <td style="width: 12%;">{{ dataChild.name }}</td>
-                                                    <td style="width: 13%;">
-                                                        <p *ngIf="dataChild.is_kid===0">成人</p>
-                                                        <p *ngIf="dataChild.is_kid===1">儿童</p>
-                                                    </td>
-                                                    <td style="width: 15%;">{{dataChild.phone}}</td>
-                                                    <td style="width: 18%;">
-                                                        <p *ngIf="data.shared_status===0">不拼房</p>
-                                                        <p *ngIf="data.shared_status===1">同性拼房</p>
-                                                    </td>
-                                                    <td style="width: 15%;">{{ data.customer_remarks }}</td>
-                                                    <td style="width: 15%;">
-                                                        <p *ngIf="dataChild.sms_status===0">
-                                                            <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                        <p *ngIf="dataChild.sms_status===1">
-                                                            <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                        <p *ngIf="dataChild.sms_status===2">
-                                                            <nz-badge nzColor="red"></nz-badge>发送失败</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </nz-table>
-                                    </tr>
-                                    <tr [nzExpand]="data.member.data">
+                                    <tr [nzExpand]="data.expand">
                                         <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
                                             <thead>
                                                 <tr>
@@ -164,38 +127,10 @@
                         </nz-table>
                     </div>
 
-
-                    <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
-                            (nzPageSizeChange)="changePageSize($event)">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">订单号</th>
-                                    <th style="text-align: center;width: 20%;">产品名称</th>
-                                    <th style="text-align: center;">订单出发日期</th>
-                                    <th style="text-align: center;">集合地点</th>
-                                    <th style="text-align: center;">集合时间</th>
-                                    <th style="text-align: center;">出行人信息</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.id}}</td>
-                                    <td>{{data.product_name}}</td>
-                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
-                                    <td>{{data.assembling_place}}</td>
-                                    <td>{{data.assembling_time}}</td>
-                                    <td [(nzExpand)]="data.expand" colspan="6"></td>
-                                </tr>
-
-                            </tbody>
-                        </nz-table>
-
-                    </div>
                 </div>
 
 
             </div>
         </mat-card>
     </div>
-</div> -->
+</div>

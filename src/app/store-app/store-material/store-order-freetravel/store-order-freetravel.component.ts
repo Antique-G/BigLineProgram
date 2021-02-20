@@ -75,6 +75,7 @@ export class StoreOrderFreetravelComponent implements OnInit {
 
 
   onChangeDate(event: any) {
+    this.dateArray = [];
     const datePipe = new DatePipe('en-US');
     const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate);
