@@ -16,6 +16,7 @@ import { StoreOrderGroupComponent } from './store-order-group/store-order-group.
 import { StoreOrderGroupDetailComponent } from './store-order-group/store-order-group-detail/store-order-group-detail.component';
 import { StoreOrderFreetravelComponent } from './store-order-freetravel/store-order-freetravel.component';
 import { StoreOrderFreetravelDetailComponent } from './store-order-freetravel/store-order-freetravel-detail/store-order-freetravel-detail.component';
+import { StoreOrderGrouptravelComponent } from './store-order-grouptravel/store-order-grouptravel.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -145,6 +146,13 @@ export const StoreMaterialRoutes: Routes = [
           breadcrumb: '自由行订单详情'
         }
       },
+      {
+        path: 'storeOrdergroupTravel',
+        component: StoreOrderGrouptravelComponent,
+        data: {
+          breadcrumb: '跟团游订单列表'
+        }
+      }
     ]
   }
 ];
