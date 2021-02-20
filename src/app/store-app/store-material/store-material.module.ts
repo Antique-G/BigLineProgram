@@ -66,6 +66,7 @@ import { StoreProductPostComponent } from './store-product-management/store-prod
 import { StoreProductManagementDetailPostComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-post/store-product-management-detail-post.component';
 import { StoreFreePostComponent } from './store-product-free-travel/store-free-create-bystep/store-free-post/store-free-post.component';
 import { StoreFreeDetailPostComponent } from './store-product-free-travel/store-product-free-travel-detail/store-free-detail-post/store-free-detail-post.component';
+import { StoreOrderGrouptravelComponent } from './store-order-grouptravel/store-order-grouptravel.component';
 
 @NgModule({
   imports: [
@@ -146,6 +147,7 @@ import { StoreFreeDetailPostComponent } from './store-product-free-travel/store-
     StoreProductManagementDetailPostComponent,
     StoreFreePostComponent,
     StoreFreeDetailPostComponent,
+    StoreOrderGrouptravelComponent,
     
   ]
 })
