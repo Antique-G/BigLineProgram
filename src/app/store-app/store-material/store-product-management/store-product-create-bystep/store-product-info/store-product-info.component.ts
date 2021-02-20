@@ -1,7 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { isNumber, isFloat } from '../../../../../util/validators';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { AddStoreProductModel, DetailModel } from '../../../../../../interfaces/store/storeProduct/ProductModel';
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
@@ -74,8 +73,8 @@ export class StoreProductInfoComponent implements OnInit {
     destination_city: {
       'required': '请输入目的城市！'
     },
-    reserve_num: {
-      'required': '请输入可预订人数！'
+    reserve_num_min: {
+      'required': '请输入最少成团人数！'
     },
   };
   formErrors: any = {
@@ -86,7 +85,7 @@ export class StoreProductInfoComponent implements OnInit {
     tag_id: '',
     departure_city: '',
     destination_city: '',
-    reserve_num: '',
+    reserve_num_min: '',
   }
 
 
@@ -135,8 +134,8 @@ export class StoreProductInfoComponent implements OnInit {
       child_age_max: [14],
       child_height_min: [''],
       child_height_max: [''],
-      reserve_num_min: [0, [Validators.required]],
-      reserve_num_max: [0, [Validators.required]],
+      reserve_num_min: [1, [Validators.required]],
+      reserve_num_max: [''],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
 

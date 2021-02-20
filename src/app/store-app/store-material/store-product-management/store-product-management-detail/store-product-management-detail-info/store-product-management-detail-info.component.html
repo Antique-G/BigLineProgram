@@ -152,15 +152,22 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>成团最少/最大人数</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_height_min">
-                                                <nz-input-number formControlName="reserve_num_min" (keyup)="numTest($event)" style="width: 100px;margin-top: 1px;" [nzMin]="0"></nz-input-number>
-                                                <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
-                                                <nz-input-number formControlName="reserve_num_max" (keyup)="numTest($event)" style="width: 100px;margin-top: 1px;" [nzMin]="0"></nz-input-number>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_min" nzRequired>成团最少人数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.reserve_num_min">
+                                                <nz-input-number formControlName="reserve_num_min" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
+
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
 
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_num_max">成团最大人数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                <nz-input-number formControlName="reserve_num_max" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
