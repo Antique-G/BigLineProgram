@@ -70,6 +70,7 @@
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">集合地点</th>
                                     <th style="text-align: center;">集合时间</th>
+                                    <th style="text-align: center;">订单状态</th>
                                     <th style="text-align: left;">出行人信息</th>
                                 </tr>
                             </thead>
@@ -81,6 +82,20 @@
                                         <td style="text-align: center;">{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                         <td style="text-align: center;">{{data.assembling_place}}</td>
                                         <td style="text-align: center;">{{data.assembling_time}}</td>
+                                        <td style="text-align: center;">
+                                            <span *ngIf="data.order_status===0">
+                                                <nz-badge nzColor="yellow"></nz-badge>已取消
+                                            </span>
+                                            <span *ngIf="data.order_status===1">
+                                                <nz-badge nzColor="red"></nz-badge>待支付
+                                            </span>
+                                            <span *ngIf="data.order_status===2">
+                                                <nz-badge nzColor="pink"></nz-badge>待出行
+                                            </span>
+                                            <span *ngIf="data.order_status===3">
+                                                <nz-badge nzColor="green"></nz-badge>已完成
+                                            </span>
+                                        </td>
                                         <td [(nzExpand)]="data.expand">
                                             出行人
                                         </td>
