@@ -20,33 +20,31 @@
                     <nz-alert nzMessage="当前时间: {{ seletYearMonth}}"></nz-alert>
                     <div style="display: flex; align-items: center;">
                         年
-                        <nz-select [(ngModel)]="selectedYear"   nzPlaceHolder="Choose" (ngModelChange) ="ngYearChange($event)" style="margin: 0 5px;width: 100px;">
+                        <nz-select [(ngModel)]="selectedYear" nzPlaceHolder="Choose" (ngModelChange)="ngYearChange($event)" style="margin: 0 5px;width: 100px;">
                             <nz-option *ngFor="let option of yearList" [nzValue]="option" [nzLabel]="option"></nz-option>
                         </nz-select>
                         <span style="margin-right: 5px;">月</span>
-                        <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)" ></nz-pagination>
-                     </div>
+                        <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
+                    </div>
                     <div class="mat-elevation-z8">
                         <!--  (nzSelectChange)="onSelectChange($event)" -->
                         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                        <nz-calendar  
-                          (nzPanelChange)="panelChange($event)"  [(ngModel)]="selectedDateValue">
-                            <div *nzDateCell="let date" class="events"  >
-                                <ng-container *ngFor="let item of listDataMap.data">
-                                    <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                        <div class="item itemFree" (click)="onSelectChange(item)" 
-                                        [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
-                                            <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
-                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
-                                            <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
-                                            <div>库存: <span style="color: red;">{{item.inventory_num}}</span></div>
-                                        </div>
-                                    </ng-container>
+                            <nz-calendar (nzPanelChange)="panelChange($event)" [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
+                                <div *nzDateCell="let date" class="events">
+                                    <ng-container *ngFor="let item of listDataMap.data">
+                                        <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                            <div class="item itemFree" (click)="onSelectChange(item)" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
+                                                <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
+                                                <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
+                                                <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                                <div>库存: <span style="color: red;">{{item.inventory_num}}</span></div>
+                                            </div>
+                                        </ng-container>
 
-                                </ng-container>
-                            </div>
-                        </nz-calendar>
-                    </nz-spin>
+                                    </ng-container>
+                                </div>
+                            </nz-calendar>
+                        </nz-spin>
                     </div>
                 </div>
 
