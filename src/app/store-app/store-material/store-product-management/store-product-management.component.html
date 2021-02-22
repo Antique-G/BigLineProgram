@@ -101,23 +101,30 @@
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">
-                                            <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon>
+                                            <!-- <mat-icon title="编辑" (click)="edit(data)">edit</mat-icon> -->
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+
                                         </div>
 
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">
-                                            <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon>
+                                            <!-- <mat-icon (click)="goToQuoteClick(data)" title="报价">assignment</mat-icon> -->
+                                            <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" (click)="goToQuoteClick(data)" title="报价">
+
                                         </div>
 
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
                                             <div *ngIf="data.status===0">
-                                                <mat-icon title="上架">arrow_circle_up</mat-icon>
+                                                <!-- <mat-icon title="上架">arrow_circle_up</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架">
                                             </div>
                                             <div *ngIf="data.status===1">
-                                                <mat-icon title="下架">arrow_circle_down</mat-icon>
+                                                <!-- <mat-icon title="下架">arrow_circle_down</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架">
+
                                             </div>
                                         </div>
                                     </td>
@@ -125,7 +132,9 @@
                                         <div style="cursor: pointer;">
                                             <div *ngIf="data.check_status==0">
                                                 <!-- 未提交审核  -->
-                                                <mat-icon (click)="checkStatusClick(data)" title="提交审核">sim_card</mat-icon>
+                                                <!-- <mat-icon (click)="checkStatusClick(data)" title="提交审核">sim_card</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" (click)="checkStatusClick(data)" title="提交审核">
+
                                             </div>
 
                                         </div>
