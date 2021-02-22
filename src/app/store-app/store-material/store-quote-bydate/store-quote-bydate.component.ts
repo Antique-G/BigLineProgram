@@ -37,6 +37,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   public isSpinning: boolean = true;
   freeTraveQuoteBydateModel: FreeTraveQuoteBydateModel;
   nzPageIndex = new Date().getMonth() + 1;
+  isEarlier: any;
 
 
   constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -64,7 +65,8 @@ export class StoreQuoteBydateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.productId = params.productId;
-      this.type = params.type
+      this.type = params.type;
+      this.isEarlier = params.earlier;
       console.log(this.seletYearMonth, 'ngOnInit');
       this.getQuoteList();
     });
@@ -77,11 +79,11 @@ export class StoreQuoteBydateComponent implements OnInit {
     let month = index < 10 ? '0' + index : index;
     let year = new Date().getFullYear();
     let day = new Date().getDate();
-    this.selectedDateValue = new Date(year + '-' + month + '-' + day)
-    this.seletYearMonth = this.selectedYear + '-' + month
-    this.nzPageIndex = index
-    this.isSpinning = true
-    this.getQuoteList()
+    this.selectedDateValue = new Date(year + '-' + month + '-' + day);
+    this.seletYearMonth = this.selectedYear + '-' + month;
+    this.nzPageIndex = index;
+    this.isSpinning = true;
+    this.getQuoteList();
   }
 
   selectChange(select: Date): void {
@@ -199,7 +201,8 @@ export class StoreQuoteBydateComponent implements OnInit {
         data: {
           productId: this.productId,
           type: this.type,
-          listDataMap: this.listDataMap
+          listDataMap: this.listDataMap,
+          earlier: this.isEarlier
         }
       },
       nzFooter: [

@@ -82,6 +82,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
       }
     });
   }
+
+
   // 添加
   addProduct() {
     this.router.navigate(['/store/main/storeFreeTravel/create']);
@@ -96,10 +98,10 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   // 报价
   goToQuoteClick(data: any) {
-    console.log(data);
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel' } });
+    console.log('data', data);
+      let ear=Math.floor( data.earlier / 60 / 24);
+      this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: ear  } }); 
   }
-
 
 
   // 上下架操作
