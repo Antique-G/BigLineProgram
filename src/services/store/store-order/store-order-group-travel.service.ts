@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangePriceModel, DetailModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -34,6 +34,22 @@ export class StoreOrderGroupTravelService {
       params: params
     };
     return this.httpClient.get<StoreOrderGroupTravelListRequestModel>(this.urls.GetStoreOrderGroupProductList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+// 详情
+  getgroupTravelDetail(id: any) {
+    return this.httpClient.get<DetailModel>(this.urls.GetStoreOrderGroupProductDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 改价
+  changePrice(changePriceModel: ChangePriceModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderAddPriceDetails, changePriceModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

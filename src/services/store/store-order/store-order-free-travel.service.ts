@@ -43,6 +43,16 @@ export class StoreOrderFreeTravelService {
   }
 
 
+  
+  // 获取详情
+  getfreeTravelDetail(id: any) {
+    return this.httpClient.get<any>(this.urls.GetStoreOrderfreeTravelDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

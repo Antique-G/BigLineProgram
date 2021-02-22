@@ -78,14 +78,10 @@ export class StoreFreePostComponent implements OnInit {
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-      this.router.navigate(['/store/main/storeProduct'],);
+      this.router.navigate(['/store/main/storeFreeTravel'],);
       })
 
     }
 
   
 }
-
-
-
-//    this.router.navigate(['/store/main/storeFreeTravel'],);
