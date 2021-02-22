@@ -92,10 +92,16 @@ export class StoreProductManagementComponent implements OnInit {
       }
     });
   }
+
+
   // 报价
   goToQuoteClick(data: any) {
-    console.log(data);
-    this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: data.id, type: 'management' } });
+    console.log('data', data);
+    this.storeProductService.getProductDetail(data.id).subscribe(res => {
+      console.log("结果是", res.data.id, res.data.earlier)
+      let ear=Math.floor( res.data.earlier / 60 / 24);
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: ear } });
+    })
   }
 
 
