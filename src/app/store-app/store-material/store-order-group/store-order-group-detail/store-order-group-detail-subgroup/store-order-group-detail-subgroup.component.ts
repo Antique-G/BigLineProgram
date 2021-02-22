@@ -147,7 +147,23 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res.data);
+          this.detailModel = res.data;
+          this.cursubGroupModelValue = this.detailModel.sub_group.data;
+          this.cursubGroupModelValue.forEach((value: any, index: any) => {
+            value['tabs'] = '子团' + (index + 1);
+            value?.order?.data.forEach((value: any, index: any) => {
+              value['expand'] = false; //展开属性
+            });
+            console.log("33435434", this.cursubGroupModelValue);
+          })
+        })
+      })
     })
   }
 
