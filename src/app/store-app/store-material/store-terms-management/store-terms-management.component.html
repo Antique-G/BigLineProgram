@@ -78,21 +78,29 @@
                                     <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
                                             <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
-                                                <mat-icon>edit</mat-icon>
+                                                <!-- <mat-icon>edit</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png">
                                             </div>
                                             <div style="cursor: pointer;" (click)="delete(data)" title="删除">
-                                                <mat-icon>delete</mat-icon>
+                                                <!-- <mat-icon>delete</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/delete.png">
+
                                             </div>
                                             <div style="cursor: pointer;" *ngIf="data.check_status===0||data.check_status===3" (click)="review(data)" title="提交审核">
-                                                <mat-icon>assignment_ind</mat-icon>
+                                                <!-- <mat-icon>assignment_ind</mat-icon> -->
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png">
+
                                             </div>
                                             <div style="cursor: pointer;" (click)="up(data)" title="启用">
                                                 <div *ngIf="data.status===0">
-                                                    <mat-icon title="启用">arrow_circle_up</mat-icon>
+                                                    <!-- <mat-icon title="启用">arrow_circle_up</mat-icon> -->
+                                                    <img src="http://cdn.bigline.com.cn/static/images/up.png" title="启用">
 
                                                 </div>
                                                 <div *ngIf="data.status===1">
-                                                    <mat-icon title="禁用">arrow_circle_down</mat-icon>
+                                                    <!-- <mat-icon title="禁用">arrow_circle_down</mat-icon> -->
+                                                    <img src="http://cdn.bigline.com.cn/static/images/down.png" title="禁用">
+
                                                 </div>
                                             </div>
                                         </div>
