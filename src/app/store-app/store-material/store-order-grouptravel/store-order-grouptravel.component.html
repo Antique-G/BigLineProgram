@@ -69,6 +69,7 @@
                                     <th style="text-align: center;width: 20%;">产品名称</th>
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">订单状态</th>
+                                    <th style="text-align: center;">订单总价格</th>
                                     <th style="text-align: center;">订单支付状态</th>
                                     <th style="text-align: center;">出团通知书</th>
                                     <th style="text-align: center;">订单取消类型</th>
@@ -95,6 +96,7 @@
                                             <nz-badge nzColor="green"></nz-badge>已完成
                                         </span>
                                     </td>
+                                    <td>{{data.price_total}}元</td>
                                     <td>
                                         <span *ngIf="data.payment_status===0">
                                             <nz-badge nzColor="red"></nz-badge>未支付
@@ -118,6 +120,7 @@
                                             <nz-badge nzColor="red"></nz-badge>发送失败</p>
                                     </td>
                                     <td>
+                                        <p *ngIf="data.cancel_type===0">-</p>
                                         <p *ngIf="data.cancel_type===1">超时未支付</p>
                                         <p *ngIf="data.cancel_type===2">到期未成团自动取消</p>
                                         <p *ngIf="data.cancel_type===3">未支付主动取消</p>
@@ -125,11 +128,14 @@
                                         <p *ngIf="data.cancel_type===5">平台取消成团</p>
                                     </td>
                                     <td>
-                                        <p *ngIf="data.refund_status===0">未退款</p>
-                                        <p *ngIf="data.refund_status===1">待审核</p>
-                                        <p *ngIf="data.refund_status===2">拒绝退款</p>
-                                        <p *ngIf="data.refund_status===3">已审核待退款</p>
-                                        <p *ngIf="data.refund_status===4">已退款</p>
+                                        <div *ngIf="data.cancel_type===0">-</div>
+                                        <div *ngIf="data.cancel_type!=0">
+                                            <p *ngIf="data.refund_status===0">未退款</p>
+                                            <p *ngIf="data.refund_status===1">待审核</p>
+                                            <p *ngIf="data.refund_status===2">拒绝退款</p>
+                                            <p *ngIf="data.refund_status===3">已审核待退款</p>
+                                            <p *ngIf="data.refund_status===4">已退款</p>
+                                        </div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">

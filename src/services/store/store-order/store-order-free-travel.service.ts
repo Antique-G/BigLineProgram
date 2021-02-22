@@ -2,8 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { Details, StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { StoreUrls } from '../../../api';
+import { ChangePriceModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -21,7 +22,7 @@ export class StoreOrderFreeTravelService {
   constructor(public httpClient: HttpClient) { }
 
   // 自由行订单列表
-  freeTravelList(page: number, per_page: number,status: any,  product_id: any, product_name: any, order_number: any,
+  freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
     date_start: any, date_end: any): Observable<StoreOrderFreeTravelListRequestModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
@@ -43,10 +44,18 @@ export class StoreOrderFreeTravelService {
   }
 
 
-  
+
   // 获取详情
   getfreeTravelDetail(id: any) {
-    return this.httpClient.get<any>(this.urls.GetStoreOrderfreeTravelDetail + id, httpOptions)
+    return this.httpClient.get<Details>(this.urls.GetStoreOrderfreeTravelDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 改价
+  changePrice(changePriceModel: ChangePriceModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderAddPriceDetails, changePriceModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

@@ -1,0 +1,35 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id" nzRequired>订单id</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="id" readonly="true" [(ngModel)]="isId" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>产品名称</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="name" readonly="true" [(ngModel)]="isName" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>改价类别</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" formControlName="type">
+                        <nz-option [nzValue]="0" [nzLabel]="'附加收费'"></nz-option>
+                        <nz-option [nzValue]="1" [nzLabel]="'优惠'"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>价格</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入价格">
+                    <nz-input-number formControlName="price" [nzMin]="0"></nz-input-number>
+                </nz-form-control>
+            </nz-form-item>
+
+
+        </form>
+    </div>
+</div>
