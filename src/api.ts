@@ -203,7 +203,9 @@ export const StoreUrls = {
 
 
   GetStoreOrderfreeTravelList: api + '/store/order/free_travel',  //自由行订单列表
+  GetStoreOrderfreeTravelDetail: api + '/store/order/free_travel/',  //自由行订单详情
   GetStoreOrderGroupProductList: api + '/store/order/group_product',  //跟团游订单列表
+  GetStoreOrderGroupProductDetail: api + '/store/order/group_product/',  //跟团游订单详情
   PostStoreOrderAddPriceDetails: api + '/store/order/add_price_details',  //订单改价（附加收费、优惠）
   GetStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交前展示）
   PostStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交）

@@ -43,13 +43,9 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   getFreeTravel() {
     this.storeOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end).subscribe(res => {
       console.log("结果是", res);
-      res?.data.forEach((value: any) => {
-        value['expand'] = false; //展开属性
-      })
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
       this.loading = false;
-
     })
   }
 
@@ -91,6 +87,9 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   }
 
 
+  edit(data: any) {
+    this.router.navigate(['/store/main/storeOrdergroupTravel/detail'], { queryParams: { detailId: data.id } });
+  }
 }
 
 
