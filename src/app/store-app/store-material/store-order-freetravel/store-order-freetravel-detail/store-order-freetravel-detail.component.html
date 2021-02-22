@@ -12,13 +12,7 @@
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">基本信息</h4>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                    <!-- <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">订单批量导出</button>
-                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">查看团队操作日志</button>
-                                    <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">班期下线</button> -->
-                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="shutoff(detailModel.group_id)">取消订单</button>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                 </div>
                             </div>
                             <nz-divider></nz-divider>
@@ -26,32 +20,47 @@
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <div>
                                         <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                        <div>
+                                            <button class="btn" *ngIf="detailModel?.order_status===0">订单已取消</button>
+                                            <button class="btn" *ngIf="detailModel?.order_status===1">订单待支付</button>
+                                            <button class="btn" *ngIf="detailModel?.order_status===2">订单待出行</button>
+                                            <button class="btn" *ngIf="detailModel?.order_status===3">订单已完成</button>
+                                        </div>
                                     </div>
                                     <div style="margin-top:13px">
                                         <form nz-form [formGroup]="addForm" nz-row>
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">行程天数</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="group_id" nzBorderless [ngModel]="'2天1晚'" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.id" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">预定人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="member_min" nzBorderless [ngModel]="detailModel?.member_min" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="start_date">订单出发日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="start_date" nzBorderless [ngModel]="detailModel?.start_date" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="returnDate" nzBorderless [ngModel]="isReturnDate" />
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_name">负责人姓名</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_name" nzBorderless [ngModel]="detailModel?.contact_name" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_phone">负责人电话</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_phone" nzBorderless [ngModel]="detailModel?.contact_phone" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -72,54 +81,97 @@
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单信息</h4>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
                                 </div>
                             </div>
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                    <div fxLayout="row" fxLayoutAlign="space-between stretch">
-                                        <div style="color: red;">
-                                            <nz-badge nzColor="yellow"></nz-badge>待派发出团通知
-                                        </div>
-                                        <div>共3人：成人2|儿童0</div>
-                                    </div>
-                                    <div fxLayout="row" fxLayoutGap="10px">
-                                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;">发送订单短信通知</button>
-                                    </div>
-                                    <div class="mat-elevation-z8">
-                                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
-                                            <thead>
-                                                <tr>
-                                                    <th>姓名</th>
-                                                    <th>类型</th>
-                                                    <th>联系方式</th>
-                                                    <th>拼房类型</th>
-                                                    <th>备注</th>
-                                                    <th>出团通知书</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let data of rowSelectionTable.data">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </nz-table>
-
-                                    </div>
+                                <div>
+                                    <div>共{{detailModel?.num_total}}人：成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</div>
+                                </div>
+                                <div class="mat-elevation-z8">
+                                    <nz-table #rowSelectionTable [nzData]="dataMember">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">出行人id</th>
+                                                <th style="text-align: center;">姓名</th>
+                                                <th style="text-align: center;">类型</th>
+                                                <th style="text-align: center;">证件类型</th>
+                                                <th style="text-align: center;">证件号码</th>
+                                                <th style="text-align: center;">联系方式</th>
+                                                <th style="text-align: center;">备注</th>
+                                                <th style="text-align: center;">出团通知短信</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of rowSelectionTable.data">
+                                                <td>{{data.id}}</td>
+                                                <td>{{data.name}}</td>
+                                                <td>
+                                                    <p *ngIf="data.is_kid===0">成人</p>
+                                                    <p *ngIf="data.is_kid===1">儿童</p>
+                                                </td>
+                                                <td>
+                                                    <p *ngIf="data.id_type===1">身份证</p>
+                                                    <p *ngIf="data.id_type===2">护照</p>
+                                                    <p *ngIf="data.id_type===3">回乡证</p>
+                                                </td>
+                                                <td>{{data.id_num}}</td>
+                                                <td>{{data.phone}}</td>
+                                                <td>{{data.remarks}}</td>
+                                                <td>
+                                                    <p *ngIf="data.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
+                                                    <p *ngIf="data.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
+                                                    <p *ngIf="data.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </nz-table>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
 
+                    </div>
                 </mat-card>
 
+
+                <mat-card>
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单支付情况</h4>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="detailModel?.order_status===0">订单改价</button>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                                    <div>
+                                        <div>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===0">未支付</button>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===2">部分待支付</button>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===3">部分待返还</button>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:13px">
+                                        <div>共{{detailModel?.price_total}}元：成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;其他{{detailModel?.price_other}}元&nbsp;|&nbsp;补差价{{detailModel?.price_diff}}元</div>
+
+                                    </div>
+                                </nz-spin>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </mat-card>
 
             </div>
 

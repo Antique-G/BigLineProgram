@@ -1,10 +1,10 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StoreOrderService } from '../../../../../services/store/store-order/store-order.service';
-import { DataOrderDetail, SubgroupDeatilModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
+import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { StoreOrderFreeTravelService } from '../../../../../services/store/store-order/store-order-free-travel.service';
+import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-price/store-order-free-change-price.component';
 
 
 @Component({
@@ -16,24 +16,22 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
   public isSpinning = false;
   addForm!: FormGroup;
   detailId: any;
-  detailModel!: DataOrderDetail;
-  isReturnDate: any;
-  isActiveDate: any;
-  subGroupModel!: DataOrderDetail;
-  dataSource: any;
-  page = 1;
-  per_page = 20;
-  total = 1;
-  loading = true;
+  detailModel!: DetailsModel;
+  dataMember: any;
+
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public modal: NzModalService, public storeOrderService: StoreOrderService,) {
+    public storeOrderFreeTravelService: StoreOrderFreeTravelService,private modal: NzModalService) {
     this.addForm = this.fb.group({
-      group_id: ['', [Validators.required]],
-      member_min: ['', [Validators.required]],
-      active_date: ['', [Validators.required]],
-      returnDate: ['', [Validators.required]]
-    })
+      order_id: ['', [Validators.required]],
+      start_date: ['', [Validators.required]],
+      assembling_place: ['', [Validators.required]],
+      assembling_time: ['', [Validators.required]],
+      contact_name: ['', [Validators.required]],
+      contact_phone: ['', [Validators.required]],
+    });
+  
   }
 
   ngOnInit(): void {
@@ -41,38 +39,37 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       console.log("params", params)
       this.detailId = JSON.parse(params["detailId"]);
       // 详情
-      this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+      this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
-        // 成团日期
-        this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
-        // 往返日期
-        this.isReturnDate = this.detailModel?.start_date + '~' + this.detailModel?.end_date;
-        this.subGroupModel = this.detailModel;
+        this.dataMember = res.data?.member?.data;
       })
     });
   }
 
 
-  shutoff(data: any) {
-    // const editmodal = this.modal.create({
-    //   nzTitle: '关闭不成团订单',
-    //   nzContent: StoreOrderGroupDetailShutoffComponent,
-    //   nzComponentParams: {
-    //     data: data
-    //   },
-    //   nzFooter: [
-    //     {
-    //       label: '提交',
-    //       onClick: componentInstance => {
-    //         componentInstance?.add()
-    //       }
-    //     }
-    //   ]
-    // })
-    // editmodal.afterClose.subscribe(res => {
-    //   this.router.navigate(['/store/main/storeOrderGroup']);
-    // })
+  changePrice() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单改价',
+      nzContent: StoreOrderFreeChangePriceComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+    
+    })
+
   }
+
 }
+
 
