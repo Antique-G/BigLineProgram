@@ -70,7 +70,8 @@ import { StoreOrderGrouptravelComponent } from './store-order-grouptravel/store-
 import { StoreOrderGrouptravelDetailComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-grouptravel-detail.component';
 import { StoreOrderGroupChangePriceComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-group-change-price/store-order-group-change-price.component';
 import { StoreOrderFreeChangePriceComponent } from './store-order-freetravel/store-order-freetravel-detail/store-order-free-change-price/store-order-free-change-price.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -83,7 +84,9 @@ import { StoreOrderFreeChangePriceComponent } from './store-order-freetravel/sto
     FlexLayoutModule,
     CdkTableModule,
     DemoNgZorroAntdModule,
-    NzTimePickerModule
+    NzTimePickerModule,
+    ScrollingModule,
+    DragDropModule
   ],
   providers: [],
   entryComponents: [

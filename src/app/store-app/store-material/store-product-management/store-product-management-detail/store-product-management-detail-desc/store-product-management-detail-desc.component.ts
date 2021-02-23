@@ -6,6 +6,7 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { DeleteComfirmComponent } from '../../../common/delete-comfirm/delete-comfirm.component';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-store-product-management-detail-desc',
@@ -27,7 +28,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, public storeProductService: StoreProductService,
-    public activatedRoute: ActivatedRoute, private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    public activatedRoute: ActivatedRoute, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 4,
       album: []
@@ -60,16 +61,29 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   }
 
 
+  // 拖拽
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex);
+    console.log("this.dataSource1111111", this.dataSource)
+    console.log("event.previousIndex", event.previousIndex)
+    console.log("event.currentIndex", event.currentIndex)
+    this.dataSource.forEach((ele: any, index: any) => {
+      console.log("22222", ele, index)
+      ele.sort = index;
+    });
+    console.log("排序后", this.dataSource);
+  }
+
   import() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       let idx = this.dataSource?.length ? this.dataSource.length : 0;
       result.forEach((ele: any) => {
         ele['sort'] = idx;
@@ -82,15 +96,15 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
   }
 
   upload() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'图片上传',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '图片上传',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:CommonModelComponent,
-      nzWidth:660,
-      nzFooter:null
+      nzContent: CommonModelComponent,
+      nzWidth: 660,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res?.data||[]
+    modal.afterClose.subscribe(res => {
+      let result = res?.data || []
       console.log(res);
       let idx = this.dataSource?.length ? this.dataSource.length : 0;
       result.forEach((ele: any) => {
@@ -103,7 +117,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.dataSource = this.dataSource.concat(this.imgList);
     });
 
-    
+
   }
 
 
