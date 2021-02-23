@@ -6,6 +6,8 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { DeleteComfirmComponent } from '../../../common/delete-comfirm/delete-comfirm.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
   selector: 'app-store-product-desc',
@@ -60,6 +62,21 @@ export class StoreProductDescComponent implements OnInit {
       this.setOfCheckedId.delete(id);
     }
   }
+
+
+    // 拖拽
+    drop(event: CdkDragDrop<string[]>): void {
+      moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex);
+      console.log("this.dataSource1111111", this.dataSource)
+      console.log("event.previousIndex", event.previousIndex)
+      console.log("event.currentIndex", event.currentIndex)
+      this.dataSource.forEach((ele: any, index: any) => {
+        console.log("22222", ele, index)
+        ele.sort = index;
+      });
+      console.log("排序后", this.dataSource)
+  
+    }
 
 
   import() {
