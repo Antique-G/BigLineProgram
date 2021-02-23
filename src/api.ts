@@ -93,6 +93,8 @@ export const AdminUrls = {
 
   GetAdminUserinfoList: api + '/admin/user',      // 用户信息列表
   PostAdminUserinfoStatus: api + '/admin/user/set_status',      // 用户状态修改
+  GetAdminUserinfoDetail: api + '/admin/user/',      // 用户详情
+  PutAdminUserinfoUpdate: api + '/admin/user/',      // 用户详情修改
 
 
   GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
@@ -210,7 +212,7 @@ export const StoreUrls = {
   GetStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交前展示）
   PostStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交）
 
-  
+
 
   GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
   GetStoreCode: api + '/store/sendVerifySms'// 发送手机验证码
