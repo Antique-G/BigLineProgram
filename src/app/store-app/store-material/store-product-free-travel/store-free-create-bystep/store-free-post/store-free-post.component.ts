@@ -34,6 +34,10 @@ export class StoreFreePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.dataDetailModel.poster_url!=""){
+      this.imgSrc=this.dataDetailModel.poster_url;
+      this.isShow = true;
+    }
   
   }
 
