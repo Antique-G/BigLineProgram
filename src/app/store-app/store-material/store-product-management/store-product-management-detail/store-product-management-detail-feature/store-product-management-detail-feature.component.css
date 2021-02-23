@@ -23,7 +23,8 @@
 #editor {
     border: 1px solid #c9d8dc;
     resize: both !important;
-    min-height: 600px;
+    height: 500px;
+    max-height: 650px;
     overflow: auto !important;
 }
 
