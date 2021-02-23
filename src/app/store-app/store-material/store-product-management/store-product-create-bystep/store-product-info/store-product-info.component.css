@@ -12,12 +12,20 @@
     width: 120px !important;
 }
 
-.wangeditor-feature {
+
+/* .wangeditor-feature {
     border: 1px solid #c9d8dc;
     overflow: hidden !important;
     resize: both !important;
-    /* height: 300px; */
     min-height: 600px;
+} */
+
+#feeContent {
+    border: 1px solid #c9d8dc;
+    resize: both !important;
+    height: 400px;
+    max-height: 650px;
+    overflow: auto !important;
 }
 
 .btn {

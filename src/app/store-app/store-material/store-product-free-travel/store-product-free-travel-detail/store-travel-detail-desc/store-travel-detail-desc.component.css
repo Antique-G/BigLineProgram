@@ -1,12 +1,19 @@
-.wangeditor-feature {
+/* .wangeditor-feature {
     border: 1px solid #c9d8dc;
     overflow: hidden !important;
     resize: both !important;
-    /* height: 300px; */
     min-height: 600px;
+} */
+
+#editorContent {
+    border: 1px solid #c9d8dc;
+    resize: both !important;
+    height: 500px;
+    max-height: 650px;
+    overflow: auto !important;
 }
 
-.btn{
+.btn {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -19,5 +26,4 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
 }
