@@ -20,6 +20,7 @@
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
                     <nz-select nzPlaceHolder="请选择" formControlName="gender">
+                        <nz-option [nzLabel]="'未知'" [nzValue]="'未知'"></nz-option>
                         <nz-option [nzLabel]="'男'" [nzValue]="'男'"></nz-option>
                         <nz-option [nzLabel]="'女'" [nzValue]="'女'"></nz-option>
                     </nz-select>
