@@ -64,6 +64,7 @@
                                     <th style="text-align: center;">报价</th>
                                     <th style="text-align: center;">上下架</th>
                                     <th style="text-align: center;">提交审核</th>
+                                    <th style="text-align: center;">撤销审核</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,6 +136,14 @@
                                                 <!-- <mat-icon (click)="checkStatusClick(data)" title="提交审核">sim_card</mat-icon> -->
                                                 <img src="http://cdn.bigline.com.cn/static/images/assignment.png" (click)="checkStatusClick(data)" title="提交审核">
 
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <div *ngIf="data.check_status==1">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" (click)="revokeStatus(data)" title="撤销审核">
                                             </div>
 
                                         </div>
