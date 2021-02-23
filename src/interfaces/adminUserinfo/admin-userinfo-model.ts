@@ -46,3 +46,34 @@ export interface Datum {
     user_id: number;
     status: number;
   }
+
+
+
+  // 详情
+  export  interface DetailModel {
+    user_id: number;
+    name: string;
+    real_name: string;
+    gender: string;
+    status: number;
+    title_id: number;
+    phone: string;
+    region_code: string;
+    city_name: string;
+    birth: string;
+    created_at: string;
+    updated_at: string;
+    email: string;
+    email_verified_at?: any;
+    profile_photo_url: string;
+  }
+
+
+  // 更新
+  export  interface UpdateInfoModel{
+    name: string;
+    real_name: string;
+    gender: string;
+    phone: string;
+    id?:any
+  }

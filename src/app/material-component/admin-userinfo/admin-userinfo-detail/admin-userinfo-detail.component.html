@@ -1,0 +1,38 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>昵称</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入昵称">
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="real_name">真实姓名</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="real_name" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" formControlName="gender">
+                        <nz-option [nzLabel]="'男'" [nzValue]="'男'"></nz-option>
+                        <nz-option [nzLabel]="'女'" [nzValue]="'女'"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">手机号码</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="phone" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
