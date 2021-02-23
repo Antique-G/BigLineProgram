@@ -80,12 +80,28 @@ export class StoreProductManagementComponent implements OnInit {
     this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
   }
 
+  // 提交审核
   checkStatusClick(data: any) {
     this.modal.confirm({
       nzTitle: '<h5>请确认操作?</h5>',
       nzContent: '提交审核',
       nzOnOk: () => {
         this.storeProductService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
+          console.log(res);
+          this.getProductList();
+        })
+      }
+    });
+  }
+
+  
+  // 撤销审核
+  revokeStatus(data: any) {
+    this.modal.confirm({
+      nzTitle: '<h5>请确认操作?</h5>',
+      nzContent: '撤销审核',
+      nzOnOk: () => {
+        this.storeProductService.checkStatusFreeTravel(data.id, 0).subscribe(res => {
           console.log(res);
           this.getProductList();
         })

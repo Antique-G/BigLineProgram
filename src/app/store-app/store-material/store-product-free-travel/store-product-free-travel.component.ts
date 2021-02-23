@@ -70,12 +70,27 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   }
 
-  checkStatusClick(data:any){
+  // 审核
+  checkStatusClick(data: any) {
     this.modal.confirm({
       nzTitle: '<h5>请确认操作?</h5>',
       nzContent: '提交审核',
-      nzOnOk: () =>{
-        this.freeTrvelService.checkStatusFreeTravel(data.id,1).subscribe(res=>{
+      nzOnOk: () => {
+        this.freeTrvelService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
+          console.log(res);
+          this.getProductList();
+        })
+      }
+    });
+  }
+
+  // 撤销审核
+  revokeStatus(data: any) {
+    this.modal.confirm({
+      nzTitle: '<h5>请确认操作?</h5>',
+      nzContent: '撤销审核',
+      nzOnOk: () => {
+        this.freeTrvelService.checkStatusFreeTravel(data.id, 0).subscribe(res => {
           console.log(res);
           this.getProductList();
         })
@@ -99,8 +114,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log('data', data);
-      let ear=Math.floor( data.earlier / 60 / 24);
-      this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: ear  } }); 
+    let ear = Math.floor(data.earlier / 60 / 24);
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: ear } });
   }
 
 
