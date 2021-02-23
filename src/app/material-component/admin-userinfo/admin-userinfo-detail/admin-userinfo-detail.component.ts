@@ -47,7 +47,15 @@ export class AdminUserinfoDetailComponent implements OnInit {
   setValue() {
     this.updateInfoModel.name = this.addForm.value.name;
     this.updateInfoModel.real_name = this.addForm.value.real_name;
-    this.updateInfoModel.gender = this.addForm.value.gender;
+    if (this.addForm.value.gender === '未知') {
+      this.updateInfoModel.gender = '0';
+    }
+    else if (this.addForm.value.gender === '男') {
+      this.updateInfoModel.gender = '1';
+    }
+    else if (this.addForm.value.gender === '女') {
+      this.updateInfoModel.gender = '2';
+    }
     this.updateInfoModel.phone = this.addForm.value.phone;
   }
 
