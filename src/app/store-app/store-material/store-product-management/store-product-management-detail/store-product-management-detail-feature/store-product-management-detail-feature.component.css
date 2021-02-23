@@ -12,12 +12,19 @@
     width: 120px !important;
 }
 
-.wangeditor-feature {
+
+/* .wangeditor-feature {
     border: 1px solid #c9d8dc;
     overflow: hidden !important;
     resize: both !important;
-    /* height: 300px; */
     min-height: 600px;
+} */
+
+#editor {
+    border: 1px solid #c9d8dc;
+    resize: both !important;
+    min-height: 600px;
+    overflow: auto !important;
 }
 
 .btn {

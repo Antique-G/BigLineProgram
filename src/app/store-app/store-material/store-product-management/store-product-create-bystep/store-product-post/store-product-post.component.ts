@@ -17,7 +17,6 @@ export class StoreProductPostComponent implements OnInit {
   imgSrc: any;
   isShow = false;
   detailUpdateModel: any;  //更新
-  detailId: any;  //更新
 
 
 
@@ -30,9 +29,6 @@ export class StoreProductPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
-    });
     if (this.addDataDetailModel.poster_url != "") {
       this.imgSrc = this.addDataDetailModel.poster_url;
       this.isShow = true;
@@ -76,7 +72,7 @@ export class StoreProductPostComponent implements OnInit {
 
 
   nextTab() {
-    this.detailUpdateModel.id = this.detailId;
+    this.detailUpdateModel.id = this.addDataDetailModel.id;
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
