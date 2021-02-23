@@ -21,7 +21,7 @@ export class StoreProductPostComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog, public storeProductService: StoreProductService,public router: Router,
+  constructor(public dialog: MatDialog, public storeProductService: StoreProductService, public router: Router,
     public activatedRoute: ActivatedRoute, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 5,
@@ -33,6 +33,10 @@ export class StoreProductPostComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
+    if (this.addDataDetailModel.poster_url != "") {
+      this.imgSrc = this.addDataDetailModel.poster_url;
+      this.isShow = true;
+    }
   }
 
 
@@ -47,7 +51,7 @@ export class StoreProductPostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url+'?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0].url + '?x-oss-process=image/resize,w_450,m_lfit';
       this.isShow = true;
     });
 
@@ -65,7 +69,7 @@ export class StoreProductPostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url+'?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0].url + '?x-oss-process=image/resize,w_450,m_lfit';
       this.isShow = true;
     });
   }
@@ -77,9 +81,9 @@ export class StoreProductPostComponent implements OnInit {
     console.log("更新", this.detailUpdateModel);
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       this.router.navigate(['/store/main/storeProduct'],);
-      })
+    })
 
-    }
+  }
 
-  
+
 }

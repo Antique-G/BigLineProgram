@@ -34,6 +34,10 @@ export class StoreFreeDetailPostComponent implements OnInit {
       console.log('object :>> ', params);
       this.detailId = params["detailId"];
     });
+    if(this.dataDetailModel.poster_url!=""){
+      this.imgSrc=this.dataDetailModel.poster_url;
+      this.isShow = true;
+    }
   }
 
 
