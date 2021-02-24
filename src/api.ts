@@ -99,6 +99,10 @@ export const AdminUrls = {
 
   GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
   GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
+  GetAdminOrderfreeTravelList: api + '/admin/order/free_travel',  //自由行订单列表
+  GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
+  GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
+  GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
 
 
   // 小程序
