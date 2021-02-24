@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">商铺id</th>
+                                    <th style="text-align: center;">商铺编码</th>
                                     <th style="text-align: center;">商户名 </th>
                                     <th style="text-align: center;">区域</th>
                                     <th style="text-align: center;">商户详细地址</th>
@@ -56,6 +57,7 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.store_id}}</td>
+                                    <td>{{data.code}}</td>
                                     <td>{{data.name}}</td>
                                     <td>{{data.region_full_name}}</td>
                                     <td>{{data.address}}</td>
