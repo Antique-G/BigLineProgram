@@ -20,13 +20,15 @@ export class AdminProductFreeTravelService {
 
 
   // 自由行产品列表
-  freeTravelList(page: number, per_page: number, status: any, check_status: any, title: string,store_name:string): Observable<AdminFreeTravelListResponseModel> {
+  freeTravelList(page: number, per_page: number, status: any, check_status: any, title: string, store_name: string, code: any): Observable<AdminFreeTravelListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
-      .set('store_name', store_name ? store_name : '');
+      .set('store_name', store_name ? store_name : '')
+      .set('code', code ? code : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

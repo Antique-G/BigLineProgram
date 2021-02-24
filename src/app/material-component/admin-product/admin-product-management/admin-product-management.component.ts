@@ -26,6 +26,7 @@ export class AdminProductManagementComponent implements OnInit {
   adminProductSetStatusModel: AdminProductSetStatusModel;
   storeList: any[] = [];
   isReason: any;
+  code: any;
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
@@ -39,6 +40,7 @@ export class AdminProductManagementComponent implements OnInit {
       checkStatus: [''],
       title: [''],
       store_id: [''],
+      code: [''],
     })
 
   }
@@ -56,7 +58,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.meta.pagination.total;   //总页数
@@ -81,6 +83,8 @@ export class AdminProductManagementComponent implements OnInit {
     this.check_status = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.store_id = this.searchForm.value.store_id;
+    this.code = this.searchForm.value.code;
+
     this.getProductList();
 
   }

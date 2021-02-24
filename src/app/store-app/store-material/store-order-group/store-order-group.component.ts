@@ -25,6 +25,7 @@ export class StoreOrderGroupComponent implements OnInit {
   destination_city: any;
   date_start: any;
   date_end: any;
+  group_code: any;
 
 
   dateArray: any[] = [];
@@ -41,7 +42,8 @@ export class StoreOrderGroupComponent implements OnInit {
       group_id: [''],
       order_number: [''],
       date_start: [''],
-      destination_city: ['']
+      destination_city: [''],
+      group_code: ['']
     });
   }
 
@@ -61,7 +63,7 @@ export class StoreOrderGroupComponent implements OnInit {
   }
 
   getStoreOrderGroup() {
-    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end,this.group_code).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -91,7 +93,8 @@ export class StoreOrderGroupComponent implements OnInit {
     this.destination_city = this.idRegion;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
-    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+    this.group_code = this.searchForm.value.group_code;
+    this.storeOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end,this.group_code).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;

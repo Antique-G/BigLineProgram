@@ -28,7 +28,7 @@ export class StoreProductTreeTravelService {
 
   constructor(public httpClient: HttpClient) { }
 
-  GetFreeTravelList(page: number, per_page: number,check_status:any,title:any,few_days:any,few_nights:any): Observable<FreeTravelListModel> {
+  GetFreeTravelList(page: number, per_page: number,check_status:any,title:any,few_days:any,few_nights:any, code: any): Observable<FreeTravelListModel> {
    console.log(123);
     const params = new HttpParams().set('page', page.toString())
     .set('per_page', per_page.toString())
@@ -36,6 +36,7 @@ export class StoreProductTreeTravelService {
     .set('title', title ? title : '')
     .set('few_days', few_days ? few_days : '')
     .set('few_nights', few_nights ? few_nights : '')
+    .set('code', code ? code : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

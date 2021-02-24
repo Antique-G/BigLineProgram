@@ -23,7 +23,7 @@ export class StoreOrderFreeTravelService {
 
   // 自由行订单列表
   freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any): Observable<StoreOrderFreeTravelListRequestModel> {
+    date_start: any, date_end: any, product_code: any): Observable<StoreOrderFreeTravelListRequestModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -31,7 +31,9 @@ export class StoreOrderFreeTravelService {
       .set('product_name', product_name ? product_name : '')
       .set('order_number', order_number ? order_number : '')
       .set('date_start', date_start ? date_start : '')
-      .set('date_end', date_end ? date_end : '');
+      .set('date_end', date_end ? date_end : '')
+      .set('product_code', product_code ? product_code : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
