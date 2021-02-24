@@ -78,6 +78,11 @@ import { AdminWechatPageblockProlistComponent } from './admin-wechat-pageconfig/
 import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
 import { AdminOrderDetailSubgroupComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-detail-subgroup.component';
 import { AdminUserinfoDetailComponent } from './admin-userinfo/admin-userinfo-detail/admin-userinfo-detail.component';
+import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin-order-group-travel.component';
+import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
+import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
+import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
+
 
 @NgModule({
   imports: [
@@ -173,6 +178,10 @@ import { AdminUserinfoDetailComponent } from './admin-userinfo/admin-userinfo-de
     AdminOrderDetailComponent,
     AdminOrderDetailSubgroupComponent,
     AdminUserinfoDetailComponent,
+    AdminOrderGroupTravelComponent,
+    AdminOrderGroupTravelDetailComponent,
+    AdminOrderFreeTravelComponent,
+    AdminOrderFreeTravelDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

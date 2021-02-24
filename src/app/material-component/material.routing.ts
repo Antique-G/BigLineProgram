@@ -25,6 +25,10 @@ import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.componen
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
 import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
+import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin-order-group-travel.component';
+import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
+import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
+import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -156,6 +160,34 @@ export const MaterialRoutes: Routes = [
         component: AdminOrderDetailComponent,
         data: {
           breadcrumb: '团订单详情'
+        }
+      },
+      {
+        path: 'groupTravelOrder',
+        component: AdminOrderGroupTravelComponent,
+        data: {
+          breadcrumb: '跟团游订单列表'
+        }
+      },
+      {
+        path: 'groupTravelOrder/detail',
+        component: AdminOrderGroupTravelDetailComponent,
+        data: {
+          breadcrumb: '跟团游订单详情'
+        }
+      },
+      {
+        path: 'freeTravelOrder',
+        component: AdminOrderFreeTravelComponent,
+        data: {
+          breadcrumb: '自由行订单列表'
+        }
+      },
+      {
+        path: 'freeTravelOrder/detail',
+        component: AdminOrderFreeTravelDetailComponent,
+        data: {
+          breadcrumb: '自由行订单详情'
         }
       },
       {
