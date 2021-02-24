@@ -24,6 +24,7 @@ export interface StoreOrderFreeTravelList {
   id: number;
   user_id: number;
   product_id: number;
+  product_code: string;
   product_name: string;
   start_date: string;
   store_id: number;

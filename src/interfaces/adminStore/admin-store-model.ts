@@ -33,6 +33,7 @@ export interface Datum {
   store_id: number;
   name: string;
   region_code: string;
+  code: string;
   fax: string;
   phone: string;
   mobile: string;
