@@ -148,6 +148,7 @@ export interface DatumListModel {
   title: string;
   few_days: number;
   few_nights: number;
+  code:string;
   store_id: number;
   minimum_price: number;
   maximum_price: number;

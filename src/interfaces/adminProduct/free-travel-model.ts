@@ -27,6 +27,7 @@ export interface DatumModel {
     title: string;
     sub_title: string;
     store_id: number;
+    code: string;
     few_days: number;
     few_nights: number;
     departure_city: string;

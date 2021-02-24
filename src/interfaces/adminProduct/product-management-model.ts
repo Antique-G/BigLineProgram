@@ -23,6 +23,7 @@ interface DatumModel {
   id: number;
   title: string;
   sub_title: string;
+  code: string;
   scenic_spot: string;
   few_days: number;
   few_nights: number;

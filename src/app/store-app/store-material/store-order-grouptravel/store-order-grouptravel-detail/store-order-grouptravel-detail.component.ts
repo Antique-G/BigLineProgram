@@ -66,7 +66,13 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
     
     })
+  }
 
+
+
+  // 订单修改日期
+  changeDate(){
+    
   }
 
 }
