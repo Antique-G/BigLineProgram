@@ -65,6 +65,7 @@ export interface Datum {
   id: number;
   title: string;
   sub_title: string;
+  code: string;
   store_id: number;
   few_days: number;
   few_nights: number;
