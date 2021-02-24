@@ -28,6 +28,14 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_code">产品编码</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="product_code" placeholder="请输入产品编码" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_name" placeholder="请输入产品名称" />

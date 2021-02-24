@@ -24,6 +24,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
   title: any;
   store_name:any;
   confirmModal?: NzModalRef; // g-zorro model 提示框
+  code:any;
 
   constructor(public fb: FormBuilder, public dialog: MatDialog,private modal: NzModalService, public adminProductFreeTravelService: AdminProductFreeTravelService,
     public router: Router) {
@@ -31,7 +32,8 @@ export class AdminProducFreeTravelComponent implements OnInit {
         status: [''],
         checkStatus: [''],
         title: [''],
-        store_name:['']
+        store_name:[''],
+        code:['']
       })
    
   }
@@ -44,7 +46,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
   getFeeTravelList() {
     this.loading = true;
-    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page,this.status,this.check_status,this.title,this.store_name).subscribe(res => {
+    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page,this.status,this.check_status,this.title,this.store_name,this.code).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.total;   //总页数
@@ -69,6 +71,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.check_status = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.store_name = this.searchForm.value.store_name;
+    this.code = this.searchForm.value.code;
     this.getFeeTravelList();
 
   }

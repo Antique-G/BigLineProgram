@@ -21,14 +21,14 @@ export class AdminProductManagementService {
 
 
   // 产品列表
-  productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string): Observable<AdminProductManagementListResponseModel> {
+  productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string, code: any): Observable<AdminProductManagementListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
-      .set('store_id', store_id ? store_id : '');
-
+      .set('store_id', store_id ? store_id : '')
+      .set('code', code ? code : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

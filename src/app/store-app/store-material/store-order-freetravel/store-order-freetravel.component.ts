@@ -23,6 +23,8 @@ export class StoreOrderFreetravelComponent implements OnInit {
   date_start: any;
   date_end: any;
   dateArray: any[] = [];
+  product_code: any;
+
 
 
   constructor(public fb: FormBuilder, public router: Router, public storeOrderFreeTravelService: StoreOrderFreeTravelService) {
@@ -31,7 +33,8 @@ export class StoreOrderFreetravelComponent implements OnInit {
       product_id: [''],
       product_name: [''],
       order_number: [''],
-      date_start: ['']
+      date_start: [''],
+      product_code: ['']
     });
   }
 
@@ -40,7 +43,7 @@ export class StoreOrderFreetravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.storeOrderFreeTravelService.freeTravelList(this.page, this.per_page,this.status, this.product_id, this.product_name,this.order_number, this.date_start, this.date_end).subscribe(res => {
+    this.storeOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -67,6 +70,7 @@ export class StoreOrderFreetravelComponent implements OnInit {
     this.status = this.searchForm.value.status;
     this.product_id = this.searchForm.value.product_id;
     this.product_name = this.searchForm.value.product_name;
+    this.product_code = this.searchForm.value.product_code;
     this.order_number = this.searchForm.value.order_number;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
