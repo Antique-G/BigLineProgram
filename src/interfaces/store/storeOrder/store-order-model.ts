@@ -130,6 +130,7 @@ export interface OrderDetailModel {
   cancel_type: number;
   shared_status: number;
   num_room: number;
+  cancel_sms: number;
   contact_name: string;
   contact_phone: string;
   contact_wechat: string;

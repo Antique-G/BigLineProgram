@@ -316,3 +316,32 @@ export interface ChangePriceModel {
   title: string;
   price: number;
 }
+
+
+// 订单修改日期
+export interface ChangeDateRequestModel {
+  order_id: string;
+  new_date: any
+}
+
+export interface ChangeDateResponModel {
+  date_quote: Datequote;
+  new_date_quote: Datequote;
+  diff_price_total: string;
+}
+
+export interface Datequote {
+  id: number;
+  product_id: number;
+  date: string;
+  adult_price: number;
+  child_price: number;
+  difference_price: number;
+  inventory_num: number;
+  sold_num: number;
+  set_inventory: number;
+  allow_over: number;
+  check_status: number;
+  created_at: string;
+  updated_at: string;
+}

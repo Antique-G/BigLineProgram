@@ -110,6 +110,13 @@ export class StoreOrderService {
       )
   }
 
+  // 发送不成团通知短信
+  cancel(orderSmsModel: OrderSmsModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderGroupCancelSms, orderSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

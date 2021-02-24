@@ -270,4 +270,32 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
       })
     }
   }
+
+
+
+  // 不成团关团短信通知
+  sendClosedGroup(){
+    let newArray = [...this.setOfCheckedId];
+    console.log('拿到的订单内容 ', newArray);
+    if (newArray.length === 0) {
+      this.message.create('error', `请选择订单`);
+    }
+    else {
+      newArray.forEach((value: any) => {
+        console.log('value是什么 ', value);
+        this.orderArray.push(value.id);
+        this.orderSmsModel.order_ids = this.orderArray;
+        this.storeOrderService.cancel(this.orderSmsModel).subscribe(res => {
+          console.log('res ', res);
+          if (res.status_code === 200) {
+            this.message.create('success', `成功发送 ${res.success}条信息，${res.failed}条失败信息`);
+          }
+          else {
+            this.message.create('error', ` ${res.message}`);
+          }
+        })
+
+      })
+    }
+  }
 }

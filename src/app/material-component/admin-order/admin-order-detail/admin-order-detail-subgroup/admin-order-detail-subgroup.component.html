@@ -53,28 +53,45 @@
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
                                     <td [(nzExpand)]="data.expand" colspan="6">
-                                        {{ data.id }}
-                                        <span *ngIf="data.order_status===0">
-                                            <nz-badge nzColor="yellow"></nz-badge>已取消
-                                        </span>
-                                        <span *ngIf="data.order_status===1">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
-                                        <span *ngIf="data.order_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待出行
-                                        </span>
-                                        <span *ngIf="data.order_status===3">
-                                            <nz-badge nzColor="green"></nz-badge>已完成
-                                        </span>
-                                        <span *ngIf="data.order_sms===0">
-                                            <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
-                                        </span>
-                                        <span *ngIf="data.order_sms===1">
-                                            <nz-badge nzColor="green"></nz-badge>成功发送订单短信通知
-                                        </span>
-                                        <span *ngIf="data.order_sms===2">
-                                            <nz-badge nzColor="red"></nz-badge>失败订单短信通知
-                                        </span>
+                                        <div fxLayout="row" fxLayoutGap="5px">
+                                            <div> {{ data.id }}</div>
+                                            <div>
+                                                <span *ngIf="data.order_status===0">
+                                                <nz-badge nzColor="yellow"></nz-badge>订单已取消
+                                            </span>
+                                                <span *ngIf="data.order_status===1">
+                                                <nz-badge nzColor="red"></nz-badge>订单待支付
+                                            </span>
+                                                <span *ngIf="data.order_status===2">
+                                                <nz-badge nzColor="pink"></nz-badge>订单待出行
+                                            </span>
+                                                <span *ngIf="data.order_status===3">
+                                                <nz-badge nzColor="green"></nz-badge>订单已完成
+                                            </span>
+                                            </div>
+                                            <div>
+                                                <span *ngIf="data.order_sms===0">
+                                                <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
+                                            </span>
+                                                <span *ngIf="data.order_sms===1">
+                                                <nz-badge nzColor="green"></nz-badge>成功发送订单短信通知
+                                            </span>
+                                                <span *ngIf="data.order_sms===2">
+                                                <nz-badge nzColor="red"></nz-badge>订单短信通知发送失败
+                                            </span>
+                                            </div>
+                                            <div *ngIf="isClosed===0">
+                                                <span *ngIf="data.cancel_sms===0">
+                                                <nz-badge nzColor="pink"></nz-badge>未发送不成团短信通知
+                                            </span>
+                                                <span *ngIf="data.cancel_sms===1">
+                                                <nz-badge nzColor="green"></nz-badge>成功发送不成团短信通知
+                                            </span>
+                                                <span *ngIf="data.cancel_sms===2">
+                                                <nz-badge nzColor="red"></nz-badge>不成团短信通知发送失败
+                                            </span>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">

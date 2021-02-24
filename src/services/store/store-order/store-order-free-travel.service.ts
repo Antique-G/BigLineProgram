@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Details, StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { StoreUrls } from '../../../api';
-import { ChangePriceModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -56,6 +56,29 @@ export class StoreOrderFreeTravelService {
   // 改价
   changePrice(changePriceModel: ChangePriceModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreOrderAddPriceDetails, changePriceModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 订单修改日期获取
+  changGetDateFree(order_id: any, new_date: any): Observable<ChangeDateResponModel> {
+    const params = new HttpParams().set('order_id', order_id)
+      .set('new_date', new_date);
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<ChangeDateResponModel>(this.urls.GetStoreOrderChangeDate, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 订单修改日期
+  changeDateFree(changeDateRequestModel: ChangeDateRequestModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderChangeDate, changeDateRequestModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

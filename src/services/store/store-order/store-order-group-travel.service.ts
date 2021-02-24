@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ChangePriceModel, DetailModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, DetailModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -54,6 +54,29 @@ export class StoreOrderGroupTravelService {
         catchError(this.handleError)
       )
   }
+
+    // 订单修改日期获取
+    changGetDateGroup(order_id: any, new_date: any): Observable<ChangeDateResponModel> {
+      const params = new HttpParams().set('order_id', order_id)
+        .set('new_date', new_date);
+  
+      const findhttpOptions = {
+        headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+        params: params
+      };
+      return this.httpClient.get<ChangeDateResponModel>(this.urls.GetStoreOrderChangeDate, findhttpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
+  
+    // 订单修改日期
+    changeDateGroup(changeDateRequestModel: ChangeDateRequestModel): Observable<any> {
+      return this.httpClient.post<any>(this.urls.PostStoreOrderChangeDate, changeDateRequestModel, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
 
 
