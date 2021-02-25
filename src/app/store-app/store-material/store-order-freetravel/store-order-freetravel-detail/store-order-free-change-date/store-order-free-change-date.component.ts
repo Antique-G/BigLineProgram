@@ -1,16 +1,16 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
-import { StoreOrderGroupTravelService } from '../../../../../../services/store/store-order/store-order-group-travel.service';
 import { StoreQuoteBydateService } from '../../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { ChangeDateRequestModel } from '../../../../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { StoreOrderFreeTravelService } from '../../../../../../services/store/store-order/store-order-free-travel.service';
 
 
 @Component({
-  selector: 'app-store-order-group-change-date',
-  templateUrl: './store-order-group-change-date.component.html',
-  styleUrls: ['./store-order-group-change-date.component.css']
+  selector: 'app-store-order-free-change-date',
+  templateUrl: './store-order-free-change-date.component.html',
+  styleUrls: ['./store-order-free-change-date.component.css']
 })
-export class StoreOrderGroupChangeDateComponent implements OnInit {
+export class StoreOrderFreeChangeDateComponent implements OnInit {
   @Input() data: any;
   addForm!: FormGroup;
   order_id: any;
@@ -21,7 +21,7 @@ export class StoreOrderGroupChangeDateComponent implements OnInit {
   changeDateRequestModel: ChangeDateRequestModel;
 
 
-  constructor(public fb: FormBuilder, public storeOrderGroupTravelService: StoreOrderGroupTravelService,
+  constructor(public fb: FormBuilder, public storeOrderFreeTravelService: StoreOrderFreeTravelService,
     public storeQuoteBydateService: StoreQuoteBydateService) {
     this.addForm = fb.group({
       new_date: [''],
@@ -41,7 +41,7 @@ export class StoreOrderGroupChangeDateComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("传过来的值", this.data);
-    this.storeQuoteBydateService.getQuoteDateList(this.data.product_id, 'management', 1, '', 1000, 2).subscribe(res => {
+    this.storeQuoteBydateService.getQuoteDateList(this.data.product_id, 'freeTravel', 1, '', 1000, 2).subscribe(res => {
       console.log('object :>> ', res.data);
       this.dateList = res.data;
     })
@@ -52,7 +52,7 @@ export class StoreOrderGroupChangeDateComponent implements OnInit {
     this.order_id = this.data.id;
     this.new_date = this.addForm.value.new_date;
     this.isShow = true;
-    this.storeOrderGroupTravelService.changGetDateGroup(this.order_id, this.new_date).subscribe(res => {
+    this.storeOrderFreeTravelService.changGetDateFree(this.order_id, this.new_date).subscribe(res => {
       console.log('结果是', res);
       this.dataModel = res;
       this.addForm.patchValue({
@@ -71,7 +71,7 @@ export class StoreOrderGroupChangeDateComponent implements OnInit {
   update() {
     this.changeDateRequestModel.order_id = this.data.id;
     this.changeDateRequestModel.new_date = this.addForm.value.new_date;
-    this.storeOrderGroupTravelService.changeDateGroup(this.changeDateRequestModel).subscribe(res=>{
+    this.storeOrderFreeTravelService.changeDateFree(this.changeDateRequestModel).subscribe(res=>{
       console.log('11111 ', res);
     })
   }
