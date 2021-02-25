@@ -37,10 +37,10 @@ export class StoreOrderGroupDetailShutoffComponent implements OnInit {
 
   // 不成团关团
   add() {
-    this. setValue();
-    this.storeOrderService.shutoff(this.shuffOrderModel).subscribe(res=>{
+    this.setValue();
+    this.storeOrderService.shutoff(this.shuffOrderModel).subscribe(res => {
 
     })
-   }
+  }
 
 }

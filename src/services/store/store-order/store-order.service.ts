@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GetGuideListModel } from '../../../interfaces/store/storeTourist/store-tourist-model';
 import { StoreUrls } from '../../../api';
-import { GroupSmsModel, MoveOrderModel, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../../interfaces/store/storeOrder/store-order-model';
+import { GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../../interfaces/store/storeOrder/store-order-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -20,7 +20,7 @@ export class StoreOrderService {
 
   // 订单团列表
   getStoreOrderGroup(page: number, per_page: number, product_id: any, product_name: any, group_id: any, order_number: any,
-    destination_city: any, date_start: any, date_end: any,group_code:any): Observable<StoreOrderListRequestModel> {
+    destination_city: any, date_start: any, date_end: any, group_code: any): Observable<StoreOrderListRequestModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('product_id', product_id ? product_id : '')
@@ -115,6 +115,16 @@ export class StoreOrderService {
   // 发送不成团通知短信
   cancel(orderSmsModel: OrderSmsModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupCancelSms, orderSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  //设置出团人数限制
+  groupNum(orderGroupNum: OrderGroupNum): Observable<any> {
+    const id = orderGroupNum.id;
+    return this.httpClient.put<any>(this.urls.PutStoreOrderGroupNum + id, orderGroupNum, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

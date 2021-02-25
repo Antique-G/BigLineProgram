@@ -206,6 +206,7 @@ export const StoreUrls = {
   PostStoreOrderGroupGroupSms: api + '/store/group/sendGroupSms',   // 发送出团通知短信接口
   DeletetStoreOrderGroupSubGroup: api + '/store/group/delSubGroup/',   // 删除子团
   PostStoreOrderGroupCancelSms: api + '/store/group/sendOrderCancelSms',   // 发送不成团通知短信接口
+  PutStoreOrderGroupNum: api + '/store/group/',   // 设置出团人数限制
 
   
 
