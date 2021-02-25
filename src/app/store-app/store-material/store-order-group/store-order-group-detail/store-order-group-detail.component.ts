@@ -5,6 +5,7 @@ import { StoreOrderService } from '../../../../../services/store/store-order/sto
 import { DataOrderDetail, SubgroupDeatilModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreOrderGroupDetailShutoffComponent } from './store-order-group-detail-shutoff/store-order-group-detail-shutoff.component';
+import { StoreOrderGroupDetailChangeNumsComponent } from './store-order-group-detail-change-nums/store-order-group-detail-change-nums.component';
 
 
 
@@ -14,7 +15,7 @@ import { StoreOrderGroupDetailShutoffComponent } from './store-order-group-detai
   styleUrls: ['./store-order-group-detail.component.css']
 })
 export class StoreOrderGroupDetailComponent implements OnInit {
-  public isSpinning = false;
+  public isSpinning = true;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DataOrderDetail;
@@ -45,11 +46,13 @@ export class StoreOrderGroupDetailComponent implements OnInit {
         // 往返日期
         this.isReturnDate = this.detailModel?.start_date + '~' + this.detailModel?.end_date;
         this.subGroupModel = this.detailModel;
+        this.isSpinning = false;
       })
     });
   }
 
 
+  // 关闭不成团订单
   shutoff(data: any) {
     const editmodal = this.modal.create({
       nzTitle: '关闭不成团订单',
@@ -79,6 +82,46 @@ export class StoreOrderGroupDetailComponent implements OnInit {
           // 往返日期
           this.isReturnDate = this.detailModel?.start_date + '~' + this.detailModel?.end_date;
           this.subGroupModel = this.detailModel;
+          this.isSpinning = false;
+
+        })
+      });
+    })
+  }
+
+
+  // 修改成团人数
+  changeNums(data: any) {
+    const editmodal = this.modal.create({
+      nzTitle: '修改成团人数',
+      nzContent: StoreOrderGroupDetailChangeNumsComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          // 成团日期
+          this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
+          // 往返日期
+          this.isReturnDate = this.detailModel?.start_date + '~' + this.detailModel?.end_date;
+          this.subGroupModel = this.detailModel;
+          this.isSpinning = false;
+
         })
       });
     })

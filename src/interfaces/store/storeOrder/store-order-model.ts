@@ -203,3 +203,11 @@ export interface GroupSmsModel {
 export interface DeleteSubGroup {
   sub_group_id: any
 }
+
+
+// 设置出团人数限制
+export interface OrderGroupNum {
+  member_min: any;
+  member_max: any;
+  id?: any
+}
