@@ -9,11 +9,12 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">订单状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status">
-                                        <nz-option [nzLabel]="'已取消'" [nzValue]="0"></nz-option>
-                                        <nz-option [nzLabel]="'待支付'" [nzValue]="1"></nz-option>
-                                        <nz-option [nzLabel]="'待出行'" [nzValue]="2"></nz-option>
-                                        <nz-option [nzLabel]="'已完成'" [nzValue]="3"></nz-option>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'待出行'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'已完成'" [nzValue]="'3'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -141,8 +142,8 @@
                                         <p *ngIf="data.cancel_type===5">平台取消成团</p>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.cancel_type===0">-</div>
-                                        <div *ngIf="data.cancel_type!=0">
+                                        <div *ngIf="data.cancel_type===0||data.cancel_type===3">-</div>
+                                        <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3">
                                             <p *ngIf="data.refund_status===0">未退款</p>
                                             <p *ngIf="data.refund_status===1">待审核</p>
                                             <p *ngIf="data.refund_status===2">拒绝退款</p>
