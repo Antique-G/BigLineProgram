@@ -26,11 +26,13 @@ export class StoreQuoteBydateService {
   constructor(public httpClient: HttpClient) { }
 
    // 获取产品列表
-   getQuoteDateList(id:number,type:string,page?:any,date?:any,per_page?:any):Observable<StoreQuoteBydateRsponseListModel>{
+   getQuoteDateList(id:number,type:string,page?:any,date?:any,per_page?:any,check_status?:any):Observable<StoreQuoteBydateRsponseListModel>{
     let params = new HttpParams().set('product_id', id.toString())
     .set('page', page.toString())
     .set('date', date)
     .set('per_page', per_page)
+    .set('check_status', check_status ? check_status : '');
+
    
     console.log(page,date,per_page,params);
     const findhttpOptions = {

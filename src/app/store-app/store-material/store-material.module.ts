@@ -73,6 +73,7 @@ import { StoreOrderFreeChangePriceComponent } from './store-order-freetravel/sto
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { StoreOrderGroupChangeDateComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-group-change-date/store-order-group-change-date.component';
+import { StoreOrderFreeChangeDateComponent } from './store-order-freetravel/store-order-freetravel-detail/store-order-free-change-date/store-order-free-change-date.component';
 
 @NgModule({
   imports: [
@@ -160,6 +161,7 @@ import { StoreOrderGroupChangeDateComponent } from './store-order-grouptravel/st
     StoreOrderGroupChangePriceComponent,
     StoreOrderFreeChangePriceComponent,
     StoreOrderGroupChangeDateComponent,
+    StoreOrderFreeChangeDateComponent,
     
   ]
 })

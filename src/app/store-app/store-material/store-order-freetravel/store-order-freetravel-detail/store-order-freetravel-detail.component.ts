@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { StoreOrderFreeTravelService } from '../../../../../services/store/store-order/store-order-free-travel.service';
+import { StoreOrderFreeChangeDateComponent } from './store-order-free-change-date/store-order-free-change-date.component';
 import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-price/store-order-free-change-price.component';
 
 
@@ -13,7 +14,7 @@ import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-pr
   styleUrls: ['./store-order-freetravel-detail.component.css']
 })
 export class StoreOrderFreetravelDetailComponent implements OnInit {
-  public isSpinning = false;
+  public isSpinning = true;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DetailsModel;
@@ -22,7 +23,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public storeOrderFreeTravelService: StoreOrderFreeTravelService,private modal: NzModalService) {
+    public storeOrderFreeTravelService: StoreOrderFreeTravelService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
@@ -31,7 +32,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
     });
-  
+
   }
 
   ngOnInit(): void {
@@ -43,11 +44,13 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        this.isSpinning = false;
       })
     });
   }
 
 
+  // 订单修改日期
   changePrice() {
     const editmodal = this.modal.create({
       nzTitle: '订单改价',
@@ -65,9 +68,53 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-    
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.isSpinning = false;
+        })
+      });
     })
 
+  }
+
+
+  // 订单修改日期
+  changeDate() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单修改日期',
+      nzWidth: 800,
+      nzContent: StoreOrderFreeChangeDateComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.isSpinning = false;
+        })
+      });
+    })
   }
 
 }

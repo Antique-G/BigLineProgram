@@ -13,7 +13,7 @@ import { StoreOrderGroupChangePriceComponent } from './store-order-group-change-
   styleUrls: ['./store-order-grouptravel-detail.component.css']
 })
 export class StoreOrderGrouptravelDetailComponent implements OnInit {
-  public isSpinning = false;
+  public isSpinning = true;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DetailsModel;
@@ -22,7 +22,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public storeOrderGroupTravelService: StoreOrderGroupTravelService,private modal: NzModalService) {
+    public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
@@ -31,7 +31,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
     });
-  
+
   }
 
   ngOnInit(): void {
@@ -43,11 +43,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        this.isSpinning = false;
+
       })
     });
   }
 
 
+  // 订单改价
   changePrice() {
     const editmodal = this.modal.create({
       nzTitle: '订单改价',
@@ -65,17 +68,28 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-    
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.isSpinning = false;
+
+        })
+      });
     })
   }
 
 
 
   // 订单修改日期
-  changeDate(){
+  changeDate() {
     const editmodal = this.modal.create({
       nzTitle: '订单修改日期',
-      nzWidth:800,
+      nzWidth: 800,
       nzContent: StoreOrderGroupChangeDateComponent,
       nzComponentParams: {
         data: this.detailModel
@@ -90,7 +104,18 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-    
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.isSpinning = false;
+
+        })
+      });
     })
   }
 
