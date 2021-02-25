@@ -1,1 +1,70 @@
-<p>store-order-group-change-date works!</p>
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm" nz-row>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="new_date" nzRequired>修改订单出发日期为</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <nz-date-picker [nzDisabledDate]="disabledDate" formControlName="new_date" placeholder="请选择日期" (ngModelChange)="onChange($event)"></nz-date-picker>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price" nzRequired>原成人价格</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="adult_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="new_adult_price" nzRequired>现成人价格</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="new_adult_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="child_price" nzRequired>原儿童价格</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="child_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="new_child_price" nzRequired>现儿童价格</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="new_child_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="difference_price" nzRequired>原补差价</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="difference_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="new_difference_price" nzRequired>现补差价</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="new_difference_price" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="diff_price_total" nzRequired>订单差额需补/退</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="diff_price_total" [ngModel]="" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+        </form>
+    </div>
+</div>
