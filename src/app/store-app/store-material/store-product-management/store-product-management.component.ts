@@ -18,6 +18,7 @@ export class StoreProductManagementComponent implements OnInit {
   few_days: any;
   few_nights: any;
   code: any;
+  status: any;
 
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
@@ -36,6 +37,7 @@ export class StoreProductManagementComponent implements OnInit {
       few_days: [''],
       few_nights: [''],
       code: [''],
+      status: [''],
     })
   }
 
@@ -47,7 +49,7 @@ export class StoreProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights,this.code).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code,this.status).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -74,6 +76,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.few_days = this.searchForm.value.few_days;
     this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
+    this.status = this.searchForm.value.status;
     this.getProductList();
 
   }
@@ -97,7 +100,7 @@ export class StoreProductManagementComponent implements OnInit {
     });
   }
 
-  
+
   // 撤销审核
   revokeStatus(data: any) {
     this.modal.confirm({
@@ -118,7 +121,7 @@ export class StoreProductManagementComponent implements OnInit {
     console.log('data', data);
     this.storeProductService.getProductDetail(data.id).subscribe(res => {
       console.log("结果是", res.data.id, res.data.earlier)
-      let ear=Math.floor( res.data.earlier / 60 / 24);
+      let ear = Math.floor(res.data.earlier / 60 / 24);
       this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: ear } });
     })
   }

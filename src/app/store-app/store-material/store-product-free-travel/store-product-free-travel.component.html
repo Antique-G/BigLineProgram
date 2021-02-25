@@ -11,6 +11,15 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
                                 <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>下架</mat-option>
+                                        <mat-option value=1>上架</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
                                     <mat-select placeholder="审核状态" formControlName="checkStatus">
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option value=0>未提交审核</mat-option>

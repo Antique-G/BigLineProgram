@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { StoreOrderGroupTravelService } from '../../../../../services/store/store-order/store-order-group-travel.service';
+import { StoreOrderGroupChangeDateComponent } from './store-order-group-change-date/store-order-group-change-date.component';
 import { StoreOrderGroupChangePriceComponent } from './store-order-group-change-price/store-order-group-change-price.component';
 
 @Component({
@@ -72,7 +73,25 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
 
   // 订单修改日期
   changeDate(){
+    const editmodal = this.modal.create({
+      nzTitle: '订单修改日期',
+      nzWidth:800,
+      nzContent: StoreOrderGroupChangeDateComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
     
+    })
   }
 
 }
