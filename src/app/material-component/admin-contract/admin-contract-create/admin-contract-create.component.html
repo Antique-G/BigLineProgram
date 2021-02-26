@@ -2,22 +2,6 @@
 
     <div style="padding: 0px; margin-top: 20px;">
         <form nz-form [formGroup]="addForm">
-            <nz-form-item class="nz-form-item" nz-row *ngIf="isSelectedValue===false">
-                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id" nzRequired>商铺id</nz-form-label>
-                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
-                    <nz-select formControlName="store_id" (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="请选择商铺">
-                        <nz-option *ngFor="let store of storeList" [nzLabel]="store.name" [nzValue]="store.store_id"></nz-option>
-                    </nz-select>
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item class="nz-form-item" nz-row *ngIf="isSelectedValue===true">
-                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id" nzRequired>商铺id</nz-form-label>
-                <nz-form-control [nzSm]="16" [nzXs]="24">
-                    <input nz-input formControlName="store_id" nzBorderless [(ngModel)]="selectedValue" />
-                </nz-form-control>
-            </nz-form-item>
-
             <nz-form-item class="nz-form-item" nz-row>
                 <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传合同</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24">

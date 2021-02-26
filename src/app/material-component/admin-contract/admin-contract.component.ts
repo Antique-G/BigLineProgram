@@ -4,7 +4,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminContractService } from '../../../services/admin/admin-contract.service';
 import { AdminContractCreateComponent } from './admin-contract-create/admin-contract-create.component';
 import { ActivatedRoute } from '@angular/router';
-import { AdminStoreService } from '../../../services/admin/admin-store.service';
 
 @Component({
   selector: 'app-admin-contract',
@@ -26,39 +25,17 @@ export class AdminContractComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public adminContractService: AdminContractService, public modal: NzModalService,
-    public activatedRoute: ActivatedRoute, public adminStoreService: AdminStoreService,) {
+    public activatedRoute: ActivatedRoute) {
     this.searchForm = fb.group({
       contract_name: [''],
-      store_id: ['']
     });
   }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.store_id = params.id;
-      console.log('object :>> ', this.store_id);
-      if (this.store_id === undefined) {
-        this.isSelectedValue = false;
-      }
-      else {
-        this.isSelectedValue = true;
-        this.searchForm.patchValue({
-          store_id:this.store_id
-        })
-      }
-    });
-    this.adminStoreService.storeList(1, 1000, '', '').subscribe((result: any) => {
-      console.log("商铺的结果", result.data);
-      let storeData = result.data;
-      let res: any[] = [];
-      for (let i of storeData) {
-        let a = { id: i.store_id, value: i.name };
-        res.push(a);
-        this.storeList = res;
-      }
       this.getStoreContract();
     });
-
   }
 
   getStoreContract() {
@@ -87,7 +64,6 @@ export class AdminContractComponent implements OnInit {
 
   search() {
     this.contract_name = this.searchForm.value.contract_name;
-    this.store_id = this.searchForm.value.store_id;
     this.getStoreContract();
   }
 
