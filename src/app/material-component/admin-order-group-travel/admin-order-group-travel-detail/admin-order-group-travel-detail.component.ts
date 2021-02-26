@@ -17,6 +17,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   detailId: any;
   detailModel!: DetailsModel;
   dataMember: any;
+  isAssemblinTime: any;
 
 
 
@@ -42,6 +43,12 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        if (this.detailModel?.assembling_time === '00:00:00') {
+          this.isAssemblinTime = '待定';
+        }
+        else {
+          this.isAssemblinTime = this.detailModel?.assembling_time;
+        }
       })
     });
   }

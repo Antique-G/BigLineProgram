@@ -18,6 +18,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   detailId: any;
   detailModel!: DetailsModel;
   dataMember: any;
+  isAssemblinTime: any;
 
 
 
@@ -44,7 +45,12 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
         this.isSpinning = false;
-
+        if (this.detailModel?.assembling_time === '00:00:00') {
+          this.isAssemblinTime = '待定';
+        }
+        else {
+          this.isAssemblinTime = this.detailModel?.assembling_time;
+        }
       })
     });
   }
