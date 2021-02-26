@@ -1,6 +1,8 @@
 <div fxLayoutWrap="wrap">
-
-    <div style="padding: 0px; margin-top: 20px;">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
 
             <form nz-form [formGroup]="addForm">
@@ -22,10 +24,6 @@
                     </div>
                 </nz-form-item>
 
-
-
-
-
                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                     <div nz-row>
                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contract_name" nzRequired>合同名称</nz-form-label>
@@ -33,7 +31,12 @@
                             <input nz-input formControlName="contract_name" />
                         </nz-form-control>
                     </div>
+                </nz-form-item>
 
+                <nz-form-item nz-row class="register-area">
+                    <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                        <button nz-button nzType="primary" (click)="add()" [nzLoading]="isLoadingBtn">提交</button>
+                    </nz-form-control>
                 </nz-form-item>
             </form>
         </nz-spin>

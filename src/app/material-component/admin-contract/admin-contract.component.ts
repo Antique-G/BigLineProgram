@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminContractService } from '../../../services/admin/admin-contract.service';
 import { AdminContractCreateComponent } from './admin-contract-create/admin-contract-create.component';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-contract',
@@ -25,7 +26,7 @@ export class AdminContractComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public adminContractService: AdminContractService, public modal: NzModalService,
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,public dialog: MatDialog) {
     this.searchForm = fb.group({
       contract_name: [''],
     });
@@ -83,22 +84,12 @@ export class AdminContractComponent implements OnInit {
 
 
   add() {
-    const addmodal = this.modal.create({
-      nzTitle: '添加合同',
-      nzContent: AdminContractCreateComponent,
-      nzFooter: [
-        {
-          label: '添加',
-          type: 'primary',
-          onClick: componentInstance => {
-            componentInstance?.add()
-
-          }
-        }
-      ]
-    })
-    addmodal.afterClose.subscribe(res => {
+    const dialogRef = this.dialog.open(AdminContractCreateComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe((result:any) => {
       this.getStoreContract();
-    })
+
+    });
   }
 }
