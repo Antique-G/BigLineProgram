@@ -21,10 +21,12 @@ export class AdminMeetingPlaceService {
 
 
   // 集合地点列表
-  adminMeetingPlaceList(name: string, region_code: string): Observable<AssemblingPlaceListModel> {
+  adminMeetingPlaceList(name: string, region_code: string,store_id?:any): Observable<AssemblingPlaceListModel> {
 
     const params = new HttpParams().set('name', name ? name : '')
-    .set('region_code', region_code ? region_code : '');
+    .set('region_code', region_code ? region_code : '')
+    .set('store_id', store_id ? store_id : '');
+
     
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
