@@ -29,6 +29,7 @@ import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin
 import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
 import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
+import { AdminContractComponent } from './admin-contract/admin-contract.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -240,6 +241,13 @@ export const MaterialRoutes: Routes = [
         component: AdminWechatPageblockDetailComponent,
         data: {
           breadcrumb: '小程序页面模块设置修改'
+        }
+      },
+      {
+        path: 'contract',
+        component: AdminContractComponent,
+        data: {
+          breadcrumb: '合同列表'
         }
       },
     ]
