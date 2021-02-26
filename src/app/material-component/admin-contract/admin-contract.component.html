@@ -42,7 +42,13 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.store_id}}</td>
                                     <td>{{data.contract_name}}</td>
-                                    <td>{{data.url}}</td>
+                                    <td>
+                                        <div>
+                                            <a href={{data.url}} target="_blank" [title]="data.contract_name">
+                                                {{data.url}}
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="delete(data)">
