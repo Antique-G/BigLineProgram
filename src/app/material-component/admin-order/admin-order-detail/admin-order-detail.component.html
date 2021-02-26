@@ -35,7 +35,7 @@
                                     </div>
                                     <div style="margin-top:13px">
                                         <form nz-form [formGroup]="addForm" nz-row>
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
@@ -44,7 +44,7 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
@@ -53,7 +53,16 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_max">最大成团人数</nz-form-label>
+                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                        <input nz-input formControlName="member_max" nzBorderless [ngModel]="isMemberMax" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="active_date">成团日期</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
@@ -62,7 +71,7 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
                                                     <nz-form-control [nzSm]="15" [nzXs]="24">

@@ -8,6 +8,10 @@
     padding: 2px;
 }
 
+.ant-form-item {
+    margin: 0 0 2px !important;
+}
+
 .ant-table-thead>tr>th,
 .ant-table-tbody>tr>td {
     text-align: center !important;
@@ -21,6 +25,7 @@
     height: 50px;
     margin-top: -50px;
 }
+
 .btn {
     width: 59px;
     height: 20px;

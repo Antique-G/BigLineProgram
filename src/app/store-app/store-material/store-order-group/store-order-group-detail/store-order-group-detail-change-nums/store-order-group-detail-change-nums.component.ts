@@ -13,34 +13,49 @@ export class StoreOrderGroupDetailChangeNumsComponent implements OnInit {
   @Input() data: any;
   addForm!: FormGroup;
   orderGroupNum: OrderGroupNum;
+  isMemberMax: any;
+
 
   constructor(public fb: FormBuilder, public storeOrderService: StoreOrderService) {
     this.addForm = this.fb.group({
       member_min: ['', [Validators.required]],
       member_max: ['', [Validators.required]],
-    })
+      old_member_min: [''],
+      old_member_max: [''],
+    });
     this.orderGroupNum = {
       member_min: '',
       member_max: '',
     }
   }
 
+
   ngOnInit(): void {
+    // 最大成团人数
+    if (this.data[1]?.member_max === 0) {
+      this.isMemberMax = '-';
+    }
+    else {
+      this.isMemberMax = this.data[1]?.member_max;
+    }
   }
+
 
   // 只输入整数
   numTest($event: any) {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 
+
   setValue() {
     this.orderGroupNum.member_min = this.addForm.value.member_min;
     this.orderGroupNum.member_max = this.addForm.value.member_max;
   }
 
+
   add() {
     this.setValue();
-    this.orderGroupNum.id = this.data;
+    this.orderGroupNum.id = this.data[0];
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
@@ -48,7 +63,6 @@ export class StoreOrderGroupDetailChangeNumsComponent implements OnInit {
     if (this.addForm.valid) {
       this.storeOrderService.groupNum(this.orderGroupNum).subscribe(res => {
         console.log('object :>> ', res);
-
       })
     }
 

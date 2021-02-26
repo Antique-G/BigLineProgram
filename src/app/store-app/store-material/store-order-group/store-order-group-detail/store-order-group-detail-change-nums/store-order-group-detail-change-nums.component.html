@@ -2,14 +2,26 @@
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
-                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="member_min" nzRequired>最小成团人数</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入最小成团人数">
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="old_member_min">原最小成团人数</nz-form-label>
+                <nz-form-control [nzSm]="13" [nzXs]="24">
+                    <input nz-input formControlName="old_member_min" nzBorderless [ngModel]="data[1]?.member_min" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="old_member_max">原最大成团人数</nz-form-label>
+                <nz-form-control [nzSm]="13" [nzXs]="24">
+                    <input nz-input formControlName="old_member_max" nzBorderless [ngModel]="isMemberMax" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="member_min" nzRequired>修改最小成团人数为</nz-form-label>
+                <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入最小成团人数">
                     <nz-input-number style="width:100%" formControlName="member_min" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="member_max" nzRequired>最大成团人数</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入最大成团人数">
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="member_max" nzRequired>修改最大成团人数为</nz-form-label>
+                <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入最大成团人数">
                     <nz-input-number style="width:100%" formControlName="member_max" (keyup)="numTest($event)" [nzMin]="addForm.value.member_min"></nz-input-number>
                 </nz-form-control>
             </nz-form-item>
