@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdminContractService {
-  
+
   public urls = AdminUrls;
   constructor(public httpClient: HttpClient) { }
 
@@ -43,6 +43,17 @@ export class AdminContractService {
     return this.httpClient.delete<any>(this.urls.DeleteAdminContract + id, httpOptions)
       .pipe(
         catchError(this.handleError)
+      )
+  }
+
+
+  // 上传
+  uploadImg(reqData: any): Observable<any> {
+    const imgHttpOptions = {
+      reportProgress: true,
+    };
+    return this.httpClient.post<any>(this.urls.PostAdminContractCreate, reqData, imgHttpOptions)
+      .pipe(
       )
   }
 

@@ -121,6 +121,9 @@ export const AdminUrls = {
 
   GetAdminContractList: api + '/admin/store_contract',  // 合同列表
   DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
+  PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
+
+  
 
 
 

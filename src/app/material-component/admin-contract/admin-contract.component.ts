@@ -2,6 +2,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminContractService } from '../../../services/admin/admin-contract.service';
+import { AdminContractCreateComponent } from './admin-contract-create/admin-contract-create.component';
+import { ActivatedRoute } from '@angular/router';
+import { AdminStoreService } from '../../../services/admin/admin-store.service';
 
 @Component({
   selector: 'app-admin-contract',
@@ -17,10 +20,13 @@ export class AdminContractComponent implements OnInit {
   loading = true;
   store_id: any;
   dataSource: any;
+  storeList: any[] = [];
+  isSelectedValue = false;
+
 
 
   constructor(public fb: FormBuilder, public adminContractService: AdminContractService, public modal: NzModalService,
-   ) {
+    public activatedRoute: ActivatedRoute, public adminStoreService: AdminStoreService,) {
     this.searchForm = fb.group({
       contract_name: [''],
       store_id: ['']
@@ -28,11 +34,35 @@ export class AdminContractComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStoreContract();
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.store_id = params.id;
+      console.log('object :>> ', this.store_id);
+      if (this.store_id === undefined) {
+        this.isSelectedValue = false;
+      }
+      else {
+        this.isSelectedValue = true;
+        this.searchForm.patchValue({
+          store_id:this.store_id
+        })
+      }
+    });
+    this.adminStoreService.storeList(1, 1000, '', '').subscribe((result: any) => {
+      console.log("商铺的结果", result.data);
+      let storeData = result.data;
+      let res: any[] = [];
+      for (let i of storeData) {
+        let a = { id: i.store_id, value: i.name };
+        res.push(a);
+        this.storeList = res;
+      }
+      this.getStoreContract();
+    });
+
   }
 
   getStoreContract() {
-    this.adminContractService.getContract(this.page, this.per_page, this.contract_name,this.store_id).subscribe(res => {
+    this.adminContractService.getContract(this.page, this.per_page, this.contract_name, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.total;
@@ -62,7 +92,7 @@ export class AdminContractComponent implements OnInit {
   }
 
 
-  delete(data:any){
+  delete(data: any) {
     this.modal.confirm({
       nzTitle: "<h4>提示</h4>",
       nzContent: "<h6>是否删除</h6>",
@@ -74,4 +104,25 @@ export class AdminContractComponent implements OnInit {
   }
 
 
+
+
+  add() {
+    const addmodal = this.modal.create({
+      nzTitle: '添加合同',
+      nzContent: AdminContractCreateComponent,
+      nzFooter: [
+        {
+          label: '添加',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
+
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getStoreContract();
+    })
+  }
 }
