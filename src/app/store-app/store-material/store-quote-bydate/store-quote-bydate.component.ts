@@ -92,6 +92,8 @@ export class StoreQuoteBydateComponent implements OnInit {
     let newMon = format(new Date(select), 'MM');
     newMon = newMon.replace(/\b(0+)/gi, "");
     this.nzPageIndex = Number(newMon);
+    this.getQuoteList();
+
   }
 
 
