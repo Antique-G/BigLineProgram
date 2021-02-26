@@ -35,6 +35,16 @@ export class StoreContractService {
       )
   }
 
+  // 上传
+  uploadImg(reqData: any): Observable<any> {
+    const imgHttpOptions = {
+      reportProgress: true, 
+    };
+    return this.httpClient.post<any>(this.urls.PostStoreContractCreate, reqData, imgHttpOptions)
+      .pipe(
+      )
+  }
+
 
   
   private handleError(error: HttpErrorResponse) {
