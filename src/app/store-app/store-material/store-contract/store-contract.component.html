@@ -1,1 +1,54 @@
-<p>store-contract works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>合同名称:</mat-label>
+                                    <input matInput value="" formControlName="contract_name" placeholder="请输入合同名称">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">店铺id</th>
+                                    <th style="text-align: center;">合同名称</th>
+                                    <th style="text-align: center;width: 15%;">合同url</th>
+                                    <th style="text-align: center;">创建时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.store_id}}</td>
+                                    <td>{{data.contract_name}}</td>
+                                    <td>{{data.url}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>
