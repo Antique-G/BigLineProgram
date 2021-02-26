@@ -146,7 +146,7 @@ handleChange(info:NzUploadChangeParam){
             this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
             setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
             this.isSpinning = false;
-            alert(1)
+           
           }
         },err=>{
           this.fileList[index].status= 'done';

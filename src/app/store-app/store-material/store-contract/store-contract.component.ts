@@ -1,6 +1,9 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { StoreContractService } from '../../../../services/store/store-contract/store-contract.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreContractCreateComponent } from './store-contract-create/store-contract-create.component';
+
 
 @Component({
   selector: 'app-store-contract',
@@ -19,7 +22,7 @@ export class StoreContractComponent implements OnInit {
   dataSource: any;
 
 
-  constructor(public fb: FormBuilder, public storeContractService: StoreContractService) {
+  constructor(public fb: FormBuilder, public storeContractService: StoreContractService,public modal: NzModalService) {
     this.searchForm = fb.group({
       contract_name: ['']
     });
@@ -59,5 +62,23 @@ export class StoreContractComponent implements OnInit {
   }
 
 
-  add() { }
+  add() {
+    const addmodal = this.modal.create({
+      nzTitle: '添加合同',
+      nzContent: StoreContractCreateComponent,
+      nzFooter: [
+        {
+          label: '添加',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.add()
+
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getStoreContract();
+    })
+   }
 }

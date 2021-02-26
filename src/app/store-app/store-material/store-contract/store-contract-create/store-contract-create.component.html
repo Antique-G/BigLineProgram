@@ -1,1 +1,28 @@
-<p>store-contract-create works!</p>
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 0px; margin-top: 20px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传合同</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-upload [nzBeforeUpload]="beforeUpload" [nzSize]="5120" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 8" [nzMultiple]='true' [nzLimit]='10' [nzRemove]="removeImg">
+                        <div>
+                            <button nz-button>
+                                <span><i nz-icon nzType="upload"></i> 选择文件</span>
+                              </button>
+                        </div>
+                    </nz-upload>
+
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contract_name">合同名称</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="contract_name" />
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
