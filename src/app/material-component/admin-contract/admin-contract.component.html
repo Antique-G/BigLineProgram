@@ -29,7 +29,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">店铺id</th>
+                                    <th style="text-align: center;">合同id</th>
                                     <th style="text-align: center;">合同名称</th>
                                     <th style="text-align: center;width: 15%;">合同url</th>
                                     <th style="text-align: center;">创建时间</th>
@@ -38,7 +38,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.store_id}}</td>
+                                    <td>{{data.id}}</td>
                                     <td>{{data.contract_name}}</td>
                                     <td>
                                         <div>

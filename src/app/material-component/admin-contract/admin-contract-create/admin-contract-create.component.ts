@@ -19,6 +19,8 @@ export class AdminContractCreateComponent implements OnInit {
   storeList: any[] = [];
   selectedValue: any;
   isSelectedValue = false;
+  isSpinning = false;
+
 
 
   constructor(public adminContractService: AdminContractService, private msg: NzMessageService,
@@ -79,6 +81,7 @@ export class AdminContractCreateComponent implements OnInit {
     }
     console.log('5555555 ', this.addForm);
     if (this.addForm.valid) {
+      this.isSpinning =true;
       this.imageList.forEach((item: any, index) => {
         const formData = new FormData();
         formData.append('file', item);
