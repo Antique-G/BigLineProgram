@@ -107,6 +107,11 @@ export class AdminStoreComponent implements OnInit {
 
   }
 
+
+  file(data:any){
+    this.router.navigate(['/admin/main/contract'], { queryParams: { id: data.store_id } });
+
+  }
 }
 
 
