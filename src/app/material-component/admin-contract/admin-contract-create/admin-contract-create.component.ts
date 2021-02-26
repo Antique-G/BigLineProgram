@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { AdminContractService } from '../../../../services/admin/admin-contract.service';
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -20,12 +21,12 @@ export class AdminContractCreateComponent implements OnInit {
   selectedValue: any;
   isSelectedValue = false;
   isSpinning = false;
-
+  isLoadingBtn = false;
 
 
   constructor(public adminContractService: AdminContractService, private msg: NzMessageService,
-    public adminStoreService: AdminStoreService, public activatedRoute: ActivatedRoute,
-    ) {
+    public adminStoreService: AdminStoreService, public activatedRoute: ActivatedRoute, public dialogRef: MatDialogRef<AdminContractCreateComponent>,
+  ) {
     this.addForm = new FormGroup({
       contract_name: new FormControl('', [Validators.required]),
     })
@@ -81,16 +82,23 @@ export class AdminContractCreateComponent implements OnInit {
     }
     console.log('5555555 ', this.addForm);
     if (this.addForm.valid) {
-      this.isSpinning =true;
+      this.isSpinning = true;
+      this.isLoadingBtn = true;
       this.imageList.forEach((item: any, index) => {
         const formData = new FormData();
         formData.append('file', item);
-        formData.append('store_id',  this.selectedValue);
+        formData.append('store_id', this.selectedValue);
         formData.append('contract_name', this.addForm.value.contract_name);
         this.adminContractService.uploadImg(formData).subscribe(res => {
           console.log('res结果是 ', res);
+          this.isLoadingBtn = false;
+          this.dialogRef.close();
+
+
         }, err => {
           this.fileList[index].status = 'done';
+          this.isLoadingBtn = false;
+
         })
       })
     }
@@ -99,6 +107,12 @@ export class AdminContractCreateComponent implements OnInit {
 
 
   log(daya: any) {
+
+  }
+
+
+  close() {
+    this.dialogRef.close();
 
   }
 }
