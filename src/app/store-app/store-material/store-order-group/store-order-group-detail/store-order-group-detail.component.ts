@@ -21,6 +21,7 @@ export class StoreOrderGroupDetailComponent implements OnInit {
   detailModel!: DataOrderDetail;
   isReturnDate: any;
   isActiveDate: any;
+  isMemberMax: any;
   subGroupModel!: DataOrderDetail;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -29,7 +30,8 @@ export class StoreOrderGroupDetailComponent implements OnInit {
       group_id: ['', [Validators.required]],
       member_min: ['', [Validators.required]],
       active_date: ['', [Validators.required]],
-      returnDate: ['', [Validators.required]]
+      returnDate: ['', [Validators.required]],
+      member_max: ['', [Validators.required]],
     })
   }
 
@@ -41,6 +43,13 @@ export class StoreOrderGroupDetailComponent implements OnInit {
       this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
+        // 最大成团人数
+        if (this.detailModel?.member_max === 0) {
+          this.isMemberMax = '-';
+        }
+        else {
+          this.isMemberMax = this.detailModel?.member_max;
+        }
         // 成团日期
         this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
         // 往返日期
@@ -77,6 +86,13 @@ export class StoreOrderGroupDetailComponent implements OnInit {
         this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
           console.log("结果是", res);
           this.detailModel = res.data;
+          // 最大成团人数
+          if (this.detailModel?.member_max === 0) {
+            this.isMemberMax = '-';
+          }
+          else {
+            this.isMemberMax = this.detailModel?.member_max;
+          }
           // 成团日期
           this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
           // 往返日期
@@ -96,7 +112,7 @@ export class StoreOrderGroupDetailComponent implements OnInit {
       nzTitle: '修改成团人数',
       nzContent: StoreOrderGroupDetailChangeNumsComponent,
       nzComponentParams: {
-        data: data
+        data: [data, this.detailModel]
       },
       nzFooter: [
         {
@@ -115,6 +131,13 @@ export class StoreOrderGroupDetailComponent implements OnInit {
         this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
           console.log("结果是", res);
           this.detailModel = res.data;
+          // 最大成团人数
+          if (this.detailModel?.member_max === 0) {
+            this.isMemberMax = '-';
+          }
+          else {
+            this.isMemberMax = this.detailModel?.member_max;
+          }
           // 成团日期
           this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
           // 往返日期

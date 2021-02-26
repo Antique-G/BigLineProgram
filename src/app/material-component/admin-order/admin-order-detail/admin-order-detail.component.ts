@@ -16,6 +16,7 @@ export class AdminOrderDetailComponent implements OnInit {
   detailModel!: DataOrderDetail;
   isReturnDate: any;
   isActiveDate: any;
+  isMemberMax: any;
   subGroupModel!: DataOrderDetail;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -24,7 +25,8 @@ export class AdminOrderDetailComponent implements OnInit {
       group_id: ['', [Validators.required]],
       member_min: ['', [Validators.required]],
       active_date: ['', [Validators.required]],
-      returnDate: ['', [Validators.required]]
+      returnDate: ['', [Validators.required]],
+      member_max: ['', [Validators.required]],
     })
   }
 
@@ -36,6 +38,13 @@ export class AdminOrderDetailComponent implements OnInit {
       this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
+         // 最大成团人数
+        if (this.detailModel?.member_max === 0) {
+          this.isMemberMax = '-';
+        }
+        else {
+          this.isMemberMax = this.detailModel?.member_max;
+        }
         // 成团日期
         this.isActiveDate = this.detailModel.active_date ? this.detailModel.active_date : '-';
         // 往返日期

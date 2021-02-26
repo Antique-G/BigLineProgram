@@ -208,8 +208,6 @@ export const StoreUrls = {
   PostStoreOrderGroupCancelSms: api + '/store/group/sendOrderCancelSms',   // 发送不成团通知短信接口
   PutStoreOrderGroupNum: api + '/store/group/',   // 设置出团人数限制
 
-  
-
 
 
   GetStoreOrderfreeTravelList: api + '/store/order/free_travel',  //自由行订单列表
@@ -219,6 +217,12 @@ export const StoreUrls = {
   PostStoreOrderAddPriceDetails: api + '/store/order/add_price_details',  //订单改价（附加收费、优惠）
   GetStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交前展示）
   PostStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交）
+
+
+  GetStoreContractList: api + '/store/store_contract',  //合同列表
+  PostStoreContractCreate: api + '/store/store_contract',   // 合同添加
+
+  
 
 
 

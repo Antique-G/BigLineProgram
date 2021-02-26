@@ -115,7 +115,13 @@ const StoreMENUITEMS = [
       { state: 'storeOrderFreeTravel', name: '自由行订单列表' },
     ]
   },
-  
+  {
+    title: '合同管理', icon: 'file',
+    children: [
+      { state: 'storeContract', name: '合同' },
+   
+    ]
+  },
 
 ];
 
