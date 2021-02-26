@@ -26,20 +26,12 @@ export class AdminContractCreateComponent implements OnInit {
     ) {
     this.addForm = new FormGroup({
       contract_name: new FormControl('', [Validators.required]),
-      store_id: new FormControl(this.selectedValue, [Validators.required]),
     })
   }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.selectedValue = params.id;
-      console.log("商铺的结果", this.selectedValue);
-      if (this.selectedValue === undefined) {
-        this.isSelectedValue = false;
-      }
-      else {
-        this.isSelectedValue = true;
-      }
     });
     this.adminStoreService.storeList(1, 1000, '', '').subscribe((result: any) => {
       console.log("商铺的结果", result.data);
@@ -85,11 +77,12 @@ export class AdminContractCreateComponent implements OnInit {
       this.msg.error('请选择上传图片')
       return
     }
+    console.log('5555555 ', this.addForm);
     if (this.addForm.valid) {
       this.imageList.forEach((item: any, index) => {
         const formData = new FormData();
         formData.append('file', item);
-        formData.append('store_id', this.addForm.value.store_id);
+        formData.append('store_id',  this.selectedValue);
         formData.append('contract_name', this.addForm.value.contract_name);
         this.adminContractService.uploadImg(formData).subscribe(res => {
           console.log('res结果是 ', res);

@@ -3,27 +3,13 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div>
-                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="letter-spacing:2px" routerLink="/admin/main/store">返回店铺管理</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()">添加合同</button>
                     </div>
                     <form [formGroup]="searchForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=20 *ngIf="isSelectedValue===false">
-                                <mat-form-field>
-                                    <mat-select placeholder="选择店铺" formControlName="store_id">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option *ngFor="let store of storeList" [value]="store.id">
-                                            {{store.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex=20 *ngIf="isSelectedValue===true">
-                                <mat-form-field>
-                                    <mat-label>店铺id:</mat-label>
-                                    <input matInput [(value)]="store_id" formControlName="store_id" placeholder="店铺id">
-                                </mat-form-field>
-                            </div>
+
                             <div fxFlex=30>
                                 <mat-form-field>
                                     <mat-label>合同名称:</mat-label>
