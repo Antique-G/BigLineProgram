@@ -234,7 +234,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.store_id = this.dataProductDetailModel.store_id
+    console.log('111111111111 :>> ', this.dataProductDetailModel);
+    this.store_id = this.dataProductDetailModel?.store_id;
+    console.log('this.store_id', this.store_id);
     this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       this.assemblingPlaceList = [];
@@ -396,6 +398,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     if (data !== null) {
       this.detailUpdateModel.departure_city = data[data.length - 1];
       this.isPlaceRegion = this.detailUpdateModel.departure_city;
+      this.store_id = this.detailUpdateModel?.store_id;
+      console.log('22222222', this.dataProductDetailModel);
       this.getAccemList();
     }
   }
@@ -480,7 +484,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   refreshPlace() {
     this.assemblingPlaceList = [];
-    this.store_id = this.dataProductDetailModel.store_id
+    this.store_id = this.dataProductDetailModel?.store_id
     this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);

@@ -155,7 +155,7 @@ export class StoreProductInfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
-    this.store_id = localStorage.getItem('storeAccountId');
+    this.store_id = localStorage.getItem('storeId');
     this.getCateList();
   }
 

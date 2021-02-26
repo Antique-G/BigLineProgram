@@ -104,7 +104,7 @@ export class StoreProductService {
 
 
   // 产品集合地点
-  productAssemblingPlaceList(name: string, region_code: string, store_id: any): Observable<AssemblingPlaceListModel> {
+  productAssemblingPlaceList(name: string, region_code: string, store_id?: any): Observable<AssemblingPlaceListModel> {
     const params = new HttpParams().set('name', name ? name : '')
       .set('region_code', region_code ? region_code : '')
       .set('store_id', store_id ? store_id : '');

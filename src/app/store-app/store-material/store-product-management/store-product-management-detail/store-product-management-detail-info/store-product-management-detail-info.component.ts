@@ -194,7 +194,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    this.store_id = localStorage.getItem('storeAccountId');
+    this.store_id = localStorage.getItem('storeId');
     this.getCateList();
   }
 

@@ -44,6 +44,7 @@ export class StoreLoginComponent implements OnInit {
         localStorage.setItem('mobile', this.storeLoginRequestModel.mobile);
         localStorage.setItem('storeRegion', res.store.region_code);
         localStorage.setItem('storeAccountId', res.store_account.account_id);
+        localStorage.setItem('storeId', res.store.store_id);
         this.router.navigate(['/store/main/storeProduct'])
       }
     })
