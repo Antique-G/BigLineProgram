@@ -138,7 +138,6 @@ handleChange(info:NzUploadChangeParam){
           this.result.push(res)
           this.fileList[index].status= 'done';
           if(index === this.imageList.length-1){
-            this.isSpinning = false
             this.modalRef.destroy({ data: this.result});
             this.modal.success({
               nzMask: false,
@@ -146,7 +145,7 @@ handleChange(info:NzUploadChangeParam){
             })
             this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
             setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-
+            this.isSpinning = false;
           }
         },err=>{
           this.fileList[index].status= 'done';
