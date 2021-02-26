@@ -29,6 +29,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   // 集合地以及标题
   selectedPlace: any[] = [];
   isPlaceRegion: any;
+  store_id: any;
 
   // 目的地
   destinationPalce: any[] = [];
@@ -193,6 +194,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
+    this.store_id = localStorage.getItem('storeAccountId');
     this.getCateList();
   }
 
@@ -225,7 +227,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       this.assemblingPlaceList = [];
       if (res.data.length === 0) {
@@ -489,7 +491,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   refreshPlace() {
     this.assemblingPlaceList = [];
-    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);

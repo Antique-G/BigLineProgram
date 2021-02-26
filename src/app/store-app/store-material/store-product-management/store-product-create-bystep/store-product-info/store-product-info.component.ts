@@ -44,6 +44,8 @@ export class StoreProductInfoComponent implements OnInit {
   isLoadingBtn = false;
   isPlaceRegion: any;
 
+  store_id: any;
+
 
   cateId: any;
 
@@ -153,11 +155,13 @@ export class StoreProductInfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
+    this.store_id = localStorage.getItem('storeAccountId');
     this.getCateList();
   }
 
   ngAfterViewInit(): void {
     this.textChange();
+
   }
 
   // 标签分类列表
@@ -203,7 +207,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       this.assemblingPlaceList = [];
       if (res.data.length === 0) {
@@ -391,7 +395,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   refreshPlace() {
     this.assemblingPlaceList = [];
-    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.storeProductService.productAssemblingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);

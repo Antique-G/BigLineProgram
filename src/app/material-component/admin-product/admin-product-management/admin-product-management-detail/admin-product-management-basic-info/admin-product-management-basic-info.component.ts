@@ -26,6 +26,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   // 集合地以及标题
   selectedPlace: any[] = [];
   isPlaceRegion: any;
+  store_id: any;
   // 目的地
   destinationPalce: any[] = [];
   idDestin: any
@@ -233,7 +234,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   // 集合地点
   getAccemList() {
-    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.store_id = this.dataProductDetailModel.store_id
+    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       console.log("集合地点", res.data);
       this.assemblingPlaceList = [];
 
@@ -478,7 +480,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   refreshPlace() {
     this.assemblingPlaceList = [];
-    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion).subscribe(res => {
+    this.store_id = this.dataProductDetailModel.store_id
+    this.adminMeetingPlaceService.adminMeetingPlaceList('', this.isPlaceRegion, this.store_id).subscribe(res => {
       for (let i of res.data) {
         console.log("集合地点ii", i, i.time_state === 0);
         if (i.time_state === 0) {
