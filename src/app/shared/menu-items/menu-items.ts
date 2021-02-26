@@ -67,11 +67,19 @@ const MENUITEMS = [
     ]
   },
   {
+    title: '合同管理', icon: 'file',
+    children: [
+      { state: 'contract', name: '合同' },
+   
+    ]
+  },
+  {
     title: '小程序模块', icon: 'wechat',
     children: [
       { state: 'pageConfig', name: '页面设置' },
     ]
   },
+ 
 
 ];
 

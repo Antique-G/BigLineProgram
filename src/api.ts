@@ -119,6 +119,12 @@ export const AdminUrls = {
   GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
 
 
+  GetAdminContractList: api + '/admin/store_contract',  // 合同列表
+  DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
+
+
+
+
   PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
 
