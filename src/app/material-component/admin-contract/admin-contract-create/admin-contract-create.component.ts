@@ -77,7 +77,7 @@ export class AdminContractCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.imageList.length === 0) {
-      this.msg.error('请选择上传图片')
+      this.msg.error('请选择上传文件')
       return
     }
     console.log('5555555 ', this.addForm);

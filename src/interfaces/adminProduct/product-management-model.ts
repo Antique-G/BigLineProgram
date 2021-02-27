@@ -25,6 +25,7 @@ interface DatumModel {
   sub_title: string;
   code: string;
   scenic_spot: string;
+  quote_status: any;
   few_days: number;
   few_nights: number;
   store_id: number;
@@ -205,7 +206,7 @@ export interface CheckLogModule {
   admin_name: string;
 }
 
-export interface  StoreListModel{
+export interface StoreListModel {
   store_id: number;
   name: string;
 }
