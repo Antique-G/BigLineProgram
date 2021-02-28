@@ -429,15 +429,34 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       console.log("213123", newHtml);
       this.detailUpdateModel.fee = newHtml;
     }
+    // 配置菜单栏
+    editorFee.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     // InsertABCMenu
     // 注册菜单
     editorFee.menus.extend('insertABC', InsertABCMenu);
     // 重新配置 editor.config.menus
     editorFee.config.menus = editorFee.config.menus.concat('insertABC');
-
-    // 添加格式刷
-    // editorFee.menus.extend('insertBRUSH', InsertBRUSHMenu);
-    // editorFee.config.menus = editorFee.config.menus.concat('insertBRUSH');
 
     editorFee.config.customFunction = (insert: any) => {
       const modal: NzModalRef = this.modal.create({

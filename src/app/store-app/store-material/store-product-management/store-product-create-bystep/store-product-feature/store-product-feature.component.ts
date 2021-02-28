@@ -25,7 +25,7 @@ export class StoreProductFeatureComponent implements OnInit {
 
 
   constructor(public storeProductService: StoreProductService, public dialog: MatDialog,
-    private msg: NzMessageService,private modal: NzModalService,private viewContainerRef: ViewContainerRef) { }
+    private msg: NzMessageService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit(): void {
     this.detailUpdateModel = {
@@ -42,34 +42,57 @@ export class StoreProductFeatureComponent implements OnInit {
   textChange() {
     // 产品特色
     const editorFeature = new wangEditor("#editorFeature", "#editor");
-    if(this.addDataDetailModel?.feature===undefined){
+    if (this.addDataDetailModel?.feature === undefined) {
       this.featureBox.nativeElement.innerHTML = '';
     }
-    else{
+    else {
       this.featureBox.nativeElement.innerHTML = this.addDataDetailModel.feature;    //赋值
     }
     this.detailUpdateModel.feature = this.addDataDetailModel?.feature;
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
     }
+    // 配置菜单栏
+    editorFeature.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     // InsertABCMenu
     // 注册菜单
     editorFeature.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
     editorFeature.config.menus = editorFeature.config.menus.concat('insertABC')
     editorFeature.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
     }
     editorFeature.create();
@@ -78,15 +101,15 @@ export class StoreProductFeatureComponent implements OnInit {
 
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.featureList.push(item)
         if (this.featureList.length > 10) {
@@ -96,7 +119,7 @@ export class StoreProductFeatureComponent implements OnInit {
         this.featureBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
-   
+
   }
 
 

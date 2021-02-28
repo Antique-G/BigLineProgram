@@ -18,18 +18,18 @@ export class StoreProductEditordetailComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
   @Input() addDataDetailModel: any;
 
-  detailUpdateModel:any;
+  detailUpdateModel: any;
   @ViewChild("detailBox") detailBox: any;     //获取dom
   detailList: any[] = []    //图片
 
 
-  constructor(public storeProductService: StoreProductService,  public dialog: MatDialog,private msg: NzMessageService,
-    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
-    this.detailUpdateModel={
-      step:2,
-      details:''
+  constructor(public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
+    this.detailUpdateModel = {
+      step: 2,
+      details: ''
     }
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -44,34 +44,57 @@ export class StoreProductEditordetailComponent implements OnInit {
   textChange() {
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-    if(this.addDataDetailModel?.details===undefined){
+    if (this.addDataDetailModel?.details === undefined) {
       this.detailBox.nativeElement.innerHTML = '';
     }
-    else{
+    else {
       this.detailBox.nativeElement.innerHTML = this.addDataDetailModel.details;    //赋值
     }
     this.detailUpdateModel.details = this.addDataDetailModel?.details;
     editorDetail.config.onchange = (newHtml: any) => {
-      this.detailUpdateModel.details= newHtml;
+      this.detailUpdateModel.details = newHtml;
     }
+    // 配置菜单栏
+    editorDetail.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     // InsertABCMenu
     // 注册菜单
     editorDetail.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
     editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
     editorDetail.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
     }
     editorDetail.create();
@@ -79,15 +102,15 @@ export class StoreProductEditordetailComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.detailList.push(item)
         if (this.detailList.length > 10) {
@@ -97,21 +120,21 @@ export class StoreProductEditordetailComponent implements OnInit {
         this.detailBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
-    
+
   }
 
 
 
 
   nextTab() {
-    this.detailUpdateModel.id=this.addDataDetailModel.id;
-    this.storeProductService.updateProduct( this.detailUpdateModel).subscribe(res=>{
+    this.detailUpdateModel.id = this.addDataDetailModel.id;
+    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.tabIndex.emit({id:this.addDataDetailModel.id,tabIndex:3})
+        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
       }
 
     })
-   }
+  }
 
 }
 
