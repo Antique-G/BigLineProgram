@@ -436,18 +436,17 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       'lineHeight',
       'foreColor',
       'backColor',
-      'link',
       'list',
       'todo',
       'justify',
       'quote',
       'emoticon',
       'table',
-      'code',
       'splitLine',
       'undo',
       'redo',
     ]
+    
     editorFee.create();
     //  上传图片 不用
     // editorFee.config.uploadImgParams = {

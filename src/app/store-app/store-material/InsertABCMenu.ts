@@ -6,7 +6,7 @@ export class InsertABCMenu extends BtnMenu   {
     constructor(public editor:wangEditor) {
         super(E.$(
             `<div class="w-e-menu">
-                <i class="w-e-icon-image"></i>
+                <i class="w-e-icon-image" title='插入图片'></i>
             </div>`),editor)
     }
 

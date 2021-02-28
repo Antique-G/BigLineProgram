@@ -339,6 +339,29 @@ export class StoreProductInfoComponent implements OnInit {
       console.log("213123", newHtml);
       this.addStoreProductModel.fee = newHtml;
     }
+    // 配置菜单栏
+    editorFee.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     // InsertABCMenu
     // 注册菜单
     editorFee.menus.extend('insertABC', InsertABCMenu)

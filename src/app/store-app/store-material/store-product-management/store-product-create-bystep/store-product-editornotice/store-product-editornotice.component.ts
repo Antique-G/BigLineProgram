@@ -25,7 +25,7 @@ export class StoreProductEditornoticeComponent implements OnInit {
 
   constructor(public storeProductService: StoreProductService, public dialog: MatDialog,
     private msg: NzMessageService,
-    private modal: NzModalService,private viewContainerRef: ViewContainerRef) {
+    private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 3,
       notice: ''
@@ -42,34 +42,57 @@ export class StoreProductEditornoticeComponent implements OnInit {
   textChange() {
     // 预约须知
     const editorNotice = new wangEditor("#editorNotice", "#noticeContent");
-    if(this.addDataDetailModel?.notice===undefined){
+    if (this.addDataDetailModel?.notice === undefined) {
       this.noticeBox.nativeElement.innerHTML = '';
     }
-    else{
+    else {
       this.noticeBox.nativeElement.innerHTML = this.addDataDetailModel.notice;    //赋值
     }
     this.detailUpdateModel.notice = this.addDataDetailModel?.notice;
     editorNotice.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.notice = newHtml;
     }
+    // 配置菜单栏
+    editorNotice.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
     // InsertABCMenu
     // 注册菜单
     editorNotice.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
     editorNotice.config.menus = editorNotice.config.menus.concat('insertABC')
     editorNotice.config.customFunction = (insert: any) => {
-      const modal:NzModalRef = this.modal.create({
-        nzTitle:'图片上传',
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
         nzViewContainerRef: this.viewContainerRef,
-        nzContent:CommonModelComponent,
-        nzWidth:660,
-        nzFooter:null
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
       })
-      modal.afterClose.subscribe(result =>{
-        let res = result?.data||[]
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
         res.forEach((item: any) => {
-              insert(item.url)
-            });
+          insert(item.url)
+        });
       });
     }
     editorNotice.create();
@@ -78,15 +101,15 @@ export class StoreProductEditornoticeComponent implements OnInit {
   }
 
   importImg() {
-    const modal:NzModalRef = this.modal.create({
-      nzTitle:'从图库导入资源',
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
-      nzContent:ChooseGalleryComponent,
-      nzWidth:1105,
-      nzFooter:null
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
     })
-    modal.afterClose.subscribe(res =>{
-      let result = res||[]
+    modal.afterClose.subscribe(res => {
+      let result = res || []
       result.forEach((item: any) => {
         this.noticeList.push(item)
         if (this.noticeList.length > 10) {
@@ -96,7 +119,7 @@ export class StoreProductEditornoticeComponent implements OnInit {
         this.noticeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
-    
+
   }
 
 
