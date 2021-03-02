@@ -11,13 +11,19 @@ export class StoreFreeCreateBystepComponent implements OnInit {
   isIndex = 0;     //tab的index
   selectedTabIndex = 0;    //选中的tab 默认第一个
   detailId: any;
-  
-  dataDetailModel:any
-  isSpinning:boolean = true
-  constructor(public activatedRoute: ActivatedRoute,private freeTravelService:StoreProductTreeTravelService) { }
-  
+
+  dataDetailModel: any;
+  isSpinning: boolean = true;
+
+  isId: any;
+  infoId: any;
+  isShowId = true;
+
+
+  constructor(public activatedRoute: ActivatedRoute, private freeTravelService: StoreProductTreeTravelService) { }
+
   ngOnInit(): void {
-   
+
   }
 
   getTabIndex(event: any) {
@@ -26,18 +32,33 @@ export class StoreFreeCreateBystepComponent implements OnInit {
     this.selectedTabIndex = event.tabIndex;
     this.isIndex = event.tabIndex;
     this.detailId = event.id;
+    this.infoId = event.id;
     this.getDetail();
   }
 
-
-  getDetail(){
-    this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any)=>{
+  getDetail() {
+    this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
       this.dataDetailModel = res.data;
       this.isSpinning = false
     })
   }
-  
+
   onTabChange(event: any) {
     this.selectedTabIndex = event;
+    if (this.selectedTabIndex === 0) {
+      this.getOneTab();
+    }
+  }
+
+  
+
+  getOneTab() {
+    this.isId = this.infoId;
+    if (this.isId === undefined) {
+      this.isShowId = true;
+    }
+    else {
+      this.isShowId = false;
+    }
   }
 }

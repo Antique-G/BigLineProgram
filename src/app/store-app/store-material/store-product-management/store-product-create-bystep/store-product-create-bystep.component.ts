@@ -13,6 +13,9 @@ export class StoreProductCreateBystepComponent implements OnInit {
   infoId: any;
 
   addDataDetailModel: any;
+  isId: any;
+  isShowId = true;
+
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService,) {
 
@@ -24,6 +27,21 @@ export class StoreProductCreateBystepComponent implements OnInit {
 
   onTabChange(event: any) {
     this.selectedTabIndex = event;
+    console.log("this.selectedTabIndex", this.selectedTabIndex)
+    if (this.selectedTabIndex === 0) {
+      this.getOneTab();
+    }
+
+  }
+
+  getOneTab() {
+    this.isId = this.infoId;
+    if (this.isId === undefined) {
+      this.isShowId = true;
+    }
+    else {
+      this.isShowId = false;
+    }
   }
 
 

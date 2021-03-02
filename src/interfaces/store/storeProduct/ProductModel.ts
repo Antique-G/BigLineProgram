@@ -17,6 +17,8 @@ export interface AddStoreProductModel {
   fee: string;
   tag_id: number[];
   reserve_ahead: number;
+  step?: any;
+  id?: any;
 }
 
 // 返回
@@ -148,7 +150,7 @@ export interface DatumListModel {
   title: string;
   few_days: number;
   few_nights: number;
-  code:string;
+  code: string;
   store_id: number;
   minimum_price: number;
   maximum_price: number;
@@ -205,7 +207,7 @@ export interface DetailModel {
   notice: string;
   status: number;
   tag_id: number[];
-  
+
 }
 
 

@@ -9,7 +9,7 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-free-info (tabIndex)="getTabIndex($event)"></app-store-free-info>
+                            <app-store-free-info (tabIndex)="getTabIndex($event)" [isId]="isId" [isShowId]="isShowId" [getOneTab]="getOneTab"></app-store-free-info>
                         </div>
                     </mat-tab>
 
