@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ViewContainerRef, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import wangEditor from 'wangeditor';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +20,11 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class StoreFreeInfoComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
+  @Input() isId: any;
+  @Input() isShowId: any;
+
+  @Input() getOneTab: any;
+
 
   addForm!: FormGroup;
   public isSpinning: any = true;    //loading 
@@ -253,7 +258,8 @@ export class StoreFreeInfoComponent implements OnInit {
       this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
         if (res.id) {
           this.isLoadingBtn = false;
-          this.tabIndex.emit({ id: res.id, tabIndex: 1 })
+          this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+          this.getOneTab();
         }
       },
         error => {
@@ -408,5 +414,27 @@ export class StoreFreeInfoComponent implements OnInit {
   // 只输入整数
   numTest($event: any) {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+  }
+
+
+
+  updateTab() {
+    this.setValue();
+    // 验证表单
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log(this.addForm.valid);
+    if (this.addForm.valid) {
+      this.isLoadingBtn = true;
+      this.freeTravelModel.id = this.isId;
+      this.freeTravelModel.step = 0;
+      this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
+        this.isLoadingBtn = false;
+        this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+      })
+    }
+
   }
 }

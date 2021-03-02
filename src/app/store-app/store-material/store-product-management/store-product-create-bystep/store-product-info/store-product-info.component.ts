@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { AddStoreProductModel, DetailModel } from '../../../../../../interfaces/store/storeProduct/ProductModel';
@@ -19,6 +19,12 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class StoreProductInfoComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
+  @Input() isId: any;
+  @Input() isShowId: any;
+
+  @Input() getOneTab: any;
+
+
 
 
   addForm!: FormGroup;
@@ -153,15 +159,16 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log("isId111111111", this.isId)
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
     this.store_id = localStorage.getItem('storeId');
     this.getCateList();
+
   }
 
   ngAfterViewInit(): void {
     this.textChange();
-
   }
 
   // 标签分类列表
@@ -464,8 +471,8 @@ export class StoreProductInfoComponent implements OnInit {
         console.log("res结果", res);
         if (res.id) {
           this.isLoadingBtn = false;
-
-          this.tabIndex.emit({ id: res.id, tabIndex: 1 })
+          this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+          this.getOneTab()
         }
       },
         error => {
@@ -493,6 +500,33 @@ export class StoreProductInfoComponent implements OnInit {
   numTest($event: any) {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
+
+
+
+
+  updateTab() {
+    this.setValue();
+    // 验证表单
+    console.log("this.addForm", this.addForm)
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log("66666", this.addForm.valid)
+    if (this.addForm.valid) {
+      //更新
+      this.isLoadingBtn = true;
+      this.addStoreProductModel.id = this.isId;
+      this.addStoreProductModel.step = 0;
+      this.storeProductService.updateProduct(this.addStoreProductModel).subscribe(res => {
+        console.log("res结果", res);
+        this.isLoadingBtn = false;
+        this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+
+      })
+    }
+  }
+
 }
 
 
