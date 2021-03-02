@@ -45,6 +45,7 @@ export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
   tbsArr: any[] = [];
 
   // 表格
+  checked = false;
   setOfCheckedId = new Set<number>();
 
   groupSmsModel: GroupSmsModel;
@@ -80,6 +81,12 @@ export class StoreOrderGroupDetailSubgroupSentsmsComponent implements OnInit {
   onItemChecked(id: number, checked: boolean): void {
     this.updateCheckedSet(id, checked);
   }
+
+
+  onAllChecked(value: boolean): void {
+    this.dataSource.forEach((item:any) => this.updateCheckedSet(item, value));
+  }
+
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
