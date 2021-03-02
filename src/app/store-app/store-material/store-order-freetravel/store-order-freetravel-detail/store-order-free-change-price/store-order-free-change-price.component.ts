@@ -14,7 +14,6 @@ export class StoreOrderFreeChangePriceComponent implements OnInit {
   addForm!: FormGroup;
   dataDetail: any;
   isId: any;
-  isName: any;
   changePriceModel: ChangePriceModel;
 
 
@@ -37,13 +36,12 @@ export class StoreOrderFreeChangePriceComponent implements OnInit {
     console.log("传过来的值", this.data);
     this.dataDetail = this.data;
     this.isId = this.dataDetail.id;
-    this.isName = this.dataDetail.product_name;
   }
 
 
   setValue() {
     this.changePriceModel.order_id = this.isId;
-    this.changePriceModel.title = this.isName;
+    this.changePriceModel.title =  this.addForm.value.name;
     this.changePriceModel.type = this.addForm.value.type;
     this.changePriceModel.price = this.addForm.value.price;
   }

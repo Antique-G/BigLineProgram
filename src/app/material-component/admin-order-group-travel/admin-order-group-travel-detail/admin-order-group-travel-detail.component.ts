@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { format } from 'date-fns';
+
 
 
 @Component({
@@ -47,7 +49,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           this.isAssemblinTime = '待定';
         }
         else {
-          this.isAssemblinTime = this.detailModel?.assembling_time;
+          let i='2021-01-01'+' '+ this.detailModel?.assembling_time;
+          let newDate= new Date(i);
+          console.log('object :>> ', newDate,i);
+          this.isAssemblinTime =format(new Date(newDate), 'HH:mm');
         }
       })
     });

@@ -126,29 +126,29 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <p *ngIf="data.order_sms===0">
-                                            <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                        <p *ngIf="data.order_sms===1">
-                                            <nz-badge nzColor="green"></nz-badge>已发</p>
-                                        <p *ngIf="data.order_sms===2">
-                                            <nz-badge nzColor="red"></nz-badge>发送失败</p>
+                                        <span *ngIf="data.order_sms===0">
+                                            <nz-badge nzColor="yellow"></nz-badge>未发</span>
+                                        <span *ngIf="data.order_sms===1">
+                                            <nz-badge nzColor="green"></nz-badge>已发</span>
+                                        <span *ngIf="data.order_sms===2">
+                                            <nz-badge nzColor="red"></nz-badge>发送失败</span>
                                     </td>
                                     <td>
-                                        <p *ngIf="data.cancel_type===0">-</p>
-                                        <p *ngIf="data.cancel_type===1">超时未支付</p>
-                                        <p *ngIf="data.cancel_type===2">到期未成团自动取消</p>
-                                        <p *ngIf="data.cancel_type===3">未支付主动取消</p>
-                                        <p *ngIf="data.cancel_type===4">用户主动申请退款</p>
-                                        <p *ngIf="data.cancel_type===5">平台取消成团</p>
+                                        <span *ngIf="data.cancel_type===0">-</span>
+                                        <span *ngIf="data.cancel_type===1">超时未支付</span>
+                                        <span *ngIf="data.cancel_type===2">到期未成团自动取消</span>
+                                        <span *ngIf="data.cancel_type===3">未支付主动取消</span>
+                                        <span *ngIf="data.cancel_type===4">用户主动申请退款</span>
+                                        <span *ngIf="data.cancel_type===5">平台取消成团</span>
                                     </td>
                                     <td>
                                         <div *ngIf="data.cancel_type===0||data.cancel_type===3">-</div>
                                         <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3">
-                                            <p *ngIf="data.refund_status===0">未退款</p>
-                                            <p *ngIf="data.refund_status===1">待审核</p>
-                                            <p *ngIf="data.refund_status===2">拒绝退款</p>
-                                            <p *ngIf="data.refund_status===3">已审核待退款</p>
-                                            <p *ngIf="data.refund_status===4">已退款</p>
+                                            <span *ngIf="data.refund_status===0">未退款</span>
+                                            <span *ngIf="data.refund_status===1">待审核</span>
+                                            <span *ngIf="data.refund_status===2">拒绝退款</span>
+                                            <span *ngIf="data.refund_status===3">已审核待退款</span>
+                                            <span *ngIf="data.refund_status===4">已退款</span>
                                         </div>
                                     </td>
                                     <td>

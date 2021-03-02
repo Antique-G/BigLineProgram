@@ -6,6 +6,9 @@ import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-o
 import { StoreOrderGroupTravelService } from '../../../../../services/store/store-order/store-order-group-travel.service';
 import { StoreOrderGroupChangeDateComponent } from './store-order-group-change-date/store-order-group-change-date.component';
 import { StoreOrderGroupChangePriceComponent } from './store-order-group-change-price/store-order-group-change-price.component';
+import { format } from 'date-fns';
+
+
 
 @Component({
   selector: 'app-store-order-grouptravel-detail',
@@ -48,9 +51,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         if (this.detailModel?.assembling_time === '00:00:00') {
           this.isAssemblinTime = '待定';
         }
-        else {
-          this.isAssemblinTime = this.detailModel?.assembling_time;
-        }
+        else { 
+          // 时间格式化，去除秒
+          let i='2021-01-01'+' '+ this.detailModel?.assembling_time;
+          let newDate= new Date(i);
+          console.log('object :>> ', newDate,i);
+          this.isAssemblinTime =format(new Date(newDate), 'HH:mm');
+          
+        } 
       })
     });
   }

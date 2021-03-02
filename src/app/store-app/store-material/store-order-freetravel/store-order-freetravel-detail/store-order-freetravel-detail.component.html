@@ -111,24 +111,24 @@
                                                 <td>{{data.id}}</td>
                                                 <td>{{data.name}}</td>
                                                 <td>
-                                                    <p *ngIf="data.is_kid===0">成人</p>
-                                                    <p *ngIf="data.is_kid===1">儿童</p>
+                                                    <span *ngIf="data.is_kid===0">成人</span>
+                                                    <span *ngIf="data.is_kid===1">儿童</span>
                                                 </td>
                                                 <td>
-                                                    <p *ngIf="data.id_type===1">身份证</p>
-                                                    <p *ngIf="data.id_type===2">护照</p>
-                                                    <p *ngIf="data.id_type===3">回乡证</p>
+                                                    <span *ngIf="data.id_type===1">身份证</span>
+                                                    <span *ngIf="data.id_type===2">护照</span>
+                                                    <span *ngIf="data.id_type===3">回乡证</span>
                                                 </td>
                                                 <td>{{data.id_num}}</td>
                                                 <td>{{data.phone}}</td>
                                                 <td>{{data.remarks}}</td>
                                                 <td>
-                                                    <p *ngIf="data.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                    <p *ngIf="data.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                    <p *ngIf="data.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
+                                                    <span *ngIf="data.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</span>
+                                                    <span *ngIf="data.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</span>
+                                                    <span *ngIf="data.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败</span>
                                                 </td>
                                             </tr>
                                         </tbody>
