@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 const httpOptions = {
@@ -21,7 +22,7 @@ export class AdminProductFreeTravelService {
 
   // 自由行产品列表
   freeTravelList(page: number, per_page: number, status: any, check_status: any, title: string, store_name: string, code: any): Observable<AdminFreeTravelListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')

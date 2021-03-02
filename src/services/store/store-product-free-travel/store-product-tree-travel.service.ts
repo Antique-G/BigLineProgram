@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 import { StoreFreeTravelModel, ProductTabListModel, FreeTravelListModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreUrls } from '../../../api';
 import { AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -30,7 +31,7 @@ export class StoreProductTreeTravelService {
 
   GetFreeTravelList(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any, code: any, status: any): Observable<FreeTravelListModel> {
     console.log(123);
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
