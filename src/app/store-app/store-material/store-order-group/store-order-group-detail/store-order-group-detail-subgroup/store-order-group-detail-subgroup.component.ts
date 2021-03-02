@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DataOrderDetail, DeleteSubGroup, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
+import { DataOrderDetail, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../services/store/store-order/store-order.service';
 import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
 import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
@@ -33,7 +33,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   orderSmsModel: OrderSmsModel;
 
   isClosed: any;
-  // deleteSubGroup: DeleteSubGroup;
+  tabTitle: any;
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
@@ -41,9 +41,6 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
     this.orderSmsModel = {
       order_ids: []
     };
-    // this.deleteSubGroup = {
-    //   sub_group_id: ''
-    // }
   }
 
   ngOnInit(): void { }
@@ -52,6 +49,8 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['subGroupModel']?.currentValue != undefined) {
       this.isClosed = changes['subGroupModel'].currentValue?.group_status;
+      this.tabTitle = changes['subGroupModel'].currentValue?.product_name;
+
       // 子团的值
       this.cursubGroupModelValue = changes['subGroupModel'].currentValue?.sub_group?.data;
       console.log("1111111", this.cursubGroupModelValue);
@@ -274,7 +273,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
 
   // 不成团关团短信通知
-  sendClosedGroup(){
+  sendClosedGroup() {
     let newArray = [...this.setOfCheckedId];
     console.log('拿到的订单内容 ', newArray);
     if (newArray.length === 0) {
