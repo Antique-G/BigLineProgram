@@ -21,6 +21,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   product_id: any;
   product_name: any;
   order_number: any;
+  store_name: any;
   date_start: any;
   date_end: any;
   dateArray: any[] = [];
@@ -34,7 +35,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       product_name: [''],
       order_number: [''],
       date_start: [''],
-      product_code: ['']
+      product_code: [''],
+      store_name: [''],
     });
   }
 
@@ -43,7 +45,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code).subscribe(res => {
+    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_name).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -72,6 +74,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.product_name = this.searchForm.value.product_name;
     this.order_number = this.searchForm.value.order_number;
     this.product_code = this.searchForm.value.product_code;
+    this.store_name = this.searchForm.value.store_name;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
     this.getFreeTravel();
