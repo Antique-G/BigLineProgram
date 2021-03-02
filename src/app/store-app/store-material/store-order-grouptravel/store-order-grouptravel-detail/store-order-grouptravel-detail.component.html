@@ -129,24 +129,24 @@
                                                 <td>{{data.id}}</td>
                                                 <td>{{data.name}}</td>
                                                 <td>
-                                                    <p *ngIf="data.is_kid===0">成人</p>
-                                                    <p *ngIf="data.is_kid===1">儿童</p>
+                                                    <div *ngIf="data.is_kid===0">成人</div>
+                                                    <div *ngIf="data.is_kid===1">儿童</div>
                                                 </td>
                                                 <td>
-                                                    <p *ngIf="data.id_type===1">身份证</p>
-                                                    <p *ngIf="data.id_type===2">护照</p>
-                                                    <p *ngIf="data.id_type===3">回乡证</p>
+                                                    <div *ngIf="data.id_type===1">身份证</div>
+                                                    <div *ngIf="data.id_type===2">护照</div>
+                                                    <div *ngIf="data.id_type===3">回乡证</div>
                                                 </td>
                                                 <td>{{data.id_num}}</td>
                                                 <td>{{data.phone}}</td>
                                                 <td>{{data.remarks}}</td>
                                                 <td>
-                                                    <p *ngIf="data.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                    <p *ngIf="data.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                    <p *ngIf="data.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
+                                                    <div *ngIf="data.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</div>
+                                                    <div *ngIf="data.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</div>
+                                                    <div *ngIf="data.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败</div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -183,8 +183,14 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
-                                        <div>共{{detailModel?.price_total}}元：成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;其他{{detailModel?.price_other}}元&nbsp;|&nbsp;补差价{{detailModel?.price_diff}}元</div>
-
+                                        <div>
+                                            <span>共{{detailModel?.price_total}}元：</span>
+                                            <span *ngIf="detailModel?.num_adult!=0">成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;</span>
+                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;</span>
+                                            <span> 保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;</span>
+                                            <span>其他{{detailModel?.price_other}}元&nbsp;|&nbsp;</span>
+                                            <span>补差价{{detailModel?.price_diff}}元</span>
+                                        </div>
                                     </div>
                                 </nz-spin>
                             </div>
