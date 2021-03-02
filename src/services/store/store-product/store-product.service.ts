@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -21,7 +22,7 @@ export class StoreProductService {
 
   // 获取产品列表
   getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any, code: any, status: any): Observable<ProductResponseListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')

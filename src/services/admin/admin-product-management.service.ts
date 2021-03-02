@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
 import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel, StoreListModel } from '../../interfaces/adminProduct/product-management-model';
 
@@ -22,7 +23,7 @@ export class AdminProductManagementService {
 
   // 产品列表
   productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string, code: any): Observable<AdminProductManagementListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
