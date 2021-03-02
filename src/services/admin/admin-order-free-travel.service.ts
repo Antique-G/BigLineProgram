@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Details, StoreOrderFreeTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 
@@ -24,8 +25,8 @@ export class AdminOrderFreeTravelService {
   
   // 自由行订单列表
   freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any): Observable<StoreOrderFreeTravelListRequestModel> {
-    const params = new HttpParams().set('page', page.toString())
+    date_start: any, date_end: any, product_code: any,store_name:any): Observable<StoreOrderFreeTravelListRequestModel> {
+    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('product_id', product_id ? product_id : '')
@@ -33,7 +34,9 @@ export class AdminOrderFreeTravelService {
       .set('order_number', order_number ? order_number : '')
       .set('date_start', date_start ? date_start : '')
       .set('date_end', date_end ? date_end : '')
-      .set('product_code', product_code ? product_code : '');
+      .set('product_code', product_code ? product_code : '')
+      .set('store_name', store_name ? store_name : '');
+
 
 
     const findhttpOptions = {
