@@ -17,6 +17,7 @@ import { differenceInCalendarDays, format } from 'date-fns';
 import { FreeTraveQuoteBydateModel } from '../../../../interfaces/store/storeQuote/store-quote-bydate';
 import { NzCalendarMode } from 'ng-zorro-antd/calendar';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class StoreQuoteBydateComponent implements OnInit {
   isEarlier: any;
 
 
-  constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
+  constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
+    private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
     this.listDataMap = {
       data: []
     }
@@ -92,7 +94,62 @@ export class StoreQuoteBydateComponent implements OnInit {
     let newMon = format(new Date(select), 'MM');
     newMon = newMon.replace(/\b(0+)/gi, "");
     this.nzPageIndex = Number(newMon);
-    this.getQuoteList();
+    let newDay = format(new Date(select), 'yyyy-MM-dd');
+    // 处理不能点击的日期
+    let i = 1 + Number(this.isEarlier);
+    console.log("differenceInCalendarDays(select, this.toDay) < i", differenceInCalendarDays(select, this.toDay) < i)
+    if (differenceInCalendarDays(select, this.toDay) < i) {
+      this.msg.error('当前日期不能进行报价');
+    }
+    else {
+      this.quoteBydateService.getQuoteDateList(this.productId, this.type, 1, newDay, 42).subscribe(data => {
+        console.log('datadatadatadata', data);
+        const modal: NzModalRef = this.modal.create({
+          nzTitle: '批量报价',
+          nzWidth: 720,
+          nzContent: StoreQuoteBydateCreateComponent,
+          nzComponentParams: {
+            data: {
+              date: [data?.data[0], select],
+              type: this.type,
+              productId: this.productId,
+              listDataMap: this.listDataMap,
+              earlier: this.isEarlier
+
+            }
+          },
+          nzFooter: [
+            {
+              label: '取消',
+              onClick: () => modal.destroy()
+            },
+            {
+              label: '删除',
+              type: 'danger',
+              onClick(componentInstance) {
+                componentInstance?.deleteInfo()
+              }
+            },
+            {
+              label: '确认',
+              type: 'primary',
+              onClick(componentInstance) {
+                if (componentInstance?.isSpinning == true) return;
+                componentInstance?.updateLoading()
+                componentInstance?.add()
+              }
+            },
+          ]
+
+        })
+        modal.afterClose.subscribe(res => {
+          this.getQuoteList();
+        })
+      })
+    }
+
+
+
 
   }
 
@@ -131,50 +188,53 @@ export class StoreQuoteBydateComponent implements OnInit {
     return date_all
   }
 
-  onSelectChange(date: any) {
-    if (differenceInCalendarDays(date, this.toDay) < 0) return
+  // onSelectChange(date: any) {
+  //   console.log("date是什么", date)
+  //   if (differenceInCalendarDays(date, this.toDay) < 0) return
 
-    const modal: NzModalRef = this.modal.create({
-      nzTitle: '批量报价',
-      nzWidth: 720,
-      nzContent: StoreQuoteBydateCreateComponent,
-      nzComponentParams: {
-        data: {
-          date: date,
-          type: this.type,
-          productId: this.productId,
-          listDataMap: this.listDataMap
-        }
-      },
-      nzFooter: [
-        {
-          label: '取消',
-          onClick: () => modal.destroy()
-        },
-        {
-          label: '删除',
-          type: 'danger',
-          onClick(componentInstance) {
-            componentInstance?.deleteInfo()
-          }
-        },
-        {
-          label: '确认',
-          type: 'primary',
-          onClick(componentInstance) {
-            if (componentInstance?.isSpinning == true) return;
-            componentInstance?.updateLoading()
-            componentInstance?.add()
-          }
-        },
-      ]
+  //   const modal: NzModalRef = this.modal.create({
+  //     nzTitle: '批量报价',
+  //     nzWidth: 720,
+  //     nzContent: StoreQuoteBydateCreateComponent,
+  //     nzComponentParams: {
+  //       data: {
+  //         date: date,
+  //         type: this.type,
+  //         productId: this.productId,
+  //         listDataMap: this.listDataMap,
+  //         earlier: this.isEarlier
 
-    })
-    modal.afterClose.subscribe(res => {
-      this.getQuoteList()
-    })
+  //       }
+  //     },
+  //     nzFooter: [
+  //       {
+  //         label: '取消',
+  //         onClick: () => modal.destroy()
+  //       },
+  //       {
+  //         label: '删除',
+  //         type: 'danger',
+  //         onClick(componentInstance) {
+  //           componentInstance?.deleteInfo()
+  //         }
+  //       },
+  //       {
+  //         label: '确认',
+  //         type: 'primary',
+  //         onClick(componentInstance) {
+  //           if (componentInstance?.isSpinning == true) return;
+  //           componentInstance?.updateLoading()
+  //           componentInstance?.add()
+  //         }
+  //       },
+  //     ]
 
-  }
+  //   })
+  //   modal.afterClose.subscribe(res => {
+  //     this.getQuoteList()
+  //   })
+
+  // }
 
   mode: NzCalendarMode = 'month';
 

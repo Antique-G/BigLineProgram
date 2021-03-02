@@ -27,13 +27,13 @@
                         <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
                     </div>
                     <div class="mat-elevation-z8">
-                        <!--  (nzSelectChange)="onSelectChange($event)" -->
+                        <!--  (nzSelectChange)="onSelectChange($event)" (click)="onSelectChange(item)"-->
                         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                             <nz-calendar (nzPanelChange)="panelChange($event)" [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
                                 <div *nzDateCell="let date" class="events">
                                     <ng-container *ngFor="let item of listDataMap.data">
                                         <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                            <div class="item itemFree" (click)="onSelectChange(item)" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
+                                            <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
                                                 <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
                                                 <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
                                                 <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
