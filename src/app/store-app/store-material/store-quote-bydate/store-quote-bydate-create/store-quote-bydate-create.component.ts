@@ -46,6 +46,10 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   confirmValue: any;
   freeTravelModel: any;
   currentDate = null;
+
+  // 删除
+  ids: any
+
   // 选择了周几
   weekValue: any[] = [1, 2, 3, 4, 5, 6, 0];
   // 选择周几
@@ -129,7 +133,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.type = this.data.type;
     this.isEarlier = this.data.earlier;
     console.log('object :>> ', this.isEarlier);
-    this.selectItem = this.data.date?this.data.date[0]:''; //当前点击项
+    this.selectItem = this.data.date ? this.data.date[0] : ''; //当前点击项
     this.GetDetail();
     console.log(this.selectItem, 'this.selectItem');
   }
@@ -159,7 +163,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       // 修改
       if (this.selectItem) {
         this.selectDate = [new Date(this.selectItem.date), new Date(this.selectItem.date)]
-        console.log('this.selectDate',this.selectDate);
+        console.log('this.selectDate', this.selectDate);
         this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
         this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
         this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
@@ -169,8 +173,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         this.isAllowOver = (this.selectItem.allow_over).toString() || '0'
         // this.addForm.controls["allow_over"].setValue(this.selectItem.allow_over)
       }
-      else{
-        if(this.data.date){
+      else {
+        if (this.data.date) {
           this.selectDate = [new Date(this.data.date[1]), new Date(this.data.date[1])];
         }
       }
@@ -279,7 +283,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   disabledDate = (current: Date): boolean => {
     // 禁用之前的日期
-    console.log("this.isEarlier",this.isEarlier)
+    console.log("this.isEarlier", this.isEarlier)
     let i = 1 + Number(this.isEarlier);
     return differenceInCalendarDays(current, this.today) < i;
   };
@@ -396,24 +400,20 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       nzContent: `<h6>请确认是否删除</h6>`,
       nzOnOk: () => {
         if (this.type == 'management') {
-          // this.dateArr = this.getAllDateCN(this.selectDate[0],this.selectDate[1])
-          // console.log(this.dateArr);
-          // let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-          //   let str = this.dateArr.map((e:string)=>e)
-          //   return str.indexOf(item.date)==-1
-          // })
-          // this.quoteBydateRequestModel.data.push(...newList)
-          // this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel,this.productId).subscribe(res=>{
-          //   this.quoteBydateRequestModel.data =[]
-          // })
-          this.quoteBydateService.deleteQuoteInfo(this.selectItem.id).subscribe(res => {
+          let i: any[] = [];
+          i.push(this.selectItem.id);
+          this.ids = i;
+          console.log('object :>> ', this.ids);
+          this.quoteBydateService.deleteQuoteInfo(this.selectItem.id, this.ids).subscribe(res => {
             this.quoteBydateRequestModel.data = []
           })
-        } else if (this.type == 'freeTravel') {
-
-
-
-          this.quoteBydateService.delQuoteInfo(this.selectItem.id).subscribe(res => {
+        } 
+        else if (this.type == 'freeTravel') {
+          let i: any[] = [];
+          i.push(this.selectItem.id);
+          this.ids = i;
+          console.log('object :>> ', this.ids);
+          this.quoteBydateService.delQuoteInfo(this.selectItem.id, this.ids).subscribe(res => {
           })
         }
       }
