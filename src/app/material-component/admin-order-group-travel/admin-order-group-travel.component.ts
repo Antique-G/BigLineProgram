@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
+import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 
 
 @Component({
@@ -21,14 +22,17 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   product_id: any;
   product_name: any;
   order_number: any;
-  store_name: any;
+  store_id: any;
   date_start: any;
   date_end: any;
   dateArray: any[] = [];
   product_code: any;
+  storeList: any[] = [];
 
 
-  constructor(public fb: FormBuilder, public router: Router, public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
+
+  constructor(public fb: FormBuilder, public router: Router, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
+    public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -36,16 +40,20 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       order_number: [''],
       date_start: [''],
       product_code: [''],
-      store_name: [''],
+      store_id: [''],
     });
   }
 
   ngOnInit(): void {
-    this.getFreeTravel();
+    this.adminProductManagementService.storeList('').subscribe(res => {
+      console.log("24234", res);
+      this.storeList = res;
+      this.groupTravel();
+    })
   }
 
-  getFreeTravel() {
-    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_name).subscribe(res => {
+  groupTravel() {
+    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -57,14 +65,14 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
-    this.getFreeTravel();
+    this.groupTravel();
   }
 
 
   changePageSize(per_page: number) {
     console.log("一页显示多少", per_page);
     this.per_page = per_page;
-    this.getFreeTravel();
+    this.groupTravel();
   }
 
 
@@ -74,10 +82,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.product_name = this.searchForm.value.product_name;
     this.order_number = this.searchForm.value.order_number;
     this.product_code = this.searchForm.value.product_code;
-    this.store_name = this.searchForm.value.store_name;
+    this.store_id = this.searchForm.value.store_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
-    this.getFreeTravel();
+    this.loading = true;
+    this.groupTravel();
   }
 
 
