@@ -16,14 +16,15 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="member_min" nzRequired>修改最小成团人数为</nz-form-label>
                 <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入最小成团人数">
-                    <nz-input-number style="width:100%" formControlName="member_min" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
+                    <nz-input-number style="width:132px" formControlName="member_min" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="member_max" nzRequired>修改最大成团人数为</nz-form-label>
                 <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入最大成团人数">
-                    <nz-input-number style="width:100%" formControlName="member_max" (keyup)="numTest($event)" [nzMin]="addForm.value.member_min"></nz-input-number>
+                    <nz-input-number style="width:132px" formControlName="member_max" (keyup)="numTest($event)" [nzMin]="0"></nz-input-number>
                 </nz-form-control>
+                <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">！填写0表示不限人数</p>
             </nz-form-item>
         </form>
     </div>
