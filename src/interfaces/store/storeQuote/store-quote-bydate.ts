@@ -1,9 +1,9 @@
 
 export interface StoreQuoteBydateRsponseListModel {
-    data:StoreQuoteBydateModel[]
+    data: StoreQuoteBydateModel[]
 }
 
-export interface StoreQuoteBydateModel{
+export interface StoreQuoteBydateModel {
     date: string;
     // child_price?: number;
     // adult_price?: number;
@@ -23,22 +23,22 @@ export interface StoreQuoteBydateModel{
     created_at?: any;
     updated_at?: any;
     deleted_at?: any;
-    
+
 }
 
-export interface StoreQuoteBydateRequestModel{
-    data:StoreQuoteBydateModel[]
+export interface StoreQuoteBydateRequestModel {
+    data: StoreQuoteBydateModel[]
 }
 
 
 export interface FreeTraveRsponseListModel {
-    data:FreeTraveQuoteBydateModel[]
+    data: FreeTraveQuoteBydateModel[]
 }
 
 
 // 自由行日期报价
 export interface FreeTraveQuoteBydateModel {
-    date:string,
+    date: string,
     id?: number;
     independent_product_id: number;
     adult_price: number;
@@ -51,4 +51,10 @@ export interface FreeTraveQuoteBydateModel {
     created_at: string;
     updated_at: string;
     deleted_at?: any;
-  }
+}
+
+
+//   报价删除
+export interface DeleteQuoteBydateModel {
+    ids: any[]
+}

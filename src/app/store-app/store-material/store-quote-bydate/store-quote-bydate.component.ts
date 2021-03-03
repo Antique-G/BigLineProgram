@@ -39,7 +39,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   freeTraveQuoteBydateModel: FreeTraveQuoteBydateModel;
   nzPageIndex = new Date().getMonth() + 1;
   isEarlier: any;
-
+  ids: any[] = [];
 
   constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -158,8 +158,11 @@ export class StoreQuoteBydateComponent implements OnInit {
     console.log(this.productId, 'this.productId', this.seletYearMonth);
     this.quoteBydateService.getQuoteDateList(this.productId, this.type, 1, this.seletYearMonth, 42).subscribe(data => {
       this.listDataMap.data = data.data;
+      this.listDataMap.data.forEach((value: any) => {
+        value['checked'] = false;
+      })
       this.isSpinning = false;
-      console.log('listDataMap', this.listDataMap);
+      console.log('listDataMap', this.listDataMap.data);
     })
   }
 
@@ -245,12 +248,11 @@ export class StoreQuoteBydateComponent implements OnInit {
     this.seletYearMonth = this.selectedYear + '-' + month;
     this.getQuoteList()
   }
+
   panelChange(change: { date: Date; mode: string }): void {
     console.log('panelChange', change.date, change.mode);
   }
-  // panelChange(e:any){
-  //   console.log('panelChange',e);
-  // }
+
 
   // 批量报价
   quoteClick() {
@@ -287,10 +289,47 @@ export class StoreQuoteBydateComponent implements OnInit {
 
     })
     modal.afterClose.subscribe(res => {
-      this.getQuoteList()
+      this.getQuoteList();
     })
-
-
   }
 
+
+  changeId(item: any) {
+    console.log('object :>> ', item);
+    if (item.checked === true) {
+      this.ids.push(item.id);
+    }
+    else if (item.checked === false) {
+      this.ids = this.ids.filter(res => res != item.id);
+      console.log("333333", this.ids);
+    }
+  }
+
+
+  quoteDelete() {
+    console.log("2324234",this.ids,this.ids.length===0)
+    if (this.ids.length===0) {
+      this.msg.error("请选择需要删除的日期报价");
+    }
+    else {
+      this.modal.confirm({
+        nzTitle: `<h2>删除<h2>`,
+        nzContent: `<h6>请确认是否删除</h6>`,
+        nzOnOk: () => {
+          if (this.type == 'management') {
+            this.quoteBydateService.deleteQuoteInfo(this.ids[0], this.ids).subscribe(res => {
+              this.getQuoteList();
+            })
+          } 
+          else if (this.type == 'freeTravel') {
+            this.quoteBydateService.delQuoteInfo(this.ids[0], this.ids).subscribe(res => {
+              this.getQuoteList();
+
+            })
+          }
+        }
+
+      });
+    }
+  }
 }
