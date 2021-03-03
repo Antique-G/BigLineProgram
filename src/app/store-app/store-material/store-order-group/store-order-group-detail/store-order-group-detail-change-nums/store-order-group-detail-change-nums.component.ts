@@ -19,7 +19,7 @@ export class StoreOrderGroupDetailChangeNumsComponent implements OnInit {
   constructor(public fb: FormBuilder, public storeOrderService: StoreOrderService) {
     this.addForm = this.fb.group({
       member_min: ['', [Validators.required]],
-      member_max: ['', [Validators.required]],
+      member_max: [0, [Validators.required]],
       old_member_min: [''],
       old_member_max: [''],
     });
