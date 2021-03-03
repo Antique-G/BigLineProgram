@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
+import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 
 
 @Component({
@@ -20,16 +21,19 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   status: any;
   product_id: any;
   product_name: any;
-  store_name: any;
+  store_id: any;
   order_number: any;
   date_start: any;
   date_end: any;
   dateArray: any[] = [];
   product_code: any;
+  storeList: any[] = [];
 
 
 
-  constructor(public fb: FormBuilder, public router: Router, public adminOrderFreeTravelService: AdminOrderFreeTravelService) {
+
+  constructor(public fb: FormBuilder, public router: Router, public adminOrderFreeTravelService: AdminOrderFreeTravelService,
+    public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -37,16 +41,21 @@ export class AdminOrderFreeTravelComponent implements OnInit {
       order_number: [''],
       date_start: [''],
       product_code: [''],
-      store_name: [''],
+      store_id: [''],
     });
   }
 
   ngOnInit(): void {
-    this.getFreeTravel();
+    this.adminProductManagementService.storeList('').subscribe(res => {
+      console.log("24234", res);
+      this.storeList = res;
+      this.getFreeTravel();
+    })
+
   }
 
   getFreeTravel() {
-    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_name).subscribe(res => {
+    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -75,9 +84,10 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.product_name = this.searchForm.value.product_name;
     this.product_code = this.searchForm.value.product_code;
     this.order_number = this.searchForm.value.order_number;
-    this.store_name = this.searchForm.value.store_name;
+    this.store_id = this.searchForm.value.store_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
+    this.loading = true;
     this.getFreeTravel();
   }
 
