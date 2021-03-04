@@ -34,10 +34,18 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
-                                <button nz-button nzType="dashed" *ngIf="choose_trip_type==='1'" class="add-button" (click)="addMore()">
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <ng-container>
+                                        <div *ngFor="let div of divs" id="div{{div}}" class="w-e-text">div{{div}}</div>
+                                    </ng-container>
+
+                                </div>
+                                <div>
+                                    <button nz-button nzType="dashed" *ngIf="choose_trip_type==='1'" class="add-button" (click)="addMore()">
                                     <i nz-icon nzType="plus"></i>
                                     添加
                                 </button>
+                                </div>
                             </form>
                         </div>
                     </div>

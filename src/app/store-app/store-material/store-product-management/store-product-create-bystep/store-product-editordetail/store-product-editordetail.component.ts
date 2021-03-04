@@ -24,7 +24,9 @@ export class StoreProductEditordetailComponent implements OnInit {
   detailList: any[] = []    //图片
 
   addForm!: FormGroup;
-  choose_trip_type = '1'
+  choose_trip_type = '1';
+
+  divs:number[]=[]
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
