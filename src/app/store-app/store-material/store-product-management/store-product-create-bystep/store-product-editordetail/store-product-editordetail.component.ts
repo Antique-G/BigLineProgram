@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
@@ -22,9 +23,15 @@ export class StoreProductEditordetailComponent implements OnInit {
   @ViewChild("detailBox") detailBox: any;     //获取dom
   detailList: any[] = []    //图片
 
+  addForm!: FormGroup;
+  choose_trip_type = '1'
 
-  constructor(public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
+
+  constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
     private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
+    this.addForm = this.fb.group({
+      trip_type: ['1'],
+    })
     this.detailUpdateModel = {
       step: 2,
       details: ''
@@ -136,5 +143,12 @@ export class StoreProductEditordetailComponent implements OnInit {
     })
   }
 
+
+
+
+  addMore(){
+    // const newEditor = new wangEditor("#div3");
+    // newEditor.create()
+  }
 }
 
