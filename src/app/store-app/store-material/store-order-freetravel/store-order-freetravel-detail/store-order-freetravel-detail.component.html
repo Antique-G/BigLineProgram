@@ -103,7 +103,6 @@
                                                 <th style="text-align: center;">证件号码</th>
                                                 <th style="text-align: center;">联系方式</th>
                                                 <th style="text-align: center;">备注</th>
-                                                <th style="text-align: center;">出团通知短信</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -122,14 +121,6 @@
                                                 <td>{{data.id_num}}</td>
                                                 <td>{{data.phone}}</td>
                                                 <td>{{data.remarks}}</td>
-                                                <td>
-                                                    <span *ngIf="data.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</span>
-                                                    <span *ngIf="data.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</span>
-                                                    <span *ngIf="data.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</span>
-                                                </td>
                                             </tr>
                                         </tbody>
                                     </nz-table>
@@ -165,8 +156,14 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
-                                        <div>共{{detailModel?.price_total}}元：成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;其他{{detailModel?.price_other}}元&nbsp;|&nbsp;补差价{{detailModel?.price_diff}}元</div>
-
+                                        <div>
+                                            <span>共{{detailModel?.price_total}}元：</span>
+                                            <span *ngIf="detailModel?.num_adult!=0">成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;</span>
+                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;</span>
+                                            <span> 保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;</span>
+                                            <span>其他{{detailModel?.price_other}}元&nbsp;|&nbsp;</span>
+                                            <span>补差价{{detailModel?.price_diff}}元</span>
+                                        </div>
                                     </div>
                                 </nz-spin>
                             </div>
