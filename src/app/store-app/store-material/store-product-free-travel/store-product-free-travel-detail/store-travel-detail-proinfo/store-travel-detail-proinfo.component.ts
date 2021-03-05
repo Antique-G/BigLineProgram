@@ -309,11 +309,16 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     console.log(this.addForm.valid);
     if (this.addForm.valid) {
-      this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
-        if (res.message == "更新成功") {
-          this.router.navigate(['/store/main/storeFreeTravel']);
-        }
-      })
+      if (Number(this.freeTravelModel.child_height_min) > Number(this.freeTravelModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
+          if (res.message == "更新成功") {
+          }
+        })
+      }
+  
     }
 
   }

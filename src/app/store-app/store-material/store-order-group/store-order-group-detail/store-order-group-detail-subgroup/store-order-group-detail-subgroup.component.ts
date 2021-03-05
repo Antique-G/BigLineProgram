@@ -34,6 +34,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
 
   isClosed: any;
   tabTitle: any;
+  proCode: any;
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
@@ -49,6 +50,7 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['subGroupModel']?.currentValue != undefined) {
       this.isClosed = changes['subGroupModel'].currentValue?.group_status;
+      this.proCode = changes['subGroupModel'].currentValue?.product?.data?.code;
       this.tabTitle = changes['subGroupModel'].currentValue?.product_name;
 
       // 子团的值

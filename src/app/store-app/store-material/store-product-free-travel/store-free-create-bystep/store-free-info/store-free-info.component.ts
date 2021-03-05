@@ -253,18 +253,24 @@ export class StoreFreeInfoComponent implements OnInit {
     console.log(this.addForm);
 
     if (this.addForm.valid) {
-      console.log('提交的model', this.freeTravelModel);
-      this.isLoadingBtn = true;
-      this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
-        if (res.id) {
-          this.isLoadingBtn = false;
-          this.tabIndex.emit({ id: res.id, tabIndex: 1 });
-          this.getOneTab();
-        }
-      },
-        error => {
-          this.isLoadingBtn = false;
-        })
+      if (Number(this.freeTravelModel.child_height_min) > Number(this.freeTravelModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        console.log('提交的model', this.freeTravelModel);
+        this.isLoadingBtn = true;
+        this.freeTravelService.SaveFreeTravelInfo(this.freeTravelModel).subscribe(res => {
+          if (res.id) {
+            this.isLoadingBtn = false;
+            this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+            this.getOneTab();
+          }
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
+      }
+
     }
   }
 
@@ -427,13 +433,19 @@ export class StoreFreeInfoComponent implements OnInit {
     }
     console.log(this.addForm.valid);
     if (this.addForm.valid) {
-      this.isLoadingBtn = true;
-      this.freeTravelModel.id = this.isId;
-      this.freeTravelModel.step = 0;
-      this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
-        this.isLoadingBtn = false;
-        this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
-      })
+      if (Number(this.freeTravelModel.child_height_min) > Number(this.freeTravelModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        this.isLoadingBtn = true;
+        this.freeTravelModel.id = this.isId;
+        this.freeTravelModel.step = 0;
+        this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
+          this.isLoadingBtn = false;
+          this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+        })
+      }
+
     }
 
   }

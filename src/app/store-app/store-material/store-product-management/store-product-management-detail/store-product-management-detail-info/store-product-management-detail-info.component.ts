@@ -549,12 +549,18 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     }
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
-      //更新
-      this.detailUpdateModel.id = this.detailId;
-      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-        console.log("res结果", res);
+      if (Number(this.detailUpdateModel.child_height_min) > Number(this.detailUpdateModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        //更新
+        this.detailUpdateModel.id = this.detailId;
+        this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+          console.log("res结果", res);
 
-      })
+        })
+      }
+
     }
   }
 
