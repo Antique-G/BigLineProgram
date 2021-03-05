@@ -144,7 +144,7 @@ export class StoreProductInfoComponent implements OnInit {
       child_height_min: [''],
       child_height_max: [''],
       reserve_num_min: [1, [Validators.required]],
-      reserve_num_max: [''],
+      reserve_num_max: [0],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
 

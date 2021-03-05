@@ -40,6 +40,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   nzPageIndex = new Date().getMonth() + 1;
   isEarlier: any;
   ids: any[] = [];
+  allChecked = false;
 
   constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -307,8 +308,8 @@ export class StoreQuoteBydateComponent implements OnInit {
 
 
   quoteDelete() {
-    console.log("2324234",this.ids,this.ids.length===0)
-    if (this.ids.length===0) {
+    console.log("2324234", this.ids, this.ids.length === 0)
+    if (this.ids.length === 0) {
       this.msg.error("请选择需要删除的日期报价");
     }
     else {
@@ -320,7 +321,7 @@ export class StoreQuoteBydateComponent implements OnInit {
             this.quoteBydateService.deleteQuoteInfo(this.ids[0], this.ids).subscribe(res => {
               this.getQuoteList();
             })
-          } 
+          }
           else if (this.type == 'freeTravel') {
             this.quoteBydateService.delQuoteInfo(this.ids[0], this.ids).subscribe(res => {
               this.getQuoteList();
@@ -330,6 +331,27 @@ export class StoreQuoteBydateComponent implements OnInit {
         }
 
       });
+    }
+  }
+
+
+  allCheckedChoose(data: any) {
+    console.log("daya231231", data);
+    if (data === true) {
+      this.listDataMap.data.forEach((value: any) => {
+        console.log("1212312", value, value.id)
+        value['checked'] = true;
+        this.ids.push(value.id);
+        console.log("t2342342", this.ids);
+
+      })
+    }
+    else if (data === false) {
+      this.listDataMap.data.forEach((value: any) => {
+        value['checked'] = false;
+        this.ids = [];
+        console.log("this.ids3423", this.ids);
+      })
     }
   }
 }
