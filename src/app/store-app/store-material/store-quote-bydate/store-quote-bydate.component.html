@@ -27,6 +27,7 @@
                         </nz-select>
                         <span style="margin-right: 5px;">月</span>
                         <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
+                        <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="allCheckedChoose($event)" *ngIf="listDataMap.data.length!=0" style="margin-left: 20px;">全选已报价日期</label>
                     </div>
                     <div class="mat-elevation-z8">
                         <!--  (nzSelectChange)="onSelectChange($event)" (click)="onSelectChange(item)"-->
