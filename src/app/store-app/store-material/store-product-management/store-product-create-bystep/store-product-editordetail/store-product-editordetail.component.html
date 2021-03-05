@@ -21,8 +21,10 @@
                                 </nz-form-item>
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="details" nzRequired>产品详情</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入产品详情!">
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired *ngIf="choose_trip_type==='2'">产品详情</nz-form-label>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired *ngIf="choose_trip_type==='1'">第一天</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入">
+                                            <input nz-input formControlName="title" *ngIf="choose_trip_type==='1'" />
                                             <a nz-button nzType="link" (click)="importImg()">从图库导入资源</a>
                                             <br>
                                             <div class="wangeditor-feature">
@@ -34,18 +36,34 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
-                                <div fxLayout="column" fxLayoutAlign="start stretch">
-                                    <ng-container>
-                                        <div *ngFor="let div of divs" id="div{{div}}" class="w-e-text">div{{div}}</div>
-                                    </ng-container>
 
-                                </div>
-                                <div>
-                                    <button nz-button nzType="dashed" *ngIf="choose_trip_type==='1'" class="add-button" (click)="addMore()">
-                                    <i nz-icon nzType="plus"></i>
-                                    添加
-                                </button>
-                                </div>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngFor="let div of divs;let i=index">
+                                    <div nz-row *ngIf="choose_trip_type==='1'">
+                                        <nz-form-label [nzSm]="3" [nzXs]="24">第{{div+2}} 天</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                            <input nz-input formControlName="title" />
+                                            <a nz-button nzType="link" (click)="importImgs(i)">从图库导入资源</a>
+                                            <br>
+                                            <ng-container>
+                                                <div class="wangeditor-feature">
+                                                    <div id="newEditor{{div}}" style="background-color: ghostwhite;z-index: 10001;"></div>
+                                                    <div id="newEditorContent{{div}}" class="w-e-text" style="border: 1px solid #c9d8dc;resize: both !important;height: 500px;max-height: 650px;overflow: auto !important;">
+                                                        <!-- <div #detailBox{{div}}></div> -->
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="choose_trip_type==='1'">
+                                    <div nz-row>
+                                        <button nz-button nzType="dashed" class="add-button" (click)="addMore()">
+                                            <i nz-icon nzType="plus"></i>
+                                            添加
+                                        </button>
+                                    </div>
+                                </nz-form-item>
                             </form>
                         </div>
                     </div>

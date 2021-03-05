@@ -24,8 +24,8 @@
                         </ng-template>
                     </mat-tab>
 
-                    <!-- [disabled]="isIndex<2" -->
-                    <mat-tab label="产品详情">
+                    <!--  -->
+                    <mat-tab label="产品详情" [disabled]="isIndex<2">
                         <ng-template matTabContent>
                             <div class="content">
                                 <app-store-product-editordetail (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-editordetail>

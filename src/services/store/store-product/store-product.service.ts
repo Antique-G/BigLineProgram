@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel, AddProductTrip } from '../../../interfaces/store/storeProduct/ProductModel';
 import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
@@ -84,6 +84,15 @@ export class StoreProductService {
   // 修改产品
   updateProduct(detailUpdateModel: any) {
     return this.httpClient.put<AddProductResponseModel>(this.urls.PutStoreProductUpdate + detailUpdateModel.id, detailUpdateModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 逐条添加行程
+  cancel(addProductTrip: AddProductTrip): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreProductTrip, addProductTrip, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

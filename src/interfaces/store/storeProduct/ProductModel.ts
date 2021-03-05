@@ -239,6 +239,18 @@ export interface DataProductTagCateList {
   name: string;
 }
 
+// 逐条添加行程
+export interface AddProductTrip {
+  product_id: string;
+  trip_arr: Triparr[];
+  trip_type: number;
+}
 
-
+export interface Triparr {
+  day: string;
+  title: string;
+  product_id: string;
+  content: string;
+  id: string;
+}
 

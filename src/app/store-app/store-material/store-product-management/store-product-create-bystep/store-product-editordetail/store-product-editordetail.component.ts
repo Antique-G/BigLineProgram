@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
@@ -26,17 +26,29 @@ export class StoreProductEditordetailComponent implements OnInit {
   addForm!: FormGroup;
   choose_trip_type = '1';
 
-  divs:number[]=[]
+  divs: number[] = [];
+  addProductTrip: any;
+
+
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
     private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.addForm = this.fb.group({
       trip_type: ['1'],
-    })
+      title: [''],
+      imageList: this.fb.array([]),
+    });
+
     this.detailUpdateModel = {
       step: 2,
-      details: ''
+      details: '',
+      trip_type: 2
+    };
+    this.addProductTrip = {
+      product_id: '',
+      trip_type: 1,
+      trip_arr: []
     }
   }
 
@@ -45,8 +57,16 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.textChange();
+    // setTimeout(()=>{
+    //   this.create();},1000)
+
   }
 
+
+  // 图片
+  get imgageArray() {
+    return this.addForm.get("imageList") as FormArray;
+  }
 
 
   // 富文本
@@ -135,22 +155,91 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
 
-  nextTab() {
-    this.detailUpdateModel.id = this.addDataDetailModel.id;
-    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      if (res === null) {
-        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-      }
+  addMore() {
+    this.divs.push(this.divs.length);
+    setTimeout(() => {
+      this.create();
+    }, 1000)
 
-    })
+    // const newEditor = new wangEditor("#div3");
+    // newEditor.create()
+  }
+
+  create() {
+    this.imgageArray.push(this.fb.group({
+      name: new FormControl(''),
+    }))
+    const newEditor = new wangEditor("#newEditor" + this.divs[this.divs.length - 1], "#newEditorContent" + this.divs[this.divs.length - 1]);
+    newEditor.config.onchange = (newHtml: any) => {
+      // this.detailUpdateModel.details = newHtml;
+    }
+    // 配置菜单栏
+    newEditor.config.menus = [
+      'head',
+      'bold',
+      'fontSize',
+      'fontName',
+      'italic',
+      'underline',
+      'strikeThrough',
+      'indent',
+      'lineHeight',
+      'foreColor',
+      'backColor',
+      'list',
+      'todo',
+      'justify',
+      'quote',
+      'emoticon',
+      'table',
+      'splitLine',
+      'undo',
+      'redo',
+    ]
+
+    // 注册菜单
+    newEditor.menus.extend('insertABC', InsertABCMenu)
+    // 重新配置 editor.config.menus
+    newEditor.config.menus = newEditor.config.menus.concat('insertABC')
+    newEditor.config.customFunction = (insert: any) => {
+      const modal: NzModalRef = this.modal.create({
+        nzTitle: '图片上传',
+        nzViewContainerRef: this.viewContainerRef,
+        nzContent: CommonModelComponent,
+        nzWidth: 660,
+        nzFooter: null
+      })
+      modal.afterClose.subscribe(result => {
+        let res = result?.data || []
+        res.forEach((item: any) => {
+          insert(item.url)
+        });
+      });
+    }
+    newEditor.create();
+
   }
 
 
 
 
-  addMore(){
-    // const newEditor = new wangEditor("#div3");
-    // newEditor.create()
+  nextTab() {
+    if (this.choose_trip_type === '2') {
+      this.detailUpdateModel.id = this.addDataDetailModel.id;
+      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+        }
+      })
+    }
+    else if (this.choose_trip_type === '1') {
+
+    }
+
+  }
+
+  importImgs(i:any){
+
   }
 }
 
