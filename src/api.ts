@@ -156,6 +156,9 @@ export const StoreUrls = {
   PutStoreQuoteByDate: api + '/store/date_quote/',//添加产品报价
   DelStoreQuoteByDate: api + '/store/date_quote/',
   GetStoreProductCheckLog: api + '/store/product/check_log', // 审核日志
+  PostStoreProductTrip: api + '/store/product_trip', // 逐条添加行程
+
+  
 
 
   PostStoreQuoteByDateSetCheck: api + '/store/product/set_check',//产品报价提交审核
