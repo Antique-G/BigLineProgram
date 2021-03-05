@@ -18,6 +18,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   listOfParentData: any[] = [];
   isClosed: any;
   tabTitle: any;
+  proCode: any;
 
 
 
@@ -30,7 +31,9 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['subGroupModel']?.currentValue != undefined) {
       this.isClosed = changes['subGroupModel'].currentValue?.group_status;
+      this.proCode = changes['subGroupModel'].currentValue?.product?.data?.code;
       this.tabTitle = changes['subGroupModel'].currentValue?.product_name;
+
       // 子团的值
       this.cursubGroupModelValue = changes['subGroupModel'].currentValue?.sub_group?.data;
       console.log("1111111", this.cursubGroupModelValue);

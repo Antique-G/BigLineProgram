@@ -12,6 +12,7 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
+
 @Component({
   selector: 'app-store-product-info',
   templateUrl: './store-product-info.component.html',
@@ -465,19 +466,25 @@ export class StoreProductInfoComponent implements OnInit {
     }
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
-      // 添加
-      this.isLoadingBtn = true;
-      this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
-        console.log("res结果", res);
-        if (res.id) {
-          this.isLoadingBtn = false;
-          this.tabIndex.emit({ id: res.id, tabIndex: 1 });
-          this.getOneTab()
-        }
-      },
-        error => {
-          this.isLoadingBtn = false;
-        })
+      if (Number(this.addStoreProductModel.child_height_min) > Number(this.addStoreProductModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        // 添加
+        this.isLoadingBtn = true;
+        this.storeProductService.createProduct(this.addStoreProductModel).subscribe(res => {
+          console.log("res结果", res);
+          if (res.id) {
+            this.isLoadingBtn = false;
+            this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+            this.getOneTab()
+          }
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
+      }
+
     }
 
   }
@@ -514,16 +521,22 @@ export class StoreProductInfoComponent implements OnInit {
     }
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
-      //更新
-      this.isLoadingBtn = true;
-      this.addStoreProductModel.id = this.isId;
-      this.addStoreProductModel.step = 0;
-      this.storeProductService.updateProduct(this.addStoreProductModel).subscribe(res => {
-        console.log("res结果", res);
-        this.isLoadingBtn = false;
-        this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+      if (Number(this.addStoreProductModel.child_height_min) > Number(this.addStoreProductModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        //更新
+        this.isLoadingBtn = true;
+        this.addStoreProductModel.id = this.isId;
+        this.addStoreProductModel.step = 0;
+        this.storeProductService.updateProduct(this.addStoreProductModel).subscribe(res => {
+          console.log("res结果", res);
+          this.isLoadingBtn = false;
+          this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
 
-      })
+        })
+      }
+
     }
   }
 

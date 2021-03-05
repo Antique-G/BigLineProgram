@@ -125,16 +125,13 @@
                                     <td>{{data.price_total}}元</td>
                                     <td>
                                         <span *ngIf="data.payment_status===0">
-                                            <nz-badge nzColor="red"></nz-badge>未支付
+                                            <nz-badge nzColor="red"></nz-badge>待支付
                                         </span>
                                         <span *ngIf="data.payment_status===1">
                                             <nz-badge nzColor="green"></nz-badge>已支付
                                         </span>
                                         <span *ngIf="data.payment_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>部分待支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===3">
-                                            <nz-badge nzColor="yellow"></nz-badge>部分待返还
+                                            <nz-badge nzColor="pink"></nz-badge>支付中
                                         </span>
                                     </td>
                                     <td>
@@ -154,8 +151,8 @@
                                         <span *ngIf="data.cancel_type===5">平台取消成团</span>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.cancel_type===0||data.cancel_type===3">-</div>
-                                        <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3">
+                                        <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">-</div>
+                                        <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
                                             <span *ngIf="data.refund_status===0">未退款</span>
                                             <span *ngIf="data.refund_status===1">待审核</span>
                                             <span *ngIf="data.refund_status===2">拒绝退款</span>

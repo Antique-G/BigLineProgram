@@ -7,8 +7,8 @@ import { AdminProductTagService } from '../../../../../../services/admin/admin-p
 import wangEditor from 'wangeditor';
 import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
-import { FreeTravelUpdateModel } from '../../../../../../interfaces/adminProduct/free-travel-model';
 import { format } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -86,7 +86,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, public dialog: MatDialog,
     public adminProductFreeTravelService: AdminProductFreeTravelService, public adminProductManagementService: AdminProductManagementService,
-    public adminRegionService: AdminRegionService, public adminProductTagService: AdminProductTagService) {
+    public adminRegionService: AdminRegionService, public adminProductTagService: AdminProductTagService,
+    private msg: NzMessageService,) {
     this.buildForm();
     this.freeTravelUpdateModel = {
       title: '',
@@ -318,20 +319,20 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       this.freeTravelUpdateModel.earlier = 0;
     }
     else if (parseInt(this.isReserveAhead) === 1) {
-       // 时间处理
-       let earlier1 = this.addForm.value.earlier1;
-       let date = new Date(this.addForm.value.earlier2);
-       let min = date.getMinutes();
-       let hour = date.getHours();
-       if (min > 0) {
-         let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
-         this.freeTravelUpdateModel.earlier = resMin;
-       }
-       else if (min === 0) {
-         let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
-         this.freeTravelUpdateModel.earlier = resMin;
-       }
-       console.log('date是多少', this.freeTravelUpdateModel.earlier);
+      // 时间处理
+      let earlier1 = this.addForm.value.earlier1;
+      let date = new Date(this.addForm.value.earlier2);
+      let min = date.getMinutes();
+      let hour = date.getHours();
+      if (min > 0) {
+        let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
+        this.freeTravelUpdateModel.earlier = resMin;
+      }
+      else if (min === 0) {
+        let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
+        this.freeTravelUpdateModel.earlier = resMin;
+      }
+      console.log('date是多少', this.freeTravelUpdateModel.earlier);
     }
     this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
@@ -402,13 +403,19 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
     console.log(this.addForm.valid);
     if (this.addForm.valid) {
-      //更新
-      this.freeTravelUpdateModel.id = this.detailId;
-      this.adminProductFreeTravelService.freeTravelUpdate(this.freeTravelUpdateModel).subscribe(res => {
-        if (res.message == "更新成功") {
+      if (Number(this.freeTravelUpdateModel.child_height_min) > Number(this.freeTravelUpdateModel.child_height_max)) {
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else {
+        //更新
+        this.freeTravelUpdateModel.id = this.detailId;
+        this.adminProductFreeTravelService.freeTravelUpdate(this.freeTravelUpdateModel).subscribe(res => {
+          if (res.message == "更新成功") {
 
-        }
-      })
+          }
+        })
+      }
+
     }
 
   }

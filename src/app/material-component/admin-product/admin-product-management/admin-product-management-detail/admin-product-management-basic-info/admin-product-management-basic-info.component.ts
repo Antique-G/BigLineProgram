@@ -7,6 +7,8 @@ import { AdminRegionService } from '../../../../../../services/admin/admin-regio
 import { ActivatedRoute, Router } from '@angular/router';
 import wangEditor from 'wangeditor';
 import { format } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 
 
 
@@ -101,7 +103,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
-    public adminProductTagService: AdminProductTagService,
+    public adminProductTagService: AdminProductTagService,private msg: NzMessageService,
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.buildForm();
     this.detailUpdateModel = {
@@ -521,10 +523,16 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
       //更新
-      this.detailUpdateModel.id = this.detailId;
-      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
-        console.log("res结果", res);
-      })
+      if(Number(this.detailUpdateModel.child_height_min)>Number(this.detailUpdateModel.child_height_max)){
+        this.msg.error("儿童最大身高不能小于最小身高");
+      }
+      else{
+        this.detailUpdateModel.id = this.detailId;
+        this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+          console.log("res结果", res);
+        })
+      }
+    
     }
   }
 
