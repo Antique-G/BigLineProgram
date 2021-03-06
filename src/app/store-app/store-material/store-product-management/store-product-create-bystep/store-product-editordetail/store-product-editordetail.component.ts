@@ -8,7 +8,6 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -64,7 +63,7 @@ export class StoreProductEditordetailComponent implements OnInit {
         title: null,
         product_id: '',
         content: '',
-        id: this.tempId
+     
       }
     ]
   }
@@ -181,7 +180,7 @@ export class StoreProductEditordetailComponent implements OnInit {
       title: null,
       product_id: '',
       content: '',
-      id: this.tempId
+    
     };
     console.log("点击添加", this.tripDayList.dayList);
 
