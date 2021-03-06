@@ -8,6 +8,7 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -26,9 +27,47 @@ export class StoreProductEditordetailComponent implements OnInit {
   addForm!: FormGroup;
   choose_trip_type = '1';
 
-  divs: number[] = [];
+
   addProductTrip: any;
 
+
+  editMenu = [
+    'head',
+    'bold',
+    'fontSize',
+    'fontName',
+    'italic',
+    'underline',
+    'strikeThrough',
+    'indent',
+    'lineHeight',
+    'foreColor',
+    'backColor',
+    'list',
+    'todo',
+    'justify',
+    'quote',
+    'emoticon',
+    'table',
+    'splitLine',
+    'undo',
+    'redo',
+  ]
+
+
+  // 按天添加行程
+  tempId = 1;
+  tripDayList = {
+    dayList: [
+      {
+        day: this.tempId,
+        title: null,
+        product_id: '',
+        content: '',
+        id: this.tempId
+      }
+    ]
+  }
 
 
 
@@ -84,31 +123,10 @@ export class StoreProductEditordetailComponent implements OnInit {
       this.detailUpdateModel.details = newHtml;
     }
     // 配置菜单栏
-    editorDetail.config.menus = [
-      'head',
-      'bold',
-      'fontSize',
-      'fontName',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'indent',
-      'lineHeight',
-      'foreColor',
-      'backColor',
-      'list',
-      'todo',
-      'justify',
-      'quote',
-      'emoticon',
-      'table',
-      'splitLine',
-      'undo',
-      'redo',
-    ]
+    editorDetail.config.menus = this.editMenu;
     // InsertABCMenu
     // 注册菜单
-    editorDetail.menus.extend('insertABC', InsertABCMenu)
+    editorDetail.menus.extend('insertABC', InsertABCMenu);
     // 重新配置 editor.config.menus
     editorDetail.config.menus = editorDetail.config.menus.concat('insertABC')
     editorDetail.config.customFunction = (insert: any) => {
@@ -156,47 +174,39 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   addMore() {
-    this.divs.push(this.divs.length);
+    // 第二天开始
+    this.tempId = this.tempId + 1;
+    let obj = {
+      day: this.tempId,
+      title: null,
+      product_id: '',
+      content: '',
+      id: this.tempId
+    };
+    console.log("点击添加", this.tripDayList.dayList);
+
+    this.tripDayList.dayList.push(obj);
+    let length = this.tripDayList.dayList.length;
+    let content = `#newEditor${this.tempId - 2}`;
+    let id = `#newEditorContent${this.tempId - 2}`;
+    console.log("423423423423", content, id);
     setTimeout(() => {
-      this.create();
-    }, 1000)
+      this.create(content, id, length - 1);
+    }, 1000);
 
-    // const newEditor = new wangEditor("#div3");
-    // newEditor.create()
-  }
-
-  create() {
     this.imgageArray.push(this.fb.group({
       name: new FormControl(''),
     }))
-    const newEditor = new wangEditor("#newEditor" + this.divs[this.divs.length - 1], "#newEditorContent" + this.divs[this.divs.length - 1]);
+  }
+
+  // 添加富文本
+  create(content: any, detail: any, index: any) {
+    const newEditor= new wangEditor(content, detail);
     newEditor.config.onchange = (newHtml: any) => {
-      // this.detailUpdateModel.details = newHtml;
+      this.tripDayList.dayList[index].content = newHtml;
     }
     // 配置菜单栏
-    newEditor.config.menus = [
-      'head',
-      'bold',
-      'fontSize',
-      'fontName',
-      'italic',
-      'underline',
-      'strikeThrough',
-      'indent',
-      'lineHeight',
-      'foreColor',
-      'backColor',
-      'list',
-      'todo',
-      'justify',
-      'quote',
-      'emoticon',
-      'table',
-      'splitLine',
-      'undo',
-      'redo',
-    ]
-
+    newEditor.config.menus = this.editMenu;
     // 注册菜单
     newEditor.menus.extend('insertABC', InsertABCMenu)
     // 重新配置 editor.config.menus
@@ -221,6 +231,26 @@ export class StoreProductEditordetailComponent implements OnInit {
   }
 
 
+  dayListSetValue() {
+    console.log("this.addForm.value.imageList", this.addForm.value.imageList);
+    console.log("43423423this.editorList", this.tripDayList.dayList);
+    this.tripDayList.dayList[0].title = this.addForm.value.title;
+    this.tripDayList.dayList[0].product_id = this.addDataDetailModel.id;
+    this.tripDayList.dayList[0].content = this.detailUpdateModel.details;
+    let newArr = this.tripDayList.dayList.shift()!;
+    console.log("newArr", this.tripDayList.dayList);
+    this.tripDayList.dayList.forEach((value: any, index: any) => {
+      value.title = this.addForm.value.imageList[index].name;
+      value.product_id = this.addDataDetailModel.id;
+    });
+    this.tripDayList.dayList.unshift(newArr);
+    console.log("赋值后", this.tripDayList.dayList);
+    this.addProductTrip.trip_arr = this.tripDayList.dayList;
+    this.addProductTrip.trip_type = 1;
+    this.addProductTrip.product_id = this.addDataDetailModel.id;
+  }
+
+
 
 
   nextTab() {
@@ -233,13 +263,68 @@ export class StoreProductEditordetailComponent implements OnInit {
       })
     }
     else if (this.choose_trip_type === '1') {
+      this.dayListSetValue();
+      this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+        console.log('结果是', res)
+        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+      })
 
     }
 
   }
 
-  importImgs(i:any){
 
+
+
+
+  importImgs(i: any) {
+    console.log("i是什么", i)
+    // this.imgageArray
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从图库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: ChooseGalleryComponent,
+      nzWidth: 1105,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      let result = res || []
+      result.forEach((item: any) => {
+        this.detailList.push(item)
+        if (this.detailList.length > 10) {
+          this.msg.error('产品特色引用图片不能超过10张')
+          return
+        }
+        // 将图片传到文本框
+        console.log("document.getElementById(`detailBox${i}`)!.innerHTML",document.getElementById(`detailBox${i}`)!.innerHTML)
+        document.getElementById(`detailBox${i}`)!.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`;
+      
+
+      });
+    });
   }
+
+
+
+
+
+  //   remove() {
+  //     console.log("点击的i是什么",this.addForm.value.imageList.length);
+  //     this.imgageArray.removeAt(this.addForm.value.imageList.length-1);
+  //     this.tripDayList.dayList.pop();
+  //     console.log("删除后",this.tripDayList.dayList);
+  //   //   this.tripDayList.dayList.forEach((v, i) => {
+  //   //     console.log("vvvvvvv",v,i,`#newEditor${v.id-2}`);
+
+  //   //     let newEditorChpt =new wangEditor(`#newEditor${v.id-2}`,  `#newEditorContent${v.id-2}`)
+  //   //     newEditorChpt.config.onchange = (newHtml: any) => {
+  //   //     this.tripDayList.dayList[i].content = newHtml;
+  //   //     newEditorChpt.create();
+  //   //   }
+  //   // })
+  // }
+
+
+
 }
 

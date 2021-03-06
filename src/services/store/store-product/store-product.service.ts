@@ -22,7 +22,7 @@ export class StoreProductService {
 
   // 获取产品列表
   getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any, code: any, status: any): Observable<ProductResponseListResponseModel> {
-    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
@@ -91,7 +91,7 @@ export class StoreProductService {
 
 
   // 逐条添加行程
-  cancel(addProductTrip: AddProductTrip): Observable<any> {
+  addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreProductTrip, addProductTrip, httpOptions)
       .pipe(
         catchError(this.handleError)
