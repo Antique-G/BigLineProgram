@@ -69,9 +69,9 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     destination_city: {
       'required': '请输入目的城市！'
     },
-    reserve_num: {
-      'required': '请输入可预订人数！'
-    },
+    // reserve_num: {
+    //   'required': '请输入可预订人数！'
+    // },
   };
   formErrors: any = {
     title: '',
@@ -80,7 +80,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     few_nights: '',
     departure_city: '',
     destination_city: '',
-    reserve_num: '',
+    // reserve_num: '',
   }
 
 
@@ -125,7 +125,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
       reserve_ahead: new FormControl(1, [Validators.required]),
-      reserve_num: new FormControl('', [Validators.required]),
+      reserve_num: new FormControl(0, [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
       children_age: new FormControl(''),
       child_height_min: new FormControl(''),
@@ -334,7 +334,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       }
       console.log('date是多少', this.freeTravelUpdateModel.earlier);
     }
-    this.freeTravelUpdateModel.reserve_num = this.addForm.value.reserve_num;
+    this.freeTravelUpdateModel.reserve_num = 0;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
     if (parseInt(this.isReserveChildren) === 0) {
       this.freeTravelUpdateModel.children_age = 0;

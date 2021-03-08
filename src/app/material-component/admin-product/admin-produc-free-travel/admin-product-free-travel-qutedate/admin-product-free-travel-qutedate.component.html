@@ -15,11 +15,9 @@
                                 <button nz-button nzType="primary" style="margin-left: 10px;" nzDanger (click)="checkStateClick(3)">未通过</button>
                             </div>
                             <div class="mat-elevation-z8">
-                             
+
                                 <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzPageSizeOptions]="[10,20,30,40]" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
-                                (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)"
-                                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
-                                 >
+                                    (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                                     <thead>
                                         <tr>
                                             <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
@@ -43,7 +41,10 @@
                                             <td>{{data.child_price}}</td>
                                             <td>{{data.difference_price}}</td>
                                             <td>{{data.set_inventory=='1'?'是':'否'}}</td>
-                                            <td>{{data.inventory_num}}</td>
+                                            <td>
+                                                <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
+                                                <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                            </td>
                                             <td>{{data.allow_over =='1'?'是':'否'}}</td>
                                             <td>
                                                 <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
@@ -52,9 +53,9 @@
                                     </tbody>
                                 </nz-table>
                             </div>
-        
+
                         </div>
-        
+
                     </div>
                 </mat-card>
             </div>
