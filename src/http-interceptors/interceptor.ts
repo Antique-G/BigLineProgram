@@ -117,6 +117,10 @@ export class Interceptor implements HttpInterceptor {
                 console.log("弹出的错误", error.error.message);
                 this.createFail(error.error.message)
                 break;
+                case 405:
+                console.log("弹出的错误", error.error.message);
+                this.createFail(error.error.message)
+                break;
               default:
                 this.createFail('未知错误')
                 break;
