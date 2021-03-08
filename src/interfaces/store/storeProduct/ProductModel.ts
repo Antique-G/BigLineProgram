@@ -52,18 +52,21 @@ export interface ProductDateilResponseModel {
 
 export interface DataModel {
   id: number;
+  code: string;
   title: string;
   sub_title: string;
+  scenic_spot: string;
   store_id: number;
   departure_city: string;
   earlier: number;
+  confirm: number;
   few_days: number;
   few_nights: number;
+  price_range: number;
   minimum_price: number;
   maximum_price: number;
   original_minimum_price: number;
   original_maximum_price: number;
-  difference_price: number;
   destination_city: string;
   child_status: number;
   child_age_max: number;
@@ -71,22 +74,42 @@ export interface DataModel {
   child_height_max: number;
   reserve_num_min: number;
   reserve_num_max: number;
+  reserve_ahead: number;
   contacts_status: number;
+  work_t_tem: number;
   feature: string;
-  details: string;
+  details?: any;
   fee: string;
-  notice: string;
+  notice?: any;
   status: number;
   created_at: string;
   updated_at: string;
   check_status: number;
   step_status: number;
+  poster_url: string;
+  trip_type: number;
   departure_city_full_name: string;
   destination_city_full_name: string;
+  departure_city_name: string;
+  destination_city_name: string;
   assembling_place: Assemblingplace;
   tag: Tag;
   album: Productalbum;
+  product_trip: Producttrip;
 }
+
+interface Producttrip {
+  data: ProducttripList[];
+}
+
+interface ProducttripList {
+  id: number;
+  day: number;
+  title: string;
+  product_id: number;
+  content: string;
+}
+
 
 interface Productalbum {
   data: Datum3[];
