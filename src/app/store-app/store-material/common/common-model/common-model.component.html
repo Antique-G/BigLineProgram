@@ -23,7 +23,7 @@
                         <!-- <nz-upload [(nzFileList)]="fileList" [nzSize]="5120"  [nzBeforeUpload]="beforeUpload" [nzMultiple]='true' [nzLimit]='10'>
                             <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
                         </nz-upload> -->
-                        <nz-upload [nzBeforeUpload]="beforeUpload" [nzSize]="5120" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 8" [nzMultiple]='true' [nzLimit]='10' [nzRemove]="removeImg">
+                        <nz-upload [nzBeforeUpload]="beforeUpload" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 8" [nzMultiple]='true' [nzLimit]='10' [nzRemove]="removeImg">
                             <div>
                                 <button nz-button>
                                 <span><i nz-icon nzType="upload"></i> 选择图片</span>

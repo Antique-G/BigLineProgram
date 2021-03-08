@@ -64,9 +64,12 @@ export class CommonModelComponent implements OnInit {
 
   // 上传图片之前
   beforeUpload = (file: NzUploadFile): boolean => {
-    // let url = window.URL.createObjectURL(file)
-    // this.imgUrl = this.sanitizer.bypassSecurityTrustUrl(url)
-    // console.log(this.imgUrl,url);
+    console.log('object :>> ', file, file.size);
+    let fileSize = file.size! / 1024 / 1024;
+    if (fileSize > 5) {
+      this.msg.error("图片大小必须5M以内,请重新上传图片!")
+      return false
+    }
     if (this.fileList.length <= 10) {
       let id: any = this.fileList.length
       // this.fileList = this.fileList.concat(file);
