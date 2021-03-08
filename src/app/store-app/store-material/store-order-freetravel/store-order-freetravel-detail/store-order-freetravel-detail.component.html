@@ -149,10 +149,9 @@
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <div>
                                         <div>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===0">未支付</button>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
                                             <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===2">部分待支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===3">部分待返还</button>
+                                            <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
