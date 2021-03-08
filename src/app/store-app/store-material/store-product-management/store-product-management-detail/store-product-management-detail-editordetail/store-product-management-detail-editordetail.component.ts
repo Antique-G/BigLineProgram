@@ -90,56 +90,56 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    console.log("dataDetailModel是什么", this.dataDetailModel, this.dataDetailModel.product_trip.data);
-    this.choose_trip_type = this.dataDetailModel.trip_type.toString();
-    // 按天添加
-    if (this.choose_trip_type === '1') {
-      this.addForm.patchValue({
-        title: this.dataDetailModel.product_trip.data[0].title
-      })
-      let dayList = this.dataDetailModel.product_trip.data;
-      dayList.forEach((element: any, index: any) => {
-        if (element.day != 1) {
-          this.newArray.push(element)
-        }
-        console.log("imgArray111", this.newArray, dayList);
-      });
-      this.newArray.forEach((element: any, index: any) => {
-        (this.addForm.controls['imageList'] as FormArray).push(new FormGroup({
-          name: new FormControl(element.title)
-        }));
-        setTimeout(() => {
-          const newEditor = new wangEditor(`#newEditor${index}`, `#newEditorContent${index}`);
-          document.getElementById(`detailBox${index}`)!.innerHTML = element.content;
-          console.log(' `element.content` :>> ', element.content);
-          newEditor.config.onchange = (newHtml: any) => {
-            this.newArray[index].content = newHtml;
-          }
-          // 配置菜单栏
-          newEditor.config.menus = this.editMenu;
-          // 注册菜单
-          newEditor.menus.extend('insertABC', InsertABCMenu)
-          // 重新配置 editor.config.menus
-          newEditor.config.menus = newEditor.config.menus.concat('insertABC')
-          newEditor.config.customFunction = (insert: any) => {
-            const modal: NzModalRef = this.modal.create({
-              nzTitle: '图片上传',
-              nzViewContainerRef: this.viewContainerRef,
-              nzContent: CommonModelComponent,
-              nzWidth: 660,
-              nzFooter: null
-            })
-            modal.afterClose.subscribe(result => {
-              let res = result?.data || []
-              res.forEach((item: any) => {
-                insert(item.url)
-              });
-            });
-          }
-          newEditor.create();
-        }, 500);
-      })
-    }
+    // console.log("dataDetailModel是什么", this.dataDetailModel, this.dataDetailModel.product_trip.data);
+    // this.choose_trip_type = this.dataDetailModel.trip_type.toString();
+    // // 按天添加
+    // if (this.choose_trip_type === '1') {
+    //   this.addForm.patchValue({
+    //     title: this.dataDetailModel.product_trip.data[0].title
+    //   })
+    //   let dayList = this.dataDetailModel.product_trip.data;
+    //   dayList.forEach((element: any, index: any) => {
+    //     if (element.day != 1) {
+    //       this.newArray.push(element)
+    //     }
+    //     console.log("imgArray111", this.newArray, dayList);
+    //   });
+    //   this.newArray.forEach((element: any, index: any) => {
+    //     (this.addForm.controls['imageList'] as FormArray).push(new FormGroup({
+    //       name: new FormControl(element.title)
+    //     }));
+    //     setTimeout(() => {
+    //       const newEditor = new wangEditor(`#newEditor${index}`, `#newEditorContent${index}`);
+    //       document.getElementById(`detailBox${index}`)!.innerHTML = element.content;
+    //       console.log(' `element.content` :>> ', element.content);
+    //       newEditor.config.onchange = (newHtml: any) => {
+    //         this.newArray[index].content = newHtml;
+    //       }
+    //       // 配置菜单栏
+    //       newEditor.config.menus = this.editMenu;
+    //       // 注册菜单
+    //       newEditor.menus.extend('insertABC', InsertABCMenu)
+    //       // 重新配置 editor.config.menus
+    //       newEditor.config.menus = newEditor.config.menus.concat('insertABC')
+    //       newEditor.config.customFunction = (insert: any) => {
+    //         const modal: NzModalRef = this.modal.create({
+    //           nzTitle: '图片上传',
+    //           nzViewContainerRef: this.viewContainerRef,
+    //           nzContent: CommonModelComponent,
+    //           nzWidth: 660,
+    //           nzFooter: null
+    //         })
+    //         modal.afterClose.subscribe(result => {
+    //           let res = result?.data || []
+    //           res.forEach((item: any) => {
+    //             insert(item.url)
+    //           });
+    //         });
+    //       }
+    //       newEditor.create();
+    //     }, 500);
+    //   })
+    // }
 
 
 
@@ -161,22 +161,24 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   textChange() {
     // 详情
     const editorDetail = new wangEditor("#editorDetail", "#editorContent");
-    if (this.dataDetailModel.trip_type === 2) {
-      this.detailBox.nativeElement.innerHTML = this.dataDetailModel.details;    //赋值
-      this.detailUpdateModel.details = this.dataDetailModel.details;
-      editorDetail.config.onchange = (newHtml: any) => {
-        this.detailUpdateModel.details = newHtml;
-      }
+    this.detailBox.nativeElement.innerHTML = this.dataDetailModel.details;    //赋值
+    this.detailUpdateModel.details = this.dataDetailModel.details;
+    editorDetail.config.onchange = (newHtml: any) => {
+      this.detailUpdateModel.details = newHtml;
     }
-    else if (this.dataDetailModel.trip_type === 1) {
-      alert(this.dataDetailModel.product_trip.data[0].content)
-      this.detailBox.nativeElement.innerHTML = this.dataDetailModel.product_trip.data[0].content;    //赋值
-      // this.detailUpdateModel.details = this.dataDetailModel.details;
-      editorDetail.config.onchange = (newHtml: any) => {
-        this.detailUpdateModel.details = newHtml;
-      }
-    }
-
+    // if (this.dataDetailModel.trip_type === 2) {
+    //   this.detailBox.nativeElement.innerHTML = this.dataDetailModel.details;    //赋值
+    //   this.detailUpdateModel.details = this.dataDetailModel.details;
+    //   editorDetail.config.onchange = (newHtml: any) => {
+    //     this.detailUpdateModel.details = newHtml;
+    //   }
+    // }
+    // else if (this.dataDetailModel.trip_type === 1) {
+    //   this.detailBox.nativeElement.innerHTML = this.dataDetailModel.product_trip.data[0].content;    //赋值
+    //   editorDetail.config.onchange = (newHtml: any) => {
+    //     this.detailUpdateModel.details = newHtml;
+    //   }
+    // }
     // 配置菜单栏
     editorDetail.config.menus = this.editMenu;
     // InsertABCMenu
@@ -232,19 +234,22 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
 
   nextTab() {
-    if (this.choose_trip_type === '2') {
-      this.detailUpdateModel.id = this.detailId.id;
-      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      })
-    }
-    else if (this.choose_trip_type === '1') {
-      this.dayListSetValue();
-      this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
+    this.detailUpdateModel.id = this.detailId;
+    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+    })
+    // if (this.choose_trip_type === '2') {
+    //   this.detailUpdateModel.id = this.detailId;
+    //   this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+    //   })
+    // }
+    // else if (this.choose_trip_type === '1') {
+    //   this.dayListSetValue();
+    //   this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+    //     console.log('结果是', res)
 
-      })
+    //   })
 
-    }
+    // }
   }
 
 
@@ -308,7 +313,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
 
 
-  remove(){}
+  remove() { }
 }
 
 

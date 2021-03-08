@@ -63,7 +63,7 @@ export class StoreProductEditordetailComponent implements OnInit {
         title: null,
         product_id: '',
         content: '',
-     
+
       }
     ]
   }
@@ -180,7 +180,7 @@ export class StoreProductEditordetailComponent implements OnInit {
       title: null,
       product_id: '',
       content: '',
-    
+
     };
     console.log("点击添加", this.tripDayList.dayList);
 
@@ -200,7 +200,7 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   // 添加富文本
   create(content: any, detail: any, index: any) {
-    const newEditor= new wangEditor(content, detail);
+    const newEditor = new wangEditor(content, detail);
     newEditor.config.onchange = (newHtml: any) => {
       this.tripDayList.dayList[index].content = newHtml;
     }
@@ -253,22 +253,28 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   nextTab() {
-    if (this.choose_trip_type === '2') {
-      this.detailUpdateModel.id = this.addDataDetailModel.id;
-      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-        if (res === null) {
-          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-        }
-      })
-    }
-    else if (this.choose_trip_type === '1') {
-      this.dayListSetValue();
-      this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
+    this.detailUpdateModel.id = this.addDataDetailModel.id;
+    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+      if (res === null) {
         this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-      })
+      }
+    })
+    // if (this.choose_trip_type === '2') {
+    //   this.detailUpdateModel.id = this.addDataDetailModel.id;
+    //   this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+    //     if (res === null) {
+    //       this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+    //     }
+    //   })
+    // }
+    // else if (this.choose_trip_type === '1') {
+    //   this.dayListSetValue();
+    //   this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+    //     console.log('结果是', res)
+    //     this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+    //   })
 
-    }
+    // }
 
   }
 
@@ -295,9 +301,9 @@ export class StoreProductEditordetailComponent implements OnInit {
           return
         }
         // 将图片传到文本框
-        console.log("document.getElementById(`detailBox${i}`)!.innerHTML",document.getElementById(`detailBox${i}`)!.innerHTML)
-        document.getElementById(`detailBox${i}`)!.innerHTML+=`<img src="${item.url}" style="max-width:100%;"/><br>`;
-      
+        console.log("document.getElementById(`detailBox${i}`)!.innerHTML", document.getElementById(`detailBox${i}`)!.innerHTML)
+        document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`;
+
 
       });
     });
