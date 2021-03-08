@@ -66,20 +66,20 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
   validationMessage: any = {
     adult_price: {
-      'isNumber': '请输入非零的正数',
+      // 'isNumber': '只能输入两位小数',
       'required': '成人价格数量必填'
     },
     child_price: {
-      'isNumber': '请输入非零的正数',
+      // 'isNumber': '只能输入两位小数',
     },
     original_adult_price: {
-      'isNumber': '请输入非零的正数',
+      // 'isNumber': '只能输入两位小数',
     },
     original_child_price: {
-      'isNumber': '请输入非零的正数',
+      // 'isNumber': '只能输入两位小数',
     },
     difference_price: {
-      'isNumber': '请输入非零的正数',
+      // 'isNumber': '只能输入两位小数',
     },
     inventory_num: {
       'isNumber': '请输入非零的正数',
@@ -147,9 +147,9 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       week: [false],
       date: ['', [Validators.required]],
-      adult_price: ['', [Validators.required, isNumber]],
-      child_price: [0, [isNumber]],
-      difference_price: [0, [isNumber]],
+      adult_price: ['', [Validators.required]],
+      child_price: [0, []],
+      difference_price: [0, []],
       inventory_num: [1, [Validators.required, isNumber]],
       set_inventory: [0, [Validators.required]],
       allow_over: [0, [Validators.required]],
@@ -407,7 +407,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
           this.quoteBydateService.deleteQuoteInfo(this.selectItem.id, this.ids).subscribe(res => {
             this.quoteBydateRequestModel.data = []
           })
-        } 
+        }
         else if (this.type == 'freeTravel') {
           let i: any[] = [];
           i.push(this.selectItem.id);
@@ -422,5 +422,11 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   }
 
   close() {
+  }
+
+
+  numTest(data: any) {
+    console.log('data :>> ', data,)
+    data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
   }
 }
