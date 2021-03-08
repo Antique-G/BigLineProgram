@@ -20,8 +20,6 @@ export class StoreOrderGroupDetailChangeNumsComponent implements OnInit {
     this.addForm = this.fb.group({
       member_min: [''],
       member_max: ['0'],
-      old_member_min: [''],
-      old_member_max: [''],
     });
     this.orderGroupNum = {
       member_min: '',
@@ -33,7 +31,7 @@ export class StoreOrderGroupDetailChangeNumsComponent implements OnInit {
   ngOnInit(): void {
     // 最大成团人数
     if (this.data[1]?.member_max === 0) {
-      this.isMemberMax = '-';
+      this.isMemberMax = 0;
     }
     else {
       this.isMemberMax = this.data[1]?.member_max;
