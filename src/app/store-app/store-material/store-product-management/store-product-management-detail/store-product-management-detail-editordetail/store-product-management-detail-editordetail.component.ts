@@ -307,6 +307,8 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   }
 
 
+
+  remove(){}
 }
 
 
