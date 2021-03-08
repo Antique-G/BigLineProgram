@@ -45,7 +45,11 @@
                                                 <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
                                                 <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
                                                 <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
-                                                <div>库存: <span style="color: red;">{{item.inventory_num}}</span></div>
+                                                <div>库存: <span style="color: red;">
+                                                <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
+                                                    <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </ng-container>
 
@@ -59,4 +63,4 @@
             </div>
         </mat-card>
     </div>
-</div>
+</div>0

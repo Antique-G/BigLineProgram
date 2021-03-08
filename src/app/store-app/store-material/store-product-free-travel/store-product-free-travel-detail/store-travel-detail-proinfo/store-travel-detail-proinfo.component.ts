@@ -74,9 +74,9 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     destination_city: {
       'required': '请输入目的城市！'
     },
-    reserve_num: {
-      'required': '请输入可预订人数！'
-    },
+    // reserve_num: {
+    //   'required': '请输入可预订人数！'
+    // },
   };
   formErrors: any = {
     title: '',
@@ -85,7 +85,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     few_nights: '',
     departure_city: '',
     destination_city: '',
-    reserve_num: '',
+    // reserve_num: '',
   }
 
 
@@ -370,7 +370,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       }
       console.log('date是多少', this.freeTravelModel.earlier);
     }
-    this.freeTravelModel.reserve_num = this.addForm.value.reserve_num;
+    this.freeTravelModel.reserve_num = 0;
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
     if (parseInt(this.isReserveChildren) === 0) {
       this.freeTravelModel.children_age = 0;
