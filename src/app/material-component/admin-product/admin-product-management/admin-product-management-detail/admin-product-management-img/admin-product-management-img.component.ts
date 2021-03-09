@@ -39,7 +39,7 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
     console.log("更新", this.adminProductDetailModel?.album?.data)
-
+    let arr: any[] = [];
     this.adminProductDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
@@ -47,9 +47,11 @@ export class AdminProductManagementImgComponent implements OnInit {
         this.dataSourceVideo.push(element)
       }
       else if (element.type === 1) {
-        this.dataSource.push(element)
+        arr.push(element)
+
       }
     });
+    this.dataSource = arr;
 
 
   }
@@ -119,7 +121,7 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
-           
+
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
@@ -217,7 +219,7 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
-        
+
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
@@ -250,7 +252,7 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
-        
+
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];

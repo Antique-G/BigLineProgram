@@ -46,7 +46,7 @@ export class StoreFreeImageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("更新", this.dataDetailModel?.albums?.data)
-    // this.dataSource = this.dataDetailModel?.albums?.data;
+    let arr: any[] = [];
     this.dataDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
@@ -54,9 +54,10 @@ export class StoreFreeImageComponent implements OnInit {
         this.dataSourceVideo.push(element)
       }
       else if (element.type === 1) {
-        this.dataSource.push(element)
+        arr.push(element)
       }
     });
+    this.dataSource = arr;
 
   }
 

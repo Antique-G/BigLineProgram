@@ -44,6 +44,7 @@ export class StoreProductDescComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
+      let arr: any[] = [];
       res?.data.album?.data?.forEach((element: any, value: any) => {
         this.dataSourceVideo = [];
         this.dataSource = [];
@@ -51,9 +52,11 @@ export class StoreProductDescComponent implements OnInit {
           this.dataSourceVideo.push(element)
         }
         else if (element.type === 1) {
-          this.dataSource.push(element)
+          arr.push(element)
         }
       });
+      this.dataSource = arr;
+
     })
   }
 
