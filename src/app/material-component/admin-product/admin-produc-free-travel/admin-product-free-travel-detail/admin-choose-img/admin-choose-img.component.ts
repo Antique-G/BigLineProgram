@@ -43,7 +43,7 @@ export class AdminChooseImgComponent implements OnInit {
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
     // this.dataSource = this.dataFreeDetailModel?.albums?.data;
 
-    if (this.dataFreeDetailModel?.albums?.data[0].type === 2) {
+    if (this.dataFreeDetailModel?.albums?.data[0]?.type === 2) {
       let i: any[] = [];
       i.push(this.dataFreeDetailModel?.albums?.data[0]);
       this.dataSourceVideo = i;
@@ -54,7 +54,7 @@ export class AdminChooseImgComponent implements OnInit {
         }
       });
     }
-    else if (this.dataFreeDetailModel?.albums?.data[0].type === 1) {
+    else if (this.dataFreeDetailModel?.albums?.data[0]?.type === 1) {
       this.dataSourceVideo = [];
       this.dataSource = this.dataFreeDetailModel?.albums?.data;
       this.dataSource.forEach((ele: any, index: any) => {

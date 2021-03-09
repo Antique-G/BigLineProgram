@@ -39,7 +39,7 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
     console.log("更新", this.adminProductDetailModel?.albums?.data)
-    if (this.adminProductDetailModel?.albums?.data[0].type === 2) {
+    if (this.adminProductDetailModel?.albums?.data[0]?.type === 2) {
       let i: any[] = [];
       i.push(this.adminProductDetailModel?.albums?.data[0]);
       this.dataSourceVideo = i;
@@ -50,7 +50,7 @@ export class AdminProductManagementImgComponent implements OnInit {
         }
       });
     }
-    else if (this.adminProductDetailModel?.albums?.data[0].type === 1) {
+    else if (this.adminProductDetailModel?.albums?.data[0]?.type === 1) {
       this.dataSourceVideo = [];
       this.dataSource = this.adminProductDetailModel?.albums?.data;
       this.dataSource.forEach((ele: any, index: any) => {
