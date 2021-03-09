@@ -34,11 +34,11 @@ export class StoreFreePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.dataDetailModel.poster_url!=""){
-      this.imgSrc=this.dataDetailModel.poster_url;
+    if (this.dataDetailModel.poster_url != "") {
+      this.imgSrc = this.dataDetailModel.poster_url;
       this.isShow = true;
     }
-  
+
   }
 
 
@@ -53,7 +53,7 @@ export class StoreFreePostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url+'?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0].url;
       this.isShow = true;
     });
 
@@ -71,7 +71,7 @@ export class StoreFreePostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url+'?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0].url;
       this.isShow = true;
     });
   }
@@ -83,9 +83,9 @@ export class StoreFreePostComponent implements OnInit {
     console.log("更新", this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       this.router.navigate(['/store/main/storeFreeTravel'],);
-      })
+    })
 
-    }
+  }
 
-  
+
 }

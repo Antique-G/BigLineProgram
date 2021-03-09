@@ -52,7 +52,7 @@ export class StoreProductManagementDetailPostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url + '?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0]?.url ;
       this.isShow = true;
     });
 
@@ -70,7 +70,7 @@ export class StoreProductManagementDetailPostComponent implements OnInit {
     modal.afterClose.subscribe(res => {
       let result = res || []
       console.log('返回的结果是', result);
-      this.imgSrc = result[0].url + '?x-oss-process=image/resize,w_450,m_lfit';
+      this.imgSrc = result[0]?.url;
       this.isShow = true;
     });
   }
