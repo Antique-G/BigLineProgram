@@ -42,6 +42,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
     console.log('this.dataDetailModel111111111 :>> ', this.dataDetailModel);
+    let arr: any[] = [];
     this.dataDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
@@ -49,9 +50,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
         this.dataSourceVideo.push(element)
       }
       else if (element.type === 1) {
-        this.dataSource.push(element)
+        arr.push(element)
       }
     });
+    this.dataSource = arr;
+
 
   }
 
@@ -236,19 +239,19 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
-      console.log('result!=[] :>> ', result, result==='' ,result.length,result.length!=0);
-      if(result.length===0){
+      console.log('result!=[] :>> ', result, result === '', result.length, result.length != 0);
+      if (result.length === 0) {
         console.log("视频的", this.dataSourceVideo)
       }
-      else{
-        this.dataSourceVideo=[]
+      else {
+        this.dataSourceVideo = []
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
         this.dataSourceVideo = result;
         console.log("视频的", this.dataSourceVideo)
       }
-     
+
     });
 
   }
@@ -266,11 +269,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res || [];
-      if(result.length===0){
+      if (result.length === 0) {
         console.log("视频的", this.dataSourceVideo)
       }
-      else{
-        this.dataSourceVideo=[]
+      else {
+        this.dataSourceVideo = []
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });

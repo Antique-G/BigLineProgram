@@ -42,7 +42,7 @@ export class AdminChooseImgComponent implements OnInit {
     });
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
     // this.dataSource = this.dataFreeDetailModel?.albums?.data;
-
+    let arr: any[] = [];
     this.dataFreeDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
@@ -50,9 +50,10 @@ export class AdminChooseImgComponent implements OnInit {
         this.dataSourceVideo.push(element)
       }
       else if (element.type === 1) {
-        this.dataSource.push(element)
+        arr.push(element)
       }
     });
+    this.dataSource = arr;
 
 
   }

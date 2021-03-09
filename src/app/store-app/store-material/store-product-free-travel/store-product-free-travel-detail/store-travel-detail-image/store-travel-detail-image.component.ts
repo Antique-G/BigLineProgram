@@ -46,19 +46,18 @@ export class StoreTravelDetailImageComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
     });
-    // console.log("更新", this.dataDetailModel?.albums?.data)
-    // this.dataSource = this.dataDetailModel?.albums?.data;
 
+    let arr: any[] = [];
     this.dataDetailModel?.albums?.data?.forEach((element: any, value: any) => {
-      this.dataSourceVideo = [];
-      this.dataSource = [];
       if (element.type === 2) {
-        this.dataSourceVideo.push(element)
+        this.dataSourceVideo.push(element);
       }
       else if (element.type === 1) {
-        this.dataSource.push(element)
+        console.log("22222", element.type, element.type === 1)
+        arr.push(element)
       }
     });
+    this.dataSource = arr;
   }
 
 
