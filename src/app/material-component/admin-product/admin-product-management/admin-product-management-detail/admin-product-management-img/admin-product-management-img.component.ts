@@ -38,21 +38,21 @@ export class AdminProductManagementImgComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    console.log("更新", this.adminProductDetailModel?.albums?.data)
-    if (this.adminProductDetailModel?.albums?.data[0]?.type === 2) {
+    console.log("更新", this.adminProductDetailModel?.album?.data)
+    if (this.adminProductDetailModel?.album?.data[0]?.type === 2) {
       let i: any[] = [];
-      i.push(this.adminProductDetailModel?.albums?.data[0]);
+      i.push(this.adminProductDetailModel?.album?.data[0]);
       this.dataSourceVideo = i;
-      let ii = this.adminProductDetailModel?.albums?.data;
+      let ii = this.adminProductDetailModel?.album?.data;
       ii.forEach((element: any) => {
         if (element.type != 2) {
           this.dataSource.push(element)
         }
       });
     }
-    else if (this.adminProductDetailModel?.albums?.data[0]?.type === 1) {
+    else if (this.adminProductDetailModel?.album?.data[0]?.type === 1) {
       this.dataSourceVideo = [];
-      this.dataSource = this.adminProductDetailModel?.albums?.data;
+      this.dataSource = this.adminProductDetailModel?.album?.data;
       this.dataSource.forEach((ele: any, index: any) => {
         console.log("22222", ele, index)
         ele.sort = index;
@@ -87,14 +87,14 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.dataSource.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort }
-        this.detailUpdateModel.albums.push(a)
+        this.detailUpdateModel.album.push(a)
       });
       console.log("更新", this.detailUpdateModel);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
             this.dataSource = [];
-            this.dataSource = res.data.albums.data;
+            this.dataSource = res.data.album.data;
             this.dataSource.forEach((ele: any, index: any) => {
               console.log("22222", ele, index)
               ele.sort = index;
@@ -123,11 +123,11 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
             let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
+            i.push(res.data?.album?.data[0]);
             this.dataSourceVideo = [];
             this.dataSource = [];
             this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
+            let ii = res.data?.album?.data;
             ii.forEach((element: any) => {
               if (element.type != 2) {
                 this.dataSource.push(element)
@@ -214,14 +214,14 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.dataSource.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort }
-        this.detailUpdateModel.albums.push(a)
+        this.detailUpdateModel.album.push(a)
       });
       console.log("更新", this.detailUpdateModel);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
             this.dataSource = [];
-            this.dataSource = res.data.albums.data;
+            this.dataSource = res.data.album.data;
             this.dataSource.forEach((ele: any, index: any) => {
               console.log("22222", ele, index)
               ele.sort = index;
@@ -250,11 +250,11 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
             let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
+            i.push(res.data?.album?.data[0]);
             this.dataSourceVideo = [];
             this.dataSource = [];
             this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
+            let ii = res.data?.album?.data;
             ii.forEach((element: any) => {
               if (element.type != 2) {
                 this.dataSource.push(element)

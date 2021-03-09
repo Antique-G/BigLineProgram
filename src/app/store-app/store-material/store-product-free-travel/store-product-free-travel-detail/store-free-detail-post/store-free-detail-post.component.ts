@@ -46,6 +46,7 @@ export class StoreFreeDetailPostComponent implements OnInit {
       nzTitle: '图片上传',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: CommonModelComponent,
+      
       nzWidth: 660,
       nzFooter: null
     })
@@ -64,6 +65,9 @@ export class StoreFreeDetailPostComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data:1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

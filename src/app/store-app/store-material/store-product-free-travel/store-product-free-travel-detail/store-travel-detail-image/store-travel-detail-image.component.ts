@@ -301,8 +301,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
-      if(result.length!=0){
-        console.log("上传的结果", res, res?.data.length);
+      if(result!=[]){
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
@@ -326,8 +325,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res || [];
-      if(result.length!=0){
-        console.log("上传的结果", res, res?.data.length);
+      if(result!=[]){
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
