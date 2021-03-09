@@ -344,13 +344,17 @@ export class StoreProductDescComponent implements OnInit {
         nzFooter: null
       })
       modal.afterClose.subscribe(res => {
+       console.log('2222 ', res);
         let result = res?.data || []
-        console.log("上传的结果", res, res?.data.length);
-        result.forEach((ele: any) => {
-          ele['sort'] = 0;
-        });
-        this.dataSourceVideo = result;
-        console.log("视频的", this.dataSourceVideo)
+        if(result.length!=0){
+          console.log("上传的结果", res, res?.data.length);
+          result.forEach((ele: any) => {
+            ele['sort'] = 0;
+          });
+          this.dataSourceVideo = result;
+          console.log("视频的", this.dataSourceVideo)
+        }
+      
       });
   
     }
@@ -367,12 +371,16 @@ export class StoreProductDescComponent implements OnInit {
         nzFooter: null
       })
       modal.afterClose.subscribe(res => {
+       console.log('11111 ', res);
         let result = res || [];
-        result.forEach((ele: any) => {
-          ele['sort'] = 0;
-        });
-        this.dataSourceVideo = result;
-        console.log("视频的", this.dataSourceVideo)
+        if(result.leng!=0){
+          result.forEach((ele: any) => {
+            ele['sort'] = 0;
+          });
+          this.dataSourceVideo = result;
+          console.log("视频的", this.dataSourceVideo)
+        }
+       
       });
   
     }
