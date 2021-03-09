@@ -43,16 +43,19 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     });
     console.log('this.dataDetailModel111111111 :>> ', this.dataDetailModel);
     let arr: any[] = [];
+    let arr1: any[] = [];
     this.dataDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
       if (element.type === 2) {
-        this.dataSourceVideo.push(element)
+        arr1.push(element)
       }
       else if (element.type === 1) {
         arr.push(element)
       }
     });
+    console.log('44444 :>> ', arr1, arr);
+    this.dataSourceVideo = arr1;
     this.dataSource = arr;
 
 
@@ -322,16 +325,23 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
+
+          let arr: any[] = [];
+          let arr1: any[] = [];
           res?.data.album?.data?.forEach((element: any, value: any) => {
             this.dataSourceVideo = [];
             this.dataSource = [];
             if (element.type === 2) {
-              this.dataSourceVideo.push(element)
+              arr1.push(element)
             }
             else if (element.type === 1) {
-              this.dataSource.push(element)
+              arr.push(element)
             }
           });
+          console.log('44444 :>> ', arr1, arr);
+          this.dataSourceVideo = arr1;
+          this.dataSource = arr;
+
         })
       }
     })
@@ -352,16 +362,22 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res?.data.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            console.log('44444 :>> ', arr1, arr);
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -384,16 +400,22 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res?.data.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            console.log('44444 :>> ', arr1, arr);
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })

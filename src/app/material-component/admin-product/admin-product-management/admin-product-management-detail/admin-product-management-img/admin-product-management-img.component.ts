@@ -40,17 +40,19 @@ export class AdminProductManagementImgComponent implements OnInit {
     });
     console.log("更新", this.adminProductDetailModel?.album?.data)
     let arr: any[] = [];
+    let arr1: any[] = [];
     this.adminProductDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
       if (element.type === 2) {
-        this.dataSourceVideo.push(element)
+        arr1.push(element)
       }
       else if (element.type === 1) {
         arr.push(element)
 
       }
     });
+    this.dataSourceVideo = arr1;
     this.dataSource = arr;
 
 
@@ -89,16 +91,21 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
 
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
+
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -122,16 +129,21 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
 
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
+
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -220,16 +232,22 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
 
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
+
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -253,16 +271,21 @@ export class AdminProductManagementImgComponent implements OnInit {
         if (res === null) {
           this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
 
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.album?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
+
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })

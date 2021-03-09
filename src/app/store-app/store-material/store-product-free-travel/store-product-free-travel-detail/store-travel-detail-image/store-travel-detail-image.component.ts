@@ -46,17 +46,19 @@ export class StoreTravelDetailImageComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
     });
-
     let arr: any[] = [];
+    let arr1: any[] = [];
     this.dataDetailModel?.albums?.data?.forEach((element: any, value: any) => {
+      this.dataSourceVideo = [];
+      this.dataSource = [];
       if (element.type === 2) {
-        this.dataSourceVideo.push(element);
+        arr1.push(element)
       }
       else if (element.type === 1) {
-        console.log("22222", element.type, element.type === 1)
         arr.push(element)
       }
     });
+    this.dataSourceVideo = arr1;
     this.dataSource = arr;
   }
 
@@ -185,16 +187,20 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -217,16 +223,20 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -376,16 +386,20 @@ export class StoreTravelDetailImageComponent implements OnInit {
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
+          let arr: any[] = [];
+          let arr1: any[] = [];
           res.data?.albums?.data?.forEach((element: any, value: any) => {
             this.dataSourceVideo = [];
             this.dataSource = [];
             if (element.type === 2) {
-              this.dataSourceVideo.push(element)
+              arr1.push(element)
             }
             else if (element.type === 1) {
-              this.dataSource.push(element)
+              arr.push(element)
             }
           });
+          this.dataSourceVideo = arr1;
+          this.dataSource = arr;
         })
       }
     })

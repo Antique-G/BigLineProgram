@@ -41,20 +41,23 @@ export class AdminChooseImgComponent implements OnInit {
       this.detailId = JSON.parse(params["detailId"]);
     });
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
-    // this.dataSource = this.dataFreeDetailModel?.albums?.data;
+
+
+
     let arr: any[] = [];
+    let arr1: any[] = [];
     this.dataFreeDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
       if (element.type === 2) {
-        this.dataSourceVideo.push(element)
+        arr1.push(element)
       }
       else if (element.type === 1) {
         arr.push(element)
       }
     });
+    this.dataSourceVideo = arr1;
     this.dataSource = arr;
-
 
   }
 
@@ -90,16 +93,23 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+
+
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -122,16 +132,22 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -219,16 +235,22 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
@@ -251,16 +273,22 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+
+
+            let arr: any[] = [];
+            let arr1: any[] = [];
             res.data?.albums?.data?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
               if (element.type === 2) {
-                this.dataSourceVideo.push(element)
+                arr1.push(element)
               }
               else if (element.type === 1) {
-                this.dataSource.push(element)
+                arr.push(element)
               }
             });
+            this.dataSourceVideo = arr1;
+            this.dataSource = arr;
           })
         }
       })
