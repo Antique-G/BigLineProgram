@@ -39,25 +39,18 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
     console.log("更新", this.adminProductDetailModel?.album?.data)
-    if (this.adminProductDetailModel?.album?.data[0]?.type === 2) {
-      let i: any[] = [];
-      i.push(this.adminProductDetailModel?.album?.data[0]);
-      this.dataSourceVideo = i;
-      let ii = this.adminProductDetailModel?.album?.data;
-      ii.forEach((element: any) => {
-        if (element.type != 2) {
-          this.dataSource.push(element)
-        }
-      });
-    }
-    else if (this.adminProductDetailModel?.album?.data[0]?.type === 1) {
+
+    this.adminProductDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
-      this.dataSource = this.adminProductDetailModel?.album?.data;
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log("22222", ele, index)
-        ele.sort = index;
-      });
-    }
+      this.dataSource = [];
+      if (element.type === 2) {
+        this.dataSourceVideo.push(element)
+      }
+      else if (element.type === 1) {
+        this.dataSource.push(element)
+      }
+    });
+
 
   }
 
@@ -92,14 +85,18 @@ export class AdminProductManagementImgComponent implements OnInit {
       console.log("更新", this.detailUpdateModel);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.album.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
+
+            res.data?.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -121,15 +118,15 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.detailUpdateModel.album = arr.concat(arr1);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
-            let i: any[] = [];
-            i.push(res.data?.album?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.album?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
+           
+            res.data?.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
@@ -219,14 +216,18 @@ export class AdminProductManagementImgComponent implements OnInit {
       console.log("更新", this.detailUpdateModel);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.album.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
+        
+            res.data?.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -248,15 +249,15 @@ export class AdminProductManagementImgComponent implements OnInit {
       this.detailUpdateModel.album = arr.concat(arr1);
       this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
-            let i: any[] = [];
-            i.push(res.data?.album?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.album?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res: any) => {
+        
+            res.data?.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
