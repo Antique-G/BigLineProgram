@@ -44,25 +44,16 @@ export class StoreProductDescComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-      if (res.data?.album?.data[0]?.type === 2) {
-        let i: any[] = [];
-        i.push(res.data?.album?.data[0]);
-        this.dataSourceVideo = i;
-        let ii = res.data?.album?.data;
-        ii.forEach((element: any) => {
-          if (element.type != 2) {
-            this.dataSource.push(element)
-          }
-        });
-      }
-      else if (res.data?.album?.data[0]?.type === 1) {
+      res?.data.album?.data?.forEach((element: any, value: any) => {
         this.dataSourceVideo = [];
-        this.dataSource = res.data?.album?.data;
-        this.dataSource.forEach((ele: any, index: any) => {
-          console.log("22222", ele, index)
-          ele.sort = index;
-        });
-      }
+        this.dataSource = [];
+        if (element.type === 2) {
+          this.dataSourceVideo.push(element)
+        }
+        else if (element.type === 1) {
+          this.dataSource.push(element)
+        }
+      });
     })
   }
 
@@ -245,13 +236,16 @@ export class StoreProductDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-            this.dataSource = [];
-            this.dataSource = res.data.album.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+            res?.data.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
             this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 5 })
           })
         }
@@ -275,14 +269,13 @@ export class StoreProductDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-            let i: any[] = [];
-            i.push(res.data?.album?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.album?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+            res?.data.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
@@ -295,7 +288,7 @@ export class StoreProductDescComponent implements OnInit {
   }
 
 
-  
+
   // 视频更新
   nextTabVideo() {
     this.detailUpdateModel.id = this.addDataDetailModel.id;
@@ -317,14 +310,13 @@ export class StoreProductDescComponent implements OnInit {
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-          let i: any[] = [];
-          i.push(res.data?.album?.data[0]);
-          this.dataSourceVideo = [];
-          this.dataSource = [];
-          this.dataSourceVideo = i;
-          let ii = res.data?.album?.data;
-          ii.forEach((element: any) => {
-            if (element.type != 2) {
+          res?.data.album?.data?.forEach((element: any, value: any) => {
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            if (element.type === 2) {
+              this.dataSourceVideo.push(element)
+            }
+            else if (element.type === 1) {
               this.dataSource.push(element)
             }
           });
@@ -334,70 +326,78 @@ export class StoreProductDescComponent implements OnInit {
   }
 
 
-    //视频 
-    uploadVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '视频上传',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: UploadVideoComponent,
-        nzWidth: 660,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-       console.log('2222 ', res);
-        let result = res?.data || []
-        if(result!=[]){
-          result.forEach((ele: any) => {
-            ele['sort'] = 0;
-          });
-          this.dataSourceVideo = result;
-          console.log("视频的", this.dataSourceVideo)
-        }
-      
-      });
-  
-    }
-  
-    importVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '从视频库导入资源',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: ChooseGalleryComponent,
-        nzComponentParams: {
-          data: 2
-        },
-        nzWidth: 1105,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-       console.log('11111 ', res);
-        let result = res || [];
-        if(result!=[]){
-          result.forEach((ele: any) => {
-            ele['sort'] = 0;
-          });
-          this.dataSourceVideo = result;
-          console.log("视频的", this.dataSourceVideo)
-        }
-       
-      });
-  
-    }
-  
-  
-    deleteItVideo(id: any) {
-      console.log("nadao", id);
-      const dialogRef = this.dialog.open(DeleteComfirmComponent, {
-        width: '550px',
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        if (result !== undefined) {
-          console.log("nadao", id);
-          this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
-        }
-      });
-    }
+  //视频 
+  uploadVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '视频上传',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: UploadVideoComponent,
+      nzWidth: 660,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      console.log('2222 ', res);
+      let result = res?.data || []
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
+        result.forEach((ele: any) => {
+          ele['sort'] = 0;
+        });
+        this.dataSourceVideo = result;
+        console.log("视频的", this.dataSourceVideo)
+      }
+
+    });
+
+  }
+
+  importVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从视频库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 2
+      },
+      nzWidth: 1105,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      console.log('11111 ', res);
+      let result = res || [];
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
+        result.forEach((ele: any) => {
+          ele['sort'] = 0;
+        });
+        this.dataSourceVideo = result;
+        console.log("视频的", this.dataSourceVideo)
+      }
+
+    });
+
+  }
+
+
+  deleteItVideo(id: any) {
+    console.log("nadao", id);
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", id);
+        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      }
+    });
+  }
 
 }
 

@@ -41,26 +41,16 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    console.log("更新", this.dataDetailModel?.album?.data)
-    if (this.dataDetailModel?.album?.data[0]?.type === 2) {
-      let i: any[] = [];
-      i.push(this.dataDetailModel?.album?.data[0]);
-      this.dataSourceVideo = i;
-      let ii = this.dataDetailModel?.album?.data;
-      ii.forEach((element: any) => {
-        if (element.type != 2) {
-          this.dataSource.push(element)
-        }
-      });
-    }
-    else if (this.dataDetailModel?.album?.data[0]?.type === 1) {
+    this.dataDetailModel?.data.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
-      this.dataSource = this.dataDetailModel?.album?.data;
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log("22222", ele, index)
-        ele.sort = index;
-      });
-    }
+      this.dataSource = [];
+      if (element.type === 2) {
+        this.dataSourceVideo.push(element)
+      }
+      else if (element.type === 1) {
+        this.dataSource.push(element)
+      }
+    });
 
   }
 
@@ -245,8 +235,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
-      console.log('result!=[] :>> ', result!=[]);
-      if(result!=[]){
+      console.log('result!=[] :>> ', result, result==='' ,result.length,result.length!=0);
+      if(result.length===0){
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else{
         this.dataSourceVideo=[]
         result.forEach((ele: any) => {
           ele['sort'] = 0;
@@ -254,9 +247,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
         this.dataSourceVideo = result;
         console.log("视频的", this.dataSourceVideo)
       }
-      else{
-        // this.dataSourceVideo
-      }
+     
     });
 
   }
@@ -274,9 +265,10 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res || [];
-      console.log('result!=[] :>> ', result!=[]);
-
-      if(result!=[]){
+      if(result.length===0){
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else{
         this.dataSourceVideo=[]
         result.forEach((ele: any) => {
           ele['sort'] = 0;
@@ -326,14 +318,13 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
         this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-          let i: any[] = [];
-          i.push(res.data?.album?.data[0]);
-          this.dataSourceVideo = [];
-          this.dataSource = [];
-          this.dataSourceVideo = i;
-          let ii = res.data?.album?.data;
-          ii.forEach((element: any) => {
-            if (element.type != 2) {
+          res?.data.album?.data?.forEach((element: any, value: any) => {
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            if (element.type === 2) {
+              this.dataSourceVideo.push(element)
+            }
+            else if (element.type === 1) {
               this.dataSource.push(element)
             }
           });
@@ -357,13 +348,16 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-            this.dataSource = [];
-            this.dataSource = res.data.album.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+            res?.data.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -386,14 +380,13 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-            let i: any[] = [];
-            i.push(res.data?.album?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.album?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+            res?.data.album?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });

@@ -47,25 +47,16 @@ export class StoreFreeImageComponent implements OnInit {
   ngOnInit(): void {
     console.log("更新", this.dataDetailModel?.albums?.data)
     // this.dataSource = this.dataDetailModel?.albums?.data;
-    if (this.dataDetailModel?.albums?.data[0]?.type === 2) {
-      let i: any[] = [];
-      i.push(this.dataDetailModel?.albums?.data[0]);
-      this.dataSourceVideo = i;
-      let ii = this.dataDetailModel?.albums?.data;
-      ii.forEach((element: any) => {
-        if (element.type != 2) {
-          this.dataSource.push(element)
-        }
-      });
-    }
-    else if (this.dataDetailModel?.albums?.data[0]?.type === 1) {
+    this.dataDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
-      this.dataSource = this.dataDetailModel?.albums?.data;
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log("22222", ele, index)
-        ele.sort = index;
-      });
-    }
+      this.dataSource = [];
+      if (element.type === 2) {
+        this.dataSourceVideo.push(element)
+      }
+      else if (element.type === 1) {
+        this.dataSource.push(element)
+      }
+    });
 
   }
 
@@ -202,14 +193,17 @@ export class StoreFreeImageComponent implements OnInit {
       console.log("更新", this.detailUpdateModel);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res:any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.albums.data
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+          this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res: any) => {
+            res?.data.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
             this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 5 })
           })
         }
@@ -232,15 +226,14 @@ export class StoreFreeImageComponent implements OnInit {
       this.detailUpdateModel.albums = arr.concat(arr1);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res:any) => {
-            let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+          this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res: any) => {
+            res?.data.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
@@ -297,8 +290,8 @@ export class StoreFreeImageComponent implements OnInit {
 
 
 
-   // 视频更新
-   nextTabVideo() {
+  // 视频更新
+  nextTabVideo() {
     this.detailUpdateModel.id = this.dataDetailModel.id;
     let arr: any[] = [];
     let arr1: any[] = [];
@@ -317,15 +310,14 @@ export class StoreFreeImageComponent implements OnInit {
     console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res:any) => {
-          let i: any[] = [];
-          i.push(res.data?.albums?.data[0]);
-          this.dataSourceVideo = [];
-          this.dataSource = [];
-          this.dataSourceVideo = i;
-          let ii = res.data?.albums?.data;
-          ii.forEach((element: any) => {
-            if (element.type != 2) {
+        this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res: any) => {
+          res?.data.albums?.data?.forEach((element: any, value: any) => {
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            if (element.type === 2) {
+              this.dataSourceVideo.push(element)
+            }
+            else if (element.type === 1) {
               this.dataSource.push(element)
             }
           });
@@ -335,66 +327,74 @@ export class StoreFreeImageComponent implements OnInit {
   }
 
 
-    //视频 
-    uploadVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '视频上传',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: UploadVideoComponent,
-        nzWidth: 660,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-        let result = res?.data || []
-        if(result!=[]){
-          result.forEach((ele: any) => {
-            ele['sort'] = 0;
-          });
-          this.dataSourceVideo = result;
-          console.log("视频的", this.dataSourceVideo)
-        }
-      });
-  
-    }
-  
-    importVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '从视频库导入资源',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: ChooseGalleryComponent,
-        nzComponentParams: {
-          data: 2
-        },
-        nzWidth: 1105,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-        let result = res || [];
-        if(result!=[]){
-          result.forEach((ele: any) => {
-            ele['sort'] = 0;
-          });
-          this.dataSourceVideo = result;
-          console.log("视频的", this.dataSourceVideo)
-        }
-      });
-  
-    }
-  
-  
-    deleteItVideo(id: any) {
-      console.log("nadao", id);
-      const dialogRef = this.dialog.open(DeleteComfirmComponent, {
-        width: '550px',
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        if (result !== undefined) {
-          console.log("nadao", id);
-          this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
-        }
-      });
-    }
+  //视频 
+  uploadVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '视频上传',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: UploadVideoComponent,
+      nzWidth: 660,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      let result = res?.data || []
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
+        result.forEach((ele: any) => {
+          ele['sort'] = 0;
+        });
+        this.dataSourceVideo = result;
+        console.log("视频的", this.dataSourceVideo)
+      }
+    });
+
+  }
+
+  importVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从视频库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 2
+      },
+      nzWidth: 1105,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      let result = res || [];
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
+        result.forEach((ele: any) => {
+          ele['sort'] = 0;
+        });
+        this.dataSourceVideo = result;
+        console.log("视频的", this.dataSourceVideo)
+      }
+    });
+
+  }
+
+
+  deleteItVideo(id: any) {
+    console.log("nadao", id);
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", id);
+        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      }
+    });
+  }
 
 
 }
