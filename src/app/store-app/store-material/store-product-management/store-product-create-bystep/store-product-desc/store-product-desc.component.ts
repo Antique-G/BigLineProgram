@@ -44,7 +44,7 @@ export class StoreProductDescComponent implements OnInit {
 
   ngOnInit(): void {
     this.storeProductService.getProductDetail(this.addDataDetailModel.id).subscribe(res => {
-      if (res.data?.album?.data[0].type === 2) {
+      if (res.data?.album?.data[0]?.type === 2) {
         let i: any[] = [];
         i.push(res.data?.album?.data[0]);
         this.dataSourceVideo = i;
@@ -55,7 +55,7 @@ export class StoreProductDescComponent implements OnInit {
           }
         });
       }
-      else if (res.data?.album?.data[0].type === 1) {
+      else if (res.data?.album?.data[0]?.type === 1) {
         this.dataSourceVideo = [];
         this.dataSource = res.data?.album?.data;
         this.dataSource.forEach((ele: any, index: any) => {
