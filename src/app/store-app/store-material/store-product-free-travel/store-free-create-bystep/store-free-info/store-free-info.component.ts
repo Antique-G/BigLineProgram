@@ -355,7 +355,15 @@ export class StoreFreeInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-    ]
+    ];
+    // 对粘贴的文本进行处理
+    editorFee.config.pasteFilterStyle = false;
+    editorFee.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
     // InsertABCMenu
     // 注册菜单
     editorFee.menus.extend('insertABC', InsertABCMenu)

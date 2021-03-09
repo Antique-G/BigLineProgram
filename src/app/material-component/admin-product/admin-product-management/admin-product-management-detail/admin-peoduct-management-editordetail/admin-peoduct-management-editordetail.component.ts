@@ -46,8 +46,8 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     editorDetail.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.details = newHtml;
     }
-     // 配置菜单栏
-     editorDetail.config.menus = [
+    // 配置菜单栏
+    editorDetail.config.menus = [
       'head',
       'bold',
       'fontSize',
@@ -68,36 +68,24 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-  ]
+    ];
+    // 对粘贴的文本进行处理
+    editorDetail.config.pasteFilterStyle = false;
+    editorDetail.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
     editorDetail.create();
 
-    // 上传图片
-    // editorDetail.config.uploadImgParams = {
-    //   token: (localStorage.getItem('userToken')!),
-    // }
-    // editorDetail.config.customUploadImg = (files: any, insert: any) => {
-    //   // 限制一次最多上传 1 张图片
-    //   if (files.length !== 1) {
-    //     alert('单次只能上传一个图片')
-    //     return
-    //   }
-    //   console.log("files是什么", files);
-
-    //   console.log(files[0]);
-    //   let formDataDetail = new FormData();
-    //   formDataDetail.append('image', files[0] as any);
-    //   console.log("formData是什么", formDataDetail.get('file'));
-    //    this.adminProductManagementService.uploadImg(formDataDetail).subscribe(res => {
-    //      console.log(res, 'res');
-    //      insert(res.data);
-    //    })
-    // }
+  
   }
 
-  
-  nextTab(){
-    this.detailUpdateModel.id= this.detailId ;
-    this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res=>{
+
+  nextTab() {
+    this.detailUpdateModel.id = this.detailId;
+    this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
     })
   }
 

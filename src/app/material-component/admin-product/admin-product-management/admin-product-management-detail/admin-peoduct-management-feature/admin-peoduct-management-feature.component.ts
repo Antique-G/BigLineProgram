@@ -69,28 +69,17 @@ export class AdminPeoductManagementFeatureComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-    ]
+    ];
+    // 对粘贴的文本进行处理
+    editorFeature.config.pasteFilterStyle = false;
+    editorFeature.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
     editorFeature.create();
-    // 上传图片
-    // editorFeature.config.uploadImgParams = {
-    //   token: (localStorage.getItem('userToken')!),
-    // }
-    // editorFeature.config.customUploadImg = (files: any, insert: any) => {
-    //   // 限制一次最多上传 1 张图片
-    //   if (files.length !== 1) {
-    //     alert('单次只能上传一个图片')
-    //     return
-    //   }
-    //   console.log("files是什么", files);
-    //   console.log(files[0]);
-    //   let formData = new FormData();
-    //   formData.append('image', files[0] as any);
-    //   console.log("formData是什么", formData.get('file'));
-    //   this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-    //     console.log(res, 'res');
-    //     insert(res.data);
-    //   })
-    // }
+   
   }
 
 

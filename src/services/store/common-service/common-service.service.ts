@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
-import {GalleryResponseModel} from '../../../interfaces/store/common/common';
+import { GalleryResponseModel } from '../../../interfaces/store/common/common';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -26,30 +26,42 @@ export class CommonServiceService {
   private urls = StoreUrls;
   constructor(public httpClient: HttpClient) { }
 
+
+  // 上传图片
   uploadImg(reqData: any): Observable<any> {
     const imgHttpOptions = {
-      reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+      reportProgress: true,
     };
     return this.httpClient.post<any>(this.urls.PostStoreImgUpload, reqData, imgHttpOptions)
       .pipe(
       )
   }
 
-  getGalleryList(page: number,keyword:string, per_page: number,region_code:string){
+  // 获取图片列表
+  getGalleryList(page: number, keyword: string, per_page: number, region_code: string) {
     const params = new HttpParams().set('page', page.toString())
-    .set('keyword', keyword)
-    .set('per_page', per_page.toString())
-    .set('region_code', region_code)
+      .set('keyword', keyword)
+      .set('per_page', per_page.toString())
+      .set('region_code', region_code)
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
 
     return this.httpClient.get<GalleryResponseModel>(this.urls.GetStoreImgList, findhttpOptions)
-    .pipe(
-     
-    )
-    
+      .pipe(
+
+      )
+  }
+
+  // 上传视频
+  uploadVideo(reqData: any): Observable<any> {
+    const imgHttpOptions = {
+      reportProgress: true,
+    };
+    return this.httpClient.post<any>(this.urls.PostStoreVideoUpload, reqData, imgHttpOptions)
+      .pipe(
+      )
   }
 
 

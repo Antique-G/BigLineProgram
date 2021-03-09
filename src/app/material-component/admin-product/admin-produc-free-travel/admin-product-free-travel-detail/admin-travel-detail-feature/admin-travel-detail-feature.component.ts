@@ -46,7 +46,6 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
     editorFeature.config.onchange = (newHtml: any) => {
       this.detailUpdateModel.feature = newHtml;
     }
-    editorFeature.create();
     // 配置菜单栏
     editorFeature.config.menus = [
       'head',
@@ -69,7 +68,16 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-    ]
+    ];
+    // 对粘贴的文本进行处理
+    editorFeature.config.pasteFilterStyle = false;
+    editorFeature.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
+    editorFeature.create();
   }
 
 

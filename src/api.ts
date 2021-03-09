@@ -123,7 +123,7 @@ export const AdminUrls = {
   DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
   PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
 
-  
+
 
 
 
@@ -158,13 +158,15 @@ export const StoreUrls = {
   GetStoreProductCheckLog: api + '/store/product/check_log', // 审核日志
   PostStoreProductTrip: api + '/store/product_trip', // 逐条添加行程
 
-  
+
 
 
   PostStoreQuoteByDateSetCheck: api + '/store/product/set_check',//产品报价提交审核
 
-  PostStoreImgUpload: api + '/store/image',  //上传
-  GetStoreImgList: api + '/store/image',  //上传
+  PostStoreImgUpload: api + '/store/image',  //上传图片
+  GetStoreImgList: api + '/store/image',  //获取图片列表
+  PostStoreVideoUpload: api + '/store/image',  //上传视频
+
 
   // 自由行产品
   GetStoreFreeTravelList: api + '/store/independent_product',
@@ -234,7 +236,7 @@ export const StoreUrls = {
   GetStoreContractList: api + '/store/store_contract',  //合同列表
   PostStoreContractCreate: api + '/store/store_contract',   // 合同添加
 
-  
+
 
 
 
