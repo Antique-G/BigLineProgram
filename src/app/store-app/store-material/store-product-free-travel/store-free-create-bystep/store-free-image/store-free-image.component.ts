@@ -215,7 +215,7 @@ export class StoreFreeImageComponent implements OnInit {
     else if (this.dataSourceVideo.length != 0) {
       let arr: any[] = [];
       let arr1: any[] = [];
-      this.detailUpdateModel.album = [];
+      this.detailUpdateModel.albums = [];
       this.dataSourceVideo.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort, type: 2 }
@@ -226,7 +226,7 @@ export class StoreFreeImageComponent implements OnInit {
         let a = { id: element.id, sort: element.sort }
         arr1.push(a);
       });
-      this.detailUpdateModel.album = arr.concat(arr1);
+      this.detailUpdateModel.albums = arr.concat(arr1);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.dataDetailModel.id).subscribe((res:any) => {
@@ -299,7 +299,7 @@ export class StoreFreeImageComponent implements OnInit {
     this.detailUpdateModel.id = this.dataDetailModel.id;
     let arr: any[] = [];
     let arr1: any[] = [];
-    this.detailUpdateModel.album = [];
+    this.detailUpdateModel.albums = [];
     this.dataSourceVideo.forEach(element => {
       console.log("element", element);
       let a = { id: element.id, sort: element.sort }
@@ -310,7 +310,7 @@ export class StoreFreeImageComponent implements OnInit {
       let a = { id: element.id, sort: element.sort }
       arr1.push(a);
     });
-    this.detailUpdateModel.album = arr.concat(arr1);
+    this.detailUpdateModel.albums = arr.concat(arr1);
     console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       if (res === null) {

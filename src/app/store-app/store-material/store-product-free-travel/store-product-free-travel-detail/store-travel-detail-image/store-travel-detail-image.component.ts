@@ -180,9 +180,9 @@ export class StoreTravelDetailImageComponent implements OnInit {
 
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
-    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.album);
+    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.albums);
     if (this.dataSourceVideo.length === 0) {
-      this.detailUpdateModel.album = [];
+      this.detailUpdateModel.albums = [];
       this.dataSource.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort }
@@ -206,7 +206,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
     else if(this.dataSourceVideo.length != 0){
       let arr: any[] = [];
       let arr1: any[] = [];
-      this.detailUpdateModel.album = [];
+      this.detailUpdateModel.albums = [];
       this.dataSourceVideo.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort, type: 2 }
@@ -217,7 +217,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
         let a = { id: element.id, sort: element.sort }
         arr1.push(a);
       });
-      this.detailUpdateModel.album = arr.concat(arr1);
+      this.detailUpdateModel.albums = arr.concat(arr1);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any) => {
@@ -348,7 +348,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.detailUpdateModel.id = this.detailId;
       let arr: any[] = [];
       let arr1: any[] = [];
-      this.detailUpdateModel.album = [];
+      this.detailUpdateModel.albums = [];
       this.dataSourceVideo.forEach(element => {
         console.log("element", element);
         let a = { id: element.id, sort: element.sort }
@@ -359,7 +359,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
         let a = { id: element.id, sort: element.sort }
         arr1.push(a);
       });
-      this.detailUpdateModel.album = arr.concat(arr1);
+      this.detailUpdateModel.albums = arr.concat(arr1);
       console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
