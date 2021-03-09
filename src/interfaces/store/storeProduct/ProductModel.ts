@@ -120,6 +120,7 @@ interface Datum3 {
   url: string;
   url_sm: string;
   sort: number;
+  type: number;
 }
 
 interface Tag {

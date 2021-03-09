@@ -165,7 +165,7 @@ export const StoreUrls = {
 
   PostStoreImgUpload: api + '/store/image',  //上传图片
   GetStoreImgList: api + '/store/image',  //获取图片列表
-  PostStoreVideoUpload: api + '/store/image',  //上传视频
+  PostStoreVideoUpload: api + '/store/upload_video',  //上传视频
 
 
   // 自由行产品
