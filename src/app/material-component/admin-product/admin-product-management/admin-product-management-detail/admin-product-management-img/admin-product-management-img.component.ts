@@ -13,6 +13,8 @@ import { AdminProductManagementService } from '../../../../../../services/admin/
 export class AdminProductManagementImgComponent implements OnInit {
   @Input() adminProductDetailModel: any;
   dataSource: any[] = [];   //1.4将数据添加到dataSource
+  dataSourceVideo: any[] = [];
+
 
   imgList: any[] = [];
   importImgList: any[] = [];
@@ -24,7 +26,7 @@ export class AdminProductManagementImgComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog,  public adminProductManagementService: AdminProductManagementService,
+  constructor(public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
     public activatedRoute: ActivatedRoute, private modal: NzModalService) {
     this.detailUpdateModel = {
       step: 4,
@@ -36,8 +38,27 @@ export class AdminProductManagementImgComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    console.log("更新", this.adminProductDetailModel?.album?.data)
-    this.dataSource = this.adminProductDetailModel?.album?.data;
+    console.log("更新", this.adminProductDetailModel?.albums?.data)
+    if (this.adminProductDetailModel?.albums?.data[0].type === 2) {
+      let i: any[] = [];
+      i.push(this.adminProductDetailModel?.albums?.data[0]);
+      this.dataSourceVideo = i;
+      let ii = this.adminProductDetailModel?.albums?.data;
+      ii.forEach((element: any) => {
+        if (element.type != 2) {
+          this.dataSource.push(element)
+        }
+      });
+    }
+    else if (this.adminProductDetailModel?.albums?.data[0].type === 1) {
+      this.dataSourceVideo = [];
+      this.dataSource = this.adminProductDetailModel?.albums?.data;
+      this.dataSource.forEach((ele: any, index: any) => {
+        console.log("22222", ele, index)
+        ele.sort = index;
+      });
+    }
+
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -57,28 +78,65 @@ export class AdminProductManagementImgComponent implements OnInit {
     }
   }
 
-  
+
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
-    console.log("更新的meodl", this.dataSource);
-    this.detailUpdateModel.album = [];
-    this.dataSource.forEach(element => {
-      console.log("element", element);
-      let a = { id: element.id, sort: element.sort }
-      this.detailUpdateModel.album.push(a)
-    });
-    console.log("更新", this.detailUpdateModel);
-
-    this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      if (res === null) {
-        this.adminProductManagementService.productDetail(this.detailId).subscribe(res => {
-          this.dataSource = res.data.album.data;
-
-        })
-      }
-
-    })
-
+    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.album);
+    if (this.dataSourceVideo.length === 0) {
+      this.detailUpdateModel.album = [];
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        this.detailUpdateModel.albums.push(a)
+      });
+      console.log("更新", this.detailUpdateModel);
+      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
+            this.dataSource = [];
+            this.dataSource = res.data.albums.data;
+            this.dataSource.forEach((ele: any, index: any) => {
+              console.log("22222", ele, index)
+              ele.sort = index;
+            });
+            this.dataSourceVideo = [];
+          })
+        }
+      })
+    }
+    else if (this.dataSourceVideo.length != 0) {
+      let arr: any[] = [];
+      let arr1: any[] = [];
+      this.detailUpdateModel.album = [];
+      this.dataSourceVideo.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort, type: 2 }
+        arr.push(a)
+      });
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        arr1.push(a);
+      });
+      this.detailUpdateModel.album = arr.concat(arr1);
+      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
+            let i: any[] = [];
+            i.push(res.data?.albums?.data[0]);
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            this.dataSourceVideo = i;
+            let ii = res.data?.albums?.data;
+            ii.forEach((element: any) => {
+              if (element.type != 2) {
+                this.dataSource.push(element)
+              }
+            });
+          })
+        }
+      })
+    }
   }
 
 
@@ -130,6 +188,83 @@ export class AdminProductManagementImgComponent implements OnInit {
 
 
 
+  deleteItVideo(id: any) {
+    console.log("nadao", id);
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", id);
+        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      }
+    });
+  }
+
+
+
+
+  // 视频更新
+  nextTabVideo() {
+    this.detailUpdateModel.id = this.detailId;
+    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.album);
+    if (this.dataSourceVideo.length === 0) {
+      this.detailUpdateModel.album = [];
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        this.detailUpdateModel.albums.push(a)
+      });
+      console.log("更新", this.detailUpdateModel);
+      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
+            this.dataSource = [];
+            this.dataSource = res.data.albums.data;
+            this.dataSource.forEach((ele: any, index: any) => {
+              console.log("22222", ele, index)
+              ele.sort = index;
+            });
+            this.dataSourceVideo = [];
+          })
+        }
+      })
+    }
+    else if (this.dataSourceVideo.length != 0) {
+      let arr: any[] = [];
+      let arr1: any[] = [];
+      this.detailUpdateModel.album = [];
+      this.dataSourceVideo.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort, type: 2 }
+        arr.push(a)
+      });
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        arr1.push(a);
+      });
+      this.detailUpdateModel.album = arr.concat(arr1);
+      this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductManagementService.productDetail(this.detailId).subscribe((res:any) => {
+            let i: any[] = [];
+            i.push(res.data?.albums?.data[0]);
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            this.dataSourceVideo = i;
+            let ii = res.data?.albums?.data;
+            ii.forEach((element: any) => {
+              if (element.type != 2) {
+                this.dataSource.push(element)
+              }
+            });
+          })
+        }
+      })
+    }
+  }
 
 }
 

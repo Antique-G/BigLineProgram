@@ -15,6 +15,8 @@ import { DeleteComfirmComponent } from '../../../../../../app/store-app/store-ma
 export class AdminChooseImgComponent implements OnInit {
   @Input() dataFreeDetailModel: any;
   dataSource: any[] = [];   //1.4将数据添加到dataSource
+  dataSourceVideo: any[] = [];
+
 
   imgList: any[] = [];
   importImgList: any[] = [];
@@ -26,7 +28,7 @@ export class AdminChooseImgComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog,  public adminProductFreeTravelService: AdminProductFreeTravelService,
+  constructor(public dialog: MatDialog, public adminProductFreeTravelService: AdminProductFreeTravelService,
     public activatedRoute: ActivatedRoute, private modal: NzModalService) {
     this.detailUpdateModel = {
       step: 4,
@@ -39,7 +41,28 @@ export class AdminChooseImgComponent implements OnInit {
       this.detailId = JSON.parse(params["detailId"]);
     });
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
-    this.dataSource = this.dataFreeDetailModel?.albums?.data;
+    // this.dataSource = this.dataFreeDetailModel?.albums?.data;
+
+    if (this.dataFreeDetailModel?.album?.data[0].type === 2) {
+      let i: any[] = [];
+      i.push(this.dataFreeDetailModel?.album?.data[0]);
+      this.dataSourceVideo = i;
+      let ii = this.dataFreeDetailModel?.album?.data;
+      ii.forEach((element: any) => {
+        if (element.type != 2) {
+          this.dataSource.push(element)
+        }
+      });
+    }
+    else if (this.dataFreeDetailModel?.album?.data[0].type === 1) {
+      this.dataSourceVideo = [];
+      this.dataSource = this.dataFreeDetailModel?.album?.data;
+      this.dataSource.forEach((ele: any, index: any) => {
+        console.log("22222", ele, index)
+        ele.sort = index;
+      });
+    }
+
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -59,7 +82,7 @@ export class AdminChooseImgComponent implements OnInit {
     }
   }
 
-  
+
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
     console.log("更新的meodl", this.dataSource);
@@ -80,6 +103,66 @@ export class AdminChooseImgComponent implements OnInit {
       }
 
     })
+
+
+    this.detailUpdateModel.id = this.detailId;
+    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.album);
+    if (this.dataSourceVideo.length === 0) {
+      this.detailUpdateModel.album = [];
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        this.detailUpdateModel.album.push(a)
+      });
+      console.log("更新", this.detailUpdateModel);
+      this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+            this.dataSource = [];
+            this.dataSource = res.data.album.data;
+            this.dataSource.forEach((ele: any, index: any) => {
+              console.log("22222", ele, index)
+              ele.sort = index;
+            });
+            this.dataSourceVideo = [];
+          })
+        }
+      })
+    }
+    else if (this.dataSourceVideo.length != 0) {
+      let arr: any[] = [];
+      let arr1: any[] = [];
+      this.detailUpdateModel.album = [];
+      this.dataSourceVideo.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort, type: 2 }
+        arr.push(a)
+      });
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        arr1.push(a);
+      });
+      this.detailUpdateModel.album = arr.concat(arr1);
+      this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+            let i: any[] = [];
+            i.push(res.data?.album?.data[0]);
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            this.dataSourceVideo = i;
+            let ii = res.data?.album?.data;
+            ii.forEach((element: any) => {
+              if (element.type != 2) {
+                this.dataSource.push(element)
+              }
+            });
+          })
+        }
+      })
+    }
+
 
   }
 
@@ -130,6 +213,83 @@ export class AdminChooseImgComponent implements OnInit {
     });
   }
 
+  deleteItVideo(id: any) {
+    console.log("nadao", id);
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", id);
+        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      }
+    });
+  }
+
+
+
+
+  // 视频更新
+  nextTabVideo() {
+    this.detailUpdateModel.id = this.detailId;
+    console.log("更新的meodl", this.dataSource, this.detailUpdateModel.album);
+    if (this.dataSourceVideo.length === 0) {
+      this.detailUpdateModel.album = [];
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        this.detailUpdateModel.album.push(a)
+      });
+      console.log("更新", this.detailUpdateModel);
+      this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+            this.dataSource = [];
+            this.dataSource = res.data.album.data;
+            this.dataSource.forEach((ele: any, index: any) => {
+              console.log("22222", ele, index)
+              ele.sort = index;
+            });
+            this.dataSourceVideo = [];
+          })
+        }
+      })
+    }
+    else if (this.dataSourceVideo.length != 0) {
+      let arr: any[] = [];
+      let arr1: any[] = [];
+      this.detailUpdateModel.album = [];
+      this.dataSourceVideo.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort, type: 2 }
+        arr.push(a)
+      });
+      this.dataSource.forEach(element => {
+        console.log("element", element);
+        let a = { id: element.id, sort: element.sort }
+        arr1.push(a);
+      });
+      this.detailUpdateModel.album = arr.concat(arr1);
+      this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
+            let i: any[] = [];
+            i.push(res.data?.album?.data[0]);
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            this.dataSourceVideo = i;
+            let ii = res.data?.album?.data;
+            ii.forEach((element: any) => {
+              if (element.type != 2) {
+                this.dataSource.push(element)
+              }
+            });
+          })
+        }
+      })
+    }
+  }
 
 
 
