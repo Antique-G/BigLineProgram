@@ -43,25 +43,17 @@ export class AdminChooseImgComponent implements OnInit {
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
     // this.dataSource = this.dataFreeDetailModel?.albums?.data;
 
-    if (this.dataFreeDetailModel?.albums?.data[0]?.type === 2) {
-      let i: any[] = [];
-      i.push(this.dataFreeDetailModel?.albums?.data[0]);
-      this.dataSourceVideo = i;
-      let ii = this.dataFreeDetailModel?.albums?.data;
-      ii.forEach((element: any) => {
-        if (element.type != 2) {
-          this.dataSource.push(element)
-        }
-      });
-    }
-    else if (this.dataFreeDetailModel?.albums?.data[0]?.type === 1) {
+    this.dataFreeDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
-      this.dataSource = this.dataFreeDetailModel?.albums?.data;
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log("22222", ele, index)
-        ele.sort = index;
-      });
-    }
+      this.dataSource = [];
+      if (element.type === 2) {
+        this.dataSourceVideo.push(element)
+      }
+      else if (element.type === 1) {
+        this.dataSource.push(element)
+      }
+    });
+
 
   }
 
@@ -85,27 +77,6 @@ export class AdminChooseImgComponent implements OnInit {
 
   nextTab() {
     this.detailUpdateModel.id = this.detailId;
-    console.log("更新的meodl", this.dataSource);
-    this.detailUpdateModel.albums = [];
-    this.dataSource.forEach(element => {
-      console.log("element", element);
-      let a = { id: element.id, sort: element.sort }
-      this.detailUpdateModel.albums.push(a)
-    });
-    console.log("更新", this.detailUpdateModel);
-
-    this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
-      if (res === null) {
-        this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe(res => {
-          this.dataSource = res.data.albums.data;
-
-        })
-      }
-
-    })
-
-
-    this.detailUpdateModel.id = this.detailId;
     console.log("更新的meodl", this.dataSource, this.detailUpdateModel.albums);
     if (this.dataSourceVideo.length === 0) {
       this.detailUpdateModel.albums = [];
@@ -118,13 +89,16 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.albums.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -147,14 +121,13 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
-            let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
@@ -245,13 +218,16 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.albums.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -274,14 +250,13 @@ export class AdminChooseImgComponent implements OnInit {
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe((res: any) => {
-            let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });

@@ -41,7 +41,8 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = JSON.parse(params["detailDataId"]);
     });
-    this.dataDetailModel?.data.album?.data?.forEach((element: any, value: any) => {
+    console.log('this.dataDetailModel111111111 :>> ', this.dataDetailModel);
+    this.dataDetailModel?.album?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
       this.dataSource = [];
       if (element.type === 2) {
