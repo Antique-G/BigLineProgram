@@ -309,11 +309,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
       if (res === null) {
         this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
           let i: any[] = [];
-          i.push(this.dataDetailModel?.album?.data[0]);
+          i.push(res.data?.album?.data[0]);
           this.dataSourceVideo = [];
           this.dataSource = [];
           this.dataSourceVideo = i;
-          let ii = this.dataDetailModel?.album?.data;
+          let ii = res.data?.album?.data;
           ii.forEach((element: any) => {
             if (element.type != 2) {
               this.dataSource.push(element)
@@ -350,7 +350,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
         }
       })
     }
-    else if(this.dataSourceVideo.length != 0){
+    else if (this.dataSourceVideo.length != 0) {
       let arr: any[] = [];
       let arr1: any[] = [];
       this.detailUpdateModel.album = [];
@@ -369,11 +369,11 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
         if (res === null) {
           this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
             let i: any[] = [];
-            i.push(this.dataDetailModel?.album?.data[0]);
+            i.push(res.data?.album?.data[0]);
             this.dataSourceVideo = [];
             this.dataSource = [];
             this.dataSourceVideo = i;
-            let ii = this.dataDetailModel?.album?.data;
+            let ii = res.data?.album?.data;
             ii.forEach((element: any) => {
               if (element.type != 2) {
                 this.dataSource.push(element)

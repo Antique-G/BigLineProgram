@@ -222,11 +222,11 @@ export class StoreTravelDetailImageComponent implements OnInit {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any) => {
             let i: any[] = [];
-            i.push(this.dataDetailModel?.albums?.data[0]);
+            i.push( res.data?.albums?.data[0]);
             this.dataSourceVideo = [];
             this.dataSource = [];
             this.dataSourceVideo = i;
-            let ii = this.dataDetailModel?.albums?.data;
+            let ii =  res.data?.albums?.data;
             ii.forEach((element: any) => {
               if (element.type != 2) {
                 this.dataSource.push(element)
