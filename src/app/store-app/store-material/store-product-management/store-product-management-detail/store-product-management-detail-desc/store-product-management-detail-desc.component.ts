@@ -245,13 +245,17 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
-      if(result.length!=0){
-        console.log("上传的结果", res, res?.data.length);
+      console.log('result!=[] :>> ', result!=[]);
+      if(result!=[]){
+        this.dataSourceVideo=[]
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
         this.dataSourceVideo = result;
         console.log("视频的", this.dataSourceVideo)
+      }
+      else{
+        // this.dataSourceVideo
       }
     });
 
@@ -270,8 +274,10 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res || [];
-      if(result.length!=0){
-        console.log("上传的结果", res, res?.data.length);
+      console.log('result!=[] :>> ', result!=[]);
+
+      if(result!=[]){
+        this.dataSourceVideo=[]
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
@@ -304,6 +310,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
     let arr: any[] = [];
     let arr1: any[] = [];
     this.detailUpdateModel.album = [];
+    console.log('this.dataSourceVideo ', this.dataSourceVideo);
     this.dataSourceVideo.forEach(element => {
       console.log("element", element);
       let a = { id: element.id, sort: element.sort }

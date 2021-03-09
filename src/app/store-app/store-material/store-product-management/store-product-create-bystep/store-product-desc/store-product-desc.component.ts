@@ -346,8 +346,7 @@ export class StoreProductDescComponent implements OnInit {
       modal.afterClose.subscribe(res => {
        console.log('2222 ', res);
         let result = res?.data || []
-        if(result.length!=0){
-          console.log("上传的结果", res, res?.data.length);
+        if(result!=[]){
           result.forEach((ele: any) => {
             ele['sort'] = 0;
           });
@@ -373,7 +372,7 @@ export class StoreProductDescComponent implements OnInit {
       modal.afterClose.subscribe(res => {
        console.log('11111 ', res);
         let result = res || [];
-        if(result.leng!=0){
+        if(result!=[]){
           result.forEach((ele: any) => {
             ele['sort'] = 0;
           });
