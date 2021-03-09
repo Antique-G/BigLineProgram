@@ -49,25 +49,16 @@ export class StoreTravelDetailImageComponent implements OnInit {
     // console.log("更新", this.dataDetailModel?.albums?.data)
     // this.dataSource = this.dataDetailModel?.albums?.data;
 
-    if (this.dataDetailModel?.albums?.data[0]?.type === 2) {
-      let i: any[] = [];
-      i.push(this.dataDetailModel?.albums?.data[0]);
-      this.dataSourceVideo = i;
-      let ii = this.dataDetailModel?.albums?.data;
-      ii.forEach((element: any) => {
-        if (element.type != 2) {
-          this.dataSource.push(element)
-        }
-      });
-    }
-    else if (this.dataDetailModel?.albums?.data[0]?.type === 1) {
+    this.dataDetailModel?.albums?.data?.forEach((element: any, value: any) => {
       this.dataSourceVideo = [];
-      this.dataSource = this.dataDetailModel?.albums?.data;
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log("22222", ele, index)
-        ele.sort = index;
-      });
-    }
+      this.dataSource = [];
+      if (element.type === 2) {
+        this.dataSourceVideo.push(element)
+      }
+      else if (element.type === 1) {
+        this.dataSource.push(element)
+      }
+    });
   }
 
 
@@ -195,13 +186,16 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
-            this.dataSource = [];
-            this.dataSource = res.data.albums.data;
-            this.dataSource.forEach((ele: any, index: any) => {
-              console.log("22222", ele, index)
-              ele.sort = index;
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
+                this.dataSource.push(element)
+              }
             });
-            this.dataSourceVideo = [];
           })
         }
       })
@@ -224,14 +218,13 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
           this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
-            let i: any[] = [];
-            i.push(res.data?.albums?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = res.data?.albums?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
+            res.data?.albums?.data?.forEach((element: any, value: any) => {
+              this.dataSourceVideo = [];
+              this.dataSource = [];
+              if (element.type === 2) {
+                this.dataSourceVideo.push(element)
+              }
+              else if (element.type === 1) {
                 this.dataSource.push(element)
               }
             });
@@ -301,7 +294,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res?.data || []
-      if(result!=[]){
+      if (result != []) {
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
@@ -325,7 +318,11 @@ export class StoreTravelDetailImageComponent implements OnInit {
     })
     modal.afterClose.subscribe(res => {
       let result = res || [];
-      if(result!=[]){
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
         result.forEach((ele: any) => {
           ele['sort'] = 0;
         });
@@ -344,9 +341,16 @@ export class StoreTravelDetailImageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
-      if (result !== undefined) {
-        console.log("nadao", id);
-        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      if (result.length === 0) {
+        console.log("视频的", this.dataSourceVideo)
+      }
+      else {
+        this.dataSourceVideo = []
+        result.forEach((ele: any) => {
+          ele['sort'] = 0;
+        });
+        this.dataSourceVideo = result;
+        console.log("视频的", this.dataSourceVideo)
       }
     });
   }
@@ -372,15 +376,14 @@ export class StoreTravelDetailImageComponent implements OnInit {
     console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
       if (res === null) {
-        this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe(res => {
-          let i: any[] = [];
-          i.push(this.dataDetailModel?.albums?.data[0]);
-          this.dataSourceVideo = [];
-          this.dataSource = [];
-          this.dataSourceVideo = i;
-          let ii = this.dataDetailModel?.albums?.data;
-          ii.forEach((element: any) => {
-            if (element.type != 2) {
+        this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
+          res.data?.albums?.data?.forEach((element: any, value: any) => {
+            this.dataSourceVideo = [];
+            this.dataSource = [];
+            if (element.type === 2) {
+              this.dataSourceVideo.push(element)
+            }
+            else if (element.type === 1) {
               this.dataSource.push(element)
             }
           });
