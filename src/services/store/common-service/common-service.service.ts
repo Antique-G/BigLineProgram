@@ -38,11 +38,14 @@ export class CommonServiceService {
   }
 
   // 获取图片列表
-  getGalleryList(page: number, keyword: string, per_page: number, region_code: string) {
+  getGalleryList(page: number, keyword: string, per_page: number, region_code: string, type: any, image_name?: any) {
     const params = new HttpParams().set('page', page.toString())
       .set('keyword', keyword)
       .set('per_page', per_page.toString())
       .set('region_code', region_code)
+      .set('type', type)
+      .set('image_name', image_name ? image_name : '')
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params

@@ -108,6 +108,9 @@ export class StoreTravelDetailImageComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })
@@ -191,7 +194,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
       console.log("更新", this.detailUpdateModel);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any) => {
+          this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
             this.dataSource = [];
             this.dataSource = res.data.albums.data;
             this.dataSource.forEach((ele: any, index: any) => {
@@ -203,7 +206,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
         }
       })
     }
-    else if(this.dataSourceVideo.length != 0){
+    else if (this.dataSourceVideo.length != 0) {
       let arr: any[] = [];
       let arr1: any[] = [];
       this.detailUpdateModel.albums = [];
@@ -220,13 +223,13 @@ export class StoreTravelDetailImageComponent implements OnInit {
       this.detailUpdateModel.albums = arr.concat(arr1);
       this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
         if (res === null) {
-          this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any) => {
+          this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
             let i: any[] = [];
-            i.push( res.data?.albums?.data[0]);
+            i.push(res.data?.albums?.data[0]);
             this.dataSourceVideo = [];
             this.dataSource = [];
             this.dataSourceVideo = i;
-            let ii =  res.data?.albums?.data;
+            let ii = res.data?.albums?.data;
             ii.forEach((element: any) => {
               if (element.type != 2) {
                 this.dataSource.push(element)
@@ -266,7 +269,7 @@ export class StoreTravelDetailImageComponent implements OnInit {
 
   }
 
-  
+
 
 
   top(data: any) {
@@ -287,98 +290,101 @@ export class StoreTravelDetailImageComponent implements OnInit {
 
 
 
-    //视频 
-    uploadVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '视频上传',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: UploadVideoComponent,
-        nzWidth: 660,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-        let result = res?.data || []
-        console.log("上传的结果", res, res?.data.length);
-        result.forEach((ele: any) => {
-          ele['sort'] = 0;
-        });
-        this.dataSourceVideo = result;
-        console.log("视频的", this.dataSourceVideo)
+  //视频 
+  uploadVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '视频上传',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: UploadVideoComponent,
+      nzWidth: 660,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      let result = res?.data || []
+      console.log("上传的结果", res, res?.data.length);
+      result.forEach((ele: any) => {
+        ele['sort'] = 0;
       });
-  
-    }
-  
-    importVideo() {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '从图库导入资源',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: ChooseGalleryComponent,
-        nzWidth: 1105,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(res => {
-        let result = res || [];
-        result.forEach((ele: any) => {
-          ele['sort'] = 0;
-        });
-        this.dataSourceVideo = result;
-        console.log("视频的", this.dataSourceVideo)
+      this.dataSourceVideo = result;
+      console.log("视频的", this.dataSourceVideo)
+    });
+
+  }
+
+  importVideo() {
+    const modal: NzModalRef = this.modal.create({
+      nzTitle: '从视频库导入资源',
+      nzViewContainerRef: this.viewContainerRef,
+      nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 2
+      },
+      nzWidth: 1105,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe(res => {
+      let result = res || [];
+      result.forEach((ele: any) => {
+        ele['sort'] = 0;
       });
-  
-    }
-  
-  
-    deleteItVideo(id: any) {
-      console.log("nadao", id);
-      const dialogRef = this.dialog.open(DeleteComfirmComponent, {
-        width: '550px',
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        console.log("result", result);
-        if (result !== undefined) {
-          console.log("nadao", id);
-          this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
-        }
-      });
-    }
-  
-  
-    // 视频更新
-    nextTabVideo() {
-      this.detailUpdateModel.id = this.detailId;
-      let arr: any[] = [];
-      let arr1: any[] = [];
-      this.detailUpdateModel.albums = [];
-      this.dataSourceVideo.forEach(element => {
-        console.log("element", element);
-        let a = { id: element.id, sort: element.sort }
-        arr.push(a)
-      });
-      this.dataSource.forEach(element => {
-        console.log("element", element);
-        let a = { id: element.id, sort: element.sort }
-        arr1.push(a);
-      });
-      this.detailUpdateModel.albums = arr.concat(arr1);
-      console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
-      this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-        if (res === null) {
-          this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe(res => {
-            let i: any[] = [];
-            i.push(this.dataDetailModel?.albums?.data[0]);
-            this.dataSourceVideo = [];
-            this.dataSource = [];
-            this.dataSourceVideo = i;
-            let ii = this.dataDetailModel?.albums?.data;
-            ii.forEach((element: any) => {
-              if (element.type != 2) {
-                this.dataSource.push(element)
-              }
-            });
-          })
-        }
-      })
-    }
-  
+      this.dataSourceVideo = result;
+      console.log("视频的", this.dataSourceVideo)
+    });
+
+  }
+
+
+  deleteItVideo(id: any) {
+    console.log("nadao", id);
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("result", result);
+      if (result !== undefined) {
+        console.log("nadao", id);
+        this.dataSourceVideo = this.dataSourceVideo.filter(d => d.id !== id);
+      }
+    });
+  }
+
+
+  // 视频更新
+  nextTabVideo() {
+    this.detailUpdateModel.id = this.detailId;
+    let arr: any[] = [];
+    let arr1: any[] = [];
+    this.detailUpdateModel.albums = [];
+    this.dataSourceVideo.forEach(element => {
+      console.log("element", element);
+      let a = { id: element.id, sort: element.sort }
+      arr.push(a)
+    });
+    this.dataSource.forEach(element => {
+      console.log("element", element);
+      let a = { id: element.id, sort: element.sort }
+      arr1.push(a);
+    });
+    this.detailUpdateModel.albums = arr.concat(arr1);
+    console.log('this.detailUpdateModel提交的', this.detailUpdateModel);
+    this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
+      if (res === null) {
+        this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe(res => {
+          let i: any[] = [];
+          i.push(this.dataDetailModel?.albums?.data[0]);
+          this.dataSourceVideo = [];
+          this.dataSource = [];
+          this.dataSourceVideo = i;
+          let ii = this.dataDetailModel?.albums?.data;
+          ii.forEach((element: any) => {
+            if (element.type != 2) {
+              this.dataSource.push(element)
+            }
+          });
+        })
+      }
+    })
+  }
+
 
 }

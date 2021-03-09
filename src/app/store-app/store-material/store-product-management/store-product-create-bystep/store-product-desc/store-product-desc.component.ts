@@ -113,6 +113,9 @@ export class StoreProductDescComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })
@@ -354,9 +357,12 @@ export class StoreProductDescComponent implements OnInit {
   
     importVideo() {
       const modal: NzModalRef = this.modal.create({
-        nzTitle: '从图库导入资源',
+        nzTitle: '从视频库导入资源',
         nzViewContainerRef: this.viewContainerRef,
         nzContent: ChooseGalleryComponent,
+        nzComponentParams: {
+          data: 2
+        },
         nzWidth: 1105,
         nzFooter: null
       })
