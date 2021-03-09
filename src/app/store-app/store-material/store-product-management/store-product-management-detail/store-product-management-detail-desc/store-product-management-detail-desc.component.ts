@@ -173,30 +173,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
 
   }
 
-  // top(data: any) {
-  //   const dialogRef = this.dialog.open(DeleteComfirmComponent, {
-  //     width: '550px',
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log("result", result);
-  //     if (result !== undefined) {
-  //       console.log("点击的那个", data);
-  //       let clickSort = data.sort;
-  //       console.log("第一个", this.dataSource[0]);
-  //       this.dataSource[0].sort = clickSort;
-  //       this.dataSource[clickSort].sort = 0;
-  //       this.nextTab();
-  //       this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
-  //         this.dataSource = res.data.album.data;
 
-  //       })
-  //     }
-  //   });
-
-  //   // console.log("更换为", this.dataSource);
-
-
-  // }
 
 
   top(data: any) {

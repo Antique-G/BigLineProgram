@@ -103,7 +103,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
-    public adminProductTagService: AdminProductTagService,private msg: NzMessageService,
+    public adminProductTagService: AdminProductTagService, private msg: NzMessageService,
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.buildForm();
     this.detailUpdateModel = {
@@ -447,31 +447,17 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
-    ]
-    
+    ];
+    // 对粘贴的文本进行处理
+    editorFee.config.pasteFilterStyle = false;
+    editorFee.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
     editorFee.create();
-    //  上传图片 不用
-    // editorFee.config.uploadImgParams = {
-    //   token: (localStorage.getItem('userToken')!),
-    // }
-    // editorFee.config.customUploadImg = (files: any, insert: any) => {
-    //   // 限制一次最多上传 1 张图片
-    //   if (files.length !== 1) {
-    //     alert('单次只能上传一个图片')
-    //     return
-    //   }
-    //   console.log("files是什么", files);
-    //   console.log(files[0]);
-    //   let formData = new FormData();
-    //   formData.append('image', files[0] as any);
-    //   console.log("formData是什么", formData.get('file'));
-    //   this.adminProductManagementService.uploadImg(formData).subscribe(res => {
-    //     console.log(res, 'res');
-    //     insert(res.data);
-    //   })
-    // }
-
-
+   
   }
 
 
@@ -523,16 +509,16 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
       //更新
-      if(Number(this.detailUpdateModel.child_height_min)>Number(this.detailUpdateModel.child_height_max)){
+      if (Number(this.detailUpdateModel.child_height_min) > Number(this.detailUpdateModel.child_height_max)) {
         this.msg.error("儿童最大身高不能小于最小身高");
       }
-      else{
+      else {
         this.detailUpdateModel.id = this.detailId;
         this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
           console.log("res结果", res);
         })
       }
-    
+
     }
   }
 
