@@ -26,7 +26,7 @@ export class ChooseGalleryComponent implements OnInit {
   checked = false
   indeterminate = false;
   listOfCurrentPageData: [] = [];
-  region_codes: any[] = [];
+  region_codes: any
   nzOptions: any[] | null = null;
   loading = true;
   keyword: any = ''
@@ -35,12 +35,17 @@ export class ChooseGalleryComponent implements OnInit {
   total = 1;
   image_name: any
   type = 1
+  region_code: any
 
 
   ngOnInit(): void {
-    this.type = this.data
+    this.type = this.data;
+    this.region_codes = localStorage.getItem("regionData")?.split(',');
+    this.region_code = this.region_codes[this.region_codes.length-1]
+    console.log('object :>> ', this.region_codes);
     this.getRegionList();
     this.buildForm();
+
 
   }
   buildForm(): void {
@@ -61,8 +66,18 @@ export class ChooseGalleryComponent implements OnInit {
     })
   }
 
+
+
+  onDestChange(values: any): void {
+    if (values !== null) {
+      this.region_code = values[values.length - 1];
+    }
+  }
+
+
+
   getImgList() {
-    this.commonService.getGalleryList(this.page, this.keyword, this.per_page, this.region_codes[this.region_codes.length - 1] || '', this.type, this.image_name).subscribe(res => {
+    this.commonService.getGalleryList(this.page, this.keyword, this.per_page, this.region_code, this.type, this.image_name).subscribe(res => {
       console.log('res', res);
       this.listOfData = res.data;
       this.loading = false;

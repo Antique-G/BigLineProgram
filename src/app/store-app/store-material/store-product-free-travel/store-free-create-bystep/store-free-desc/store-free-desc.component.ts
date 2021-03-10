@@ -56,6 +56,9 @@ export class StoreFreeDescComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

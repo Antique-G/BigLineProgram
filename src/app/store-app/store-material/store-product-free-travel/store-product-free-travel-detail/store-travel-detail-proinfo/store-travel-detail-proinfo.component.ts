@@ -457,11 +457,20 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   }
 
+  onDestChange(values: any): void {
+    console.log("点击的结果是", values);
+    localStorage.setItem('regionData',values);
+  }
+
+
   importImg() {
     const modal: NzModalRef = this.modal.create({
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

@@ -21,6 +21,7 @@ export class StoreProductFeatureComponent implements OnInit {
   detailUpdateModel: any;
   @ViewChild("featureBox") featureBox: any;       //获取dom
   featureList: any[] = []    //图片
+  regionData: any
 
 
 
@@ -32,6 +33,8 @@ export class StoreProductFeatureComponent implements OnInit {
       step: 1,
       feature: ''
     }
+    console.log('55555 ', this.addDataDetailModel,this.addDataDetailModel?.destination_city);
+    // this.regionData = this.addDataDetailModel.destination_city;
   }
 
   ngAfterViewInit(): void {
@@ -113,6 +116,9 @@ export class StoreProductFeatureComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

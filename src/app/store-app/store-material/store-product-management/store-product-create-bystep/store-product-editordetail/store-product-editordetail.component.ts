@@ -25,9 +25,10 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   addForm!: FormGroup;
   choose_trip_type = '1';
-
-
   addProductTrip: any;
+
+
+  dayNum: any;
 
 
   editMenu = [
@@ -63,7 +64,6 @@ export class StoreProductEditordetailComponent implements OnInit {
         title: null,
         product_id: '',
         content: '',
-
       }
     ]
   }
@@ -91,12 +91,17 @@ export class StoreProductEditordetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('父组件的值 ', this.addDataDetailModel);
+    console.log("few_days", this.addDataDetailModel.few_days);
+    this.dayNum = this.addDataDetailModel.few_days;
+
   }
 
   ngAfterViewInit(): void {
-    this.textChange();
-    // setTimeout(()=>{
-    //   this.create();},1000)
+    // this.textChange();
+    // // setTimeout(()=>：
+    // //   this.create();},1000)
+    this.dayEditor()
 
   }
 
@@ -104,6 +109,43 @@ export class StoreProductEditordetailComponent implements OnInit {
   // 图片
   get imgageArray() {
     return this.addForm.get("imageList") as FormArray;
+  }
+
+  dayEditor() {
+    for (var i = 0; i < this.dayNum;i++) {
+      console.log('111111111 :>> ', i);
+      this.imgageArray.push(this.fb.group({
+        name: new FormControl(''),
+      }))
+      const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
+      newEditor.config.onchange = (newHtml: any) => {
+        // this.tripDayList.dayList[index].content = newHtml;
+      }
+      // 配置菜单栏
+      newEditor.config.menus = this.editMenu;
+      // 注册菜单
+      newEditor.menus.extend('insertABC', InsertABCMenu)
+      // 重新配置 editor.config.menus
+      newEditor.config.menus = newEditor.config.menus.concat('insertABC')
+      newEditor.config.customFunction = (insert: any) => {
+        const modal: NzModalRef = this.modal.create({
+          nzTitle: '图片上传',
+          nzViewContainerRef: this.viewContainerRef,
+          nzContent: CommonModelComponent,
+          nzWidth: 660,
+          nzFooter: null
+        })
+        modal.afterClose.subscribe(result => {
+          let res = result?.data || []
+          res.forEach((item: any) => {
+            insert(item.url)
+          });
+        });
+      }
+      newEditor.create();
+      return
+    }
+    console.log('this.imgageArray :>> ', this.imgageArray);
   }
 
 
@@ -123,14 +165,6 @@ export class StoreProductEditordetailComponent implements OnInit {
     }
     // 配置菜单栏
     editorDetail.config.menus = this.editMenu;
-    // 对粘贴的文本进行处理
-    editorDetail.config.pasteFilterStyle = false;
-    editorDetail.config.pasteTextHandle = function (pasteStr: any) {
-      //  去除wps文档复制过来的style样式
-      let str = pasteStr
-      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
-      return str
-    }
     // InsertABCMenu
     // 注册菜单
     editorDetail.menus.extend('insertABC', InsertABCMenu);
@@ -160,6 +194,9 @@ export class StoreProductEditordetailComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })
@@ -261,28 +298,22 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   nextTab() {
-    this.detailUpdateModel.id = this.addDataDetailModel.id;
-    this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      if (res === null) {
+    if (this.choose_trip_type === '2') {
+      this.detailUpdateModel.id = this.addDataDetailModel.id;
+      this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        if (res === null) {
+          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+        }
+      })
+    }
+    else if (this.choose_trip_type === '1') {
+      this.dayListSetValue();
+      this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+        console.log('结果是', res)
         this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-      }
-    })
-    // if (this.choose_trip_type === '2') {
-    //   this.detailUpdateModel.id = this.addDataDetailModel.id;
-    //   this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-    //     if (res === null) {
-    //       this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-    //     }
-    //   })
-    // }
-    // else if (this.choose_trip_type === '1') {
-    //   this.dayListSetValue();
-    //   this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-    //     console.log('结果是', res)
-    //     this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-    //   })
+      })
 
-    // }
+    }
 
   }
 
@@ -318,25 +349,20 @@ export class StoreProductEditordetailComponent implements OnInit {
   }
 
 
-
-
-
-  //   remove() {
-  //     console.log("点击的i是什么",this.addForm.value.imageList.length);
-  //     this.imgageArray.removeAt(this.addForm.value.imageList.length-1);
-  //     this.tripDayList.dayList.pop();
-  //     console.log("删除后",this.tripDayList.dayList);
-  //   //   this.tripDayList.dayList.forEach((v, i) => {
-  //   //     console.log("vvvvvvv",v,i,`#newEditor${v.id-2}`);
-
-  //   //     let newEditorChpt =new wangEditor(`#newEditor${v.id-2}`,  `#newEditorContent${v.id-2}`)
-  //   //     newEditorChpt.config.onchange = (newHtml: any) => {
-  //   //     this.tripDayList.dayList[i].content = newHtml;
-  //   //     newEditorChpt.create();
-  //   //   }
-  //   // })
-  // }
-
+  changeVideo(event: any) {
+    console.log('event123', event, event === 1, event === '1');
+    if (event === '1') {
+      setTimeout(() => {
+        this.dayEditor();
+      }, 5000)
+    }
+    else if (event === '2') {
+      // setTimeout(() => {
+      //   this.textChange();
+      // }, 2000)
+      this.textChange();
+    }
+  }
 
 
 }

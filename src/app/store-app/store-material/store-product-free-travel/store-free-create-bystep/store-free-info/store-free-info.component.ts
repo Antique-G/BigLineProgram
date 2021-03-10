@@ -239,6 +239,11 @@ export class StoreFreeInfoComponent implements OnInit {
   }
 
 
+  
+  onDestChange(values: any): void {
+    console.log("点击的结果是", values);
+    localStorage.setItem('regionData',values);
+  }
 
   // 添加
   nextTab() {
@@ -393,6 +398,9 @@ export class StoreFreeInfoComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

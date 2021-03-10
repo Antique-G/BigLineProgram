@@ -16,7 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class CommonModelComponent implements OnInit {
   addForm!: FormGroup;
   nzOptions: any[] | null = null;
-  region_code: any[] = [];//出发城市
+  region_code: any
   count: number = 0
   isSpinning: Boolean = true
   uploading = false;
@@ -28,6 +28,7 @@ export class CommonModelComponent implements OnInit {
   previewVisible = false;
   result: any[] = []
   agreeChecked: boolean = false
+  region_codes: any
 
   constructor(private storeRegionService: StoreRegionService,
     private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
@@ -38,6 +39,9 @@ export class CommonModelComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.region_code = localStorage.getItem("regionData")?.split(',');
+    this.region_codes = this.region_code
+    console.log('object :>> ', this.region_codes);
     this.getRegionList()
   }
 
@@ -45,10 +49,9 @@ export class CommonModelComponent implements OnInit {
   // 表单初始化
   buildForm(): void {
     this.addForm = new FormGroup({
-      region_code: new FormControl(["1001", "10010019", "100100190003"], [Validators.required]),
+      region_code: new FormControl('', [Validators.required]),
       agree: new FormControl('', [Validators.required]),
       desc: new FormControl(''),
-      // few_days: new FormControl('', [Validators.required]),
     });
 
   }
@@ -58,7 +61,7 @@ export class CommonModelComponent implements OnInit {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
       this.isSpinning = false;
-      this.region_code = ["1001", "10010019", "100100190003"];
+      this.region_code = localStorage.getItem("regionData")?.split(',');
     })
   }
 
@@ -137,7 +140,7 @@ export class CommonModelComponent implements OnInit {
         const formData = new FormData();
         formData.append('image', item);
         formData.append('desc', this.addForm.value.desc);
-        formData.append('region_code', this.region_code[this.region_code.length - 1]);
+        formData.append('region_code', this.region_codes);
         this.commonService.uploadImg(formData).subscribe(res => {
           this.result.push(res)
           this.fileList[index].status = 'done';
@@ -160,6 +163,15 @@ export class CommonModelComponent implements OnInit {
 
   }
 
+
+
+  onDestChange(values: any): void {
+    if (values !== null) {
+      this.region_codes = values[values.length - 1];
+    }
+  }
+
+
   showConfirm(): void {
     this.modal.create({
       nzWidth: 600,
@@ -167,14 +179,7 @@ export class CommonModelComponent implements OnInit {
       nzViewContainerRef: this.viewContainerRef,
       nzFooter: null
     })
-    // const dialogRef = this.dialog.open(AgreeComponent, {
-    //   width: '600px',
-    //   disableClose: true
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // this.agreeChecked = result
-    //   // 
-    // });
+
 
   }
 

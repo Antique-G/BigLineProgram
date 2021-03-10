@@ -62,7 +62,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city" nzRequired>目的城市</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.destination_city">
-                                                <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="valuesDestination_city" formControlName="destination_city"></nz-cascader>
+                                                <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onDestChange($event)" [(ngModel)]="valuesDestination_city" formControlName="destination_city"></nz-cascader>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -145,8 +145,8 @@
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童最大年龄</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.children_age">
-                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入">
+                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
