@@ -176,18 +176,15 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
-      this.dayListData.forEach((element: any) => {
-        console.log('element.title===null :>> ', element.title === null,);
-        if (element.title === null || element.content === '') {
-          this.msg.error("请填写具体行程");
-        }
-        else if (element.title != null || element.content != '') {
-          this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
-            console.log('结果是', res)
-          })
-        }
-      });
-
+      let flag = this.dayListData.every((ele: any) => ele.title != null && ele.content != '')
+      console.log('flag :>> ', flag);
+      if (flag) {
+        this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
+        })
+      }
+      else if (!flag) {
+        this.msg.error("请填写具体行程");
+      }
 
     }
 
