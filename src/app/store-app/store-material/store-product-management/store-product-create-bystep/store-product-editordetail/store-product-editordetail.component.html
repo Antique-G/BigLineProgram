@@ -10,6 +10,18 @@
                             <form nz-form nz-row [formGroup]="addForm">
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="trip_type" nzRequired>请选择填写类型</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                            <nz-radio-group [(ngModel)]="choose_trip_type" (ngModelChange)=changeVideo($event) formControlName="trip_type">
+                                                <label nz-radio nzValue='1'>按每天的行程保存</label>
+                                                <label nz-radio nzValue='2'>直接保存详情</label>
+                                            </nz-radio-group>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row *ngIf="choose_trip_type==='2'">
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>产品详情</nz-form-label>
                                         <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入">
                                             <a nz-button nzType="link" (click)="importImg()">从图库导入资源</a>
@@ -24,48 +36,18 @@
                                     </div>
                                 </nz-form-item>
 
-                                <!-- <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="trip_type" nzRequired>请选择填写类型</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24">
-                                            <nz-radio-group [(ngModel)]="choose_trip_type" formControlName="trip_type">
-                                                <label nz-radio nzValue='1'>按每天的行程保存</label>
-                                                <label nz-radio nzValue='2'>直接保存详情</label>
-                                            </nz-radio-group>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                    <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired *ngIf="choose_trip_type==='2'">产品详情</nz-form-label>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired *ngIf="choose_trip_type==='1'">第1天</nz-form-label>
-                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入">
-                                            <input nz-input formControlName="title" *ngIf="choose_trip_type==='1'" />
-                                            <a nz-button nzType="link" (click)="importImg()">从图库导入资源</a>
-                                            <br>
-                                            <div class="wangeditor-feature">
-                                                <div id="editorDetail" style="background-color: ghostwhite;z-index: 10001;"></div>
-                                                <div id="editorContent" class="w-e-text">
-                                                    <div #detailBox></div>
-                                                </div>
-                                            </div>
-                                        </nz-form-control>
-                                    </div>
-                                </nz-form-item>
-
-
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24" formArrayName="imageList" *ngFor="let image of imgageArray.controls as FormArray;let i = index">
                                     <div nz-row *ngIf="choose_trip_type==='1'" [formGroupName]="i">
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+2}} 天</nz-form-label>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+1}} 天</nz-form-label>
                                         <nz-form-control [nzSm]="21" [nzXs]="24">
                                             <input nz-input formControlName="name" />
-                                            <a nz-button nzType="link" (click)="importImgs(i)">从图库导入资源</a>
+                                            <a nz-button nzType="link" (click)="importImgs(i+1)">从图库导入资源</a>
                                             <br>
                                             <ng-container>
                                                 <div class="wangeditor-feature">
-                                                    <div id="newEditor{{i}}" style="background-color: ghostwhite;z-index: 10001;"></div>
-                                                    <div id="newEditorContent{{i}}" class="w-e-text" style="border: 1px solid #c9d8dc;resize: both !important;height: 500px;max-height: 650px;overflow: auto !important;">
-                                                        <div id='detailBox{{i}}'></div>
+                                                    <div id="newEditor{{i+1}}" style="background-color: ghostwhite;z-index: 10001;"></div>
+                                                    <div id="newEditorContent{{i+1}}" class="w-e-text" style="border: 1px solid #c9d8dc;resize: both !important;height: 500px;max-height: 650px;overflow: auto !important;">
+                                                        <div id='detailBox{{i+1}}'></div>
                                                     </div>
                                                 </div>
                                             </ng-container>
@@ -74,18 +56,7 @@
 
                                     </div>
                                 </nz-form-item>
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="choose_trip_type==='1'">
-                                    <div nz-row>
-                                        <button nz-button nzType="dashed" class="add-button" (click)="addMore()">
-                                            <i nz-icon nzType="plus"></i>
-                                            添加
-                                        </button>
-                                       <button nz-button nzType="dashed" class="add-button" (click)="remove()" style="margin-left: 20px;">
-                                            <i nz-icon nzType="minus"></i>
-                                            删除
-                                        </button>
-                                    </div>
-                                </nz-form-item> -->
+
                             </form>
                         </div>
                     </div>

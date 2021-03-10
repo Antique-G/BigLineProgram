@@ -145,8 +145,8 @@
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童最大年龄</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.child_age_max">
-                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="">
+                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

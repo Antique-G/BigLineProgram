@@ -334,6 +334,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
+    localStorage.setItem('regionData',values);
     if (values !== null) {
       this.addStoreProductModel.destination_city = values[values.length - 1];
     }
@@ -405,10 +406,14 @@ export class StoreProductInfoComponent implements OnInit {
   }
 
   importImg() {
+    console.log('this.addStoreProductModel.destination_city', this.addStoreProductModel.destination_city);
     const modal: NzModalRef = this.modal.create({
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

@@ -40,7 +40,7 @@ td {
     width: 100px;
     height: 100px;
     text-align: center;
-    background-color: #ccc;
+    /* background-color: #ccc; */
 }
 
 .ant-table-placeholder {

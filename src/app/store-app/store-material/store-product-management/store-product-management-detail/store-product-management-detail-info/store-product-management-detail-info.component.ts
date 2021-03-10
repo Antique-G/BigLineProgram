@@ -413,6 +413,8 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
+    localStorage.setItem('regionData',values);
+
     if (values !== null) {
       this.detailUpdateModel.destination_city = values[values.length - 1];
     }
@@ -491,6 +493,9 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })

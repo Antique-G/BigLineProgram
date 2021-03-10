@@ -38,7 +38,7 @@ export class CommonServiceService {
   }
 
   // 获取图片列表
-  getGalleryList(page: number, keyword: string, per_page: number, region_code: string, type: any, image_name?: any) {
+  getGalleryList(page: number, keyword: string, per_page: number, region_code: any, type: any, image_name?: any) {
     const params = new HttpParams().set('page', page.toString())
       .set('keyword', keyword)
       .set('per_page', per_page.toString())
