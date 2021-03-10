@@ -56,17 +56,7 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   // 按天添加行程
-  tempId = 1;
-  tripDayList = {
-    dayList: [
-      {
-        day: this.tempId,
-        title: null,
-        product_id: '',
-        content: '',
-      }
-    ]
-  }
+  dayListData: any;
 
 
 
@@ -75,7 +65,7 @@ export class StoreProductEditordetailComponent implements OnInit {
     this.addForm = this.fb.group({
       trip_type: ['1'],
       title: [''],
-      imageList: this.fb.array([]),
+      dayList: this.fb.array([]),
     });
 
     this.detailUpdateModel = {
@@ -97,29 +87,28 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(): void {
-    // this.textChange();
-    // // setTimeout(()=>：
-    // //   this.create();},1000)
-    this.dayEditor()
-
-  }
-
-
-  // 图片
-  get imgageArray() {
-    return this.addForm.get("imageList") as FormArray;
+  // 行程
+  get dayArray() {
+    return this.addForm.get("dayList") as FormArray;
   }
 
   dayEditor() {
-    for (var i = 0; i < this.dayNum;i++) {
-      console.log('111111111 :>> ', i);
-      this.imgageArray.push(this.fb.group({
+    for (let i = 0; i < this.dayNum; i++) {
+      this.dayArray.push(this.fb.group({
         name: new FormControl(''),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
+      if (this.addDataDetailModel?.product_trip.data === []) {
+        document.getElementById(`detailBox${i}`)!.innerHTML= '';
+      }
+      else {
+        this.addDataDetailModel?.product_trip.data.forEach((element:any,index:any) => {
+          console.log("ele,=",element,document.getElementById(`detailBox${i}`))
+          // document.getElementById(`detailBox${i}`)!.innerHTML =`element.content`//赋值
+        });
+      }
       newEditor.config.onchange = (newHtml: any) => {
-        // this.tripDayList.dayList[index].content = newHtml;
+        this.dayListData[i].content = newHtml;
       }
       // 配置菜单栏
       newEditor.config.menus = this.editMenu;
@@ -142,10 +131,13 @@ export class StoreProductEditordetailComponent implements OnInit {
           });
         });
       }
-      newEditor.create();
-      return
+      setTimeout(() => {
+        newEditor.create();
+      }, 100)
+
+
     }
-    console.log('this.imgageArray :>> ', this.imgageArray);
+    console.log('this.dayArray :>> ', this.dayArray);
   }
 
 
@@ -185,7 +177,10 @@ export class StoreProductEditordetailComponent implements OnInit {
         });
       });
     }
-    editorDetail.create();
+
+    setTimeout(() => {
+      editorDetail.create();
+    }, 100)
 
   }
 
@@ -217,81 +212,16 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
 
-  addMore() {
-    // 第二天开始
-    this.tempId = this.tempId + 1;
-    let obj = {
-      day: this.tempId,
-      title: null,
-      product_id: '',
-      content: '',
-
-    };
-    console.log("点击添加", this.tripDayList.dayList);
-
-    this.tripDayList.dayList.push(obj);
-    let length = this.tripDayList.dayList.length;
-    let content = `#newEditor${this.tempId - 2}`;
-    let id = `#newEditorContent${this.tempId - 2}`;
-    console.log("423423423423", content, id);
-    setTimeout(() => {
-      this.create(content, id, length - 1);
-    }, 1000);
-
-    this.imgageArray.push(this.fb.group({
-      name: new FormControl(''),
-    }))
-  }
-
-  // 添加富文本
-  create(content: any, detail: any, index: any) {
-    const newEditor = new wangEditor(content, detail);
-    newEditor.config.onchange = (newHtml: any) => {
-      this.tripDayList.dayList[index].content = newHtml;
-    }
-    // 配置菜单栏
-    newEditor.config.menus = this.editMenu;
-    // 注册菜单
-    newEditor.menus.extend('insertABC', InsertABCMenu)
-    // 重新配置 editor.config.menus
-    newEditor.config.menus = newEditor.config.menus.concat('insertABC')
-    newEditor.config.customFunction = (insert: any) => {
-      const modal: NzModalRef = this.modal.create({
-        nzTitle: '图片上传',
-        nzViewContainerRef: this.viewContainerRef,
-        nzContent: CommonModelComponent,
-        nzWidth: 660,
-        nzFooter: null
-      })
-      modal.afterClose.subscribe(result => {
-        let res = result?.data || []
-        res.forEach((item: any) => {
-          insert(item.url)
-        });
-      });
-    }
-    newEditor.create();
-
-  }
-
-
   dayListSetValue() {
-    console.log("this.addForm.value.imageList", this.addForm.value.imageList);
-    console.log("43423423this.editorList", this.tripDayList.dayList);
-    this.tripDayList.dayList[0].title = this.addForm.value.title;
-    this.tripDayList.dayList[0].product_id = this.addDataDetailModel.id;
-    this.tripDayList.dayList[0].content = this.detailUpdateModel.details;
-    let newArr = this.tripDayList.dayList.shift()!;
-    console.log("newArr", this.tripDayList.dayList);
-    this.tripDayList.dayList.forEach((value: any, index: any) => {
-      value.title = this.addForm.value.imageList[index].name;
-      value.product_id = this.addDataDetailModel.id;
+    console.log("this.addForm.value.dayList", this.addForm.value.dayList);
+    this.dayListData.forEach((element: any, index: any) => {
+      element.title = this.addForm.value.dayList[index].name;
+      element.product_id = this.addDataDetailModel.id;
     });
-    this.tripDayList.dayList.unshift(newArr);
-    console.log("赋值后", this.tripDayList.dayList);
-    this.addProductTrip.trip_arr = this.tripDayList.dayList;
-    this.addProductTrip.trip_type = 1;
+    console.log('this.dayList :>>23423423423 ', this.dayListData);
+    this.addProductTrip.trip_arr = this.dayListData;
     this.addProductTrip.product_id = this.addDataDetailModel.id;
+    this.addProductTrip.trip_type = 1;
   }
 
 
@@ -308,6 +238,7 @@ export class StoreProductEditordetailComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
+      console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
       this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
         console.log('结果是', res)
         this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
@@ -323,11 +254,13 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   importImgs(i: any) {
     console.log("i是什么", i)
-    // this.imgageArray
     const modal: NzModalRef = this.modal.create({
       nzTitle: '从图库导入资源',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
+      nzComponentParams: {
+        data: 1
+      },
       nzWidth: 1105,
       nzFooter: null
     })
@@ -341,9 +274,7 @@ export class StoreProductEditordetailComponent implements OnInit {
         }
         // 将图片传到文本框
         console.log("document.getElementById(`detailBox${i}`)!.innerHTML", document.getElementById(`detailBox${i}`)!.innerHTML)
-        document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`;
-
-
+        document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
   }
@@ -351,16 +282,29 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   changeVideo(event: any) {
     console.log('event123', event, event === 1, event === '1');
+    let arr: any[] = [];
+    for (let i = 0; i < this.dayNum; i++) {
+      let obj = {
+        day: i + 1,
+        title: '',
+        product_id: '',
+        content: '',
+      }
+      arr.push(obj);
+      this.dayListData = arr;
+    }
+    console.log(' 便利dayListData ', this.dayListData);
+    // 初始化富文本编辑器
     if (event === '1') {
+      this.dayArray.controls = [];
       setTimeout(() => {
         this.dayEditor();
-      }, 5000)
+      }, 100)
     }
     else if (event === '2') {
-      // setTimeout(() => {
-      //   this.textChange();
-      // }, 2000)
-      this.textChange();
+      setTimeout(() => {
+        this.textChange();
+      }, 100)
     }
   }
 
