@@ -156,6 +156,8 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     this.dayListData.forEach((element: any, index: any) => {
       element.title = this.addForm.value.dayList[index].name;
       element.inden_product_id = this.dataFreeDetailModel.id;
+      element['id'] = this.dataFreeDetailModel.product_trip.data[index].id
+
     });
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;

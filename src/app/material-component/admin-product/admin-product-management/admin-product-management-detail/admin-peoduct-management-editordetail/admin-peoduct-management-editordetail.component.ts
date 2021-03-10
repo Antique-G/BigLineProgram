@@ -163,7 +163,9 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     console.log("this.addForm.value.dayList", this.addForm.value.dayList);
     this.dayListData.forEach((element: any, index: any) => {
       element.title = this.addForm.value.dayList[index].name;
-      element.product_id = this.detailId;;
+      element.product_id = this.detailId;
+      element['id'] = this.adminProductDetailModel.product_trip.data[index].id
+
     });
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;

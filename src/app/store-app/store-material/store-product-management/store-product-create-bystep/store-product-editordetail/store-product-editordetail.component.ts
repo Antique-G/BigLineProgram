@@ -230,11 +230,22 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   dayListSetValue() {
-    console.log("this.addForm.value.dayList", this.addForm.value.dayList);
-    this.dayListData.forEach((element: any, index: any) => {
-      element.title = this.addForm.value.dayList[index].name;
-      element.product_id = this.addDataDetailModel.id;
-    });
+    console.log('6867867 ', this.addDataDetailModel.product_trip.data);
+    if(this.addDataDetailModel.product_trip.data.length===0){
+      console.log("this.addForm.value.dayList", this.addForm.value.dayList);
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.product_id = this.addDataDetailModel.id;
+      });
+    }
+    else{
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.product_id = this.addDataDetailModel.id;
+        element['id']=this.addDataDetailModel.product_trip.data[index].id
+      });
+    }
+   
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;
     this.addProductTrip.product_id = this.addDataDetailModel.id;
