@@ -81,6 +81,9 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     console.log("few_days", this.dataFreeDetailModel.few_days);
     this.dayNum = 0
     this.dayNum = this.dataFreeDetailModel.few_days;
+    if(this.dataFreeDetailModel?.trip_type.toString()){
+      this.choose_trip_type=this.dataFreeDetailModel?.trip_type.toString()
+    }
   }
 
 
