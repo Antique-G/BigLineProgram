@@ -12,7 +12,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreFreeTravelModel, ProductTabListModel, FreeTravelListModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreUrls } from '../../../api';
-import { AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { AddProductTrip, AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
@@ -58,6 +58,18 @@ export class StoreProductTreeTravelService {
 
       )
   }
+
+
+
+// 行程添加
+addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
+  return this.httpClient.post<any>(this.urls.PostStoreFreeTravelInfoDetail, addProductTrip, httpOptions)
+    .pipe(
+      
+    )
+}
+
+
   // 产品标签列表
   // 产品标签
   GetProductTagList(cate_id: any): Observable<AssemblingPlaceListModel> {

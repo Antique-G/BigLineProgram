@@ -54,6 +54,12 @@ export const AdminUrls = {
   GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
   GetAdminProductManagementStoreList: api + '/admin/store/list',// 查询店铺
 
+  
+  PostAdminProductTrip: api + '/admin/product_trip', //行程
+  PostAdminProductIndenTrip: api + '/store/inden_product_trip', //行程
+
+ 
+
 
 
   GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
@@ -175,6 +181,9 @@ export const StoreUrls = {
   PostSaveStoreFreeTravelInfo: api + '/store/independent_product',
   PostUpDownFreeTravelInfo: api + '/store/independent_product/set_status',
   PostUpDownFreeTravelInfoSetCheck: api + '/store/independent_product/set_check',
+  PostStoreFreeTravelInfoDetail: api + '/store/inden_product_trip',
+
+  
 
   // 自由行产品日期报价
   GetStoreFreeTravelQuote: api + '/store/independent_date_quote',//自由行报价日期列表
