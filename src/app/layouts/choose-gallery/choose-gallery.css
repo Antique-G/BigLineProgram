@@ -51,3 +51,7 @@ td {
     width: 100px;
     height: 100px;
 }
+
+.ant-table-pagination.ant-pagination {
+    margin-top: 22px !important;
+}
