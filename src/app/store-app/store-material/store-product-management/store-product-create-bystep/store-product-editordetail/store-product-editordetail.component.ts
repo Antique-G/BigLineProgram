@@ -29,6 +29,7 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   dayNum: any;
+  isName: any
 
 
   editMenu = [
@@ -98,20 +99,21 @@ export class StoreProductEditordetailComponent implements OnInit {
         name: new FormControl(''),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
-      if (this.addDataDetailModel?.product_trip.data === []) {
-        document.getElementById(`detailBox${i}`)!.innerHTML= '';
-      }
-      else {
-        this.addDataDetailModel?.product_trip.data.forEach((element:any,index:any) => {
-          console.log("ele,=",element,document.getElementById(`detailBox${i}`))
-          // document.getElementById(`detailBox${i}`)!.innerHTML =`element.content`//赋值
-        });
-      }
       newEditor.config.onchange = (newHtml: any) => {
         this.dayListData[i].content = newHtml;
       }
       // 配置菜单栏
       newEditor.config.menus = this.editMenu;
+      // 配置菜单栏
+      newEditor.config.menus = this.editMenu;
+      // 对粘贴的文本进行处理
+      newEditor.config.pasteFilterStyle = false;
+      newEditor.config.pasteTextHandle = function (pasteStr: any) {
+        //  去除wps文档复制过来的style样式
+        let str = pasteStr
+        str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+        return str
+      }
       // 注册菜单
       newEditor.menus.extend('insertABC', InsertABCMenu)
       // 重新配置 editor.config.menus
@@ -133,6 +135,13 @@ export class StoreProductEditordetailComponent implements OnInit {
       }
       setTimeout(() => {
         newEditor.create();
+        console.log('this.addDataDetailModel?.product_trip.data === [] :>> ', this.addDataDetailModel?.product_trip.data.length === 0, this.addDataDetailModel?.product_trip.data === []);
+        if (this.addDataDetailModel?.product_trip.data.length === 0) {
+          newEditor.txt.html()
+        }
+        else {
+          newEditor.txt.html(this.addDataDetailModel?.product_trip.data[i].content) // 重i新设置编辑器内容
+        }
       }, 100)
 
 
@@ -157,6 +166,14 @@ export class StoreProductEditordetailComponent implements OnInit {
     }
     // 配置菜单栏
     editorDetail.config.menus = this.editMenu;
+    // 对粘贴的文本进行处理
+    editorDetail.config.pasteFilterStyle = false;
+    editorDetail.config.pasteTextHandle = function (pasteStr: any) {
+      //  去除wps文档复制过来的style样式
+      let str = pasteStr
+      str = str.replace(/[\s\S.@]*{[\s\S]*?}/ig, '');
+      return str
+    }
     // InsertABCMenu
     // 注册菜单
     editorDetail.menus.extend('insertABC', InsertABCMenu);

@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
 import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel, StoreListModel } from '../../interfaces/adminProduct/product-management-model';
+import { AddProductTrip } from '../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -23,7 +24,7 @@ export class AdminProductManagementService {
 
   // 产品列表
   productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string, code: any): Observable<AdminProductManagementListResponseModel> {
-    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
@@ -50,6 +51,16 @@ export class AdminProductManagementService {
         catchError(this.handleError)
       )
   }
+
+  // 行程添加
+  addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminProductTrip, addProductTrip, httpOptions)
+      .pipe(
+
+      )
+  }
+
+
 
   // 详情
   productDetail(id: any): Observable<AdminProductDetailResponseModel> {

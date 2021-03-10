@@ -1,17 +1,29 @@
 <div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
-        <div class="example-container">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
             <mat-card>
                 <div class="example-container">
                     <div fxLayout="column" fxLayoutAlign="start stretch">
-                        <h4 style="padding-left: 10px;padding-top: 10px;">产品描述</h4>
-                        <nz-divider style="margin: 0;"></nz-divider>
+                        <h4 style="padding-left: 10px;padding-top: 10px;">产品详情</h4>
+                        <nz-divider></nz-divider>
                         <div style="padding:10px 80px">
-                            <form nz-form nz-row>
+                            <form nz-form nz-row [formGroup]="addForm">
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
-                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="title">产品描述</nz-form-label>
-                                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="trip_type" nzRequired>请选择填写类型</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                            <nz-radio-group [(ngModel)]="choose_trip_type" (ngModelChange)=changeVideo($event) formControlName="trip_type">
+                                                <label nz-radio nzValue='1'>按每天的行程保存</label>
+                                                <label nz-radio nzValue='2'>直接保存详情</label>
+                                            </nz-radio-group>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row *ngIf="choose_trip_type==='2'">
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>产品详情</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入">
                                             <a nz-button nzType="link" (click)="importImg()">从图库导入资源</a>
                                             <br>
                                             <div class="wangeditor-feature">
@@ -23,17 +35,37 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" formArrayName="dayList" *ngFor="let image of dayArray.controls as FormArray;let i = index">
+                                    <div nz-row *ngIf="choose_trip_type==='1'" [formGroupName]="i">
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+1}} 天</nz-form-label>
+                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                            <input nz-input formControlName="name" />
+                                            <a nz-button nzType="link" (click)="importImgs(i+1)">从图库导入资源</a>
+                                            <br>
+                                            <ng-container>
+                                                <div class="wangeditor-feature">
+                                                    <div id="newEditor{{i+1}}" style="background-color: ghostwhite;z-index: 10001;"></div>
+                                                    <div id="newEditorContent{{i+1}}" class="w-e-text" style="border: 1px solid #c9d8dc;resize: both !important;height: 500px;max-height: 650px;overflow: auto !important;">
+                                                        <div id='detailBox{{i+1}}'></div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <br>
+                                        </nz-form-control>
+
+                                    </div>
+                                </nz-form-item>
+
                             </form>
                         </div>
-
                     </div>
-
                 </div>
             </mat-card>
 
         </div>
         <div class="btn">
-            <button nz-button nzType="primary" (click)="updateInfo()">更新</button>
+            <button nz-button nzType="primary" (click)="nextTab()">更新</button>
         </div>
     </div>
 </div>
