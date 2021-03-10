@@ -93,7 +93,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   dayEditor() {
     for (let i = 0; i < this.dayNum; i++) {
       this.dayArray.push(this.fb.group({
-        name: new FormControl(''),
+        name: new FormControl(this.dataDetailModel.product_trip.data[i]?.title),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
       newEditor.config.onchange = (newHtml: any) => {

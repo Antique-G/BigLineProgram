@@ -56,7 +56,7 @@ export const AdminUrls = {
 
   
   PostAdminProductTrip: api + '/admin/product_trip', //行程
-  PostAdminProductIndenTrip: api + '/store/inden_product_trip', //行程
+  PostAdminProductIndenTrip: api + '/admin/inden_product_trip', //行程
 
  
 
