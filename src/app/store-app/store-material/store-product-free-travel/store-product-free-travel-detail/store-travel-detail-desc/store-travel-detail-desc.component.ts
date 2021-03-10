@@ -221,6 +221,8 @@ export class StoreTravelDetailDescComponent implements OnInit {
     this.dayListData.forEach((element: any, index: any) => {
       element.title = this.addForm.value.dayList[index].name;
       element.inden_product_id = this.dataDetailModel.id;
+      element['id']=this.dataDetailModel.product_trip.data[index].id;
+
     });
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;
