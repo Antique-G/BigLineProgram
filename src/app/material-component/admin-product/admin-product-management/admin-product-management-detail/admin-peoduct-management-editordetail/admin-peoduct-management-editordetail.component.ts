@@ -78,8 +78,8 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     console.log('父组件的值 ', this.adminProductDetailModel);
     console.log("few_days", this.adminProductDetailModel.few_days);
     this.dayNum = this.adminProductDetailModel.few_days;
-    if(this.adminProductDetailModel?.trip_type.toString()){
-      this.choose_trip_type=this.adminProductDetailModel?.trip_type.toString()
+    if (this.adminProductDetailModel?.trip_type.toString()) {
+      this.choose_trip_type = this.adminProductDetailModel?.trip_type.toString()
     }
   }
 
@@ -164,13 +164,20 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
 
 
   dayListSetValue() {
-    console.log("this.addForm.value.dayList", this.addForm.value.dayList);
-    this.dayListData.forEach((element: any, index: any) => {
-      element.title = this.addForm.value.dayList[index].name;
-      element.product_id = this.detailId;
-      element['id'] = this.adminProductDetailModel.product_trip.data[index].id
-
-    });
+    if (this.adminProductDetailModel.product_trip.data.length === 0) {
+      console.log("this.addForm.value.dayList", this.addForm.value.dayList);
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.product_id = this.detailId;
+      });
+    }
+    else {
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.product_id = this.detailId;
+        element['id'] = this.adminProductDetailModel.product_trip.data[index].id
+      });
+    }
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;
     this.addProductTrip.product_id = this.detailId;
