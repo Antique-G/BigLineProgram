@@ -78,27 +78,11 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     });
     console.log('父组件的值 ', this.dataFreeDetailModel);
     console.log("few_days", this.dataFreeDetailModel.few_days);
+    this.dayNum = 0
     this.dayNum = this.dataFreeDetailModel.few_days;
-    this. setFormValue()
   }
 
-  setFormValue() {
-    // this.imgArray = [];
-    // console.log("23453453645645", this.dataFreeDetailModel.product_trip.data)
-    this.imgArray = this.dataFreeDetailModel.product_trip.data;
-    this.dataFreeDetailModel.product_trip.data.forEach((element:any,index:any) => {
-      console.log('(this.addForm', this.addForm.controls);
-      // ((this.addForm.get('dayList') as FormArray).at(index) as FormGroup).get('name')!.patchValue(element.title);
-      this.addForm.controls.dayList.value [index].controls['name'].patchValue(element.title)
-    });
-    // for (let i of this.imgArray) {
-    //   (this.addForm.controls['dayList'] as FormArray).push(new FormGroup({
-    //     name: new FormControl(i.title)
-    //   }));
-    // }
-    // console.log("23423423432", this.addForm.controls['dayList'] as FormArray)
-   
-  }
+
 
   // 行程
   get dayArray() {
@@ -109,18 +93,9 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
   dayEditor() {
     for (let i = 0; i < this.dayNum; i++) {
       this.dayArray.push(this.fb.group({
-        name: new FormControl(''),
+        name: new FormControl(this.dataFreeDetailModel.product_trip.data[i]?.title),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
-      if (this.dataFreeDetailModel?.product_trip.data === []) {
-        document.getElementById(`detailBox${i}`)!.innerHTML = '';
-      }
-      else {
-        this.dataFreeDetailModel?.product_trip.data.forEach((element: any, index: any) => {
-          console.log("ele,=", element, document.getElementById(`detailBox${i}`))
-          // document.getElementById(`detailBox${i}`)!.innerHTML =`element.content`//赋值
-        });
-      }
       newEditor.config.onchange = (newHtml: any) => {
         this.dayListData[i].content = newHtml;
       }
@@ -135,13 +110,12 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
       }
       setTimeout(() => {
         newEditor.create();
-
         if (this.dataFreeDetailModel?.product_trip.data.length === 0) {
           newEditor.txt.html()
         }
         else {
           newEditor.txt.html(this.dataFreeDetailModel?.product_trip.data[i].content) // 重i新设置编辑器内容
-         
+
         }
       }, 100)
     }
@@ -195,7 +169,6 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     if (this.choose_trip_type === '2') {
       this.detailUpdateModel.id = this.detailId;
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
-
       })
     }
     else if (this.choose_trip_type === '1') {
@@ -203,7 +176,6 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
       console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
       this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
         console.log('结果是', res)
-
       })
 
     }

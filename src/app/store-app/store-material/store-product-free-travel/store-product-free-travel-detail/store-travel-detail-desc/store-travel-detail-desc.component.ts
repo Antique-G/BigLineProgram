@@ -93,18 +93,10 @@ export class StoreTravelDetailDescComponent implements OnInit {
   dayEditor() {
     for (let i = 0; i < this.dayNum; i++) {
       this.dayArray.push(this.fb.group({
-        name: new FormControl(''),
+        name: new FormControl(this.dataDetailModel.product_trip.data[i]?.title),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
-      if (this.dataDetailModel?.product_trip.data === []) {
-        document.getElementById(`detailBox${i}`)!.innerHTML = '';
-      }
-      else {
-        this.dataDetailModel?.product_trip.data.forEach((element: any, index: any) => {
-          console.log("ele,=", element, document.getElementById(`detailBox${i}`))
-          // document.getElementById(`detailBox${i}`)!.innerHTML =`element.content`//赋值
-        });
-      }
+  
       newEditor.config.onchange = (newHtml: any) => {
         this.dayListData[i].content = newHtml;
       }
