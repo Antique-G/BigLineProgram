@@ -55,7 +55,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
-    public adminProductFreeTravelService: AdminProductFreeTravelService,private msg: NzMessageService,) {
+    public adminProductFreeTravelService: AdminProductFreeTravelService, private msg: NzMessageService,) {
     this.addForm = this.fb.group({
       trip_type: ['1'],
       title: [''],
@@ -81,8 +81,8 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     console.log("few_days", this.dataFreeDetailModel.few_days);
     this.dayNum = 0
     this.dayNum = this.dataFreeDetailModel.few_days;
-    if(this.dataFreeDetailModel?.trip_type.toString()){
-      this.choose_trip_type=this.dataFreeDetailModel?.trip_type.toString()
+    if (this.dataFreeDetailModel?.trip_type.toString()) {
+      this.choose_trip_type = this.dataFreeDetailModel?.trip_type.toString()
     }
   }
 
@@ -156,13 +156,20 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
 
   dayListSetValue() {
-    console.log("this.addForm.value.dayList", this.addForm.value.dayList);
-    this.dayListData.forEach((element: any, index: any) => {
-      element.title = this.addForm.value.dayList[index].name;
-      element.inden_product_id = this.dataFreeDetailModel.id;
-      element['id'] = this.dataFreeDetailModel.product_trip.data[index].id
-
-    });
+    if (this.dataFreeDetailModel.product_trip.data.length === 0) {
+      console.log("this.addForm.value.dayList", this.addForm.value.dayList);
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.inden_product_id = this.dataFreeDetailModel.id;
+      });
+    }
+    else {
+      this.dayListData.forEach((element: any, index: any) => {
+        element.title = this.addForm.value.dayList[index].name;
+        element.inden_product_id = this.dataFreeDetailModel.id;
+        element['id'] = this.dataFreeDetailModel.product_trip.data[index].id
+      });
+    }
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;
     this.addProductTrip.product_id = this.dataFreeDetailModel.id;
