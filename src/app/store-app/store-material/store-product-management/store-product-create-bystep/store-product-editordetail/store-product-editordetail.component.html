@@ -36,7 +36,7 @@
                                     </div>
                                 </nz-form-item>
 
-                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" formArrayName="imageList" *ngFor="let image of imgageArray.controls as FormArray;let i = index">
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" formArrayName="dayList" *ngFor="let image of dayArray.controls as FormArray;let i = index">
                                     <div nz-row *ngIf="choose_trip_type==='1'" [formGroupName]="i">
                                         <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+1}} 天</nz-form-label>
                                         <nz-form-control [nzSm]="21" [nzXs]="24">
