@@ -41,7 +41,7 @@ export class ChooseGalleryComponent implements OnInit {
   ngOnInit(): void {
     this.type = this.data;
     this.region_codes = localStorage.getItem("regionData")?.split(',');
-    this.region_code = this.region_codes[this.region_codes.length-1]
+    this.region_code = this.region_codes[this.region_codes.length - 1]
     console.log('object :>> ', this.region_codes);
     this.getRegionList();
     this.buildForm();
@@ -89,6 +89,13 @@ export class ChooseGalleryComponent implements OnInit {
   getImgLists() {
     this.keyword = this.addForm.value.keyword;
     this.image_name = this.addForm.value.image_name;
+    console.log('this.addForm.value.', this.addForm.value.region_code[this.addForm.value.region_code?.length - 1]);
+    if(this.addForm.value.region_code[this.addForm.value.region_code?.length - 1]===undefined){
+      this.region_code=''
+    }
+    else{
+      this.region_code = this.addForm.value.region_code[this.addForm.value.region_code?.length - 1];
+    }
     this.getImgList()
 
   }
