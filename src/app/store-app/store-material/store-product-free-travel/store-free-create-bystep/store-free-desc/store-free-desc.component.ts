@@ -249,11 +249,20 @@ export class StoreFreeDescComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
-      console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-      this.freeTravelService.addProductTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
-        this.tabIndex.emit({ id: this.reqModel.id, tabIndex: 3 })
-      })
+      this.dayListData.forEach((element: any) => {
+        console.log('element.title===null :>> ', element.title === null,);
+        if (element.title === null || element.content === '') {
+          this.msg.error("请填写具体行程");
+        }
+        else if (element.title != null || element.content != '') {
+          this.freeTravelService.addProductTrip(this.addProductTrip).subscribe(res => {
+            console.log('结果是', res)
+            this.tabIndex.emit({ id: this.reqModel.id, tabIndex: 3 })
+          })
+        }
+      });
+
+  
 
     }
 

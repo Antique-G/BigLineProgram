@@ -1,4 +1,4 @@
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import wangEditor from 'wangeditor';
@@ -231,25 +231,26 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   dayListSetValue() {
     console.log('6867867 ', this.addDataDetailModel.product_trip.data);
-    if(this.addDataDetailModel.product_trip.data.length===0){
+    if (this.addDataDetailModel.product_trip.data.length === 0) {
       console.log("this.addForm.value.dayList", this.addForm.value.dayList);
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.product_id = this.addDataDetailModel.id;
       });
     }
-    else{
+    else {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.product_id = this.addDataDetailModel.id;
-        element['id']=this.addDataDetailModel.product_trip.data[index].id
+        element['id'] = this.addDataDetailModel.product_trip.data[index].id
       });
     }
-   
+
     console.log('this.dayList :>>23423423423 ', this.dayListData);
     this.addProductTrip.trip_arr = this.dayListData;
     this.addProductTrip.product_id = this.addDataDetailModel.id;
     this.addProductTrip.trip_type = 1;
+
   }
 
 
@@ -267,10 +268,19 @@ export class StoreProductEditordetailComponent implements OnInit {
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
       console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-      this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
-        this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-      })
+      this.dayListData.forEach((element: any) => {
+        console.log('element.title===null :>> ', element.title === null,);
+        if (element.title === null || element.content === '') {
+          this.msg.error("请填写具体行程");
+        }
+        else if (element.title != null || element.content != '') {
+          this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+            console.log('结果是', res)
+            this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+          })
+        }
+      });
+
 
     }
 
