@@ -230,7 +230,7 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   dayListSetValue() {
-    console.log('6867867 ', this.addDataDetailModel.product_trip.data);
+    console.log('6867867 ', this.addDataDetailModel.product_trip.data, this.addDataDetailModel.product_trip.data.length === 0);
     if (this.addDataDetailModel.product_trip.data.length === 0) {
       console.log("this.addForm.value.dayList", this.addForm.value.dayList);
       this.dayListData.forEach((element: any, index: any) => {
@@ -267,20 +267,17 @@ export class StoreProductEditordetailComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
-      console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-      this.dayListData.forEach((element: any) => {
-        console.log('element.title===null :>> ', element.title === null,);
-        if (element.title === null || element.content === '') {
-          this.msg.error("请填写具体行程");
-        }
-        else if (element.title != null || element.content != '') {
-          this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-            console.log('结果是', res)
-            this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
-          })
-        }
-      });
-
+      let flag = this.dayListData.every((ele: any) => ele.title != null && ele.content != '')
+      console.log('flag :>> ', flag);
+      if (flag) {
+        this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+          console.log('结果是', res)
+          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+        })
+      }
+      else if (!flag) {
+        this.msg.error("请填写具体行程");
+      }
 
     }
 
