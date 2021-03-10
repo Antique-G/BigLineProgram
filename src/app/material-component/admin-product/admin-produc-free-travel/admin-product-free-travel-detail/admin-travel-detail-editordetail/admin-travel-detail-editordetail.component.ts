@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import wangEditor from 'wangeditor';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 
@@ -54,7 +55,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
-    public adminProductFreeTravelService: AdminProductFreeTravelService,) {
+    public adminProductFreeTravelService: AdminProductFreeTravelService,private msg: NzMessageService,) {
     this.addForm = this.fb.group({
       trip_type: ['1'],
       title: [''],
@@ -175,10 +176,18 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
-      console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-      this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
-      })
+      this.dayListData.forEach((element: any) => {
+        console.log('element.title===null :>> ', element.title === null,);
+        if (element.title === null || element.content === '') {
+          this.msg.error("请填写具体行程");
+        }
+        else if (element.title != null || element.content != '') {
+          this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
+            console.log('结果是', res)
+          })
+        }
+      });
+
 
     }
 

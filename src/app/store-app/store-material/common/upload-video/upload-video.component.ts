@@ -16,7 +16,7 @@ import { AgreeComponent } from '../common-model/agree/agree.component';
 export class UploadVideoComponent implements OnInit {
   addForm!: FormGroup;
   nzOptions: any[] | null = null;
-  region_code: any[] = [];//出发城市
+  region_code: any
   count: number = 0
   isSpinning: Boolean = true
   uploading = false;
@@ -28,6 +28,8 @@ export class UploadVideoComponent implements OnInit {
   previewVisible = false;
   result: any[] = []
   agreeChecked: boolean = false
+  region_codes: any
+
 
   constructor(private storeRegionService: StoreRegionService,
     private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
@@ -38,6 +40,9 @@ export class UploadVideoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.region_code = localStorage.getItem("regionData")?.split(',');
+    this.region_codes = this.region_code
+    console.log('object :>> ', this.region_codes);
     this.getRegionList()
   }
 
@@ -45,7 +50,7 @@ export class UploadVideoComponent implements OnInit {
   // 表单初始化
   buildForm(): void {
     this.addForm = new FormGroup({
-      region_code: new FormControl(["1001", "10010019", "100100190003"], [Validators.required]),
+      region_code: new FormControl('', [Validators.required]),
       agree: new FormControl('', [Validators.required]),
       desc: new FormControl(''),
     });
@@ -57,7 +62,7 @@ export class UploadVideoComponent implements OnInit {
     this.storeRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
       this.isSpinning = false;
-      this.region_code = ["1001", "10010019", "100100190003"];
+      this.region_code = localStorage.getItem("regionData")?.split(',');
     })
   }
 
@@ -82,6 +87,14 @@ export class UploadVideoComponent implements OnInit {
 
     return false
   };
+
+
+  onDestChange(values: any): void {
+    if (values !== null) {
+      this.region_codes = values[values.length - 1];
+    }
+  }
+
 
 
   removeImg = (file: NzUploadFile) => {

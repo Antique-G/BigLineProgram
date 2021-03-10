@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import wangEditor from 'wangeditor';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
 
@@ -52,7 +53,7 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,
-    public adminProductManagementService: AdminProductManagementService,) {
+    public adminProductManagementService: AdminProductManagementService,private msg: NzMessageService,) {
     this.detailUpdateModel = {
       step: 2,
       details: '',
@@ -184,11 +185,20 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
-      console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-      this.adminProductManagementService.addProductTrip(this.addProductTrip).subscribe(res => {
-        console.log('结果是', res)
+      this.dayListData.forEach((element: any) => {
+        console.log('element.title===null :>> ', element.title === null,);
+        if (element.title === null || element.content === '') {
+          this.msg.error("请填写具体行程");
+        }
+        else if (element.title != null || element.content != '') {
+          this.adminProductManagementService.addProductTrip(this.addProductTrip).subscribe(res => {
+            console.log('结果是', res)
+    
+          })
+        }
+      });
 
-      })
+  
 
     }
 
