@@ -48,19 +48,19 @@
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="edit(data)" title="详情">
-                                            <!-- <mat-icon>edit</mat-icon> -->
+
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png">
                                         </div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="up(data)" title="开启">
                                             <div *ngIf="data.status===0">
-                                                <!-- <mat-icon title="开启">arrow_circle_up</mat-icon> -->
+
                                                 <img src="http://cdn.bigline.com.cn/static/images/up.png" title="开启">
 
                                             </div>
                                             <div *ngIf="data.status===1">
-                                                <!-- <mat-icon title="禁用">arrow_circle_down</mat-icon> -->
+
                                                 <img src="http://cdn.bigline.com.cn/static/images/down.png" title="禁用">
 
                                             </div>
@@ -69,7 +69,7 @@
                                     <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
                                             <div style="cursor: pointer;" (click)="delete(data)" title="删除">
-                                                <!-- <mat-icon>delete</mat-icon> -->
+
                                                 <img src="http://cdn.bigline.com.cn/static/images/delete.png">
                                             </div>
                                         </div>

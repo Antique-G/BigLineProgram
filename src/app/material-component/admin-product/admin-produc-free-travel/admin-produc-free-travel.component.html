@@ -105,30 +105,26 @@
                                         <div *ngIf="data.check_status===3">
                                             <div>
                                                 <span>未通过</span>
-                                                <mat-icon nz-tooltip nzTooltipTitle={{data?.check_log[0]?.reason}} nzTooltipPlacement="bottom" nzTooltipColor="#2db7f5" style="font-size: 12px;cursor: pointer;">help_outline</mat-icon>
+                                                <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{data?.check_log[0]?.reason}}>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="edit(data)" title="详情">
-                                            <!-- <mat-icon>edit</mat-icon> -->
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png">
                                         </div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" *ngIf="data.check_status!=0" title="审核" (click)="review(data)">
-                                            <!-- <mat-icon>assignment_ind</mat-icon> -->
                                             <img src="http://cdn.bigline.com.cn/static/images/assignment.png">
                                         </div>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;" *ngIf="data.check_status===2" (click)="up(data)" title="上架">
                                             <div *ngIf="data.status===0">
-                                                <!-- <mat-icon title="上架">arrow_circle_up</mat-icon> -->
                                                 <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架">
                                             </div>
                                             <div *ngIf="data.status===1">
-                                                <!-- <mat-icon title="下架">arrow_circle_down</mat-icon> -->
                                                 <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架">
                                             </div>
                                         </div>
