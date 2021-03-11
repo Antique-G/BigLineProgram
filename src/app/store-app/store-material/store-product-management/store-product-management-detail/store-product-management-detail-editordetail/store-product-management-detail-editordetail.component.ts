@@ -56,6 +56,8 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
     'redo',
   ]
 
+  isSpecial = true;
+
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
     public dialog: MatDialog, private msg: NzMessageService, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.addForm = this.fb.group({
@@ -82,16 +84,42 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
     console.log('父组件的值 ', this.dataDetailModel);
     console.log("few_days", this.dataDetailModel.few_days);
     this.dayNum = this.dataDetailModel.few_days;
-    if(this.dataDetailModel?.trip_type.toString()){
-      this.choose_trip_type=this.dataDetailModel?.trip_type.toString()
+    console.log('this.dayNum2232323 ', this.dayNum);
+    if (this.dataDetailModel?.trip_type.toString()) {
+      this.choose_trip_type = this.dataDetailModel?.trip_type.toString()
     }
   }
 
+
+  // Dom渲染富文本编辑器
+  ngAfterViewInit() {
+    let arr: any[] = [];
+    for (let i = 0; i < this.dayNum; i++) {
+      let obj = {
+        day: i + 1,
+        title: '',
+        product_id: '',
+        content: '',
+      }
+      arr.push(obj);
+      this.dayListData = arr;
+    }
+    console.log(' 便利dayListData ', this.dayListData);
+    this.dayArray.controls = [];
+    setTimeout(() => {
+      this.dayEditor();
+      setTimeout(() => {
+        this.textChange();
+      }, 1000);
+    }, 100);
+
+  }
 
   // 行程
   get dayArray() {
     return this.addForm.get("dayList") as FormArray;
   }
+
 
   dayEditor() {
     for (let i = 0; i < this.dayNum; i++) {
@@ -135,16 +163,14 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       }
       setTimeout(() => {
         newEditor.create();
-        console.log('this.addDataDetailModel?.product_trip.data === [] :>> ',this.dataDetailModel?.product_trip.data.length===0, this.dataDetailModel?.product_trip.data === []);
-        if (this.dataDetailModel?.product_trip.data.length===0) {
+        console.log('this.addDataDetailModel?.product_trip.data === [] :>> ', this.dataDetailModel?.product_trip.data.length === 0, this.dataDetailModel?.product_trip.data === []);
+        if (this.dataDetailModel?.product_trip.data.length === 0) {
           newEditor.txt.html()
         }
         else {
-          newEditor.txt.html(this.dataDetailModel?.product_trip.data[i].content) // 重i新设置编辑器内容
+          newEditor.txt.html(this.dataDetailModel?.product_trip.data[i]?.content) // 重i新设置编辑器内容
         }
       }, 100)
-
-
     }
     console.log('this.dayArray :>> ', this.dayArray);
   }
@@ -190,7 +216,6 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
         });
       });
     }
-
     setTimeout(() => {
       editorDetail.create();
     }, 100)
@@ -220,8 +245,6 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
         this.detailBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
-
-
   }
 
 
@@ -231,13 +254,20 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.product_id = this.detailId;
+        element['id'] = 0;
       });
     }
     else {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.product_id = this.detailId;
-        element['id']=this.dataDetailModel.product_trip.data[index].id;
+        if (this.dataDetailModel.product_trip.data[index]?.id === undefined || this.dataDetailModel.product_trip.data[index]?.id === 0) {
+          element['id'] = 0;
+        }
+        else {
+          element['id'] = this.dataDetailModel.product_trip.data[index].id;
+        }
+
       });
     }
     this.addProductTrip.trip_arr = this.dayListData;
@@ -273,8 +303,6 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
 
 
-
-
   importImgs(i: any) {
     console.log("i是什么", i)
     const modal: NzModalRef = this.modal.create({
@@ -305,29 +333,16 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
   changeVideo(event: any) {
     console.log('event123', event, event === 1, event === '1');
-    let arr: any[] = [];
-    for (let i = 0; i < this.dayNum; i++) {
-      let obj = {
-        day: i + 1,
-        title: '',
-        product_id: '',
-        content: '',
-      }
-      arr.push(obj);
-      this.dayListData = arr;
-    }
-    console.log(' 便利dayListData ', this.dayListData);
     // 初始化富文本编辑器
     if (event === '1') {
-      this.dayArray.controls = [];
-      setTimeout(() => {
-        this.dayEditor();
-      }, 100)
+      this.choose_trip_type === '1';
+      this.isSpecial = true;
+
     }
     else if (event === '2') {
-      setTimeout(() => {
-        this.textChange();
-      }, 100)
+      this.choose_trip_type === '2';
+      this.isSpecial = false;
+
     }
   }
 

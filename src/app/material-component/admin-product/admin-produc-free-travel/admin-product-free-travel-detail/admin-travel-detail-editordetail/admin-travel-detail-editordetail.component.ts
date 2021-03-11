@@ -26,6 +26,8 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
   dayListData: any;
   addProductTrip: any;
   choose_trip_type = '1';
+  isSpecial = true;
+
 
 
 
@@ -86,6 +88,29 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     }
   }
 
+  // Dom渲染富文本编辑器
+  ngAfterViewInit() {
+    let arr: any[] = [];
+    for (let i = 0; i < this.dayNum; i++) {
+      let obj = {
+        day: i + 1,
+        title: '',
+        inden_product_id: '',
+        content: '',
+      }
+      arr.push(obj);
+      this.dayListData = arr;
+    }
+    console.log(' 便利dayListData ', this.dayListData);
+    this.dayArray.controls = [];
+    setTimeout(() => {
+      this.dayEditor();
+      setTimeout(() => {
+        this.textChange();
+      }, 1000);
+    }, 100);
+
+  }
 
 
   // 行程
@@ -118,7 +143,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
           newEditor.txt.html()
         }
         else {
-          newEditor.txt.html(this.dataFreeDetailModel?.product_trip.data[i].content) // 重i新设置编辑器内容
+          newEditor.txt.html(this.dataFreeDetailModel?.product_trip.data[i]?.content) // 重i新设置编辑器内容
 
         }
       }, 100)
@@ -161,13 +186,19 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.inden_product_id = this.dataFreeDetailModel.id;
+        element['id'] = 0;
       });
     }
     else {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.inden_product_id = this.dataFreeDetailModel.id;
-        element['id'] = this.dataFreeDetailModel.product_trip.data[index].id
+        if (this.dataFreeDetailModel.product_trip.data[index]?.id === undefined || this.dataFreeDetailModel.product_trip.data[index]?.id === 0) {
+          element['id'] = 0;
+        }
+        else {
+          element['id'] = this.dataFreeDetailModel.product_trip.data[index].id;
+        }
       });
     }
     console.log('this.dayList :>>23423423423 ', this.dayListData);
@@ -202,29 +233,16 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
   changeVideo(event: any) {
     console.log('event123', event, event === 1, event === '1');
-    let arr: any[] = [];
-    for (let i = 0; i < this.dayNum; i++) {
-      let obj = {
-        day: i + 1,
-        title: '',
-        inden_product_id: '',
-        content: '',
-      }
-      arr.push(obj);
-      this.dayListData = arr;
-    }
-    console.log(' 便利dayListData ', this.dayListData);
     // 初始化富文本编辑器
     if (event === '1') {
-      this.dayArray.controls = [];
-      setTimeout(() => {
-        this.dayEditor();
-      }, 100)
+      this.choose_trip_type === '1';
+      this.isSpecial = true;
+
     }
     else if (event === '2') {
-      setTimeout(() => {
-        this.textChange();
-      }, 100)
+      this.choose_trip_type === '2';
+      this.isSpecial = false;
+
     }
   }
 
