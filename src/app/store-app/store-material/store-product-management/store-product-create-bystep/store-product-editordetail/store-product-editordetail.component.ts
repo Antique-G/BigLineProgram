@@ -30,6 +30,7 @@ export class StoreProductEditordetailComponent implements OnInit {
 
   dayNum: any;
   isName: any
+  delids: any[] = [];
 
 
   editMenu = [
@@ -305,8 +306,20 @@ export class StoreProductEditordetailComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-          console.log('结果是', res)
-          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+          if (this.dayNum < this.addDataDetailModel.product_trip.data.length) {
+            let newIds: any[] = [];
+            this.addDataDetailModel.product_trip.data.forEach((element: any, index: any) => {
+              if (element.id != this.dayListData[index]?.id) {
+                newIds.push(element.id);
+              }
+            });
+            this.delids = newIds;
+            this.storeProductService.deleteProductTrip(this.delids).subscribe(res => {
+              this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
+            })
+          }
+
+
         })
       }
       else if (!flag) {

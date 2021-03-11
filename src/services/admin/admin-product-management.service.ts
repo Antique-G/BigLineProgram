@@ -60,6 +60,14 @@ export class AdminProductManagementService {
       )
   }
 
+  
+  // 删除行程
+  deleteProductTrip(ids: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminProductTripDel, { ids }, httpOptions)
+      .pipe(
+      )
+  }
+
 
 
   // 详情

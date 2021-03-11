@@ -70,6 +70,14 @@ addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
 }
 
 
+
+  // 删除行程
+  deleteProductTrip(ids:any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreFreeTraveDel, {ids}, httpOptions)
+      .pipe(
+      )
+  }
+
   // 产品标签列表
   // 产品标签
   GetProductTagList(cate_id: any): Observable<AssemblingPlaceListModel> {

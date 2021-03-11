@@ -66,6 +66,13 @@ export class AdminProductFreeTravelService {
       )
   }
 
+  // 删除行程
+  deleteProductTrip(ids: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminFreeTraveDel, { ids }, httpOptions)
+      .pipe(
+      )
+  }
+
 
   // 上架/下架
   freeTravelUp(id: number): Observable<any> {

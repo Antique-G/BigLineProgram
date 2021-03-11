@@ -37,6 +37,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
   choose_trip_type = '1';
   isSpecial = true;
 
+  delids: any[] = [];
 
 
   editMenu = [
@@ -285,7 +286,19 @@ export class StoreTravelDetailDescComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.freeTravelService.addProductTrip(this.addProductTrip).subscribe(res => {
-          console.log('结果是', res)
+          if (this.dayNum < this.dataDetailModel.product_trip.data.length) {
+            let newIds: any[] = [];
+            this.dataDetailModel.product_trip.data.forEach((element: any, index: any) => {
+              if (element.id != this.dayListData[index]?.id) {
+                newIds.push(element.id);
+              }
+            });
+            this.delids = newIds;
+            this.freeTravelService.deleteProductTrip(this.delids).subscribe(res => {
+              console.log('res :>> ', res);
+            })
+          }
+
         })
       }
       else if (!flag) {
