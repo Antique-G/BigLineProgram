@@ -214,6 +214,7 @@ export class StoreFreeImageComponent implements OnInit {
             this.dataSource = arr;
             this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 5 })
           })
+          this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 5 })
         }
       })
     }
@@ -251,6 +252,7 @@ export class StoreFreeImageComponent implements OnInit {
             this.dataSource = arr;
             this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 5 })
           })
+          this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 5 })
         }
       })
     }
