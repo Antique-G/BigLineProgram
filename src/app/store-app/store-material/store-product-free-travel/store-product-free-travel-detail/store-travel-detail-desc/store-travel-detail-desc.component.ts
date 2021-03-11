@@ -35,6 +35,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
   dayListData: any;
   addProductTrip: any;
   choose_trip_type = '1';
+  isSpecial = true;
 
 
 
@@ -81,11 +82,34 @@ export class StoreTravelDetailDescComponent implements OnInit {
     console.log('父组件的值 ', this.dataDetailModel);
     console.log("few_days", this.dataDetailModel.few_days);
     this.dayNum = this.dataDetailModel.few_days;
-    if(this.dataDetailModel?.trip_type.toString()){
-      this.choose_trip_type=this.dataDetailModel?.trip_type.toString()
+    if (this.dataDetailModel?.trip_type.toString()) {
+      this.choose_trip_type = this.dataDetailModel?.trip_type.toString()
     }
   }
 
+  // Dom渲染富文本编辑器
+  ngAfterViewInit() {
+    let arr: any[] = [];
+    for (let i = 0; i < this.dayNum; i++) {
+      let obj = {
+        day: i + 1,
+        title: '',
+        inden_product_id: '',
+        content: '',
+      }
+      arr.push(obj);
+      this.dayListData = arr;
+    }
+    console.log(' 便利dayListData ', this.dayListData);
+    this.dayArray.controls = [];
+    setTimeout(() => {
+      this.dayEditor();
+      setTimeout(() => {
+        this.textChange();
+      }, 1000);
+    }, 100);
+
+  }
 
   // 行程
   get dayArray() {
@@ -99,7 +123,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
         name: new FormControl(this.dataDetailModel.product_trip.data[i]?.title),
       }))
       const newEditor = new wangEditor(`#newEditor${i + 1}`, `#newEditorContent${i + 1}`);
-  
+
       newEditor.config.onchange = (newHtml: any) => {
         this.dayListData[i].content = newHtml;
       }
@@ -137,7 +161,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
           newEditor.txt.html()
         }
         else {
-          newEditor.txt.html(this.dataDetailModel?.product_trip.data[i].content) // 重i新设置编辑器内容
+          newEditor.txt.html(this.dataDetailModel?.product_trip.data[i]?.content) // 重i新设置编辑器内容
         }
       }, 100)
     }
@@ -225,13 +249,19 @@ export class StoreTravelDetailDescComponent implements OnInit {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
         element.inden_product_id = this.dataDetailModel.id;
+        element['id'] = 0;
       });
     }
     else {
       this.dayListData.forEach((element: any, index: any) => {
         element.title = this.addForm.value.dayList[index].name;
-      element.inden_product_id = this.dataDetailModel.id;
-      element['id']=this.dataDetailModel.product_trip.data[index].id;
+        element.inden_product_id = this.dataDetailModel.id;
+        if (this.dataDetailModel.product_trip.data[index]?.id === undefined || this.dataDetailModel.product_trip.data[index]?.id === 0) {
+          element['id'] = 0;
+        }
+        else {
+          element['id'] = this.dataDetailModel.product_trip.data[index].id;
+        }
       });
     }
     console.log('this.dayList :>>23423423423 ', this.dayListData);
@@ -246,7 +276,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
     console.log('请求值', this.reqModel);
     if (this.choose_trip_type === '2') {
       this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res => {
-       
+
       })
     }
     else if (this.choose_trip_type === '1') {
@@ -261,12 +291,6 @@ export class StoreTravelDetailDescComponent implements OnInit {
       else if (!flag) {
         this.msg.error("请填写具体行程");
       }
-
-
-
-      // console.log('提交的this.addProductTrip :>> ', this.addProductTrip);
-  
-
     }
 
   }
@@ -303,33 +327,20 @@ export class StoreTravelDetailDescComponent implements OnInit {
 
   changeVideo(event: any) {
     console.log('event123', event, event === 1, event === '1');
-    let arr: any[] = [];
-    for (let i = 0; i < this.dayNum; i++) {
-      let obj = {
-        day: i + 1,
-        title: '',
-        inden_product_id: '',
-        content: '',
-      }
-      arr.push(obj);
-      this.dayListData = arr;
-    }
-    console.log(' 便利dayListData ', this.dayListData);
     // 初始化富文本编辑器
     if (event === '1') {
-      this.dayArray.controls = [];
-      setTimeout(() => {
-        this.dayEditor();
-      }, 100)
+      this.choose_trip_type === '1';
+      this.isSpecial = true;
+
     }
     else if (event === '2') {
-      setTimeout(() => {
-        this.textChange();
-      }, 100)
+      this.choose_trip_type === '2';
+      this.isSpecial = false;
+
     }
   }
 
-  
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['dataDetailModel'] && changes['dataDetailModel'].currentValue) {
       this.dataModel = changes['dataDetailModel'].currentValue
