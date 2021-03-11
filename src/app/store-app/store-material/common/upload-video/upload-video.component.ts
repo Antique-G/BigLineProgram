@@ -29,8 +29,7 @@ export class UploadVideoComponent implements OnInit {
   result: any[] = []
   agreeChecked: boolean = false
   region_codes: any
-  fileType="video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
-  accept="video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
+  
 
 
   constructor(private storeRegionService: StoreRegionService,
