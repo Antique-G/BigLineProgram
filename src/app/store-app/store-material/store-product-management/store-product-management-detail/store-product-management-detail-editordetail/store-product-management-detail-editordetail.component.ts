@@ -83,7 +83,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
     });
     console.log('父组件的值 ', this.dataDetailModel);
     console.log("few_days", this.dataDetailModel.few_days);
-    this.dayNum = this.dataDetailModel.few_days;
+    this.dayNum = localStorage.getItem("few_days");
     console.log('this.dayNum2232323 ', this.dayNum);
     if (this.dataDetailModel?.trip_type.toString()) {
       this.choose_trip_type = this.dataDetailModel?.trip_type.toString()

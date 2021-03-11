@@ -81,8 +81,8 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     });
     console.log('父组件的值 ', this.dataFreeDetailModel);
     console.log("few_days", this.dataFreeDetailModel.few_days);
-    this.dayNum = 0
-    this.dayNum = this.dataFreeDetailModel.few_days;
+    this.dayNum = localStorage.getItem("few_days");
+    console.log('this.dayNum1111111 ', this.dayNum);
     if (this.dataFreeDetailModel?.trip_type.toString()) {
       this.choose_trip_type = this.dataFreeDetailModel?.trip_type.toString()
     }

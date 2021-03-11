@@ -315,6 +315,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       else {
         this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
           if (res.message == "更新成功") {
+            localStorage.setItem("few_days", this.addForm.value.few_days);
           }
         })
       }
@@ -459,7 +460,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
-    localStorage.setItem('regionData',values);
+    localStorage.setItem('regionData', values);
   }
 
 

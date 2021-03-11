@@ -85,7 +85,7 @@ export class StoreProductEditordetailComponent implements OnInit {
   ngOnInit(): void {
     console.log('父组件的值 ', this.addDataDetailModel);
     console.log("few_days", this.addDataDetailModel.few_days);
-    this.dayNum = this.addDataDetailModel.few_days;
+    this.dayNum = localStorage.getItem("few_days");
     if (this.addDataDetailModel?.trip_type.toString()) {
       this.choose_trip_type = this.addDataDetailModel?.trip_type.toString()
     }
@@ -359,7 +359,7 @@ export class StoreProductEditordetailComponent implements OnInit {
       this.isSpecial = false;
     }
   }
-  
+
 
 
 }

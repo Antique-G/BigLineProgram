@@ -39,6 +39,7 @@ export class StoreFreeCreateBystepComponent implements OnInit {
   getDetail() {
     this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
       this.dataDetailModel = res.data;
+      localStorage.setItem("few_days", this.dataDetailModel.few_days);
       this.isSpinning = false
     })
   }
@@ -50,7 +51,7 @@ export class StoreFreeCreateBystepComponent implements OnInit {
     }
   }
 
-  
+
 
   getOneTab() {
     this.isId = this.infoId;

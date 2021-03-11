@@ -78,7 +78,7 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     });
     console.log('父组件的值 ', this.adminProductDetailModel);
     console.log("few_days", this.adminProductDetailModel.few_days);
-    this.dayNum = this.adminProductDetailModel.few_days;
+    this.dayNum = localStorage.getItem("few_days");
     console.log('this.dayNum天数 ', this.dayNum);
     if (this.adminProductDetailModel?.trip_type.toString()) {
       this.choose_trip_type = this.adminProductDetailModel?.trip_type.toString()
