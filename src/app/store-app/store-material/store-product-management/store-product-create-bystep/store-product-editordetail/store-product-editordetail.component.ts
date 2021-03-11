@@ -318,7 +318,7 @@ export class StoreProductEditordetailComponent implements OnInit {
               this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
             })
           }
-
+          this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
 
         })
       }
