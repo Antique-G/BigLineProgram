@@ -12,6 +12,10 @@
     width: 120px !important;
 }
 
+.ant-form-item {
+    margin: 0 0 8px !important;
+}
+
 
 /* .wangeditor-feature {
     border: 1px solid #c9d8dc;

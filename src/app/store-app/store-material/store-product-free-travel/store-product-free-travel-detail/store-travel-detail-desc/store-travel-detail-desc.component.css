@@ -13,6 +13,10 @@
     overflow: auto !important;
 }
 
+.ant-form-item {
+    margin: 0 0 8px !important;
+}
+
 .btn {
     position: fixed;
     left: 0;
