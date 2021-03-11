@@ -300,7 +300,7 @@ export class StoreFreeDescComponent implements OnInit {
               this.tabIndex.emit({ id: this.reqModel.id, tabIndex: 3 })
             })
           }
-
+          this.tabIndex.emit({ id: this.reqModel.id, tabIndex: 3 })
 
 
         })
