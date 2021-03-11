@@ -41,6 +41,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   isEarlier: any;
   ids: any[] = [];
   allChecked = false;
+  proName: any;
 
   constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -70,6 +71,7 @@ export class StoreQuoteBydateComponent implements OnInit {
       this.productId = params.productId;
       this.type = params.type;
       this.isEarlier = params.earlier;
+      this.proName = params.proName
       console.log(this.seletYearMonth, 'ngOnInit');
       this.getQuoteList();
     });

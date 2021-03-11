@@ -49,7 +49,7 @@ export class StoreProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code,this.status).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -122,7 +122,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.storeProductService.getProductDetail(data.id).subscribe(res => {
       console.log("结果是", res.data.id, res.data.earlier)
       let ear = Math.floor(res.data.earlier / 60 / 24);
-      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: ear } });
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: ear, proName: data.title } });
     })
   }
 
