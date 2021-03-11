@@ -1,13 +1,16 @@
 <div fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <h4 style="padding-left: 10px;padding-top: 10px;">{{proName}}</h4>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/productManagement">返回跟团游列表</button>
+                    </div>
 
-        <div class="example-container">
-            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/productManagement">返回跟团游列表</button>
-                </div>
 
-                <mat-card>
                     <div class="example-container" style="padding: 15px;">
                         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                             <div>
@@ -57,10 +60,10 @@
                         </div>
 
                     </div>
-                </mat-card>
+
+                </div>
+
             </div>
-
-        </div>
-
+        </mat-card>
     </div>
 </div>

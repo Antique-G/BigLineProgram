@@ -11,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class AdminProductFreeTravelQutedateComponent implements OnInit {
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
-  detailId:any
+  detailId: any
   page = 1;
   per_page = 20;
   total = 1;
@@ -20,6 +20,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
   listOfCurrentPageData: Data[] = [];
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
+  proName: any;
 
   constructor(public adminProductFreeTravelService: AdminProductFreeTravelService,
     public activatedRoute: ActivatedRoute,
@@ -28,39 +29,40 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params.detailId;
+      this.proName = params.proName;
     });
     this.getQuteDateList();
   }
 
-  getQuteDateList(){
-    this.adminProductFreeTravelService.freeTravelQuteDateList(this.detailId,this.page, this.per_page).subscribe(res=>{
-      this. loading = false;
+  getQuteDateList() {
+    this.adminProductFreeTravelService.freeTravelQuteDateList(this.detailId, this.page, this.per_page).subscribe(res => {
+      this.loading = false;
       this.dataSource = res.data
       this.total = res.total;   //总页数
       console.log(res);
     })
   }
 
-  checkStateClick(state:any){
+  checkStateClick(state: any) {
     console.log(this.setArr);
     let objList = [...this.setArr]
-    let flag = objList.every(item=> item.check_status === 1);
-    if(!flag){
+    let flag = objList.every(item => item.check_status === 1);
+    if (!flag) {
       this.msg.error("请勿审核已审核过的报价日期");
       return;
     }
     this.modal.confirm({
       nzTitle: '<h5>请确认操作是否正确?</h5>',
-      nzContent: `您点击的是:${state==2?'"通过"':'"未通过"'}`,
-      nzOnOk: () =>{
-        let ids:any[] = [...this.setOfCheckedId]
-        if(ids.length===0){
+      nzContent: `您点击的是:${state == 2 ? '"通过"' : '"未通过"'}`,
+      nzOnOk: () => {
+        let ids: any[] = [...this.setOfCheckedId]
+        if (ids.length === 0) {
           this.msg.error("请选择要审核的报价日期");
           return
         }
         console.log(ids);
-        this.adminProductFreeTravelService.freeTravelQuteDateCheckState(ids,state).subscribe(res=>{
+        this.adminProductFreeTravelService.freeTravelQuteDateCheckState(ids, state).subscribe(res => {
           console.log(res);
           this.getQuteDateList();
           this.setOfCheckedId.clear()
@@ -69,7 +71,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
       }
     });
 
-    
+
   }
   changePageSize(per_page: number) {
     this.per_page = per_page;
@@ -96,7 +98,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
     if (checked) {
       this.setOfCheckedId.add(data.id);
       this.setArr.add(data);
-      
+
     } else {
       this.setOfCheckedId.delete(data.id);
       this.setArr.delete(data);
@@ -114,7 +116,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
     this.refreshCheckedStatus();
   }
 
-  getState(state:any){
+  getState(state: any) {
     let str = ""
     switch (state) {
       case 0:
