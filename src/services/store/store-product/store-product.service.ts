@@ -99,6 +99,15 @@ export class StoreProductService {
   }
 
 
+  // 删除行程
+  deleteProductTrip(ids:any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreProductTripDel, {ids}, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
   // 产品上架
   patchProductStatus(id: number) {
     return this.httpClient.patch(this.urls.PatchStoreProductStatus + id + '/status', httpOptions)

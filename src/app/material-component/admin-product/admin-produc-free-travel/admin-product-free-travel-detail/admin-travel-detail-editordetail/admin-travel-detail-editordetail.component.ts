@@ -27,6 +27,8 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
   addProductTrip: any;
   choose_trip_type = '1';
   isSpecial = true;
+  delids: any[] = [];
+
 
 
 
@@ -221,6 +223,19 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
+          if (this.dayNum < this.dataFreeDetailModel.product_trip.data.length) {
+            let newIds: any[] = [];
+            this.dataFreeDetailModel.product_trip.data.forEach((element: any, index: any) => {
+              if (element.id != this.dayListData[index]?.id) {
+                newIds.push(element.id);
+              }
+            });
+            this.delids = newIds;
+            this.adminProductFreeTravelService.deleteProductTrip(this.delids).subscribe(res => {
+              console.log('res :>> ', res);
+            })
+          }
+
         })
       }
       else if (!flag) {

@@ -31,6 +31,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   isName: any;
   // 按天添加行程
   dayListData: any;
+  delids: any[] = [];
 
 
   editMenu = [
@@ -290,7 +291,19 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       console.log('flag :>> ', flag);
       if (flag) {
         this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
-          console.log('结果是', res)
+          if (this.dayNum < this.dataDetailModel.product_trip.data.length) {
+            let newIds: any[] = [];
+            this.dataDetailModel.product_trip.data.forEach((element: any, index: any) => {
+              if (element.id != this.dayListData[index]?.id) {
+                newIds.push(element.id);
+              }
+            });
+            this.delids = newIds;
+            this.storeProductService.deleteProductTrip(this.delids).subscribe(res => {
+              console.log('res :>> ', res);
+            })
+          }
+
         })
       }
       else if (!flag) {
