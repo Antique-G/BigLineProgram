@@ -239,10 +239,10 @@ export class StoreFreeInfoComponent implements OnInit {
   }
 
 
-  
+
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
-    localStorage.setItem('regionData',values);
+    localStorage.setItem('regionData', values);
   }
 
   // 添加
@@ -268,6 +268,7 @@ export class StoreFreeInfoComponent implements OnInit {
           if (res.id) {
             this.isLoadingBtn = false;
             this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+            localStorage.setItem("few_days", this.addForm.value.few_days);
             this.getOneTab();
           }
         },
@@ -458,6 +459,7 @@ export class StoreFreeInfoComponent implements OnInit {
         this.freeTravelModel.step = 0;
         this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
           this.isLoadingBtn = false;
+          localStorage.setItem("few_days", this.addForm.value.few_days);
           this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
         })
       }

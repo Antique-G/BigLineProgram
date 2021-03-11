@@ -32,6 +32,8 @@ export class StoreProductManagementDetailComponent implements OnInit {
     this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
       this.dataDetailModel = res.data;
       console.log('父组件', this.dataDetailModel);
+      console.log('几天的值', this.dataDetailModel.few_days);
+      localStorage.setItem("few_days", this.dataDetailModel.few_days);
     })
   }
 

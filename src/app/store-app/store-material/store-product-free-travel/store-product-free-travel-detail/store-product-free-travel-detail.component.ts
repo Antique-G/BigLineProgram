@@ -10,32 +10,34 @@ import { StoreProductTreeTravelService } from '../../../../../services/store/sto
 export class StoreProductFreeTravelDetailComponent implements OnInit {
   isIndex = 0;     //tab的index
   selectedTabIndex = 0;    //选中的tab 默认第一个
-  detailId:any 
-  dataDetailModel:any
-  isSpinning:boolean = true
-  constructor(public activatedRoute: ActivatedRoute,private freeTravelService:StoreProductTreeTravelService) { }
-  
+  detailId: any
+  dataDetailModel: any
+  isSpinning: boolean = true
+  constructor(public activatedRoute: ActivatedRoute, private freeTravelService: StoreProductTreeTravelService) { }
+
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
-      console.log(this.detailId,'this.detailId');
+      console.log(this.detailId, 'this.detailId');
     });
-    if(this.detailId){
+    if (this.detailId) {
       this.getDetail()
-    }else{
+    } else {
       this.isSpinning = false
     }
   }
 
-  getDetail(){
-    this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res:any)=>{
+  getDetail() {
+    this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
       this.dataDetailModel = res.data;
       this.isSpinning = false
+      localStorage.setItem("few_days", this.dataDetailModel.few_days);
     })
   }
-  
+
   onTabChange(event: any) {
     this.selectedTabIndex = event;
+    this.getDetail()
   }
 
 }

@@ -59,6 +59,7 @@ export class StoreProductCreateBystepComponent implements OnInit {
   getProductDetail() {
     this.storeProductService.getProductDetail(this.infoId).subscribe(res => {
       this.addDataDetailModel = res.data;
+      localStorage.setItem("few_days", this.addDataDetailModel.few_days);
       console.log('父组件', this.addDataDetailModel);
     })
   }

@@ -413,7 +413,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
-    localStorage.setItem('regionData',values);
+    localStorage.setItem('regionData', values);
 
     if (values !== null) {
       this.detailUpdateModel.destination_city = values[values.length - 1];
@@ -570,6 +570,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         this.detailUpdateModel.id = this.detailId;
         this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
           console.log("res结果", res);
+          localStorage.setItem("few_days", this.detailUpdateModel.few_days);
 
         })
       }

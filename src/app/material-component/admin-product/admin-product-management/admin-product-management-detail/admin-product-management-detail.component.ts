@@ -33,6 +33,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
   getProductDetail() {
     this.adminProductManagementService.productDetail(this.detailId).subscribe(res => {
       this.adminProductDetailModel = res.data;
+      localStorage.setItem("few_days", res.data.few_days.toString());
       console.log('父组件', this.adminProductDetailModel);
     })
   }

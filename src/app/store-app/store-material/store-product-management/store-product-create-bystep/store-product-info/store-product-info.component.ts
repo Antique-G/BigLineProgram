@@ -334,7 +334,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   onDestChange(values: any): void {
     console.log("点击的结果是", values);
-    localStorage.setItem('regionData',values);
+    localStorage.setItem('regionData', values);
     if (values !== null) {
       this.addStoreProductModel.destination_city = values[values.length - 1];
     }
@@ -490,6 +490,7 @@ export class StoreProductInfoComponent implements OnInit {
           if (res.id) {
             this.isLoadingBtn = false;
             this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+            localStorage.setItem("few_days", this.addForm.value.few_days);
             this.getOneTab()
           }
         },
@@ -545,6 +546,7 @@ export class StoreProductInfoComponent implements OnInit {
         this.storeProductService.updateProduct(this.addStoreProductModel).subscribe(res => {
           console.log("res结果", res);
           this.isLoadingBtn = false;
+          localStorage.setItem("few_days", this.addForm.value.few_days);
           this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
 
         })

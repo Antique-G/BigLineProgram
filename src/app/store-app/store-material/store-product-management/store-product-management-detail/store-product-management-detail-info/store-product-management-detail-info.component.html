@@ -32,7 +32,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
                                             <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.few_days">
-                                                <nz-input-number style="width: 90px;" formControlName="few_days" [nzMin]="addForm.value.few_nights" [nzMax]="255"></nz-input-number>
+                                                <nz-input-number style="width: 90px;" formControlName="few_days" [nzMin]="1" [nzMax]="255"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">天</span>
                                                 <nz-input-number style="width: 90px;" formControlName="few_nights" [nzMin]="0" [nzMax]="addForm.value.few_days"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">晚</span>

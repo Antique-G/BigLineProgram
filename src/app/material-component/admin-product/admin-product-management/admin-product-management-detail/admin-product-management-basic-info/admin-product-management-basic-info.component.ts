@@ -457,7 +457,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       return str
     }
     editorFee.create();
-   
+
   }
 
 
@@ -516,6 +516,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.detailUpdateModel.id = this.detailId;
         this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
           console.log("res结果", res);
+          localStorage.setItem("few_days", this.addForm.value.few_days);
         })
       }
 
