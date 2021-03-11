@@ -20,7 +20,7 @@
                 <nz-form-item class="nz-form-item" nz-row>
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>上传视频</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
-                        <nz-upload [nzBeforeUpload]="beforeUpload" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1" [nzMultiple]='true' [nzLimit]='1' [nzRemove]="removeImg">
+                        <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="accept" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1" [nzMultiple]='true' [nzLimit]='1' [nzRemove]="removeImg">
                             <div>
                                 <button nz-button>
                                 <span><i nz-icon nzType="upload"></i> 选择视频</span>
