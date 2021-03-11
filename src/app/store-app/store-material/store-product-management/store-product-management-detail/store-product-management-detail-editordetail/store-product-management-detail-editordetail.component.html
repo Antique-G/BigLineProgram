@@ -44,6 +44,7 @@
                                             <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+1}} 天</nz-form-label>
                                             <nz-form-control [nzSm]="21" [nzXs]="24">
                                                 <input nz-input formControlName="name" />
+
                                                 <a nz-button nzType="link" (click)="importImgs(i+1)">从图库导入资源</a>
                                                 <br>
                                                 <ng-container>
@@ -56,7 +57,7 @@
                                                 </ng-container>
                                                 <br>
                                             </nz-form-control>
-
+                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">填写的内容不超过50个字</p>
                                         </div>
                                     </div>
                                 </nz-form-item>
