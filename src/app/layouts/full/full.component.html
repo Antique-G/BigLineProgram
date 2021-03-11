@@ -8,9 +8,13 @@
                 <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
                 <mat-menu #sdprofile="matMenu" class="mymegamenu">
                     <button mat-menu-item (click)="accountDetail()">
-            <mat-icon>account_box</mat-icon> Profile </button>
+                        <span> <img src="http://cdn.bigline.com.cn/static/images/profile.png"></span>
+                       <span style="margin-left: 16px;"> Profile</span> 
+                    </button>
                     <button mat-menu-item (click)="logOut()">
-            <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+                        <span> <img src="http://cdn.bigline.com.cn/static/images/signOut.png"></span>
+                       <span style="margin-left: 16px;"> Sign Out</span> 
+                    </button>
                 </mat-menu>
             </div>
             <ul nz-menu nzTheme="dark" nzMode="inline">
@@ -31,9 +35,13 @@
                 <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{mobile}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
                 <mat-menu #sdprofile="matMenu" class="mymegamenu">
                     <button mat-menu-item (click)="storeAccountDetail()">
-            <mat-icon>account_box</mat-icon> Profile </button>
+                        <span> <img src="http://cdn.bigline.com.cn/static/images/profile.png"></span>
+                        <span style="margin-left: 16px;"> Profile</span> 
+                    </button>
                     <button mat-menu-item (click)="storeLogOut()">
-            <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+                        <span> <img src="http://cdn.bigline.com.cn/static/images/signOut.png"></span>
+                        <span style="margin-left: 16px;"> Sign Out</span> 
+                    </button>
                 </mat-menu>
             </div>
             <ul nz-menu nzTheme="dark" nzMode="inline">

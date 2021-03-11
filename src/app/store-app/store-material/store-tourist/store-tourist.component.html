@@ -63,23 +63,23 @@
                                     <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
                                             <div style="cursor: pointer;" (click)="edit(data)">
-                                                <!-- <mat-icon title="编辑">edit</mat-icon> -->
+
                                                 <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑">
 
                                             </div>
                                             <div style="cursor: pointer;" (click)="delete(data)">
-                                                <!-- <mat-icon title="删除">delete</mat-icon> -->
+
                                                 <img src="http://cdn.bigline.com.cn/static/images/delete.png" title="删除">
 
                                             </div>
                                             <div style="cursor: pointer;" (click)="up(data)" title="启用">
                                                 <div *ngIf="data.status===0">
-                                                    <!-- <mat-icon title="启用">arrow_circle_up</mat-icon> -->
+
                                                     <img src="http://cdn.bigline.com.cn/static/images/up.png" title="启用">
 
                                                 </div>
                                                 <div *ngIf="data.status===1">
-                                                    <!-- <mat-icon title="禁用">arrow_circle_down</mat-icon> -->
+
                                                     <img src="http://cdn.bigline.com.cn/static/images/down.png" title="禁用">
 
                                                 </div>
