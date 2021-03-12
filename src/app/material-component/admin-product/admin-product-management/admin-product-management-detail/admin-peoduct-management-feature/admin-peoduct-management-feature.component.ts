@@ -1,7 +1,6 @@
-import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
-import wangEditor from 'wangeditor';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import wangEditor from 'wangeditor';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
 
 
@@ -69,6 +68,7 @@ export class AdminPeoductManagementFeatureComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFeature.config.pasteFilterStyle = false;

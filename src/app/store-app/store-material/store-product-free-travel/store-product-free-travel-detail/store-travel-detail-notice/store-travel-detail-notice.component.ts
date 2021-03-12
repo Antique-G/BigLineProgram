@@ -1,14 +1,13 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
-import wangEditor from 'wangeditor';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { SimpleChanges } from '@angular/core';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 
 @Component({
@@ -113,6 +112,7 @@ export class StoreTravelDetailNoticeComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorDetail.config.pasteFilterStyle = false;

@@ -1,16 +1,16 @@
-import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import { AddStoreProductModel, DetailModel } from '../../../../../../interfaces/store/storeProduct/ProductModel';
-import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import wangEditor from 'wangeditor';
-import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { InsertABCMenu } from '../../../InsertABCMenu';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { AddStoreProductModel } from '../../../../../../interfaces/store/storeProduct/ProductModel';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 
 @Component({
@@ -370,6 +370,7 @@ export class StoreProductInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;

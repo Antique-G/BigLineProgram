@@ -51,6 +51,7 @@ export class AdminPeoductManagementEditordetailComponent implements OnInit {
     'splitLine',
     'undo',
     'redo',
+    'image'
   ]
 
 

@@ -1,15 +1,14 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, Output, EventEmitter, ViewContainerRef } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
-import wangEditor from 'wangeditor';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { SimpleChanges } from '@angular/core';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 @Component({
   selector: 'app-store-free-desc',
@@ -61,6 +60,7 @@ export class StoreFreeDescComponent implements OnInit {
     'splitLine',
     'undo',
     'redo',
+    'image'
   ]
 
 
