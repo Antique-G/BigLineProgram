@@ -84,6 +84,7 @@ import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-o
 import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
 import { AdminContractComponent } from './admin-contract/admin-contract.component';
 import { AdminContractCreateComponent } from './admin-contract/admin-contract-create/admin-contract-create.component';
+import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 
 
 @NgModule({
@@ -186,6 +187,7 @@ import { AdminContractCreateComponent } from './admin-contract/admin-contract-cr
     AdminOrderFreeTravelDetailComponent,
     AdminContractComponent,
     AdminContractCreateComponent,
+    AdminOrderGroupOrderComponent,
   ]
 })
 export class MaterialComponentsModule {}

@@ -105,6 +105,12 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   edit(data: any) {
     this.router.navigate(['/admin/main/groupTravelOrder/detail'], { queryParams: { detailId: data.id } });
   }
+
+
+  addOrder(){
+    this.router.navigate(['/admin/main/orderList/adminOrdergroupTravelAddOrder']);
+  }
+  
 }
 
 
