@@ -53,10 +53,12 @@ export class StoreFreePostComponent implements OnInit {
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res?.data || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      if (res != undefined) {
+        let result = res?.data || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
     });
 
 
@@ -68,16 +70,18 @@ export class StoreFreePostComponent implements OnInit {
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
       nzComponentParams: {
-        data:1
+        data: 1
       },
       nzWidth: 1105,
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      if (res != undefined) {
+        let result = res || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
     });
   }
 

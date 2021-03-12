@@ -21,7 +21,7 @@ export class StoreFreeDetailPostComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog, private freeTravelService:StoreProductTreeTravelService,
+  constructor(public dialog: MatDialog, private freeTravelService: StoreProductTreeTravelService,
     public activatedRoute: ActivatedRoute, private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.detailUpdateModel = {
       step: 5,
@@ -34,8 +34,8 @@ export class StoreFreeDetailPostComponent implements OnInit {
       console.log('object :>> ', params);
       this.detailId = params["detailId"];
     });
-    if(this.dataDetailModel.poster_url!=""){
-      this.imgSrc=this.dataDetailModel.poster_url;
+    if (this.dataDetailModel.poster_url != "") {
+      this.imgSrc = this.dataDetailModel.poster_url;
       this.isShow = true;
     }
   }
@@ -46,15 +46,19 @@ export class StoreFreeDetailPostComponent implements OnInit {
       nzTitle: '图片上传',
       nzViewContainerRef: this.viewContainerRef,
       nzContent: CommonModelComponent,
-      
+
       nzWidth: 660,
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res?.data || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      if (res != undefined) {
+        let result = res?.data || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
+     
+
     });
 
 
@@ -66,16 +70,19 @@ export class StoreFreeDetailPostComponent implements OnInit {
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
       nzComponentParams: {
-        data:1
+        data: 1
       },
       nzWidth: 1105,
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      console.log('res :>> ', res);
+      if (res != undefined) {
+        let result = res || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
     });
   }
 

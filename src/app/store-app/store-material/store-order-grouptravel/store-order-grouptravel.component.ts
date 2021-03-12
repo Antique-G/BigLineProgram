@@ -93,6 +93,11 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   edit(data: any) {
     this.router.navigate(['/store/main/storeOrdergroupTravel/detail'], { queryParams: { detailId: data.id } });
   }
+
+
+  addOrder(){
+    this.router.navigate(['/store/main/storeOrdergroupTravel/storeOrdergroupTravelAddOrder'],);
+  }
 }
 
 

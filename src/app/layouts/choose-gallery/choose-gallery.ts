@@ -159,6 +159,7 @@ export class ChooseGalleryComponent implements OnInit {
     }
 
     this.modalRef.close(arr);
+    console.log('arr :>> ', arr);
   }
 
 
