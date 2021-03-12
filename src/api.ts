@@ -167,7 +167,13 @@ export const StoreUrls = {
   DelStoreQuoteByDate: api + '/store/date_quote/',
   GetStoreProductCheckLog: api + '/store/product/check_log', // 审核日志
   PostStoreProductTrip: api + '/store/product_trip', // 逐条添加行程
-  PostStoreProductTripDel: api + '/store/product_trip_del',
+  PostStoreProductTripDel: api + '/store/product_trip_del', //删除行程
+  GetStoreProSearch: api + '/store/product/search',  // 产品搜索
+  PostStoreProductOrderGroup: api + '/store/order/group_product',  // 创建订单（跟团游）
+
+  
+
+ 
 
 
 

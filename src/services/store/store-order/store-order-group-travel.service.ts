@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, DetailModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, DetailModel,OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -78,6 +78,31 @@ export class StoreOrderGroupTravelService {
         catchError(this.handleError)
       )
   }
+
+
+  // 产品搜索
+  getPro(code: any) {
+    const params = new HttpParams().set('code', code)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<ProModel>(this.urls.GetStoreProSearch, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 
+  // 后台下订单
+  addOrderGroup(orderGroupProduct: OrderGroupProduct): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreProductOrderGroup, orderGroupProduct, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 
