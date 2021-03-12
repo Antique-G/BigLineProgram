@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import wangEditor from 'wangeditor';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
-import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { MatDialog } from '@angular/material/dialog';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 
 @Component({
@@ -425,6 +425,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;
