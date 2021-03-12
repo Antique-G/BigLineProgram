@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
@@ -13,7 +13,9 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class StoreProductPostComponent implements OnInit {
   @Input() addDataDetailModel: any;
+  @Output() tabIndex = new EventEmitter;
 
+  
   imgSrc: any;
   isShow = false;
   detailUpdateModel: any;  //更新
@@ -79,7 +81,9 @@ export class StoreProductPostComponent implements OnInit {
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      this.router.navigate(['/store/main/storeProduct'],);
+      // this.router.navigate(['/store/main/storeProduct'],);
+      this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 6 })
+
     })
 
   }
