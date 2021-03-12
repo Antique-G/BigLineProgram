@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
@@ -15,6 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class StoreFreePostComponent implements OnInit {
   @Input() dataDetailModel: any;
+  @Output() tabIndex = new EventEmitter;
+
 
 
   imgSrc: any;
@@ -85,7 +87,8 @@ export class StoreFreePostComponent implements OnInit {
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-      this.router.navigate(['/store/main/storeFreeTravel'],);
+      // this.router.navigate(['/store/main/storeFreeTravel'],);
+      this.tabIndex.emit({ id: this.dataDetailModel.id, tabIndex: 6 })
     })
 
   }

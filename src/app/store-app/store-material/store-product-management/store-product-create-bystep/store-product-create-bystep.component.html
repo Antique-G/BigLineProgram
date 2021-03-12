@@ -53,7 +53,15 @@
                     <mat-tab label="海报" [disabled]="isIndex<5">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-product-post [addDataDetailModel]='addDataDetailModel'></app-store-product-post>
+                                <app-store-product-post (tabIndex)="getTabIndex($event)" [addDataDetailModel]='addDataDetailModel'></app-store-product-post>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="上传行程" [disabled]="isIndex<6">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-product-upload-stroke [addDataDetailModel]='addDataDetailModel'></app-store-product-upload-stroke>
                             </div>
                         </ng-template>
                     </mat-tab>
