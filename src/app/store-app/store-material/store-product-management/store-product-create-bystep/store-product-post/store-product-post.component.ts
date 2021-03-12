@@ -15,7 +15,7 @@ export class StoreProductPostComponent implements OnInit {
   @Input() addDataDetailModel: any;
   @Output() tabIndex = new EventEmitter;
 
-  
+
   imgSrc: any;
   isShow = false;
   detailUpdateModel: any;  //更新
@@ -47,10 +47,12 @@ export class StoreProductPostComponent implements OnInit {
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res?.data || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      if (res != undefined) {
+        let result = res?.data || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
     });
 
 
@@ -62,16 +64,20 @@ export class StoreProductPostComponent implements OnInit {
       nzViewContainerRef: this.viewContainerRef,
       nzContent: ChooseGalleryComponent,
       nzComponentParams: {
-        data:1
+        data: 1
       },
       nzWidth: 1105,
       nzFooter: null
     })
     modal.afterClose.subscribe(res => {
-      let result = res || []
-      console.log('返回的结果是', result);
-      this.imgSrc = result[0].url;
-      this.isShow = true;
+      if (res != undefined) {
+        let result = res || []
+        console.log('返回的结果是', result);
+        this.imgSrc = result[0].url;
+        this.isShow = true;
+      }
+
+
     });
   }
 
