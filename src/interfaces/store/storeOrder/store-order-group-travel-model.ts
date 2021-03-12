@@ -346,3 +346,111 @@ export interface Datequote {
   created_at: string;
   updated_at: string;
 }
+
+
+// 产品名称
+export interface ProModel {
+  data: ProListModel;
+}
+
+
+export interface ProListModel {
+  id: number;
+  code: string;
+  title: string;
+  sub_title: string;
+  scenic_spot: string;
+  store_id: number;
+  departure_city: string;
+  earlier: number;
+  confirm: number;
+  few_days: number;
+  few_nights: number;
+  price_range: number;
+  minimum_price: number;
+  maximum_price: number;
+  original_minimum_price: number;
+  original_maximum_price: number;
+  destination_city: string;
+  child_status: number;
+  child_age_max: number;
+  child_height_min: number;
+  child_height_max: number;
+  reserve_num_min: number;
+  reserve_num_max: number;
+  reserve_ahead: number;
+  contacts_status: number;
+  work_t_tem: number;
+  feature?: any;
+  details?: any;
+  fee: string;
+  notice?: any;
+  status: number;
+  created_at: string;
+  updated_at: string;
+  check_status: number;
+  step_status: number;
+  poster_url: string;
+  trip_type: number;
+  dist_reward: number;
+  store_reward: number;
+  third_reward: number;
+  commerce_reward: number;
+  date_quote: DatequoteList[];
+  departure_city_full_name: string;
+  destination_city_full_name: string;
+  departure_city_name: string;
+  destination_city_name: string;
+  assembling_place: AssemblingplaceList;
+}
+
+interface AssemblingplaceList {
+  data: placeListModel;
+}
+
+interface placeListModel {
+  id: number;
+  name: string;
+  region_code: string;
+  time: string;
+  time_state: number;
+  address: string;
+  longitude?: any;
+  latitude?: any;
+  store_id: number;
+  region_full_name: string;
+}
+
+interface DatequoteList {
+  id: number;
+  product_id: number;
+  date: string;
+  adult_price: number;
+  child_price: number;
+  difference_price: number;
+  inventory_num: number;
+  sold_num: number;
+  set_inventory: number;
+  allow_over: number;
+  check_status: number;
+  created_at: string;
+  updated_at: string;
+}
+
+
+export  interface OrderGroupProduct{
+  product_id: any;
+  date_quotes_id: any;
+  num_adult: any;
+  num_kid: any;
+  num_room: any;
+  members:any[],
+  contact_name: string;
+  contact_phone: string;
+  contact_wechat: string;
+  contact_qq: string;
+  contact_email: string;
+  customer_remarks: string;
+  assembling_place_id: any;
+  shared_status: any;
+}
