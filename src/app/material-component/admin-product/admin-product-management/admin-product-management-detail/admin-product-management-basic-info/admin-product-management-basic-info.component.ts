@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
-import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
-import { AdminMeetingPlaceService } from '../../../../../../services/admin/admin-meeting-place.service';
-import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import wangEditor from 'wangeditor';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import wangEditor from 'wangeditor';
+import { AdminMeetingPlaceService } from '../../../../../../services/admin/admin-meeting-place.service';
+import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
+import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
+import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
 
 
 
@@ -447,6 +447,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
+
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;

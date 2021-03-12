@@ -1,14 +1,14 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
-import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import wangEditor from 'wangeditor';
 import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
-import { format } from 'date-fns';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
+import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
 
 
 @Component({
@@ -385,6 +385,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;
