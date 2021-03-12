@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, ViewContainerRef, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import wangEditor from 'wangeditor';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
-import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { StoreFreeTravelModel } from '../../../../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-free-info',
@@ -361,6 +361,7 @@ export class StoreFreeInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;

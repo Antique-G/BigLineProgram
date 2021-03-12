@@ -1,13 +1,12 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, EventEmitter, Output, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
-import wangEditor from 'wangeditor';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { SimpleChanges } from '@angular/core';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 @Component({
   selector: 'app-store-free-feature',
@@ -107,6 +106,7 @@ export class StoreFreeFeatureComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFeature.config.pasteFilterStyle = false;

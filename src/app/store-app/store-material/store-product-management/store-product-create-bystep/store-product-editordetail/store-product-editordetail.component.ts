@@ -1,13 +1,13 @@
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import wangEditor from 'wangeditor';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 
 @Component({
@@ -54,6 +54,7 @@ export class StoreProductEditordetailComponent implements OnInit {
     'splitLine',
     'undo',
     'redo',
+    'image'
   ]
 
 

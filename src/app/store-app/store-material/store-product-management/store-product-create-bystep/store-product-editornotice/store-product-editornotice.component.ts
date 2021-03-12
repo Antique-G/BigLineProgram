@@ -1,12 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef } from '@angular/core';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import wangEditor from 'wangeditor';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 @Component({
   selector: 'app-store-product-editornotice',
@@ -74,6 +74,7 @@ export class StoreProductEditornoticeComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorNotice.config.pasteFilterStyle = false;

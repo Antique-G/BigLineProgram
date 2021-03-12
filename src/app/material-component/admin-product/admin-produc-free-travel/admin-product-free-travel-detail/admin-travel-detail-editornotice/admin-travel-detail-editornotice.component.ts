@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 import wangEditor from 'wangeditor';
+import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 
 
 
@@ -66,6 +66,7 @@ export class AdminTravelDetailEditornoticeComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorNotice.config.pasteFilterStyle = false;

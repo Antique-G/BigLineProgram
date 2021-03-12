@@ -1,16 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, Output, EventEmitter, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
-import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import wangEditor from 'wangeditor';
-import { format } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
-import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
-import { InsertABCMenu } from '../../../InsertABCMenu';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import wangEditor from 'wangeditor';
+import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
+import { StoreProductService } from '../../../../../../services/store/store-product/store-product.service';
+import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
+import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { InsertABCMenu } from '../../../InsertABCMenu';
 
 
 @Component({
@@ -453,6 +453,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorFee.config.pasteFilterStyle = false;

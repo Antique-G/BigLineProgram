@@ -65,6 +65,7 @@ export class AdminProductManagementEditornoticeComponent implements OnInit {
       'splitLine',
       'undo',
       'redo',
+      'image'
     ];
     // 对粘贴的文本进行处理
     editorNotice.config.pasteFilterStyle = false;

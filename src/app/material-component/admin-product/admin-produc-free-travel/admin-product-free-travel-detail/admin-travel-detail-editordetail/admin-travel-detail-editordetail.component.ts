@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
-import wangEditor from 'wangeditor';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import wangEditor from 'wangeditor';
+import { AdminProductFreeTravelService } from '../../../../../../services/admin/admin-product-free-travel.service';
 
 
 
@@ -54,6 +54,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
     'splitLine',
     'undo',
     'redo',
+    'image'
   ]
   imgArray: any
 
