@@ -59,10 +59,11 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
   nzPageIndex = new Date().getMonth() + 1;
   selectedDateValue = new Date();
   listDataMap: any;
-  isshared_status = '1';
+  isshared_status = '0';
   orderGroupProduct: OrderGroupProduct;
   isdate_quotes_id: any;
   ids: any[] = [];
+  numIsShow = false;
 
 
 
@@ -123,18 +124,58 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
 
   //添加
   addHuman() {
-    this.humanArray.controls = [];
-    let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
-    for (let i = 0; i < nums; i++) {
-      this.humanArray.push(this.fb.group({
-        name: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [Validators.required]),
-        is_kid: new FormControl('', [Validators.required]),
-        id_type: new FormControl('', [Validators.required]),
-        id_num: new FormControl('', [Validators.required]),
-      }))
+    // this.humanArray.controls = [];
+    // let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
+    // console.log('nums :>> ', nums);
+    // for (let i = 0; i < nums-1; i++) {
+    //   this.humanArray.push(this.fb.group({
+    //     name: new FormControl('', [Validators.required]),
+    //     phone: new FormControl('', [Validators.required]),
+    //     is_kid: new FormControl('', [Validators.required]),
+    //     id_type: new FormControl('', [Validators.required]),
+    //     id_num: new FormControl('', [Validators.required]),
+    //   }))
+    // }
+    this.humanArray.push(this.fb.group({
+      name: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
+      is_kid: new FormControl('', [Validators.required]),
+      id_type: new FormControl('', [Validators.required]),
+      id_num: new FormControl('', [Validators.required]),
+    }))
+    this.isNum();
+  }
+
+  removeIcon(index: number) {
+    if (this.humanArray.length > 1) {
+      this.humanArray.removeAt(index);
+      this.isNum();
+    }
+    else {
+      this.message.create('warning', '无法删除，至少存在一组');
     }
   }
+
+  onEnter(data: any) {
+    console.log('data :>> ', data);
+    this.isNum();
+  }
+
+  onEnter1(data: any) {
+    this.isNum();
+  }
+
+  isNum() {
+    let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
+    console.log('nums, :>> ', nums, Number(this.humanArray.controls.length), nums === Number(this.humanArray.controls.length))
+    if (nums > Number(this.humanArray.controls.length)) {
+      this.numIsShow = true;
+    }
+    else {
+      this.numIsShow = false;
+    }
+  }
+
 
 
   ngOnInit(): void { }
