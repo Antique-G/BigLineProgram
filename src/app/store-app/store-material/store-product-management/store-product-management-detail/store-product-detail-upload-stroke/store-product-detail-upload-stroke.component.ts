@@ -2,8 +2,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreProductDetailUploadStrokeCreateComponent } from './store-product-detail-upload-stroke-create/store-product-detail-upload-stroke-create.component';
 import { ActivatedRoute } from '@angular/router';
+import { StoreProUSCreateComponent } from '../../store-product-create-bystep/store-product-upload-stroke/store-pro-u-s-create/store-pro-u-s-create.component';
 
 @Component({
   selector: 'app-store-product-detail-upload-stroke',
@@ -28,7 +28,7 @@ export class StoreProductDetailUploadStrokeComponent implements OnInit {
   
 
   add() {
-    const dialogRef = this.dialog.open(StoreProductDetailUploadStrokeCreateComponent, {
+    const dialogRef = this.dialog.open(StoreProUSCreateComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe((result:any) => {

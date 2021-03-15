@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreProductDetailUploadStrokeCreateComponent } from '../../store-product-management-detail/store-product-detail-upload-stroke/store-product-detail-upload-stroke-create/store-product-detail-upload-stroke-create.component';
+import { StoreProUSCreateComponent } from './store-pro-u-s-create/store-pro-u-s-create.component';
+
+
 
 @Component({
   selector: 'app-store-product-upload-stroke',
@@ -26,7 +28,7 @@ export class StoreProductUploadStrokeComponent implements OnInit {
 
   add() {
 
-    const dialogRef = this.dialog.open(StoreProductDetailUploadStrokeCreateComponent, {
+    const dialogRef = this.dialog.open(StoreProUSCreateComponent, {
       width: '550px',
       data:this.addDataDetailModel.id
     });
