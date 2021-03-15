@@ -55,7 +55,7 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
   assembling_time: any;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   nzPageIndex = new Date().getMonth() + 1;
   selectedDateValue = new Date();
   listDataMap: any;
@@ -64,6 +64,8 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
   isdate_quotes_id: any;
   ids: any[] = [];
   numIsShow = false;
+  assemblingPlaceList: any;
+  isAssemblingPlace: any;
 
 
 
@@ -77,8 +79,6 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
       departure_city_name: ['',],
       destination_city_name: ['',],
       isDay: ['',],
-      assembling_place: ['',],
-      assembling_time: ['',],
     });
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
@@ -87,6 +87,8 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
       num_room: [1, [Validators.required]],
       shared_status: ['', [Validators.required]],
       customer_remarks: ['',],
+      assembling_place: ['',],
+      assembling_time: ['',],
     });
     // 校验手机
     const { mobile } = MyValidators;
@@ -178,7 +180,9 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
 
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.assemblingPlaceList = []
+  }
 
 
   search() {
@@ -190,15 +194,8 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
       this.isShow = false;
       this.detailModel = res.data;
       this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
-      if (this.detailModel?.assembling_place?.data[0].time === '00:00:00') {
-        this.assembling_time = '待定';
-      }
-      else {
-        let i = '2021-01-01' + ' ' + this.detailModel?.assembling_place?.data[0].time;
-        let newDate = new Date(i);
-        console.log('object :>> ', newDate, i);
-        this.assembling_time = format(new Date(newDate), 'HH:mm');
-      };
+      this.assemblingPlaceList = this.detailModel?.assembling_place.data;
+      console.log('this.assemblingPlaceList', this.assemblingPlaceList);
       this.listDataMap = this.detailModel?.date_quote;
       this.listDataMap.forEach((value: any) => {
         value['checked'] = false;
@@ -233,8 +230,23 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
     this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
-    this.orderGroupProduct.assembling_place_id = this.detailModel?.assembling_place?.data[0].id;
+    this.orderGroupProduct.assembling_place_id = this.isAssemblingPlace;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
+  }
+
+
+  changePlace(event: any) {
+    console.log('2342342 ', event);
+    this.isAssemblingPlace = event.id;
+    if (event === '00:00:00') {
+      this.assembling_time = '待定';
+    }
+    else {
+      let i = '2021-01-01' + ' ' + event.time;
+      let newDate = new Date(i);
+      console.log('object :>> ', newDate, i);
+      this.assembling_time = format(new Date(newDate), 'HH:mm');
+    };
   }
 
 
@@ -263,7 +275,9 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
   ngYearChange(year: any) {
     let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
     this.seletYearMonth = this.selectedYear + '-' + month;
-
+    let str = this.seletYearMonth + '-' + new Date().getDate()
+    this.selectedDateValue = new Date(str)
+    console.log('objec12111111t :>> ', str);
   }
 
   nzPageIndexChange(index: any) {

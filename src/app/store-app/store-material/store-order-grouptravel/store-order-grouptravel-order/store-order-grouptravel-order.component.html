@@ -79,25 +79,6 @@
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24">集合地点</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="assembling_place" nzBorderless [ngModel]="detailModel?.assembling_place?.data[0].name" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24">集合时间</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="assembling_time" nzBorderless [ngModel]="assembling_time" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
                                         </form>
                                     </div>
                                 </div>
@@ -274,16 +255,40 @@
                                             </div>
                                         </div>
 
+
                                         <div nz-row style="margin-top: 10px;">
-                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="1" [nzXs]="24" nzFor="customer_remarks">备注</nz-form-label>
+                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="assembling_place" nzRequired>集合地点</nz-form-label>
+                                                    <nz-form-control [nzSm]="18 " [nzXs]="24" nzErrorTip="请选择">
+                                                        <nz-select nzPlaceHolder="请选择" (ngModelChange)="changePlace($event)" formControlName="assembling_place">
+                                                            <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place?.name" [nzValue]="place">
+                                                            </nz-option>
+                                                        </nz-select>
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="assembling_time" nzRequired>集合时间</nz-form-label>
+                                                    <nz-form-control [nzSm]="18 " [nzXs]="24">
+                                                        <input nz-input formControlName="assembling_time" [ngModel]="assembling_time" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                        </div>
+
+                                        <div nz-row style="margin-top: 10px;">
+                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="customer_remarks">备注</nz-form-label>
                                                     <nz-form-control [nzSm]="18 " [nzXs]="24">
                                                         <input nz-input formControlName="customer_remarks" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
