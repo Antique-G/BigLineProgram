@@ -54,6 +54,7 @@ export class AdminContractService {
     };
     return this.httpClient.post<any>(this.urls.PostAdminContractCreate, reqData, imgHttpOptions)
       .pipe(
+        catchError(this.handleError)
       )
   }
 
@@ -62,7 +63,9 @@ export class AdminContractService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        break
+        break;
+        case 400:
+          break
 
     }
     return throwError('');
