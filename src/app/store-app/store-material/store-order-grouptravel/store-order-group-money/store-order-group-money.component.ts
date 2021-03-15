@@ -14,6 +14,7 @@ export class StoreOrderGroupMoneyComponent implements OnInit {
   @Input() data: any;
   isPrice: any;
   comfirmOrderModel: ComfirmOrderModel;
+  isShow = true;
 
 
   constructor(public storeOrderGroupTravelService: StoreOrderGroupTravelService) {
@@ -69,5 +70,16 @@ export class StoreOrderGroupMoneyComponent implements OnInit {
 
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
+  }
+
+
+  changeType(data: any) {
+    console.log('1312312 ', data, data === 2,);
+    if (data === '3') {
+      this.isShow = false;
+    }
+    else{
+      this.isShow = true;
+    }
   }
 }
