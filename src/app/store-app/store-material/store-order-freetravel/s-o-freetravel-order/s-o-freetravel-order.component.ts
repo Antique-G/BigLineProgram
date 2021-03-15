@@ -117,7 +117,7 @@ export class SOFreetravelOrderComponent implements OnInit {
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
       phone: new FormControl(''),
-      is_kid: new FormControl('', [Validators.required]),
+      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
     }))
@@ -179,7 +179,7 @@ export class SOFreetravelOrderComponent implements OnInit {
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', ),
-        is_kid: new FormControl(''),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0,[Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
       }));

@@ -158,12 +158,13 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24" *ngIf="detailModel?.child_status===1">
+                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24" *ngIf="detailModel?.reserve_children===1">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_kid" nzRequired>儿童数</nz-form-label>
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入儿童数">
                                                         <nz-input-number style=" width: 182px;" (ngModelChange)="onEnter1($event)" formControlName="num_kid" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
+                                                    <p style="color: red;    margin-left: 34px;margin-top: -9px;">2-{{detailModel?.children_age}}岁</p>
                                                 </div>
                                             </nz-form-item>
 

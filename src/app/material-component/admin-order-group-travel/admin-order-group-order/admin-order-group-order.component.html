@@ -164,6 +164,7 @@
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入儿童数">
                                                         <nz-input-number style=" width: 182px;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
+                                                    <p style="color: red;    margin-left: 34px;margin-top: -9px;">2-{{detailModel?.child_age_max}}岁</p>
                                                 </div>
                                             </nz-form-item>
 
