@@ -14,6 +14,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   @Input() data: any;
   isPrice: any;
   comfirmOrderModel: ComfirmOrderModel;
+  isShow = true;
 
 
   constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
@@ -22,7 +23,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
       fee: new FormControl('', [Validators.required]),
       pay_type: new FormControl('', [Validators.required]),
       pay_time: new FormControl(null, [Validators.required]),
-      transaction_id: new FormControl('', [Validators.required]),
+      transaction_id: new FormControl(''),
     })
     this.comfirmOrderModel = {
       order_id: '',
@@ -69,5 +70,15 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
+  }
+
+  changeType(data: any) {
+    console.log('1312312 ', data, data === 2,);
+    if (data === '3') {
+      this.isShow = false;
+    }
+    else{
+      this.isShow = true;
+    }
   }
 }
