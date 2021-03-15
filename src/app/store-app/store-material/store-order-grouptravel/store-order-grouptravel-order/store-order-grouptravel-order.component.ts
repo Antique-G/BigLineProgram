@@ -288,8 +288,17 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     this.selectedDateValue = new Date(year + '-' + month + '-' + day);
     this.seletYearMonth = this.selectedYear + '-' + month;
     this.nzPageIndex = index;
-
   }
+
+  
+  selectChange(select: Date): void {
+    console.log('选择的', select);
+    this.seletYearMonth = format(new Date(select), 'yyyy-MM');
+    let newMon = format(new Date(select), 'MM');
+    newMon = newMon.replace(/\b(0+)/gi, "");
+    this.nzPageIndex = Number(newMon);
+  }
+
 
 
   changeId(item: any) {
