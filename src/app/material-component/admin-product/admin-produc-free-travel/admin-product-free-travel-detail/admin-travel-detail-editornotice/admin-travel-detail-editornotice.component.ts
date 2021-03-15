@@ -16,6 +16,7 @@ export class AdminTravelDetailEditornoticeComponent implements OnInit {
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
   detailUpdateModel: any;
   detailId: any;
+  isLoadingBtn = false;
 
 
   constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminProductFreeTravelService: AdminProductFreeTravelService,) {
@@ -80,10 +81,15 @@ export class AdminTravelDetailEditornoticeComponent implements OnInit {
   }
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+      this.isLoadingBtn = false;
 
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 
 }

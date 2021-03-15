@@ -21,7 +21,9 @@ export class StoreProductFeatureComponent implements OnInit {
   detailUpdateModel: any;
   @ViewChild("featureBox") featureBox: any;       //获取dom
   featureList: any[] = []    //图片
-  regionData: any
+  regionData: any;
+  isLoadingBtn = false;
+
 
 
 
@@ -33,8 +35,8 @@ export class StoreProductFeatureComponent implements OnInit {
       step: 1,
       feature: ''
     }
-    console.log('55555 ', this.addDataDetailModel,this.addDataDetailModel?.destination_city);
-    // this.regionData = this.addDataDetailModel.destination_city;
+    console.log('55555 ', this.addDataDetailModel, this.addDataDetailModel?.destination_city);
+
   }
 
   ngAfterViewInit(): void {
@@ -139,13 +141,18 @@ export class StoreProductFeatureComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.addDataDetailModel.id;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+      this.isLoadingBtn = false;
       if (res === null) {
         this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 2 })
       }
 
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 
 }

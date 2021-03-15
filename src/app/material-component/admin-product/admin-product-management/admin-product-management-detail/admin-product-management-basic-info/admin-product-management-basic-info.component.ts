@@ -19,7 +19,7 @@ import { AdminRegionService } from '../../../../../../services/admin/admin-regio
 })
 export class AdminProductManagementBasicInfoComponent implements OnInit {
   addForm!: FormGroup;
-
+  isLoadingBtn = false;
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
@@ -515,10 +515,15 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.msg.error("儿童最大身高不能小于最小身高");
       }
       else {
+        this.isLoadingBtn = true;
         this.detailUpdateModel.id = this.detailId;
         this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
+          this.isLoadingBtn = false;
           console.log("res结果", res);
           localStorage.setItem("few_days", this.addForm.value.few_days);
+        },
+        error => {
+          this.isLoadingBtn = false;
         })
       }
 

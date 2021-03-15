@@ -23,6 +23,8 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
   detailList: any[] = []    //图片
 
   detailId: any;
+  isLoadingBtn = false;
+
 
   addForm!: FormGroup;
   choose_trip_type = '1';
@@ -281,10 +283,15 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     if (this.choose_trip_type === '2') {
       this.detailUpdateModel.id = this.detailId;
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-      })
+        this.isLoadingBtn = false;
+      },
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
@@ -292,6 +299,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       console.log('flag :>> ', flag);
       if (flag) {
         this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+          this.isLoadingBtn = false;
           if (this.dayNum < this.dataDetailModel.product_trip.data.length) {
             let newIds: any[] = [];
             this.dataDetailModel.product_trip.data.forEach((element: any, index: any) => {
@@ -305,7 +313,10 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
             })
           }
 
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
       else if (!flag) {
         this.msg.error("请填写具体行程");

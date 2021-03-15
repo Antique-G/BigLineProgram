@@ -30,6 +30,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
 
   featureList: any[] = []
   detailList: any[] = []
+  isLoadingBtn = false;
 
   selectedTag: any[] = [];  //标签
   tagList: any[] = [];
@@ -313,11 +314,16 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
         this.msg.error("儿童最大身高不能小于最小身高");
       }
       else {
+        this.isLoadingBtn = true;
         this.freeTravelService.UpdateFreeTravelInfo(this.freeTravelModel).subscribe(res => {
+          this.isLoadingBtn = false;
           if (res.message == "更新成功") {
             localStorage.setItem("few_days", this.addForm.value.few_days);
           }
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
 
     }

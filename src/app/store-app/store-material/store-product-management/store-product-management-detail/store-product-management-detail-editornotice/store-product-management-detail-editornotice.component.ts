@@ -20,6 +20,7 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
   detailId: any;
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
   noticeList: any[] = []    //图片
+  isLoadingBtn = false;
 
 
 
@@ -135,10 +136,14 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-
-    })
+      this.isLoadingBtn = false;
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 }
 

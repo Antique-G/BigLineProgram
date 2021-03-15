@@ -31,6 +31,8 @@ export class StoreProductEditordetailComponent implements OnInit {
   dayNum: any;
   isName: any
   delids: any[] = [];
+  isLoadingBtn = false;
+
 
 
   editMenu = [
@@ -293,13 +295,18 @@ export class StoreProductEditordetailComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     if (this.choose_trip_type === '2') {
       this.detailUpdateModel.id = this.addDataDetailModel.id;
       this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+        this.isLoadingBtn = false;
         if (res === null) {
           this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
         }
-      })
+      },
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
@@ -307,6 +314,7 @@ export class StoreProductEditordetailComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.storeProductService.addProductTrip(this.addProductTrip).subscribe(res => {
+          this.isLoadingBtn = false;
           if (this.dayNum < this.addDataDetailModel.product_trip.data.length) {
             let newIds: any[] = [];
             this.addDataDetailModel.product_trip.data.forEach((element: any, index: any) => {
@@ -321,7 +329,10 @@ export class StoreProductEditordetailComponent implements OnInit {
           }
           this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 3 })
 
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
       else if (!flag) {
         this.msg.error("请填写具体行程");
