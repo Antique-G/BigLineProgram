@@ -13,6 +13,9 @@ export class StoreContractCreateComponent implements OnInit {
   addForm!: FormGroup;
   fileList: NzUploadFile[] = [];
   imageList: NzUploadFile[] = [];
+  accept = "image/png, image/jpeg,pdf";
+  isSpinning = false;
+  isLoadingBtn = false;
 
 
   constructor(public storeContractService: StoreContractService, private msg: NzMessageService,) {
@@ -58,19 +61,26 @@ export class StoreContractCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.imageList.length === 0) {
-      this.msg.error('请选择上传图片')
+      this.msg.error('请选择上传文件')
       return
     }
     if (this.addForm.valid) {
+      this.isSpinning = true;
+      this.isLoadingBtn = true;
       this.imageList.forEach((item: any, index) => {
         const formData = new FormData();
         formData.append('file', item);
         formData.append('contract_name', this.addForm.value.contract_name);
         this.storeContractService.uploadImg(formData).subscribe(res => {
           console.log('res结果是 ', res);
-        }, err => {
-          this.fileList[index].status = 'done';
-        })
+          this.isLoadingBtn = false;
+        
+
+        },
+          err => {
+            this.isLoadingBtn = false;
+            this.isSpinning = false;
+          })
       })
     }
 

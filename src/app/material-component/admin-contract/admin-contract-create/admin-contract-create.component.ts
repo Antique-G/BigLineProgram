@@ -22,6 +22,7 @@ export class AdminContractCreateComponent implements OnInit {
   isSelectedValue = false;
   isSpinning = false;
   isLoadingBtn = false;
+  accept = "image/png, image/jpeg,pdf";
 
 
   constructor(public adminContractService: AdminContractService, private msg: NzMessageService,
@@ -95,11 +96,12 @@ export class AdminContractCreateComponent implements OnInit {
           this.dialogRef.close();
 
 
-        }, err => {
-          this.fileList[index].status = 'done';
-          this.isLoadingBtn = false;
+        },
+          err => {
+            this.isLoadingBtn = false;
+            this.isSpinning = false;
 
-        })
+          })
       })
     }
 
