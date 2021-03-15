@@ -115,6 +115,7 @@ export const AdminUrls = {
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
   PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
+  PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
 
   GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
   PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
@@ -267,6 +268,8 @@ export const StoreUrls = {
   PostStoreOrderAddPriceDetails: api + '/store/order/add_price_details',  //订单改价（附加收费、优惠）
   GetStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交前展示）
   PostStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交）
+  PostStoreOrderConfirmReceipt: api + '/store/order/confirm_receipt',  //确认收款
+
 
 
   GetStoreContractList: api + '/store/store_contract',  //合同列表

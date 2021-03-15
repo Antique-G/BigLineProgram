@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { StoreOrderGroupTravelService } from '../../../../services/store/store-order/store-order-group-travel.service';
+import { StoreOrderGroupMoneyComponent } from './store-order-group-money/store-order-group-money.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-store-order-grouptravel',
@@ -27,7 +29,8 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   product_code: any;
 
 
-  constructor(public fb: FormBuilder, public router: Router, public storeOrderGroupTravelService: StoreOrderGroupTravelService) {
+  constructor(public fb: FormBuilder, public router: Router,
+    public modal: NzModalService, public storeOrderGroupTravelService: StoreOrderGroupTravelService) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -95,8 +98,32 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   }
 
 
-  addOrder(){
+  addOrder() {
     this.router.navigate(['/store/main/storeOrdergroupTravel/storeOrdergroupTravelAddOrder'],);
+  }
+
+
+  money(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '收款',
+      nzContent: StoreOrderGroupMoneyComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
+
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getFreeTravel();
+    })
   }
 }
 

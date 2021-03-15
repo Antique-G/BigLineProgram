@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public router: Router, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
+  constructor(public fb: FormBuilder, public router: Router, 
+    public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
     public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
       status: [''],
@@ -109,6 +112,31 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
   addOrder(){
     this.router.navigate(['/admin/main/groupTravelOrder/adminOrdergroupTravelAddOrder']);
+  }
+
+
+  
+  money(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '收款',
+      nzContent: AdminOrderGroupMoneyComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
+
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.groupTravel();
+    })
   }
   
 }

@@ -29,6 +29,7 @@ export interface StoreOrderGroupTravelList {
   start_date?: any;
   store_id: number;
   product_type: number;
+  price_receive: any;
   group_id: number;
   sub_group_id: number;
   num_total: number;
@@ -438,13 +439,13 @@ interface DatequoteList {
 }
 
 
-export  interface OrderGroupProduct{
+export interface OrderGroupProduct {
   product_id: any;
   date_quotes_id: any;
   num_adult: any;
   num_kid: any;
   num_room: any;
-  members:any[],
+  members: any[],
   contact_name: string;
   contact_phone: string;
   contact_wechat: string;
@@ -453,4 +454,14 @@ export  interface OrderGroupProduct{
   customer_remarks: string;
   assembling_place_id?: any;
   shared_status?: any;
+}
+
+
+// 确认收款
+export interface ComfirmOrderModel {
+  order_id: any;
+  fee: any;
+  pay_type: any;
+  pay_time: any;
+  transaction_id: any;
 }

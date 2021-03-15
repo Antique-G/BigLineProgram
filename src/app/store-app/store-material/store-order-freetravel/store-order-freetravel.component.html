@@ -67,11 +67,11 @@
                         </nz-form-item>
 
 
-                        <nz-form-item nz-col [nzSm]="3" [nzXs]="24">
+                        <!-- <nz-form-item nz-col [nzSm]="3" [nzXs]="24">
                             <div nz-row>
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addOrder()">添加订单</button>
                             </div>
-                        </nz-form-item>
+                        </nz-form-item> -->
 
                     </form>
 
@@ -94,6 +94,7 @@
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
                                     <th style="text-align: center;">查看详情</th>
+                                    <!-- <th style="text-align: center;">确认收款</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,6 +160,11 @@
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                         </div>
                                     </td>
+                                    <!-- <td>
+                                        <div style="cursor: pointer;">
+                                            <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
+                                        </div>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>
