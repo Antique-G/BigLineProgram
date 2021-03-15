@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { format } from 'date-fns';
+
+
 @Component({
   selector: 'app-store-product-free-travel',
   templateUrl: './store-product-free-travel.component.html',
@@ -24,6 +27,12 @@ export class StoreProductFreeTravelComponent implements OnInit {
   per_page = 20;
   total = 1;
 
+  
+  newDay: any
+  newHour: any;
+  newMin: any;
+
+  isEar: any;
 
   constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
     public dialog: MatDialog, private modal: NzModalService) {
@@ -46,7 +55,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code,this.status).subscribe(res => {
+    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
       this.total = res.total;   //总页数
@@ -121,8 +130,25 @@ export class StoreProductFreeTravelComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log('data', data);
-    let ear = Math.floor(data.earlier / 60 / 24);
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: ear,proName: data.title } });
+    // 处理时间，预计多久报名
+    let minutes =data.earlier;
+    this.newMin = Math.floor(minutes % 60);
+    if (this.newMin === 0) {
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    else if (this.newMin != 0) {
+      this.newMin = 60 - this.newMin;
+      this.newHour = Math.floor(24 - minutes / 60 % 24);
+    }
+    this.newDay = format(new Date(), 'HH');
+    console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
+    if (this.newHour <= this.newDay) {
+      this.isEar = Math.floor(minutes / 60 / 24) + 1;
+    }
+    else {
+      this.isEar = Math.floor(minutes / 60 / 24);
+    }
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title } });
   }
 
 
