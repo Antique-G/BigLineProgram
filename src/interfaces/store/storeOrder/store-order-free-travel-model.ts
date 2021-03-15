@@ -168,11 +168,11 @@ export interface DetailsModel {
   independent_product: Independentproducts;
 }
 
-export  interface Independentproducts {
+export interface Independentproducts {
   data: IndependentproductsModel;
 }
 
-export  interface IndependentproductsModel {
+export interface IndependentproductsModel {
   id: number;
   title: string;
   sub_title: string;
@@ -220,4 +220,67 @@ interface MembersModel {
   id_num: string;
   sms_status: number;
   remarks: string;
+}
+
+
+
+// 产品搜索
+export interface freeProModel {
+  data: freeProModelList;
+}
+
+export interface freeProModelList {
+  id: number;
+  code: string;
+  title: string;
+  sub_title: string;
+  store_id: number;
+  few_days: number;
+  few_nights: number;
+  departure_city: string;
+  destination_city: string;
+  earlier: number;
+  confirm: number;
+  service_phone: string;
+  min_price: number;
+  price_range: number;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  child_height_min: number;
+  child_height_max: number;
+  feature: string;
+  details: string;
+  fee: string;
+  notice: string;
+  status: number;
+  check_status: number;
+  created_at?: any;
+  updated_at: string;
+  poster_url: string;
+  trip_type: number;
+  dist_reward: number;
+  store_reward: number;
+  third_reward: number;
+  commerce_reward: number;
+  date_quote: DatequoteList[];
+  departure: string;
+  destination: string;
+}
+
+export interface DatequoteList {
+  id: number;
+  independent_product_id: number;
+  date: string;
+  adult_price: number;
+  child_price: number;
+  difference_price: number;
+  inventory_num: number;
+  sold_num: number;
+  set_inventory: number;
+  allow_over: number;
+  check_status: number;
+  created_at: string;
+  updated_at: string;
 }

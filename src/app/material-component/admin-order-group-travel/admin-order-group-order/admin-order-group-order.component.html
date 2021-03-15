@@ -21,9 +21,9 @@
                                     <form [formGroup]="searchForm" nz-row nz-form>
                                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                             <div nz-row>
-                                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_code">产品编码</nz-form-label>
+                                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_code">产品编码/id</nz-form-label>
                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                    <input nz-input formControlName="product_code" placeholder="请输入产品编码" />
+                                                    <input nz-input formControlName="product_code" placeholder="请输入产品编码/id" />
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
@@ -152,7 +152,7 @@
                                             <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_adult" nzRequired>成人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入房间数">
+                                                    <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入成人数">
                                                         <nz-input-number style=" width: 182px;" formControlName="num_adult" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
@@ -161,7 +161,7 @@
                                             <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_kid" nzRequired>儿童数</nz-form-label>
-                                                    <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入房间数">
+                                                    <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入儿童数">
                                                         <nz-input-number style=" width: 182px;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
@@ -171,7 +171,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入房间数">
-                                                        <nz-input-number style=" width: 182px;" formControlName="num_room" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 182px;" formControlName="num_room" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>

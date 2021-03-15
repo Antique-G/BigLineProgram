@@ -451,6 +451,6 @@ export  interface OrderGroupProduct{
   contact_qq: string;
   contact_email: string;
   customer_remarks: string;
-  assembling_place_id: any;
-  shared_status: any;
+  assembling_place_id?: any;
+  shared_status?: any;
 }

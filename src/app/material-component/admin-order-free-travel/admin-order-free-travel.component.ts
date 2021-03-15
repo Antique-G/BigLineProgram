@@ -106,5 +106,11 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   edit(data: any) {
     this.router.navigate(['/admin/main/freeTravelOrder/detail'], { queryParams: { detailId: data.id } });
   }
+
+
+  
+  addOrder(){
+    this.router.navigate(['/admin/main/freeTravelOrder/order'],);
+  }
 }
 

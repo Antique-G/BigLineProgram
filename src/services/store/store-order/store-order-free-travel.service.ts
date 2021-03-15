@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Details, StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { Details, freeProModel, StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { StoreUrls } from '../../../api';
-import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, OrderGroupProduct, ProModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -86,6 +86,28 @@ export class StoreOrderFreeTravelService {
       )
   }
 
+
+  // 产品搜索
+  getPro(code: any) {
+    const params = new HttpParams().set('code', code)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<freeProModel>(this.urls.GetStoreProSearchFree, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 后台下订单
+  addOrderGroup(orderGroupProduct: OrderGroupProduct): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreProductOrderGroupFree, orderGroupProduct, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {
