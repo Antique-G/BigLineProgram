@@ -110,7 +110,11 @@ export class StoreOrderGroupTravelService {
     console.log("1212", error);
     switch (error.status) {
       case 401:
-        break
+        break;
+        case 404:
+          break;
+        case 422:
+          break;
 
     }
     return throwError('');

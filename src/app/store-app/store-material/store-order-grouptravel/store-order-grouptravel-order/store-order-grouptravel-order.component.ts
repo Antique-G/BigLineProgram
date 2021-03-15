@@ -81,10 +81,10 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     });
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
-      num_adult: [1,],
+      num_adult: [1, [Validators.required]],
       num_kid: [0,],
-      num_room: ['',],
-      shared_status: ['',],
+      num_room: [1, [Validators.required]],
+      shared_status: ['', [Validators.required]],
       customer_remarks: ['',],
     });
     // 校验手机
@@ -127,11 +127,11 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
     for (let i = 0; i < nums; i++) {
       this.humanArray.push(this.fb.group({
-        name: new FormControl(''),
-        phone: new FormControl('',),
-        is_kid: new FormControl(''),
-        id_type: new FormControl(''),
-        id_num: new FormControl(''),
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [Validators.required]),
+        is_kid: new FormControl('', [Validators.required]),
+        id_type: new FormControl('', [Validators.required]),
+        id_num: new FormControl('', [Validators.required]),
       }))
     }
   }
@@ -168,11 +168,14 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [Validators.required, mobile]),
-        is_kid: new FormControl('', [Validators.required]),
+        is_kid: new FormControl(''),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
       }));
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 
 
@@ -196,12 +199,20 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
 
   add() {
     this.setValue();
-    this.isLoadingAdd = true;
-    this.storeOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
-      this.isLoadingAdd = false;
-      this.router.navigate(['/store/main/storeOrdergroupTravel']);
-
-    })
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    if (this.addForm.valid) {
+      this.isLoadingAdd = true;
+      this.storeOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+        this.isLoadingAdd = false;
+        this.router.navigate(['/store/main/storeOrdergroupTravel']);
+      },
+        error => {
+          this.isLoadingAdd = false;
+        })
+    }
   }
 
 

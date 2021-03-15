@@ -113,6 +113,8 @@ export const AdminUrls = {
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
+  GetAdminProSearch:api + '/admin/product/search',  //跟团游订单详情
+  PostAdminProductOrderGroup:api + '/admin/order/group_product',  //跟团游订单详情
 
 
   // 小程序

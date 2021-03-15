@@ -165,17 +165,17 @@ export const MaterialRoutes: Routes = [
         }
       },
       {
-        path: 'orderList/adminOrdergroupTravelAddOrder',
-        component: AdminOrderGroupOrderComponent,
-        data: {
-          breadcrumb: '添加订单内容'
-        }
-      },
-      {
         path: 'groupTravelOrder',
         component: AdminOrderGroupTravelComponent,
         data: {
           breadcrumb: '跟团游订单列表'
+        }
+      },
+      {
+        path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
+        component: AdminOrderGroupOrderComponent,
+        data: {
+          breadcrumb: '添加订单内容'
         }
       },
       {
