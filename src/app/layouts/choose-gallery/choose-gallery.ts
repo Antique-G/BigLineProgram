@@ -153,10 +153,10 @@ export class ChooseGalleryComponent implements OnInit {
   importImg() {
 
     let arr: any[] = [...this.setOfCheckedId]
-    if (arr.length > 10) {
-      this.msg.error('图片不能引用超过10张');
-      return
-    }
+    // if (arr.length > 10) {
+    //   this.msg.error('图片不能引用超过10张');
+    //   return
+    // }
 
     this.modalRef.close(arr);
     console.log('arr :>> ', arr);

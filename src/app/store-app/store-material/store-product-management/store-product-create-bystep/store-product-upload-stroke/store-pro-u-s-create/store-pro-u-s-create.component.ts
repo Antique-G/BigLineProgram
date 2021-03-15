@@ -3,6 +3,7 @@ import { inject } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 // import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { StoreProductService } from '../../../../../../../services/store/store-product/store-product.service';
@@ -24,8 +25,7 @@ export class StoreProUSCreateComponent implements OnInit {
   isLoadingBtn = false;
   productId:any
 
-  // private msg: NzMessageService,
-  constructor(public dialogRef: MatDialogRef<StoreProUSCreateComponent>,public activatedRoute: ActivatedRoute, public storeProductService: StoreProductService,@Inject(MAT_DIALOG_DATA) public data:any) {
+  constructor( private msg: NzMessageService,public dialogRef: MatDialogRef<StoreProUSCreateComponent>,public activatedRoute: ActivatedRoute, public storeProductService: StoreProductService,@Inject(MAT_DIALOG_DATA) public data:any) {
     this.productId =data;
     this.addForm = new FormGroup({
       stroke_name: new FormControl('', [Validators.required]),
@@ -34,7 +34,6 @@ export class StoreProUSCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log('000',params)
       this.selectedValue = params.detailDataId;
     });
 
@@ -64,10 +63,16 @@ export class StoreProUSCreateComponent implements OnInit {
   }
 
   add() {
+    if (this.fileList.length < 1){
+      this.msg.error('请选择文件')
+      return
+    }
     this.imageList.forEach((item: any, index) => {
+      this.isLoadingBtn = true;
       const formData = new FormData();
       formData.append('file', item);
       formData.append('product_id', this.selectedValue || this.productId);
+      console.log('addForm11111111',formData)
       this.storeProductService.uploadStroke(formData).subscribe(res => {
         console.log('res结果是 ', res);
         this.isLoadingBtn = false;
