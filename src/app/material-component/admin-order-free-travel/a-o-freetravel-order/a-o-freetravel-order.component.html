@@ -173,12 +173,15 @@
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入房间数">
                                                         <nz-input-number style=" width: 182px;" formControlName="num_room" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
-                                                    <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
-                                                        <i nz-icon nzType="plus"></i>
-                                                        添加出行人详细信息
-                                                    </button>
                                                 </div>
                                             </nz-form-item>
+
+                                            <div style="margin-left: 14px;">
+                                                <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
+                                                    <i nz-icon nzType="plus"></i>
+                                                    添加出行人详细信息
+                                                </button>
+                                            </div>
 
                                         </div>
 

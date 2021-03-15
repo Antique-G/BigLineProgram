@@ -185,12 +185,15 @@
                                                             <label nz-radio nzValue='1'>拼房</label>
                                                         </nz-radio-group>
                                                     </nz-form-control>
-                                                    <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
-                                                        <i nz-icon nzType="plus"></i>
-                                                        添加出行人详细信息
-                                                    </button>
                                                 </div>
                                             </nz-form-item>
+
+                                            <div style="margin-left: 14px;">
+                                                <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
+                                                    <i nz-icon nzType="plus"></i>
+                                                    添加出行人详细信息
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
