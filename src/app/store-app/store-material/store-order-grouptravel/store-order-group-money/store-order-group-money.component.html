@@ -1,0 +1,43 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 0px; margin-top: 20px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="isMoney">应付金额</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="isMoney" style="width: 100%; " nzBorderless [ngModel]="isPrice" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="fee" nzRequired>收款金额</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="fee" style="width: 100%;" [ngModel]="isPrice" nzBorderless/>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_type" nzRequired>收款途径</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" formControlName="pay_type">
+                        <nz-option [nzLabel]="'微信'" [nzValue]="'1'"></nz-option>
+                        <nz-option [nzLabel]="'支付宝'" [nzValue]="'2'"></nz-option>
+                        <nz-option [nzLabel]="'现金'" [nzValue]="'3'"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_time" nzRequired>收款时间</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-date-picker style="width: 100%; " nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="pay_time" ngModel (ngModelChange)="onChange($event)"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="transaction_id" nzRequired>流水号</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
+                    <input nz-input style="width: 100%; " formControlName="transaction_id" />
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+
+    </div>
+</div>

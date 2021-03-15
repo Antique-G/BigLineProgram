@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
-import { DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ComfirmOrderModel, DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 
@@ -72,6 +72,15 @@ export class AdminOrderGroupTravelService {
   // 后台下订单
   addOrderGroup(orderGroupProduct: OrderGroupProduct): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostAdminProductOrderGroup, orderGroupProduct, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 确认收款
+  comfirmOrder(comfirmOrderModel: ComfirmOrderModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderConfirmReceipt, comfirmOrderModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

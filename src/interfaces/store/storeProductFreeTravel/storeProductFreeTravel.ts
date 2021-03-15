@@ -68,6 +68,7 @@ export interface Datum {
   code: string;
   store_id: number;
   few_days: number;
+  price_receive: any;
   few_nights: number;
   departure_city: string;
   destination_city: string;
@@ -99,7 +100,7 @@ export interface LogModel {
   inden_product_id: number;
   check_status: number;
   reason: string;
-  admin_id: number; 
+  admin_id: number;
   created_at: string;
   updated_at: string;
 

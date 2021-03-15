@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, DetailModel,OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -105,16 +105,24 @@ export class StoreOrderGroupTravelService {
 
 
 
+  // 确认收款
+  comfirmOrder(comfirmOrderModel: ComfirmOrderModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreOrderConfirmReceipt, comfirmOrderModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
       case 401:
         break;
-        case 404:
-          break;
-        case 422:
-          break;
+      case 404:
+        break;
+      case 422:
+        break;
 
     }
     return throwError('');
