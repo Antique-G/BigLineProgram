@@ -189,6 +189,15 @@ export class StoreProductService {
     return throwError('0.21');
   }
 
+  // 上传行程
+  uploadStroke(reqData: any):Observable<any>{
+    const imgHttpOptions = {
+      reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+    };
+    return this.httpClient.post<any>(this.urls.PostStoreUploadStroke, reqData, imgHttpOptions)
+      .pipe(
+      )
+  }
 }
 
 

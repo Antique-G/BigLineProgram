@@ -176,6 +176,7 @@ export const StoreUrls = {
   
 
  
+  PostStoreUploadStroke: api + '/store/product/schedule_upload',  //上传行程
 
 
 

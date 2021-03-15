@@ -83,6 +83,7 @@ import { StoreProductDetailUploadStrokeComponent } from './store-product-managem
 import { StoreFreeUploadStrokeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-upload-stroke/store-free-upload-stroke.component';
 import { StoreFreeDetailUploadStrokeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-free-detail-upload-stroke/store-free-detail-upload-stroke.component';
 import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/store-order-grouptravel-order/store-order-grouptravel-order.component';
+import { StoreProductDetailUploadStrokeCreateComponent } from './store-product-management/store-product-management-detail/store-product-detail-upload-stroke/store-product-detail-upload-stroke-create/store-product-detail-upload-stroke-create.component';
 
 @NgModule({
   imports: [
@@ -180,6 +181,7 @@ import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/s
     StoreFreeUploadStrokeComponent,
     StoreFreeDetailUploadStrokeComponent,
     StoreOrderGrouptravelOrderComponent,
+    StoreProductDetailUploadStrokeCreateComponent,
     
   ]
 })
