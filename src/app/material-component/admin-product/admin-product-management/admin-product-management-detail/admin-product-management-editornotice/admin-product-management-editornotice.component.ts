@@ -15,6 +15,10 @@ export class AdminProductManagementEditornoticeComponent implements OnInit {
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
   detailUpdateModel: any;
   detailId: any;
+  isLoadingBtn = false;
+
+
+
 
   constructor(public activatedRoute: ActivatedRoute, public adminProductManagementService: AdminProductManagementService,) {
     this.detailUpdateModel = {
@@ -76,16 +80,20 @@ export class AdminProductManagementEditornoticeComponent implements OnInit {
       return str
     }
     editorNotice.create();
-   
+
 
   }
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
-
-    })
+      this.isLoadingBtn = false;
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 }
 

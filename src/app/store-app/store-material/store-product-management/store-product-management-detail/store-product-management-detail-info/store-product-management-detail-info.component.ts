@@ -47,7 +47,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   newDay: any;
   newHour: any;
   newMin: any;
-
+  isLoadingBtn = false;
 
   cateId: any;
 
@@ -568,11 +568,16 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       }
       else {
         //更新
+        this.isLoadingBtn = true;
         this.detailUpdateModel.id = this.detailId;
         this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+          this.isLoadingBtn = false;
           console.log("res结果", res);
           localStorage.setItem("few_days", this.detailUpdateModel.few_days);
 
+        },
+        error => {
+          this.isLoadingBtn = false;
         })
       }
 

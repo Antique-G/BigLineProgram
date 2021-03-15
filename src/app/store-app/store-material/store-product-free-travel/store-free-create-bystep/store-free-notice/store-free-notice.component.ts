@@ -25,6 +25,10 @@ export class StoreFreeNoticeComponent implements OnInit {
     step: 3,
     notice: '',
   }
+
+  isLoadingBtn = false;
+
+
   @ViewChild("noticeBox") noticeBox: any;       //获取dom
   constructor(public dialog: MatDialog, private msg: NzMessageService,
     private freeTravelService: StoreProductTreeTravelService, public router: Router,
@@ -44,12 +48,21 @@ export class StoreFreeNoticeComponent implements OnInit {
   ngAfterViewInit() {
     this.textChange();
   }
+
+
   updateInfo() {
+    this.isLoadingBtn = true;
     console.log('请求值', this.reqModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res => {
+      this.isLoadingBtn = false;
       this.tabIndex.emit({ id: this.reqModel.id, tabIndex: 4 })
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
+
+
 
   importImg() {
     const modal: NzModalRef = this.modal.create({

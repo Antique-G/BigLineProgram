@@ -21,6 +21,9 @@ export class StoreProductEditornoticeComponent implements OnInit {
   @ViewChild("noticeBox") noticeBox: any;     //获取dom
   noticeList: any[] = []    //图片
 
+  isLoadingBtn = false;
+
+
 
 
   constructor(public storeProductService: StoreProductService, public dialog: MatDialog,
@@ -137,12 +140,17 @@ export class StoreProductEditornoticeComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.addDataDetailModel.id;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
+      this.isLoadingBtn = false;
       if (res === null) {
         this.tabIndex.emit({ id: this.addDataDetailModel.id, tabIndex: 4 })
       }
 
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 }

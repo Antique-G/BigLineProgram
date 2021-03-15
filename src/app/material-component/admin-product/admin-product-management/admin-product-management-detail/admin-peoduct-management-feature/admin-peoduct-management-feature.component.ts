@@ -14,6 +14,7 @@ export class AdminPeoductManagementFeatureComponent implements OnInit {
   @ViewChild("featureBox") featureBox: any;       //获取dom
   detailUpdateModel: any;
   detailId: any;
+  isLoadingBtn = false;
 
 
 
@@ -79,14 +80,18 @@ export class AdminPeoductManagementFeatureComponent implements OnInit {
       return str
     }
     editorFeature.create();
-   
+
   }
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
-
-    })
+      this.isLoadingBtn = false;
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 }

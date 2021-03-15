@@ -28,7 +28,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
   choose_trip_type = '1';
   isSpecial = true;
   delids: any[] = [];
-
+  isLoadingBtn = false;
 
 
 
@@ -213,10 +213,15 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     if (this.choose_trip_type === '2') {
       this.detailUpdateModel.id = this.detailId;
       this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
-      })
+        this.isLoadingBtn = false;
+      },
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
@@ -224,6 +229,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.adminProductFreeTravelService.addFreeTrip(this.addProductTrip).subscribe(res => {
+          this.isLoadingBtn = false;
           if (this.dayNum < this.dataFreeDetailModel.product_trip.data.length) {
             let newIds: any[] = [];
             this.dataFreeDetailModel.product_trip.data.forEach((element: any, index: any) => {
@@ -237,7 +243,10 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
             })
           }
 
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
       else if (!flag) {
         this.msg.error("请填写具体行程");

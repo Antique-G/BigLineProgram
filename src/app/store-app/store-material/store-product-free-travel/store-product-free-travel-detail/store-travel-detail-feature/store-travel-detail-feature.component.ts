@@ -22,6 +22,8 @@ export class StoreTravelDetailFeatureComponent implements OnInit {
   @Input() dataDetailModel: any;
   dataModel: any
   featureList: any[] = []
+  isLoadingBtn = false;
+
 
   @ViewChild("featureBox") featureBox: any;       //获取dom
   constructor(public dialog: MatDialog, private msg: NzMessageService, private freeTravelService: StoreProductTreeTravelService,
@@ -41,13 +43,21 @@ export class StoreTravelDetailFeatureComponent implements OnInit {
   }
 
   updateInfo() {
+    this.isLoadingBtn = true;
     console.log('请求值', this.reqModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res => {
+      this.isLoadingBtn = false;
       if (res.message == "更新成功") {
         // this.router.navigate(['/store/main/storeFreeTravel']);
       }
-    })
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
+
+
+  
   importImg() {
     const modal: NzModalRef = this.modal.create({
       nzTitle: '从图库导入资源',

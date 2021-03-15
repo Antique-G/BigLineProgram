@@ -18,6 +18,8 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 export class StoreTravelDetailDescComponent implements OnInit {
   @Input() dataDetailModel: any;
   dataModel: any
+  isLoadingBtn = false;
+
   featureList: any[] = []
   reqModel = {
     id: 0,
@@ -274,11 +276,15 @@ export class StoreTravelDetailDescComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     console.log('请求值', this.reqModel);
     if (this.choose_trip_type === '2') {
       this.freeTravelService.UpdateFreeTravelInfo(this.reqModel).subscribe(res => {
-
-      })
+        this.isLoadingBtn = false;
+      },
+        error => {
+          this.isLoadingBtn = false;
+        })
     }
     else if (this.choose_trip_type === '1') {
       this.dayListSetValue();
@@ -286,6 +292,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
       console.log('flag :>> ', flag);
       if (flag) {
         this.freeTravelService.addProductTrip(this.addProductTrip).subscribe(res => {
+          this.isLoadingBtn = false;
           if (this.dayNum < this.dataDetailModel.product_trip.data.length) {
             let newIds: any[] = [];
             this.dataDetailModel.product_trip.data.forEach((element: any, index: any) => {
@@ -299,7 +306,10 @@ export class StoreTravelDetailDescComponent implements OnInit {
             })
           }
 
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
       else if (!flag) {
         this.msg.error("请填写具体行程");

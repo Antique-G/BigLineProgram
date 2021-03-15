@@ -16,6 +16,8 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
   @ViewChild("featureBox") featureBox: any;       //获取dom
   detailUpdateModel: any;
   detailId: any;
+  isLoadingBtn = false;
+
 
 
   constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminProductFreeTravelService: AdminProductFreeTravelService,) {
@@ -84,10 +86,14 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
-
-    })
+      this.isLoadingBtn = false;
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 
 }

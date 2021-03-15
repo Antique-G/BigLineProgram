@@ -20,6 +20,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   addForm!: FormGroup;
   detailId: any;
   dataDetailModel: any;
+  isLoadingBtn = false;
 
   // 区域联动
   nzOptions: any[] | null = null;
@@ -417,12 +418,17 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       }
       else {
         //更新
+        this.isLoadingBtn = true;
         this.freeTravelUpdateModel.id = this.detailId;
         this.adminProductFreeTravelService.freeTravelUpdate(this.freeTravelUpdateModel).subscribe(res => {
+          this.isLoadingBtn = false;
           if (res.message == "更新成功") {
             localStorage.setItem("few_days", this.addForm.value.few_days);
           }
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
 
     }

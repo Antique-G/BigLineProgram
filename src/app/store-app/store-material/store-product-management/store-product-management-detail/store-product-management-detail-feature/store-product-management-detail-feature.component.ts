@@ -23,6 +23,7 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
   featureList: any[] = []    //图片
 
   detailId: any;
+  isLoadingBtn = false;
 
 
   constructor(public storeProductService: StoreProductService, public activatedRoute: ActivatedRoute,
@@ -136,10 +137,14 @@ export class StoreProductManagementDetailFeatureComponent implements OnInit {
 
 
   nextTab() {
+    this.isLoadingBtn = true;
     this.detailUpdateModel.id = this.detailId;
     this.storeProductService.updateProduct(this.detailUpdateModel).subscribe(res => {
-
-    })
+      this.isLoadingBtn = false;
+    },
+      error => {
+        this.isLoadingBtn = false;
+      })
   }
 
 }
