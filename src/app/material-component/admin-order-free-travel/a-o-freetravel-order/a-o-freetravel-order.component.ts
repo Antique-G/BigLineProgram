@@ -199,7 +199,12 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.orderGroupProduct.product_id = this.detailModel.id;
     this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
     this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
-    this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+    if (this.detailModel.few_nights === 0) {
+      this.orderGroupProduct.num_room = 0
+    }
+    else {
+      this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+    }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
     this.orderGroupProduct.members = this.informationForm.value.humanList;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;

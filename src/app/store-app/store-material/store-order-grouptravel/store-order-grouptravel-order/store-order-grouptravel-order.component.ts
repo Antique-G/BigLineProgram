@@ -193,6 +193,7 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
       this.isLoadingBtn = false;
       this.isShow = false;
       this.detailModel = res.data;
+      console.log('儿童预定 :>> ', this.detailModel?.child_status, this.detailModel?.child_status === 0);
       this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
       this.assemblingPlaceList = this.detailModel?.assembling_place.data;
       console.log('this.assemblingPlaceList', this.assemblingPlaceList);
@@ -221,7 +222,13 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     this.orderGroupProduct.product_id = this.detailModel.id;
     this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
     this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
-    this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+    if (this.detailModel.few_nights === 0) {
+      this.orderGroupProduct.num_room = 0
+    }
+    else {
+      this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+    }
+
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
     this.orderGroupProduct.shared_status = this.informationForm.value.shared_status;
     this.orderGroupProduct.members = this.informationForm.value.humanList;
@@ -290,7 +297,7 @@ export class StoreOrderGrouptravelOrderComponent implements OnInit {
     this.nzPageIndex = index;
   }
 
-  
+
   selectChange(select: Date): void {
     console.log('选择的', select);
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
