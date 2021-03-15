@@ -108,7 +108,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
 
   addOrder(){
-    this.router.navigate(['/admin/main/orderList/adminOrdergroupTravelAddOrder']);
+    this.router.navigate(['/admin/main/groupTravelOrder/adminOrdergroupTravelAddOrder']);
   }
   
 }
