@@ -158,7 +158,7 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24" *ngIf="detailModel?.child_status===1">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_kid" nzRequired>儿童数</nz-form-label>
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入儿童数">
@@ -167,7 +167,7 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="4" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
                                                     <nz-form-control [nzSm]="15 " [nzXs]="24" nzErrorTip="请输入房间数">

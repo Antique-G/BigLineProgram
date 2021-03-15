@@ -243,6 +243,7 @@ export interface freeProModelList {
   confirm: number;
   service_phone: string;
   min_price: number;
+  child_status: number;
   price_range: number;
   reserve_num: number;
   reserve_children: number;
