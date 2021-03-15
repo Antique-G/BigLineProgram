@@ -8,9 +8,9 @@
                     </div>
                     <div style="height: 500px;font-size: 22px; text-align: center;padding-top: 120px;">
                         <div *ngIf="addDataDetailModel.schedule_file_url != ''">
-                            <a href={{addDataDetailModel?.schedule_file_url}} target="_blank">
-                                <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 46px;"></i>
-                                <p><button nz-button nzType="primary" nzBlock style="width: 6%;">查看行程</button></p>
+                            <a href={{addDataDetailModel?.schedule_file_url}} target="_blank" style="color: #999;">
+                                <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 22px; margin-right: 10px;"></i>
+                                <span>{{addDataDetailModel.schedule_file_url}}</span>
                             </a>
                         </div>
                         <div style="color: #999;" *ngIf="addDataDetailModel.schedule_file_url == ''">
