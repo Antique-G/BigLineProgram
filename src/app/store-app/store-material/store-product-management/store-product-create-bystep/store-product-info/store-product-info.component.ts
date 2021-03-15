@@ -422,10 +422,10 @@ export class StoreProductInfoComponent implements OnInit {
       let result = res || []
       result.forEach((item: any) => {
         this.feeList.push(item)
-        if (this.feeList.length > 10) {
-          this.msg.error('产品特色引用图片不能超过10张')
-          return
-        }
+        // if (this.feeList.length > 10) {
+        //   this.msg.error('产品特色引用图片不能超过10张')
+        //   return
+        // }
         this.feeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`;
         console.log("this.addStoreProductModel.fee", this.addStoreProductModel.fee)
       });

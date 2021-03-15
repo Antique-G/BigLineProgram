@@ -121,10 +121,10 @@ export class StoreProductManagementDetailEditornoticeComponent implements OnInit
       let result = res || []
       result.forEach((item: any) => {
         this.noticeList.push(item)
-        if (this.noticeList.length > 10) {
-          this.msg.error('产品特色引用图片不能超过10张')
-          return
-        }
+        // if (this.noticeList.length > 10) {
+        //   this.msg.error('产品特色引用图片不能超过10张')
+        //   return
+        // }
         this.noticeBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
