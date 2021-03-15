@@ -92,5 +92,9 @@ export class StoreOrderFreetravelComponent implements OnInit {
   edit(data: any) {
     this.router.navigate(['/store/main/storeOrderFreeTravel/detail'], { queryParams: { detailId: data.id } });
   }
+
+  addOrder(){
+    this.router.navigate(['/store/main/storeOrderFreeTravel/addOrder'],);
+  }
 }
 

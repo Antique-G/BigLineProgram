@@ -113,8 +113,11 @@ export const AdminUrls = {
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
-  GetAdminProSearch:api + '/admin/product/search',  //跟团游订单详情
-  PostAdminProductOrderGroup:api + '/admin/order/group_product',  //跟团游订单详情
+  GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
+  PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
+
+  GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
+  PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
 
 
   // 小程序
@@ -170,12 +173,15 @@ export const StoreUrls = {
   GetStoreProductCheckLog: api + '/store/product/check_log', // 审核日志
   PostStoreProductTrip: api + '/store/product_trip', // 逐条添加行程
   PostStoreProductTripDel: api + '/store/product_trip_del', //删除行程
-  GetStoreProSearch: api + '/store/product/search',  // 产品搜索
+  GetStoreProSearch: api + '/store/product/search',  // 跟团游产品搜索
   PostStoreProductOrderGroup: api + '/store/order/group_product',  // 创建订单（跟团游）
 
-  
+  GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索
+  PostStoreProductOrderGroupFree: api + '/store/order/independent_product',  //创建订单（自由行）
 
- 
+
+
+
   PostStoreUploadStroke: api + '/store/product/schedule_upload',  //上传行程
 
 

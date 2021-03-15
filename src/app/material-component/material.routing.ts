@@ -31,6 +31,7 @@ import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-o
 import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
 import { AdminContractComponent } from './admin-contract/admin-contract.component';
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
+import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -197,6 +198,13 @@ export const MaterialRoutes: Routes = [
         component: AdminOrderFreeTravelDetailComponent,
         data: {
           breadcrumb: '自由行订单详情'
+        }
+      },
+      {
+        path: 'freeTravelOrder/order',
+        component: AOFreetravelOrderComponent,
+        data: {
+          breadcrumb: '添加订单内容'
         }
       },
       {

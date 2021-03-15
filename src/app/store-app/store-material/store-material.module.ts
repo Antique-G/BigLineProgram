@@ -84,6 +84,7 @@ import { StoreFreeUploadStrokeComponent } from './store-product-free-travel/stor
 import { StoreFreeDetailUploadStrokeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-free-detail-upload-stroke/store-free-detail-upload-stroke.component';
 import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/store-order-grouptravel-order/store-order-grouptravel-order.component';
 import { StoreProUSCreateComponent } from './store-product-management/store-product-create-bystep/store-product-upload-stroke/store-pro-u-s-create/store-pro-u-s-create.component';
+import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetravel-order/s-o-freetravel-order.component';
 
 @NgModule({
   imports: [
@@ -181,7 +182,8 @@ import { StoreProUSCreateComponent } from './store-product-management/store-prod
     StoreFreeUploadStrokeComponent,
     StoreFreeDetailUploadStrokeComponent,
     StoreOrderGrouptravelOrderComponent,
-    StoreProUSCreateComponent
+    StoreProUSCreateComponent,
+    SOFreetravelOrderComponent
     
   ]
 })
