@@ -210,14 +210,14 @@ export const MaterialRoutes: Routes = [
         path: 'insurance',
         component: AdminInsuranceComponent,
         data: {
-          breadcrumb: '用户信息列表'
+          breadcrumb: '保险管理列表'
         }
       },
       {
         path: 'user',
         component: AdminUserinfoComponent,
         data: {
-          breadcrumb: '保险管理列表'
+          breadcrumb: '用户信息列表'
         }
       },
 

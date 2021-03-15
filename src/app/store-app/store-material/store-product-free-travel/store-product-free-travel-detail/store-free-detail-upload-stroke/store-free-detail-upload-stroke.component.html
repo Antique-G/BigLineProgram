@@ -1,1 +1,25 @@
-<p>store-free-detail-upload-stroke works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()">上传行程</button>
+                    </div>
+                    <div style="height: 500px;font-size: 22px; text-align: center;padding-top: 120px;">
+                        <div *ngIf="dataDetailModel.schedule_file_url != ''">
+                            <a href={{dataDetailModel?.schedule_file_url}} target="_blank">
+                                <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 46px;"></i>
+                                <p><button nz-button nzType="primary" nzBlock style="width: 6%;">查看行程</button></p>
+                            </a>
+                        </div>
+                        <div style="color: #999;" *ngIf="dataDetailModel.schedule_file_url == ''">
+                            还没有上传行程哦~~~
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
