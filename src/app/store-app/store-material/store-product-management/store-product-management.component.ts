@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { format } from 'date-fns';
 
 
 @Component({
@@ -27,6 +28,13 @@ export class StoreProductManagementComponent implements OnInit {
   total: any;
 
   isReason: any;
+
+
+  newDay: any
+  newHour: any;
+  newMin: any;
+
+  isEar: any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
@@ -121,8 +129,26 @@ export class StoreProductManagementComponent implements OnInit {
     console.log('data', data);
     this.storeProductService.getProductDetail(data.id).subscribe(res => {
       console.log("结果是", res.data.id, res.data.earlier)
-      let ear = Math.floor(res.data.earlier / 60 / 24);
-      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: ear, proName: data.title } });
+
+      // 处理时间，预计多久报名
+      let minutes = res.data.earlier;
+      this.newMin = Math.floor(minutes % 60);
+      if (this.newMin === 0) {
+        this.newHour = Math.floor(24 - minutes / 60 % 24);
+      }
+      else if (this.newMin != 0) {
+        this.newMin = 60 - this.newMin;
+        this.newHour = Math.floor(24 - minutes / 60 % 24);
+      }
+      this.newDay = format(new Date(), 'HH');
+      console.log('2423423', this.newHour, new Date(), this.newMin,this.newDay, this.newHour <= this.newDay)
+      if (this.newHour <= this.newDay) {
+        this.isEar = Math.floor(minutes / 60 / 24) + 1;
+      }
+      else {
+        this.isEar = Math.floor(minutes / 60 / 24);
+      }
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title } });
     })
   }
 
