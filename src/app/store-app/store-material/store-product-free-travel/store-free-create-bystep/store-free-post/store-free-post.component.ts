@@ -91,8 +91,8 @@ export class StoreFreePostComponent implements OnInit {
     this.detailUpdateModel.poster_url = this.imgSrc;
     console.log("更新", this.detailUpdateModel);
     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-      // this.router.navigate(['/store/main/storeFreeTravel'],);
-      this.tabIndex.emit({ id: this.dataDetailModel.id, tabIndex: 6 })
+      this.router.navigate(['/store/main/storeFreeTravel'],);
+      // this.tabIndex.emit({ id: this.dataDetailModel.id, tabIndex: 6 })
     })
 
   }

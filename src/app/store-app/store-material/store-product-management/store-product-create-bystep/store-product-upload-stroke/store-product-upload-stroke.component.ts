@@ -20,7 +20,7 @@ export class StoreProductUploadStrokeComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params.detailDataId
     });
   }
 
@@ -31,7 +31,7 @@ export class StoreProductUploadStrokeComponent implements OnInit {
       data:this.addDataDetailModel.id
     });
     dialogRef.afterClosed().subscribe((result:any) => {
-      
+      this.addDataDetailModel.schedule_file_url = result.url;
     });
   }
 

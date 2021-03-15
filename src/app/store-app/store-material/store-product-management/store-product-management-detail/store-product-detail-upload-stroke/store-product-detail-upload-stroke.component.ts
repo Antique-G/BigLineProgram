@@ -32,7 +32,7 @@ export class StoreProductDetailUploadStrokeComponent implements OnInit {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe((result:any) => {
-     
+      this.dataDetailModel.schedule_file_url = result.url;
     });
   }
 
