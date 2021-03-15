@@ -139,7 +139,10 @@
                                                 </td>
                                                 <td>{{data.id_num}}</td>
                                                 <td>{{data.phone}}</td>
-                                                <td>{{data.customer_remarks}}</td>
+                                                <td>
+                                                    <div *ngIf="data?.remarks===''">{{detailModel.customer_remarks}}</div>
+                                                    <div *ngIf="data?.remarks!=''">{{data.customer_remarks}}</div>
+                                                </td>
                                                 <td>
                                                     <div *ngIf="data.sms_status===0">
                                                         <nz-badge nzColor="yellow"></nz-badge>未发</div>

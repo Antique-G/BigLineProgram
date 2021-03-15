@@ -141,7 +141,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     // }
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl(''),
       is_kid: new FormControl('', [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
@@ -207,7 +207,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       const { mobile } = MyValidators;
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [Validators.required, mobile]),
+        phone: new FormControl('',),
         is_kid: new FormControl('', [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
