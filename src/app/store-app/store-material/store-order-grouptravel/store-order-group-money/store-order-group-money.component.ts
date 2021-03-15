@@ -23,7 +23,7 @@ export class StoreOrderGroupMoneyComponent implements OnInit {
       fee: new FormControl('', [Validators.required]),
       pay_type: new FormControl('', [Validators.required]),
       pay_time: new FormControl(null, [Validators.required]),
-      transaction_id: new FormControl('', [Validators.required]),
+      transaction_id: new FormControl(''),
     })
     this.comfirmOrderModel = {
       order_id: '',
