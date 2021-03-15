@@ -240,10 +240,10 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       let result = res || []
       result.forEach((item: any) => {
         this.detailList.push(item)
-        if (this.detailList.length > 10) {
-          this.msg.error('产品特色引用图片不能超过10张')
-          return
-        }
+        // if (this.detailList.length > 10) {
+        //   this.msg.error('产品特色引用图片不能超过10张')
+        //   return
+        // }
         this.detailBox.nativeElement.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
       });
     });
@@ -333,10 +333,10 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
       let result = res || []
       result.forEach((item: any) => {
         this.detailList.push(item)
-        if (this.detailList.length > 10) {
-          this.msg.error('产品特色引用图片不能超过10张')
-          return
-        }
+        // if (this.detailList.length > 10) {
+        //   this.msg.error('产品特色引用图片不能超过10张')
+        //   return
+        // }
         // 将图片传到文本框
         console.log("document.getElementById(`detailBox${i}`)!.innerHTML", document.getElementById(`detailBox${i}`)!.innerHTML)
         document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
