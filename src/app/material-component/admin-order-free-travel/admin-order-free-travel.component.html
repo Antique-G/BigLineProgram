@@ -112,7 +112,10 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.store_name}}</td>
-                                    <td>{{data.product_code}}</td>
+                                    <td>
+                                        <!-- {{data.product_code}} -->
+                                        {{data.product_id}}
+                                    </td>
                                     <td>{{data.product_name}}</td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>
