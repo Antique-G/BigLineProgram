@@ -29,6 +29,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
   page3 = 1;
   per_page3 = 20;
   total3 = 1;
+  childStatus: any;
 
 
   checked = false;
@@ -47,6 +48,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
       this.proName = params.proName;
+      this.childStatus = params.childStatus;
     });
     this.getQuteDateList();
   }
@@ -107,7 +109,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
 
   }
- 
+
   onAllChecked(checked: boolean): void {
     this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
     this.refreshCheckedStatus();

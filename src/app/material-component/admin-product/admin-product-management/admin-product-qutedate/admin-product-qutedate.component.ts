@@ -39,6 +39,8 @@ export class AdminProductQutedateComponent implements OnInit {
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
   proName: any;
+  childStatus: any;
+
 
 
 
@@ -51,6 +53,8 @@ export class AdminProductQutedateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
       this.proName = params.proName;
+      this.childStatus = params.childStatus;
+
     });
     this.getQuteDateList();
   }

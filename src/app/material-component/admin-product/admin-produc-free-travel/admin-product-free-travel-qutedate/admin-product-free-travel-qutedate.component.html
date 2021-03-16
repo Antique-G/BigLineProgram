@@ -46,7 +46,10 @@
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
                                                                     <td>{{data.adult_price}}</td>
-                                                                    <td>{{data.child_price}}</td>
+                                                                    <td>
+                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                        <div *ngIf="childStatus==='0'">-</div>
+                                                                    </td>
                                                                     <td>{{data.difference_price}}</td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
@@ -93,7 +96,10 @@
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
                                                                     <td>{{data.adult_price}}</td>
-                                                                    <td>{{data.child_price}}</td>
+                                                                    <td>
+                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                        <div *ngIf="childStatus==='0'">-</div>
+                                                                    </td>
                                                                     <td>{{data.difference_price}}</td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
@@ -141,7 +147,10 @@
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
                                                                     <td>{{data.adult_price}}</td>
-                                                                    <td>{{data.child_price}}</td>
+                                                                    <td>
+                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                        <div *ngIf="childStatus==='0'">-</div>
+                                                                    </td>
                                                                     <td>{{data.difference_price}}</td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
