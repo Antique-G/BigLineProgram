@@ -56,7 +56,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   assembling_time: any;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = [ '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   nzPageIndex = new Date().getMonth() + 1;
   selectedDateValue = new Date();
   listDataMap: any;
@@ -128,21 +128,10 @@ export class AdminOrderGroupOrderComponent implements OnInit {
 
   //添加
   addHuman() {
-    // this.humanArray.controls = [];
-    // let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
-    // for (let i = 0; i < nums; i++) {
-    //   this.humanArray.push(this.fb.group({
-    //     name: new FormControl(''),
-    //     phone: new FormControl('',),
-    //     is_kid: new FormControl(''),
-    //     id_type: new FormControl(''),
-    //     id_num: new FormControl(''),
-    //   }))
-    // }
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
       phone: new FormControl(''),
-      is_kid: new FormControl(this.detailModel.child_status===1?'':0, [Validators.required]),
+      is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
     }))
@@ -186,7 +175,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   ngOnInit(): void {
     this.assemblingPlaceList = []
   }
-  
+
 
   search() {
     this.isLoadingBtn = true;
@@ -208,7 +197,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('',),
-        is_kid: new FormControl(this.detailModel.child_status===1?'':0, [Validators.required]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
       }));
@@ -223,9 +212,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     this.orderGroupProduct.product_id = this.detailModel.id;
     this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
     this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
-    // this.orderGroupProduct.num_room = this.informationForm.value.num_room;
     if (this.detailModel.few_nights === 0) {
-      this.orderGroupProduct.num_room = 0
+      this.orderGroupProduct.num_room = 0;
     }
     else {
       this.orderGroupProduct.num_room = this.informationForm.value.num_room;
@@ -242,7 +230,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
   }
 
-  
+
   changePlace(event: any) {
     console.log('2342342 ', event);
     this.isAssemblingPlace = event.id;
@@ -258,17 +246,46 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   }
 
 
-
   add() {
     this.setValue();
     this.isLoadingAdd = true;
-    this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+    // 校验出行人信息
+    console.log('this.addForm :>> 23', this.informationForm.value.num_adult, this.informationForm.value.num_kid, this.informationForm.value.humanList);
+    let adult = this.orderGroupProduct.num_adult;
+    let kid = this.orderGroupProduct.num_kid;
+    let allData = Number(adult) + Number(kid);
+    if (this.orderGroupProduct.members.length != allData) {
+      this.message.error("请补充出行人信息");
       this.isLoadingAdd = false;
-      this.router.navigate(['/admin/main/groupTravelOrder']);
-    },
-      error => {
-        this.isLoadingAdd = false;
+    }
+    else {
+      let adultArr: any[] = [];
+      let kidArr: any[] = [];
+      this.orderGroupProduct.members.forEach((ele: any, index: any) => {
+        if (ele.is_kid === 0) {
+          adultArr.push(ele.is_kid)
+        }
+        else if (ele.is_kid === 1) {
+          kidArr.push(ele.is_kid)
+        }
       })
+      console.log('123123123', adultArr, kidArr);
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)) {
+        this.message.error("请正确填写出行人信息");
+        this.isLoadingAdd = false;
+      }
+      else {
+        this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+          this.isLoadingAdd = false;
+          this.router.navigate(['/admin/main/groupTravelOrder']);
+        },
+          error => {
+            this.isLoadingAdd = false;
+          })
+      }
+    }
+
+
   }
 
 

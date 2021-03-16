@@ -121,7 +121,7 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
       phone: new FormControl(''),
-      is_kid: new FormControl(this.detailModel.reserve_children===1?'':0, [Validators.required]),
+      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
     }))
@@ -161,7 +161,7 @@ export class AOFreetravelOrderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
+
   }
 
 
@@ -183,8 +183,8 @@ export class AOFreetravelOrderComponent implements OnInit {
       const { mobile } = MyValidators;
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
-        phone: new FormControl('', ),
-        is_kid: new FormControl(this.detailModel.reserve_children===1?'':0, [Validators.required]),
+        phone: new FormControl('',),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
       }));
@@ -219,20 +219,43 @@ export class AOFreetravelOrderComponent implements OnInit {
 
   add() {
     this.setValue();
-    for (const i in this.addForm.controls) {
-      this.addForm.controls[i].markAsDirty();
-      this.addForm.controls[i].updateValueAndValidity();
+    // 校验出行人信息
+    console.log('this.addForm :>> 23', this.informationForm.value.num_adult, this.informationForm.value.num_kid, this.informationForm.value.humanList);
+    let adult = this.orderGroupProduct.num_adult;
+    let kid = this.orderGroupProduct.num_kid;
+    let allData = Number(adult) + Number(kid);
+    if (this.orderGroupProduct.members.length != allData) {
+      this.message.error("请补充出行人信息");
+      this.isLoadingAdd = false;
     }
-    if (this.addForm.valid) {
-      this.isLoadingAdd = true;
-      this.adminOrderFreeTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+    else {
+      let adultArr: any[] = [];
+      let kidArr: any[] = [];
+      this.orderGroupProduct.members.forEach((ele: any, index: any) => {
+        if (ele.is_kid === 0) {
+          adultArr.push(ele.is_kid)
+        }
+        else if (ele.is_kid === 1) {
+          kidArr.push(ele.is_kid)
+        }
+      })
+      console.log('123123123', adultArr, kidArr);
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)) {
+        this.message.error("请正确填写出行人信息");
         this.isLoadingAdd = false;
-        this.router.navigate(['/admin/main/freeTravelOrder']);
-      },
-        error => {
+      }
+      else {
+        this.isLoadingAdd = true;
+        this.adminOrderFreeTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
           this.isLoadingAdd = false;
-        })
+          this.router.navigate(['/admin/main/freeTravelOrder']);
+        },
+          error => {
+            this.isLoadingAdd = false;
+          })
+      }
     }
+
   }
 
 
