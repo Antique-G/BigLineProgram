@@ -130,6 +130,10 @@ export const AdminUrls = {
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
   PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
   PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
+  GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
+  PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
+
+
 
   GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
   PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单

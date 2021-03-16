@@ -5,6 +5,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { format } from 'date-fns';
+import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 
 
 
@@ -60,6 +61,39 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
 
+  // 订单修改日期
+  changeDate() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单修改日期',
+      nzWidth: 800,
+      nzContent: AOGTDetailChangeDataComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = JSON.parse(params["detailId"]);
+        // 详情
+        this.adminOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.isSpinning = false;
+
+        })
+      });
+    })
+  }
 
 
 
