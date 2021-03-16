@@ -22,7 +22,7 @@ export class AdminContractCreateComponent implements OnInit {
   isSelectedValue = false;
   isSpinning = false;
   isLoadingBtn = false;
-  accept = "image/png, image/jpeg,pdf";
+  accept = "pdf";  //image/png, image/jpeg,
 
 
   constructor(public adminContractService: AdminContractService, private msg: NzMessageService,
@@ -56,6 +56,10 @@ export class AdminContractCreateComponent implements OnInit {
         name: file.name
       });
       this.imageList = this.imageList.concat(file);
+    }
+    const isLt5M = file.size! / 1024 / 1024 < 5;
+    if (!isLt5M) {
+      this.msg.error('请上传 ≤ 5MB 以内的文件!');
     }
 
     return false
@@ -93,6 +97,7 @@ export class AdminContractCreateComponent implements OnInit {
         this.adminContractService.uploadImg(formData).subscribe(res => {
           console.log('res结果是 ', res);
           this.isLoadingBtn = false;
+          this.isSpinning = false;
           this.dialogRef.close();
 
 
