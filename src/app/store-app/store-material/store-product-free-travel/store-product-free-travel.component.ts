@@ -27,7 +27,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
   per_page = 20;
   total = 1;
 
-  
+
   newDay: any
   newHour: any;
   newMin: any;
@@ -130,8 +130,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log('data', data);
+    let child_status = Number(data.reserve_children)
     // 处理时间，预计多久报名
-    let minutes =data.earlier;
+    let minutes = data.earlier;
     this.newMin = Math.floor(minutes % 60);
     if (this.newMin === 0) {
       this.newHour = Math.floor(24 - minutes / 60 % 24);
@@ -148,7 +149,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     else {
       this.isEar = Math.floor(minutes / 60 / 24);
     }
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title } });
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status } });
   }
 
 

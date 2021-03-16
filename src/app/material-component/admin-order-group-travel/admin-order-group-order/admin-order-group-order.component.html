@@ -123,7 +123,10 @@
 
                                                         <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
                                                             <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
-                                                            <div>儿童: <span style="color: red;">¥{{item.child_price}}</span></div>
+                                                            <div>儿童:
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.child_price}}</span>
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
+                                                            </div>
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
                                                             <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>

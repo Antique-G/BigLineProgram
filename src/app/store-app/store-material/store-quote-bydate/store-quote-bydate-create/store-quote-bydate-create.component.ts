@@ -1,15 +1,11 @@
 import { Component, OnInit, Inject, EventEmitter, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { differenceInCalendarDays, format } from 'date-fns';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-
-import { StoreQuoteBydateComponent } from '../store-quote-bydate.component';
 import { StoreQuoteBydateRequestModel, StoreQuoteBydateModel, FreeTraveQuoteBydateModel } from '../../../../../interfaces/store/storeQuote/store-quote-bydate';
 
 import { StoreQuoteBydateService } from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { isNumber, isFloat } from '../../../../util/validators';
-import { DeleteComfirmComponent } from '../../common/delete-comfirm/delete-comfirm.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -46,6 +42,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   confirmValue: any;
   freeTravelModel: any;
   currentDate = null;
+  childStatus: any;
 
   // 删除
   ids: any
@@ -63,24 +60,22 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     { label: '周日', value: 0, checked: true },
   ]
 
-  precision=2
+  precision = 2
 
   validationMessage: any = {
     adult_price: {
-      // 'isNumber': '只能输入两位小数',
       'required': '成人价格数量必填'
     },
     child_price: {
-      // 'isNumber': '只能输入两位小数',
     },
     original_adult_price: {
-      // 'isNumber': '只能输入两位小数',
+     
     },
     original_child_price: {
-      // 'isNumber': '只能输入两位小数',
+     
     },
     difference_price: {
-      // 'isNumber': '只能输入两位小数',
+     
     },
     inventory_num: {
       'isNumber': '请输入非零的正数',
@@ -119,7 +114,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       date: ''
     }
     this.buildForm();
-   
+
 
 
   }
@@ -129,6 +124,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.productId = this.data.productId;
     this.type = this.data.type;
     this.isEarlier = this.data.earlier;
+    this.childStatus = this.data.childStatus;
     console.log('object :>> ', this.isEarlier);
     this.selectItem = this.data.date ? this.data.date[0] : ''; //当前点击项
     this.GetDetail();
@@ -159,16 +155,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.getAllData();
       // 修改
       if (this.selectItem) {
-        this.selectDate = [new Date(this.selectItem.date), new Date(this.selectItem.date)]
+        this.selectDate = [new Date(this.selectItem.date), new Date(this.selectItem.date)];
         console.log('this.selectDate', this.selectDate);
-        this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price)
-        this.addForm.controls["child_price"].setValue(this.selectItem.child_price)
-        this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price)
-        this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num)
-        // this.addForm.controls["set_inventory"].setValue(this.selectItem.set_inventory)
+        this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price);
+        this.addForm.controls["child_price"].setValue(this.selectItem.child_price);
+        this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price);
+        this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num);
         this.isSetInventory = (this.selectItem.set_inventory).toString() || '0'
         this.isAllowOver = (this.selectItem.allow_over).toString() || '0'
-        // this.addForm.controls["allow_over"].setValue(this.selectItem.allow_over)
+       
       }
       else {
         if (this.data.date) {
@@ -181,15 +176,15 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         console.log('GetDetail');
         console.log(this.productId, 'this.productId');
         this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res => {
-          this.isSpinning = false
+          this.isSpinning = false;
           if (res.data) {
-            this.freeTravelModel = res.data
+            this.freeTravelModel = res.data;
             console.log('拿到的data', res.data);
-            this.setfreeTravelFormValue()
+            this.setfreeTravelFormValue();
           }
         })
       } else {
-        this.isSpinning = false
+        this.isSpinning = false;
       }
     }
 
@@ -199,23 +194,22 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   getAllData() {
     this.quoteBydateService.getQuoteDateList(this.productId, 'management', '', '', '').subscribe(res => {
       console.log(res, '获取产品报价所有数据');
-      this.listDataMap.push(...res.data)
+      this.listDataMap.push(...res.data);
       console.log(this.listDataMap);
-      this.isSpinning = false
+      this.isSpinning = false;
     })
   }
 
   setfreeTravelFormValue() {
     console.log(this.freeTravelModel, 'freeTravelModel');
-    this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)]
-
-    this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price)
-    this.addForm.controls["child_price"].setValue(this.freeTravelModel.child_price)
-    this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price)
-    this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num || 0)
+    this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
+    this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price);
+    this.addForm.controls["child_price"].setValue(this.freeTravelModel.child_price);
+    this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price);
+    this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num || 0);
     console.log(this.freeTravelModel.set_inventory, ' this.freeTravelModel.set_inventory');
-    this.isSetInventory = (this.freeTravelModel.set_inventory).toString() || '0'
-    this.isAllowOver = (this.freeTravelModel.allow_over).toString() || 0
+    this.isSetInventory = (this.freeTravelModel.set_inventory).toString() || '0';
+    this.isAllowOver = (this.freeTravelModel.allow_over).toString() || 0;
   }
 
 
@@ -223,9 +217,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   getAllDateCN(startTime: Date, endTime: Date) {
     if (!startTime) return
     if (!endTime) return [format(startTime, 'yyyy-MM-dd')]
-    var date_all = []
-    var i = 0
-
+    var date_all = [];
+    var i = 0;
     while ((endTime.getTime() - startTime.getTime()) >= 0) {
       console.log(this.weekValue, startTime.getDay());
       if (this.weekValue.indexOf(startTime.getDay()) > -1) {
@@ -236,58 +229,55 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       startTime.setDate(startTime.getDate() + 1)
       i += 1
     }
-
     return date_all
   }
 
+
   ngCheckBoxChange(value: object[]): void {
-    this.weekValue = value
+    this.weekValue = value;
     console.log(value);
   }
+
   onDateChange(dateStr: any) {
   }
+
   ngRadioChange(status: EventEmitter<string>) {
     console.log(status, 'status');
     if (status.toString() == '0') {
       this.addForm.controls["inventory_num"].setValue(1)
-      this.isAllowOver = '0'
+      this.isAllowOver = '0';
     }
   }
 
 
   disabledDate = (current: Date): boolean => {
     // 禁用之前的日期
-    console.log("this.isEarlier", this.isEarlier)
+    console.log("this.isEarlier", this.isEarlier);
     let i = 1 + Number(this.isEarlier);
     return differenceInCalendarDays(current, this.today) < i;
   };
 
+
+
+
   // 产品报价
   setValue() {
-
     this.dateArr = this.getAllDateCN(this.selectDate[0], this.selectDate[1])
     console.log(this.listDataMap, this.dateArr);
-    // 过滤已存在的日期
-    // let newList = this.listDataMap.filter((item:StoreQuoteBydateModel)=>{
-    //   let str = this.dateArr.map((e:string)=>e)
-    //   return str.indexOf(item.date)==-1
-    // })
-    // console.log(newList,'newList');
-    // this.quoteBydateRequestModel.data.push(...newList)
     this.dateArr.forEach((date: string) => {
       this.quoteBydateModel = {
         date: '',
       }
       this.quoteBydateModel.date = date;
-      this.quoteBydateModel.adult_price = this.addForm.value.adult_price
+      this.quoteBydateModel.adult_price = this.addForm.value.adult_price;
       this.quoteBydateModel.product_id = this.productId;
       this.quoteBydateModel.child_price = this.addForm.value.child_price > 0 ? this.addForm.value.child_price : 0;
       this.quoteBydateModel.difference_price = this.addForm.value.difference_price > 0 ? this.addForm.value.difference_price : 0;
-      this.quoteBydateModel.allow_over = this.addForm.value.allow_over
-      this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory
-      this.quoteBydateModel.check_status = 1
-      this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num || 0
-      this.quoteBydateRequestModel.data.push(this.quoteBydateModel)
+      this.quoteBydateModel.allow_over = this.addForm.value.allow_over;
+      this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory;
+      this.quoteBydateModel.check_status = 1;
+      this.quoteBydateModel.inventory_num = this.addForm.value.inventory_num || 0;
+      this.quoteBydateRequestModel.data.push(this.quoteBydateModel);
     });
     console.log(this.quoteBydateRequestModel);
   }
@@ -318,18 +308,18 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
       this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
       this.freeTraveModel.allow_over = this.addForm.value.allow_over;
-      // this.freeTraveModel.check_status = this.addForm.value.check_status;
-      this.resultArr.push(this.freeTraveModel)
+      this.resultArr.push(this.freeTraveModel);
     });
     console.log('添加值', this.resultArr);
   }
+
+
 
   add() {
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-
     if (this.selectDate === '') {
       this.msg.error("请输入日期范围")
       return
@@ -338,10 +328,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       if (this.type === 'management') {
         this.setValue();
         this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel, this.productId).subscribe(res => {
-          this.quoteBydateRequestModel.data = []
+          this.quoteBydateRequestModel.data = [];
         })
-
-
       } else {
         console.log('自由行产品编辑 ');
         // 自由行添加
@@ -393,9 +381,6 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       }
 
     });
-  }
-
-  close() {
   }
 
 
