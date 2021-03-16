@@ -129,7 +129,8 @@ export class StoreProductManagementComponent implements OnInit {
     console.log('data', data);
     this.storeProductService.getProductDetail(data.id).subscribe(res => {
       console.log("结果是", res.data.id, res.data.earlier)
-
+      console.log('res,2132323 :>> ', res.data.child_status);
+      let child_status = Number(res.data.child_status)
       // 处理时间，预计多久报名
       let minutes = res.data.earlier;
       this.newMin = Math.floor(minutes % 60);
@@ -141,14 +142,14 @@ export class StoreProductManagementComponent implements OnInit {
         this.newHour = Math.floor(24 - minutes / 60 % 24);
       }
       this.newDay = format(new Date(), 'HH');
-      console.log('2423423', this.newHour, new Date(), this.newMin,this.newDay, this.newHour <= this.newDay)
+      console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
       if (this.newHour <= this.newDay) {
         this.isEar = Math.floor(minutes / 60 / 24) + 1;
       }
       else {
         this.isEar = Math.floor(minutes / 60 / 24);
       }
-      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title } });
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status } });
     })
   }
 

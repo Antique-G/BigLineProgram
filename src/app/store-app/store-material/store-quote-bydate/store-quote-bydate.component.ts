@@ -42,6 +42,9 @@ export class StoreQuoteBydateComponent implements OnInit {
   ids: any[] = [];
   allChecked = false;
   proName: any;
+  childStatus: any;
+
+
 
   constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -71,13 +74,14 @@ export class StoreQuoteBydateComponent implements OnInit {
       this.productId = params.productId;
       this.type = params.type;
       this.isEarlier = params.earlier;
-      this.proName = params.proName
+      this.proName = params.proName;
+      this.childStatus = params.childStatus;
+      console.log('儿童是否可以预定 0否 :>> ', this.childStatus, this.childStatus === '0');
       console.log(this.seletYearMonth, 'ngOnInit');
       this.getQuoteList();
     });
-
-
   }
+
 
   nzPageIndexChange(index: any) {
     console.log(index);
@@ -104,6 +108,7 @@ export class StoreQuoteBydateComponent implements OnInit {
     if (differenceInCalendarDays(select, this.toDay) < i) {
       this.msg.error('当前日期不能进行报价');
     }
+
     else {
       this.quoteBydateService.getQuoteDateList(this.productId, this.type, 1, newDay, 42).subscribe(data => {
         console.log('datadatadatadata', data);
@@ -117,7 +122,8 @@ export class StoreQuoteBydateComponent implements OnInit {
               type: this.type,
               productId: this.productId,
               listDataMap: this.listDataMap,
-              earlier: this.isEarlier
+              earlier: this.isEarlier,
+              childStatus: this.childStatus
 
             }
           },
@@ -194,53 +200,6 @@ export class StoreQuoteBydateComponent implements OnInit {
     return date_all
   }
 
-  // onSelectChange(date: any) {
-  //   console.log("date是什么", date)
-  //   if (differenceInCalendarDays(date, this.toDay) < 0) return
-
-  //   const modal: NzModalRef = this.modal.create({
-  //     nzTitle: '批量报价',
-  //     nzWidth: 720,
-  //     nzContent: StoreQuoteBydateCreateComponent,
-  //     nzComponentParams: {
-  //       data: {
-  //         date: date,
-  //         type: this.type,
-  //         productId: this.productId,
-  //         listDataMap: this.listDataMap,
-  //         earlier: this.isEarlier
-
-  //       }
-  //     },
-  //     nzFooter: [
-  //       {
-  //         label: '取消',
-  //         onClick: () => modal.destroy()
-  //       },
-  //       {
-  //         label: '删除',
-  //         type: 'danger',
-  //         onClick(componentInstance) {
-  //           componentInstance?.deleteInfo()
-  //         }
-  //       },
-  //       {
-  //         label: '确认',
-  //         type: 'primary',
-  //         onClick(componentInstance) {
-  //           if (componentInstance?.isSpinning == true) return;
-  //           componentInstance?.updateLoading()
-  //           componentInstance?.add()
-  //         }
-  //       },
-  //     ]
-
-  //   })
-  //   modal.afterClose.subscribe(res => {
-  //     this.getQuoteList()
-  //   })
-
-  // }
 
   mode: NzCalendarMode = 'month';
 
@@ -269,7 +228,8 @@ export class StoreQuoteBydateComponent implements OnInit {
           productId: this.productId,
           type: this.type,
           listDataMap: this.listDataMap,
-          earlier: this.isEarlier
+          earlier: this.isEarlier,
+          childStatus: this.childStatus
         }
       },
       nzFooter: [
