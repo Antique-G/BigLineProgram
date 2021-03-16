@@ -22,20 +22,20 @@ export class AdminProducFreeTravelComponent implements OnInit {
   status: any;
   check_status: any;
   title: any;
-  store_name:any;
+  store_name: any;
   confirmModal?: NzModalRef; // g-zorro model 提示框
-  code:any;
+  code: any;
 
-  constructor(public fb: FormBuilder, public dialog: MatDialog,private modal: NzModalService, public adminProductFreeTravelService: AdminProductFreeTravelService,
+  constructor(public fb: FormBuilder, public dialog: MatDialog, private modal: NzModalService, public adminProductFreeTravelService: AdminProductFreeTravelService,
     public router: Router) {
-      this.searchForm = this.fb.group({
-        status: [''],
-        checkStatus: [''],
-        title: [''],
-        store_name:[''],
-        code:['']
-      })
-   
+    this.searchForm = this.fb.group({
+      status: [''],
+      checkStatus: [''],
+      title: [''],
+      store_name: [''],
+      code: ['']
+    })
+
   }
 
 
@@ -46,7 +46,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
   getFeeTravelList() {
     this.loading = true;
-    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page,this.status,this.check_status,this.title,this.store_name,this.code).subscribe(res => {
+    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.code).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.total;   //总页数
@@ -66,7 +66,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.getFeeTravelList();
   }
 
-  search(){
+  search() {
     this.status = this.searchForm.value.status;
     this.check_status = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
@@ -77,13 +77,13 @@ export class AdminProducFreeTravelComponent implements OnInit {
   }
 
 
-   // 查看详情
-   edit(data: any) {
+  // 查看详情
+  edit(data: any) {
     this.router.navigate(['/admin/main/freeTravel/detail'], { queryParams: { detailId: data.id } });
   }
 
 
-  review(data:any){
+  review(data: any) {
     console.log("编辑", data);
     const dialogRef = this.dialog.open(AdminProductFreeReviewComponent, {
       width: '800px',
@@ -98,21 +98,22 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
 
   // 上架
-  up(data: any){
+  up(data: any) {
     this.confirmModal = this.modal.confirm({
       nzTitle: '是否确定该操作?',
       nzContent: '请确认操作的数据是否正确',
-      nzOnOk: () =>{
+      nzOnOk: () => {
         this.adminProductFreeTravelService.freeTravelUp(data.id).subscribe(res => {
           console.log("结果是", res)
           this.getFeeTravelList();
         })
       }
     })
-    
+
   }
-  quteDateClick(data: any){
-    this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id ,proName: data.title} });
+  quteDateClick(data: any) {
+    console.log('data :>> ', data);
+    this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children } });
   }
 
 }

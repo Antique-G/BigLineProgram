@@ -139,7 +139,12 @@ export class AdminProductManagementComponent implements OnInit {
   }
 
   quteDateClick(data: any) {
-    this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id ,proName: data.title} });
+    this.adminProductManagementService.productDetail(data.id).subscribe(res => {
+      console.log('res :>> ', res);
+      let childStatus = res.data.child_status;
+      this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: childStatus } });
+
+    })
   }
 
 
