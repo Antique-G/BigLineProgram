@@ -92,6 +92,7 @@ import { AODShutOffComponent } from './admin-order/admin-order-detail/a-o-d-shut
 import { AODSubgroupMoveorderComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-moveorder/a-o-d-subgroup-moveorder.component';
 import { AODSubgroupSendsmsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
 import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
+import { AOGTDetailChangeDataComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 
 
 @NgModule({
@@ -202,6 +203,7 @@ import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/a
     AODSubgroupMoveorderComponent,
     AODSubgroupSendsmsComponent,
     AODSubgroupSetguideComponent,
+    AOGTDetailChangeDataComponent,
   ]
 })
 export class MaterialComponentsModule {}
