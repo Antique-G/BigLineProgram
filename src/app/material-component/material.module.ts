@@ -87,6 +87,11 @@ import { AdminContractCreateComponent } from './admin-contract/admin-contract-cr
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
+import { AODChangeNumsComponent } from './admin-order/admin-order-detail/a-o-d-change-nums/a-o-d-change-nums.component';
+import { AODShutOffComponent } from './admin-order/admin-order-detail/a-o-d-shut-off/a-o-d-shut-off.component';
+import { AODSubgroupMoveorderComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-moveorder/a-o-d-subgroup-moveorder.component';
+import { AODSubgroupSendsmsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
+import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
 
 
 @NgModule({
@@ -192,6 +197,11 @@ import { AdminOrderGroupMoneyComponent } from './admin-order-group-travel/admin-
     AdminOrderGroupOrderComponent,
     AOFreetravelOrderComponent,
     AdminOrderGroupMoneyComponent,
+    AODChangeNumsComponent,
+    AODShutOffComponent,
+    AODSubgroupMoveorderComponent,
+    AODSubgroupSendsmsComponent,
+    AODSubgroupSetguideComponent,
   ]
 })
 export class MaterialComponentsModule {}
