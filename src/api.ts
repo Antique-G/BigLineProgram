@@ -109,6 +109,20 @@ export const AdminUrls = {
 
   GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
   GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
+  PostAdminOrderGroupSetGuide: api + '/admin/group/set_guide',   // 派遣导游
+  GetAdminOrderGroupGuideList: api + '/admin/guide/data',   // 获取导游数据
+  PostAdminOrderGroupMoveOrder: api + '/admin/group/move_order',   // 移动订单
+  PostAdminOrderGroupShutoff: api + '/admin/group/shut_off',   // 不成团关团
+  PostAdminOrderGroupOrderSms: api + '/admin/group/sendOrderSms',   // 发送订单预定成功通知短信接口
+  PostAdminOrderGroupGroupSms: api + '/admin/group/sendGroupSms',   // 发送出团通知短信接口
+  DeletetAdminOrderGroupSubGroup: api + '/admin/subGroup/',   // 删除子团
+  PostAdminOrderGroupCancelSms: api + '/admin/group/sendOrderCancelSms',   // 发送不成团通知短信接口
+  PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
+
+
+
+
+
   GetAdminOrderfreeTravelList: api + '/admin/order/free_travel',  //自由行订单列表
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
