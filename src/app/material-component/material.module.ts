@@ -93,6 +93,7 @@ import { AODSubgroupMoveorderComponent } from './admin-order/admin-order-detail/
 import { AODSubgroupSendsmsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
 import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
 import { AOGTDetailChangeDataComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
+import { UploadIdCardComponent } from './admin-order-group-travel/admin-order-group-order/upload-id-card/upload-id-card.component';
 
 
 @NgModule({
@@ -204,6 +205,7 @@ import { AOGTDetailChangeDataComponent } from './admin-order-group-travel/admin-
     AODSubgroupSendsmsComponent,
     AODSubgroupSetguideComponent,
     AOGTDetailChangeDataComponent,
+    UploadIdCardComponent,
   ]
 })
 export class MaterialComponentsModule {}

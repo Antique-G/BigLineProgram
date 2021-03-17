@@ -448,6 +448,8 @@ export interface OrderGroupProduct {
   members: any[],
   contact_name: string;
   contact_phone: string;
+  baby_num?: string;
+  baby_info?: string;
   contact_wechat: string;
   contact_qq: string;
   contact_email: string;
