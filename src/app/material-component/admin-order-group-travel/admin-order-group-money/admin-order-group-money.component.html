@@ -3,7 +3,7 @@
     <div style="padding: 0px; margin-top: 20px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item class="nz-form-item" nz-row>
-                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="isMoney">应付金额</nz-form-label>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="isMoney" nzRequired>应付金额</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24">
                     <input nz-input formControlName="isMoney" style="width: 100%; " nzBorderless [ngModel]="isPrice" />
                 </nz-form-control>
