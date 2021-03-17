@@ -9,6 +9,8 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
+import { UploadIdCardComponent } from '../../admin-order-group-travel/admin-order-group-order/upload-id-card/upload-id-card.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
@@ -62,12 +64,17 @@ export class AOFreetravelOrderComponent implements OnInit {
   ids: any[] = [];
   numIsShow = false;
 
+  date = null;
+  imgList: any[] = [];
+  list: any[] = [];
+  isName: any;
+  isPhone: any;
 
 
 
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService) {
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,) {
     this.searchForm = this.fb.group({
       product_code: ['',],
     });
@@ -77,15 +84,20 @@ export class AOFreetravelOrderComponent implements OnInit {
       destination_city_name: ['',],
       isDay: ['',],
     });
+    // 校验手机
+    const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
       num_adult: [1, [Validators.required]],
       num_kid: [0,],
       num_room: [1, [Validators.required]],
-      customer_remarks: ['',]
+      baby_num: [''],
+      baby_info: [''],
+      customer_remarks: ['',],
+      emergency_contact_person: [''],
+      emergency_contact_number: ['', [mobile]],
     });
-    // 校验手机
-    const { mobile } = MyValidators;
+
     this.contactForm = this.fb.group({
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required, mobile]],
@@ -99,6 +111,8 @@ export class AOFreetravelOrderComponent implements OnInit {
       num_adult: '',
       num_kid: '',
       num_room: '',
+      baby_num: '',
+      baby_info: '',
       members: [],
       contact_name: '',
       contact_phone: '',
@@ -118,12 +132,16 @@ export class AOFreetravelOrderComponent implements OnInit {
 
   //添加
   addHuman() {
+    // 校验手机
+    const { mobile } = MyValidators;
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
-      phone: new FormControl(''),
+      phone: new FormControl('', [mobile]),
       is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
+      birthday: new FormControl(null, [Validators.required]),
+      id_photo: new FormControl('', [Validators.required]),
     }))
     this.isNum();
   }
@@ -138,6 +156,7 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
   }
 
+   // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
     console.log('data :>> ', data);
     this.isNum();
@@ -175,7 +194,7 @@ export class AOFreetravelOrderComponent implements OnInit {
       this.detailModel = res.data;
       this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
       this.listDataMap = this.detailModel?.date_quote;
-      this.listDataMap.forEach((value: any) => {
+      this.listDataMap?.forEach((value: any) => {
         value['checked'] = false;
       })
       let control = <FormArray>this.informationForm.controls['humanList'];
@@ -187,6 +206,8 @@ export class AOFreetravelOrderComponent implements OnInit {
         is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
       }));
     },
       error => {
@@ -207,6 +228,8 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
     this.orderGroupProduct.members = this.informationForm.value.humanList;
+    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
+    this.orderGroupProduct.baby_info = this.informationForm.value.baby_info;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
@@ -313,5 +336,31 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
   }
 
+
+  
+  // 上传证件照
+  choiceImg(i: any) {
+    console.log("i是什么", i);
+    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log("result", res);
+      if (res !== undefined) {
+        this.list.push(res.url);
+        this.imgList = this.list.slice(-2);
+        console.log('this.imgList ', this.list, this.imgList);
+        this.humanArray.controls[i].patchValue({ 'id_photo': this.imgList });
+      }
+    });
+  }
+
+
+
+  setContract(human: any) {
+    console.log('i3242342 :>> ', human, human.value.name);
+    this.isName = human.value.name;
+    this.isPhone = human.value.phone;
+  }
 
 }

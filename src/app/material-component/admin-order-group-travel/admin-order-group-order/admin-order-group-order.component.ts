@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 // 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { MatDialog } from '@angular/material/dialog';
+import { UploadIdCardComponent } from './upload-id-card/upload-id-card.component';
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -53,7 +55,6 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   detailModel: any;
   code: any;
   isDay: any;
-  assembling_time: any;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
   yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
@@ -67,12 +68,16 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   numIsShow = false;
   assemblingPlaceList: any;
   isAssemblingPlace: any;
-
+  date = null;
+  imgList: any[] = [];
+  list: any[] = [];
+  isName: any;
+  isPhone: any;
 
 
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
-    public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
+    public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog,) {
     this.searchForm = this.fb.group({
       product_code: ['',],
     });
@@ -82,18 +87,20 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       destination_city_name: ['',],
       isDay: ['',],
     });
+    // 校验手机
+    const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
       num_adult: [1,],
       num_kid: [0,],
       num_room: [1,],
+      baby_num: [''],
+      baby_info: [''],
       shared_status: ['',],
       customer_remarks: ['',],
-      assembling_place: ['',],
-      assembling_time: ['',],
+      emergency_contact_person: [''],
+      emergency_contact_number: ['', [mobile]],
     });
-    // 校验手机
-    const { mobile } = MyValidators;
     this.contactForm = this.fb.group({
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required, mobile]],
@@ -107,6 +114,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       num_adult: '',
       num_kid: '',
       num_room: '',
+      baby_num: '',
+      baby_info: '',
       members: [],
       contact_name: '',
       contact_phone: '',
@@ -114,7 +123,6 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       contact_qq: '',
       contact_email: '',
       customer_remarks: '',
-      assembling_place_id: '',
       shared_status: '',
     }
   }
@@ -128,12 +136,18 @@ export class AdminOrderGroupOrderComponent implements OnInit {
 
   //添加
   addHuman() {
+    // 校验手机
+    const { mobile } = MyValidators;
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
-      phone: new FormControl(''),
+      phone: new FormControl('', [mobile]),
       is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
+      birthday: new FormControl(null, [Validators.required]),
+      assembling_place: ['',],
+      id_photo: new FormControl('', [Validators.required]),
+
     }))
     this.isNum();
   }
@@ -150,6 +164,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     }
   }
 
+
+  // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
     console.log('data :>> ', data);
     this.isNum();
@@ -188,7 +204,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
       this.assemblingPlaceList = this.detailModel?.assembling_place.data;
       this.listDataMap = this.detailModel?.date_quote;
-      this.listDataMap.forEach((value: any) => {
+      this.listDataMap?.forEach((value: any) => {
         value['checked'] = false;
       })
       let control = <FormArray>this.informationForm.controls['humanList'];
@@ -196,10 +212,13 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       const { mobile } = MyValidators;
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
-        phone: new FormControl('',),
+        phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        assembling_place: new FormControl('', [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
       }));
     },
       error => {
@@ -219,6 +238,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       this.orderGroupProduct.num_room = this.informationForm.value.num_room;
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
+    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
+    this.orderGroupProduct.baby_info = this.informationForm.value.baby_info;
     this.orderGroupProduct.shared_status = this.informationForm.value.shared_status;
     this.orderGroupProduct.members = this.informationForm.value.humanList;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
@@ -226,24 +247,9 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
     this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
-    this.orderGroupProduct.assembling_place_id = this.isAssemblingPlace;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
   }
 
-
-  changePlace(event: any) {
-    console.log('2342342 ', event);
-    this.isAssemblingPlace = event.id;
-    if (event === '00:00:00') {
-      this.assembling_time = '待定';
-    }
-    else {
-      let i = '2021-01-01' + ' ' + event.time;
-      let newDate = new Date(i);
-      console.log('object :>> ', newDate, i);
-      this.assembling_time = format(new Date(newDate), 'HH:mm');
-    };
-  }
 
 
   add() {
@@ -341,6 +347,30 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     }
   }
 
-  sharedStatus(data: any) { }
+
+  // 上传证件照
+  choiceImg(i: any) {
+    console.log("i是什么", i);
+    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log("result", res);
+      if (res !== undefined) {
+        this.list.push(res.url);
+        this.imgList = this.list.slice(-2);
+        console.log('this.imgList ', this.list, this.imgList);
+        this.humanArray.controls[i].patchValue({ 'id_photo': this.imgList });
+      }
+    });
+  }
+
+
+
+  setContract(human: any) {
+    console.log('i3242342 :>> ', human, human.value.name);
+    this.isName = human.value.name;
+    this.isPhone = human.value.phone;
+  }
 
 }
