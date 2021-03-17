@@ -73,6 +73,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   list: any[] = [];
   isName: any;
   isPhone: any;
+  isType = false;
 
 
 
@@ -366,11 +367,22 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   }
 
 
-
+  // 出行人设为联系人
   setContract(human: any) {
     console.log('i3242342 :>> ', human, human.value.name);
     this.isName = human.value.name;
     this.isPhone = human.value.phone;
   }
 
+
+  // 身份证不显示出生年月日
+  changeType(data: any) {
+    console.log('data :>> ', data, data === 1, data === '1');
+    if (data === 1) {
+      this.isType = false;
+    }
+    else {
+      this.isType = true;
+    }
+  }
 }
