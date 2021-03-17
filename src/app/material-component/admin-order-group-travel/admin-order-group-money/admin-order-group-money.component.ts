@@ -36,7 +36,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('this.data :>> ', this.data);
-    this.isPrice = this.data?.price_total - this.data?.price_receive;
+    this.isPrice =(this.data?.price_total - this.data?.price_receive).toFixed(2) +' 元';
   }
 
   setValue() {
