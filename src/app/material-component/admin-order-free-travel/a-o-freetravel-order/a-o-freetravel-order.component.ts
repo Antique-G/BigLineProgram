@@ -69,6 +69,7 @@ export class AOFreetravelOrderComponent implements OnInit {
   list: any[] = [];
   isName: any;
   isPhone: any;
+  isType = false;
 
 
 
@@ -156,7 +157,7 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
   }
 
-   // 验证类型与输入的成人儿童数是否一致
+  // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
     console.log('data :>> ', data);
     this.isNum();
@@ -337,7 +338,7 @@ export class AOFreetravelOrderComponent implements OnInit {
   }
 
 
-  
+
   // 上传证件照
   choiceImg(i: any) {
     console.log("i是什么", i);
@@ -356,11 +357,22 @@ export class AOFreetravelOrderComponent implements OnInit {
   }
 
 
-
+  // 出行人设为联系人
   setContract(human: any) {
     console.log('i3242342 :>> ', human, human.value.name);
     this.isName = human.value.name;
     this.isPhone = human.value.phone;
   }
 
+
+  // 身份证不显示出生年月日
+  changeType(data: any) {
+    console.log('data :>> ', data, data === 1, data === '1');
+    if (data === 1) {
+      this.isType = false;
+    }
+    else {
+      this.isType = true;
+    }
+  }
 }
