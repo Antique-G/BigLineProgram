@@ -35,7 +35,6 @@ export class AdminProductQutedateComponent implements OnInit {
 
   checked = false;
   indeterminate = false;
-  listOfCurrentPageData: Data[] = [];
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
   proName: any;
@@ -121,13 +120,8 @@ export class AdminProductQutedateComponent implements OnInit {
 
 
   onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
-    this.refreshCheckedStatus();
-  }
-  refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    this.dataSource1.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
+  
   }
 
 
@@ -146,7 +140,7 @@ export class AdminProductQutedateComponent implements OnInit {
 
   onItemChecked(data: any, checked: boolean): void {
     this.updateCheckedSet(data, checked);
-    this.refreshCheckedStatus();
+  
   }
 
   getState(state: any) {
