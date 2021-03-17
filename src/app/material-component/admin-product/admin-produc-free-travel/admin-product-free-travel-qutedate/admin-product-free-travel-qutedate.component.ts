@@ -111,14 +111,9 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
   }
 
   onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
-    this.refreshCheckedStatus();
+    this.dataSource1.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
   }
-  refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
-  }
+
 
   updateCheckedSet(data: any, checked: boolean): void {
     if (checked) {
@@ -135,7 +130,6 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
   onItemChecked(data: any, checked: boolean): void {
     this.updateCheckedSet(data, checked);
-    this.refreshCheckedStatus();
   }
 
   getState(state: any) {

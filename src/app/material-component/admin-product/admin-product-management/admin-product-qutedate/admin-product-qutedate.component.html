@@ -25,10 +25,10 @@
                                             <div class="example-container" style="margin-bottom: 50px;">
                                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                                     <div class="mat-elevation-z8">
-                                                        <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1">
+                                                        <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
                                                             <thead>
                                                                 <tr>
-                                                                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+                                                                    <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
                                                                     <th style="text-align: center;">id</th>
                                                                     <th style="text-align: center;">日期</th>
                                                                     <th style="text-align: center;">成人价格</th>
@@ -78,7 +78,6 @@
                                                         <nz-table #rowSelectionTable2 nzBordered [nzFrontPagination]="false" [nzData]="dataSource2">
                                                             <thead>
                                                                 <tr>
-                                                                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
                                                                     <th style="text-align: center;">id</th>
                                                                     <th style="text-align: center;">日期</th>
                                                                     <th style="text-align: center;">成人价格</th>
@@ -92,7 +91,6 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr *ngFor="let data of rowSelectionTable2.data">
-                                                                    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
                                                                     <td>{{data.adult_price}}</td>
@@ -129,7 +127,6 @@
                                                         <nz-table #rowSelectionTable3 nzBordered [nzFrontPagination]="false" [nzData]="dataSource3">
                                                             <thead>
                                                                 <tr>
-                                                                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
                                                                     <th style="text-align: center;">id</th>
                                                                     <th style="text-align: center;">日期</th>
                                                                     <th style="text-align: center;">成人价格</th>
@@ -143,7 +140,6 @@
                                                             </thead>
                                                             <tbody>
                                                                 <tr *ngFor="let data of rowSelectionTable3.data">
-                                                                    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
                                                                     <td>{{data.adult_price}}</td>
