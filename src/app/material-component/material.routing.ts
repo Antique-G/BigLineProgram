@@ -35,6 +35,7 @@ import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetr
 import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refund.component';
 import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
 import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
+import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-order-refund-detail/admin-order-refund-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -213,6 +214,13 @@ export const MaterialRoutes: Routes = [
       {
         path: 'refund',
         component: AdminOrderRefundComponent,
+        data: {
+          breadcrumb: '订单退款列表'
+        }
+      },
+      {
+        path: 'refund/detail',
+        component: AdminOrderRefundDetailComponent,
         data: {
           breadcrumb: '订单退款列表'
         }

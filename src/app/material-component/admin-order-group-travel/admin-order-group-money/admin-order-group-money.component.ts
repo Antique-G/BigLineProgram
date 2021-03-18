@@ -15,6 +15,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   isPrice: any;
   comfirmOrderModel: ComfirmOrderModel;
   isShow = true;
+  fee: any;
 
 
   constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
@@ -36,12 +37,14 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('this.data :>> ', this.data);
-    this.isPrice =(this.data?.price_total - this.data?.price_receive).toFixed(2) +' 元';
+    this.isPrice = (this.data?.price_total - this.data?.price_receive).toFixed(2) + ' 元';
+    this.fee = (this.data?.price_total - this.data?.price_receive).toFixed(2);
+
   }
 
   setValue() {
     this.comfirmOrderModel.order_id = this.data.id;
-    this.comfirmOrderModel.fee = this.addForm.value.fee;
+    this.comfirmOrderModel.fee = this.fee;
     this.comfirmOrderModel.pay_type = this.addForm.value.pay_type;
     this.comfirmOrderModel.pay_time = format(new Date(this.addForm.value.pay_time), 'yyyy-MM-dd HH:mm:ss');
     this.comfirmOrderModel.transaction_id = this.addForm.value.transaction_id;
@@ -77,7 +80,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     if (data === '3') {
       this.isShow = false;
     }
-    else{
+    else {
       this.isShow = true;
     }
   }
