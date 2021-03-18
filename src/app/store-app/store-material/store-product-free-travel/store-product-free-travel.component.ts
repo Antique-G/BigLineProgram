@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { format } from 'date-fns';
+import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class StoreProductFreeTravelComponent implements OnInit {
   few_nights: any;
   code: any;
   status: any;
+  tag: any;
 
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
   page = 1;
   per_page = 20;
   total = 1;
+  tagList: any[] = [];
 
 
   newDay: any
@@ -35,7 +38,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
   isEar: any;
 
   constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
-    public dialog: MatDialog, private modal: NzModalService) {
+    public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
@@ -43,19 +46,26 @@ export class StoreProductFreeTravelComponent implements OnInit {
       few_nights: [''],
       code: [''],
       status: [''],
-
+      tag: [''],
     })
   }
 
 
   ngOnInit(): void {
+    this.getTagList();
     this.getProductList();
   }
 
+  getTagList() {
+    this.storeProductService.productTagList(2).subscribe(res => {
+      console.log("标签", res.data);
+      this.tagList = res.data;
+    })
+  }
 
   getProductList() {
     this.loading = true;
-    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
+    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status, this.tag).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
       this.total = res.total;   //总页数
@@ -82,6 +92,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
+    this.tag = this.searchForm.value.tag;
     this.getProductList();
 
   }

@@ -20,6 +20,7 @@ export class StoreProductManagementComponent implements OnInit {
   few_nights: any;
   code: any;
   status: any;
+  tag: any;
 
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
@@ -35,6 +36,7 @@ export class StoreProductManagementComponent implements OnInit {
   newMin: any;
 
   isEar: any;
+  tagList: any[] = [];
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
@@ -46,18 +48,29 @@ export class StoreProductManagementComponent implements OnInit {
       few_nights: [''],
       code: [''],
       status: [''],
+      tag: [''],
     })
   }
 
 
   ngOnInit(): void {
+    this.getTagList();
     this.getProductList();
   }
 
 
+  getTagList() {
+    this.storeProductService.productTagList(1).subscribe(res => {
+      console.log("标签", res.data);
+      this.tagList = res.data;
+    })
+  }
+
+
+
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status,this.tag).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -85,6 +98,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
+    this.tag = this.searchForm.value.tag;
     this.getProductList();
 
   }

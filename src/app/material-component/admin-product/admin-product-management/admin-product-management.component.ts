@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 import { AdminProductSetStatusModel } from '../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
@@ -27,10 +28,14 @@ export class AdminProductManagementComponent implements OnInit {
   storeList: any[] = [];
   isReason: any;
   code: any;
+  few_days: any;
+  few_nights: any;
+  tag: any;
+  tagList: any[] = [];
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
-    public router: Router, private modal: NzModalService) {
+    public router: Router, private modal: NzModalService, public adminProductTagService: AdminProductTagService,) {
     this.adminProductSetStatusModel = {
       id: 0,
       status: 0
@@ -41,6 +46,9 @@ export class AdminProductManagementComponent implements OnInit {
       title: [''],
       store_id: [''],
       code: [''],
+      tag: [''],
+      few_days: [''],
+      few_nights: [''],
     })
 
   }
@@ -50,6 +58,10 @@ export class AdminProductManagementComponent implements OnInit {
     this.adminProductManagementService.storeList('').subscribe(res => {
       console.log("24234", res);
       this.storeList = res;
+      this.adminProductTagService.getProductTagList(1, 100, 1, '', '').subscribe((result: any) => {
+        console.log("jieguo", result);
+        this.tagList = result.data;
+      });
       this.getProductList();
     })
 
@@ -58,7 +70,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code, this.few_days, this.few_nights, this.tag).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.meta.pagination.total;   //总页数
@@ -84,7 +96,9 @@ export class AdminProductManagementComponent implements OnInit {
     this.title = this.searchForm.value.title;
     this.store_id = this.searchForm.value.store_id;
     this.code = this.searchForm.value.code;
-
+    this.few_days = this.searchForm.value.few_days;
+    this.tag = this.searchForm.value.tag;
+    this.few_nights = this.searchForm.value.few_nights;
     this.getProductList();
 
   }

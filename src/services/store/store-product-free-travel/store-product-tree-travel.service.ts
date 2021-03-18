@@ -29,16 +29,18 @@ export class StoreProductTreeTravelService {
 
   constructor(public httpClient: HttpClient) { }
 
-  GetFreeTravelList(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any, code: any, status: any): Observable<FreeTravelListModel> {
+  GetFreeTravelList(page: number, per_page: number, check_status: any, title: any, few_days: any, few_nights: any, code: any, status: any, tag?: any): Observable<FreeTravelListModel> {
     console.log(123);
-    const params = new HttpParams({encoder: new EncodeComponent() }).set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
       .set('few_days', few_days ? few_days : '')
       .set('few_nights', few_nights ? few_nights : '')
       .set('code', code ? code : '')
-      .set('status', status ? status : '');
+      .set('status', status ? status : '')
+      .set('tag', tag ? tag : '');
+
 
 
     const findhttpOptions = {
@@ -61,19 +63,19 @@ export class StoreProductTreeTravelService {
 
 
 
-// 行程添加
-addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
-  return this.httpClient.post<any>(this.urls.PostStoreFreeTravelInfoDetail, addProductTrip, httpOptions)
-    .pipe(
-      
-    )
-}
+  // 行程添加
+  addProductTrip(addProductTrip: AddProductTrip): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreFreeTravelInfoDetail, addProductTrip, httpOptions)
+      .pipe(
+
+      )
+  }
 
 
 
   // 删除行程
-  deleteProductTrip(ids:any): Observable<any> {
-    return this.httpClient.post<any>(this.urls.PostStoreFreeTraveDel, {ids}, httpOptions)
+  deleteProductTrip(ids: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreFreeTraveDel, { ids }, httpOptions)
       .pipe(
       )
   }
