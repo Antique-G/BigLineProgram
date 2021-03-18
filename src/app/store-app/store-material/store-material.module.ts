@@ -86,6 +86,8 @@ import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/s
 import { StoreProUSCreateComponent } from './store-product-management/store-product-create-bystep/store-product-upload-stroke/store-pro-u-s-create/store-pro-u-s-create.component';
 import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetravel-order/s-o-freetravel-order.component';
 import { StoreOrderGroupMoneyComponent } from './store-order-grouptravel/store-order-group-money/store-order-group-money.component';
+import { StoreOrderRefundComponent } from './store-order-refund/store-order-refund.component';
+import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
 
 @NgModule({
   imports: [
@@ -185,7 +187,9 @@ import { StoreOrderGroupMoneyComponent } from './store-order-grouptravel/store-o
     StoreOrderGrouptravelOrderComponent,
     StoreProUSCreateComponent,
     SOFreetravelOrderComponent,
-    StoreOrderGroupMoneyComponent
+    StoreOrderGroupMoneyComponent,
+    StoreOrderRefundComponent,
+    StoreOrderRefundDetailComponent
     
   ]
 })
