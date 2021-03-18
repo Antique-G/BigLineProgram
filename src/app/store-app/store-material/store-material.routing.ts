@@ -23,6 +23,7 @@ import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/s
 import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetravel-order/s-o-freetravel-order.component';
 import { StoreOrderRefundComponent } from './store-order-refund/store-order-refund.component';
 import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
+import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover/store-order-refund-turnover.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -201,7 +202,13 @@ export const StoreMaterialRoutes: Routes = [
           breadcrumb: '订单退款记录详情'
         }
       },
-
+      {
+        path: 'storeRefundTurnOver',
+        component: StoreOrderRefundTurnoverComponent,
+        data: {
+          breadcrumb: '订单退款流水'
+        }
+      },
 
     ]
   }
