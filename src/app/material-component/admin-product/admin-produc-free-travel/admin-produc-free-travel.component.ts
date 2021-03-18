@@ -27,7 +27,6 @@ export class AdminProducFreeTravelComponent implements OnInit {
   confirmModal?: NzModalRef; // g-zorro model 提示框
   code: any;
   few_days: any;
-  few_nights: any;
   tag: any;
   tagList: any[] = [];
 
@@ -42,7 +41,6 @@ export class AdminProducFreeTravelComponent implements OnInit {
       code: [''],
       tag: [''],
       few_days: [''],
-      few_nights: [''],
     })
 
   }
@@ -59,7 +57,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
   getFeeTravelList() {
     this.loading = true;
-    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.code, this.few_days, this.few_nights, this.tag).subscribe(res => {
+    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.code, this.few_days, this.tag).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.total;   //总页数
@@ -87,7 +85,6 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.few_days = this.searchForm.value.few_days;
     this.tag = this.searchForm.value.tag;
-    this.few_nights = this.searchForm.value.few_nights;
     this.getFeeTravelList();
 
   }

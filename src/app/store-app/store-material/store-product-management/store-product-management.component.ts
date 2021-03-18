@@ -17,7 +17,6 @@ export class StoreProductManagementComponent implements OnInit {
   checkStatus: any;
   title: any;
   few_days: any;
-  few_nights: any;
   code: any;
   status: any;
   tag: any;
@@ -45,7 +44,6 @@ export class StoreProductManagementComponent implements OnInit {
       checkStatus: [''],
       title: [''],
       few_days: [''],
-      few_nights: [''],
       code: [''],
       status: [''],
       tag: [''],
@@ -70,7 +68,7 @@ export class StoreProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status,this.tag).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status,this.tag).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -95,7 +93,6 @@ export class StoreProductManagementComponent implements OnInit {
     this.checkStatus = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.few_days = this.searchForm.value.few_days;
-    this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;

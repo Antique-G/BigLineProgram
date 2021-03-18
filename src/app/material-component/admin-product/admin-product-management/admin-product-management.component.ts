@@ -29,7 +29,6 @@ export class AdminProductManagementComponent implements OnInit {
   isReason: any;
   code: any;
   few_days: any;
-  few_nights: any;
   tag: any;
   tagList: any[] = [];
 
@@ -48,7 +47,6 @@ export class AdminProductManagementComponent implements OnInit {
       code: [''],
       tag: [''],
       few_days: [''],
-      few_nights: [''],
     })
 
   }
@@ -70,7 +68,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code, this.few_days, this.few_nights, this.tag).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code, this.few_days,this.tag).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.meta.pagination.total;   //总页数
@@ -98,7 +96,6 @@ export class AdminProductManagementComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.few_days = this.searchForm.value.few_days;
     this.tag = this.searchForm.value.tag;
-    this.few_nights = this.searchForm.value.few_nights;
     this.getProductList();
 
   }
