@@ -149,6 +149,7 @@ export interface DetailsModel {
   num_total: number;
   num_adult: number;
   num_kid: number;
+  baby_num: number;
   price_total: number;
   price_adult: number;
   price_kid: number;

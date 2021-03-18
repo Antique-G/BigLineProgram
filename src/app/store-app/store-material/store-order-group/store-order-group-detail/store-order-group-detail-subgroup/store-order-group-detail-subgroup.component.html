@@ -32,7 +32,11 @@
                             </span>
                         </div>
                         <div>子团编号：{{tab.sub_group_code}}</div>
-                        <div>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</div>
+                        <div>
+                            <div><span>共{{tab.members_num}}人：成人{{tab.adult_num}}|儿童{{tab.kid_num}}</span>
+                                <span *ngIf="tab.baby_num!=0">|婴儿{{tab?.baby_num}}</span>
+                            </div>
+                        </div>
                     </div>
                     <!-- <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===1">
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
@@ -111,6 +115,8 @@
                                                 <th>类型</th>
                                                 <th>联系方式</th>
                                                 <th>拼房类型</th>
+                                                <th>集合地点</th>
+                                                <th>集合时间</th>
                                                 <th>备注</th>
                                                 <th>出团通知短信</th>
                                             </tr>
@@ -123,10 +129,12 @@
                                                     <p *ngIf="dataChild.is_kid===1">儿童</p>
                                                 </td>
                                                 <td style="width: 15%;">{{dataChild.phone}}</td>
-                                                <td style="width: 18%;">
+                                                <td style="width: 10%;">
                                                     <p *ngIf="data.shared_status===0">不拼房</p>
                                                     <p *ngIf="data.shared_status===1">同性拼房</p>
                                                 </td>
+                                                <td style="width: 15%;">{{ data.assembling_place }}</td>
+                                                <td style="width: 15%;">{{ data.assembling_time==='00:00'?'待定':data.assembling_time }}</td>
                                                 <td style="width: 15%;">{{ data.customer_remarks }}</td>
                                                 <td style="width: 15%;">
                                                     <p *ngIf="dataChild.sms_status===0">

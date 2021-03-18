@@ -90,7 +90,12 @@
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                 <div>
-                                    <div>共{{detailModel?.num_total}}人：成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</div>
+                                    <span>
+                                    共{{detailModel?.num_total}}人：成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}
+                                    </span>
+                                    <span *ngIf="detailModel?.baby_num!=0">
+                                        &nbsp;|&nbsp;婴儿{{detailModel?.baby_num}}
+                                    </span>
                                 </div>
                                 <div class="mat-elevation-z8">
                                     <nz-table #rowSelectionTable [nzData]="dataMember">
