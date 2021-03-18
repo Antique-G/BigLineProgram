@@ -26,6 +26,17 @@
                             </div>
                             <div fxFlex=10>
                                 <mat-form-field>
+                                    <mat-select placeholder="产品标签" formControlName="tag">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option *ngFor="let sort of tagList" [value]="sort.id">
+                                            {{sort.name}}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
                                     <mat-label>店铺名称</mat-label>
                                     <mat-select formControlName="store_id" placeholder="请选择店铺名称">
                                         <mat-option value=''>全部</mat-option>
@@ -43,6 +54,18 @@
                                 <mat-form-field>
                                     <mat-label>产品名称</mat-label>
                                     <input matInput value="" formControlName="title" placeholder="请输入产品名称">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=15>
+                                <mat-form-field>
+                                    <mat-label>几天</mat-label>
+                                    <input matInput value="" formControlName="few_days" placeholder="请输入几天">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=15>
+                                <mat-form-field>
+                                    <mat-label>几晚</mat-label>
+                                    <input matInput value="" formControlName="few_nights" placeholder="请输入几晚">
                                 </mat-form-field>
                             </div>
                             <div fxFlex=20>

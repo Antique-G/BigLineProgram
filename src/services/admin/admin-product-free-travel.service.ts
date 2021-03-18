@@ -22,14 +22,17 @@ export class AdminProductFreeTravelService {
 
 
   // 自由行产品列表
-  freeTravelList(page: number, per_page: number, status: any, check_status: any, title: string, store_name: string, code: any): Observable<AdminFreeTravelListResponseModel> {
+  freeTravelList(page: number, per_page: number, status: any, check_status: any, title: string, store_name: string, code: any, few_days: any, few_nights: any, tag?: any): Observable<AdminFreeTravelListResponseModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('check_status', check_status ? check_status : '')
       .set('title', title ? title : '')
       .set('store_name', store_name ? store_name : '')
-      .set('code', code ? code : '');
+      .set('code', code ? code : '')
+      .set('few_days', few_days ? few_days : '')
+      .set('few_nights', few_nights ? few_nights : '')
+      .set('tag', tag ? tag : '');
 
 
     const findhttpOptions = {
