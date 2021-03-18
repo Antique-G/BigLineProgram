@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { RefundModel } from '../../interfaces/store/storeRefund/storerefund';
+import { RefundDetailModel, RefundModel } from '../../interfaces/store/storeRefund/storerefund';
 import { AdminUrls } from '../../api';
 
 
@@ -44,6 +44,15 @@ export class AdminRefundService {
       )
   }
 
+
+
+    // 获取退款详情
+    getRefundDetail(id: any) {
+      return this.httpClient.get<RefundDetailModel>(this.urls.GetAdminRefundDetail + id, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);

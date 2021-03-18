@@ -222,7 +222,7 @@ export const MaterialRoutes: Routes = [
         path: 'refund/detail',
         component: AdminOrderRefundDetailComponent,
         data: {
-          breadcrumb: '订单退款列表'
+          breadcrumb: '订单退款记录详情页面'
         }
       },
       {

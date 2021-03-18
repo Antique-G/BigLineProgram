@@ -136,6 +136,8 @@ export const AdminUrls = {
 
 
   GetAdminRefund: api + '/admin/refund',  //退款列表
+  GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
+
 
 
 
