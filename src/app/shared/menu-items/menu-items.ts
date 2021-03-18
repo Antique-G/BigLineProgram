@@ -70,6 +70,10 @@ const MENUITEMS = [
       
     ]
   },
+  {
+    title: '导游管理模块', icon: 'flag',
+    children: [{ state: 'adminTourist', name: '导游列表' }]
+  },
 
   {
     title: '小程序模块', icon: 'wechat',
@@ -109,10 +113,7 @@ const StoreMENUITEMS = [
     title: '条款管理模块', icon: 'file',
     children: [{ state: 'storeTermsManage', name: '条款管理' }]
   },
-  {
-    title: '导游管理模块', icon: 'flag',
-    children: [{ state: 'storeTourist', name: '导游列表' }]
-  },
+ 
   {
     title: '订单管理模块', icon: 'ordered-list',
     children: [

@@ -1,0 +1,52 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutAlign="end start">
+        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    </div>
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>名称</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入名称">
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="mobile" nzRequired>手机号码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入手机号码">
+                    <input nz-input formControlName="mobile" (ngModelChange)="isCode($event)" />
+                </nz-form-control>
+
+            </nz-form-item>
+
+            <nz-form-item *ngIf="isCodeValue === 'hidden'">
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="verificationCode" nzRequired>验证码</nz-form-label>
+                <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入验证码">
+                    <input nz-input formControlName="verificationCode" />
+                </nz-form-control>
+                <button [class]="{'btn':!disabledClick,'btn1':disabledClick}" nz-button [disabled]="disabledClick" (click)="getverifycode()">{{paracont}}</button>
+            </nz-form-item>
+
+
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group ngModel={{touristDetailModel.status}} formControlName="status">
+                        <label nz-radio nzValue='0'>禁用</label>
+                        <label nz-radio nzValue='1'>启用</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="14" [nzOffset]="11">
+                    <button nz-button nzType="primary" (click)="update()">更新</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>
