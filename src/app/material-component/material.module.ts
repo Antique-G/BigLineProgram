@@ -98,6 +98,9 @@ import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refu
 import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
 import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
 import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-order-refund-detail/admin-order-refund-detail.component';
+import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
+import { AdminTouristCreateComponent } from './admin-tourist/admin-tourist-create/admin-tourist-create.component';
+import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detail/admin-tourist-detail.component';
 
 
 @NgModule({
@@ -214,6 +217,9 @@ import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-orde
     AdminOrderRefundReviewComponent,
     AdminOrderRefundTurnoverComponent,
     AdminOrderRefundDetailComponent,
+    AdminTouristComponent,
+    AdminTouristCreateComponent,
+    AdminTouristDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

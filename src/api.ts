@@ -165,6 +165,13 @@ export const AdminUrls = {
 
 
 
+  GetAdminGuideList: api + '/admin/guide',  //导游列表
+  PostAdminGuideCreate: api + '/admin/guide',   // 导游添加
+  PutAdminGuideUpdate: api + '/admin/guide/',   // 导游修改
+  GetAdminGuideDetail: api + '/admin/guide/',   // 导游详情
+  DeleteAdminGuide: api + '/admin/guide/',   // 导游删除
+  PostAdminGuideSetStatus: api + '/admin/guide/set_status',   // 导游启用 
+
 
 
 

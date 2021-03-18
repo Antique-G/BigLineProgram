@@ -130,8 +130,8 @@
                                                     <p *ngIf="data.shared_status===0">不拼房</p>
                                                     <p *ngIf="data.shared_status===1">同性拼房</p>
                                                 </td>
-                                                <td style="width: 15%;">{{ data.assembling_place }}</td>
-                                                <td style="width: 15%;">{{ data.assembling_time==='00:00'?'待定':data.assembling_time }}</td>
+                                                <td style="width: 15%;">{{ dataChild.assembling_place }}</td>
+                                                <td style="width: 15%;">{{ dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time }}</td>
                                                 <td style="width: 15%;">{{ data.customer_remarks }}</td>
                                                 <td style="width: 15%;">
                                                     <p *ngIf="dataChild.sms_status===0">

@@ -1,0 +1,100 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0> 禁用</mat-option>
+                                        <mat-option value=1>启用</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>名称</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入名称">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>手机号码</mat-label>
+                                    <input matInput value="" formControlName="mobile" placeholder="请输入手机号码">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">名称</th>
+                                    <th style="text-align: center;">手机号码</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            禁用
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            启用
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                                            <div style="cursor: pointer;" (click)="edit(data)">
+
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑">
+
+                                            </div>
+                                            <div style="cursor: pointer;" (click)="delete(data)">
+
+                                                <img src="http://cdn.bigline.com.cn/static/images/delete.png" title="删除">
+
+                                            </div>
+                                            <div style="cursor: pointer;" (click)="up(data)" title="启用">
+                                                <div *ngIf="data.status===0">
+
+                                                    <img src="http://cdn.bigline.com.cn/static/images/up.png" title="启用">
+
+                                                </div>
+                                                <div *ngIf="data.status===1">
+
+                                                    <img src="http://cdn.bigline.com.cn/static/images/down.png" title="禁用">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>
