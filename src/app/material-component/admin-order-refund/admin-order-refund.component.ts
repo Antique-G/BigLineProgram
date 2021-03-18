@@ -41,7 +41,7 @@ export class AdminOrderRefundComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getList();
+    this.getList();
   }
 
   getList() {
@@ -58,7 +58,9 @@ export class AdminOrderRefundComponent implements OnInit {
   }
 
 
-
+  handle(data: any) {
+    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id } });
+  }
 
 
 

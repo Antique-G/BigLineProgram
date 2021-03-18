@@ -76,23 +76,27 @@
                                                         <th style="text-align: center;">退款方案</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
-                                                        <th style="text-align: center;">处理</th>
+                                                        <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let data of rowSelectionTable1.data">
                                                         <td>{{data.id}}</td>
-                                                        <td>{{data.date}}</td>
-                                                        <td>{{data.adult_price}}</td>
+                                                        <td>{{data.order_id}}</td>
                                                         <td></td>
-                                                        <td>{{data.difference_price}}</td>
-                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+                                                        <td></td>
+                                                        <td>{{data.refund_reason}}</td>
+                                                        <td>{{data.type=='0'?'全额退款':'部分退款'}}</td>
                                                         <td>
-                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
-                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                                            <span *ngIf="data.status===0">已取消</span>
+                                                            <span *ngIf="data.status===1">待审核</span>
+                                                            <span *ngIf="data.status===2">审核成功待退款</span>
+                                                            <span *ngIf="data.status===3">已完成退款</span>
                                                         </td>
-                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
                                                         <td></td>
+                                                        <td>
+                                                            <a (click)="handle(data)">去处理</a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </nz-table>
@@ -103,7 +107,7 @@
                             </div>
                         </mat-tab>
 
-                        <mat-tab label="审核通过">
+                        <mat-tab label="已处理">
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
                                     <div fxLayout="column" fxLayoutAlign="start stretch">

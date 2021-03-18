@@ -97,6 +97,7 @@ import { UploadIdCardComponent } from './admin-order-group-travel/admin-order-gr
 import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refund.component';
 import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
 import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
+import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-order-refund-detail/admin-order-refund-detail.component';
 
 
 @NgModule({
@@ -212,6 +213,7 @@ import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover
     AdminOrderRefundComponent,
     AdminOrderRefundReviewComponent,
     AdminOrderRefundTurnoverComponent,
+    AdminOrderRefundDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}
