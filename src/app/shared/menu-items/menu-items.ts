@@ -37,9 +37,9 @@ const MENUITEMS = [
       { state: 'orderList', name: '团订单列表' },
       { state: 'groupTravelOrder', name: '跟团游订单列表' },
       { state: 'freeTravelOrder', name: '自由行订单列表' },
-      { state: 'refund', name: '订单退款处理' },
-      { state: 'refundReview', name: '订单审核退款' },
-      { state: 'refundTurnOver', name: '订单退款流水' },
+      // { state: 'refund', name: '订单退款处理' },
+      // { state: 'refundReview', name: '订单审核退款' },
+      // { state: 'refundTurnOver', name: '订单退款流水' },
 
     ]
   },
@@ -119,8 +119,8 @@ const StoreMENUITEMS = [
       { state: 'storeOrderGroup', name: '团订单列表' },
       { state: 'storeOrdergroupTravel', name: '跟团游订单列表' },
       { state: 'storeOrderFreeTravel', name: '自由行订单列表' },
-      { state: 'storeRefund', name: '订单退款记录列表' },
-      { state: 'storeRefundTurnOver', name: '订单退款流水' },
+      // { state: 'storeRefund', name: '订单退款记录列表' },
+      // { state: 'storeRefundTurnOver', name: '订单退款流水' },
     ]
   },
   {

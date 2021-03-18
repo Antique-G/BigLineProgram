@@ -1,1 +1,212 @@
-<p>admin-order-refund-review works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <mat-tab-group>
+                        <mat-tab label="未处理">
+                            <div class="content">
+                                <div class="example-container" style="margin-bottom: 50px;">
+                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+
+                                        <div style="margin-top: 10px;">
+                                            <form [formGroup]="searchForm1" nz-row nz-form>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="store_name" placeholder="请输入店铺名称" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="time">申请时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="time"></nz-range-picker>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款编号</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="refund_id" placeholder="请输入退款编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                                                    </div>
+                                                </nz-form-item>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="mat-elevation-z8">
+                                            <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                                                (nzPageSizeChange)="changePageSize($event)">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th style="text-align: center;">退款编号</th>
+                                                        <th style="text-align: center;">订单编号</th>
+                                                        <th style="text-align: center;width:20%">产品名称</th>
+                                                        <th style="text-align: center;">店铺名称</th>
+                                                        <th style="text-align: center;">退款原因</th>
+                                                        <th style="text-align: center;">退款方案</th>
+                                                        <th style="text-align: center;">退款状态</th>
+                                                        <th style="text-align: center;">申请时间</th>
+                                                        <th style="text-align: center;">处理</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of rowSelectionTable1.data">
+                                                        <td>{{data.id}}</td>
+                                                        <td>{{data.date}}</td>
+                                                        <td>{{data.adult_price}}</td>
+                                                        <td></td>
+                                                        <td>{{data.difference_price}}</td>
+                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
+                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                                        </td>
+                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </nz-table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="审核通过">
+                            <div class="content">
+                                <div class="example-container" style="margin-bottom: 50px;">
+                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                                        <div style="margin-top: 10px;">
+                                            <form [formGroup]="searchForm1" nz-row nz-form>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="store_name" placeholder="请输入店铺名称" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="time">申请时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="time"></nz-range-picker>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款编号</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="refund_id" placeholder="请输入退款编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                                                    </div>
+                                                </nz-form-item>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="mat-elevation-z8">
+                                            <nz-table #rowSelectionTable2 nzBordered [nzFrontPagination]="false" [nzData]="dataSource2" [nzLoading]="loading1" [nzTotal]="total1" [(nzPageIndex)]="page1" [(nzPageSize)]="per_page1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex1($event)"
+                                                (nzPageSizeChange)="changePageSize1($event)">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th style="text-align: center;">退款编号</th>
+                                                        <th style="text-align: center;">订单编号</th>
+                                                        <th style="text-align: center;width:20%">产品名称</th>
+                                                        <th style="text-align: center;">店铺名称</th>
+                                                        <th style="text-align: center;">退款原因</th>
+                                                        <th style="text-align: center;">退款方案</th>
+                                                        <th style="text-align: center;">退款状态</th>
+                                                        <th style="text-align: center;">申请时间</th>
+                                                        <th style="text-align: center;">处理</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of rowSelectionTable2.data">
+                                                        <td>{{data.id}}</td>
+                                                        <td>{{data.date}}</td>
+                                                        <td>{{data.adult_price}}</td>
+                                                        <td></td>
+                                                        <td>{{data.difference_price}}</td>
+                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
+                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                                        </td>
+                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </nz-table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+
+
+
+                    </mat-tab-group>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>
