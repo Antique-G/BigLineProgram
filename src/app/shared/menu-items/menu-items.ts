@@ -121,6 +121,7 @@ const StoreMENUITEMS = [
       { state: 'storeOrderGroup', name: '团订单列表' },
       { state: 'storeOrdergroupTravel', name: '跟团游订单列表' },
       { state: 'storeOrderFreeTravel', name: '自由行订单列表' },
+      { state: 'storeRefund', name: '订单退款记录列表' },
     ]
   },
   {

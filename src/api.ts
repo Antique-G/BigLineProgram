@@ -289,6 +289,10 @@ export const StoreUrls = {
   PostStoreOrderConfirmReceipt: api + '/store/order/confirm_receipt',  //确认收款
 
 
+  GetStoreRefund: api + '/store/refund',  //退款列表
+  GetStoreRefundDetail: api + '/store/refund/',  //退款详情
+
+
 
   GetStoreContractList: api + '/store/store_contract',  //合同列表
   PostStoreContractCreate: api + '/store/store_contract',   // 合同添加
