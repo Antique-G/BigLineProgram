@@ -18,7 +18,6 @@ export class StoreProductFreeTravelComponent implements OnInit {
   checkStatus: any;
   title: any;
   few_days: any;
-  few_nights: any;
   code: any;
   status: any;
   tag: any;
@@ -43,7 +42,6 @@ export class StoreProductFreeTravelComponent implements OnInit {
       checkStatus: [''],
       title: [''],
       few_days: [''],
-      few_nights: [''],
       code: [''],
       status: [''],
       tag: [''],
@@ -65,7 +63,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status, this.tag).subscribe(res => {
+    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
       this.total = res.total;   //总页数
@@ -89,7 +87,6 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.checkStatus = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.few_days = this.searchForm.value.few_days;
-    this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;

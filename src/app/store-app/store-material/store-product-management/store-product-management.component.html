@@ -58,12 +58,6 @@
                                     <input matInput value="" formControlName="few_days" placeholder="请输入几天">
                                 </mat-form-field>
                             </div>
-                            <div fxFlex=15>
-                                <mat-form-field>
-                                    <mat-label>几晚</mat-label>
-                                    <input matInput value="" formControlName="few_nights" placeholder="请输入几晚">
-                                </mat-form-field>
-                            </div>
 
                             <div fxFlex=20>
                                 <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
@@ -80,8 +74,7 @@
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;width:15%;">产品标题</th>
                                     <th style="text-align: center;">产品编码</th>
-                                    <th style="text-align: center;">几天</th>
-                                    <th style="text-align: center;">几晚</th>
+                                    <th style="text-align: center;">行程天数</th>
                                     <th style="text-align: center;">最低价格</th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
@@ -99,8 +92,7 @@
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
                                     <td>{{data.code}}</td>
-                                    <td>{{data.few_days}}</td>
-                                    <td>{{data.few_nights}}</td>
+                                    <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                     <td>
                                         <div *ngIf="data.minimum_price===0"> - </div>
                                         <div *ngIf="data.minimum_price!=0"> {{data.minimum_price}}&nbsp;元 </div>
