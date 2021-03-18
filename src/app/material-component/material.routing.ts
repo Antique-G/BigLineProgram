@@ -32,6 +32,9 @@ import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/a
 import { AdminContractComponent } from './admin-contract/admin-contract.component';
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
+import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refund.component';
+import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
+import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -207,6 +210,31 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单内容'
         }
       },
+      {
+        path: 'refund',
+        component: AdminOrderRefundComponent,
+        data: {
+          breadcrumb: '订单退款列表'
+        }
+      },
+      {
+        path: 'refundReview',
+        component: AdminOrderRefundReviewComponent,
+        data: {
+          breadcrumb: '订单退款审核'
+        }
+      },
+      {
+        path: 'refundTurnOver',
+        component: AdminOrderRefundTurnoverComponent,
+        data: {
+          breadcrumb: '订单退款流水列表'
+        }
+      },
+      
+
+
+
       {
         path: 'saleTitle',
         component: AdminSaleTitleComponent,

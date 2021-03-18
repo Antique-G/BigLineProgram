@@ -103,7 +103,11 @@ export class Interceptor implements HttpInterceptor {
                   }
                   break
                 }
-                break;
+                else {
+                  this.createFail(error.message)
+                  break;
+                }
+
               case 504:
               case 404:
                 this.createFail(error.message)

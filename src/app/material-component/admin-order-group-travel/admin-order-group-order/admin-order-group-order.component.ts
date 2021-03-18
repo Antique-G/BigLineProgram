@@ -146,7 +146,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
-      assembling_place: ['',],
+      assembling_place_id: ['',],
       id_photo: new FormControl('', [Validators.required]),
 
     }))
@@ -218,7 +218,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
-        assembling_place: new FormControl('', [Validators.required]),
+        assembling_place_id: new FormControl('', [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
       }));
     },

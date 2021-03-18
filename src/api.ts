@@ -135,6 +135,10 @@ export const AdminUrls = {
 
 
 
+  GetAdminRefund: api + '/admin/refund',  //退款列表
+
+
+
   GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
   PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
 
