@@ -50,23 +50,7 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_place">集合地点</nz-form-label>
-                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="assembling_place" nzBorderless [ngModel]="detailModel?.assembling_place" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="assembling_time">集合时间</nz-form-label>
-                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="assembling_time" nzBorderless [ngModel]="isAssemblinTime" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
@@ -108,7 +92,12 @@
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                 <div>
-                                    <div>共{{detailModel?.num_total}}人：成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</div>
+                                    <span>
+                                    共{{detailModel?.num_total}}人：成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}
+                                    </span>
+                                    <span *ngIf="detailModel?.baby_num!=0">
+                                        &nbsp;|&nbsp;婴儿{{detailModel?.baby_num}}
+                                    </span>
                                 </div>
                                 <div class="mat-elevation-z8">
                                     <nz-table #rowSelectionTable [nzData]="dataMember">
@@ -120,6 +109,8 @@
                                                 <th style="text-align: center;">证件类型</th>
                                                 <th style="text-align: center;">证件号码</th>
                                                 <th style="text-align: center;">联系方式</th>
+                                                <th style="text-align: center;">集合地点</th>
+                                                <th style="text-align: center;">集合时间</th>
                                                 <th style="text-align: center;">备注</th>
                                                 <th style="text-align: center;">出团通知短信</th>
                                             </tr>
@@ -139,6 +130,9 @@
                                                 </td>
                                                 <td>{{data.id_num}}</td>
                                                 <td>{{data.phone}}</td>
+                                                <td>{{ data.assembling_place }}</td>
+                                                <td>{{ data.assembling_time==='00:00'?'待定':data.assembling_time }}</td>
+
                                                 <td>
                                                     <div *ngIf="data?.remarks===''">{{detailModel.customer_remarks}}</div>
                                                     <div *ngIf="data?.remarks!=''">{{data.customer_remarks}}</div>
