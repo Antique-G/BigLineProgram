@@ -28,7 +28,7 @@
                                 <mat-form-field>
                                     <mat-select placeholder="产品标签" formControlName="tag">
                                         <mat-option value=''>全部</mat-option>
-                                        <mat-option *ngFor="let sort of tagList" [value]="sort.id">
+                                        <mat-option *ngFor="let sort of tagList" [value]="sort.name">
                                             {{sort.name}}
                                         </mat-option>
                                     </mat-select>
