@@ -93,6 +93,17 @@ export class Interceptor implements HttpInterceptor {
                 }
                 break;
               case 500:
+                if (error.error.message === 'Token could not be parsed from the request.') {
+                  alert('token已过期，请重新登陆');
+                  if (pathName === 'admin') {
+                    this.router.navigate(['/admin/login']);
+                  }
+                  else if (pathName === 'store') {
+                    this.router.navigate(['/store/login']);
+                  }
+                  break
+                }
+                break;
               case 504:
               case 404:
                 this.createFail(error.message)
@@ -117,7 +128,7 @@ export class Interceptor implements HttpInterceptor {
                 console.log("弹出的错误", error.error.message);
                 this.createFail(error.error.message)
                 break;
-                case 405:
+              case 405:
                 console.log("弹出的错误", error.error.message);
                 this.createFail(error.error.message)
                 break;
@@ -125,59 +136,7 @@ export class Interceptor implements HttpInterceptor {
                 this.createFail('未知错误')
                 break;
             }
-            // if (error.status == 401) {
-            //   console.log("当前页", window.location.pathname)
-            //   if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
-            //     // alert(error.error.message);
-            //     this.createFail(error.error.message)
-            //   }
-            //   else {
-            //     alert('token已过期，请重新登陆');
-            //     if (pathName === 'admin') {
-            //       this.router.navigate(['/admin/login']);
-            //     }
-            //     else if (pathName === 'store') {
-            //       this.router.navigate(['/store/login']);
-            //     }
-            //   }
-            // }
-            // else if (error.status == 500) {
-            //   this.createFail(error.message)
 
-            //   // alert(error.message);
-            // }
-            // else if (error.status == 504) {
-            //   this.createFail(error.message)
-
-            //   // alert(error.message);
-            // }
-            // else if (error.status == 422) {
-            //   console.log("弹出的错误", error.error.errors);
-            //   let errorObj = error.error.errors;
-            //   for (let key in errorObj) {
-            //   this.createFail(errorObj[key])
-
-            //     // alert(errorObj[key]);
-            //   }
-            //   console.log("422", localStorage.getItem('userToken'));
-            //   const oldToken = (localStorage.getItem('userToken')!);
-            //   localStorage.setItem('userToken', oldToken);
-            // }
-            // else if (error.status == 400) {
-            //   // alert(error.error.message);
-            //   this.createFail(error.error.message)
-
-            // }
-            // else if (error.status == 403) {
-            //   this.createFail(error.error.message)
-
-            //   // alert(error.error.message);
-            // }
-            // else if (error.status == 404) {
-            //   this.createFail(error.message)
-
-            //   // alert(error.message);
-            // }
           }
         }
       )
