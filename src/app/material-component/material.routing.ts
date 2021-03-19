@@ -37,6 +37,8 @@ import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/adm
 import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
 import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-order-refund-detail/admin-order-refund-detail.component';
 import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
+import { UserCommissionListComponent } from './admin-commission/user-commission-list/user-commission-list.component';
+import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -307,6 +309,20 @@ export const MaterialRoutes: Routes = [
         component: AdminContractComponent,
         data: {
           breadcrumb: '合同列表'
+        }
+      },
+      {
+        path: 'userCommission',
+        component: UserCommissionListComponent,
+        data: {
+          breadcrumb: '用户分销佣金列表'
+        }
+      },
+      {
+        path: 'commissionWithdraw',
+        component: AdminCommissionWithdrawComponent,
+        data: {
+          breadcrumb: '提现列表'
         }
       },
     ]
