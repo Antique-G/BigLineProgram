@@ -39,6 +39,8 @@ import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-orde
 import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
 import { UserCommissionListComponent } from './admin-commission/user-commission-list/user-commission-list.component';
 import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
+import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
+import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -218,21 +220,35 @@ export const MaterialRoutes: Routes = [
         path: 'refund',
         component: AdminOrderRefundComponent,
         data: {
-          breadcrumb: '订单退款列表'
+          breadcrumb: '订单申请退款列表'
         }
       },
       {
         path: 'refund/detail',
         component: AdminOrderRefundDetailComponent,
         data: {
-          breadcrumb: '订单退款记录详情页面'
+          breadcrumb: '订单退款申请页面'
         }
       },
       {
         path: 'refundReview',
         component: AdminOrderRefundReviewComponent,
         data: {
-          breadcrumb: '订单退款审核'
+          breadcrumb: '订单退款审核列表'
+        }
+      },
+      {
+        path: 'refundReview/edit',
+        component: AdminOrderRefundReviewEditComponent,
+        data: {
+          breadcrumb: '审核订单退款'
+        }
+      },
+      {
+        path: 'refundReview/detail',
+        component: AdminOrderRefundReviewDetailComponent,
+        data: {
+          breadcrumb: '订单退款审核已完成'
         }
       },
       {
@@ -242,7 +258,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '订单退款流水列表'
         }
       },
-      
+
       {
         path: 'adminTourist',
         component: AdminTouristComponent,
