@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { AdminRefundService } from '../../../services/admin/admin-refund.service';
+import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class AdminOrderRefundComponent implements OnInit {
   dateArray1: any[] = [];
   dateArray2: any[] = [];
   searchForm1?: FormGroup;
-  searchForm2?: FormGroup;
+  storeList: any[] = [];
+
 
   dataSource: any;
   dataSource1: any;
@@ -29,23 +31,36 @@ export class AdminOrderRefundComponent implements OnInit {
   total1 = 1;
   loading1 = true;
 
+  order_id: any;
+  store_id: any;
+  product_id: any;
+  date_start: any;
+  date_end: any;
+  id: any;
+  status: any;
 
-  constructor(public fb: FormBuilder, public router: Router, public adminRefundService: AdminRefundService) {
+  constructor(public fb: FormBuilder, public router: Router,
+    public adminProductManagementService: AdminProductManagementService, public adminRefundService: AdminRefundService) {
     this.searchForm1 = fb.group({
-      product_name: [''],
-      store_name: [''],
+      product_id: [''],
+      store_id: [''],
       order_id: [''],
       time: [''],
       refund_id: [''],
+      id: [''],
     });
   }
 
   ngOnInit(): void {
+    this.adminProductManagementService.storeList('').subscribe(res => {
+      console.log("24234", res);
+      this.storeList = res;
+    })
     this.getList();
   }
 
   getList() {
-    this.adminRefundService.getRefundList(this.page, this.per_page).subscribe(res => {
+    this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_id, this.date_start, this.date_end, this.id, this.status).subscribe(res => {
       console.log('res :>> ', res);
       this.dataSource1 = res.data;
       this.loading = false;
@@ -63,7 +78,7 @@ export class AdminOrderRefundComponent implements OnInit {
   // }
 
   handle(data: any) {
-    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id ,isFinished:2} });
+    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id, isFinished: 2 } });
   }
 
 
@@ -99,5 +114,8 @@ export class AdminOrderRefundComponent implements OnInit {
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
     this.dateArray1.push(myFormattedDate1);
     console.log("event", this.dateArray1);
+    this.date_start = this.dateArray1[0];
+    this.date_end = this.dateArray1[1];
+
   }
 }

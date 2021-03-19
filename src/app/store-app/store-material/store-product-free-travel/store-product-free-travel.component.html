@@ -80,11 +80,11 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th>
-                                    <th style="text-align: center;">是否设置分销</th>
+                                    <!-- <th style="text-align: center;">是否设置分销</th>
                                     <th style="text-align: center;">分销佣金</th>
                                     <th style="text-align: center;">店铺佣金</th>
                                     <th style="text-align: center;">第三方佣金</th>
-                                    <th style="text-align: center;">电中佣金</th>
+                                    <th style="text-align: center;">电中佣金</th> -->
                                     <th style="text-align: center;">操作</th>
                                 </tr>
                             </thead>
@@ -120,7 +120,7 @@
                                         <div *ngIf="data.status===0">下架</div>
                                         <div *ngIf="data.status===1">上架</div>
                                     </td>
-                                    <td>{{ data.reward_set===0?'不设置':'设置'}} </td>
+                                    <!-- <td>{{ data.reward_set===0?'不设置':'设置'}} </td>
 
                                     <td>
                                         <div *ngIf="data.reward_set===0">-</div>
@@ -149,7 +149,7 @@
                                             <span *ngIf="data.commerce_reward===''">-</span>
                                             <span *ngIf="data.commerce_reward!=''">{{data.commerce_reward}}元</span>
                                         </div>
-                                    </td>
+                                    </td> -->
 
                                     <td>
                                         <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
@@ -178,9 +178,9 @@
                                                 <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核"> 撤销审核
                                                 </li>
-                                                <li nz-menu-item (click)="setCommission(data)">
+                                                <!-- <li nz-menu-item (click)="setCommission(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </nz-dropdown-menu>
                                     </td>

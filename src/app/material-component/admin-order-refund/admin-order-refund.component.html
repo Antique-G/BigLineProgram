@@ -13,25 +13,29 @@
                                             <form [formGroup]="searchForm1" nz-row nz-form>
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
-                                                        </nz-form-control>
-                                                    </div>
-                                                </nz-form-item>
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                    <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="store_name" placeholder="请输入店铺名称" />
-                                                        </nz-form-control>
-                                                    </div>
-                                                </nz-form-item>
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                    <div nz-row>
                                                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                                                <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                                            </nz-select>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">产品编码</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_id" placeholder="请输入编码" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -46,9 +50,9 @@
                                                 </nz-form-item>
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款编号</nz-form-label>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="id">退款编号</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="refund_id" placeholder="请输入退款编号" />
+                                                            <input nz-input formControlName="id" placeholder="请输入退款编号" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -115,25 +119,29 @@
                                             <form [formGroup]="searchForm1" nz-row nz-form>
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
-                                                        </nz-form-control>
-                                                    </div>
-                                                </nz-form-item>
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                    <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="store_name" placeholder="请输入店铺名称" />
-                                                        </nz-form-control>
-                                                    </div>
-                                                </nz-form-item>
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                    <div nz-row>
                                                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                                                <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                                            </nz-select>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">产品编码</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_id" placeholder="请输入编码" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
