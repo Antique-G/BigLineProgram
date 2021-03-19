@@ -103,6 +103,8 @@ import { AdminTouristCreateComponent } from './admin-tourist/admin-tourist-creat
 import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detail/admin-tourist-detail.component';
 import { UserCommissionListComponent } from './admin-commission/user-commission-list/user-commission-list.component';
 import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
+import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
+import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
 
 
 @NgModule({
@@ -224,6 +226,8 @@ import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commi
     AdminTouristDetailComponent,
     UserCommissionListComponent,
     AdminCommissionWithdrawComponent,
+    AdminOrderRefundReviewDetailComponent,
+    AdminOrderRefundReviewEditComponent,
   ]
 })
 export class MaterialComponentsModule {}

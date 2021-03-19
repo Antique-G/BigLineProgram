@@ -73,10 +73,12 @@
                                                         <th style="text-align: center;width:20%">产品名称</th>
                                                         <th style="text-align: center;">店铺名称</th>
                                                         <th style="text-align: center;">退款原因</th>
-                                                        <th style="text-align: center;">退款方案</th>
-                                                        <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
-                                                        <th style="text-align: center;">处理</th>
+                                                        <th style="text-align: center;">退款状态</th>
+                                                        <th style="text-align: center;">退款金额</th>
+                                                        <th style="text-align: center;">处理人</th>
+                                                        <th style="text-align: center;">处理时间</th>
+                                                        <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -87,10 +89,11 @@
                                                         <td></td>
                                                         <td>{{data.difference_price}}</td>
                                                         <td>{{data.set_inventory=='1'?'是':'否'}}</td>
-                                                        <td>
-                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
-                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
-                                                        </td>
+
+                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
+                                                        <td></td>
+                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+
                                                         <td>{{data.allow_over =='1'?'是':'否'}}</td>
                                                         <td></td>
                                                     </tr>
@@ -174,7 +177,7 @@
                                                         <th style="text-align: center;">退款方案</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
-                                                        <th style="text-align: center;">处理</th>
+                                                        <th style="text-align: center;">查看详情</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

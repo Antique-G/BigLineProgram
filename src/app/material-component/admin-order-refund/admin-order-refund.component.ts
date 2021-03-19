@@ -58,10 +58,13 @@ export class AdminOrderRefundComponent implements OnInit {
   }
 
 
-  handle(data: any) {
-    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id } });
-  }
+  // handle(data: any) {
+  //   this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id ,isFinished:1} });
+  // }
 
+  handle(data: any) {
+    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id ,isFinished:2} });
+  }
 
 
   changePageIndex(page: number) {
