@@ -156,6 +156,8 @@ export interface DetailsModel {
   price_diff: number;
   price_insurance: number;
   price_other: number;
+  emergency_contact_person: string;
+  emergency_contact_number: string;
   discount_other: number;
   insurance_id: number;
   order_status: number;

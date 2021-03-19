@@ -29,6 +29,11 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       assembling_time: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
+      contact_wechat: ['', [Validators.required]],
+      contact_qq: ['', [Validators.required]],
+      contact_email: ['', [Validators.required]],
+      emergency_contact_person: ['', [Validators.required]],
+      emergency_contact_number: ['', [Validators.required]],
     });
   
   }
