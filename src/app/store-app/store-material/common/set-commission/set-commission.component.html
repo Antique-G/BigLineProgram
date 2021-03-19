@@ -1,0 +1,37 @@
+<div fxLayoutWrap="wrap">
+
+  <div style="padding: 5px;">
+    <form nz-form [formGroup]="addForm">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">产品名称</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" >
+          <input nz-input formControlName="title" id="title" [readonly]="true" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="dist_reward">分销金额</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置分销金额">
+          <nz-input-number class="input" formControlName="dist_reward" id="dist_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_reward" nzRequired>店铺佣金</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置店铺佣金">
+          <nz-input-number class="input" formControlName="store_reward" id="store_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="third_reward" nzRequired>第三方佣金</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置第三方佣金">
+          <nz-input-number class="input" formControlName="third_reward" id="third_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commerce_reward" nzRequired>电中佣金</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置电中佣金">
+          <nz-input-number class="input" formControlName="commerce_reward" id="commerce_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

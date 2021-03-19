@@ -7,7 +7,9 @@
     border: 0;
     background-color: #fdfdfd;
 }
-
+.menu li{
+    vertical-align: middle;
+}
 /* // nzBordered 表格是否有边框 dataSet 数据源
 // [nzFrontPagination] 是否在前端分页，默认true
 // [nzLoading] 是否显示加载中 [nzTotal]数据总条数

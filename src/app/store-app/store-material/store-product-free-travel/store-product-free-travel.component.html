@@ -80,15 +80,16 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th>
-                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">操作</th>
+                                    <!-- <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">报价</th>
                                     <th style="text-align: center;">上下架</th>
                                     <th style="text-align: center;">提交审核</th>
-                                    <th style="text-align: center;">撤销审核</th>
+                                    <th style="text-align: center;">撤销审核</th> -->
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of rowSelectionTable.data">
+                                <tr *ngFor="let data of rowSelectionTable.data" (contextmenu)="contextMenu($event, menu)">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
                                     <td>{{data.code}}</td>
@@ -120,6 +121,46 @@
                                         <div *ngIf="data.status===1">上架</div>
                                     </td>
                                     <td>
+                                        <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                          <nz-dropdown-menu #menu="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                              <li nz-menu-item  (click)="edit(data)">
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑">
+                                                编辑
+                                              </li>
+                                              <li nz-menu-item (click)="goToQuoteClick(data)">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png"  title="报价">
+                                                报价
+                                              </li>
+                                              <li nz-menu-item  *ngIf="data.check_status===2" (click)="up(data)">
+                                                <div *ngIf="data.status===0">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架">
+                                                    上架
+                                                </div>
+                                                <div *ngIf="data.status===1">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架">
+                                                    下架
+                                                </div>
+                                              </li>
+                                              <li nz-menu-item *ngIf="data.check_status==0" (click)="checkStatusClick(data)">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png"  title="提交审核">
+                                                提交审核
+                                              </li>
+                                              <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核">
+                                                撤销审核
+                                              </li>
+                                              <li nz-menu-item (click)="setCommission(data)">
+                                                <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金">
+                                                设置佣金
+                                              </li>
+                                            </ul>
+                                          </nz-dropdown-menu>
+                                    </td>
+                                    <!-- <td>
                                         <div style="cursor: pointer;" (click)="edit(data)" title="详情">
 
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png">
@@ -158,7 +199,7 @@
                                             </div>
 
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>

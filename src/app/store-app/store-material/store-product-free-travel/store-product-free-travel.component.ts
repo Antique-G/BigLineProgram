@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 
 
 @Component({
@@ -37,7 +39,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
   isEar: any;
 
   constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
-    public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,) {
+    public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
+    private nzContextMenuService: NzContextMenuService) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
@@ -54,6 +57,14 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.getProductList();
   }
 
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
+  }
+
+  closeMenu(): void {
+    this.nzContextMenuService.close();
+  }
+  
   getTagList() {
     this.storeProductService.productTagList(2).subscribe(res => {
       console.log("标签", res.data);
@@ -174,5 +185,36 @@ export class StoreProductFreeTravelComponent implements OnInit {
     });
   }
 
+   // 设置佣金
+   setCommission(obj:any){
+    console.log(obj,'设置佣金');
+    const addmodal = this.modal.create({
+      nzTitle: '设置佣金',
+      nzContent: SetCommissionComponent,
+      nzComponentParams: {
+        data:{
+          id:obj.id,
+          title:obj.title
+        }
+      },
+      nzFooter: [
+        {
+          label: '添加',
+          type:'primary',
+          onClick: componentInstance => {
+           let flag = componentInstance?.Add()
+           if(flag){
+            let obj = componentInstance?.getValue()
+            console.log(obj,'obj');
+           }
+           console.log(flag,'Add123');
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getProductList();
+    })
+  }
 
 }
