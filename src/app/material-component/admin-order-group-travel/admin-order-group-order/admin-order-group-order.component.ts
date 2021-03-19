@@ -68,12 +68,10 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   numIsShow = false;
   assemblingPlaceList: any;
   isAssemblingPlace: any;
-  date = null;
-  imgList: any[] = [];
-  list: any[] = [];
   isName: any;
   isPhone: any;
-  isType = false;
+  isChangeData: any[] = [];
+  newImgArr: any[] = []
 
 
 
@@ -150,6 +148,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       id_photo: new FormControl('', [Validators.required]),
 
     }))
+    this.isChangeData.push(false);
+    this.newImgArr.push([])
     this.isNum();
   }
 
@@ -158,6 +158,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   removeIcon(index: number) {
     if (this.humanArray.length > 1) {
       this.humanArray.removeAt(index);
+      this.isChangeData.splice(index, 1)
       this.isNum();
     }
     else {
@@ -221,6 +222,8 @@ export class AdminOrderGroupOrderComponent implements OnInit {
         assembling_place_id: new FormControl('', [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
       }));
+      this.isChangeData.push(false);
+      this.newImgArr.push([])
     },
       error => {
         this.isLoadingBtn = false;
@@ -242,6 +245,14 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
     this.orderGroupProduct.baby_info = this.informationForm.value.baby_info;
     this.orderGroupProduct.shared_status = this.informationForm.value.shared_status;
+    
+    // 处理出生日期
+    this.informationForm.value.humanList.forEach((element:any) => {
+      if(element.birthday!=null){
+        element.birthday=format(new Date(element.birthday), 'yyyy-MM-dd');
+      }
+    });
+    console.log('this.informationForm.value.humanList', this.informationForm.value.humanList);
     this.orderGroupProduct.members = this.informationForm.value.humanList;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
@@ -250,8 +261,6 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
   }
-
-
 
   add() {
     this.setValue();
@@ -358,14 +367,21 @@ export class AdminOrderGroupOrderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       console.log("result", res);
       if (res !== undefined) {
-        this.list.push(res.url);
-        this.imgList = this.list.slice(-2);
-        console.log('this.imgList ', this.list, this.imgList);
-        this.humanArray.controls[i].patchValue({ 'id_photo': this.imgList });
+        this.newImgArr[i].push(res.url)
+        console.log(this.newImgArr, ' this.newImgArr');
+        console.log('图片 ', this.newImgArr);
+        this.humanArray.controls[i].patchValue({ 'id_photo': this.newImgArr[i] });
       }
     });
   }
 
+
+  deleteImg(i: any, index: any) {
+    console.log('删除的是 :>> ', i, index);
+    this.newImgArr[i].splice(index, 1)
+    console.log('this.newImgArr ', this.newImgArr);
+    this.humanArray.controls[i].patchValue({ 'id_photo': this.newImgArr[i] });
+  }
 
   // 出行人设为联系人
   setContract(human: any) {
@@ -376,13 +392,13 @@ export class AdminOrderGroupOrderComponent implements OnInit {
 
 
   // 身份证不显示出生年月日
-  changeType(data: any) {
+  changeType(data: any, i: any) {
     console.log('data :>> ', data, data === 1, data === '1');
     if (data === 1) {
-      this.isType = false;
+      this.isChangeData[i] = false;
     }
     else {
-      this.isType = true;
+      this.isChangeData[i] = true;
     }
   }
 }
