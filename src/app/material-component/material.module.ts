@@ -101,6 +101,7 @@ import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-orde
 import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
 import { AdminTouristCreateComponent } from './admin-tourist/admin-tourist-create/admin-tourist-create.component';
 import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detail/admin-tourist-detail.component';
+import { UserCommissionListComponent } from './admin-commission/user-commission-list/user-commission-list.component';
 
 
 @NgModule({
@@ -220,6 +221,7 @@ import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detai
     AdminTouristComponent,
     AdminTouristCreateComponent,
     AdminTouristDetailComponent,
+    UserCommissionListComponent,
   ]
 })
 export class MaterialComponentsModule {}
