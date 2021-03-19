@@ -44,9 +44,10 @@ const MENUITEMS = [
     ]
   },
   {
-    title: '区域模块', icon: 'environment',
+    title: '佣金模块', icon: 'pound',
     children: [
-      { state: 'settingArea', name: '区域' }
+      { state: 'userCommission', name: '用户分销佣金' },
+      { state: 'commissionWithdraw', name: '提现列表' }
     ]
   },
   {
@@ -56,6 +57,18 @@ const MENUITEMS = [
       { state: 'termTemplate', name: '条款模板' }
     ]
   },
+  {
+    title: '导游管理模块', icon: 'flag',
+    children: [{ state: 'adminTourist', name: '导游列表' }]
+  },
+
+  {
+    title: '区域模块', icon: 'environment',
+    children: [
+      { state: 'settingArea', name: '区域' }
+    ]
+  },
+ 
   {
     title: '用户管理', icon: 'user',
     children: [
@@ -69,10 +82,6 @@ const MENUITEMS = [
       { state: 'insurance', name: '保险' },
       
     ]
-  },
-  {
-    title: '导游管理模块', icon: 'flag',
-    children: [{ state: 'adminTourist', name: '导游列表' }]
   },
 
   {
