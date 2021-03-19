@@ -124,21 +124,34 @@
 
                                     <td>{{ data.reward_set===0?'不设置':'设置'}} </td>
 
+
                                     <td>
                                         <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0"> {{ data.dist_reward===''?'-':data.dist_reward}} </div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span *ngIf="data.dist_reward===''">-</span>
+                                            <span *ngIf="data.dist_reward!=''">{{data.dist_reward}}元</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0"> {{ data.store_reward===''?'-':data.store_reward}} </div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span *ngIf="data.store_reward===''">-</span>
+                                            <span *ngIf="data.store_reward!=''">{{data.store_reward}}元</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0"> {{ data.third_reward===''?'-':data.third_reward}} </div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span *ngIf="data.third_reward===''">-</span>
+                                            <span *ngIf="data.third_reward!=''">{{data.third_reward}}元</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0"> {{ data.commerce_reward===''?'-':data.commerce_reward}} </div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span *ngIf="data.commerce_reward===''">-</span>
+                                            <span *ngIf="data.commerce_reward!=''">{{data.commerce_reward}}元</span>
+                                        </div>
                                     </td>
 
                                     <td>
