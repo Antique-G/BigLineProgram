@@ -158,6 +158,7 @@
                                                 <th style="text-align: center;">类型</th>
                                                 <th style="text-align: center;">证件类型</th>
                                                 <th style="text-align: center;">证件号码</th>
+                                                <th style="text-align: center;">出生日期</th>
                                                 <th style="text-align: center;">联系方式</th>
                                                 <th style="text-align: center;">集合地点</th>
                                                 <th style="text-align: center;">集合时间</th>
@@ -179,6 +180,7 @@
                                                     <div *ngIf="data.id_type===3">回乡证</div>
                                                 </td>
                                                 <td>{{data.id_num}}</td>
+                                                <td>{{data.birthday}}</td>
                                                 <td>{{data.phone}}</td>
                                                 <td>{{ data.assembling_place }}</td>
                                                 <td>{{ data.assembling_time==='00:00'?'待定':data.assembling_time }}</td>

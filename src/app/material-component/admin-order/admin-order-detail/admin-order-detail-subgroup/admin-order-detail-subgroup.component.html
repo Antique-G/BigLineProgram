@@ -110,6 +110,7 @@
                                             <tr>
                                                 <th>姓名</th>
                                                 <th>类型</th>
+                                                <th>出生日期</th>
                                                 <th>联系方式</th>
                                                 <th>拼房类型</th>
                                                 <th>集合地点</th>
@@ -120,11 +121,12 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let dataChild of innerTable.data">
-                                                <td style="width: 12%;">{{ dataChild.name }}</td>
-                                                <td style="width: 13%;">
-                                                    <p *ngIf="dataChild.is_kid===0">成人</p>
-                                                    <p *ngIf="dataChild.is_kid===1">儿童</p>
+                                                <td style="width: 8%;">{{ dataChild.name }}</td>
+                                                <td style="width: 9%;">
+                                                    <span *ngIf="dataChild.is_kid===0">成人</span>
+                                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
                                                 </td>
+                                                <td style="width: 9%;">{{dataChild.birthday}}</td>
                                                 <td style="width: 15%;">{{dataChild.phone}}</td>
                                                 <td style="width: 10%;">
                                                     <p *ngIf="data.shared_status===0">不拼房</p>
