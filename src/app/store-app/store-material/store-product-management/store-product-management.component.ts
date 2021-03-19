@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { format } from 'date-fns';
-
-
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 @Component({
   selector: 'app-store-product-management',
   templateUrl: './store-product-management.component.html',
@@ -20,7 +20,6 @@ export class StoreProductManagementComponent implements OnInit {
   code: any;
   status: any;
   tag: any;
-
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
   page = 1;
@@ -39,7 +38,7 @@ export class StoreProductManagementComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-    private modal: NzModalService) {
+    private modal: NzModalService,private nzContextMenuService: NzContextMenuService) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
@@ -64,7 +63,13 @@ export class StoreProductManagementComponent implements OnInit {
     })
   }
 
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
+  }
 
+  closeMenu(): void {
+    this.nzContextMenuService.close();
+  }
 
   getProductList() {
     this.loading = true;
@@ -195,4 +200,37 @@ export class StoreProductManagementComponent implements OnInit {
       this.isReason = res[0]?.reason;
     })
   }
+
+  // 设置佣金
+  setCommission(obj:any){
+    console.log(obj,'设置佣金');
+    const addmodal = this.modal.create({
+      nzTitle: '设置佣金',
+      nzContent: SetCommissionComponent,
+      nzComponentParams: {
+        data:{
+          id:obj.id,
+          title:obj.title
+        }
+      },
+      nzFooter: [
+        {
+          label: '添加',
+          type:'primary',
+          onClick: componentInstance => {
+           let flag = componentInstance?.Add()
+           if(flag){
+            let obj = componentInstance?.getValue()
+            console.log(obj,'obj');
+           }
+           console.log(flag,'Add123');
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getProductList();
+    })
+  }
+
 }
