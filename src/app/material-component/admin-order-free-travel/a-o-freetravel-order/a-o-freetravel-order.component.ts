@@ -68,8 +68,12 @@ export class AOFreetravelOrderComponent implements OnInit {
   isName: any;
   isPhone: any;
 
-  isChangeData: any[] = [];
-  newImgArr: any[] = []
+  isChangeData: any[] = [];    //证件类型
+  newImgArr: any[] = []       //证件照片
+
+  isBabyShow = false;
+  isChangeBabyData: any[] = [];    //婴儿证件类型
+  newBabyArr: any[] = []       //婴儿证件照片
 
 
 
@@ -90,16 +94,15 @@ export class AOFreetravelOrderComponent implements OnInit {
     const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
+      babyList: this.fb.array([]),
       num_adult: [1, [Validators.required]],
       num_kid: [0,],
       num_room: [1, [Validators.required]],
-      baby_num: [''],
-      baby_info: [''],
+      baby_num: [0],
       customer_remarks: ['',],
       emergency_contact_person: [''],
       emergency_contact_number: ['', [mobile]],
     });
-
     this.contactForm = this.fb.group({
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required, mobile]],
@@ -114,7 +117,6 @@ export class AOFreetravelOrderComponent implements OnInit {
       num_kid: '',
       num_room: '',
       baby_num: '',
-      baby_info: '',
       members: [],
       contact_name: '',
       contact_phone: '',
@@ -129,6 +131,11 @@ export class AOFreetravelOrderComponent implements OnInit {
   // 出行人
   get humanArray() {
     return this.informationForm.get("humanList") as FormArray;
+  }
+
+  // baby
+  get babyArray() {
+    return this.informationForm.get("babyList") as FormArray;
   }
 
 
@@ -150,15 +157,41 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.isNum();
   }
 
+
+  // 添加婴儿
+  addBaby() {
+    // 校验手机
+    const { mobile } = MyValidators;
+    this.babyArray.push(this.fb.group({
+      name: new FormControl('',),
+      phone: new FormControl('', [mobile]),
+      is_kid: new FormControl(2, [Validators.required]),
+      id_type: new FormControl(''),
+      id_num: new FormControl(''),
+      birthday: new FormControl(null),
+      id_photo: new FormControl(''),
+    }))
+    this.isChangeBabyData.push(false);
+    this.newBabyArr.push([]);
+    this.isBabyNum();
+  }
+
   removeIcon(index: number) {
     if (this.humanArray.length > 1) {
       this.humanArray.removeAt(index);
-      this.isNum();
+      this.isBabyNum();
     }
     else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
+
+
+  removeBaby(index: number) {
+    this.babyArray.removeAt(index);
+    this.isBabyNum();
+  }
+
 
   // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
@@ -168,6 +201,23 @@ export class AOFreetravelOrderComponent implements OnInit {
 
   onEnter1(data: any) {
     this.isNum();
+  }
+
+
+  // 是否有baby
+  onEnter2(data: any) {
+    console.log('data :>> ', data);
+    this.isBabyNum();
+  }
+
+  isBabyNum() {
+    let nums = Number(this.informationForm.value.baby_num);
+    if (nums > this.babyArray.controls.length) {
+      this.isBabyShow = true;
+    }
+    else {
+      this.isBabyShow = false;
+    }
   }
 
   isNum() {
@@ -233,14 +283,14 @@ export class AOFreetravelOrderComponent implements OnInit {
       this.orderGroupProduct.num_room = this.informationForm.value.num_room;
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
-    this.informationForm.value.humanList.forEach((element: any) => {
+    // 处理出生日期
+    this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
+    this.orderGroupProduct.members.forEach((element: any) => {
       if (element.birthday != null) {
         element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
       }
     });
-    this.orderGroupProduct.members = this.informationForm.value.humanList;
     this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
-    this.orderGroupProduct.baby_info = this.informationForm.value.baby_info;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
@@ -254,10 +304,10 @@ export class AOFreetravelOrderComponent implements OnInit {
   add() {
     this.setValue();
     // 校验出行人信息
-    console.log('this.addForm :>> 23', this.informationForm.value.num_adult, this.informationForm.value.num_kid, this.informationForm.value.humanList);
     let adult = this.orderGroupProduct.num_adult;
     let kid = this.orderGroupProduct.num_kid;
-    let allData = Number(adult) + Number(kid);
+    let baby = this.orderGroupProduct.baby_num;
+    let allData = Number(adult) + Number(kid) + Number(baby);
     if (this.orderGroupProduct.members.length != allData) {
       this.message.error("请补充出行人信息");
       this.isLoadingAdd = false;
@@ -265,16 +315,20 @@ export class AOFreetravelOrderComponent implements OnInit {
     else {
       let adultArr: any[] = [];
       let kidArr: any[] = [];
+      let babyArr: any[] = [];
       this.orderGroupProduct.members.forEach((ele: any, index: any) => {
         if (ele.is_kid === 0) {
           adultArr.push(ele.is_kid)
         }
-        else if (ele.is_kid === 1) {
+        if (ele.is_kid === 1) {
           kidArr.push(ele.is_kid)
+        }
+        else if(ele.is_kid === 2){
+          babyArr.push(ele.is_kid)
         }
       })
       console.log('123123123', adultArr, kidArr);
-      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)) {
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)||babyArr.length!=Number(baby)) {
         this.message.error("请正确填写出行人信息");
         this.isLoadingAdd = false;
       }
@@ -395,5 +449,41 @@ export class AOFreetravelOrderComponent implements OnInit {
     else {
       this.isChangeData[i] = true;
     }
+  }
+
+
+  changeBabyType(data: any, i: any) {
+    console.log('data :>> ', data, data === 1, data === '1');
+    if (data === 1) {
+      this.isChangeBabyData[i] = false;
+    }
+    else {
+      this.isChangeBabyData[i] = true;
+    }
+  }
+
+
+
+
+  // 上传证件照
+  choiceBabyImg(i: any) {
+    console.log("i是什么", i);
+    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+      width: '550px',
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log("result", res);
+      if (res !== undefined) {
+        this.newBabyArr[i].push(res.url);
+        this.babyArray.controls[i].patchValue({ 'id_photo': this.newBabyArr[i] });
+      }
+    });
+  }
+
+
+  deleteBabyImg(i: any, index: any) {
+    console.log('删除的是 :>> ', i, index);
+    this.newBabyArr[i].splice(index, 1)
+    this.babyArray.controls[i].patchValue({ 'id_photo': this.newBabyArr[i] });
   }
 }
