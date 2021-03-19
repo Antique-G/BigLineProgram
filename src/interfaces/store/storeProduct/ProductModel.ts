@@ -192,6 +192,11 @@ export interface DatumListModel {
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
+  reward_set?: any;
+  commerce_reward?: any;
+  third_reward?: any;
+  store_reward?: any;
+  dist_reward?: any;
 }
 
 
@@ -276,4 +281,15 @@ export interface Triparr {
   product_id: string;
   content: string;
   id: string;
+}
+
+// 佣金
+export interface SetRewardModel {
+  product_id: any;
+  reward_set: any;
+  day: any;
+  dist_reward: any;
+  store_reward: any;
+  third_reward: any;
+  commerce_reward: any;
 }

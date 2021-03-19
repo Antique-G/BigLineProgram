@@ -12,7 +12,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreFreeTravelModel, ProductTabListModel, FreeTravelListModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreUrls } from '../../../api';
-import { AddProductTrip, AssemblingPlaceListModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { AddProductTrip, AssemblingPlaceListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
@@ -117,4 +117,15 @@ export class StoreProductTreeTravelService {
   checkStatusFreeTravel(id: number, check_status: number): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostUpDownFreeTravelInfoSetCheck, { id, check_status }, httpOptions)
   }
+
+
+  
+  // 佣金
+  setReward(setRewardModel: SetRewardModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreFreeReward, setRewardModel, httpOptions)
+      .pipe(
+       
+      )
+  }
+
 }

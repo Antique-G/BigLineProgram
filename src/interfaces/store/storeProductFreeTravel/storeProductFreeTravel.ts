@@ -93,6 +93,12 @@ export interface Datum {
   departure: string;
   destination: string;
   check_log: LogModel[];
+  reward_set?: any;
+  third_reward?: any;
+  store_reward?: any;
+  dist_reward?: any;
+  commerce_reward?: any;
+
 }
 
 export interface LogModel {
