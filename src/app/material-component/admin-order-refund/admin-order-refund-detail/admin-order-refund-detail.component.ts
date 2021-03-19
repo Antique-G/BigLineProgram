@@ -50,4 +50,6 @@ export class AdminOrderRefundDetailComponent implements OnInit {
     this.selectedTabIndex = 2;
   }
 
+
+  add(){}
 }

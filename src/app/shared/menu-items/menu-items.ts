@@ -37,9 +37,9 @@ const MENUITEMS = [
       { state: 'orderList', name: '团订单列表' },
       { state: 'groupTravelOrder', name: '跟团游订单列表' },
       { state: 'freeTravelOrder', name: '自由行订单列表' },
-      // { state: 'refund', name: '订单退款处理' },
-      // { state: 'refundReview', name: '订单审核退款' },
-      // { state: 'refundTurnOver', name: '订单退款流水' },
+      { state: 'refund', name: '订单退款处理' },
+      { state: 'refundReview', name: '订单审核退款' },
+      { state: 'refundTurnOver', name: '订单退款流水' },
 
     ]
   },
