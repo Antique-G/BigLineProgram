@@ -208,6 +208,11 @@ export const StoreUrls = {
   GetStoreProSearch: api + '/store/product/search',  // 跟团游产品搜索
   PostStoreProductOrderGroup: api + '/store/order/group_product',  // 创建订单（跟团游）
 
+  PostStoreProductReward: api + '/store/product_reward',//佣金的编辑
+  PostStoreFreeReward: api + '/store/inden_product_reward',//佣金的编辑
+
+
+
   GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索
   PostStoreProductOrderGroupFree: api + '/store/order/independent_product',  //创建订单（自由行）
 

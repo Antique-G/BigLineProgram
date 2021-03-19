@@ -35,10 +35,11 @@ export class StoreProductManagementComponent implements OnInit {
 
   isEar: any;
   tagList: any[] = [];
+  setRewardModel: any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-    private modal: NzModalService,private nzContextMenuService: NzContextMenuService) {
+    private modal: NzModalService, private nzContextMenuService: NzContextMenuService) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
@@ -73,7 +74,7 @@ export class StoreProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status,this.tag).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -201,29 +202,38 @@ export class StoreProductManagementComponent implements OnInit {
     })
   }
 
+
+
   // 设置佣金
-  setCommission(obj:any){
-    console.log(obj,'设置佣金');
+  setCommission(obj: any) {
+    console.log(obj, '设置佣金');
     const addmodal = this.modal.create({
       nzTitle: '设置佣金',
       nzContent: SetCommissionComponent,
       nzComponentParams: {
-        data:{
-          id:obj.id,
-          title:obj.title
+        data: {
+          id: obj.id,
+          title: obj.title,
+          day: obj.few_days
         }
       },
       nzFooter: [
         {
           label: '添加',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
-           let flag = componentInstance?.Add()
-           if(flag){
-            let obj = componentInstance?.getValue()
-            console.log(obj,'obj');
-           }
-           console.log(flag,'Add123');
+            let flag = componentInstance?.Add()
+            if (flag) {
+              let obj = componentInstance?.getValue();
+              this.setRewardModel = obj;
+              this.storeProductService.setReward(this.setRewardModel).subscribe(res => {
+                console.log('res :>> ', res);
+               if(res===null){
+                setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+               }
+              })
+
+            }
           }
         }
       ]
