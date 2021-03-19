@@ -20,18 +20,16 @@ export class AdminRefundService {
 
 
   // 退款列表
-  // product_id: any, product_name: any, group_id: any, order_number: any,destination_city: any, date_start: any, date_end: any, group_code: any
-  getRefundList(page: number, per_page: number,): Observable<RefundModel> {
+  getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_id: any, date_start: any, date_end: any, id: any, status: any): Observable<RefundModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
-    // .set('product_id', product_id ? product_id : '')
-    // .set('product_name', product_name ? product_name : '')
-    // .set('group_id', group_id ? group_id : '')
-    // .set('order_number', order_number ? order_number : '')
-    // .set('destination_city', destination_city ? destination_city : '')
-    // .set('date_start', date_start ? date_start : '')
-    // .set('date_end', date_end ? date_end : '')
-    // .set('group_code', group_code ? group_code : '');
+      .set('order_id', order_id ? order_id : '')
+      .set('store_id', store_id ? store_id : '')
+      .set('product_id', product_id ? product_id : '')
+      .set('date_start', date_start ? date_start : '')
+      .set('date_end', date_end ? date_end : '')
+      .set('id', id ? id : '')
+      .set('status', status ? status : '');
 
 
     const findhttpOptions = {
@@ -46,13 +44,13 @@ export class AdminRefundService {
 
 
 
-    // 获取退款详情
-    getRefundDetail(id: any) {
-      return this.httpClient.get<RefundDetailModel>(this.urls.GetAdminRefundDetail + id, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
+  // 获取退款详情
+  getRefundDetail(id: any) {
+    return this.httpClient.get<RefundDetailModel>(this.urls.GetAdminRefundDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);

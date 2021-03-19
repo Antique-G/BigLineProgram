@@ -44,10 +44,10 @@ export class SetCommissionComponent implements OnInit {
       title: [this.data?.title],
       day: [this.data?.day],
       reward_set: [this.data?.day > 3 ? 1 : 0],
-      dist_reward: ['',],
-      store_reward: ['',],
-      third_reward: ['',],
-      commerce_reward: ['',]
+      dist_reward: [this.data?.day > 3 ? '' : 0,],
+      store_reward: [this.data?.day > 3 ? '' : 0,],
+      third_reward: [this.data?.day > 3 ? '' : 0,],
+      commerce_reward: [this.data?.day > 3 ? '' : 0,]
     });
   }
 
@@ -78,11 +78,20 @@ export class SetCommissionComponent implements OnInit {
     if (data === 1) {
       this.values = 1;
       this.valid();
+      this.disSet = false;
+
     }
     else if (data === 0) {
       this.values = 0;
-      this.valid();
-
+      this?.addForm?.controls['dist_reward'].setValidators(null);
+      this?.addForm?.controls['dist_reward'].updateValueAndValidity();
+      this?.addForm?.controls['store_reward'].setValidators(null);
+      this?.addForm?.controls['store_reward'].updateValueAndValidity();
+      this?.addForm?.controls['third_reward'].setValidators(null);
+      this?.addForm?.controls['third_reward'].updateValueAndValidity();
+      this?.addForm?.controls['commerce_reward'].setValidators(null);
+      this?.addForm?.controls['commerce_reward'].updateValueAndValidity();
+      this.disSet = true;
     }
   }
 
