@@ -56,7 +56,8 @@ export class UploadIdCardComponent implements OnInit {
     this.isLoadingBtn = true;
     console.log('this.imageList提交', this.imageList);
     if (this.imageList.length === 0) {
-      this.msg.error('请选择上传图片')
+      this.msg.error('请选择上传图片');
+      this.isLoadingBtn = false;
       return
     }
     this.imageList.forEach((item: any, index) => {
@@ -75,6 +76,8 @@ export class UploadIdCardComponent implements OnInit {
           this.dialogRef.close(res);
           this.isLoadingBtn = true;
         }
+      },error=>{
+        this.isLoadingBtn = false;
       })
     })
 
