@@ -47,6 +47,14 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        this.dataMember.forEach((element: any) => {
+          if (element.birthday === null) {
+            let year = element.id_num.slice(6, 10);
+            let month = element.id_num.slice(10, 12);
+            let date = element.id_num.slice(12, 14);
+            element.birthday = year + '-' + month + '-' + date;
+          }
+        });
       })
     });
   }

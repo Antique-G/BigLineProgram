@@ -67,6 +67,15 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
           value['tabs'] = '子团' + (index + 1);
           value?.order?.data.forEach((value: any, index: any) => {
             value['expand'] = false; //展开属性
+            console.log('222222222 :>> ', value);
+            value.member?.data.forEach((element: any) => {
+              if (element.birthday === null) {
+                let year = element.id_num.slice(6, 10);
+                let month = element.id_num.slice(10, 12);
+                let date = element.id_num.slice(12, 14);
+                element.birthday = year + '-' + month + '-' + date;
+              }
+            });
           });
           console.log("33435434", this.cursubGroupModelValue);
         })
@@ -101,6 +110,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
                   value['tabs'] = '子团' + (index + 1);
                   value?.order?.data.forEach((value: any, index: any) => {
                     value['expand'] = false; //展开属性
+                    value.member?.data.forEach((element: any) => {
+                      if (element.birthday === null) {
+                        let year = element.id_num.slice(6, 10);
+                        let month = element.id_num.slice(10, 12);
+                        let date = element.id_num.slice(12, 14);
+                        element.birthday = year + '-' + month + '-' + date;
+                      }
+                    });
                   });
                   console.log("33435434", this.cursubGroupModelValue);
                 })
@@ -162,6 +179,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
             value['tabs'] = '子团' + (index + 1);
             value?.order?.data.forEach((value: any, index: any) => {
               value['expand'] = false; //展开属性
+              value.member?.data.forEach((element: any) => {
+                if (element.birthday === null) {
+                  let year = element.id_num.slice(6, 10);
+                  let month = element.id_num.slice(10, 12);
+                  let date = element.id_num.slice(12, 14);
+                  element.birthday = year + '-' + month + '-' + date;
+                }
+              });
             });
             console.log("33435434", this.cursubGroupModelValue);
           })
@@ -207,6 +232,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
               value['tabs'] = '子团' + (index + 1);
               value?.order?.data.forEach((value: any, index: any) => {
                 value['expand'] = false; //展开属性
+                value.member?.data.forEach((element: any) => {
+                  if (element.birthday === null) {
+                    let year = element.id_num.slice(6, 10);
+                    let month = element.id_num.slice(10, 12);
+                    let date = element.id_num.slice(12, 14);
+                    element.birthday = year + '-' + month + '-' + date;
+                  }
+                });
               });
               console.log("33435434", this.cursubGroupModelValue);
             })
@@ -238,6 +271,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
             value['tabs'] = '子团' + (index + 1);
             value?.order?.data.forEach((value: any, index: any) => {
               value['expand'] = false; //展开属性
+              value.member?.data.forEach((element: any) => {
+                if (element.birthday === null) {
+                  let year = element.id_num.slice(6, 10);
+                  let month = element.id_num.slice(10, 12);
+                  let date = element.id_num.slice(12, 14);
+                  element.birthday = year + '-' + month + '-' + date;
+                }
+              });
             });
             console.log("33435434", this.cursubGroupModelValue);
           })

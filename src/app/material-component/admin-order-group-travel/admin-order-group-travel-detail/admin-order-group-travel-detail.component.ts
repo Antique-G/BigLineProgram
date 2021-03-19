@@ -25,7 +25,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public adminOrderGroupTravelService: AdminOrderGroupTravelService,private modal: NzModalService) {
+    public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
@@ -39,7 +39,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
     });
-  
+
   }
 
   ngOnInit(): void {
@@ -51,14 +51,22 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        this.dataMember.forEach((element: any) => {
+          if (element.birthday === null) {
+            let year = element.id_num.slice(6, 10);
+            let month = element.id_num.slice(10, 12);
+            let date = element.id_num.slice(12, 14);
+            element.birthday = year + '-' + month + '-' + date;
+          }
+        });
         if (this.detailModel?.assembling_time === '00:00:00') {
           this.isAssemblinTime = '待定';
         }
         else {
-          let i='2021-01-01'+' '+ this.detailModel?.assembling_time;
-          let newDate= new Date(i);
-          console.log('object :>> ', newDate,i);
-          this.isAssemblinTime =format(new Date(newDate), 'HH:mm');
+          let i = '2021-01-01' + ' ' + this.detailModel?.assembling_time;
+          let newDate = new Date(i);
+          console.log('object :>> ', newDate, i);
+          this.isAssemblinTime = format(new Date(newDate), 'HH:mm');
         }
       })
     });
@@ -93,6 +101,14 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           console.log("结果是", res);
           this.detailModel = res.data;
           this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
           this.isSpinning = false;
 
         })
