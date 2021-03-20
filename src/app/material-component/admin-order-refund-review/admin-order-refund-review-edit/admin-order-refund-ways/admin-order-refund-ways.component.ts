@@ -103,6 +103,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
       nzOnOk: () =>
         this.adminRefundService.postRefundFinished(this.refundFinished).subscribe(res => {
           console.log('res ', res);
+          this.dialogRef.close(1);
         })
     });
   }

@@ -66,7 +66,7 @@ export const AdminUrls = {
   PostAdminUserCommissionAudit: api + '/admin/dist/check',   //佣金通过/拒绝审核
   PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   //佣金通过/拒绝审核
   GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
-  
+
 
 
 
@@ -144,6 +144,9 @@ export const AdminUrls = {
   PostAdminRefund: api + '/admin/refund', //创建退款单
   GetAdminRefundPayLog: api + '/admin/refund/pay_log', //支付流水
   PostAdminRefundFinish: api + '/admin/refund_finish', //提交退款流水去向（完成退款）
+  GetAdminRefundLog: api + '/admin/refund_log', //退款流水列表
+  PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
+
 
 
   GetAdminRefundDetail: api + '/admin/refund/',  //退款详情

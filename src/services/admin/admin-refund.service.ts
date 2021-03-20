@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CreateReundModel, RefundDetailModel, RefundFinished, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
+import { CreateReundModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 import { AdminUrls } from '../../api';
 
 
@@ -91,6 +91,36 @@ export class AdminRefundService {
       )
   }
 
+
+  //  退款流水列表
+  getRefundLog(page: number, per_page: number, order_id: any, store_id: any, refund_id: any, transaction_id: any, status: any, date_start: any, date_end: any): Observable<RefundListModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('order_id', order_id ? order_id : '')
+      .set('store_id', store_id ? store_id : '')
+      .set('refund_id', refund_id ? refund_id : '')
+      .set('transaction_id', transaction_id ? transaction_id : '')
+      .set('status', status ? status : '')
+      .set('date_start', date_start ? date_start : '')
+      .set('date_end', date_end ? date_end : '');
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<RefundListModel>(this.urls.GetAdminRefundLog, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  //重新获取退款结果
+  postReRefund(id: any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminReRefund, { id }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);
