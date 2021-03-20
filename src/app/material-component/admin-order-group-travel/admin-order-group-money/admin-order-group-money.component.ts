@@ -79,9 +79,14 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     console.log('1312312 ', data, data === 2,);
     if (data === '3') {
       this.isShow = false;
+      this?.addForm?.controls['transaction_id'].setValidators(null);
+      this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+
     }
     else {
       this.isShow = true;
+      this?.addForm?.controls['transaction_id'].setValidators(Validators.required);
+      this?.addForm?.controls['transaction_id'].updateValueAndValidity();
     }
   }
 }
