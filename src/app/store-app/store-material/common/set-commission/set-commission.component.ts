@@ -32,10 +32,10 @@ export class SetCommissionComponent implements OnInit {
   ngOnInit() {
     this.formInit();
     if (this.data?.day > 3) {
-      this.disSet = false;
+      this.disSet = true;
     }
     else {
-      this.disSet = true;
+      this.disSet = false;
     }
   }
 
@@ -78,8 +78,6 @@ export class SetCommissionComponent implements OnInit {
     if (data === 1) {
       this.values = 1;
       this.valid();
-      this.disSet = false;
-
     }
     else if (data === 0) {
       this.values = 0;
@@ -91,7 +89,7 @@ export class SetCommissionComponent implements OnInit {
       this?.addForm?.controls['third_reward'].updateValueAndValidity();
       this?.addForm?.controls['commerce_reward'].setValidators(null);
       this?.addForm?.controls['commerce_reward'].updateValueAndValidity();
-      this.disSet = true;
+    
     }
   }
 
