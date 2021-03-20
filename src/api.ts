@@ -322,6 +322,7 @@ export const StoreUrls = {
 
   GetStoreRefund: api + '/store/refund',  //退款列表
   GetStoreRefundDetail: api + '/store/refund/',  //退款详情
+  GetStoreRefundLog: api + '/store/refund_log', //退款流水列表
 
 
 
