@@ -155,7 +155,7 @@ export class StoreFreeInfoComponent implements OnInit {
       reserve_ahead: new FormControl(1, [Validators.required]),
       // reserve_num: new FormControl('0', [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
-      children_age: new FormControl(''),
+      children_age: new FormControl('14'),
       child_height_min: new FormControl(''),
       child_height_max: new FormControl(''),
     });
