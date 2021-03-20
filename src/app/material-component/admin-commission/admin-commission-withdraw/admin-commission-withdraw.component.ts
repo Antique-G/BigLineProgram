@@ -46,6 +46,7 @@ export class AdminCommissionWithdrawComponent implements OnInit {
     this.per_page = per_page;
     this.getDataList();
   }
+  
   search(){
     console.log("value",this.searchForm.value)
     this.user_id = this.searchForm.value.user_id;
