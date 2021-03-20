@@ -168,7 +168,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
   }
 
   edit(data: any) {
-    this.router.navigate(['/admin/main/refundReview/detail'], { queryParams: { detailId: data.id } });
+    this.router.navigate(['/admin/main/refundReview/detail'], { queryParams: { detailId: data.id, isFinished: 2 } });
   }
 
 }
