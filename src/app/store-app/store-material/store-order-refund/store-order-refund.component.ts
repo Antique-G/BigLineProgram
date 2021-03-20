@@ -10,43 +10,44 @@ import { StoreRefundService } from '../../../../services/store/store-order/store
   styleUrls: ['./store-order-refund.component.css']
 })
 export class StoreOrderRefundComponent implements OnInit {
-  searchForm!: FormGroup;
-  dataSource: any;
+
+  dataSource1: any;
   page = 1;
-  per_page = 20;
+  per_page = 10;
   total = 1;
   loading = true;
+  dateArray1: any[] = [];
+  searchForm1: FormGroup;
+  order_id: any;
   product_id: any;
-  product_name: any;
-  group_id: any;
-  order_number: any;
-  destination_city: any;
   date_start: any;
   date_end: any;
-  group_code: any;
-
-  dateArray: any;
-  dateArray1: any;
+  id: any;
+  status: any;
 
 
 
   constructor(public fb: FormBuilder, public router: Router, public storeRefundService: StoreRefundService) {
-    this.searchForm = fb.group({
-      product_name: [''],
-      order_number: [''],
-      status: [''],
+    this.searchForm1 = fb.group({
+      product_id: [''],
+      store_id: [''],
+      order_id: [''],
+      time: [''],
+      refund_id: [''],
+      id: [''],
     });
   }
 
   ngOnInit(): void {
+
     this.getRefundlist()
   }
 
   getRefundlist() {
     this.loading = true;
-    this.storeRefundService.getRefundList(this.page, this.per_page).subscribe(res => {
+    this.storeRefundService.getRefundList(this.page, this.per_page, this.order_id, this.product_id, this.date_start, this.date_end, this.id).subscribe(res => {
       this.loading = false;
-      this.dataSource = res?.data;
+      this.dataSource1 = res?.data;
       this.total = res.meta?.pagination?.total;
     })
   }
@@ -65,25 +66,18 @@ export class StoreOrderRefundComponent implements OnInit {
   }
 
 
-  search() {
+  search1() {
+    this.order_id = this.searchForm1.value.order_id;
+    this.product_id = this.searchForm1.value.product_id;
+    this.date_start = this.dateArray1[0];
+    this.date_end = this.dateArray1[1];
+    this.id = this.searchForm1.value.id;
     this.getRefundlist();
   }
 
 
 
-
   onChangeDate(event: any) {
-    this.dateArray = [];
-    const datePipe = new DatePipe('en-US');
-    console.log('object :>> ', event);
-    const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
-    this.dateArray.push(myFormattedDate);
-    const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
-    this.dateArray.push(myFormattedDate1);
-    console.log("event", this.dateArray);
-  }
-
-  onChangeDate1(event: any) {
     this.dateArray1 = [];
     const datePipe = new DatePipe('en-US');
     console.log('object :>> ', event);
@@ -91,12 +85,12 @@ export class StoreOrderRefundComponent implements OnInit {
     this.dateArray1.push(myFormattedDate);
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
     this.dateArray1.push(myFormattedDate1);
-    console.log("event", this.dateArray1);
   }
 
-  
+
+
   edit(data: any) {
-    this.router.navigate(['/store/main/storeRefund/detail'], { queryParams: { detailId: data.id } });
+    this.router.navigate(['/store/main/storeRefund/detail'], { queryParams: { detailId: data.id, isFinished: data.status } });
   }
 
 }

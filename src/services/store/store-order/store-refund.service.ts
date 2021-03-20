@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { RefundDetailModel, RefundModel } from '../../../interfaces/store/storeRefund/storerefund';
+import { RefundDetailModel, RefundListModel, RefundModel } from '../../../interfaces/store/storeRefund/storerefund';
 import { StoreUrls } from '../../../api';
 
 const httpOptions = {
@@ -18,18 +18,15 @@ export class StoreRefundService {
   constructor(public httpClient: HttpClient) { }
 
   // 退款列表
-  // product_id: any, product_name: any, group_id: any, order_number: any,destination_city: any, date_start: any, date_end: any, group_code: any
-  getRefundList(page: number, per_page: number,): Observable<RefundModel> {
+  getRefundList(page: number, per_page: number, order_id: any,  product_id: any, date_start: any, date_end: any, id: any): Observable<RefundModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
-    // .set('product_id', product_id ? product_id : '')
-    // .set('product_name', product_name ? product_name : '')
-    // .set('group_id', group_id ? group_id : '')
-    // .set('order_number', order_number ? order_number : '')
-    // .set('destination_city', destination_city ? destination_city : '')
-    // .set('date_start', date_start ? date_start : '')
-    // .set('date_end', date_end ? date_end : '')
-    // .set('group_code', group_code ? group_code : '');
+      .set('order_id', order_id ? order_id : '')
+      .set('product_id', product_id ? product_id : '')
+      .set('date_start', date_start ? date_start : '')
+      .set('date_end', date_end ? date_end : '')
+      .set('id', id ? id : '')
+      // .set('status', status ? status : '');
 
 
     const findhttpOptions = {
@@ -50,6 +47,29 @@ export class StoreRefundService {
         catchError(this.handleError)
       )
   }
+
+
+
+    //  退款流水列表
+    getRefundLog(page: number, per_page: number, order_id: any, refund_id: any, transaction_id: any, date_start: any, date_end: any): Observable<RefundListModel> {
+      const params = new HttpParams().set('page', page.toString())
+        .set('per_page', per_page.toString())
+        .set('order_id', order_id ? order_id : '')
+      
+        .set('refund_id', refund_id ? refund_id : '')
+        .set('transaction_id', transaction_id ? transaction_id : '')
+       
+        .set('date_start', date_start ? date_start : '')
+        .set('date_end', date_end ? date_end : '');
+      const findhttpOptions = {
+        headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+        params: params
+      };
+      return this.httpClient.get<RefundListModel>(this.urls.GetStoreRefundLog, findhttpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
 
 

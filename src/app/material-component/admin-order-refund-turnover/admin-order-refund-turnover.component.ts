@@ -56,6 +56,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
     this.adminRefundService.getRefundLog(this.page, this.per_page, this.order_id, this.store_id, this.refund_id, this.transaction_id, this.status, this.date_start, this.date_end).subscribe(res => {
       this.dataSource = res.data;
       this.total = res.meta.pagination.total;
+      this.loading = false;
     })
   }
 

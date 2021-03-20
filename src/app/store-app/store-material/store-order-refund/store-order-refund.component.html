@@ -4,133 +4,96 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
-                    <form [formGroup]="searchForm" nz-row nz-form>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_number">订单编号</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="order_number" placeholder="请输入订单编号" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_number">申请退款时间</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="product_name"></nz-range-picker>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
+                    <div class="example-container" style="margin-bottom: 50px;">
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
 
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_number">退款时间</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate1($event)" formControlName="product_name"></nz-range-picker>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">退款类型</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status">
-                                        <nz-option [nzLabel]="'全部退款'" [nzValue]="0"></nz-option>
-                                        <nz-option [nzLabel]="'部分退款'" [nzValue]="1"></nz-option>
-                                    </nz-select>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">退款单号</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="product_name" placeholder="请输入退款单号" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">退款状态</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status">
-                                        <nz-option [nzLabel]="'已取消'" [nzValue]="0"></nz-option>
-                                        <nz-option [nzLabel]="'待审核'" [nzValue]="1"></nz-option>
-                                        <nz-option [nzLabel]="'审核成功待退款'" [nzValue]="2"></nz-option>
-                                        <nz-option [nzLabel]="'已完成退款'" [nzValue]="3"></nz-option>
-                                    </nz-select>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
-
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
-                            </div>
-                        </nz-form-item>
-
-
-                    </form>
-
-
-
-
-                    <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
-                            (nzPageSizeChange)="changePageSize($event)">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">退款编号</th>
-                                    <th style="text-align: center;width: 15%;">订单编号</th>
-                                    <th style="text-align: center;">退款方案</th>
-                                    <th style="text-align: center;">申请时间</th>
-                                    <th style="text-align: center;">退款状态</th>
-                                    <th style="text-align: center;">退款金额</th>
-                                    <th style="text-align: center;">退款时间</th>
-                                    <th style="text-align: center;">查看详情</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.id}}</td>
-                                    <td>{{data.order_id}}</td>
-                                    <td>
-                                        <div *ngIf="data.type===0">全部退款</div>
-                                        <div *ngIf="data.type===1">部分退款</div>
-                                    </td>
-                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td>
-                                        <div *ngIf="data.status===0">已取消</div>
-                                        <div *ngIf="data.status===1">待审核</div>
-                                        <div *ngIf="data.status===2">审核成功待退款</div>
-                                        <div *ngIf="data.status===3">已完成退款</div>
-                                    </td>
-                                    <td>{{data.refund_amount}}</td>
-                                    <td>
-                                        <div fxLayout="column" fxLayoutAlign="center center">
-
+                            <div style="margin-top: 10px;">
+                                <form [formGroup]="searchForm1" nz-row nz-form>
+                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                            <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                            </nz-form-control>
                                         </div>
-                                    </td>
+                                    </nz-form-item>
 
-                                    <td>
-                                        <div style="cursor: pointer;">
-
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
-
+                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">产品编码</nz-form-label>
+                                            <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                <input nz-input formControlName="product_id" placeholder="请输入编码" />
+                                            </nz-form-control>
                                         </div>
-                                    </td>
+                                    </nz-form-item>
 
-                                </tr>
-                            </tbody>
-                        </nz-table>
+                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="time">申请时间</nz-form-label>
+                                            <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="time"></nz-range-picker>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="id">退款编号</nz-form-label>
+                                            <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                <input nz-input formControlName="id" placeholder="请输入退款编号" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
 
+                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <div nz-row>
+                                            <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search1()">搜索</button>
+                                        </div>
+                                    </nz-form-item>
+
+                                </form>
+                            </div>
+
+                            <div class="mat-elevation-z8">
+                                <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                                    (nzPageSizeChange)="changePageSize($event)">
+                                    <thead>
+                                        <tr>
+
+                                            <th style="text-align: center;">退款编号</th>
+                                            <th style="text-align: center;">订单编号</th>
+                                            <th style="text-align: center;width:20%">产品编码</th>
+                                            <th style="text-align: center;">退款原因</th>
+                                            <th style="text-align: center;">退款方案</th>
+                                            <th style="text-align: center;">退款状态</th>
+                                            <th style="text-align: center;">申请时间</th>
+                                            <th style="text-align: center;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of rowSelectionTable1.data">
+                                            <td>{{data.id}}</td>
+                                            <td>{{data.order_id}}</td>
+                                            <td>{{data.product_id}}</td>
+                                            <td>{{data.refund_reason}}</td>
+                                            <td>{{data.type=='0'?'全额退款':'部分退款'}}</td>
+                                            <td>
+                                                <span *ngIf="data.status===0">已取消</span>
+                                                <span *ngIf="data.status===1">待审核</span>
+                                                <span *ngIf="data.status===2">待退款</span>
+                                                <span *ngIf="data.status===3">已退款</span>
+                                            </td>
+                                            <td>{{data?.check_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>
+                                                <div style="cursor: pointer;">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="查看详情" (click)="edit(data)">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
