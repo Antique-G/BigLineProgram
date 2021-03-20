@@ -62,7 +62,11 @@ export const AdminUrls = {
 
 
 
-
+  GetAdminUserCommissionList: api + '/admin/dist_record',  //用户分销的佣金列表
+  PostAdminUserCommissionAudit: api + '/admin/dist/check',   //佣金通过/拒绝审核
+  PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   //佣金通过/拒绝审核
+  GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
+  
 
 
 
