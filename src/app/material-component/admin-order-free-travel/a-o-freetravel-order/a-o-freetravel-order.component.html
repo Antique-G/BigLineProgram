@@ -286,12 +286,12 @@
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
                                                             <div *ngIf="newImgArr[i]?.length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                                                <div *ngFor="let img of newImgArr[i],let index=index">
-                                                                    <img src={{img}} style="width: 50px;height: 50px;">
-                                                                    <span (click)="deleteImg(i,index)" style="position: relative;top: -17px;left: -11px;color: red;font-weight: bolder; cursor: pointer;">X</span>
+                                                                <div *ngFor="let img of newImgArr[i],let index=index" style="position: relative;">
+                                                                    <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
+                                                                    <span (click)="deleteImg(i,index)" style="position: absolute;left: 39px;top: -2px;color: red;color: red;font-weight: bolder; cursor: pointer;">X</span>
                                                                 </div>
                                                             </div>
-                                                            <button nz-button nzType="primary" (click)="choiceImg(i)">选择图片(只能上传两张)</button>
+                                                            <button nz-button [disabled]="newImgArr[i]?.length > 1" nzType="primary" (click)="choiceImg(i)">选择图片(只能上传两张)</button>
                                                         </div>
                                                     </nz-form-item>
 
@@ -375,12 +375,12 @@
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
                                                             <div *ngIf="newBabyArr[t].length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                                                <div *ngFor="let img of newBabyArr[t],let index=index">
-                                                                    <img src={{img}} style="width: 50px;height: 50px;">
-                                                                    <span (click)="deleteBabyImg(t,index)" style="position: relative;top: -17px;left: -11px;color: red;font-weight: bolder; cursor: pointer;">X</span>
+                                                                <div *ngFor="let img of newBabyArr[t],let index=index" style="position: relative;">
+                                                                    <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
+                                                                    <span (click)="deleteBabyImg(t,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
                                                                 </div>
                                                             </div>
-                                                            <button nz-button nzType="primary" (click)="choiceBabyImg(t)">选择图片(只能上传两张)</button>
+                                                            <button nz-button [disabled]="babyArray[t]?.length > 1" nzType="primary" (click)="choiceBabyImg(t)">选择图片(只能上传两张)</button>
                                                         </div>
                                                     </nz-form-item>
 

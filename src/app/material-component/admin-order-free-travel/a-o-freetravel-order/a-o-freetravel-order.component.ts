@@ -79,6 +79,7 @@ export class AOFreetravelOrderComponent implements OnInit {
 
 
 
+
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,) {
     this.searchForm = this.fb.group({
@@ -323,12 +324,12 @@ export class AOFreetravelOrderComponent implements OnInit {
         if (ele.is_kid === 1) {
           kidArr.push(ele.is_kid)
         }
-        else if(ele.is_kid === 2){
+        else if (ele.is_kid === 2) {
           babyArr.push(ele.is_kid)
         }
       })
       console.log('123123123', adultArr, kidArr);
-      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)||babyArr.length!=Number(baby)) {
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
         this.message.error("请正确填写出行人信息");
         this.isLoadingAdd = false;
       }
