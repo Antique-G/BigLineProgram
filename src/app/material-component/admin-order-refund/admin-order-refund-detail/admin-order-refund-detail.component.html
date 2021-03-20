@@ -246,7 +246,7 @@
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">客人备注</nz-form-label>
                                                             <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                <input nz-input formControlName="customer_remarks" nzBorderless [ngModel]="this.detailModel.order?.data?.customer_remarks" />
+                                                                <input nz-input formControlName="customer_remarks" nzBorderless [ngModel]="detailModel?.order?.data?.customer_remarks" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
@@ -488,7 +488,7 @@
                                                             <div nz-row>
                                                                 <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
                                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                    <input nz-input formControlName="remarks" [ngModel]="basicRefund" />
+                                                                    <input nz-input formControlName="remarks" />
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>

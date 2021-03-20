@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CreateReundModel, RefundDetailModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
+import { CreateReundModel, RefundDetailModel, RefundFinished, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 import { AdminUrls } from '../../api';
 
 
@@ -71,7 +71,21 @@ export class AdminRefundService {
 
   // 支付流水信息
   getPayLog(order_id: any): Observable<RefundPayLog> {
-    return this.httpClient.get<RefundPayLog>(this.urls.GetAdminRefundPayLog + order_id, httpOptions)
+    const params = new HttpParams().set('order_id', order_id ? order_id : '');
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<RefundPayLog>(this.urls.GetAdminRefundPayLog, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 提交退款流水去向（完成退款）
+  postRefundFinished(refundFinished: RefundFinished): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminRefundFinish, refundFinished, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

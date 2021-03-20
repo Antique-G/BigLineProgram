@@ -163,3 +163,21 @@ export interface RefundPayLogList {
   refund_fee: number;
   refund_limit: string;
 }
+
+
+// 完成
+
+export interface RefundFinished {
+  refund_id: any;
+  refund_log: any[];
+}
+
+export interface RefundlogModel {
+  pay_type: any;
+  refund_amount: any;
+  payment_id?: any;
+  pay_at?: string;
+  bank_address?: string;
+  bank_user?: string;
+  bank_number?: string;
+}
