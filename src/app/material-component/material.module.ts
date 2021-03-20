@@ -105,6 +105,7 @@ import { UserCommissionListComponent } from './admin-commission/user-commission-
 import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
 import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
+import { AdminOrderRefundWaysComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-ways.component';
 
 
 @NgModule({
@@ -228,6 +229,7 @@ import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review
     AdminCommissionWithdrawComponent,
     AdminOrderRefundReviewDetailComponent,
     AdminOrderRefundReviewEditComponent,
+    AdminOrderRefundWaysComponent,
   ]
 })
 export class MaterialComponentsModule {}
