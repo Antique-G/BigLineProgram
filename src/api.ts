@@ -136,6 +136,12 @@ export const AdminUrls = {
 
 
   GetAdminRefund: api + '/admin/refund',  //退款列表
+  PostAdminRefundCheck: api + '/admin/refund_check', // 审核提交
+  PostAdminRefund: api + '/admin/refund', //创建退款单
+  GetAdminRefundPayLog: api + '/admin/refund/pay_log', //支付流水
+  PostAdminRefundFinish: api + '/admin/refund_finish', //提交退款流水去向（完成退款）
+
+
   GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
 
 
