@@ -120,3 +120,46 @@ interface MemberModel {
   assembling_place: string;
   assembling_time?: any;
 }
+
+
+
+// 创建退款单
+export interface CreateReundModel {
+  id: number;
+  type: number;
+  reason: string;
+}
+
+
+
+// 审核提交
+export interface ReundCheckModel {
+  id: any;
+  refund_amount: any;
+  amount_add: any;
+  amount_cut: any;
+  members: any;
+  remark: string;
+}
+
+// 支付流水
+export interface RefundPayLog {
+  data: RefundPayLogList[];
+}
+
+export interface RefundPayLogList {
+  id: number;
+  order_id: number;
+  user_id: number;
+  status: number;
+  fee: number;
+  pay_status: number;
+  transaction_id: string;
+  pay_type: number;
+  created_at: string;
+  updated_at: string;
+  pay_time?: any;
+  proof_url: string;
+  refund_fee: number;
+  refund_limit: string;
+}
