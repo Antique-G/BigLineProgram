@@ -1,1 +1,72 @@
-<p>admin-commission-withdraw works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>状态</mat-label>
+                                    <input matInput value="" formControlName="status" placeholder="请输入关键字">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>用户id</mat-label>
+                                    <input matInput value="" formControlName="user_id" placeholder="请输入关键字">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=20>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="mat-elevation-z8 ListBox">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th>提现金额</th>
+                                    <th>状态</th>
+                                    <th>申请时间</th>
+                                    <th>昵称</th>
+                                    <th>真实姓名</th>
+                                    <th>性别</th>
+                                    <th>头像</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.money}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===1">
+                                            审核中
+                                        </div>
+                                        <div *ngIf="data.status===2">
+                                            通过 
+                                        </div>
+                                        <div *ngIf="data.status===3">
+                                            拒绝
+                                        </div>
+                                    </td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.user.name}}</td>
+                                    <td>{{data.user.real_name}}</td>
+                                    <td>{{data.user.gender}}</td>
+                                    <td>
+                                        <img [src]="data.user.avatar_url" alt="" style="width: 50px;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

@@ -78,6 +78,7 @@ import { AdminWechatPageblockProlistComponent } from './admin-wechat-pageconfig/
 import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
 import { AdminOrderDetailSubgroupComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-detail-subgroup.component';
 import { AdminUserinfoDetailComponent } from './admin-userinfo/admin-userinfo-detail/admin-userinfo-detail.component';
+
 import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin-order-group-travel.component';
 import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
@@ -106,6 +107,7 @@ import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commi
 import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
 import { AdminOrderRefundWaysComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-ways.component';
+import { UserCommissionAuditComponent } from './admin-commission/user-commission-list/user-commission-audit/user-commission-audit.component';
 
 
 @NgModule({
@@ -230,6 +232,7 @@ import { AdminOrderRefundWaysComponent } from './admin-order-refund-review/admin
     AdminOrderRefundReviewDetailComponent,
     AdminOrderRefundReviewEditComponent,
     AdminOrderRefundWaysComponent,
+    UserCommissionAuditComponent,
   ]
 })
 export class MaterialComponentsModule {}
