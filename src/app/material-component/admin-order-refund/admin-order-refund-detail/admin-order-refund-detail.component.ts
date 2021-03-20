@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
-import { ReundCheckModel } from 'src/interfaces/store/storeRefund/storerefund';
+import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
 
 @Component({
   selector: 'app-admin-order-refund-detail',
