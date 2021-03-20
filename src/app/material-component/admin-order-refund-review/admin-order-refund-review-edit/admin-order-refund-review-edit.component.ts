@@ -116,17 +116,17 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
           this.percentage = 1;
           this.percent = 100;
         }
-        if (6 <= this.advance && this.advance <= 7) {
+        else  if (6 <= this.advance && this.advance <= 7) {
           this.isStandard = 1;
           this.percentage = 0.8;
           this.percent = 80;
         }
-        if (4 <= this.advance && this.advance <= 5) {
+        else  if (4 <= this.advance && this.advance <= 5) {
           this.isStandard = 2;
           this.percentage = 0.7;
           this.percent = 70;
         }
-        if (1 <= this.advance && this.advance <= 3) {
+        else if (1 <= this.advance && this.advance <= 3) {
           this.isStandard = 3;
           this.percentage = 0.5;
           this.percent = 50;
@@ -189,7 +189,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-       
+        this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
       }
 
     });

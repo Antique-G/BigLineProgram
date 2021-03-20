@@ -434,7 +434,7 @@
                                                             <div nz-row>
                                                                 <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="standard" style="font-weight: bold;">选择适合退款标准</nz-form-label>
                                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                    <nz-select formControlName="standard" (ngModelChange)="select($event)" [(ngModel)]="isStandard" nzDisabled>
+                                                                    <nz-select formControlName="standard" [(ngModel)]="isStandard" nzDisabled>
                                                                         <nz-option [nzLabel]="'出发前7日以上'"  [nzValue]="0"></nz-option>
                                                                             <nz-option [nzLabel]="'出发前7日以内，按旅游费用总额80%'"  [nzValue]="1"></nz-option>
                                                                                 <nz-option [nzLabel]="'出发前5日以内，按旅游费用总额70%'"  [nzValue]="2"></nz-option>
@@ -472,7 +472,7 @@
                                                             <div nz-row>
                                                                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add" nzRequired>额外退款金额</nz-form-label>
                                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                    <nz-input-number style="width: 100%;" formControlName="amount_add" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                                    <nz-input-number style="width: 100%;" (ngModelChange)="numTest($event)" formControlName="amount_add" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>
@@ -480,7 +480,7 @@
                                                             <div nz-row>
                                                                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut" nzRequired>其他扣除费用</nz-form-label>
                                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                    <nz-input-number style="width: 100%;" formControlName="amount_cut" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                                    <nz-input-number style="width: 100%;" (ngModelChange)="numTest1($event)" formControlName="amount_cut" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>

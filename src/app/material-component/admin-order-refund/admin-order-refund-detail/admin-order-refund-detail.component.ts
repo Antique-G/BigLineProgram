@@ -117,23 +117,23 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
-        console.log('date1 ', date1, date2, this.advance);
+        console.log('312312312312312', date1, date2, this.advance, 4 <= this.advance && this.advance <= 5);
         if (this.advance > 7) {
           this.isStandard = 0;
           this.percentage = 1;
           this.percent = 100;
         }
-        if (6 <= this.advance && this.advance <= 7) {
+        else if (6 <= this.advance && this.advance <= 7) {
           this.isStandard = 1;
           this.percentage = 0.8;
           this.percent = 80;
         }
-        if (4 <= this.advance && this.advance <= 5) {
+        else if (4 <= this.advance && this.advance <= 5) {
           this.isStandard = 2;
           this.percentage = 0.7;
           this.percent = 70;
         }
-        if (1 <= this.advance && this.advance <= 3) {
+        else if (1 <= this.advance && this.advance <= 3) {
           this.isStandard = 3;
           this.percentage = 0.5;
           this.percent = 50;
@@ -217,13 +217,21 @@ export class AdminOrderRefundDetailComponent implements OnInit {
     }
     this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
     this.bascie_money = (adultNum.length * this.detailModel.order?.data?.price_adult + kidNum.length * this.detailModel.order?.data?.price_kid) * this.percentage
+    console.log('bascie_money :>> ', this.bascie_money, adultNum.length * this.detailModel.order?.data?.price_adult, kidNum.length * this.detailModel.order?.data?.price_kid, this.percentage);
     this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
   }
 
 
-  select(event: any) {
+  numTest(data: any) {
+    console.log('1111111111', data, this.addForm.value.amount_add);
+    this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
+  }
+
+  numTest1(data: any) {
+    console.log('2222222', data)
+    this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
   }
 
 
@@ -245,12 +253,12 @@ export class AdminOrderRefundDetailComponent implements OnInit {
       nzTitle: '<h4>确认提交退款</h4>',
       nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
       nzOnOk: () =>
-      this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-        console.log('res :>> ', res);
-        if(res===null){
-          this.router.navigate(['/admin/main/refund']);
-        }
-      })
+        this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+          console.log('res :>> ', res);
+          if (res === null) {
+            this.router.navigate(['/admin/main/refund']);
+          }
+        })
     });
   }
 

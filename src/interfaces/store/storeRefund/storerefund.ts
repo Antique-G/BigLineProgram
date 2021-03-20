@@ -181,3 +181,47 @@ export interface RefundlogModel {
   bank_user?: string;
   bank_number?: string;
 }
+
+
+// 流水
+export interface RefundListModel {
+  data: DatumRefundListModel[];
+  meta: MetaRefundListModel;
+}
+
+interface MetaRefundListModel {
+  pagination: Pagination;
+}
+
+interface Pagination {
+  total: number;
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+  links: Links;
+}
+
+interface Links {
+}
+
+interface DatumRefundListModel {
+  id: number;
+  order_id: number;
+  payment_id: number;
+  refund_id: number;
+  handler_id: number;
+  payment_amount: number;
+  refund_amount: number;
+  status: number;
+  pay_type: number;
+  transaction_id?: any;
+  created_at: string;
+  updated_at: string;
+  store_id: number;
+  pay_at?: any;
+  bank_address: string;
+  bank_user: string;
+  bank_number: string;
+  store_name: string;
+}
