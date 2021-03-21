@@ -1,9 +1,10 @@
+import { format } from 'date-fns';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { DataOrderDetail, OrderSmsModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
+import { DataOrderDetail, EditMemberModel, OrderSmsModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderService } from '../../../../../services/admin/admin-order.service';
 import { AODSubgroupMoveorderComponent } from './a-o-d-subgroup-moveorder/a-o-d-subgroup-moveorder.component';
 import { AODSubgroupSendsmsComponent } from './a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
@@ -32,6 +33,8 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   isClosed: any;
   tabTitle: any;
   proCode: any;
+  editMemberModel: EditMemberModel;
+  editMemberModel1: EditMemberModel;
 
 
 
@@ -42,6 +45,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     this.orderSmsModel = {
       order_ids: []
     };
+    this.editMemberModel = {
+      id: '',
+      assembling_place: '',
+    }
+    this.editMemberModel1 = {
+      id: '',
+      assembling_time: ''
+    }
   }
 
   ngOnInit(): void { }
@@ -363,7 +374,84 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   }
 
 
-  changeConfirm(dataChild:any){
-console.log('object :>> ', dataChild);
+  changeConfirm(dataChild: any) {
+    console.log('object :>> ', dataChild);
+    this.editMemberModel.id = dataChild?.id;
+    this.editMemberModel.assembling_place = dataChild?.assembling_place;
+    this.modal.confirm({
+      nzTitle: "<h4>提示</h4>",
+      nzContent: "<h6>是否修改集合地点</h6>",
+      nzOnOk: () =>
+        this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+          this.activatedRoute.queryParams.subscribe(params => {
+            console.log("params", params)
+            this.detailId = JSON.parse(params["detailId"]);
+            // 详情
+            this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+              this.setOfCheckedId.clear();
+              console.log("结果是", res.data);
+              this.detailModel = res.data;
+              this.cursubGroupModelValue = this.detailModel.sub_group.data;
+              this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                value['tabs'] = '子团' + (index + 1);
+                value?.order?.data.forEach((value: any, index: any) => {
+                  value['expand'] = false; //展开属性
+                  value.member?.data.forEach((element: any) => {
+                    if (element.birthday === null) {
+                      let year = element.id_num.slice(6, 10);
+                      let month = element.id_num.slice(10, 12);
+                      let date = element.id_num.slice(12, 14);
+                      element.birthday = year + '-' + month + '-' + date;
+                    }
+                  });
+                });
+                console.log("33435434", this.cursubGroupModelValue);
+              })
+            })
+          })
+        }),
+    });
+  }
+
+
+  changeConfirm1(dataChild: any) {
+    console.log('object :>> ', dataChild);
+    this.editMemberModel1.id = dataChild?.id;
+    // let time = '2020-01-01' + ;
+    // this.editMemberModel1.assembling_time = format(new Date(time), 'HH:mm');
+    this.editMemberModel1.assembling_time = dataChild?.assembling_time;
+    this.modal.confirm({
+      nzTitle: "<h4>提示</h4>",
+      nzContent: "<h6>是否修改集合时间</h6>",
+      nzOnOk: () =>
+        this.adminOrderService.editMember(this.editMemberModel1).subscribe((res: any) => {
+          this.activatedRoute.queryParams.subscribe(params => {
+            console.log("params", params)
+            this.detailId = JSON.parse(params["detailId"]);
+            // 详情
+            this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+              this.setOfCheckedId.clear();
+              console.log("结果是", res.data);
+              this.detailModel = res.data;
+              this.cursubGroupModelValue = this.detailModel.sub_group.data;
+              this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                value['tabs'] = '子团' + (index + 1);
+                value?.order?.data.forEach((value: any, index: any) => {
+                  value['expand'] = false; //展开属性
+                  value.member?.data.forEach((element: any) => {
+                    if (element.birthday === null) {
+                      let year = element.id_num.slice(6, 10);
+                      let month = element.id_num.slice(10, 12);
+                      let date = element.id_num.slice(12, 14);
+                      element.birthday = year + '-' + month + '-' + date;
+                    }
+                  });
+                });
+                console.log("33435434", this.cursubGroupModelValue);
+              })
+            })
+          })
+        }),
+    });
   }
 }
