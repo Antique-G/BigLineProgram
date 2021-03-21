@@ -39,15 +39,8 @@ export class MyValidators extends Validators {
 })
 export class AODSubgroupSendsmsComponent implements OnInit {
   addForm!: FormGroup;
-  dataSource: any;
-
-  tbsArr: any[] = [];
-
-  // 表格
-  checked = false;
-  setOfCheckedId = new Set<number>();
-
   groupSmsModel: GroupSmsModel;
+  ordersId: any[] = [];
 
   constructor(public dialogRef: MatDialogRef<AODSubgroupSendsmsComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder,
     public message: NzMessageService, public adminOrderService: AdminOrderService,) {
@@ -66,35 +59,15 @@ export class AODSubgroupSendsmsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('this.data', this.data);
-    this.data.forEach((value: any) => {
-      console.log('2342342342 ', value);
-      let tabdata = { order_id: value.id, product_name: value.product_name, address: value.assembling_place, time: value.assembling_time }
-      this.tbsArr.push(tabdata);
-      this.dataSource = this.tbsArr;
-      console.log('this.dataSource ', this.dataSource);
+    console.log('弹窗拿到的值', this.data);
+    this.data.forEach((element: any) => {
+      let i = { 'order_id': element.id, 'address': element.assembling_place, 'time': element.assembling_time };
+      this.ordersId.push(i)
     });
+    console.log('this.ordersId :>> ', this.ordersId);
 
   }
 
-  // 表格
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-  }
-
-
-  onAllChecked(value: boolean): void {
-    this.dataSource.forEach((item: any) => this.updateCheckedSet(item, value));
-  }
-
-
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
 
   setValue() {
     this.groupSmsModel.contact_name = this.addForm.value.name;
@@ -108,25 +81,19 @@ export class AODSubgroupSendsmsComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-      let arr = [...this.setOfCheckedId];
-      this.groupSmsModel.orders = arr;
+      this.groupSmsModel.orders = this.ordersId;
       this.groupSmsModel.sub_group_id = this.data[0].sub_group_id;
-      if (arr.length === 0) {
-        this.message.create('error', `请选择订单`);
-      }
-      else {
-        this.adminOrderService.groupSms(this.groupSmsModel).subscribe(res => {
-          console.log('res是什么', res, res.status_code, res.status_code === '200');
-          if (res.status_code === 200) {
-            this.message.create('success', `成功发送${res.success}条信息，${res.failed}条失败信息`);
-            this.dialogRef.close()
-          }
-          else {
-            this.message.create('error', ` ${res.message}`);
-            this.dialogRef.close()
-          }
-        })
-      }
+      this.adminOrderService.groupSms(this.groupSmsModel).subscribe(res => {
+        console.log('res是什么', res, res.status_code, res.status_code === '200');
+        if (res.status_code === 200) {
+          this.message.create('success', `成功发送${res.success}条信息，${res.failed}条失败信息`);
+          this.dialogRef.close()
+        }
+        else {
+          this.message.create('error', ` ${res.message}`);
+          this.dialogRef.close()
+        }
+      })
 
     }
   }

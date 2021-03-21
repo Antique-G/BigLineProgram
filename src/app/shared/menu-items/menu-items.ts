@@ -11,7 +11,7 @@ export interface Menus {
   name: string;
 }
 
-  
+
 const MENUITEMS = [
   {
     title: '系统设置模块', icon: 'setting',
@@ -65,10 +65,11 @@ const MENUITEMS = [
   {
     title: '区域模块', icon: 'environment',
     children: [
-      { state: 'settingArea', name: '区域' }
+      { state: 'settingArea', name: '区域' },
+      { state: 'customerService', name: '区域客服' }
     ]
   },
- 
+
   {
     title: '用户管理', icon: 'user',
     children: [
@@ -80,7 +81,7 @@ const MENUITEMS = [
     title: '保险管理', icon: 'safety-certificate',
     children: [
       { state: 'insurance', name: '保险' },
-      
+
     ]
   },
 
@@ -90,7 +91,7 @@ const MENUITEMS = [
       { state: 'pageConfig', name: '页面设置' },
     ]
   },
- 
+
 
 ];
 
@@ -122,7 +123,7 @@ const StoreMENUITEMS = [
     title: '条款管理模块', icon: 'file',
     children: [{ state: 'storeTermsManage', name: '条款管理' }]
   },
- 
+
   {
     title: '订单管理模块', icon: 'ordered-list',
     children: [
@@ -137,7 +138,7 @@ const StoreMENUITEMS = [
     title: '合同管理', icon: 'file',
     children: [
       { state: 'storeContract', name: '合同' },
-   
+
     ]
   },
 
