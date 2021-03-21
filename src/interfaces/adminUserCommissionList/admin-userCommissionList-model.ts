@@ -5,7 +5,7 @@ export interface AdminUserCommissionListRequestModel {
     user_id?: any;
   }
 
-export interface AdminUserCommissionListResponseModel {
+  export interface AdminUserCommissionListResponseModel {
     current_page: number;
     data: Datum[];
     first_page_url: string;
@@ -15,7 +15,7 @@ export interface AdminUserCommissionListResponseModel {
     links: Link[];
     next_page_url: string;
     path: string;
-    per_page: string;
+    per_page: number;
     prev_page_url?: any;
     to: number;
     total: number;
@@ -37,33 +37,17 @@ export interface AdminUserCommissionListResponseModel {
     updated_at: string;
     type: number;
     content: string;
-    orders: Orders;
-    product: Product;
-  }
-  
-  interface Product {
-    id: number;
-    dist_reward: number;
-    store_reward: number;
-    third_reward: number;
-    commerce_reward: number;
-    departure_city: string;
-    destination_city: string;
-    departure: string;
-    destination: string;
-  }
-  
-  interface Orders {
-    id: number;
-    user_id: number;
+    product_reward: number;
+    name: string;
     product_name: string;
     num_total: number;
-    price_total: number;
-    product_code: string;
-    product_id: number;
     product_type: number;
+    price_total: number;
+    second_user?: string;
+    second_user_reward?: number;
+    first_user?: string;
+    first_user_reward?: number;
   }
-
   export interface UserCommissionAuditModel {
     id: number;
     status: number;

@@ -26,35 +26,45 @@
                         </div>
                     </form>
 
-                    <div>
+                    <!-- <div>
                         <button nz-button nzType="primary" (click)="checkClick()">审核</button>
                         <button nz-button nzType="primary" style="margin-left: 10px;" nzDanger (click)="checkAllClick()">批量审核</button>
-                    </div>
+                    </div> -->
                     <div class="mat-elevation-z8 ListBox">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
+                                    <!-- <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th> -->
                                     <th>订单id</th>
-                                    <th>佣金金额</th>
-                                    <th>上级佣金</th>
-                                    <th>状态</th>
                                     <th>产品名称</th>
+                                    <th>产品总佣金</th>
                                     <th>下单总人数</th>
+                                    <th>订单总金额</th>
                                     <th>产品类型</th>
-                                    <th>分销佣金</th>
-                                    <th>店铺佣金</th>
-                                    <th>第三方佣金</th>
-                                    <th>电中佣金</th>
+                                    <th>状态</th>
+                                    <th>收益人（一级）</th>
+                                    <th>佣金金额（一级）</th>
+                                    <th>收益人（二级）</th>
+                                    <th>佣金金额（二级）</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
+                                    <!-- <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td> -->
                                     <td>{{data.order_id}}</td>
-                                    <td>{{data.dist_reward}}</td>
-                                    <td>{{data.type}}</td>
+                                    <td>{{data.product_name}}</td>
+                                    <td>{{data.product_reward}}</td>
+                                    <td>{{data.num_total}}</td>
+                                    <td>{{data.price_total}}</td>
+                                    <td>
+                                        <div *ngIf="data.product_type===0">
+                                            跟团游
+                                        </div>
+                                        <div *ngIf="data.product_type===1">
+                                            自由行
+                                        </div>
+                                    </td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             取消
@@ -68,17 +78,11 @@
                                         <div *ngIf="data.status===3">
                                             已完成
                                         </div>
-                                        <div *ngIf="data.status===4">
-                                            拒绝
-                                        </div>
                                     </td>
-                                    <td>{{data.orders.product_name}}</td>
-                                    <td>{{data.orders.num_total}}</td>
-                                    <td>{{data.orders.product_type}}</td>
-                                    <td>{{data.product.dist_reward}}</td>
-                                    <td>{{data.product.store_reward}}</td>
-                                    <td>{{data.product.third_reward}}</td>
-                                    <td>{{data.product.commerce_reward}}</td>
+                                    <td>{{data.first_user}}</td>
+                                    <td>{{data.first_user_reward}}</td>
+                                    <td>{{data.second_user}}</td>
+                                    <td>{{data.second_user_reward}}</td>
                                 </tr>
                             </tbody>
                         </nz-table>
