@@ -37,6 +37,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
   reundCheckModel: ReundCheckModel;
   refund_amount: any;
   bascie_money: any;
+  checked = false;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService) {
@@ -111,7 +113,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
         console.log('otherArray.controls :>> ', this.otherArray.controls);
         this.dataMember = this.detailModel?.member?.data;
         this.selectMemberData = this.detailModel?.member?.data;
-
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
@@ -142,6 +143,16 @@ export class AdminOrderRefundEditComponent implements OnInit {
           this.percent = 0;
         }
 
+        // 退款方案  this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
+        if (this.detailModel.type === 0) {
+          this.selectMemberData.forEach((ele: any) => {
+            ele['disabled'] = true;
+            this.setOfCheckedId.add(ele.id);
+            this.onItemChecked(ele, true)
+          })
+        }
+        console.log('234234234 :>> ', this.selectMemberData, this.detailModel.type === 0);
+
       })
     });
   }
@@ -167,6 +178,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
 
+  onAllChecked(checked: boolean): void {
+    this.selectMemberData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
+
+  }
 
 
   updateCheckedSet(data: any, checked: boolean): void {
@@ -213,9 +228,24 @@ export class AdminOrderRefundEditComponent implements OnInit {
       kid_names = kidName.toString();
       kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
     }
-    this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+    // this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+    if (ad_i != undefined) {
+      this.selectHumans = ad_i;
+      if (kid_i != undefined) {
+        this.selectHumans = ad_i + '|' + kid_i;
+      }
+    }
+    else if (kid_i != undefined) {
+      this.selectHumans = kid_i;
+      if (ad_i != undefined) {
+        this.selectHumans = ad_i + '|' + kid_i;
+      }
+    }
+    else if (ad_i === undefined && kid_i === undefined) {
+      this.selectHumans = ''
+    }
     this.bascie_money = (adultNum.length * this.detailModel.order?.data?.price_adult + kidNum.length * this.detailModel.order?.data?.price_kid) * this.percentage;
-  //  保留两位小数
+    //  保留两位小数
     this.bascie_money = this.bascie_money.toFixed(2);
     console.log('bascie_money :>> ', this.bascie_money, adultNum.length * this.detailModel.order?.data?.price_adult, kidNum.length * this.detailModel.order?.data?.price_kid, this.percentage);
     this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;

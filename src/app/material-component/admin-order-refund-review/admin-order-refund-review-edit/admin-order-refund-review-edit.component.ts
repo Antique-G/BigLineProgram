@@ -166,7 +166,22 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
           kid_names = kidName.toString();
           kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
         }
-        this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+        // this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+        if (ad_i != undefined) {
+          this.selectHumans = ad_i;
+          if (kid_i != undefined) {
+            this.selectHumans = ad_i + '|' + kid_i;
+          }
+        }
+        else if (kid_i != undefined) {
+          this.selectHumans = kid_i;
+          if (ad_i != undefined) {
+            this.selectHumans = ad_i + '|' + kid_i;
+          }
+        }
+        else if (ad_i === undefined && kid_i === undefined) {
+          this.selectHumans = ''
+        }
 
       })
     });
