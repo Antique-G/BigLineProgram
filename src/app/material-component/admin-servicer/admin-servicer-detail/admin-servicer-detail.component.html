@@ -1,0 +1,30 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 0px; margin-top: 20px;">
+        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+            <form nz-form [formGroup]="addForm">
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="region_code" nzRequired>区域名称</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择区域!">
+                        <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="destinationPalce" (ngModelChange)="onDestChange($event)" formControlName="region_code"></nz-cascader>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item class=" nz-form-item " nz-row>
+                    <nz-form-label [nzSm]="4 " [nzXs]="24 " nzFor="phone" nzRequired>客服电话</nz-form-label>
+                    <nz-form-control [nzSm]="16 " [nzXs]="24 " nzErrorTip="请输入客服电话!">
+                        <input nz-input formControlName="phone" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item " nz-row>
+                    <nz-form-label [nzSm]="4 " [nzXs]="24 " nzFor="contact_name">客服姓名</nz-form-label>
+                    <nz-form-control [nzSm]="16 " [nzXs]="24 ">
+                        <input nz-input formControlName="contact_name" />
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-spin>
+    </div>
+</div>

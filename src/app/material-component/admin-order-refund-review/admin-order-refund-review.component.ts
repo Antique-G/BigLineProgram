@@ -33,7 +33,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
 
   order_id: any;
   store_id: any;
-  product_id: any;
+  product_name: any;
   date_start: any;
   date_end: any;
   id: any;
@@ -43,7 +43,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
     public adminProductManagementService: AdminProductManagementService, public adminRefundService: AdminRefundService) {
     this.searchForm1 = fb.group({
-      product_id: [''],
+      product_name: [''],
       store_id: [''],
       order_id: [''],
       time: [''],
@@ -51,7 +51,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
       id: [''],
     });
     this.searchForm2 = fb.group({
-      product_id: [''],
+      product_name: [''],
       store_id: [''],
       order_id: [''],
       time: [''],
@@ -82,7 +82,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
 
   // 未处理
   getList() {
-    this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_id, this.date_start, this.date_end, this.id, 2).subscribe(res => {
+    this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 2).subscribe(res => {
       console.log('res :>> ', res);
       this.dataSource1 = res.data;
       this.loading = false;
@@ -94,7 +94,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
   search1() {
     this.order_id = this.searchForm1.value.order_id;
     this.store_id = this.searchForm1.value.store_id;
-    this.product_id = this.searchForm1.value.product_id;
+    this.product_name = this.searchForm1.value.product_name;
     this.date_start = this.dateArray1[0];
     this.date_end = this.dateArray1[1];
     this.id = this.searchForm1.value.id;
@@ -103,7 +103,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
 
 
   getList1() {
-    this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_id, this.date_start, this.date_end, this.id, 3).subscribe(res => {
+    this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 3).subscribe(res => {
       console.log('res :>> ', res);
       this.dataSource2 = res.data;
       this.loading1 = false;
@@ -114,7 +114,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
   search2() {
     this.order_id = this.searchForm2.value.order_id;
     this.store_id = this.searchForm2.value.store_id;
-    this.product_id = this.searchForm2.value.product_id;
+    this.product_name = this.searchForm2.value.product_name;
     this.date_start = this.dateArray2[0];
     this.date_end = this.dateArray2[1];
     this.id = this.searchForm2.value.id;
