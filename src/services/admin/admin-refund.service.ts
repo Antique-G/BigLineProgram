@@ -20,12 +20,12 @@ export class AdminRefundService {
 
 
   // 退款列表
-  getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_id: any, date_start: any, date_end: any, id: any, status: any): Observable<RefundModel> {
+  getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any, date_end: any, id: any, status: any): Observable<RefundModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('order_id', order_id ? order_id : '')
       .set('store_id', store_id ? store_id : '')
-      .set('product_id', product_id ? product_id : '')
+      .set('product_name', product_name ? product_name : '')
       .set('date_start', date_start ? date_start : '')
       .set('date_end', date_end ? date_end : '')
       .set('id', id ? id : '')

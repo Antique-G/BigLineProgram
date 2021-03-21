@@ -112,6 +112,8 @@ import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-
 import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover/admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
 import { AdminServicerComponent } from './admin-servicer/admin-servicer.component';
 import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-confirm/admin-order-refund-confirm.component';
+import { AdminServicerCreateComponent } from './admin-servicer/admin-servicer-create/admin-servicer-create.component';
+import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-detail/admin-servicer-detail.component';
 
 
 @NgModule({
@@ -241,6 +243,8 @@ import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/ad
     AdminOrderRefundTurnoverDetailComponent,
     AdminServicerComponent,
     AdminOrderRefundConfirmComponent,
+    AdminServicerCreateComponent,
+    AdminServicerDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

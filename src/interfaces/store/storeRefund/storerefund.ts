@@ -32,6 +32,7 @@ interface DatumRefundModel {
   updated_at: string;
   handler_id: number;
   amount_detail?: any;
+  product_name: any;
 }
 
 // 详情
