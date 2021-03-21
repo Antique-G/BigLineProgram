@@ -421,7 +421,7 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr *ngFor="let data of rowSelectionTable.data">
-                                                                        <td>{{data.payment_id}}</td>
+                                                                        <td>{{data.transaction_id}}</td>
                                                                         <td>
                                                                             <div *ngIf="data?.pay_type===1">微信支付</div>
                                                                             <div *ngIf="data?.pay_type===2">支付宝</div>
