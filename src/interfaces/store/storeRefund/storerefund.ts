@@ -58,6 +58,7 @@ interface DetailDataModel {
   pay_log: Paylog;
   cancel_log: Cancellog;
   refund_log: Pricedetail;
+  member_detail: any;
 }
 
 interface Cancellog {
