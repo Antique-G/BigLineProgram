@@ -319,7 +319,7 @@
                                                                         <span *ngIf="data.id_type===3">回乡证</span>
                                                                     </td>
                                                                     <td>{{data.id_num}}</td>
-                                                                    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
+                                                                    <td [nzDisabled]="data.disabled" [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </nz-table>
