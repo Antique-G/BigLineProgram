@@ -133,15 +133,17 @@
                                                     <p *ngIf="data.shared_status===1">同性拼房</p>
                                                 </td>
                                                 <td style="width: 15%;">
-                                                    <div>
+                                                    <div fxLayout="row" fxLayoutGap="5px">
                                                         <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="dataChild.assembling_place" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">确认修改</button>
+                                                        <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">修改</button>
                                                     </div>
                                                 </td>
                                                 <td style="width: 15%;">
-                                                    <div>
+                                                    <div fxLayout="row" fxLayoutGap="5px">
+                                                        <!-- <nz-time-picker nzFormat="HH:mm" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time"></nz-time-picker> -->
+
                                                         <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">确认修改</button>
+                                                        <button mat-raised-button color="primary" (click)="changeConfirm1(dataChild)">修改</button>
                                                     </div>
                                                 </td>
                                                 <td style="width: 15%;">{{ data.customer_remarks }}</td>

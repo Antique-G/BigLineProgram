@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
+import { EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
 import { AdminUrls } from '../../api';
 import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
 
@@ -53,7 +53,7 @@ export class AdminOrderService {
   }
 
 
-  
+
 
   // 派遣导游
   setGuide(setGuideModel: SetGuideModel): Observable<any> {
@@ -132,7 +132,15 @@ export class AdminOrderService {
       )
   }
 
- 
+  // 修改集合地
+  editMember(editMemberModel: EditMemberModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminEditMember, editMemberModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

@@ -211,3 +211,18 @@ export interface OrderGroupNum {
   member_max: any;
   id?: any
 }
+
+// 集合地点
+export interface EditMemberModel {
+  id: string;
+  name?: string;
+  phone?: string;
+  id_type?: string;
+  id_num?: string;
+  remarks?: string;
+  birthday?: string;
+  id_photo?: string;
+  assembling_place?: string;
+  assembling_time?: string;
+
+}
