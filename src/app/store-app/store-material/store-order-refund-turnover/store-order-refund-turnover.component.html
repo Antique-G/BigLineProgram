@@ -7,7 +7,7 @@
                     <form [formGroup]="searchForm" nz-row nz-form>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
                                 </nz-form-control>
@@ -16,15 +16,15 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款单编号</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_id">退款单号</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="refund_id" placeholder="请输入退款编号" />
+                                    <input nz-input formControlName="refund_id" placeholder="请输入退款单号" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="transaction_id">流水号</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id">流水号</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="transaction_id" placeholder="请输入流水号" />
                                 </nz-form-control>
@@ -33,7 +33,7 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="time">流水生成时间</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="time">流水生成时间</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="time"></nz-range-picker>
                                 </nz-form-control>
@@ -42,7 +42,7 @@
 
                         <!-- <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""> </nz-option>
