@@ -90,6 +90,7 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
+import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-turnover/store-order-refund-turnover-detail/store-order-refund-turnover-detail.component';
 
 @NgModule({
   imports: [
@@ -196,6 +197,7 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
     StoreOrderRefundComponent,
     StoreOrderRefundDetailComponent,
     StoreOrderRefundTurnoverComponent,
+    StoreOrderRefundTurnoverDetailComponent,
     
     
   ]
