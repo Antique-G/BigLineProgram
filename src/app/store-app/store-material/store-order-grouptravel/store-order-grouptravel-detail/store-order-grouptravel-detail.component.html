@@ -164,6 +164,7 @@
                                                 <th style="text-align: center;">集合时间</th>
                                                 <th style="text-align: center;">备注</th>
                                                 <th style="text-align: center;">出团通知短信</th>
+                                                <th style="text-align: center;">是否已申请退款</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -197,6 +198,10 @@
                                                         <nz-badge nzColor="green"></nz-badge>已发</div>
                                                     <div *ngIf="data.sms_status===2">
                                                         <nz-badge nzColor="red"></nz-badge>发送失败</div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="data.refund_status===1" style="color: red;">已申请退款</div>
+                                                    <div *ngIf="data.refund_status===0">未申请</div>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -281,6 +281,7 @@
                                                                     <th style="text-align: center;">类型</th>
                                                                     <th style="text-align: center;">证件类型</th>
                                                                     <th style="text-align: center;">证件号码</th>
+                                                                    <th style="text-align: center;">是否已申请过退款</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -297,6 +298,10 @@
                                                                         <span *ngIf="data.id_type===3">回乡证</span>
                                                                     </td>
                                                                     <td>{{data.id_num}}</td>
+                                                                    <td>
+                                                                        <div *ngIf="data.refund_status===1" style="color: red;">已申请退款</div>
+                                                                        <div *ngIf="data.refund_status===0">未申请</div>
+                                                                    </td>
                                                                 </tr>
                                                             </tbody>
                                                         </nz-table>
