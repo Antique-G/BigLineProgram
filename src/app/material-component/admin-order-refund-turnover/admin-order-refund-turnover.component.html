@@ -98,15 +98,19 @@
                                     <td>{{data.store_name}}</td>
                                     <td>{{data.refund_amount}}</td>
                                     <td>
-                                        <div (click)="edit(data)">
+                                        <div (click)="edit(data)" title="点击查看详情">
                                             <div *ngIf="data.pay_type===1"><a>微信</a></div>
                                             <div *ngIf="data.pay_type===2"><a>支付宝</a></div>
                                             <div *ngIf="data.pay_type===3"><a>银行转账</a></div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div *ngIf="data.status===0">退款失败</div>
-                                        <div *ngIf="data.status===1">未发送</div>
+                                        <div *ngIf="data.status===0">
+                                            <a title="重新发送退款请求" (click)="send(data)">退款失败</a>
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            <a title="重新发送退款请求" (click)="send(data)">未发送</a>
+                                        </div>
                                         <div *ngIf="data.status===2">成功</div>
                                     </td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>

@@ -4,13 +4,14 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
+import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
 
 @Component({
-  selector: 'app-admin-order-refund-detail',
-  templateUrl: './admin-order-refund-detail.component.html',
-  styleUrls: ['./admin-order-refund-detail.component.css']
+  selector: 'app-admin-order-refund-edit',
+  templateUrl: './admin-order-refund-edit.component.html',
+  styleUrls: ['./admin-order-refund-edit.component.css']
 })
-export class AdminOrderRefundDetailComponent implements OnInit {
+export class AdminOrderRefundEditComponent implements OnInit {
   detailId: any;
   selectedTabIndex = 0;    //选中的tab 默认第一个
   addForm!: FormGroup;
@@ -23,6 +24,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
   price_other: any;
   price_total: any;
   price_receive: any;
+  dataMember: any[] = [];
   selectMemberData: any[] = [];
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
@@ -32,12 +34,9 @@ export class AdminOrderRefundDetailComponent implements OnInit {
   isStandard: any;
   percentage: any;
   percent: any;
+  reundCheckModel: ReundCheckModel;
   refund_amount: any;
   bascie_money: any;
-  isFinished: any;
-  RefundLogData: any[] = [];
-  isWayFor = true;
-  isTab: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService) {
@@ -67,22 +66,21 @@ export class AdminOrderRefundDetailComponent implements OnInit {
       basicRefund: [''],
       amount_add: [0],
       amount_cut: [0],
-      store_name: [''],
-      bank_user: [''],
-      bank_address: [''],
-      bank_number: [''],
-      pay_at: [''],
-      transaction_id: [''],
+      remarks: [''],
     })
-
+    this.reundCheckModel = {
+      id: '',
+      refund_amount: '',
+      amount_add: '',
+      amount_cut: '',
+      members: [],
+      remark: '',
+    }
   }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
-      this.isFinished = params.isFinished;
-      console.log('this.isFinished ', this.isFinished,this.isFinished==='3');
-      this.isTab = params.isTab;
       this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
         this.detailModel = res.data;
         console.log('结果是 :>> ', this.detailModel);
@@ -111,15 +109,13 @@ export class AdminOrderRefundDetailComponent implements OnInit {
           }))
         }
         console.log('otherArray.controls :>> ', this.otherArray.controls);
-
+        this.dataMember = this.detailModel?.member?.data;
         this.selectMemberData = this.detailModel?.member?.data;
 
-        //  申请时间
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
-        let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'));
+        let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
-        console.log('date1 ', date1, date2, this.advance);
-        // 退款标准
+        console.log('312312312312312', date1, date2, this.advance, 4 <= this.advance && this.advance <= 5);
         if (this.advance > 7) {
           this.isStandard = 0;
           this.percentage = 1;
@@ -146,57 +142,15 @@ export class AdminOrderRefundDetailComponent implements OnInit {
           this.percent = 0;
         }
 
-        // 退款人
-        let newArr = this.selectMemberData;
-        let adultNum: any[] = [];
-        let kidNum: any[] = [];
-        let adultName: any[] = [];
-        let kidName: any[] = [];
-        newArr.forEach((ele: any) => {
-          if (ele.is_kid === 0 && ele.refund_status === 1) {
-            adultNum.push(ele);
-            adultName.push(ele.name)
-          }
-          else if (ele.is_kid === 1 && ele.refund_status === 1) {
-            kidNum.push(ele);
-            kidName.push(ele.name)
-          }
-        })
-        console.log('选择的 ', adultNum, adultName, kidNum, kidName);
-        let ad_names: any;
-        let ad_i: any;
-        let kid_names: any;
-        let kid_i: any;
-        if (adultNum.length != 0) {
-          ad_names = adultName.toString();
-          ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
-        }
-        if (kidNum.length != 0) {
-          kid_names = kidName.toString();
-          kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
-        }
-        this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
-        this.RefundLogData = this.detailModel?.refund_log?.data;
-        this.RefundLogData.forEach((ele: any) => {
-          if (ele.pay_type === 3) {
-            this.isWayFor === false;
-          }
-          else {
-            this.isWayFor === true;
-          }
-        })
       })
     });
   }
-
-
 
 
   // 附加
   get otherArray() {
     return this.addForm.get("otherList") as FormArray;
   }
-
 
 
   onTabChange(event: any) {
@@ -213,8 +167,97 @@ export class AdminOrderRefundDetailComponent implements OnInit {
 
 
 
-  return() {
-    this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
-  }
-}
 
+
+  updateCheckedSet(data: any, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(data.id);
+      this.setArr.add(data);
+
+    } else {
+      this.setOfCheckedId.delete(data.id);
+      this.setArr.delete(data);
+    }
+  }
+
+
+
+  onItemChecked(data: any, checked: boolean): void {
+    this.updateCheckedSet(data, checked);
+    let newArr = [...this.setArr];
+    let adultNum: any[] = [];
+    let kidNum: any[] = [];
+    let adultName: any[] = [];
+    let kidName: any[] = [];
+    console.log('this.setArr.add(data); :>> ', [...this.setArr]);
+    newArr.forEach((ele: any) => {
+      if (ele.is_kid === 0) {
+        adultNum.push(ele);
+        adultName.push(ele.name)
+      }
+      else {
+        kidNum.push(ele);
+        kidName.push(ele.name)
+      }
+    })
+    console.log('选择的 ', adultNum, adultName, kidNum, kidName);
+    let ad_names: any;
+    let ad_i: any;
+    let kid_names: any;
+    let kid_i: any;
+    if (adultNum.length != 0) {
+      ad_names = adultName.toString();
+      ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
+    }
+    if (kidNum.length != 0) {
+      kid_names = kidName.toString();
+      kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
+    }
+    this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+    this.bascie_money = (adultNum.length * this.detailModel.order?.data?.price_adult + kidNum.length * this.detailModel.order?.data?.price_kid) * this.percentage
+    console.log('bascie_money :>> ', this.bascie_money, adultNum.length * this.detailModel.order?.data?.price_adult, kidNum.length * this.detailModel.order?.data?.price_kid, this.percentage);
+    this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;
+    // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
+    this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
+  }
+
+
+  numTest(data: any) {
+    console.log('1111111111', data, this.addForm.value.amount_add);
+    this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
+  }
+
+  numTest1(data: any) {
+    console.log('2222222', data)
+    this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
+  }
+
+
+
+  setValue() {
+    this.reundCheckModel.id = this.detailModel?.id;
+    this.reundCheckModel.members = [...this.setOfCheckedId];
+    this.reundCheckModel.refund_amount = this.refund_amount;
+    this.reundCheckModel.amount_add = this.addForm.value.amount_add;
+    this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
+    this.reundCheckModel.remark = this.addForm.value.remarks;
+  }
+
+
+
+  add() {
+    this.setValue();
+    this.modal.confirm({
+      nzTitle: '<h4>确认提交退款</h4>',
+      nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+      nzOnOk: () =>
+        this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+          console.log('res :>> ', res);
+          if (res === null) {
+            this.router.navigate(['/admin/main/refund']);
+          }
+        })
+    });
+  }
+
+}

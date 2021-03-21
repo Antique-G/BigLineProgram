@@ -126,11 +126,12 @@ export class AdminOrderRefundComponent implements OnInit {
   }
 
   handle(data: any) {
-    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id, isFinished: 1 } });
+    this.router.navigate(['/admin/main/refund/edit'], { queryParams: { detailId: data.id} });
   }
 
   edit(data: any) {
-    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id, isFinished: 2 } });
+    console.log('object :>> ', data.status);
+    this.router.navigate(['/admin/main/refund/detail'], { queryParams: { detailId: data.id, isTab: 2, isFinished: data.status } });
   }
 
 

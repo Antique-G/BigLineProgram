@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRefundService } from '../../../services/admin/admin-refund.service';
+import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
 
 @Component({
   selector: 'app-admin-order-refund-turnover',
@@ -29,7 +31,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   storeList: any[] = [];
 
 
-  constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
+  constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog, private modal: NzModalService,
     public adminRefundService: AdminRefundService, public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
       order_id: [''],
@@ -75,13 +77,13 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
 
 
   search() {
-    this.order_id=this.searchForm.value.order_id;
-    this.store_id=this.searchForm.value.store_id;
-    this.refund_id=this.searchForm.value.refund_id;
-    this.transaction_id=this.searchForm.value.transaction_id;
-    this.status=this.searchForm.value.status;
-    this.date_start=this.dateArray[0];
-    this.date_end=this.dateArray[1];
+    this.order_id = this.searchForm.value.order_id;
+    this.store_id = this.searchForm.value.store_id;
+    this.refund_id = this.searchForm.value.refund_id;
+    this.transaction_id = this.searchForm.value.transaction_id;
+    this.status = this.searchForm.value.status;
+    this.date_start = this.dateArray[0];
+    this.date_end = this.dateArray[1];
     this.getRefundlist();
   }
 
@@ -100,6 +102,30 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
 
 
   edit(data: any) {
+    console.log('data :>> ', data, data.status === 2);
+    if (data.status === 3) {
+      const dialogRef = this.dialog.open(AdminOrderRefundTurnoverDetailComponent, {
+        width: '900px',
+        data: data
+      });
+      dialogRef.afterClosed().subscribe(result => {
+
+
+      });
+    }
+  }
+
+  send(data: any) {
+    console.log('data,data.order :>> ', data, data.id);
+    this.modal.confirm({
+      nzTitle: '<h4>确认</h4>',
+      nzContent: '<h5>是否重新发送退款请求</h5>',
+      nzOnOk: () =>
+        this.adminRefundService.postReRefund(data.id).subscribe(res => {
+          console.log('res ', res);
+          this.getRefundlist();
+        })
+    });
 
   }
 

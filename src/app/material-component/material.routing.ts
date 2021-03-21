@@ -41,6 +41,7 @@ import { UserCommissionListComponent } from './admin-commission/user-commission-
 import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
 import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
+import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-refund-edit/admin-order-refund-edit.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -224,10 +225,17 @@ export const MaterialRoutes: Routes = [
         }
       },
       {
+        path: 'refund/edit',
+        component: AdminOrderRefundEditComponent,
+        data: {
+          breadcrumb: '订单退款申请页面'
+        }
+      },
+      {
         path: 'refund/detail',
         component: AdminOrderRefundDetailComponent,
         data: {
-          breadcrumb: '订单退款申请页面'
+          breadcrumb: '订单退款详情页面'
         }
       },
       {

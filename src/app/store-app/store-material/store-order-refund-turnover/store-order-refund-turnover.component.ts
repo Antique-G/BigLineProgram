@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { StoreRefundService } from '../../../../services/store/store-order/store-refund.service';
+import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-turnover-detail/store-order-refund-turnover-detail.component';
 
 @Component({
   selector: 'app-store-order-refund-turnover',
@@ -92,7 +93,17 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
 
 
   edit(data: any) {
+    console.log('data :>> ', data, data.status === 2);
+    if (data.status === 3) {
+      const dialogRef = this.dialog.open(StoreOrderRefundTurnoverDetailComponent, {
+        width: '900px',
+        data: data
+      });
+      dialogRef.afterClosed().subscribe(result => {
 
+
+      });
+    }
   }
 
 }
