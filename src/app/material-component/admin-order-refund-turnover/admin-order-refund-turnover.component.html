@@ -98,10 +98,10 @@
                                     <td>{{data.store_name}}</td>
                                     <td>{{data.refund_amount}}</td>
                                     <td>
-                                        <div (click)="edit(data)" title="点击查看详情">
+                                        <div>
                                             <div *ngIf="data.pay_type===1"><a>微信</a></div>
                                             <div *ngIf="data.pay_type===2"><a>支付宝</a></div>
-                                            <div *ngIf="data.pay_type===3"><a>银行转账</a></div>
+                                            <div *ngIf="data.pay_type===3" (click)="edit(data)" title="点击查看详情"><a>银行转账</a></div>
                                         </div>
                                     </td>
                                     <td>

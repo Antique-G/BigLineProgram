@@ -204,15 +204,21 @@ export class AdminOrderRefundEditComponent implements OnInit {
     let kidNum: any[] = [];
     let adultName: any[] = [];
     let kidName: any[] = [];
+    let babyNum: any[] = [];
+    let babyName: any[] = [];
     console.log('this.setArr.add(data); :>> ', [...this.setArr]);
     newArr.forEach((ele: any) => {
       if (ele.is_kid === 0) {
         adultNum.push(ele);
-        adultName.push(ele.name)
+        adultName.push(ele.name);
       }
-      else {
+      else if (ele.is_kid === 1) {
         kidNum.push(ele);
-        kidName.push(ele.name)
+        kidName.push(ele.name);
+      }
+      else if (ele.is_kid === 2) {
+        babyNum.push(ele);
+        babyName.push(ele.name);
       }
     })
     console.log('选择的 ', adultNum, adultName, kidNum, kidName);
@@ -220,29 +226,46 @@ export class AdminOrderRefundEditComponent implements OnInit {
     let ad_i: any;
     let kid_names: any;
     let kid_i: any;
+    let baby_names: any;
+    let baby_i: any;
     if (adultNum.length != 0) {
       ad_names = adultName.toString();
       ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
     }
-    if (kidNum.length != 0) {
+     if (kidNum.length != 0) {
       kid_names = kidName.toString();
       kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
     }
+    if (babyNum.length != 0) {
+      baby_names = babyName.toString();
+      baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
+    }
+
+    // console.log('adultNum.length != 0, :>> ', adultNum.length != 0,);
     // this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
-    if (ad_i != undefined) {
+    if (adultNum.length != 0) {
       this.selectHumans = ad_i;
-      if (kid_i != undefined) {
+      if (kidNum.length != 0) {
         this.selectHumans = ad_i + '|' + kid_i;
+        if (babyNum.length != 0) {
+          this.selectHumans = ad_i + '|' + kid_i + '|' + baby_i;
+        }
+      }
+      else if (babyNum.length != 0) {
+        this.selectHumans = ad_i + '|' + baby_i;
       }
     }
-    else if (kid_i != undefined) {
+    else if (kidNum.length != 0) {
       this.selectHumans = kid_i;
-      if (ad_i != undefined) {
-        this.selectHumans = ad_i + '|' + kid_i;
+      if (babyNum.length != 0) {
+        this.selectHumans = kid_i + '|' + baby_i;
       }
     }
-    else if (ad_i === undefined && kid_i === undefined) {
-      this.selectHumans = ''
+    else if (babyNum.length != 0) {
+      this.selectHumans = baby_i;
+    }
+    else if (adultNum.length === 0 && kidNum.length === 0 && babyNum.length === 0) {
+      this.selectHumans = '';
     }
     this.bascie_money = (adultNum.length * this.detailModel.order?.data?.price_adult + kidNum.length * this.detailModel.order?.data?.price_kid) * this.percentage;
     //  保留两位小数

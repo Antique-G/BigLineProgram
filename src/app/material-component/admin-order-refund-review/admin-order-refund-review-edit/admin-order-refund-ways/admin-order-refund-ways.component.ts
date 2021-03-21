@@ -99,7 +99,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
   add() {
     this.setValue();
     const dialogRef = this.dialog.open(AdminOrderRefundConfirmComponent, {
-      width: '500px',
+      width: '550px',
       data: this.detailModel
     });
     dialogRef.afterClosed().subscribe(result => {

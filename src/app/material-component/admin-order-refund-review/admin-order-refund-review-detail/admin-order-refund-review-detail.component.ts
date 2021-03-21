@@ -123,17 +123,17 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
           this.percentage = 1;
           this.percent = 100;
         }
-        else  if (6 <= this.advance && this.advance <= 7) {
+        else if (6 <= this.advance && this.advance <= 7) {
           this.isStandard = 1;
           this.percentage = 0.8;
           this.percent = 80;
         }
-        else  if (4 <= this.advance && this.advance <= 5) {
+        else if (4 <= this.advance && this.advance <= 5) {
           this.isStandard = 2;
           this.percentage = 0.7;
           this.percent = 70;
         }
-        else  if (1 <= this.advance && this.advance <= 3) {
+        else if (1 <= this.advance && this.advance <= 3) {
           this.isStandard = 3;
           this.percentage = 0.5;
           this.percent = 50;
@@ -150,14 +150,20 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         let kidNum: any[] = [];
         let adultName: any[] = [];
         let kidName: any[] = [];
+        let babyNum: any[] = [];
+        let babyName: any[] = [];
         newArr.forEach((ele: any) => {
-          if (ele.is_kid === 0 && ele.refund_status === 1) {
+          if (ele.is_kid === 0) {
             adultNum.push(ele);
-            adultName.push(ele.name)
+            adultName.push(ele.name);
           }
-          else if (ele.is_kid === 1 && ele.refund_status === 1) {
+          else if (ele.is_kid === 1) {
             kidNum.push(ele);
-            kidName.push(ele.name)
+            kidName.push(ele.name);
+          }
+          else if (ele.is_kid === 2) {
+            babyNum.push(ele);
+            babyName.push(ele.name);
           }
         })
         console.log('选择的 ', adultNum, adultName, kidNum, kidName);
@@ -165,6 +171,8 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         let ad_i: any;
         let kid_names: any;
         let kid_i: any;
+        let baby_names: any;
+        let baby_i: any;
         if (adultNum.length != 0) {
           ad_names = adultName.toString();
           ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
@@ -173,21 +181,36 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
           kid_names = kidName.toString();
           kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
         }
+        if (babyNum.length != 0) {
+          baby_names = babyName.toString();
+          baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
+        }
+
+        // console.log('adultNum.length != 0, :>> ', adultNum.length != 0,);
         // this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
-        if (ad_i != undefined) {
+        if (adultNum.length != 0) {
           this.selectHumans = ad_i;
-          if (kid_i != undefined) {
+          if (kidNum.length != 0) {
             this.selectHumans = ad_i + '|' + kid_i;
+            if (babyNum.length != 0) {
+              this.selectHumans = ad_i + '|' + kid_i + '|' + baby_i;
+            }
+          }
+          else if (babyNum.length != 0) {
+            this.selectHumans = ad_i + '|' + baby_i;
           }
         }
-        else if (kid_i != undefined) {
+        else if (kidNum.length != 0) {
           this.selectHumans = kid_i;
-          if (ad_i != undefined) {
-            this.selectHumans = ad_i + '|' + kid_i;
+          if (babyNum.length != 0) {
+            this.selectHumans = kid_i + '|' + baby_i;
           }
         }
-        else if (ad_i === undefined && kid_i === undefined) {
-          this.selectHumans = ''
+        else if (babyNum.length != 0) {
+          this.selectHumans = baby_i;
+        }
+        else if (adultNum.length === 0 && kidNum.length === 0 && babyNum.length === 0) {
+          this.selectHumans = '';
         }
         this.RefundLogData = this.detailModel?.refund_log?.data;
         this.RefundLogData.forEach((ele: any) => {
