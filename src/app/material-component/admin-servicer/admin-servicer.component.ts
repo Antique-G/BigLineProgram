@@ -19,10 +19,14 @@ export class AdminServicerComponent implements OnInit {
   total = 1;
   loading = false;
   region_code: any;
-  region_name: any;
+  region_name: any;  //地域
   phone: any;
 
-  
+   // 城市
+   nzOptions: any[] | null = null;
+   idRegion: any;
+
+
   constructor(public fb: FormBuilder, public dialog: MatDialog,public adminServicerService: AdminServicerService) { 
     this.searchForm = fb.group({
       region_code: ['' ],
@@ -32,11 +36,15 @@ export class AdminServicerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDataList();
+    //城市
+    this.adminServicerService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+      this.getDataList();
+    })
   }
 
   getDataList(){
-    this.loading = true;
+    // this.loading = true;
     // this.adminServicerService.regionServiceList(this.page, this.per_page, this.region_code, this.region_name, this.phone).subscribe((result: any) => {
     //   console.log("result的结果是", result);
     //   this.loading = false;
@@ -45,8 +53,6 @@ export class AdminServicerComponent implements OnInit {
     // });
 
   }
-
-
   changePageIndex(page: number) {
     this.page = page;
     this.getDataList();
@@ -55,10 +61,18 @@ export class AdminServicerComponent implements OnInit {
     this.per_page = per_page;
     this.getDataList();
   }
+
+  onChanges(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.idRegion = data[data.length - 1];
+    }
+  }
+
   search() {
-    this.region_code = this.searchForm.value.region_code,
-    this.region_name = this.searchForm.value.region_name,
-    this.phone = this.searchForm.value.phone,
+    this.region_code = this.searchForm.value.region_code;
+    this.region_name = this.idRegion;
+    this.phone = this.searchForm.value.phone;
     this.getDataList();
     console.log('value',this.searchForm.value)
   }

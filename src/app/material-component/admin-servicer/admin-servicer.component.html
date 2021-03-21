@@ -8,31 +8,36 @@
                         <button mat-raised-button color="primary" style="width: 125px;letter-spacing: 2px;" (click)="add()">添加区域客服</button>
                         <!-- <div *ngIf="upFlag" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToUp()">上级区域 - {{parent?.region_name}}</div> -->
                     </div>
-                    <form [formGroup]="searchForm">
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=20>
-                                <mat-form-field>
-                                    <mat-label>区域码:</mat-label>
-                                    <input matInput formControlName="region_code" placeholder="请输入关键字">
-                                </mat-form-field>
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="region_code">区域编码</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="region_code" placeholder="请输入区域编码" />
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=20>
-                                <mat-form-field>
-                                    <mat-label>区域名称:</mat-label>
-                                    <input matInput formControlName="region_name" placeholder="请输入关键字">
-                                </mat-form-field>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="region_name">区域名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="region_name"></nz-cascader>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=20>
-                                <mat-form-field>
-                                    <mat-label>手机号:</mat-label>
-                                    <input matInput formControlName="phone" placeholder="请输入关键字">
-                                </mat-form-field>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="phone">号码</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="phone" placeholder="请输入手机号码" />
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=20>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
                                 <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
-
-                        </div>
+                        </nz-form-item>
                     </form>
 
 
