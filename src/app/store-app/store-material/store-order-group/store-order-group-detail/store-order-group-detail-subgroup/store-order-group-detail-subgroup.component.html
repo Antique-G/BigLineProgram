@@ -126,25 +126,26 @@
                                             <tr *ngFor="let dataChild of innerTable.data">
                                                 <td style="width: 12%;">{{ dataChild.name }}</td>
                                                 <td style="width: 13%;">
-                                                    <p *ngIf="dataChild.is_kid===0">成人</p>
-                                                    <p *ngIf="dataChild.is_kid===1">儿童</p>
+                                                    <span *ngIf="dataChild.is_kid===0">成人</span>
+                                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
+                                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
                                                 </td>
                                                 <td style="width: 9%;">{{dataChild.birthday}}</td>
                                                 <td style="width: 15%;">{{dataChild.phone}}</td>
                                                 <td style="width: 10%;">
-                                                    <p *ngIf="data.shared_status===0">不拼房</p>
-                                                    <p *ngIf="data.shared_status===1">同性拼房</p>
+                                                    <span *ngIf="data.shared_status===0">不拼房</span>
+                                                    <span *ngIf="data.shared_status===1">同性拼房</span>
                                                 </td>
                                                 <td style="width: 15%;">{{ dataChild.assembling_place }}</td>
                                                 <td style="width: 15%;">{{ dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time }}</td>
                                                 <td style="width: 15%;">{{ data.customer_remarks }}</td>
                                                 <td style="width: 15%;">
-                                                    <p *ngIf="dataChild.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                    <p *ngIf="dataChild.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                    <p *ngIf="dataChild.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
+                                                    <span *ngIf="dataChild.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发</span>
+                                                    <span *ngIf="dataChild.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发</span>
+                                                    <span *ngIf="dataChild.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败</span>
                                                 </td>
                                             </tr>
                                         </tbody>
