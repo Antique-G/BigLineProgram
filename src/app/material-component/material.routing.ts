@@ -42,6 +42,7 @@ import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commi
 import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
 import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-refund-edit/admin-order-refund-edit.component';
+import { AdminServicerComponent } from './admin-servicer/admin-servicer.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -297,7 +298,13 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '用户信息列表'
         }
       },
-
+      {
+        path: 'customerService',
+        component: AdminServicerComponent,
+        data: {
+          breadcrumb: '区域客服设置列表'
+        }
+      },
 
 
       {

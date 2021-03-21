@@ -97,7 +97,7 @@
                                                             <span *ngIf="data.status===2">待退款</span>
                                                             <span *ngIf="data.status===3">已退款</span>
                                                         </td>
-                                                        <td></td>
+                                                        <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
                                                             <a (click)="handle(data)">去处理</a>
                                                         </td>
@@ -218,7 +218,7 @@
                                                             <span *ngIf="data.status===2">待退款</span>
                                                             <span *ngIf="data.status===3">已退款</span>
                                                         </td>
-                                                        <td>{{data?.check_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
                                                             <div style="cursor: pointer;">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="查看详情" (click)="edit(data)">

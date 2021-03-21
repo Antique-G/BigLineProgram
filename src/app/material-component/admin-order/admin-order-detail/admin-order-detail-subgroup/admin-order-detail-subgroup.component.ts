@@ -142,8 +142,10 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(id);
+      console.log('11111111111', this.setOfCheckedId);
     } else {
       this.setOfCheckedId.delete(id);
+      console.log('2222222222', this.setOfCheckedId);
     }
   }
 
@@ -225,6 +227,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
           this.detailId = JSON.parse(params["detailId"]);
           // 详情
           this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+            this.setOfCheckedId.clear();
             console.log("结果是", res.data);
             this.detailModel = res.data;
             this.cursubGroupModelValue = this.detailModel.sub_group.data;
@@ -253,39 +256,46 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
 
 
   // 发送出团短信通知
-  sendSms(data: any): void {
-    const dialogRef = this.dialog.open(AODSubgroupSendsmsComponent, {
-      width: '800px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.activatedRoute.queryParams.subscribe(params => {
-        console.log("params", params)
-        this.detailId = JSON.parse(params["detailId"]);
-        // 详情
-        this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
-          console.log("结果是", res.data);
-          this.detailModel = res.data;
-          this.cursubGroupModelValue = this.detailModel.sub_group.data;
-          this.cursubGroupModelValue.forEach((value: any, index: any) => {
-            value['tabs'] = '子团' + (index + 1);
-            value?.order?.data.forEach((value: any, index: any) => {
-              value['expand'] = false; //展开属性
-              value.member?.data.forEach((element: any) => {
-                if (element.birthday === null) {
-                  let year = element.id_num.slice(6, 10);
-                  let month = element.id_num.slice(10, 12);
-                  let date = element.id_num.slice(12, 14);
-                  element.birthday = year + '-' + month + '-' + date;
-                }
+  sendSms() {
+    let newArray = [...this.setOfCheckedId];
+    if (newArray.length === 0) {
+      this.message.create('error', `请选择订单`);
+    }
+    else {
+      const dialogRef = this.dialog.open(AODSubgroupSendsmsComponent, {
+        width: '800px',
+        data: newArray
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.activatedRoute.queryParams.subscribe(params => {
+          console.log("params", params)
+          this.detailId = JSON.parse(params["detailId"]);
+          // 详情
+          this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+            this.setOfCheckedId.clear();
+            console.log("结果是", res.data);
+            this.detailModel = res.data;
+            this.cursubGroupModelValue = this.detailModel.sub_group.data;
+            this.cursubGroupModelValue.forEach((value: any, index: any) => {
+              value['tabs'] = '子团' + (index + 1);
+              value?.order?.data.forEach((value: any, index: any) => {
+                value['expand'] = false; //展开属性
+                value.member?.data.forEach((element: any) => {
+                  if (element.birthday === null) {
+                    let year = element.id_num.slice(6, 10);
+                    let month = element.id_num.slice(10, 12);
+                    let date = element.id_num.slice(12, 14);
+                    element.birthday = year + '-' + month + '-' + date;
+                  }
+                });
               });
-            });
-            console.log("33435434", this.cursubGroupModelValue);
+              console.log("33435434", this.cursubGroupModelValue);
+            })
           })
         })
-      })
 
-    });
+      });
+    }
   }
 
 
@@ -297,21 +307,29 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
       this.message.create('error', `请选择订单`);
     }
     else {
-      newArray.forEach((value: any) => {
-        console.log('value是什么 ', value);
-        this.orderArray.push(value.id);
-        this.orderSmsModel.order_ids = this.orderArray;
-        this.adminOrderService.orderSms(this.orderSmsModel).subscribe(res => {
-          console.log('res ', res);
-          if (res.status_code === 200) {
-            this.message.create('success', `成功发送 ${res.success}条信息，${res.failed}条失败信息`);
-          }
-          else {
-            this.message.create('error', ` ${res.message}`);
-          }
-        })
+      this.modal.confirm({
+        nzTitle: '<h4>确认</h4>',
+        nzContent: '<h5>是否发送订单短信通知？</h5>',
+        nzOnOk: () =>
+          newArray.forEach((value: any) => {
+            console.log('value是什么 ', value);
+            this.orderArray.push(value.id);
+            this.orderSmsModel.order_ids = this.orderArray;
+            this.adminOrderService.orderSms(this.orderSmsModel).subscribe(res => {
+              this.setOfCheckedId.clear();
+              console.log('res ', res);
+              if (res.status_code === 200) {
+                this.message.create('success', `成功发送 ${res.success}条信息，${res.failed}条失败信息`);
+              }
+              else {
+                this.message.create('error', ` ${res.message}`);
+              }
+            })
+          })
+      });
 
-      })
+
+
     }
   }
 
@@ -330,6 +348,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
         this.orderArray.push(value.id);
         this.orderSmsModel.order_ids = this.orderArray;
         this.adminOrderService.cancel(this.orderSmsModel).subscribe(res => {
+          this.setOfCheckedId.clear();
           console.log('res ', res);
           if (res.status_code === 200) {
             this.message.create('success', `成功发送 ${res.success}条信息，${res.failed}条失败信息`);
@@ -343,4 +362,8 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     }
   }
 
+
+  changeConfirm(dataChild:any){
+console.log('object :>> ', dataChild);
+  }
 }
