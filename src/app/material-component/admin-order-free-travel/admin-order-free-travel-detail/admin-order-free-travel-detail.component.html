@@ -156,6 +156,7 @@
                                                 <th style="text-align: center;">出生日期</th>
                                                 <th style="text-align: center;">联系方式</th>
                                                 <th style="text-align: center;">备注</th>
+                                                <th style="text-align: center;">是否已申请退款</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -178,6 +179,10 @@
                                                 <td>
                                                     <div *ngIf="data?.remarks===''">{{detailModel.customer_remarks}}</div>
                                                     <div *ngIf="data?.remarks!=''">{{data.customer_remarks}}</div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="data.refund_status===1" style="color: red;">已申请退款</div>
+                                                    <div *ngIf="data.refund_status===0">未申请</div>
                                                 </td>
                                             </tr>
                                         </tbody>

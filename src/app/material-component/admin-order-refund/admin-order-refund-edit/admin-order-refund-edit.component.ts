@@ -113,6 +113,15 @@ export class AdminOrderRefundEditComponent implements OnInit {
         console.log('otherArray.controls :>> ', this.otherArray.controls);
         this.dataMember = this.detailModel?.member?.data;
         this.selectMemberData = this.detailModel?.member?.data;
+        // 筛选出行人未申请过退款的
+        let newMember: any[] = []
+        this.selectMemberData.forEach((ele: any) => {
+          if (ele.refund_status === 0) {
+            newMember.push(ele)
+          }
+        })
+        this.selectMemberData = newMember;
+        console.log('5666565656 ', this.selectMemberData);
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
@@ -232,7 +241,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       ad_names = adultName.toString();
       ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
     }
-     if (kidNum.length != 0) {
+    if (kidNum.length != 0) {
       kid_names = kidName.toString();
       kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
     }
