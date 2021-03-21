@@ -111,6 +111,7 @@ import { UserCommissionAuditComponent } from './admin-commission/user-commission
 import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-refund-edit/admin-order-refund-edit.component';
 import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover/admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
 import { AdminServicerComponent } from './admin-servicer/admin-servicer.component';
+import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-confirm/admin-order-refund-confirm.component';
 
 
 @NgModule({
@@ -239,6 +240,7 @@ import { AdminServicerComponent } from './admin-servicer/admin-servicer.componen
     AdminOrderRefundEditComponent,
     AdminOrderRefundTurnoverDetailComponent,
     AdminServicerComponent,
+    AdminOrderRefundConfirmComponent,
   ]
 })
 export class MaterialComponentsModule {}

@@ -1,10 +1,11 @@
 import { format } from 'date-fns';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RefundFinished, RefundlogModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { AdminOrderRefundConfirmComponent } from './admin-order-refund-confirm/admin-order-refund-confirm.component';
 
 @Component({
   selector: 'app-admin-order-refund-ways',
@@ -23,7 +24,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminOrderRefundWaysComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public adminRefundService: AdminRefundService, private modal: NzModalService,) {
+    public adminRefundService: AdminRefundService, private modal: NzModalService,public dialog: MatDialog) {
     this.addForm = this.fb.group({
       id: [''],
       refund_amount: [''],
@@ -97,14 +98,18 @@ export class AdminOrderRefundWaysComponent implements OnInit {
 
   add() {
     this.setValue();
-    this.modal.confirm({
-      nzTitle: '<h4>确认</h4>',
-      nzContent: '<h5>请确认填写金额是否准确,确认后退款信息将无法再修改！</h5>',
-      nzOnOk: () =>
+    const dialogRef = this.dialog.open(AdminOrderRefundConfirmComponent, {
+      width: '500px',
+      data: this.detailModel
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
         this.adminRefundService.postRefundFinished(this.refundFinished).subscribe(res => {
           console.log('res ', res);
           this.dialogRef.close(1);
         })
+      }
+
     });
   }
 
