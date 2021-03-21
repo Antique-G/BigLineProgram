@@ -219,6 +219,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = this.bascie_money + this.addForm.value.amount_add - this.addForm.value.amount_cut;
+    this.refund_amount=this.refund_amount.toFixed(2);
   }
 
 
