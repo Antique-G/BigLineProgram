@@ -130,4 +130,10 @@ export class AdminOrderRefundWaysComponent implements OnInit {
   cancel() {
     this.dialogRef.close();
   }
+
+
+  numTest1(data: any) {
+    console.log('data :>> ', data,)
+    data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+  }
 }
