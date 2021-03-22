@@ -1,0 +1,8 @@
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.nt-modal-content {
+    z-index: 999999999999999999999999999999999999999999 !important;
+}

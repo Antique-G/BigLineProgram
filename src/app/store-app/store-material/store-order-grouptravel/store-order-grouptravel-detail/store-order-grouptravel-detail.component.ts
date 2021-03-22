@@ -34,6 +34,12 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       assembling_time: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
+      contact_wechat: ['', [Validators.required]],
+      contact_qq: ['', [Validators.required]],
+      contact_email: ['', [Validators.required]],
+      emergency_contact_person: ['', [Validators.required]],
+      emergency_contact_number: ['', [Validators.required]],
+      customer_remarks: ['', [Validators.required]],
     });
 
   }
@@ -47,6 +53,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         console.log("结果是", res);
         this.detailModel = res.data;
         this.dataMember = res.data?.member?.data;
+        this.dataMember.forEach((element: any) => {
+          if (element.birthday === null) {
+            let year = element.id_num.slice(6, 10);
+            let month = element.id_num.slice(10, 12);
+            let date = element.id_num.slice(12, 14);
+            element.birthday = year + '-' + month + '-' + date;
+          }
+        });
         this.isSpinning = false;
         if (this.detailModel?.assembling_time === '00:00:00') {
           this.isAssemblinTime = '待定';
@@ -90,6 +104,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
           console.log("结果是", res);
           this.detailModel = res.data;
           this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
           this.isSpinning = false;
 
         })
@@ -126,6 +148,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
           console.log("结果是", res);
           this.detailModel = res.data;
           this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
           this.isSpinning = false;
 
         })

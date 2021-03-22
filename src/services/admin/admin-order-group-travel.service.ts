@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
-import { ComfirmOrderModel, DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 
@@ -86,6 +86,30 @@ export class AdminOrderGroupTravelService {
       )
   }
 
+
+
+  // 订单修改日期获取
+  changGetDateGroup(order_id: any, new_date: any): Observable<ChangeDateResponModel> {
+    const params = new HttpParams().set('order_id', order_id)
+      .set('new_date', new_date);
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<ChangeDateResponModel>(this.urls.GetAdminOrderChangeDate, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 订单修改日期
+  changeDateGroup(changeDateRequestModel: ChangeDateRequestModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderChangeDate, changeDateRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

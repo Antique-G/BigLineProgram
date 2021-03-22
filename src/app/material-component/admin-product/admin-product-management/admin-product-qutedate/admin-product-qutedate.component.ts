@@ -11,17 +11,35 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class AdminProductQutedateComponent implements OnInit {
   dataSource: any[] = [];   //1.4将数据添加到dataSource
+  dataSource1: any[] = [];   //1.4将数据添加到dataSource
+  dataSource2: any[] = [];   //1.4将数据添加到dataSource
+  dataSource3: any[] = [];   //1.4将数据添加到dataSource
+
+
+
   loading = true;
-  detailId: any
+  detailId: any;
+  // 分页
   page = 1;
   per_page = 20;
   total = 1;
+  page1 = 1;
+  per_page1 = 20;
+  total1 = 1;
+  page2 = 1;
+  per_page2 = 20;
+  total2 = 1;
+  page3 = 1;
+  per_page3 = 20;
+  total3 = 1;
+
   checked = false;
   indeterminate = false;
-  listOfCurrentPageData: Data[] = [];
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
   proName: any;
+  childStatus: any;
+
 
 
 
@@ -34,6 +52,8 @@ export class AdminProductQutedateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params.detailId;
       this.proName = params.proName;
+      this.childStatus = params.childStatus;
+
     });
     this.getQuteDateList();
   }
@@ -44,8 +64,30 @@ export class AdminProductQutedateComponent implements OnInit {
       this.dataSource = res.data
       this.total = res.total;   //总页数
       console.log(res);
+      let arr1: any[] = [];
+      let arr2: any[] = [];
+      let arr3: any[] = [];
+      this.dataSource.forEach((ele: any, index: any) => {
+        console.log('ele123123', ele, ele.check_status, ele.check_status === 2, ele.check_status === '2');
+        if (ele.check_status === 1) {
+          arr1.push(ele)
+        }
+        if (ele.check_status === 2) {
+          arr2.push(ele)
+        }
+        else if (ele.check_status === 3) {
+          arr3.push(ele)
+        }
+      })
+      this.dataSource1 = arr1;
+      this.dataSource2 = arr2;
+      this.dataSource3 = arr3;
+
     })
   }
+
+
+
 
   checkStateClick(state: any) {
     let objList = [...this.setArr]
@@ -72,29 +114,16 @@ export class AdminProductQutedateComponent implements OnInit {
         })
       }
     });
-
-
-  }
-  changePageSize(per_page: number) {
-    this.per_page = per_page;
-    this.getQuteDateList();
   }
 
-  changePageIndex(page: number) {
-    console.log("当前页", page);
-    this.page = page;
-    this.getQuteDateList();
-  }
+
+
 
   onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
-    this.refreshCheckedStatus();
+    this.dataSource1.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
+  
   }
-  refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
-  }
+
 
   updateCheckedSet(data: any, checked: boolean): void {
     if (checked) {
@@ -107,14 +136,11 @@ export class AdminProductQutedateComponent implements OnInit {
     }
   }
 
-  onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
-    this.listOfCurrentPageData = listOfCurrentPageData;
-    this.refreshCheckedStatus();
-  }
+
 
   onItemChecked(data: any, checked: boolean): void {
     this.updateCheckedSet(data, checked);
-    this.refreshCheckedStatus();
+  
   }
 
   getState(state: any) {

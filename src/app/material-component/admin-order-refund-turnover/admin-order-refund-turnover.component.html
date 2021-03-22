@@ -1,0 +1,128 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="order_id" placeholder="请输入订单编号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款单编号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="refund_id" placeholder="请输入退款编号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="transaction_id">流水号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="transaction_id" placeholder="请输入流水号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="time">流水生成时间</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="time"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""> </nz-option>
+                                        <nz-option [nzLabel]="'失败'" [nzValue]="0"> </nz-option>
+                                        <nz-option [nzLabel]="'未发送'" [nzValue]="1"> </nz-option>
+                                        <nz-option [nzLabel]="'成功'" [nzValue]="2"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+
+                    </form>
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">退款流水号</th>
+                                    <th style="text-align: center;">退款单号</th>
+                                    <th style="text-align: center;">订单编号</th>
+                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;">退款金额</th>
+                                    <th style="text-align: center;">退款去向</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">退款时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.transaction_id}}</td>
+                                    <td>{{data.refund_id}}</td>
+                                    <td>{{data.order_id}}</td>
+                                    <td>{{data.store_name}}</td>
+                                    <td>{{data.refund_amount}}</td>
+                                    <td>
+                                        <div>
+                                            <div *ngIf="data.pay_type===1"><a>微信</a></div>
+                                            <div *ngIf="data.pay_type===2"><a>支付宝</a></div>
+                                            <div *ngIf="data.pay_type===3" (click)="edit(data)" title="点击查看详情"><a>银行转账</a></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            <a title="重新发送退款请求" (click)="send(data)">退款失败</a>
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            <a title="重新发送退款请求" (click)="send(data)">未发送</a>
+                                        </div>
+                                        <div *ngIf="data.status===2">成功</div>
+                                    </td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>

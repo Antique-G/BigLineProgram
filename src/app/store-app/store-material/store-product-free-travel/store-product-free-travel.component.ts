@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
+import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 
 
 @Component({
@@ -17,45 +20,62 @@ export class StoreProductFreeTravelComponent implements OnInit {
   checkStatus: any;
   title: any;
   few_days: any;
-  few_nights: any;
   code: any;
   status: any;
+  tag: any;
 
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
   page = 1;
   per_page = 20;
   total = 1;
+  tagList: any[] = [];
 
-  
+
   newDay: any
   newHour: any;
   newMin: any;
 
   isEar: any;
+  setRewardModel: any;
 
   constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
-    public dialog: MatDialog, private modal: NzModalService) {
+    public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
+    private nzContextMenuService: NzContextMenuService) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
       few_days: [''],
-      few_nights: [''],
       code: [''],
       status: [''],
-
+      tag: [''],
     })
   }
 
 
   ngOnInit(): void {
+    this.getTagList();
     this.getProductList();
   }
 
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
+  }
+
+  closeMenu(): void {
+    this.nzContextMenuService.close();
+  }
+
+  getTagList() {
+    this.storeProductService.productTagList(2).subscribe(res => {
+      console.log("标签", res.data);
+      this.tagList = res.data;
+    })
+  }
 
   getProductList() {
     this.loading = true;
-    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
+    this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag).subscribe(res => {
       this.loading = false;
       console.log("结果是", res);
       this.total = res.total;   //总页数
@@ -79,9 +99,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.checkStatus = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.few_days = this.searchForm.value.few_days;
-    this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
+    this.tag = this.searchForm.value.tag;
     this.getProductList();
 
   }
@@ -130,8 +150,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
   // 报价
   goToQuoteClick(data: any) {
     console.log('data', data);
+    let child_status = Number(data.reserve_children)
     // 处理时间，预计多久报名
-    let minutes =data.earlier;
+    let minutes = data.earlier;
     this.newMin = Math.floor(minutes % 60);
     if (this.newMin === 0) {
       this.newHour = Math.floor(24 - minutes / 60 % 24);
@@ -148,7 +169,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     else {
       this.isEar = Math.floor(minutes / 60 / 24);
     }
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title } });
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status } });
   }
 
 
@@ -165,5 +186,43 @@ export class StoreProductFreeTravelComponent implements OnInit {
     });
   }
 
+  // 设置佣金
+  setCommission(obj: any) {
+    console.log(obj, '设置佣金');
+    const addmodal = this.modal.create({
+      nzTitle: '设置佣金',
+      nzContent: SetCommissionComponent,
+      nzComponentParams: {
+        data: {
+          id: obj.id,
+          title: obj.title,
+          day: obj.few_days
+
+        }
+      },
+      nzFooter: [
+        {
+          label: '添加',
+          type: 'primary',
+          onClick: componentInstance => {
+            let flag = componentInstance?.Add()
+            if (flag) {
+              let obj = componentInstance?.getValue()
+              this.setRewardModel = obj;
+              this.freeTrvelService.setReward(this.setRewardModel).subscribe(res => {
+                console.log('res :>> ', res);
+                if (res === null) {
+                  setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                }
+              })
+            }
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getProductList();
+    })
+  }
 
 }

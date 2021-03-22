@@ -1,0 +1,18 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="group_id" nzRequired>团队id</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="group_id" readonly="true" [(ngModel)]="isValue" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="reason">关闭理由</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

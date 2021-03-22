@@ -137,6 +137,7 @@ export interface DetailsModel {
   num_total: number;
   num_adult: number;
   num_kid: number;
+  baby_num: number;
   price_total: number;
   price_adult: number;
   price_kid: number;
@@ -158,6 +159,8 @@ export interface DetailsModel {
   contact_email: string;
   customer_remarks: string;
   internal_remarks: string;
+  emergency_contact_person: string;
+  emergency_contact_number: string;
   created_at: string;
   updated_at: string;
   deleted_at?: any;

@@ -6,7 +6,6 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="week">周几</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
-                        <!-- <nz-checkbox-group [(ngModel)]="checkOptionsOne" formControlName="week" (ngModelChange)="ngCheckBoxChange(checkOptionsOne)"></nz-checkbox-group> -->
                         <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="ngCheckBoxChange($event)">
                             <div nz-row>
                                 <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
@@ -21,7 +20,6 @@
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
                         <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
-                        <!-- <nz-range-picker [(ngModel)]="currentDate"  formControlName="date" ></nz-range-picker> -->
                     </nz-form-control>
                 </nz-form-item>
 
@@ -33,29 +31,13 @@
                     </nz-form-control>
                 </nz-form-item>
 
-                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="childStatus==='1'">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="child_price">儿童价格</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.child_price">
                         <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="child_price" (keyup)="numTest2($event)" [nzMin]="0"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
 
-                <!-- <ng-container *ngIf="type=='management'">
-                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="original_adult_price">成人原价</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.original_adult_price">
-                        <input nz-input formControlName="original_adult_price" />
-                    </nz-form-control>
-                </nz-form-item>
-    
-                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
-                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="original_child_price">儿童原价</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.original_child_price">
-                        <input nz-input formControlName="original_child_price" />
-                    </nz-form-control>
-                </nz-form-item>
-            </ng-container>
-            -->
 
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="difference_price">补 差 价</nz-form-label>
@@ -79,7 +61,6 @@
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inventory_num" nzRequired>库存数量</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.inventory_num">
                         <nz-input-number style="width: 200px;" [nzDisabled]="isSetInventory == '0'" formControlName="inventory_num" [nzMin]="1" [nzStep]="1"></nz-input-number>
-                        <!-- <input nz-input [readonly]="isSetInventory != '1'" formControlName="inventory_num" disabled/> -->
                     </nz-form-control>
                 </nz-form-item>
 

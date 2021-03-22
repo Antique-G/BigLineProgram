@@ -153,9 +153,8 @@
                                         <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
                                             <span *ngIf="data.refund_status===0">未退款</span>
                                             <span *ngIf="data.refund_status===1">待审核</span>
-                                            <span *ngIf="data.refund_status===2">拒绝退款</span>
-                                            <span *ngIf="data.refund_status===3">已审核待退款</span>
-                                            <span *ngIf="data.refund_status===4">已退款</span>
+                                            <span *ngIf="data.refund_status===2">已审核待退款</span>
+                                            <span *ngIf="data.refund_status===3">已退款</span>
                                         </div>
                                     </td>
                                     <td>

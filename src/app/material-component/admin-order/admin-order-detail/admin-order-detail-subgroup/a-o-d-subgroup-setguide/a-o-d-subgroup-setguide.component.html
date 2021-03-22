@@ -1,0 +1,28 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+            <form nz-form [formGroup]="addForm">
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="guide_name" nzRequired>导游姓名</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
+                        <nz-select nzPlaceHolder="请选择导游姓名" (ngModelChange)="changeList($event)" formControlName="guide_name">
+                            <nz-option *ngFor="let data of dataList" [nzValue]="data" [nzLabel]="data.name">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="guide_phone" nzRequired>导游电话</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
+                        <input nz-input formControlName="guide_phone" readonly="true" [(ngModel)]="isValue" />
+                    </nz-form-control>
+                </nz-form-item>
+
+
+
+            </form>
+        </nz-spin>
+    </div>
+</div>

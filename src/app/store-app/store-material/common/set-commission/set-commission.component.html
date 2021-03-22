@@ -1,0 +1,60 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">产品名称</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="title" nzBorderless id="title" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="day">出行天数</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="day" nzBorderless />
+                </nz-form-control>
+                <p style="color:red;font-size: 12px;margin-left: 44px;">！出行天数大于3天设置分销时，佣金金额都必须填写，小于等于3天为系统设置金额。</p>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reward_set">设置分销</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-select (ngModelChange)="set($event)" [(ngModel)]="values" formControlName="reward_set">
+                        <nz-option [nzLabel]="'不设置分销'" [nzValue]="0"></nz-option>
+                        <nz-option [nzLabel]="'设置分销'" [nzValue]="1"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item *ngIf="disSet===true">
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="dist_reward">分销金额</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置分销金额">
+                    <nz-input-number class="input" formControlName="dist_reward" [ngModel]="data?.obj?.dist_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                </nz-form-control>
+                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+            </nz-form-item>
+            <nz-form-item *ngIf="disSet===true">
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_reward" nzRequired>店铺佣金</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置店铺佣金">
+                    <nz-input-number class="input" formControlName="store_reward" id="store_reward" [ngModel]="data?.obj?.store_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                </nz-form-control>
+                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+            </nz-form-item>
+            <nz-form-item *ngIf="disSet===true">
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="third_reward" nzRequired>第三方佣金</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置第三方佣金">
+                    <nz-input-number class="input" formControlName="third_reward" id="third_reward" [ngModel]="data?.obj?.third_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                </nz-form-control>
+                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+            </nz-form-item>
+            <nz-form-item *ngIf="disSet===true">
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commerce_reward" nzRequired>电中佣金</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置电中佣金">
+                    <nz-input-number class="input" formControlName="commerce_reward" id="commerce_reward" [ngModel]="data?.obj?.commerce_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                </nz-form-control>
+                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

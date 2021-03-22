@@ -31,7 +31,7 @@
                                 <tr>
                                     <th style="text-align: center;">合同id</th>
                                     <th style="text-align: center;">合同名称</th>
-                                    <th style="text-align: center;width: 15%;">合同url</th>
+                                    <th style="text-align: center;width: 15%;">合同明细</th>
                                     <th style="text-align: center;">创建时间</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
@@ -42,8 +42,8 @@
                                     <td>{{data.contract_name}}</td>
                                     <td>
                                         <div>
-                                            <a href={{data.url}} target="_blank" [title]="data.contract_name">
-                                                {{data.url}}
+                                            <a href={{data.url}} target="_blank" title="下载">
+                                                <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 20px;"></i>
                                             </a>
                                         </div>
                                     </td>

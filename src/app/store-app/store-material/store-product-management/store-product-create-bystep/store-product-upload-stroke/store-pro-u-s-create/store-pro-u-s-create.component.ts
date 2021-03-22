@@ -49,7 +49,11 @@ export class StoreProUSCreateComponent implements OnInit {
       });
       this.imageList = this.imageList.concat(file);
     }
-   
+    const isLt10M = file.size! / 1024 / 1024 < 10;
+    if (!isLt10M) {
+      this.msg.error('请上传 ≤ 10MB 以内的文件!');
+      // return;
+    }
     return false
   };
 
@@ -63,8 +67,8 @@ export class StoreProUSCreateComponent implements OnInit {
   }
 
   add() {
-    if (this.fileList.length < 1){
-      this.msg.error('请选择文件')
+    if (this.fileList.length === 0) {
+      this.msg.error('请选择上传文件')
       return
     }
     this.imageList.forEach((item: any, index) => {

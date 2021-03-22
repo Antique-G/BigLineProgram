@@ -149,12 +149,15 @@ export interface DetailsModel {
   num_total: number;
   num_adult: number;
   num_kid: number;
+  baby_num: number;
   price_total: number;
   price_adult: number;
   price_kid: number;
   price_diff: number;
   price_insurance: number;
   price_other: number;
+  emergency_contact_person: string;
+  emergency_contact_number: string;
   discount_other: number;
   insurance_id: number;
   order_status: number;
@@ -448,12 +451,16 @@ export interface OrderGroupProduct {
   members: any[],
   contact_name: string;
   contact_phone: string;
+  baby_num?: string;
+  baby_info?: string;
   contact_wechat: string;
   contact_qq: string;
   contact_email: string;
   customer_remarks: string;
   assembling_place_id?: any;
   shared_status?: any;
+  emergency_contact_person?: any;
+  emergency_contact_number?: any;
 }
 
 

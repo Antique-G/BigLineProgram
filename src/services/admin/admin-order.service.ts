@@ -2,8 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
+import { EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
 import { AdminUrls } from '../../api';
+import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
 
 
 
@@ -52,7 +53,94 @@ export class AdminOrderService {
   }
 
 
- 
+
+
+  // 派遣导游
+  setGuide(setGuideModel: SetGuideModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupSetGuide, setGuideModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  //获取导游数据 
+  getGuide(): Observable<GetGuideListModel> {
+    return this.httpClient.get<GetGuideListModel>(this.urls.GetAdminOrderGroupGuideList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // 移动订单
+  moveOrder(moveOrderModel: MoveOrderModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupMoveOrder, moveOrderModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 不成团关团
+  shutoff(shuffOrderModel: ShuffOrderModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupShutoff, shuffOrderModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 发送订单预定成功通知短信
+  orderSms(orderSmsModel: OrderSmsModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupOrderSms, orderSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 发送出团通知短信
+  groupSms(groupSmsModel: GroupSmsModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupGroupSms, groupSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 删除子团
+  deleteSubGroup(sub_group_id: any): Observable<any> {
+    return this.httpClient.delete<any>(this.urls.DeletetAdminOrderGroupSubGroup + sub_group_id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 发送不成团通知短信
+  cancel(orderSmsModel: OrderSmsModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGroupCancelSms, orderSmsModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  //设置出团人数限制
+  groupNum(orderGroupNum: OrderGroupNum): Observable<any> {
+    const id = orderGroupNum.id;
+    return this.httpClient.put<any>(this.urls.PutAdminOrderGroupNum + id, orderGroupNum, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 修改集合地
+  editMember(editMemberModel: EditMemberModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminEditMember, editMemberModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

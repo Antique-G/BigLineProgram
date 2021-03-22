@@ -62,6 +62,10 @@ export const AdminUrls = {
 
 
 
+  GetAdminUserCommissionList: api + '/admin/dist_record',  //用户分销的佣金列表
+  PostAdminUserCommissionAudit: api + '/admin/dist/check',   //佣金通过/拒绝审核
+  PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   //佣金通过/拒绝审核
+  GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
 
 
 
@@ -109,6 +113,20 @@ export const AdminUrls = {
 
   GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
   GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
+  PostAdminOrderGroupSetGuide: api + '/admin/group/set_guide',   // 派遣导游
+  GetAdminOrderGroupGuideList: api + '/admin/guide/data',   // 获取导游数据
+  PostAdminOrderGroupMoveOrder: api + '/admin/group/move_order',   // 移动订单
+  PostAdminOrderGroupShutoff: api + '/admin/group/shut_off',   // 不成团关团
+  PostAdminOrderGroupOrderSms: api + '/admin/group/sendOrderSms',   // 发送订单预定成功通知短信接口
+  PostAdminOrderGroupGroupSms: api + '/admin/group/sendGroupSms',   // 发送出团通知短信接口
+  DeletetAdminOrderGroupSubGroup: api + '/admin/subGroup/',   // 删除子团
+  PostAdminOrderGroupCancelSms: api + '/admin/group/sendOrderCancelSms',   // 发送不成团通知短信接口
+  PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
+
+
+
+
+
   GetAdminOrderfreeTravelList: api + '/admin/order/free_travel',  //自由行订单列表
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
@@ -116,6 +134,27 @@ export const AdminUrls = {
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
   PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
   PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
+  GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
+  PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
+  PostAdminEditMember: api + '/admin/order/edit_member',  //修改集合地
+
+
+
+
+  GetAdminRefund: api + '/admin/refund',  //退款列表
+  PostAdminRefundCheck: api + '/admin/refund_check', // 审核提交
+  PostAdminRefund: api + '/admin/refund', //创建退款单
+  GetAdminRefundPayLog: api + '/admin/refund/pay_log', //支付流水
+  PostAdminRefundFinish: api + '/admin/refund_finish', //提交退款流水去向（完成退款）
+  GetAdminRefundLog: api + '/admin/refund_log', //退款流水列表
+  PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
+
+
+
+  GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
+
+
+
 
   GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
   PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
@@ -141,11 +180,23 @@ export const AdminUrls = {
 
 
 
+  GetAdminGuideList: api + '/admin/guide',  //导游列表
+  PostAdminGuideCreate: api + '/admin/guide',   // 导游添加
+  PutAdminGuideUpdate: api + '/admin/guide/',   // 导游修改
+  GetAdminGuideDetail: api + '/admin/guide/',   // 导游详情
+  DeleteAdminGuide: api + '/admin/guide/',   // 导游删除
+  PostAdminGuideSetStatus: api + '/admin/guide/set_status',   // 导游启用 
+
 
 
 
   PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
+
+  GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
+  PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
+  DeleteAdminRegionService: api + '/admin/region_service/', //删除
+  PutAdminRegion: api + '/admin/region_service/',    //区域更新
 
 
 };
@@ -176,6 +227,11 @@ export const StoreUrls = {
   PostStoreProductTripDel: api + '/store/product_trip_del', //删除行程
   GetStoreProSearch: api + '/store/product/search',  // 跟团游产品搜索
   PostStoreProductOrderGroup: api + '/store/order/group_product',  // 创建订单（跟团游）
+
+  PostStoreProductReward: api + '/store/product_reward',//佣金的编辑
+  PostStoreFreeReward: api + '/store/inden_product_reward',//佣金的编辑
+
+
 
   GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索
   PostStoreProductOrderGroupFree: api + '/store/order/independent_product',  //创建订单（自由行）
@@ -269,6 +325,11 @@ export const StoreUrls = {
   GetStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交前展示）
   PostStoreOrderChangeDate: api + '/store/order/change_date',  //订单改日期（提交）
   PostStoreOrderConfirmReceipt: api + '/store/order/confirm_receipt',  //确认收款
+
+
+  GetStoreRefund: api + '/store/refund',  //退款列表
+  GetStoreRefundDetail: api + '/store/refund/',  //退款详情
+  GetStoreRefundLog: api + '/store/refund_log', //退款流水列表
 
 
 

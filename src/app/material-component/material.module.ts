@@ -78,6 +78,7 @@ import { AdminWechatPageblockProlistComponent } from './admin-wechat-pageconfig/
 import { AdminOrderDetailComponent } from './admin-order/admin-order-detail/admin-order-detail.component';
 import { AdminOrderDetailSubgroupComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-detail-subgroup.component';
 import { AdminUserinfoDetailComponent } from './admin-userinfo/admin-userinfo-detail/admin-userinfo-detail.component';
+
 import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin-order-group-travel.component';
 import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
@@ -87,6 +88,32 @@ import { AdminContractCreateComponent } from './admin-contract/admin-contract-cr
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
+import { AODChangeNumsComponent } from './admin-order/admin-order-detail/a-o-d-change-nums/a-o-d-change-nums.component';
+import { AODShutOffComponent } from './admin-order/admin-order-detail/a-o-d-shut-off/a-o-d-shut-off.component';
+import { AODSubgroupMoveorderComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-moveorder/a-o-d-subgroup-moveorder.component';
+import { AODSubgroupSendsmsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
+import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
+import { AOGTDetailChangeDataComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
+import { UploadIdCardComponent } from './admin-order-group-travel/admin-order-group-order/upload-id-card/upload-id-card.component';
+import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refund.component';
+import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
+import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
+import { AdminOrderRefundDetailComponent } from './admin-order-refund/admin-order-refund-detail/admin-order-refund-detail.component';
+import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
+import { AdminTouristCreateComponent } from './admin-tourist/admin-tourist-create/admin-tourist-create.component';
+import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detail/admin-tourist-detail.component';
+import { UserCommissionListComponent } from './admin-commission/user-commission-list/user-commission-list.component';
+import { AdminCommissionWithdrawComponent } from './admin-commission/admin-commission-withdraw/admin-commission-withdraw.component';
+import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
+import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
+import { AdminOrderRefundWaysComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-ways.component';
+import { UserCommissionAuditComponent } from './admin-commission/user-commission-list/user-commission-audit/user-commission-audit.component';
+import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-refund-edit/admin-order-refund-edit.component';
+import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover/admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
+import { AdminServicerComponent } from './admin-servicer/admin-servicer.component';
+import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-confirm/admin-order-refund-confirm.component';
+import { AdminServicerCreateComponent } from './admin-servicer/admin-servicer-create/admin-servicer-create.component';
+import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-detail/admin-servicer-detail.component';
 
 
 @NgModule({
@@ -192,6 +219,32 @@ import { AdminOrderGroupMoneyComponent } from './admin-order-group-travel/admin-
     AdminOrderGroupOrderComponent,
     AOFreetravelOrderComponent,
     AdminOrderGroupMoneyComponent,
+    AODChangeNumsComponent,
+    AODShutOffComponent,
+    AODSubgroupMoveorderComponent,
+    AODSubgroupSendsmsComponent,
+    AODSubgroupSetguideComponent,
+    AOGTDetailChangeDataComponent,
+    UploadIdCardComponent,
+    AdminOrderRefundComponent,
+    AdminOrderRefundReviewComponent,
+    AdminOrderRefundTurnoverComponent,
+    AdminOrderRefundDetailComponent,
+    AdminTouristComponent,
+    AdminTouristCreateComponent,
+    AdminTouristDetailComponent,
+    UserCommissionListComponent,
+    AdminCommissionWithdrawComponent,
+    AdminOrderRefundReviewDetailComponent,
+    AdminOrderRefundReviewEditComponent,
+    AdminOrderRefundWaysComponent,
+    UserCommissionAuditComponent,
+    AdminOrderRefundEditComponent,
+    AdminOrderRefundTurnoverDetailComponent,
+    AdminServicerComponent,
+    AdminOrderRefundConfirmComponent,
+    AdminServicerCreateComponent,
+    AdminServicerDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

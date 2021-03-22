@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { format } from 'date-fns';
-
-
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 @Component({
   selector: 'app-store-product-management',
   templateUrl: './store-product-management.component.html',
@@ -17,10 +17,9 @@ export class StoreProductManagementComponent implements OnInit {
   checkStatus: any;
   title: any;
   few_days: any;
-  few_nights: any;
   code: any;
   status: any;
-
+  tag: any;
   dataSource: any[] = [];   //1.4将数据添加到dataSource
   loading = true;
   page = 1;
@@ -35,29 +34,47 @@ export class StoreProductManagementComponent implements OnInit {
   newMin: any;
 
   isEar: any;
+  tagList: any[] = [];
+  setRewardModel: any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-    private modal: NzModalService) {
+    private modal: NzModalService, private nzContextMenuService: NzContextMenuService) {
     this.searchForm = this.fb.group({
       checkStatus: [''],
       title: [''],
       few_days: [''],
-      few_nights: [''],
       code: [''],
       status: [''],
+      tag: [''],
     })
   }
 
 
   ngOnInit(): void {
+    this.getTagList();
     this.getProductList();
   }
 
 
+  getTagList() {
+    this.storeProductService.productTagList(1).subscribe(res => {
+      console.log("标签", res.data);
+      this.tagList = res.data;
+    })
+  }
+
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
+  }
+
+  closeMenu(): void {
+    this.nzContextMenuService.close();
+  }
+
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.few_nights, this.code, this.status).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
@@ -82,9 +99,9 @@ export class StoreProductManagementComponent implements OnInit {
     this.checkStatus = this.searchForm.value.checkStatus;
     this.title = this.searchForm.value.title;
     this.few_days = this.searchForm.value.few_days;
-    this.few_nights = this.searchForm.value.few_nights;
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
+    this.tag = this.searchForm.value.tag;
     this.getProductList();
 
   }
@@ -129,7 +146,8 @@ export class StoreProductManagementComponent implements OnInit {
     console.log('data', data);
     this.storeProductService.getProductDetail(data.id).subscribe(res => {
       console.log("结果是", res.data.id, res.data.earlier)
-
+      console.log('res,2132323 :>> ', res.data.child_status);
+      let child_status = Number(res.data.child_status)
       // 处理时间，预计多久报名
       let minutes = res.data.earlier;
       this.newMin = Math.floor(minutes % 60);
@@ -141,14 +159,14 @@ export class StoreProductManagementComponent implements OnInit {
         this.newHour = Math.floor(24 - minutes / 60 % 24);
       }
       this.newDay = format(new Date(), 'HH');
-      console.log('2423423', this.newHour, new Date(), this.newMin,this.newDay, this.newHour <= this.newDay)
+      console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
       if (this.newHour <= this.newDay) {
         this.isEar = Math.floor(minutes / 60 / 24) + 1;
       }
       else {
         this.isEar = Math.floor(minutes / 60 / 24);
       }
-      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title } });
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status } });
     })
   }
 
@@ -183,4 +201,47 @@ export class StoreProductManagementComponent implements OnInit {
       this.isReason = res[0]?.reason;
     })
   }
+
+
+
+  // 设置佣金
+  setCommission(obj: any) {
+    console.log(obj, '设置佣金');
+    const addmodal = this.modal.create({
+      nzTitle: '设置佣金',
+      nzContent: SetCommissionComponent,
+      nzComponentParams: {
+        data: {
+          id: obj.id,
+          title: obj.title,
+          day: obj.few_days,
+          obj: obj
+        }
+      },
+      nzFooter: [
+        {
+          label: '添加',
+          type: 'primary',
+          onClick: componentInstance => {
+            let flag = componentInstance?.Add()
+            if (flag) {
+              let obj = componentInstance?.getValue();
+              this.setRewardModel = obj;
+              this.storeProductService.setReward(this.setRewardModel).subscribe(res => {
+                console.log('res :>> ', res);
+                if (res === null) {
+                  setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                }
+              })
+
+            }
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getProductList();
+    })
+  }
+
 }

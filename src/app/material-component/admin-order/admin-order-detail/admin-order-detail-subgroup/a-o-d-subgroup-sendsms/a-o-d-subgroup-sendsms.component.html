@@ -1,0 +1,36 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayoutGap="10px" fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div style="font-size: 18px;cursor: pointer;">发送出团短信通知</div>
+            <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div style="padding: 5px;">
+                <form nz-form [formGroup]="addForm" nz-row style="width: 100%;">
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>负责人姓名</nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入负责人姓名">
+                                <input nz-input formControlName="name" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone" nzRequired>负责人电话</nz-form-label>
+                            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入负责人电话">
+                                <input nz-input formControlName="phone" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+                </form>
+
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 10px;">
+                <button nz-button nzType="primary" (click)="add()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

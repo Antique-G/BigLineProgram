@@ -39,6 +39,8 @@ export class StoreTravelDetailDescComponent implements OnInit {
   isSpecial = true;
 
   delids: any[] = [];
+  // 将富文本实例放到数组，图库导入资源可正常样式赋值
+  editArr: any[] = [];
 
 
   editMenu = [
@@ -166,6 +168,7 @@ export class StoreTravelDetailDescComponent implements OnInit {
         else {
           newEditor.txt.html(this.dataDetailModel?.product_trip.data[i]?.content) // 重i新设置编辑器内容
         }
+        this.editArr.push(newEditor);
       }, 100)
     }
     console.log('this.dayArray :>> ', this.dayArray);
@@ -341,8 +344,9 @@ export class StoreTravelDetailDescComponent implements OnInit {
         //   return
         // }
         // 将图片传到文本框
-        console.log("document.getElementById(`detailBox${i}`)!.innerHTML", document.getElementById(`detailBox${i}`)!.innerHTML)
-        document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+        // console.log("document.getElementById(`detailBox${i}`)!.innerHTML", document.getElementById(`detailBox${i}`)!.innerHTML)
+        // document.getElementById(`detailBox${i}`)!.innerHTML += `<img src="${item.url}" style="max-width:100%;"/><br>`
+        this.editArr[i - 1].txt.append(`<img src="${item.url}" style="max-width:100%;"/>`);
       });
     });
   }

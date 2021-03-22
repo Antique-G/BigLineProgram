@@ -21,6 +21,9 @@ import { StoreOrderGrouptravelDetailComponent } from './store-order-grouptravel/
 import { StoreContractComponent } from './store-contract/store-contract.component';
 import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/store-order-grouptravel-order/store-order-grouptravel-order.component';
 import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetravel-order/s-o-freetravel-order.component';
+import { StoreOrderRefundComponent } from './store-order-refund/store-order-refund.component';
+import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
+import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover/store-order-refund-turnover.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -77,7 +80,7 @@ export const StoreMaterialRoutes: Routes = [
           breadcrumb: '自由行产品详情'
         }
       },
-      
+
       {
         path: 'storeProduct/storeQuote',
         component: StoreQuoteBydateComponent,
@@ -85,7 +88,7 @@ export const StoreMaterialRoutes: Routes = [
           breadcrumb: '按日期报价'
         }
       },
-      
+
       {
         path: 'storeMeetingPlace',
         component: StoreMeetingPlaceComponent,
@@ -131,7 +134,7 @@ export const StoreMaterialRoutes: Routes = [
       {
         path: 'storeOrderGroup/detail',
         component: StoreOrderGroupDetailComponent,
-        runGuardsAndResolvers: 'always' ,
+        runGuardsAndResolvers: 'always',
         data: {
           breadcrumb: '团订单详情'
         }
@@ -149,14 +152,14 @@ export const StoreMaterialRoutes: Routes = [
         data: {
           breadcrumb: '自由行订单详情'
         }
-      }, 
+      },
       {
         path: 'storeOrderFreeTravel/addOrder',
         component: SOFreetravelOrderComponent,
         data: {
           breadcrumb: '添加订单内容'
         }
-      }, 
+      },
       {
         path: 'storeOrdergroupTravel',
         component: StoreOrderGrouptravelComponent,
@@ -184,8 +187,29 @@ export const StoreMaterialRoutes: Routes = [
         data: {
           breadcrumb: '合同列表'
         }
-      }
-      
+      },
+      {
+        path: 'storeRefund',
+        component: StoreOrderRefundComponent,
+        data: {
+          breadcrumb: '订单退款记录列表'
+        }
+      },
+      {
+        path: 'storeRefund/detail',
+        component: StoreOrderRefundDetailComponent,
+        data: {
+          breadcrumb: '订单退款记录详情'
+        }
+      },
+      {
+        path: 'storeRefundTurnOver',
+        component: StoreOrderRefundTurnoverComponent,
+        data: {
+          breadcrumb: '订单退款流水'
+        }
+      },
+
     ]
   }
 ];
