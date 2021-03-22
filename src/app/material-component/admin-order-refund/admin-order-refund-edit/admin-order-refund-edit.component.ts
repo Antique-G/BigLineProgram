@@ -89,6 +89,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       amount_cut: '',
       members: [],
       remark: '',
+      type: ''
     }
   }
 
@@ -104,7 +105,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
-
         console.log('object :>> ', this.detailModel.price_detail.data,);
         // this.detailModel.price_detail.
         let priceArr = this.detailModel.price_detail.data;
@@ -357,21 +357,39 @@ export class AdminOrderRefundEditComponent implements OnInit {
       if (this.checkkidNum != this.allKidNum.length || this.checkbaNum != this.allbabyNum.length) {
         this.message.create('error', `所有出行人为成人的已选择退款，儿童和婴儿也必须退款`);
       }
-      else{
-        this.modal.confirm({
-          nzTitle: '<h4>确认提交退款</h4>',
-          nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-          nzOnOk: () =>
-            this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-              console.log('res :>> ', res);
-              if (res === null) {
-                this.router.navigate(['/admin/main/refund']);
-              }
-            })
-        });
+      else {
+        if (this.detailModel?.type === 0) {
+          this.reundCheckModel.type = 0;
+          this.modal.confirm({
+            nzTitle: '<h4>确认提交退款</h4>',
+            nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+            nzOnOk: () =>
+              this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+                console.log('res :>> ', res);
+                if (res === null) {
+                  this.router.navigate(['/admin/main/refund']);
+                }
+              })
+          });
+        }
+        else if (this.detailModel?.type === 1) {
+          this.reundCheckModel.type = 0;
+          this.modal.confirm({
+            nzTitle: '<h4>确认提交退款</h4>',
+            nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+            nzOnOk: () =>
+              this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+                console.log('res :>> ', res);
+                if (res === null) {
+                  this.router.navigate(['/admin/main/refund']);
+                }
+              })
+          });
+        }
       }
     }
     else {
+      this.reundCheckModel.type = 1;
       this.modal.confirm({
         nzTitle: '<h4>确认提交退款</h4>',
         nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',

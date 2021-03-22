@@ -142,6 +142,7 @@ export interface ReundCheckModel {
   amount_cut: any;
   members: any;
   remark: string;
+  type?: any;
 }
 
 // 支付流水
