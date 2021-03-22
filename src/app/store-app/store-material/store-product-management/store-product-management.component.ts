@@ -214,7 +214,8 @@ export class StoreProductManagementComponent implements OnInit {
         data: {
           id: obj.id,
           title: obj.title,
-          day: obj.few_days
+          day: obj.few_days,
+          obj: obj
         }
       },
       nzFooter: [
@@ -228,9 +229,9 @@ export class StoreProductManagementComponent implements OnInit {
               this.setRewardModel = obj;
               this.storeProductService.setReward(this.setRewardModel).subscribe(res => {
                 console.log('res :>> ', res);
-               if(res===null){
-                setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-               }
+                if (res === null) {
+                  setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                }
               })
 
             }
