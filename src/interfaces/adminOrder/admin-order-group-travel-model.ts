@@ -455,4 +455,6 @@ export interface OrderGroupProduct {
   customer_remarks: string;
   assembling_place_id?: any;
   shared_status: any;
+  emergency_contact_person?: any;
+  emergency_contact_number?: any;
 }
