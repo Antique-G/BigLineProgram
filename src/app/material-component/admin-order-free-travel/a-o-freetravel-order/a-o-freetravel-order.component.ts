@@ -125,6 +125,8 @@ export class AOFreetravelOrderComponent implements OnInit {
       contact_qq: '',
       contact_email: '',
       customer_remarks: '',
+      emergency_contact_person: '',
+      emergency_contact_number: '',
     }
   }
 
@@ -298,6 +300,8 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
+    this.orderGroupProduct.emergency_contact_person= this.informationForm.value.emergency_contact_person;
+    this.orderGroupProduct.emergency_contact_number= this.informationForm.value.emergency_contact_number;
   }
 
 
