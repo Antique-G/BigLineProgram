@@ -27,7 +27,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   date_start: any;
   date_end: any;
   status: any;
-  dateArray: any;
+  dateArray: any[] = [];
   storeList: any[] = [];
 
 
@@ -88,17 +88,15 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   }
 
 
+
   onChangeDate(event: any) {
     this.dateArray = [];
     const datePipe = new DatePipe('en-US');
-    console.log('object :>> ', event);
     const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate);
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
     this.dateArray.push(myFormattedDate1);
-    console.log("event", this.dateArray);
   }
-
 
 
   edit(data: any) {
