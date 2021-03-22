@@ -25,7 +25,7 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
   date_start: any;
   date_end: any;
   status: any;
-  dateArray: any;
+  dateArray: any[] = [];
   storeList: any[] = [];
 
 
