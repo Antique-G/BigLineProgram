@@ -315,13 +315,13 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     this.bascie_money = (Number(adultNum.length) * Number(this.detailModel.order?.data?.price_adult) + Number(kidNum.length) * Number(this.detailModel.order?.data?.price_kid)) * Number(this.percentage);
     //  保留两位小数
-    this.bascie_money = Number(this.bascie_money).toFixed(2);
+    this.bascie_money = Math.ceil(Number(this.bascie_money) * 100) / 100;
     console.log('bascie_money :>> ', this.bascie_money, adultNum.length * this.detailModel.order?.data?.price_adult, kidNum.length * this.detailModel.order?.data?.price_kid, this.percentage);
     this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;
 
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Number(this.refund_amount).toFixed(2);
+    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
@@ -332,7 +332,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     console.log('1111111111', data, this.addForm.value.amount_add);
     console.log('Number(this.bascie_money) :>> ', Number(this.bascie_money), Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Number(this.refund_amount).toFixed(2);
+    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
@@ -341,7 +341,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   numTest1(data: any) {
     console.log('2222222', data)
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Number(this.refund_amount).toFixed(2);
+    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
