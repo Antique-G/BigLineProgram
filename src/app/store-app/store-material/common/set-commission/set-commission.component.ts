@@ -37,6 +37,8 @@ export class SetCommissionComponent implements OnInit {
     else {
       this.disSet = false;
     }
+    console.log('1111111', this.data);
+    this.values = this.data?.obj?.reward_set;
   }
 
   formInit() {
@@ -89,7 +91,7 @@ export class SetCommissionComponent implements OnInit {
       this?.addForm?.controls['third_reward'].updateValueAndValidity();
       this?.addForm?.controls['commerce_reward'].setValidators(null);
       this?.addForm?.controls['commerce_reward'].updateValueAndValidity();
-    
+
     }
   }
 
