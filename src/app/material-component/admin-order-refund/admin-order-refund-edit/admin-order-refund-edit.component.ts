@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
 import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-order-refund-edit',
@@ -38,10 +39,21 @@ export class AdminOrderRefundEditComponent implements OnInit {
   refund_amount: any;
   bascie_money: any;
   checked = false;
+  // 勾选的成人数
+  checkAdultNum: any;
+  checkkidNum: any;
+  checkbaNum: any;
+  // 出行人成人数
+  allAdultNum: any;
+  // 出行人儿童数
+  allKidNum: any;
+  // 出行人婴儿数
+  allbabyNum: any;
+
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    private modal: NzModalService, public adminRefundService: AdminRefundService) {
+    private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
     this.addForm = this.fb.group({
       order_id: [''],
       id: [''],
@@ -114,14 +126,32 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.dataMember = this.detailModel?.member?.data;
         this.selectMemberData = this.detailModel?.member?.data;
         // 筛选出行人未申请过退款的
-        let newMember: any[] = []
+        let newMember: any[] = [];
+        // 总成人数
+        let adAllArr: any[] = [];
+        let kidAllArr: any[] = [];
+        let baAllArr: any[] = [];
+
         this.selectMemberData.forEach((ele: any) => {
           if (ele.refund_status === 0) {
-            newMember.push(ele)
+            newMember.push(ele);
+          }
+          if (ele.is_kid === 0) {
+            adAllArr.push(ele);
+          }
+          if (ele.is_kid === 1) {
+            kidAllArr.push(ele);
+          }
+          if (ele.is_kid === 2) {
+            baAllArr.push(ele);
           }
         })
+        this.allAdultNum = adAllArr;
+        this.allKidNum = kidAllArr;
+        this.allbabyNum = baAllArr;
+
         this.selectMemberData = newMember;
-        console.log('5666565656 ', this.selectMemberData);
+        console.log('5666565656 ', this.selectMemberData, this.allAdultNum, this.allKidNum, this.allbabyNum);
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
@@ -231,6 +261,13 @@ export class AdminOrderRefundEditComponent implements OnInit {
       }
     })
     console.log('选择的 ', adultNum, adultName, kidNum, kidName);
+    // 已勾选的成人数
+    this.checkAdultNum = adultNum.length;
+    this.checkkidNum = kidNum.length;
+    this.checkbaNum = babyNum.length;
+    console.log('已勾选的成人数', this.checkAdultNum, this.checkkidNum, this.checkbaNum);
+
+
     let ad_names: any;
     let ad_i: any;
     let kid_names: any;
@@ -247,11 +284,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
     if (babyNum.length != 0) {
       baby_names = babyName.toString();
-      baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
+      baby_i = '婴儿' + babyNum.length + '个' + '(' + baby_names + ')';
     }
 
-    // console.log('adultNum.length != 0, :>> ', adultNum.length != 0,);
-    // this.selectHumans = ad_i != undefined ? ad_i : '' + '|' + kid_i != undefined ? kid_i : '';
+
     if (adultNum.length != 0) {
       this.selectHumans = ad_i;
       if (kidNum.length != 0) {
@@ -276,6 +312,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     else if (adultNum.length === 0 && kidNum.length === 0 && babyNum.length === 0) {
       this.selectHumans = '';
     }
+
     this.bascie_money = (adultNum.length * this.detailModel.order?.data?.price_adult + kidNum.length * this.detailModel.order?.data?.price_kid) * this.percentage;
     //  保留两位小数
     this.bascie_money = this.bascie_money.toFixed(2);
@@ -313,17 +350,39 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
   add() {
     this.setValue();
-    this.modal.confirm({
-      nzTitle: '<h4>确认提交退款</h4>',
-      nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-      nzOnOk: () =>
-        this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-          console.log('res :>> ', res);
-          if (res === null) {
-            this.router.navigate(['/admin/main/refund']);
-          }
-        })
-    });
+    console.log('this.checkAdultNum.length :>> ', this.checkAdultNum, this.allAdultNum.length);
+    if (this.checkAdultNum === this.allAdultNum.length) {
+      if (this.checkkidNum != this.allKidNum.length || this.checkbaNum != this.allbabyNum.length) {
+        this.message.create('error', `所有出行人为成人的已选择退款，儿童和婴儿也必须退款`);
+      }
+      else{
+        this.modal.confirm({
+          nzTitle: '<h4>确认提交退款</h4>',
+          nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+          nzOnOk: () =>
+            this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+              console.log('res :>> ', res);
+              if (res === null) {
+                this.router.navigate(['/admin/main/refund']);
+              }
+            })
+        });
+      }
+    }
+    else {
+      this.modal.confirm({
+        nzTitle: '<h4>确认提交退款</h4>',
+        nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+        nzOnOk: () =>
+          this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+            console.log('res :>> ', res);
+            if (res === null) {
+              this.router.navigate(['/admin/main/refund']);
+            }
+          })
+      });
+    }
+
   }
 
 }

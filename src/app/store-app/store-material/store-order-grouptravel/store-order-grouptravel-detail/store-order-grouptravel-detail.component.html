@@ -146,6 +146,14 @@
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
+                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">客人备注</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <input nz-input formControlName="customer_remarks" nzBorderless [ngModel]="detailModel?.customer_remarks" />
+                                                </nz-form-control>
+                                            </div>
+                                        </nz-form-item>
 
                                     </form>
                                 </div>
@@ -162,7 +170,6 @@
                                                 <th style="text-align: center;">联系方式</th>
                                                 <th style="text-align: center;">集合地点</th>
                                                 <th style="text-align: center;">集合时间</th>
-                                                <th style="text-align: center;">备注</th>
                                                 <th style="text-align: center;">出团通知短信</th>
                                                 <th style="text-align: center;">是否已申请退款</th>
                                             </tr>
@@ -186,11 +193,6 @@
                                                 <td>{{data.phone}}</td>
                                                 <td>{{ data.assembling_place }}</td>
                                                 <td>{{ data.assembling_time==='00:00'?'待定':data.assembling_time }}</td>
-
-                                                <td>
-                                                    <div *ngIf="data?.remarks===''">{{detailModel.customer_remarks}}</div>
-                                                    <div *ngIf="data?.remarks!=''">{{data.customer_remarks}}</div>
-                                                </td>
                                                 <td>
                                                     <div *ngIf="data.sms_status===0">
                                                         <nz-badge nzColor="yellow"></nz-badge>未发</div>

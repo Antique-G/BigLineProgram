@@ -36,6 +36,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       contact_email: ['', [Validators.required]],
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
+      customer_remarks: ['', [Validators.required]],
     });
 
   }
