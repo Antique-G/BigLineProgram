@@ -269,44 +269,57 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   // 发送出团短信通知
   sendSms() {
     let newArray = [...this.setOfCheckedId];
+    console.log('2423423', newArray);
     if (newArray.length === 0) {
       this.message.create('error', `请选择订单`);
     }
-    else {
-      const dialogRef = this.dialog.open(AODSubgroupSendsmsComponent, {
-        width: '800px',
-        data: newArray
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.activatedRoute.queryParams.subscribe(params => {
-          console.log("params", params)
-          this.detailId = JSON.parse(params["detailId"]);
-          // 详情
-          this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
-            this.setOfCheckedId.clear();
-            console.log("结果是", res.data);
-            this.detailModel = res.data;
-            this.cursubGroupModelValue = this.detailModel.sub_group.data;
-            this.cursubGroupModelValue.forEach((value: any, index: any) => {
-              value['tabs'] = '子团' + (index + 1);
-              value?.order?.data.forEach((value: any, index: any) => {
-                value['expand'] = false; //展开属性
-                value.member?.data.forEach((element: any) => {
-                  if (element.birthday === null) {
-                    let year = element.id_num.slice(6, 10);
-                    let month = element.id_num.slice(10, 12);
-                    let date = element.id_num.slice(12, 14);
-                    element.birthday = year + '-' + month + '-' + date;
-                  }
-                });
-              });
-              console.log("33435434", this.cursubGroupModelValue);
-            })
-          })
-        })
+    else if (newArray.length != 0) {
+      newArray.map((ele: any) => {
 
-      });
+        let flag = ele.member.data.every((item: any) => item.assembling_place && item.assembling_time)
+        console.log('flag', flag);
+        if (flag) {
+          const dialogRef = this.dialog.open(AODSubgroupSendsmsComponent, {
+            width: '800px',
+            data: newArray
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            this.activatedRoute.queryParams.subscribe(params => {
+              console.log("params", params)
+              this.detailId = JSON.parse(params["detailId"]);
+              // 详情
+              this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+                this.setOfCheckedId.clear();
+                console.log("结果是", res.data);
+                this.detailModel = res.data;
+                this.cursubGroupModelValue = this.detailModel.sub_group.data;
+                this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                  value['tabs'] = '子团' + (index + 1);
+                  value?.order?.data.forEach((value: any, index: any) => {
+                    value['expand'] = false; //展开属性
+                    value.member?.data.forEach((element: any) => {
+                      if (element.birthday === null) {
+                        let year = element.id_num.slice(6, 10);
+                        let month = element.id_num.slice(10, 12);
+                        let date = element.id_num.slice(12, 14);
+                        element.birthday = year + '-' + month + '-' + date;
+                      }
+                    });
+                  });
+                  console.log("33435434", this.cursubGroupModelValue);
+                })
+              })
+            })
+
+          });
+        } else {
+          this.message.create('error', `订单号:${ele.id},所含出行人的集合时间和集合地点不能为空`);
+        }
+
+      })
+
     }
+
   }
 
 
@@ -378,80 +391,90 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     console.log('object :>> ', dataChild);
     this.editMemberModel.id = dataChild?.id;
     this.editMemberModel.assembling_place = dataChild?.assembling_place;
-    this.modal.confirm({
-      nzTitle: "<h4>提示</h4>",
-      nzContent: "<h6>是否修改集合地点</h6>",
-      nzOnOk: () =>
-        this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
-          this.activatedRoute.queryParams.subscribe(params => {
-            console.log("params", params)
-            this.detailId = JSON.parse(params["detailId"]);
-            // 详情
-            this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
-              this.setOfCheckedId.clear();
-              console.log("结果是", res.data);
-              this.detailModel = res.data;
-              this.cursubGroupModelValue = this.detailModel.sub_group.data;
-              this.cursubGroupModelValue.forEach((value: any, index: any) => {
-                value['tabs'] = '子团' + (index + 1);
-                value?.order?.data.forEach((value: any, index: any) => {
-                  value['expand'] = false; //展开属性
-                  value.member?.data.forEach((element: any) => {
-                    if (element.birthday === null) {
-                      let year = element.id_num.slice(6, 10);
-                      let month = element.id_num.slice(10, 12);
-                      let date = element.id_num.slice(12, 14);
-                      element.birthday = year + '-' + month + '-' + date;
-                    }
+    if (this.editMemberModel.assembling_place === '') {
+      this.message.create('warning', `空值不保存`);
+    }
+    else {
+      this.modal.confirm({
+        nzTitle: "<h4>提示</h4>",
+        nzContent: "<h6>是否修改集合地点</h6>",
+        nzOnOk: () =>
+          this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+            this.activatedRoute.queryParams.subscribe(params => {
+              console.log("params", params)
+              this.detailId = JSON.parse(params["detailId"]);
+              // 详情
+              this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+                this.setOfCheckedId.clear();
+                console.log("结果是", res.data);
+                this.detailModel = res.data;
+                this.cursubGroupModelValue = this.detailModel.sub_group.data;
+                this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                  value['tabs'] = '子团' + (index + 1);
+                  value?.order?.data.forEach((value: any, index: any) => {
+                    value['expand'] = false; //展开属性
+                    value.member?.data.forEach((element: any) => {
+                      if (element.birthday === null) {
+                        let year = element.id_num.slice(6, 10);
+                        let month = element.id_num.slice(10, 12);
+                        let date = element.id_num.slice(12, 14);
+                        element.birthday = year + '-' + month + '-' + date;
+                      }
+                    });
                   });
-                });
-                console.log("33435434", this.cursubGroupModelValue);
+                  console.log("33435434", this.cursubGroupModelValue);
+                })
               })
             })
-          })
-        }),
-    });
+          }),
+      });
+    }
+
   }
 
 
   changeConfirm1(dataChild: any) {
     console.log('object :>> ', dataChild);
     this.editMemberModel1.id = dataChild?.id;
-    // let time = '2020-01-01' + ;
-    // this.editMemberModel1.assembling_time = format(new Date(time), 'HH:mm');
     this.editMemberModel1.assembling_time = dataChild?.assembling_time;
-    this.modal.confirm({
-      nzTitle: "<h4>提示</h4>",
-      nzContent: "<h6>是否修改集合时间</h6>",
-      nzOnOk: () =>
-        this.adminOrderService.editMember(this.editMemberModel1).subscribe((res: any) => {
-          this.activatedRoute.queryParams.subscribe(params => {
-            console.log("params", params)
-            this.detailId = JSON.parse(params["detailId"]);
-            // 详情
-            this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
-              this.setOfCheckedId.clear();
-              console.log("结果是", res.data);
-              this.detailModel = res.data;
-              this.cursubGroupModelValue = this.detailModel.sub_group.data;
-              this.cursubGroupModelValue.forEach((value: any, index: any) => {
-                value['tabs'] = '子团' + (index + 1);
-                value?.order?.data.forEach((value: any, index: any) => {
-                  value['expand'] = false; //展开属性
-                  value.member?.data.forEach((element: any) => {
-                    if (element.birthday === null) {
-                      let year = element.id_num.slice(6, 10);
-                      let month = element.id_num.slice(10, 12);
-                      let date = element.id_num.slice(12, 14);
-                      element.birthday = year + '-' + month + '-' + date;
-                    }
+    if (this.editMemberModel.assembling_time === '') {
+      this.message.create('warning', `空值不保存`);
+    }
+    else{
+      this.modal.confirm({
+        nzTitle: "<h4>提示</h4>",
+        nzContent: "<h6>是否修改集合时间</h6>",
+        nzOnOk: () =>
+          this.adminOrderService.editMember(this.editMemberModel1).subscribe((res: any) => {
+            this.activatedRoute.queryParams.subscribe(params => {
+              console.log("params", params)
+              this.detailId = JSON.parse(params["detailId"]);
+              // 详情
+              this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+                this.setOfCheckedId.clear();
+                console.log("结果是", res.data);
+                this.detailModel = res.data;
+                this.cursubGroupModelValue = this.detailModel.sub_group.data;
+                this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                  value['tabs'] = '子团' + (index + 1);
+                  value?.order?.data.forEach((value: any, index: any) => {
+                    value['expand'] = false; //展开属性
+                    value.member?.data.forEach((element: any) => {
+                      if (element.birthday === null) {
+                        let year = element.id_num.slice(6, 10);
+                        let month = element.id_num.slice(10, 12);
+                        let date = element.id_num.slice(12, 14);
+                        element.birthday = year + '-' + month + '-' + date;
+                      }
+                    });
                   });
-                });
-                console.log("33435434", this.cursubGroupModelValue);
+                  console.log("33435434", this.cursubGroupModelValue);
+                })
               })
             })
-          })
-        }),
-    });
+          }),
+      });
+    }
+
   }
 }
