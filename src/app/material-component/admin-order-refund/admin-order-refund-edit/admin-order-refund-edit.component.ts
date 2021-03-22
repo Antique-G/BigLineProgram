@@ -347,6 +347,14 @@ export class AdminOrderRefundEditComponent implements OnInit {
   }
 
 
+  numStay(data: any) {
+    data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+  }
+
+  numStay1(data: any) {
+    data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+  }
+
 
   setValue() {
     this.reundCheckModel.id = this.detailModel?.id;
