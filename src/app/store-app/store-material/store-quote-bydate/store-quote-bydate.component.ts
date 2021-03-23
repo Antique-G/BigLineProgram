@@ -43,6 +43,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   allChecked = false;
   proName: any;
   childStatus: any;
+  isShowPrice_diff = true;
 
 
 
@@ -76,6 +77,7 @@ export class StoreQuoteBydateComponent implements OnInit {
       this.isEarlier = params.earlier;
       this.proName = params.proName;
       this.childStatus = params.childStatus;
+      this.isShowPrice_diff = params.few_nights === '0' ? false : true;
       console.log('儿童是否可以预定 0否 :>> ', this.childStatus, this.childStatus === '0');
       console.log(this.seletYearMonth, 'ngOnInit');
       this.getQuoteList();
@@ -123,7 +125,9 @@ export class StoreQuoteBydateComponent implements OnInit {
               productId: this.productId,
               listDataMap: this.listDataMap,
               earlier: this.isEarlier,
-              childStatus: this.childStatus
+              childStatus: this.childStatus,
+              isShowPrice_diff: this.isShowPrice_diff
+
 
             }
           },
@@ -229,7 +233,8 @@ export class StoreQuoteBydateComponent implements OnInit {
           type: this.type,
           listDataMap: this.listDataMap,
           earlier: this.isEarlier,
-          childStatus: this.childStatus
+          childStatus: this.childStatus,
+          isShowPrice_diff: this.isShowPrice_diff
         }
       },
       nzFooter: [

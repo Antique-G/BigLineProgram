@@ -168,7 +168,7 @@ export class StoreProductManagementComponent implements OnInit {
       else {
         this.isEar = Math.floor(minutes / 60 / 24);
       }
-      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status } });
+      this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights } });
     })
   }
 
