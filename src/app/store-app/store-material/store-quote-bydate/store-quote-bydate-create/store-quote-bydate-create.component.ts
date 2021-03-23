@@ -44,6 +44,9 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   currentDate = null;
   childStatus: any;
 
+  isShowPrice_diff = true;   //0晚
+
+
   // 删除
   ids: any
 
@@ -69,13 +72,13 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     child_price: {
     },
     original_adult_price: {
-     
+
     },
     original_child_price: {
-     
+
     },
     difference_price: {
-     
+
     },
     inventory_num: {
       'isNumber': '请输入非零的正数',
@@ -125,6 +128,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.type = this.data.type;
     this.isEarlier = this.data.earlier;
     this.childStatus = this.data.childStatus;
+    this.isShowPrice_diff = this.data.isShowPrice_diff;
     console.log('object :>> ', this.isEarlier);
     this.selectItem = this.data.date ? this.data.date[0] : ''; //当前点击项
     this.GetDetail();
@@ -163,7 +167,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num);
         this.isSetInventory = (this.selectItem.set_inventory).toString() || '0'
         this.isAllowOver = (this.selectItem.allow_over).toString() || '0'
-       
+
       }
       else {
         if (this.data.date) {

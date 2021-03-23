@@ -52,7 +52,10 @@
                                                     <span style="color: red;" *ngIf="childStatus==='0'">-</span>
                                                 </div>
 
-                                                <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                                <div>差价:
+                                                    <span style="color: red;" *ngIf="isShowPrice_diff===true">¥{{item.difference_price}}</span>
+                                                    <span style="color: red;" *ngIf="isShowPrice_diff===false">-</span>
+                                                </div>
                                                 <div>库存: <span style="color: red;">
                                                 <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
                                                     <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
