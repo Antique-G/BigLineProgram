@@ -17,8 +17,8 @@ export class AdminUserCommissionListService {
   constructor(public httpClient:HttpClient) { }
 
   //用户分销的佣金列表
-  UserCommissionList(page:number,per_page:number,order_id:any,user_id:any):Observable<AdminUserCommissionListResponseModel>{
-    const params = new HttpParams().set('page',page.toString()).set('per_page',per_page.toString()).set('order_id',order_id ? order_id:'').set('user_id',user_id ? user_id : '');
+  UserCommissionList(page:number,per_page:number,order_id:any,product_name:any,product_code:any,status:any):Observable<AdminUserCommissionListResponseModel>{
+    const params = new HttpParams().set('page',page.toString()).set('per_page',per_page.toString()).set('order_id',order_id ? order_id:'').set('product_name',product_name ? product_name : '').set('product_code',product_code ? product_code : '').set('status',status ? status : '');
     const findhttpOptions = {
       header: new HttpHeaders({ 'content-Type' : 'application/json'}),
       params:params

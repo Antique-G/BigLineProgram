@@ -18,7 +18,9 @@ export class UserCommissionListComponent implements OnInit {
   total = 1;
   loading = true;
   order_id: any;
-  user_id: any;
+  product_name: any;
+  product_code: any;
+  status: any;
 
   checked = false;
   setOfCheckedId = new Set<number>();
@@ -30,7 +32,9 @@ export class UserCommissionListComponent implements OnInit {
   constructor(public fb:FormBuilder,public adminUserCommissionListService:AdminUserCommissionListService,public dialog: MatDialog,) { 
     this.searchForm = fb.group({
       order_id:[""],
-      user_id:[""]
+      product_name:[""],
+      product_code:[""],
+      status:[""]
     })
   }
 
@@ -40,7 +44,7 @@ export class UserCommissionListComponent implements OnInit {
 
   getDataList():void {
     this.loading = true
-    this.adminUserCommissionListService.UserCommissionList(this.page, this.per_page, this.order_id, this.user_id).subscribe((result: any) => {
+    this.adminUserCommissionListService.UserCommissionList(this.page, this.per_page, this.order_id, this.product_name, this.product_code, this.status).subscribe((result: any) => {
       console.log("result", result)
       this.loading = false;
       this.total = result.total;
@@ -60,8 +64,10 @@ export class UserCommissionListComponent implements OnInit {
   }
   search(){
     console.log("value",this.searchForm.value)
-    this.user_id = this.searchForm.value.user_id;
     this.order_id = this.searchForm.value.order_id;
+    this.product_name = this.searchForm.value.product_name;
+    this.product_code = this.searchForm.value.product_code;
+    this.status = this.searchForm.value.status;
     this.getDataList();
   }
 
