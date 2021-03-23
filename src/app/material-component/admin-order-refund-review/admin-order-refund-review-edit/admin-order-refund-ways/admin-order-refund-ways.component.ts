@@ -20,6 +20,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
   isShow = true;
   refundFinished!: RefundFinished;
   refund1Model2: RefundlogModel;
+  isDisabled = true;
 
   @Input() data: any;
 
@@ -59,7 +60,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
       console.log('结果是 :>> ', res);
       this.dataSource = res.data;
       this.dataSource.forEach((element) => {
-        element['addNum'] = '';
+        element['addNum'] = this.detailModel?.refund_amount;
       })
     })
   }
@@ -106,12 +107,12 @@ export class AdminOrderRefundWaysComponent implements OnInit {
         this.adminRefundService.postRefundFinished(this.refundFinished).subscribe(res => {
           console.log('res ', res);
           this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
-        }, 
-        error => {
-          
-          return ;
-          
-        })
+        },
+          error => {
+
+            return;
+
+          })
       }
 
     })
