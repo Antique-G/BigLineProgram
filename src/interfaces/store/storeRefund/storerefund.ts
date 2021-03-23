@@ -40,7 +40,7 @@ export interface RefundDetailModel {
   data: DetailDataModel[];
 }
 
-interface DetailDataModel {
+export interface DetailDataModel {
   id: number;
   order_id: number;
   type: number;
@@ -59,7 +59,94 @@ interface DetailDataModel {
   cancel_log: Cancellog;
   refund_log: Pricedetail;
   member_detail: any;
+  order: OrderModel;
 }
+
+
+export interface OrderModel {
+  data: Data;
+}
+
+export interface Data {
+  id: number;
+  user_id: number;
+  product_id: number;
+  product_code: string;
+  product_name: string;
+  start_date: string;
+  store_id: number;
+  bind_type: number;
+  bind_id: number;
+  product_type: number;
+  group_id: number;
+  sub_group_id: number;
+  num_total: number;
+  num_adult: number;
+  num_kid: number;
+  price_total: number;
+  price_receive: number;
+  price_adult: number;
+  price_kid: number;
+  price_diff: number;
+  price_insurance: number;
+  price_other: number;
+  discount_other: number;
+  insurance_id: number;
+  order_status: number;
+  payment_status: number;
+  refund_status: number;
+  cancel_type: number;
+  shared_status: number;
+  num_room: number;
+  contact_name: string;
+  contact_phone: string;
+  contact_wechat: string;
+  contact_qq: string;
+  customer_remarks: string;
+  internal_remarks: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: any;
+  contact_email: string;
+  assembling_place: string;
+  assembling_time: string;
+  order_sms: number;
+  cancel_sms: number;
+  emergency_contact_person: string;
+  emergency_contact_number: string;
+  baby_num: number;
+  baby_info: string;
+  store_name: string;
+  refund: Refund;
+}
+
+export interface Refund {
+  data: Datum[];
+}
+
+export interface Datum {
+  id: number;
+  order_id: number;
+  type: number;
+  source: number;
+  status: number;
+  refund_amount: number;
+  refund_reason: string;
+  remark?: string;
+  created_at: string;
+  updated_at: string;
+  handler_id: number;
+  amount_detail?: (number | string)[];
+  store_id: number;
+  product_id: number;
+  check_at?: any;
+  member_detail?: any;
+}
+
+
+
+
+
 
 interface Cancellog {
   data: CancellogModel[];
