@@ -52,7 +52,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
   addMoney: any;
   deleteMoney: any;
-
+  isKidR: any;
 
 
 
@@ -106,6 +106,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
@@ -331,7 +332,13 @@ export class AdminOrderRefundEditComponent implements OnInit {
       let i = Number(this.detailModel.order?.data?.price_receive);
       let ii = last;
       let iii = Number(this.detailModel.order?.data?.price_diff);
-      this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      if (iii === 0) {
+        this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      }
+      else {
+        this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      }
+
     }
     else {
       this.bascie_money = (Number(this.detailModel.order?.data?.price_receive) - last) * Number(this.percentage);
