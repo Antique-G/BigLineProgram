@@ -43,6 +43,7 @@ import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-revi
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
 import { AdminOrderRefundEditComponent } from './admin-order-refund/admin-order-refund-edit/admin-order-refund-edit.component';
 import { AdminServicerComponent } from './admin-servicer/admin-servicer.component';
+import { UserMoneyLogListComponent } from './admin-commission/user-money-log-list/user-money-log-list.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -354,6 +355,13 @@ export const MaterialRoutes: Routes = [
         component: AdminCommissionWithdrawComponent,
         data: {
           breadcrumb: '提现列表'
+        }
+      },
+      {
+        path: 'userMoneyLog',
+        component: UserMoneyLogListComponent,
+        data: {
+          breadcrumb: '金额变动记录'
         }
       },
     ]

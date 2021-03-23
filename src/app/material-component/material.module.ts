@@ -114,6 +114,7 @@ import { AdminServicerComponent } from './admin-servicer/admin-servicer.componen
 import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-ways/admin-order-refund-confirm/admin-order-refund-confirm.component';
 import { AdminServicerCreateComponent } from './admin-servicer/admin-servicer-create/admin-servicer-create.component';
 import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-detail/admin-servicer-detail.component';
+import { UserMoneyLogListComponent } from './admin-commission/user-money-log-list/user-money-log-list.component';
 
 
 @NgModule({
@@ -245,6 +246,7 @@ import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-de
     AdminOrderRefundConfirmComponent,
     AdminServicerCreateComponent,
     AdminServicerDetailComponent,
+    UserMoneyLogListComponent,
   ]
 })
 export class MaterialComponentsModule {}
