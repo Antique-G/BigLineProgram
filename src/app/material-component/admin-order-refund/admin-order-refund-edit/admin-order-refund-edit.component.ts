@@ -50,6 +50,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
   // 出行人婴儿数
   allbabyNum: any;
 
+  addMoney: any;
+  deleteMoney: any;
+
+
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -106,7 +110,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
         console.log('object :>> ', this.detailModel.price_detail.data,);
-        // this.detailModel.price_detail.
         let priceArr = this.detailModel.price_detail.data;
         priceArr.forEach((element: any) => {
           if (element.type === 0) {
@@ -227,7 +230,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
     if (checked) {
       this.setOfCheckedId.add(data.id);
       this.setArr.add(data);
-
     } else {
       this.setOfCheckedId.delete(data.id);
       this.setArr.delete(data);
@@ -313,15 +315,39 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.selectHumans = '';
     }
 
-    this.bascie_money = (Number(adultNum.length) * Number(this.detailModel.order?.data?.price_adult) + Number(kidNum.length) * Number(this.detailModel.order?.data?.price_kid)) * Number(this.percentage);
-    //  保留两位小数
-    this.bascie_money = Math.ceil(Number(this.bascie_money) * 100) / 100;
-    console.log('bascie_money :>> ', this.bascie_money, adultNum.length * this.detailModel.order?.data?.price_adult, kidNum.length * this.detailModel.order?.data?.price_kid, this.percentage);
-    this.basicRefund = '(￥' + this.detailModel.order?.data?.price_adult + '*' + adultNum.length + '+￥' + this.detailModel.order?.data?.price_kid + '*' + kidNum.length + ')*比例' + this.percent + '%=￥' + this.bascie_money;
+    // 基础金额:
+    //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价
+    let last: number = (Number(this.allAdultNum.length) - Number(this.checkAdultNum)) * Number(this.detailModel.order?.data?.price_adult) + (Number(this.allKidNum.length) - Number(this.checkkidNum)) * Number(this.detailModel.order?.data?.price_kid);
+    console.log('应付', last);
+
+    // 剩下的成人是单数，不退房差
+    if ((Number(this.allAdultNum.length) - Number(this.checkAdultNum)) % 2 != 0) {
+      // 应该退的钱=实付-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_receive) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
+      // 保留两位小数
+      this.bascie_money = this.toDecimal(this.bascie_money);
+
+      console.log('1121212', this.bascie_money);
+      let i = Number(this.detailModel.order?.data?.price_receive);
+      let ii = last;
+      let iii = Number(this.detailModel.order?.data?.price_diff);
+      this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+    }
+    else {
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_receive) - last) * Number(this.percentage);
+      console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
+      // 保留两位小数
+      this.bascie_money = this.toDecimal(this.bascie_money);
+      let i = Number(this.detailModel.order?.data?.price_receive);
+      let ii = last;
+      this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+
+    }
+
 
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
+    this.refund_amount = this.toDecimal(this.refund_amount);
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
@@ -332,7 +358,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     console.log('1111111111', data, this.addForm.value.amount_add);
     console.log('Number(this.bascie_money) :>> ', Number(this.bascie_money), Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
+    this.refund_amount = this.toDecimal(this.refund_amount);
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
@@ -341,7 +367,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   numTest1(data: any) {
     console.log('2222222', data)
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.refund_amount = Math.ceil(Number(this.refund_amount) * 100) / 100;
+    this.refund_amount = this.toDecimal(this.refund_amount);
     if (this.refund_amount < 0) {
       this.message.create('error', `总金额不能小于0`)
     }
@@ -435,4 +461,15 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
   }
 
+
+  toDecimal(x: any) {
+    var f = parseFloat(x);
+    if (isNaN(f)) {
+      return;
+    }
+    f = Math.round(x * 100) / 100;
+    return f;
+  }
 }
+
+
