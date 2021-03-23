@@ -181,7 +181,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
         //   baby_names = babyName.toString();
         //   baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
         // }
-       
+
         // if (adultNum.length != 0) {
         //   this.selectHumans = ad_i;
         //   if (kidNum.length != 0) {
@@ -242,18 +242,42 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
 
 
 
-  confirm() {
-    const dialogRef = this.dialog.open(AdminOrderRefundWaysComponent, {
-      width: '1000px',
-      data: this.detailModel
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
-      }
+  // confirm() {
+  //   const dialogRef = this.dialog.open(AdminOrderRefundWaysComponent, {
+  //     width: '1000px',
+  //     data: this.detailModel
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result !== undefined) {
+  //       this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+  //     }
 
-    });
+  //   });
+  // }
+
+
+  confirm() {
+    const editmodal = this.modal.create({
+      nzTitle: '退款去向',
+      nzContent: AdminOrderRefundWaysComponent,
+      nzWidth: 1000,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      // this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+    })
   }
+
 
 
 }
