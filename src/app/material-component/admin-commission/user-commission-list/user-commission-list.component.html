@@ -10,15 +10,34 @@
                                     <mat-label>订单id</mat-label>
                                     <input matInput value="" formControlName="order_id" placeholder="请输入关键字">
                                 </mat-form-field>
-
                             </div>
-                            <!-- <div fxFlex=20>
-                                <mat-form-field>
-                                    <mat-label>用户id</mat-label>
-                                    <input matInput value="" formControlName="user_id" placeholder="请输入关键字">
-                                </mat-form-field>
 
-                            </div> -->
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>产品名称</mat-label>
+                                    <input matInput value="" formControlName="product_name" placeholder="请输入关键字">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>产品编码</mat-label>
+                                    <input matInput value="" formControlName="product_code" placeholder="请输入关键字">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex=20>
+                                <mat-form-field>
+                                    <mat-label>状态</mat-label>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=1> 处理中</mat-option>
+                                        <mat-option value=2>等待结算</mat-option>
+                                        <mat-option value=3>已完成</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
                             <div fxFlex=20>
                                 <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
@@ -38,9 +57,10 @@
                                     <!-- <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th> -->
                                     <th>订单id</th>
                                     <th>产品名称</th>
+                                    <th>产品编码</th>
                                     <th>产品总佣金</th>
-                                    <th>订单出行人总人数</th>
                                     <th>订单总金额</th>
+                                    <th>订单出行人总人数</th>
                                     <th>产品类型</th>
                                     <th>状态</th>
                                     <th>收益人（一级）</th>
@@ -53,10 +73,11 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <!-- <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td> -->
                                     <td>{{data.order_id}}</td>
-                                    <td>{{data.product_name}}</td>
-                                    <td>{{data.product_reward}}</td>
+                                    <td style="width: 300px;">{{data.product_name}}</td>
+                                    <td>{{data.product_code}}</td>
+                                    <td>{{data.product_reward}}元</td>
+                                    <td>{{data.price_total}}元</td>
                                     <td>{{data.num_total}}</td>
-                                    <td>{{data.price_total}}</td>
                                     <td>
                                         <div *ngIf="data.product_type===0">
                                             跟团游
@@ -80,9 +101,9 @@
                                         </div>
                                     </td>
                                     <td>{{data.first_user}}</td>
-                                    <td>{{data.first_user_reward}}</td>
+                                    <td>{{data.first_user_reward}}元</td>
                                     <td>{{data.second_user}}</td>
-                                    <td>{{data.second_user_reward}}</td>
+                                    <td>{{data.second_user_reward}}元</td>
                                 </tr>
                             </tbody>
                         </nz-table>
