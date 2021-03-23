@@ -131,15 +131,19 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.selectMemberData = this.detailModel?.member?.data;
         // 筛选出行人未申请过退款的
         let newMember: any[] = [];
-        // 总成人数
-        let adAllArr: any[] = [];
-        let kidAllArr: any[] = [];
-        let baAllArr: any[] = [];
+
 
         this.selectMemberData.forEach((ele: any) => {
           if (ele.refund_status === 0) {
             newMember.push(ele);
           }
+        })
+        this.selectMemberData = newMember;
+        // 总成人数
+        let adAllArr: any[] = [];
+        let kidAllArr: any[] = [];
+        let baAllArr: any[] = [];
+        this.selectMemberData.forEach((ele: any) => {
           if (ele.is_kid === 0) {
             adAllArr.push(ele);
           }
@@ -150,11 +154,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
             baAllArr.push(ele);
           }
         })
-        this.allAdultNum = adAllArr;
-        this.allKidNum = kidAllArr;
-        this.allbabyNum = baAllArr;
+        // 应退款的那些人
+        this.allAdultNum = adAllArr;  //成人
+        this.allKidNum = kidAllArr;   //儿童
+        this.allbabyNum = baAllArr;   //婴儿
 
-        this.selectMemberData = newMember;
+
         console.log('5666565656 ', this.selectMemberData, this.allAdultNum, this.allKidNum, this.allbabyNum);
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
@@ -317,13 +322,34 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
 
     // 基础金额:
-    //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价
-    let last: number = (Number(this.allAdultNum.length) - Number(this.checkAdultNum)) * Number(this.detailModel.order?.data?.price_adult) + (Number(this.allKidNum.length) - Number(this.checkkidNum)) * Number(this.detailModel.order?.data?.price_kid);
-    console.log('应付', last);
+    //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价+手续费
+    let last: any;
+    let adultSSSS = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
+    let kidSSSS = Number(this.allKidNum.length) - Number(this.checkkidNum);
+    console.log('剩余的成人 :>> ', adultSSSS, kidSSSS);
+    let adultfff = Number(adultSSSS) * Number(this.detailModel.order?.data?.price_adult);
+    let KidFff = Number(kidSSSS) * Number(this.detailModel.order?.data?.price_kid);
+    console.log('剩余的人付钱 :>> ', adultfff, KidFff);
+    if (Number(this.detailModel.order?.data?.service_charge) != 0 || this.detailModel.order?.data?.service_charge != '') {
+      // alert(this.detailModel.order?.data?.service_charge)
+      last = Number(adultfff) + Number(KidFff) + Number(this.detailModel.order?.data?.service_charge);
+    }
+    else {
+      last = Number(adultfff) + Number(KidFff);
+    }
+
+
+
+    console.log('最后应付', last);
+
+
+    // 剩下的成人数
+    let remain = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
+    console.log('remain ', remain);
 
     // 剩下的成人是单数，不退房差
-    if ((Number(this.allAdultNum.length) - Number(this.checkAdultNum)) % 2 != 0) {
-      // 应该退的钱=实付-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
+    if ((Number(remain)) % 2 != 0) {
+      // 应该退的钱=订单-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
       this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);

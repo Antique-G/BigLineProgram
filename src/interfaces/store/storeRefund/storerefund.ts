@@ -90,6 +90,7 @@ export interface Data {
   price_diff: number;
   price_insurance: number;
   price_other: number;
+  service_charge?: any;
   discount_other: number;
   insurance_id: number;
   order_status: number;
