@@ -1,11 +1,10 @@
 import { format } from 'date-fns';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RefundFinished, RefundlogModel } from '../../../../../interfaces/store/storeRefund/storerefund';
-import { AdminOrderRefundConfirmComponent } from './admin-order-refund-confirm/admin-order-refund-confirm.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-order-refund-ways',
@@ -22,9 +21,11 @@ export class AdminOrderRefundWaysComponent implements OnInit {
   refundFinished!: RefundFinished;
   refund1Model2: RefundlogModel;
 
+  @Input() data: any;
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminOrderRefundWaysComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public adminRefundService: AdminRefundService, private modal: NzModalService,public dialog: MatDialog) {
+
+  constructor(public fb: FormBuilder, public router: Router,
+    public adminRefundService: AdminRefundService, private modal: NzModalService,) {
     this.addForm = this.fb.group({
       id: [''],
       refund_amount: [''],
@@ -98,20 +99,24 @@ export class AdminOrderRefundWaysComponent implements OnInit {
 
   add() {
     this.setValue();
-    const dialogRef = this.dialog.open(AdminOrderRefundConfirmComponent, {
-      width: '550px',
-      data: this.detailModel
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
+    this.modal.confirm({
+      nzTitle: "<h4>提示</h4>",
+      nzContent: "<h6>请确认填写金额是否准确,确认后退款信息将无法再修改！</h6>",
+      nzOnOk: () => {
         this.adminRefundService.postRefundFinished(this.refundFinished).subscribe(res => {
           console.log('res ', res);
-          this.dialogRef.close(1);
+          this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+        }, 
+        error => {
+          
+          return ;
+          
         })
       }
 
-    });
+    })
   }
+
 
 
   changeWay(event: any) {
@@ -121,14 +126,6 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     else if (event === 2) {
       this.isShow = false;
     }
-  }
-
-  close() {
-    this.dialogRef.close();
-  }
-
-  cancel() {
-    this.dialogRef.close();
   }
 
 
