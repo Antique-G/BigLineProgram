@@ -38,6 +38,8 @@ export class StoreOrderRefundDetailComponent implements OnInit {
   isFinished: any;
   RefundLogData: any[] = [];
   isWayFor = true;
+  isKidR: any;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public storeRefundService: StoreRefundService, public dialog: MatDialog) {
@@ -88,6 +90,8 @@ export class StoreOrderRefundDetailComponent implements OnInit {
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
+       
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;

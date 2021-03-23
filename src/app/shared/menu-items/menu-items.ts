@@ -47,7 +47,8 @@ const MENUITEMS = [
     title: '佣金模块', icon: 'pound',
     children: [
       { state: 'userCommission', name: '用户分销佣金' },
-      { state: 'commissionWithdraw', name: '提现列表' }
+      // { state: 'commissionWithdraw', name: '提现列表' },
+      { state: 'userMoneyLog', name: '金额变动记录' }
     ]
   },
   {

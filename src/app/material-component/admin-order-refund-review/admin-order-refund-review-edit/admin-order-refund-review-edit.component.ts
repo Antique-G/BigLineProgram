@@ -36,6 +36,8 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
   percent: any;
   refund_amount: any;
   bascie_money: any;
+  isKidR: any;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService, public dialog: MatDialog) {
@@ -80,6 +82,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
@@ -178,7 +181,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
         //   baby_names = babyName.toString();
         //   baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
         // }
-       
+
         // if (adultNum.length != 0) {
         //   this.selectHumans = ad_i;
         //   if (kidNum.length != 0) {
@@ -239,18 +242,42 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
 
 
 
-  confirm() {
-    const dialogRef = this.dialog.open(AdminOrderRefundWaysComponent, {
-      width: '1000px',
-      data: this.detailModel
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
-      }
+  // confirm() {
+  //   const dialogRef = this.dialog.open(AdminOrderRefundWaysComponent, {
+  //     width: '1000px',
+  //     data: this.detailModel
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result !== undefined) {
+  //       this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+  //     }
 
-    });
+  //   });
+  // }
+
+
+  confirm() {
+    const editmodal = this.modal.create({
+      nzTitle: '退款去向',
+      nzContent: AdminOrderRefundWaysComponent,
+      nzWidth: 1000,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      // this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+    })
   }
+
 
 
 }

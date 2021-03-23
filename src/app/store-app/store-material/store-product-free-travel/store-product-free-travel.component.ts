@@ -169,7 +169,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     else {
       this.isEar = Math.floor(minutes / 60 / 24);
     }
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status } });
+    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights } });
   }
 
 
