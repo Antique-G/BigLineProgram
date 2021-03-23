@@ -8,7 +8,11 @@
                             <div fxFlex=20>
                                 <mat-form-field>
                                     <mat-label>状态</mat-label>
-                                    <input matInput value="" formControlName="status" placeholder="请输入关键字">
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=1> 平台返佣</mat-option>
+                                        <mat-option value=2>提现</mat-option>
+                                    </mat-select>
                                 </mat-form-field>
 
                             </div>
@@ -32,34 +36,31 @@
                             <thead>
                                 <tr>
                                     <th>提现金额</th>
+                                    <th>变动金额</th>
                                     <th>状态</th>
-                                    <th>申请时间</th>
+                                    <th>变动时间</th>
                                     <th>昵称</th>
                                     <th>真实姓名</th>
-                                    <th>性别</th>
                                     <th>头像</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.money}}</td>
+                                    <td>{{data.change_money}}</td>
                                     <td>
-                                        <div *ngIf="data?.status===1">
-                                            审核中
+                                        <div *ngIf="data.type===1">
+                                            平台返佣
                                         </div>
-                                        <div *ngIf="data?.status===2">
-                                            通过 
-                                        </div>
-                                        <div *ngIf="data?.status===3">
-                                            拒绝
+                                        <div *ngIf="data.type===2">
+                                            提现 
                                         </div>
                                     </td>
-                                    <td>{{data?.created_at|date:'yyyy-MM-dd'}}</td>
-                                    <td>{{data?.user.name}}</td>
-                                    <td>{{data?.user.real_name}}</td>
-                                    <td>{{data?.user.gender}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.user.name}}</td>
+                                    <td>{{data.user.real_name}}</td>
                                     <td>
-                                        <img [src]="data?.user.avatar_url" alt="" style="width: 50px;">
+                                        <img [src]="data.user.avatar_url" alt="" style="width: 50px;">
                                     </td>
                                 </tr>
                             </tbody>

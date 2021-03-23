@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AdminUserCommissionListService } from '../../../../services/admin/admin-user-commission-list.service';
+import { AdminUserMoneyLogService } from '../../../../services/admin/admin-user-money-log.service';
 
 @Component({
-  selector: 'app-admin-commission-withdraw',
-  templateUrl: './admin-commission-withdraw.component.html',
-  styleUrls: ['./admin-commission-withdraw.component.css']
+  selector: 'app-user-money-log-list',
+  templateUrl: './user-money-log-list.component.html',
+  styleUrls: ['./user-money-log-list.component.css']
 })
-export class AdminCommissionWithdrawComponent implements OnInit {
+export class UserMoneyLogListComponent implements OnInit {
+
   searchForm:FormGroup;
   dataSource = [];
   page = 1;
   per_page = 20;
   total = 1;
-  status: any;
+  type: any;
   user_id: any;
 
-  constructor(public fb:FormBuilder,public adminUserCommissionListService:AdminUserCommissionListService,) { 
+  constructor(public fb:FormBuilder,public adminUserMoneyLogService:AdminUserMoneyLogService) { 
     this.searchForm = fb.group({
       status:[""],
       user_id:[""]
@@ -28,9 +29,9 @@ export class AdminCommissionWithdrawComponent implements OnInit {
   }
 
 
-  //提现列表
+  //金额变动记录
   getDataList():void{
-    this.adminUserCommissionListService.UserWithdrawList(this.page,this.per_page,this.status,this.user_id).subscribe((res:any) =>{
+    this.adminUserMoneyLogService.UserWithdrawList(this.page,this.per_page,this.type,this.user_id).subscribe((res:any) =>{
       console.log('res',res)
       this.total = res.total;
       this.dataSource = res.data;
@@ -50,7 +51,7 @@ export class AdminCommissionWithdrawComponent implements OnInit {
   search(){
     console.log("value",this.searchForm.value)
     this.user_id = this.searchForm.value.user_id;
-    this.status = this.searchForm.value.status;
+    this.type = this.searchForm.value.status;
     this.getDataList();
   }
 

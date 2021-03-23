@@ -66,6 +66,7 @@ export const AdminUrls = {
   PostAdminUserCommissionAudit: api + '/admin/dist/check',   //佣金通过/拒绝审核
   PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   //佣金通过/拒绝审核
   GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
+  GetAdminUserMoneyLogList: api + '/admin/user_money_log',  //金额变动记录
 
 
 
