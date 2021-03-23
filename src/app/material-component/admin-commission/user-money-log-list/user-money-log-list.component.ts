@@ -19,7 +19,7 @@ export class UserMoneyLogListComponent implements OnInit {
 
   constructor(public fb:FormBuilder,public adminUserMoneyLogService:AdminUserMoneyLogService) { 
     this.searchForm = fb.group({
-      status:[""],
+      type:[""],
       user_id:[""]
     })
   }
@@ -51,7 +51,7 @@ export class UserMoneyLogListComponent implements OnInit {
   search(){
     console.log("value",this.searchForm.value)
     this.user_id = this.searchForm.value.user_id;
-    this.type = this.searchForm.value.status;
+    this.type = this.searchForm.value.type;
     this.getDataList();
   }
 

@@ -7,8 +7,8 @@
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=20>
                                 <mat-form-field>
-                                    <mat-label>状态</mat-label>
-                                    <mat-select placeholder="选择状态" formControlName="status">
+                                    <mat-label>类型</mat-label>
+                                    <mat-select placeholder="选择类型" formControlName="type">
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option value=1> 平台返佣</mat-option>
                                         <mat-option value=2>提现</mat-option>
@@ -35,19 +35,21 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
+                                    <th>用户id</th>
                                     <th>提现金额</th>
                                     <th>变动金额</th>
-                                    <th>状态</th>
+                                    <th>类型</th>
                                     <th>变动时间</th>
                                     <th>昵称</th>
-                                    <th>真实姓名</th>
+                                    <!-- <th>真实姓名</th> -->
                                     <th>头像</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.money}}</td>
-                                    <td>{{data.change_money}}</td>
+                                    <td>{{data.user.user_id}}</td>
+                                    <td>{{data.money}}元</td>
+                                    <td>{{data.change_money}}元</td>
                                     <td>
                                         <div *ngIf="data.type===1">
                                             平台返佣
@@ -56,9 +58,9 @@
                                             提现 
                                         </div>
                                     </td>
-                                    <td>{{data.created_at|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>{{data.user.name}}</td>
-                                    <td>{{data.user.real_name}}</td>
+                                    <!-- <td>{{data.user.real_name}}</td> -->
                                     <td>
                                         <img [src]="data.user.avatar_url" alt="" style="width: 50px;">
                                     </td>
