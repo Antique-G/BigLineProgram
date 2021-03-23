@@ -38,6 +38,8 @@ export class AdminOrderRefundDetailComponent implements OnInit {
   RefundLogData: any[] = [];
   isWayFor = true;
   isTab: any;
+  isKidR: any;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService) {
@@ -89,6 +91,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
@@ -212,6 +215,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         //   this.selectHumans = '';
         // }
         let humans = this.detailModel?.member_detail;
+        console.log('3444',humans)
         if (humans[0] != 0) {
           this.selectHumans = '成人' + humans[0] + '个';
           if (humans[1] != 0) {
