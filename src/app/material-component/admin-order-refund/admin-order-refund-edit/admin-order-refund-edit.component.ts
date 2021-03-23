@@ -324,12 +324,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
     // 剩下的成人是单数，不退房差
     if ((Number(this.allAdultNum.length) - Number(this.checkAdultNum)) % 2 != 0) {
       // 应该退的钱=实付-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_receive) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
       console.log('1121212', this.bascie_money);
-      let i = Number(this.detailModel.order?.data?.price_receive);
+      let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
       let iii = Number(this.detailModel.order?.data?.price_diff);
       if (iii === 0) {
@@ -341,11 +341,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     }
     else {
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_receive) - last) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last) * Number(this.percentage);
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
-      let i = Number(this.detailModel.order?.data?.price_receive);
+      let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
       this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
@@ -406,11 +406,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.message.create('error', `总金额不能小于0`)
     }
     else {
-      if (Number(this.refund_amount) > Number(this.detailModel.order?.data?.price_receive)) {
-        this.message.create('error', `退款总金额不能大于实际付款总金额`)
+      if (Number(this.refund_amount) > Number(this.detailModel.order?.data?.price_total)) {
+        this.message.create('error', `退款总金额不能大于订单付款总金额`)
       }
       else {
-        console.log('Number(this.refund_amount) :>> ', Number(this.refund_amount), Number(this.price_receive), Number(this.refund_amount) > Number(this.price_receive));
+        console.log('Number(this.refund_amount) :>> ', Number(this.refund_amount), Number(this.price_total), Number(this.refund_amount) > Number(this.price_receive));
         this.setValue();
         console.log('this.checkAdultNum.length :>> ', this.checkAdultNum, this.allAdultNum.length);
         if (this.checkAdultNum === this.allAdultNum.length) {
