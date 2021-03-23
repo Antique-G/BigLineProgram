@@ -40,7 +40,7 @@ export class UserCommissionListComponent implements OnInit {
 
   getDataList():void {
     this.loading = true
-    this.adminUserCommissionListService.UserCommissionList(this.page, this.per_page, this.user_id, this.order_id).subscribe((result: any) => {
+    this.adminUserCommissionListService.UserCommissionList(this.page, this.per_page, this.order_id, this.user_id).subscribe((result: any) => {
       console.log("result", result)
       this.loading = false;
       this.total = result.total;
