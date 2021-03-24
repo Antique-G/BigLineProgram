@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { MatDialog } from '@angular/material/dialog';
@@ -37,10 +37,7 @@ function isMobile(value: string): boolean {
   styleUrls: ['./admin-group-add-order-detail.component.css']
 })
 export class AdminGroupAddOrderDetailComponent implements OnInit {
-  public isLoadingBtn = false;
   public isLoadingAdd = false;
-  isShow = true;
-  searchForm!: FormGroup;
   addForm!: FormGroup;
   informationForm!: FormGroup;
   contactForm!: FormGroup;
@@ -71,11 +68,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   newBabyArr: any[] = []       //婴儿证件照片
 
 
-  constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
+  constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog,) {
-    this.searchForm = this.fb.group({
-      product_code: ['',],
-    });
     this.addForm = this.fb.group({
       product_id: ['',],
       departure_city_name: ['',],
@@ -234,44 +228,35 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.assemblingPlaceList = []
+    this.assemblingPlaceList = [];
+    this.detailModel = JSON.parse(localStorage.getItem("orderData")!)
+    this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
+    this.assemblingPlaceList = this.detailModel?.assembling_place;
+    this.listDataMap = this.detailModel?.date_quote;
+    console.log('this.listDataMap :>> ', this.listDataMap);
+    this.listDataMap?.forEach((value: any) => {
+      value['checked'] = false;
+    })
+    let control = <FormArray>this.informationForm.controls['humanList'];
+    // 校验手机
+    const { mobile } = MyValidators;
+    control.push(new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [mobile]),
+      is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+      id_type: new FormControl('', [Validators.required]),
+      id_num: new FormControl('', [Validators.required]),
+      birthday: new FormControl(null, [Validators.required]),
+      assembling_place_id: new FormControl('', [Validators.required]),
+      id_photo: new FormControl('', [Validators.required]),
+    }));
+    this.isChangeData.push(false);
+    this.newImgArr.push([])
+
   }
 
 
-  search() {
-    this.isLoadingBtn = true;
-    this.code = this.searchForm.value.product_code;
-    this.adminOrderGroupTravelService.getPro(this.code).subscribe(res => {
-      console.log('结果是 :>> ', res);
-      this.isLoadingBtn = false;
-      this.isShow = false;
-      this.detailModel = res.data;
-      this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
-      this.assemblingPlaceList = this.detailModel?.assembling_place.data;
-      this.listDataMap = this.detailModel?.date_quote;
-      this.listDataMap?.forEach((value: any) => {
-        value['checked'] = false;
-      })
-      let control = <FormArray>this.informationForm.controls['humanList'];
-      // 校验手机
-      const { mobile } = MyValidators;
-      control.push(new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [mobile]),
-        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl('', [Validators.required]),
-        id_num: new FormControl('', [Validators.required]),
-        birthday: new FormControl(null, [Validators.required]),
-        assembling_place_id: new FormControl('', [Validators.required]),
-        id_photo: new FormControl('', [Validators.required]),
-      }));
-      this.isChangeData.push(false);
-      this.newImgArr.push([])
-    },
-      error => {
-        this.isLoadingBtn = false;
-      })
-  }
+
 
 
   setValue() {
@@ -301,8 +286,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
-    this.orderGroupProduct.emergency_contact_person= this.informationForm.value.emergency_contact_person;
-    this.orderGroupProduct.emergency_contact_number= this.informationForm.value.emergency_contact_number;
+    this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
+    this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
 
   }
 
@@ -329,12 +314,12 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         if (ele.is_kid === 1) {
           kidArr.push(ele.is_kid)
         }
-        else if(ele.is_kid === 2){
+        else if (ele.is_kid === 2) {
           babyArr.push(ele.is_kid)
         }
       })
       console.log('123123123', adultArr, kidArr);
-      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)||babyArr.length!=Number(baby)) {
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
         this.message.error("请正确填写出行人信息");
         this.isLoadingAdd = false;
       }
@@ -342,6 +327,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
           this.isLoadingAdd = false;
           this.router.navigate(['/admin/main/groupTravelOrder']);
+          localStorage.removeItem("orderData");
         },
           error => {
             this.isLoadingAdd = false;
@@ -461,7 +447,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   }
 
 
-  
+
 
   // 上传证件照
   choiceBabyImg(i: any) {
