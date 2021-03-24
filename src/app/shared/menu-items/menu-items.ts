@@ -34,7 +34,7 @@ const MENUITEMS = [
   {
     title: '订单模块', icon: 'ordered-list',
     children: [
-      { state: 'orderList', name: '团订单列表' },
+      { state: 'orderList', name: '团列表' },
       { state: 'groupTravelOrder', name: '跟团游订单列表' },
       { state: 'freeTravelOrder', name: '自由行订单列表' },
       { state: 'refund', name: '订单退款处理' },
