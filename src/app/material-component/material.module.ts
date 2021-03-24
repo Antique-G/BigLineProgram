@@ -115,6 +115,9 @@ import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/ad
 import { AdminServicerCreateComponent } from './admin-servicer/admin-servicer-create/admin-servicer-create.component';
 import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-detail/admin-servicer-detail.component';
 import { UserMoneyLogListComponent } from './admin-commission/user-money-log-list/user-money-log-list.component';
+import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
+import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
+import { AdminUploadIdCardComponent } from './admin-common/admin-upload-id-card/admin-upload-id-card.component';
 
 
 @NgModule({
@@ -247,6 +250,9 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
     AdminServicerCreateComponent,
     AdminServicerDetailComponent,
     UserMoneyLogListComponent,
+    AdminGroupAddOrderComponent,
+    AdminGroupAddOrderDetailComponent,
+    AdminUploadIdCardComponent,
   ]
 })
 export class MaterialComponentsModule {}

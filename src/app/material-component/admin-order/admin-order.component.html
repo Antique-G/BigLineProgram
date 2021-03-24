@@ -78,7 +78,7 @@
                                     <th style="text-align: center;">已确认&支付订单人数</th>
                                     <th style="text-align: center;">子团数</th>
                                     <th style="text-align: center;">目的城市</th>
-                                    <th style="text-align: center;">订单出发日期/返回日期</th>
+                                    <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">出团通知书/导游</th>
                                     <th style="text-align: center;">团队状态</th>
                                     <th style="text-align: center;">查看详情</th>
@@ -93,7 +93,7 @@
                                     <td>{{data.members_num}}</td>
                                     <td>{{data.sub_groups_num}}</td>
                                     <td>{{data.destination_city_name}}</td>
-                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}-{{data.end_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>
                                         <div fxLayout="column" fxLayoutAlign="center center">
                                             <div *ngIf="data.sub_groups_num===0">
