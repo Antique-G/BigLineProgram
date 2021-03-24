@@ -2,23 +2,32 @@
     <div fxFlex.gt-sm="100%" fxFlex="100">
         <mat-card>
             <div class="example-container" style="padding: 15px;">
-                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
 
                     <form [formGroup]="searchForm" nz-row nz-form>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_code">产品编码/id</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="product_code" placeholder="请输入产品编码/id" />
+                                    <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="date_start">出发日期</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date">出发日期</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-date-picker style="width: 100%;" placeholder="请选择出发日期" formControlName="date_start"></nz-date-picker>
+                                    <nz-date-picker style="width: 100%;" placeholder="请选择出发日期" formControlName="start_date"></nz-date-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择出发城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdepartureCity($event)" formControlName="departure_city"></nz-cascader>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -27,16 +36,16 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择目的城市" [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="destination_city"></nz-cascader>
+                                    <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择目的城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdestinationCity($event)" formControlName="destination_city"></nz-cascader>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="day">行程天数</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="few_days">行程天数</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="day" placeholder="请输入行程天数" />
+                                    <input nz-input formControlName="few_days" placeholder="请输入行程天数" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -44,106 +53,54 @@
 
                         <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                             <div nz-row>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
                         </nz-form-item>
 
-
-
                     </form>
 
-                    <!-- <div class="mat-elevation-z8">
+
+                    <div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
-                            <thead>
+                            <thead (nzSortChange)="sort($event)" nzSingleSort>
                                 <tr>
-                                    <th style="text-align: center;">订单号</th>
-                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;width: 12%;">请勾选任一产品进行下单</th>
+                                    <th style="text-align: center;">产品id</th>
                                     <th style="text-align: center;">产品编码</th>
-                                    <th style="text-align: center;width: 20%;">产品名称</th>
-                                    <th style="text-align: center;">订单出发日期</th>
-                                    <th style="text-align: center;">订单状态</th>
-                                    <th style="text-align: center;">订单总价格</th>
-                                    <th style="text-align: center;">订单支付状态</th>
-                                    <th style="text-align: center;">订单短信通知书</th>
-                                    <th style="text-align: center;">订单取消类型</th>
-                                    <th style="text-align: center;">订单退款状态</th>
-                                    <th style="text-align: center;">查看详情</th>
-                                    <th style="text-align: center;">确认收款</th>
+                                    <th style="text-align: center;width: 15%;">产品名称</th>
+                                    <th style="text-align: center;">行程天数</th>
+                                    <th style="text-align: center;" nzShowSort nzSortKey="minimum_price">最低价格</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">海报</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>
+                                        <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="changeId(data)"></label>
+                                    </td>
                                     <td>{{data.id}}</td>
-                                    <td>{{data.store_name}}</td>
-                                    <td>{{data.product_code}}</td>
-                                    <td>{{data.product_name}}</td>
-                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.code}}</td>
+                                    <td>{{data.title}}</td>
+                                    <td>{{data.few_days}}天{{data.few_nights}}晚</td>
+                                    <td>{{data?.minimum_price}}元</td>
+                                    <td>{{data.departure_city_name}}</td>
+                                    <td>{{data?.destination_city_name}}</td>
                                     <td>
-                                        <span *ngIf="data.order_status===0">
-                                            <nz-badge nzColor="yellow"></nz-badge>已取消
-                                        </span>
-                                        <span *ngIf="data.order_status===1">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
-                                        <span *ngIf="data.order_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待出行
-                                        </span>
-                                        <span *ngIf="data.order_status===3">
-                                            <nz-badge nzColor="green"></nz-badge>已完成
-                                        </span>
-                                    </td>
-                                    <td>{{data.price_total}}元</td>
-                                    <td>
-                                        <span *ngIf="data.payment_status===0">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===1">
-                                            <nz-badge nzColor="green"></nz-badge>已支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待支付
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span *ngIf="data.order_sms===0">
-                                            <nz-badge nzColor="yellow"></nz-badge>未发</span>
-                                        <span *ngIf="data.order_sms===1">
-                                            <nz-badge nzColor="green"></nz-badge>已发</span>
-                                        <span *ngIf="data.order_sms===2">
-                                            <nz-badge nzColor="red"></nz-badge>发送失败</span>
-                                    </td>
-                                    <td>
-                                        <span *ngIf="data.cancel_type===0">-</span>
-                                        <span *ngIf="data.cancel_type===1">超时未支付</span>
-                                        <span *ngIf="data.cancel_type===2">到期未成团自动取消</span>
-                                        <span *ngIf="data.cancel_type===3">未支付主动取消</span>
-                                        <span *ngIf="data.cancel_type===4">用户主动申请退款</span>
-                                        <span *ngIf="data.cancel_type===5">平台取消成团</span>
-                                    </td>
-                                    <td>
-                                        <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">-</div>
-                                        <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
-                                            <span *ngIf="data.refund_status===0">未退款</span>
-                                            <span *ngIf="data.refund_status===1">待审核</span>
-                                            <span *ngIf="data.refund_status===2">已审核待退款</span>
-                                            <span *ngIf="data.refund_status===3">已退款</span>
+                                        <div title="点击查看海报" *ngIf="data.poster_url!=''">
+                                            <a href={{data.poster_url}} target="_blank">
+                                                <img [src]="data.poster_url" style="width: 50px;height: 50px;">
+                                            </a>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div style="cursor: pointer;">
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;" *ngIf="data.order_status!=0&&data.payment_status!=1">
-                                            <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
-                                        </div>
-                                    </td>
+
+
                                 </tr>
                             </tbody>
                         </nz-table>
-                    </div> -->
+                    </div>
 
                 </div>
 

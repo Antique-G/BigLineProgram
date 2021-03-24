@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { MatDialog } from '@angular/material/dialog';
-import { UploadIdCardComponent } from './upload-id-card/upload-id-card.component';
+import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -247,38 +247,38 @@ export class AdminOrderGroupOrderComponent implements OnInit {
 
 
   search() {
-    this.isLoadingBtn = true;
-    this.code = this.searchForm.value.product_code;
-    this.adminOrderGroupTravelService.getPro(this.code).subscribe(res => {
-      console.log('结果是 :>> ', res);
-      this.isLoadingBtn = false;
-      this.isShow = false;
-      this.detailModel = res.data;
-      this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
-      this.assemblingPlaceList = this.detailModel?.assembling_place.data;
-      this.listDataMap = this.detailModel?.date_quote;
-      this.listDataMap?.forEach((value: any) => {
-        value['checked'] = false;
-      })
-      let control = <FormArray>this.informationForm.controls['humanList'];
-      // 校验手机
-      const { mobile } = MyValidators;
-      control.push(new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        phone: new FormControl('', [mobile]),
-        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl('', [Validators.required]),
-        id_num: new FormControl('', [Validators.required]),
-        birthday: new FormControl(null, [Validators.required]),
-        assembling_place_id: new FormControl('', [Validators.required]),
-        id_photo: new FormControl('', [Validators.required]),
-      }));
-      this.isChangeData.push(false);
-      this.newImgArr.push([])
-    },
-      error => {
-        this.isLoadingBtn = false;
-      })
+    // this.isLoadingBtn = true;
+    // this.code = this.searchForm.value.product_code;
+    // this.adminOrderGroupTravelService.getPro(this.code).subscribe(res => {
+    //   console.log('结果是 :>> ', res);
+    //   this.isLoadingBtn = false;
+    //   this.isShow = false;
+    //   this.detailModel = res.data;
+    //   this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
+    //   this.assemblingPlaceList = this.detailModel?.assembling_place.data;
+    //   this.listDataMap = this.detailModel?.date_quote;
+    //   this.listDataMap?.forEach((value: any) => {
+    //     value['checked'] = false;
+    //   })
+    //   let control = <FormArray>this.informationForm.controls['humanList'];
+    //   // 校验手机
+    //   const { mobile } = MyValidators;
+    //   control.push(new FormGroup({
+    //     name: new FormControl('', [Validators.required]),
+    //     phone: new FormControl('', [mobile]),
+    //     is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+    //     id_type: new FormControl('', [Validators.required]),
+    //     id_num: new FormControl('', [Validators.required]),
+    //     birthday: new FormControl(null, [Validators.required]),
+    //     assembling_place_id: new FormControl('', [Validators.required]),
+    //     id_photo: new FormControl('', [Validators.required]),
+    //   }));
+    //   this.isChangeData.push(false);
+    //   this.newImgArr.push([])
+    // },
+    //   error => {
+    //     this.isLoadingBtn = false;
+    //   })
   }
 
 
@@ -417,7 +417,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   // 上传证件照
   choiceImg(i: any) {
     console.log("i是什么", i);
-    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+    const dialogRef = this.dialog.open(AdminUploadIdCardComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -474,7 +474,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
   // 上传证件照
   choiceBabyImg(i: any) {
     console.log("i是什么", i);
-    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+    const dialogRef = this.dialog.open(AdminUploadIdCardComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(res => {
