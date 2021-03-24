@@ -68,7 +68,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code, this.few_days,this.tag).subscribe(res => {
+    this.adminProductManagementService.productList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_id, this.code, this.few_days, this.tag).subscribe(res => {
       console.log("结果是", res)
       this.loading = false;
       this.total = res.meta.pagination.total;   //总页数
@@ -150,10 +150,11 @@ export class AdminProductManagementComponent implements OnInit {
   }
 
   quteDateClick(data: any) {
+    console.log('data :>> ', data);
     this.adminProductManagementService.productDetail(data.id).subscribe(res => {
       console.log('res :>> ', res);
       let childStatus = res.data.child_status;
-      this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: childStatus } });
+      this.router.navigate(['/admin/main/productManagement/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: childStatus, few_nights: data?.few_nights } });
 
     })
   }

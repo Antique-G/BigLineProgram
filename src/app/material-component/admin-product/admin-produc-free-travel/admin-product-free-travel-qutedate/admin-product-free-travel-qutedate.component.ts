@@ -38,6 +38,8 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
   proName: any;
+  isShowPrice_diff = true;
+
 
   constructor(public adminProductFreeTravelService: AdminProductFreeTravelService,
     public activatedRoute: ActivatedRoute,
@@ -49,6 +51,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
       this.detailId = params.detailId;
       this.proName = params.proName;
       this.childStatus = params.childStatus;
+      this.isShowPrice_diff = params.few_nights === '0' ? false : true;
     });
     this.getQuteDateList();
   }
