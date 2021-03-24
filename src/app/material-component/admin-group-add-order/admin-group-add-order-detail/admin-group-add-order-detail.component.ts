@@ -5,23 +5,20 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
-import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
-import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
-
 export class MyValidators extends Validators {
-
   static mobile(control: AbstractControl): MyValidationErrors | null {
     const value = control.value;
-
     if (isEmptyInputValue(value)) {
       return null;
     }
-
     return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确`, en: `Mobile phone number is not valid` } };
   }
 }
@@ -35,12 +32,11 @@ function isMobile(value: string): boolean {
 }
 
 @Component({
-  selector: 'app-a-o-freetravel-order',
-  templateUrl: './a-o-freetravel-order.component.html',
-  styleUrls: ['./a-o-freetravel-order.component.css']
+  selector: 'app-admin-group-add-order-detail',
+  templateUrl: './admin-group-add-order-detail.component.html',
+  styleUrls: ['./admin-group-add-order-detail.component.css']
 })
-export class AOFreetravelOrderComponent implements OnInit {
-
+export class AdminGroupAddOrderDetailComponent implements OnInit {
   public isLoadingBtn = false;
   public isLoadingAdd = false;
   isShow = true;
@@ -57,28 +53,26 @@ export class AOFreetravelOrderComponent implements OnInit {
   nzPageIndex = new Date().getMonth() + 1;
   selectedDateValue = new Date();
   listDataMap: any;
+  isshared_status = '0';
   orderGroupProduct: OrderGroupProduct;
   isdate_quotes_id: any;
   ids: any[] = [];
   numIsShow = false;
-
+  assemblingPlaceList: any;
+  isAssemblingPlace: any;
   isName: any;
   isPhone: any;
+  isChangeData: any[] = [];
+  newImgArr: any[] = []
 
-  isChangeData: any[] = [];    //证件类型
-  newImgArr: any[] = []       //证件照片
 
   isBabyShow = false;
   isChangeBabyData: any[] = [];    //婴儿证件类型
   newBabyArr: any[] = []       //婴儿证件照片
 
 
-
-
-
-
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,) {
+    public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog,) {
     this.searchForm = this.fb.group({
       product_code: ['',],
     });
@@ -93,10 +87,11 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
       babyList: this.fb.array([]),
-      num_adult: [1, [Validators.required]],
+      num_adult: [1,],
       num_kid: [0,],
-      num_room: [1, [Validators.required]],
+      num_room: [1,],
       baby_num: [0],
+      shared_status: ['',],
       customer_remarks: ['',],
       emergency_contact_person: [''],
       emergency_contact_number: ['', [mobile]],
@@ -122,6 +117,7 @@ export class AOFreetravelOrderComponent implements OnInit {
       contact_qq: '',
       contact_email: '',
       customer_remarks: '',
+      shared_status: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
     }
@@ -146,17 +142,18 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.humanArray.push(this.fb.group({
       name: new FormControl('', [Validators.required]),
       phone: new FormControl('', [mobile]),
-      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+      is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
       id_type: new FormControl('', [Validators.required]),
       id_num: new FormControl('', [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
+      assembling_place_id: ['',],
       id_photo: new FormControl('', [Validators.required]),
+
     }))
     this.isChangeData.push(false);
     this.newImgArr.push([])
     this.isNum();
   }
-
 
   // 添加婴儿
   addBaby() {
@@ -179,18 +176,19 @@ export class AOFreetravelOrderComponent implements OnInit {
   removeIcon(index: number) {
     if (this.humanArray.length > 1) {
       this.humanArray.removeAt(index);
-      this.isBabyNum();
+      this.isChangeData.splice(index, 1)
+      this.isNum();
     }
     else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
 
-
   removeBaby(index: number) {
     this.babyArray.removeAt(index);
     this.isBabyNum();
   }
+
 
 
   // 验证类型与输入的成人儿童数是否一致
@@ -220,6 +218,8 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
   }
 
+
+
   isNum() {
     let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
     console.log('nums, :>> ', nums, Number(this.humanArray.controls.length), nums === Number(this.humanArray.controls.length))
@@ -234,19 +234,20 @@ export class AOFreetravelOrderComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.assemblingPlaceList = []
   }
 
 
   search() {
     this.isLoadingBtn = true;
     this.code = this.searchForm.value.product_code;
-    this.adminOrderFreeTravelService.getPro(this.code).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.code).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.isLoadingBtn = false;
       this.isShow = false;
       this.detailModel = res.data;
       this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
+      this.assemblingPlaceList = this.detailModel?.assembling_place.data;
       this.listDataMap = this.detailModel?.date_quote;
       this.listDataMap?.forEach((value: any) => {
         value['checked'] = false;
@@ -256,11 +257,12 @@ export class AOFreetravelOrderComponent implements OnInit {
       const { mobile } = MyValidators;
       control.push(new FormGroup({
         name: new FormControl('', [Validators.required]),
-        phone: new FormControl('',),
-        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
         id_type: new FormControl('', [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
+        assembling_place_id: new FormControl('', [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
       }));
       this.isChangeData.push(false);
@@ -277,12 +279,15 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
     this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
     if (this.detailModel.few_nights === 0) {
-      this.orderGroupProduct.num_room = 0
+      this.orderGroupProduct.num_room = 0;
     }
     else {
       this.orderGroupProduct.num_room = this.informationForm.value.num_room;
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
+    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
+    this.orderGroupProduct.shared_status = this.informationForm.value.shared_status;
+
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
     this.orderGroupProduct.members.forEach((element: any) => {
@@ -290,7 +295,6 @@ export class AOFreetravelOrderComponent implements OnInit {
         element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
       }
     });
-    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
@@ -299,12 +303,12 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person= this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number= this.informationForm.value.emergency_contact_number;
+
   }
-
-
 
   add() {
     this.setValue();
+    this.isLoadingAdd = true;
     // 校验出行人信息
     let adult = this.orderGroupProduct.num_adult;
     let kid = this.orderGroupProduct.num_kid;
@@ -325,20 +329,19 @@ export class AOFreetravelOrderComponent implements OnInit {
         if (ele.is_kid === 1) {
           kidArr.push(ele.is_kid)
         }
-        else if (ele.is_kid === 2) {
+        else if(ele.is_kid === 2){
           babyArr.push(ele.is_kid)
         }
       })
       console.log('123123123', adultArr, kidArr);
-      if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
+      if (adultArr.length != Number(adult) || kidArr.length != Number(kid)||babyArr.length!=Number(baby)) {
         this.message.error("请正确填写出行人信息");
         this.isLoadingAdd = false;
       }
       else {
-        this.isLoadingAdd = true;
-        this.adminOrderFreeTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+        this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
           this.isLoadingAdd = false;
-          this.router.navigate(['/admin/main/freeTravelOrder']);
+          this.router.navigate(['/admin/main/groupTravelOrder']);
         },
           error => {
             this.isLoadingAdd = false;
@@ -346,9 +349,8 @@ export class AOFreetravelOrderComponent implements OnInit {
       }
     }
 
+
   }
-
-
 
 
 
@@ -370,7 +372,6 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.seletYearMonth = this.selectedYear + '-' + month;
     this.nzPageIndex = index;
   }
-
 
   selectChange(select: Date): void {
     console.log('选择的', select);
@@ -405,9 +406,6 @@ export class AOFreetravelOrderComponent implements OnInit {
   }
 
 
-
-
-
   // 上传证件照
   choiceImg(i: any) {
     console.log("i是什么", i);
@@ -433,7 +431,6 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.humanArray.controls[i].patchValue({ 'id_photo': this.newImgArr[i] });
   }
 
-
   // 出行人设为联系人
   setContract(human: any) {
     console.log('i3242342 :>> ', human, human.value.name);
@@ -453,7 +450,6 @@ export class AOFreetravelOrderComponent implements OnInit {
     }
   }
 
-
   changeBabyType(data: any, i: any) {
     console.log('data :>> ', data, data === 1, data === '1');
     if (data === 1) {
@@ -465,7 +461,7 @@ export class AOFreetravelOrderComponent implements OnInit {
   }
 
 
-
+  
 
   // 上传证件照
   choiceBabyImg(i: any) {
@@ -488,4 +484,5 @@ export class AOFreetravelOrderComponent implements OnInit {
     this.newBabyArr[i].splice(index, 1)
     this.babyArray.controls[i].patchValue({ 'id_photo': this.newBabyArr[i] });
   }
+
 }
