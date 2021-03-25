@@ -23,14 +23,17 @@ export class AdminGroupAddOrderComponent implements OnInit {
   departure_city: any;
   destination_city: any;
   few_days: any;
+  date = null;
 
   // 目的城市
   nzOptions: any[] | null = null;
   idRegion: any;
   isDeparture_city: any;
   isDestination_city: any;
-  sortName :any;
-  sortValue :any;
+  sortName: any;
+  sortValue: any;
+  sort_field = 'minimum_price';
+  sort: any;
 
 
 
@@ -58,9 +61,6 @@ export class AdminGroupAddOrderComponent implements OnInit {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
-      this.dataSource?.forEach((value: any) => {
-        value['checked'] = false;
-      })
       this.total = res?.total;
     })
   }
@@ -68,10 +68,12 @@ export class AdminGroupAddOrderComponent implements OnInit {
 
   setValue() {
     this.product_name = this.searchForm.value.product_name;
-    this.start_date = format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
+    console.log('this.searchForm.value.start_date :>> ', this.searchForm.value.start_date);
+    this.start_date = this.searchForm.value.start_date === null ? '' : format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
     this.departure_city = this.isDeparture_city;
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
+    console.log('this.start_date :>> ', this.searchForm.value.start_date === '', this.start_date);
   }
 
 
@@ -89,31 +91,15 @@ export class AdminGroupAddOrderComponent implements OnInit {
   }
 
 
-  changeId(data: any) {
-    console.log('object :>> ', data);
-    if (data.checked === true) {
-      this.dataSource.forEach((element: any) => {
-        if (element.id != data.id) {
-          element.checked = false;
-        }
-      });
-      this.modal.confirm({
-        nzTitle: "<h4>提示</h4>",
-        nzContent: "<h6>是否选择该产品进行下单</h6>",
-        nzOnOk: () =>
-          setTimeout(() => {
-            localStorage.setItem('orderData', JSON.stringify(data))
-            this.router.navigate(['/admin/main/addGroupOrder/add'])
-          }, 50)
-      });
-    }
-
+  anOrder(data: any) {
+    localStorage.setItem('orderData', JSON.stringify(data))
+    this.router.navigate(['/admin/main/addGroupOrder/add'])
   }
 
 
 
-
   search() {
+    this.loading = true;
     this.setValue();
     this.getPro();
   }
@@ -139,18 +125,34 @@ export class AdminGroupAddOrderComponent implements OnInit {
 
 
 
-  sort(sort: { key: string, value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
-    this.search1();
+  sortAsc() {
+    this.setValue();
+    this.sort = 'asc';
+    this.loading = true;
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.product_name, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.dataSource?.forEach((value: any) => {
+        value['checked'] = false;
+      })
+      this.total = res?.total;
+    })
   }
 
-  search1(): void {
-    if (this.sortName && this.sortValue) {
-      this.dataSource = this.dataSource.sort((a:any, b:any) => (this.sortValue === 'ascend') ? (a[this.sortName] > b[this.sortName] ? 1 : -1) : (b[this.sortName] > a[this.sortName] ? 1 : -1));
-    } else {
-      this.dataSource = this.dataSource;
-    }
-  }
 
+  sortDesc() {
+    this.setValue();
+    this.sort = 'desc';
+    this.loading = true;
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.product_name, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.dataSource?.forEach((value: any) => {
+        value['checked'] = false;
+      })
+      this.total = res?.total;
+    })
+  }
 }

@@ -24,7 +24,7 @@ export class AdminOrderGroupTravelService {
 
   // 跟团游订单列表
   groupTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any, store_id: any): Observable<StoreOrderGroupTravelListRequestModel> {
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any): Observable<StoreOrderGroupTravelListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -34,8 +34,9 @@ export class AdminOrderGroupTravelService {
       .set('date_start', date_start ? date_start : '')
       .set('date_end', date_end ? date_end : '')
       .set('product_code', product_code ? product_code : '')
-      .set('store_id', store_id ? store_id : '');
-
+      .set('store_id', store_id ? store_id : '')
+      .set('order_start_date', order_start_date ? order_start_date : '')
+      .set('order_end_date', order_end_date ? order_end_date : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -57,15 +58,16 @@ export class AdminOrderGroupTravelService {
 
   // 产品搜索
   getPro(page: number, per_page: number, product_name: any, start_date: any, departure_city: any,
-    destination_city: any, few_days: any): Observable<ProModel> {
+    destination_city: any, few_days: any, sort_field?: any, sort?: any): Observable<ProModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('product_name', product_name ? product_name : '')
       .set('start_date', start_date ? start_date : '')
       .set('departure_city', departure_city ? departure_city : '')
       .set('destination_city', destination_city ? destination_city : '')
-      .set('few_days', few_days ? few_days : '');
-
+      .set('few_days', few_days ? few_days : '')
+      .set('sort_field', sort_field ? sort_field : '')
+      .set('sort', sort ? sort : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
