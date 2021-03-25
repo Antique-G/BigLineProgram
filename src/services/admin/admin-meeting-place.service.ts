@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, } from 'rxjs/operators';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
 import { AssemblingPlaceListModel } from '../../interfaces/store/storeProduct/ProductModel';
 
@@ -22,8 +23,7 @@ export class AdminMeetingPlaceService {
 
   // 集合地点列表
   adminMeetingPlaceList(name: string, region_code: string,store_id?:any): Observable<AssemblingPlaceListModel> {
-
-    const params = new HttpParams().set('name', name ? name : '')
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('name', name ? name : '')
     .set('region_code', region_code ? region_code : '')
     .set('store_id', store_id ? store_id : '');
 

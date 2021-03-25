@@ -1,4 +1,4 @@
-import { AdminStoreAccountListRequestModel, AdminStoreAccountListResponseModel, StoreAccountDetailUpdateRequestModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
+import { AdminStoreAccountListResponseModel, StoreAccountDetailUpdateRequestModel } from './../../interfaces/adminStoreAccount/admin-store-account-model';
 import { retry, catchError } from 'rxjs/operators';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,10 +13,10 @@ const httpOptions = {   //1.1定义请求头信息
 @Injectable({
   providedIn: 'root'
 })
-export class AdminStoreAccountService {  //创建店铺帐号管理服务
-  public urls = AdminUrls;   //1.2引入定义的baseUrl：http://plat.beennn.cn
+export class AdminStoreAccountService {  
+  public urls = AdminUrls;  
   
-  constructor(public httpClient:HttpClient) { }   //1.3HttpClient 类，用于发送 HTTP 请求和接收来自通过 URI 确认的资源的 HTTP 响应。
+  constructor(public httpClient:HttpClient) { }   
 
   //商铺的账号创建
   addStoreAccount(addStoreAccountRequestModel:AddStoreAccountRequestModel):Observable<AddStoreAccountResponseModel>{
@@ -57,18 +57,6 @@ export class AdminStoreAccountService {  //创建店铺帐号管理服务
         // alert(error.message);
         break
     }
-
-    // if (error.error instanceof ErrorEvent) {
-    //   // 客户端本身引起的错误信息
-    //   alert()
-
-    //   console.error(`客户端错误：${error.error.message}`);
-    // } else {
-    //   // 服务端返回的错误信息
-    //   console.error(`服务端错误：HTTP 状态码：${error.status} \n\r 错误信息：${JSON.stringify(error.error)}`);
-    // }
-
-    // 反馈给用户的错误信息（用于组件中使用 error 回调时的错误提示）
     return throwError('');
   }
 }

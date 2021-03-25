@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CreateReundModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 const httpOptions = {
@@ -21,7 +22,7 @@ export class AdminRefundService {
 
   // 退款列表
   getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any, date_end: any, id: any, status: any): Observable<RefundModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('order_id', order_id ? order_id : '')
       .set('store_id', store_id ? store_id : '')
@@ -94,7 +95,7 @@ export class AdminRefundService {
 
   //  退款流水列表
   getRefundLog(page: number, per_page: number, order_id: any, store_id: any, refund_id: any, transaction_id: any, status: any, date_start: any, date_end: any): Observable<RefundListModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('order_id', order_id ? order_id : '')
       .set('store_id', store_id ? store_id : '')

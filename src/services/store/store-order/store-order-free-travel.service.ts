@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Details, freeProModel, StoreOrderFreeTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { StoreUrls } from '../../../api';
 import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, OrderGroupProduct, ProModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 
 const httpOptions = {
@@ -24,7 +25,7 @@ export class StoreOrderFreeTravelService {
   // 自由行订单列表
   freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
     date_start: any, date_end: any, product_code: any): Observable<StoreOrderFreeTravelListRequestModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
       .set('product_id', product_id ? product_id : '')

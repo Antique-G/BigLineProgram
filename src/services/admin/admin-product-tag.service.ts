@@ -4,9 +4,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
+
+
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +22,7 @@ export class AdminProductTagService {
 
   // 产品标签列表
   getProductTagList(page: number, per_page: number, cate_id: any, name: any,status:any): Observable<AdminProductTagListRequestModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
     .set('per_page', per_page.toString())
     .set('cate_id', cate_id ? cate_id : '')
     .set('name', name ? name : '')

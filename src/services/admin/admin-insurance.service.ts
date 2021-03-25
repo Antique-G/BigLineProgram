@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
   headers : new HttpHeaders().set('Content-Type','application/json')
@@ -18,7 +19,7 @@ export class AdminInsuranceService {
 
   //保险列表
   insuranceList(page:number,per_page:number,name:any,status:any):Observable<AdminInsuranceListResponseModel>{
-    const params = new HttpParams().set('page',page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page',page.toString())
     .set('per_page',per_page.toString())
     .set('name',name ? name : '')
     .set('status',status ? status : '');
@@ -82,17 +83,6 @@ export class AdminInsuranceService {
         break
     }
 
-    // if (error.error instanceof ErrorEvent) {
-    //   // 客户端本身引起的错误信息
-    //   alert()
-
-    //   console.error(`客户端错误：${error.error.message}`);
-    // } else {
-    //   // 服务端返回的错误信息
-    //   console.error(`服务端错误：HTTP 状态码：${error.status} \n\r 错误信息：${JSON.stringify(error.error)}`);
-    // }
-
-    // 反馈给用户的错误信息（用于组件中使用 error 回调时的错误提示）
     return throwError('');
   }
 }

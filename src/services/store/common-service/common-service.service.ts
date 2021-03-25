@@ -1,18 +1,9 @@
-/*
- * @Author: karl
- * @Date: 2021-01-02 16:05:39
- * @LastEditTime: 2021-01-02 16:22:42
- * @LastEditors: Please set LastEditors
- * @Description: 店铺公共service
- * @FilePath: \angular\src\services\store\common-service\common-service.service.ts
- */
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { StoreUrls } from '../../../api';
 import { GalleryResponseModel } from '../../../interfaces/store/common/common';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -39,7 +30,7 @@ export class CommonServiceService {
 
   // 获取图片列表
   getGalleryList(page: number, keyword: string, per_page: number, region_code: any, type: any, image_name?: any) {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('keyword', keyword)
       .set('per_page', per_page.toString())
       .set('region_code', region_code)

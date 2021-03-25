@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
 import { AdminTermsManagementListResponseModel, AdminTermsManagementSetCheckRequestModel, AdminTermsManagementSetCheckResponseModel, AdminTermsManagementSetStatusRequestModel } from '../../interfaces/adminTerms/admin-terms-manage-model';
 
@@ -20,7 +21,7 @@ export class AdminTermsManageService {
 
   // 条款管理列表
   adminTermsList(page: number, per_page: number, store_id: any, title: string, status: any): Observable<AdminTermsManagementListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('store_id', store_id ? store_id : '')
       .set('title', title ? title : '')
@@ -47,13 +48,13 @@ export class AdminTermsManageService {
   }
 
 
-    // 条款管理开启
-    termsSetStatus(adminTermsManagementSetStatusRequestModel: AdminTermsManagementSetStatusRequestModel): Observable<AdminTermsManagementSetCheckResponseModel> {
-      return this.httpClient.post<AdminTermsManagementSetCheckResponseModel>(this.urls.PostAdminTermsSetStatus, adminTermsManagementSetStatusRequestModel, httpOptions)
-        .pipe(
-          catchError(this.handleError)
-        )
-    }
+  // 条款管理开启
+  termsSetStatus(adminTermsManagementSetStatusRequestModel: AdminTermsManagementSetStatusRequestModel): Observable<AdminTermsManagementSetCheckResponseModel> {
+    return this.httpClient.post<AdminTermsManagementSetCheckResponseModel>(this.urls.PostAdminTermsSetStatus, adminTermsManagementSetStatusRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {

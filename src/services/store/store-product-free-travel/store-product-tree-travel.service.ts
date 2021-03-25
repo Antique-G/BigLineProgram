@@ -1,15 +1,6 @@
-/*
- * @Author: your name
- * @Date: 2021-01-02 14:26:25
- * @LastEditTime: 2021-01-03 15:12:46
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \angular\src\services\store\store-product-free-travel\store-product-tree-travel.service.ts
- */
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { StoreFreeTravelModel, ProductTabListModel, FreeTravelListModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 import { StoreUrls } from '../../../api';
 import { AddProductTrip, AssemblingPlaceListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
@@ -30,7 +21,6 @@ export class StoreProductTreeTravelService {
   constructor(public httpClient: HttpClient) { }
 
   GetFreeTravelList(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any, status: any, tag?: any): Observable<FreeTravelListModel> {
-    console.log(123);
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
@@ -39,8 +29,6 @@ export class StoreProductTreeTravelService {
       .set('code', code ? code : '')
       .set('status', status ? status : '')
       .set('tag', tag ? tag : '');
-
-
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -119,12 +107,12 @@ export class StoreProductTreeTravelService {
   }
 
 
-  
+
   // 佣金
   setReward(setRewardModel: SetRewardModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreFreeReward, setRewardModel, httpOptions)
       .pipe(
-       
+
       )
   }
 
