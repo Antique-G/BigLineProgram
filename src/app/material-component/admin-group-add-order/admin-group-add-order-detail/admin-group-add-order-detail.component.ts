@@ -85,7 +85,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       num_kid: [0,],
       num_room: [1,],
       baby_num: [0],
-      shared_status: ['',],
+      shared_status: [0,],
       customer_remarks: ['',],
       emergency_contact_person: [''],
       emergency_contact_number: ['', [mobile]],

@@ -18,7 +18,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   per_page = 20;
   total = 1;
   loading = true;
-  product_name: any;
+  title: any;
   start_date: any;
   departure_city: any;
   destination_city: any;
@@ -41,7 +41,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, public modal: NzModalService,) {
     this.searchForm = fb.group({
-      product_name: [''],
+      title: [''],
       start_date: [''],
       departure_city: [''],
       destination_city: [''],
@@ -57,7 +57,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   }
 
   getPro() {
-    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.product_name, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -67,7 +67,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
 
 
   setValue() {
-    this.product_name = this.searchForm.value.product_name;
+    this.title = this.searchForm.value.title;
     console.log('this.searchForm.value.start_date :>> ', this.searchForm.value.start_date);
     this.start_date = this.searchForm.value.start_date === null ? '' : format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
     this.departure_city = this.isDeparture_city;
@@ -111,14 +111,15 @@ export class AdminGroupAddOrderComponent implements OnInit {
   onChangesdestinationCity(data: any): void {
     console.log("点击的结果是", data);
     if (data !== null) {
-      this.isDeparture_city = data[data.length - 1];
+      this.isDestination_city = data[data.length - 1];
+  
     }
   }
 
   onChangesdepartureCity(data: any): void {
     console.log("点击的结果是", data);
     if (data !== null) {
-      this.isDestination_city = data[data.length - 1];
+      this.isDeparture_city = data[data.length - 1];
     }
   }
 
@@ -129,7 +130,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.setValue();
     this.sort = 'asc';
     this.loading = true;
-    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.product_name, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -145,7 +146,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.setValue();
     this.sort = 'desc';
     this.loading = true;
-    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.product_name, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
