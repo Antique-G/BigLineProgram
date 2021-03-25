@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
 import { AdminUrls } from '../../api';
 import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 
@@ -23,7 +24,7 @@ export class AdminOrderService {
   // 订单团列表
   getStoreOrderGroup(page: number, per_page: number, product_id: any, product_name: any, group_id: any, order_number: any,
     destination_city: any, date_start: any, date_end: any): Observable<StoreOrderListRequestModel> {
-    const params = new HttpParams().set('page', page.toString())
+      const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')

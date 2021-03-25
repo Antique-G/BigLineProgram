@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 import { StoreUrls } from '../../../api';
 import { ContractModel } from '../../../interfaces/store/storeContract/store-contract-model';
 
@@ -18,12 +19,12 @@ export class StoreContractService {
 
   constructor(public httpClient: HttpClient) { }
 
-  
+
   // 列表
   getStoreContract(page: number, per_page: number, contract_name: any): Observable<ContractModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
-      .set('contract_name', contract_name ? contract_name : '' );
+      .set('contract_name', contract_name ? contract_name : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -38,7 +39,7 @@ export class StoreContractService {
   // 上传
   uploadImg(reqData: any): Observable<any> {
     const imgHttpOptions = {
-      reportProgress: true, 
+      reportProgress: true,
     };
     return this.httpClient.post<any>(this.urls.PostStoreContractCreate, reqData, imgHttpOptions)
       .pipe(
@@ -46,7 +47,7 @@ export class StoreContractService {
   }
 
 
-  
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
