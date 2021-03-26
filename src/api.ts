@@ -201,8 +201,10 @@ export const AdminUrls = {
 
 
   GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
+  GetAdminOrderIndenOrderTotal: api + '/admin/order/inden_order_total',   //自由行订单统计
 
-  
+
+
 
 };
 
