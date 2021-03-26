@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AdminOrderService } from '../../../services/admin/admin-order.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
+import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 
 @Component({
   selector: 'app-admin-order',
@@ -31,16 +32,24 @@ export class AdminOrderComponent implements OnInit {
   nzOptions: any[] | null = null;
   idRegion: any;
 
+  group_status:any;
+  group_code: any;
+  store_id: any;
+  storeList: any[] = [];
+
 
   constructor(public fb: FormBuilder, public router: Router, public adminOrderService: AdminOrderService,
-    public adminRegionService: AdminRegionService, ) {
+    public adminRegionService: AdminRegionService, public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
       product_id: [''],
       product_name: [''],
       group_id: [''],
       order_number: [''],
       date_start: [''],
-      destination_city: ['']
+      destination_city: [''],
+      group_status: [''],
+      group_code: [''],
+      store_id: [''],
     });
   }
 
@@ -48,20 +57,18 @@ export class AdminOrderComponent implements OnInit {
     // 城市
     this.adminRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
-      // this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
-      //   console.log("结果是", res)
-      //   this.dataSource = res?.data;
-      //   this.total = res.meta?.pagination?.total;
-      //   this.loading = false;
-      // })
+      this.adminProductManagementService.storeList('').subscribe(res => {
+        console.log("24234", res);
+        this.storeList = res;
+        this.getStoreOrderGroup();
+      })
 
-      this.getStoreOrderGroup();
     })
 
   }
 
   getStoreOrderGroup() {
-    this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+    this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end, this.group_status, this.group_code, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -75,7 +82,7 @@ export class AdminOrderComponent implements OnInit {
     this.page = page;
     this.getStoreOrderGroup();
   }
-  
+
   changePageSize(per_page: number) {
     console.log("一页显示多少", per_page);
     this.per_page = per_page;
@@ -91,7 +98,13 @@ export class AdminOrderComponent implements OnInit {
     this.destination_city = this.idRegion;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
-    this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end).subscribe(res => {
+    this.group_status = this.searchForm.value.group_status;
+    this.group_status = this.searchForm.value.group_status;
+    this.group_status = this.searchForm.value.group_status;
+    this.group_code = this.searchForm.value.group_code;
+    this.store_id = this.searchForm.value.store_id;
+    console.log('3242342 ', this.group_status);
+    this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end, this.group_status, this.group_code, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;

@@ -34,8 +34,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   sortValue: any;
   sort_field = 'minimum_price';
   sort: any;
-  group_status = 1;
-  isStatus = 1;
+
 
 
 
@@ -59,7 +58,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   }
 
   getPro() {
-    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.group_status).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -78,9 +77,6 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.departure_city = this.isDeparture_city;
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
-    this.group_status = this.searchForm.value.group_status;
-    console.log('3242342 ', this.group_status );
-    console.log('this.start_date :>> ', this.searchForm.value.start_date === '', this.start_date);
   }
 
 
@@ -108,7 +104,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   search() {
     this.loading = true;
     this.setValue();
-    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.group_status).subscribe(res => {
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
