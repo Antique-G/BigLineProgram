@@ -354,8 +354,8 @@ export interface Datequote {
 
 // 产品名称
 export interface ProModel {
-  data: ProListModel;
   current_page: number;
+  data: ProListModel[];
   first_page_url: string;
   from: number;
   last_page: number;
@@ -363,7 +363,7 @@ export interface ProModel {
   links: any;
   next_page_url?: any;
   path: string;
-  per_page: number;
+  per_page: string;
   prev_page_url?: any;
   to: number;
   total: number;
@@ -397,10 +397,10 @@ export interface ProListModel {
   reserve_ahead: number;
   contacts_status: number;
   work_t_tem: number;
-  feature?: any;
-  details?: any;
+  feature?: string;
+  details?: string;
   fee: string;
-  notice?: any;
+  notice?: string;
   status: number;
   created_at: string;
   updated_at: string;
@@ -412,13 +412,60 @@ export interface ProListModel {
   store_reward: number;
   third_reward: number;
   commerce_reward: number;
-  date_quote: DatequoteList[];
+  schedule_file: number;
+  reward_set: number;
+  group_count: number;
+  member_total?: string;
   departure_city_full_name: string;
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
-  assembling_place: AssemblingplaceList;
+  schedule_file_url: string;
+  assembling_place: AssemblingplaceList[];
+  group: (Group1 | Group2)[];
+  date_quote: DatequoteList[];
 }
+
+interface Group2 {
+  group_id: number;
+  group_code: string;
+  product_id: number;
+  product_name: string;
+  departure_city: string;
+  destination_city: string;
+  member_min: number;
+  member_max: number;
+  member_total: number;
+  days: number;
+  start_date: string;
+  end_date: string;
+  active_date: string;
+  group_status: number;
+  store_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Group1 {
+  group_id: number;
+  group_code: string;
+  product_id: number;
+  product_name: string;
+  departure_city: string;
+  destination_city: string;
+  member_min: number;
+  member_max: number;
+  member_total: number;
+  days: number;
+  start_date: string;
+  end_date: string;
+  active_date?: string;
+  group_status: number;
+  store_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
 
 interface AssemblingplaceList {
   data: placeListModel;

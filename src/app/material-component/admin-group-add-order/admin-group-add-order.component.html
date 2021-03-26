@@ -50,6 +50,20 @@
                             </div>
                         </nz-form-item>
 
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_status">团状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'已取消'" [nzValue]="0"></nz-option>
+                                        <nz-option [nzLabel]="'已成团'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已完成 '" [nzValue]="2"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
 
                         <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                             <div nz-row>
@@ -79,8 +93,8 @@
                                             </div>
                                         </div>
                                     </th>
-                                    <th style="text-align: center;">最小成团人数</th>
-                                    <th style="text-align: center;">最大成团人数</th>
+                                    <th style="text-align: center;">当前团的数量</th>
+                                    <th style="text-align: center;">团的总人数</th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">海报</th>
@@ -90,15 +104,15 @@
                             <tbody>
                                 <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                     <tr>
-                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看团信息"></td>
                                         <td>{{data.id}}</td>
                                         <td>{{data.code}}</td>
                                         <td>{{data.title}}</td>
                                         <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                         <td>{{data?.minimum_price}}元</td>
-                                        <td>{{data?.reserve_num_min}}</td>
+                                        <td>{{data?.group_count}}</td>
                                         <td>
-                                            {{ data?.reserve_num_max === 0?'-':data?.reserve_num_max }}
+                                            {{ data?.member_total}}
                                         </td>
                                         <td>{{data.departure_city_name}}</td>
                                         <td>{{data?.destination_city_name}}</td>
@@ -116,63 +130,43 @@
                                     </tr>
 
                                     <tr [nzExpand]="data.expand">
-                                        <nz-table #innerTable [nzData]="" [nzShowPagination]="false">
+                                        <nz-table #innerTable [nzData]="data?.group" [nzShowPagination]="false" *ngIf="data?.group?.length!=0">
                                             <thead>
                                                 <tr>
-                                                    <!-- <th>姓名</th>
-                                                    <th>类型</th>
-                                                    <th>出生日期</th>
-                                                    <th>联系方式</th>
-                                                    <th>拼房类型</th>
-                                                    <th>集合地点</th>
-                                                    <th>集合时间</th>
-                                                    <th>出团通知短信</th>
-                                                    <th>出行人状态</th> -->
+                                                    <th style="text-align: center;">团队id</th>
+                                                    <th style="text-align: center;">团队编号</th>
+                                                    <th style="text-align: center;">最小成团人数</th>
+                                                    <th style="text-align: center;">最大成团人数</th>
+                                                    <th style="text-align: center;">当前团人数</th>
+                                                    <th style="text-align: center;">成团日期</th>
+                                                    <th style="text-align: center;">出发日期</th>
+                                                    <th style="text-align: center;">团状态</th>
                                                 </tr>
                                             </thead>
-                                            <!-- <tbody>
-                                            <tr *ngFor="let dataChild of innerTable.data">
-                                                <td style="width: 8%;">{{ dataChild.name }}</td>
-                                                <td style="width: 9%;">
-                                                    <span *ngIf="dataChild.is_kid===0">成人</span>
-                                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
-                                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
-                                                </td>
-                                                <td style="width: 9%;">{{dataChild.birthday}}</td>
-                                                <td style="width: 10%;">{{dataChild.phone}}</td>
-                                                <td style="width: 7%;">
-                                                    <p *ngIf="data.shared_status===0">不拼房</p>
-                                                    <p *ngIf="data.shared_status===1">同性拼房</p>
-                                                </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
-                                                        <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="dataChild.assembling_place" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">修改</button>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
-                                                       
-                                                        <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm1(dataChild)">修改</button>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 10%;">
-                                                    <p *ngIf="dataChild.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                    <p *ngIf="dataChild.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                    <p *ngIf="dataChild.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
-                                                </td>
-                                                <td style="width: 9%;">
-                                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
-                                                    <div *ngIf="dataChild.refund_status===0">正常</div>
-                                                </td>
-                                            </tr>
-                                        </tbody> -->
+                                            <tbody>
+                                                <tr *ngFor="let dataChild of innerTable.data">
+                                                    <td style="width: 10%;">{{ dataChild.group_id }}</td>
+                                                    <td style="width: 10%;">{{dataChild.group_code}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_min}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_max}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_total}}</td>
+                                                    <td style="width: 10%;">{{dataChild.active_date}}</td>
+                                                    <td style="width: 10%;">{{dataChild.start_date}}</td>
+                                                    <td style="width: 10%;">
+                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消</span>
+                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="green"></nz-badge>正常</span>
+                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已出团</span>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </nz-table>
+
+
+                                        <p *ngIf="data?.group?.length===0">无团信息</p>
                                     </tr>
+
+
                                 </ng-template>
                             </tbody>
 
