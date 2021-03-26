@@ -99,6 +99,19 @@ export class AdminOrderGroupTravelService {
   }
 
 
+  // 二维码收款
+  orderGetPayQr(order_id: any): Observable<any> {
+    const params = new HttpParams().set('order_id', order_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<any>(this.urls.GetAdminOrderGetPayQr, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
   // 订单修改日期获取
   changGetDateGroup(order_id: any, new_date: any): Observable<ChangeDateResponModel> {

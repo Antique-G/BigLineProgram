@@ -54,11 +54,12 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_status">团状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear [(ngModel)]="isStatus">
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                        <nz-option [nzLabel]="'已取消'" [nzValue]="0"></nz-option>
-                                        <nz-option [nzLabel]="'已成团'" [nzValue]="1"></nz-option>
-                                        <nz-option [nzLabel]="'已完成 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已取消，不成团'" [nzValue]="0"></nz-option>
+                                        <nz-option [nzLabel]="'未成团'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已成团 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已出团，完成 '" [nzValue]="3"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -153,10 +154,10 @@
                                                     <td style="width: 10%;">{{dataChild.active_date}}</td>
                                                     <td style="width: 10%;">{{dataChild.start_date}}</td>
                                                     <td style="width: 10%;">
-                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消</span>
-                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="green"></nz-badge>正常</span>
-                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已出团</span>
-
+                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消，不成团</span>
+                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
+                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
+                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
                                                     </td>
                                                 </tr>
                                             </tbody>
