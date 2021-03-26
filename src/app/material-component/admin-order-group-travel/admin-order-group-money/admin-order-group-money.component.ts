@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { ComfirmOrderModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 @Component({
   selector: 'app-admin-order-group-money',
@@ -16,6 +17,10 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   comfirmOrderModel: ComfirmOrderModel;
   isShow = true;
   fee: any;
+  isTypeShow: any;
+  isQr: any;
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
 
 
   constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
@@ -38,8 +43,12 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   ngOnInit(): void {
     console.log('this.data :>> ', this.data);
     this.isPrice = Math.ceil((this.data?.price_total - this.data?.price_receive) * 100) / 100 + ' 元';
-    this.fee = Math.ceil((this.data?.price_total - this.data?.price_receive) * 100) / 100 ;
-
+    this.fee = Math.ceil((this.data?.price_total - this.data?.price_receive) * 100) / 100;
+    // 请求二维码接口
+    this.adminOrderGroupTravelService.orderGetPayQr(this.data.id).subscribe(res => {
+      console.log('二维码 :>> ', res);
+      this.isQr = res.url
+    })
   }
 
   setValue() {
@@ -76,12 +85,11 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   }
 
   changeType(data: any) {
-    console.log('1312312 ', data, data === 2,);
+    this.isTypeShow = data;
     if (data === '3') {
       this.isShow = false;
       this?.addForm?.controls['transaction_id'].setValidators(null);
       this?.addForm?.controls['transaction_id'].updateValueAndValidity();
-
     }
     else {
       this.isShow = true;
