@@ -23,8 +23,8 @@ export class AdminOrderService {
 
   // 订单团列表
   getStoreOrderGroup(page: number, per_page: number, product_id: any, product_name: any, group_id: any, order_number: any,
-    destination_city: any, date_start: any, date_end: any): Observable<StoreOrderListRequestModel> {
-      const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+    destination_city: any, date_start: any, date_end: any, group_status: any, group_code: any, store_id: any): Observable<StoreOrderListRequestModel> {
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')
@@ -32,7 +32,11 @@ export class AdminOrderService {
       .set('order_number', order_number ? order_number : '')
       .set('destination_city', destination_city ? destination_city : '')
       .set('date_start', date_start ? date_start : '')
-      .set('date_end', date_end ? date_end : '');
+      .set('date_end', date_end ? date_end : '')
+      .set('group_status', group_status ? group_status : '')
+      .set('group_code', group_code ? group_code : '')
+      .set('store_id', store_id ? store_id : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
