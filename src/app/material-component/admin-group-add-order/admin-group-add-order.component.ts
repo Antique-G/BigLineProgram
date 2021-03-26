@@ -79,6 +79,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
     this.group_status = this.searchForm.value.group_status;
+    console.log('3242342 ', this.group_status );
     console.log('this.start_date :>> ', this.searchForm.value.start_date === '', this.start_date);
   }
 
@@ -107,7 +108,15 @@ export class AdminGroupAddOrderComponent implements OnInit {
   search() {
     this.loading = true;
     this.setValue();
-    this.getPro();
+    this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.group_status).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.dataSource.forEach((value: any, index: any) => {
+        value['expand'] = false; //展开属性
+      })
+      this.total = res?.total;
+    })
   }
 
 
