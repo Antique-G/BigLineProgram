@@ -33,7 +33,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   dateArray1: any[] = [];
   product_code: any;
   storeList: any[] = [];
-
+  totalModel: any;
 
 
   constructor(public fb: FormBuilder, public router: Router,
@@ -56,7 +56,9 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       console.log("24234", res);
       this.storeList = res;
       this.groupTravel();
+      this.getTotal();
     })
+
   }
 
   groupTravel() {
@@ -65,6 +67,14 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
       this.loading = false;
+    })
+  }
+
+  getTotal() {
+    this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date).subscribe(res => {
+      console.log('统计', res?.data);
+      this.totalModel = res?.data;
+      console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
     })
   }
 
@@ -96,6 +106,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.order_end_date = this.dateArray[1];
     this.loading = true;
     this.groupTravel();
+    this.getTotal();
   }
 
 
@@ -154,6 +165,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       this.groupTravel();
     })
   }
+
+
 
 }
 

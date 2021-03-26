@@ -200,6 +200,10 @@ export const AdminUrls = {
   PutAdminRegion: api + '/admin/region_service/',    //区域更新
 
 
+  GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
+
+  
+
 };
 
 
