@@ -20,6 +20,7 @@ import { MenuItems } from './shared/menu-items/menu-items';
 import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -43,6 +44,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     HttpClientModule,
     ReactiveFormsModule,
     DemoNgZorroAntdModule,
+    NgxQRCodeModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [

@@ -34,7 +34,8 @@ export class AdminGroupAddOrderComponent implements OnInit {
   sortValue: any;
   sort_field = 'minimum_price';
   sort: any;
-  group_status: any;
+  group_status = 1;
+  isStatus = 1;
 
 
 
