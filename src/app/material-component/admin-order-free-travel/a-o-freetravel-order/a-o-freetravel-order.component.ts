@@ -3,15 +3,12 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
-
-
-// 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
-import { UploadIdCardComponent } from '../../admin-order-group-travel/admin-order-group-order/upload-id-card/upload-id-card.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
@@ -414,7 +411,7 @@ export class AOFreetravelOrderComponent implements OnInit {
   // 上传证件照
   choiceImg(i: any) {
     console.log("i是什么", i);
-    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+    const dialogRef = this.dialog.open(AdminUploadIdCardComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -473,7 +470,7 @@ export class AOFreetravelOrderComponent implements OnInit {
   // 上传证件照
   choiceBabyImg(i: any) {
     console.log("i是什么", i);
-    const dialogRef = this.dialog.open(UploadIdCardComponent, {
+    const dialogRef = this.dialog.open(AdminUploadIdCardComponent, {
       width: '550px',
     });
     dialogRef.afterClosed().subscribe(res => {

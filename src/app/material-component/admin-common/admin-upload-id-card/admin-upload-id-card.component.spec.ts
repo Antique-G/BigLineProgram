@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UploadIdCardComponent } from './upload-id-card.component';
+import { AdminUploadIdCardComponent } from './admin-upload-id-card.component';
 
-describe('UploadIdCardComponent', () => {
-  let component: UploadIdCardComponent;
-  let fixture: ComponentFixture<UploadIdCardComponent>;
+describe('AdminUploadIdCardComponent', () => {
+  let component: AdminUploadIdCardComponent;
+  let fixture: ComponentFixture<AdminUploadIdCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UploadIdCardComponent ]
+      declarations: [ AdminUploadIdCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UploadIdCardComponent);
+    fixture = TestBed.createComponent(AdminUploadIdCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

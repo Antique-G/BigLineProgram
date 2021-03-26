@@ -85,7 +85,7 @@
                                     <th style="text-align: center;">已确认&支付订单人数</th>
                                     <th style="text-align: center;">子团数</th>
                                     <th style="text-align: center;">目的城市</th>
-                                    <th style="text-align: center;">订单出发日期/返回日期</th>
+                                    <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">出团通知书/导游</th>
                                     <th style="text-align: center;">团队状态</th>
                                     <th style="text-align: center;">查看详情</th>
@@ -96,10 +96,10 @@
                                     <td>{{data.group_id}}</td>
                                     <td>{{data.group_code}}</td>
                                     <td>{{data.product_name}}</td>
-                                    <td>{{data.members_num}}</td>
+                                    <td>{{data.member_total}}</td>
                                     <td>{{data.sub_groups_num}}</td>
                                     <td>{{data.destination_city_name}}</td>
-                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}-{{data.end_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>
                                         <div fxLayout="column" fxLayoutAlign="center center">
                                             <div *ngIf="data.sub_groups_num===0">
@@ -109,21 +109,21 @@
                                             <div *ngIf="data.sub_groups_num!=0">
 
                                                 <div>
-                                                    <p *ngIf="data.notice_status===true" style="color: #1890ff;">'-'</p>
+                                                    <p *ngIf="data.notice_status===true" style="color: #1890ff;">-</p>
                                                     <p *ngIf="data.notice_status===false" style="color: red;">待派发</p>
                                                 </div>
                                                 <div>
-                                                    <p *ngIf="data.guide_status===true" style="color: #1890ff;">'-'</p>
+                                                    <p *ngIf="data.guide_status===true" style="color: #1890ff;">-</p>
                                                     <p *ngIf="data.guide_status===false" style="color: red;">待派遣</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
-                                            <p *ngIf="data.group_status===0">已取消</p>
-                                            <p *ngIf="data.group_status===1">正常</p>
-                                        </div>
+                                        <span *ngIf="data.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消，不成团</span>
+                                        <span *ngIf="data.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
+                                        <span *ngIf="data.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
+                                        <span *ngIf="data.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">

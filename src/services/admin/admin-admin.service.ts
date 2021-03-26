@@ -2,8 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, retry } from 'rxjs/operators';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
-import { AdminAdminListRequestModel, AdminAdminListResponseModel, AdminDetailModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminListResponseModel, AdminDetailModel, RegisterRequestModel, RegisterResponseModel, UpdateRequestModel } from '../../interfaces/adminAdmin/admin-admin-model';
 
 
 const httpOptions = {
@@ -22,7 +23,7 @@ export class AdminAdminService {
 
   // 管理员列表
   adminList(page: number, per_page: number, keyword: any, status: any): Observable<AdminAdminListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('keyword', keyword ? keyword : '')
       .set('status', status ? status : '');
@@ -59,8 +60,8 @@ export class AdminAdminService {
 
 
   // 详情
-  accountDetail(id:any): Observable<AdminDetailModel> {
-    return this.httpClient.get<AdminDetailModel>(this.urls.GetAdminDetail+id, httpOptions)
+  accountDetail(id: any): Observable<AdminDetailModel> {
+    return this.httpClient.get<AdminDetailModel>(this.urls.GetAdminDetail + id, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

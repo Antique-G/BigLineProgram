@@ -24,8 +24,6 @@ export class StoreQuoteBydateService {
       .set('per_page', per_page)
       .set('check_status', check_status ? check_status : '');
 
-
-    console.log('11111', page, date, per_page, params);
     const findhttpOptions = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: params

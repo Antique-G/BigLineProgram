@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { AdminUrls } from '../../api';
 import { ContractModel } from '../../interfaces/store/storeContract/store-contract-model';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 const httpOptions = {
@@ -20,7 +21,7 @@ export class AdminContractService {
 
   // 列表
   getContract(page: number, per_page: number, contract_name: any, store_id: any): Observable<ContractModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('contract_name', contract_name ? contract_name : '')
       .set('store_id', store_id ? store_id : '');

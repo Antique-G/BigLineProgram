@@ -27,13 +27,16 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   store_id: any;
   date_start: any;
   date_end: any;
+  order_start_date: any;
+  order_end_date: any;
   dateArray: any[] = [];
+  dateArray1: any[] = [];
   product_code: any;
   storeList: any[] = [];
+  totalModel: any;
 
 
-
-  constructor(public fb: FormBuilder, public router: Router, 
+  constructor(public fb: FormBuilder, public router: Router,
     public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
     public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
@@ -44,6 +47,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       date_start: [''],
       product_code: [''],
       store_id: [''],
+      order_start_date: [''],
     });
   }
 
@@ -52,15 +56,25 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       console.log("24234", res);
       this.storeList = res;
       this.groupTravel();
+      this.getTotal();
     })
+
   }
 
   groupTravel() {
-    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id).subscribe(res => {
+    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
       this.loading = false;
+    })
+  }
+
+  getTotal() {
+    this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date).subscribe(res => {
+      console.log('统计', res?.data);
+      this.totalModel = res?.data;
+      console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
     })
   }
 
@@ -88,8 +102,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.store_id = this.searchForm.value.store_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
+    this.order_start_date = this.dateArray1[0];
+    this.order_end_date = this.dateArray1[1];
     this.loading = true;
     this.groupTravel();
+    this.getTotal();
   }
 
 
@@ -104,18 +121,28 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
   }
 
+  onChangeDateOrder(event: any) {
+    this.dateArray1 = [];
+    const datePipe = new DatePipe('en-US');
+    const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+    this.dateArray1.push(myFormattedDate);
+    const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+    this.dateArray1.push(myFormattedDate1);
+    console.log("event", this.dateArray);
+  }
+
 
   edit(data: any) {
     this.router.navigate(['/admin/main/groupTravelOrder/detail'], { queryParams: { detailId: data.id } });
   }
 
 
-  addOrder(){
+  addOrder() {
     this.router.navigate(['/admin/main/groupTravelOrder/adminOrdergroupTravelAddOrder']);
   }
 
 
-  
+
   money(data: any) {
     const addmodal = this.modal.create({
       nzTitle: '收款',
@@ -138,7 +165,9 @@ export class AdminOrderGroupTravelComponent implements OnInit {
       this.groupTravel();
     })
   }
-  
+
+
+
 }
 
 

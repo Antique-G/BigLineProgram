@@ -50,7 +50,10 @@
                                                                         <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
                                                                         <div *ngIf="childStatus==='0'">-</div>
                                                                     </td>
-                                                                    <td>{{data.difference_price}}</td>
+                                                                    <td>
+                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                    </td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
                                                                         <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
@@ -98,7 +101,10 @@
                                                                         <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
                                                                         <div *ngIf="childStatus==='0'">-</div>
                                                                     </td>
-                                                                    <td>{{data.difference_price}}</td>
+                                                                    <td>
+                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                    </td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
                                                                         <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
@@ -147,7 +153,10 @@
                                                                         <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
                                                                         <div *ngIf="childStatus==='0'">-</div>
                                                                     </td>
-                                                                    <td>{{data.difference_price}}</td>
+                                                                    <td>
+                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                    </td>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
                                                                         <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
@@ -169,17 +178,6 @@
 
                                 </mat-tab-group>
                             </mat-card>
-
-
-
-
-
-
-
-
-
-
-
 
                         </div>
 

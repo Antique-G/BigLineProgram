@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AddAdminTermsTemplateRequestModel, AdminTermsTemplateResponseModel, AdminTermsTemplateSetStatusRequestModel, AdminTermTemplateListResponseModel } from '../../interfaces/adminTermTemplate/admin-term-template-model';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
 
 const httpOptions = {
@@ -21,7 +22,7 @@ export class AdminTermTemplateService {
 
   // 列表
   adminTermTemplateList(page: number, per_page: number, title: string): Observable<AdminTermTemplateListResponseModel> {
-    const params = new HttpParams().set('page', page.toString())
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('title', title ? title : '');
     const findhttpOptions = {
@@ -51,7 +52,7 @@ export class AdminTermTemplateService {
       )
   }
 
-  
+
   //商户信息修改
   updateTemplate(addAdminTermsTemplateRequestModel: AddAdminTermsTemplateRequestModel): Observable<any> {
     const id = addAdminTermsTemplateRequestModel.id;
@@ -81,13 +82,13 @@ export class AdminTermTemplateService {
   }
 
 
- // 详情
- templateDetail(id:any): Observable<any> {
-  return this.httpClient.get<any>(this.urls.GetAdminTermTemplateDetail+id, httpOptions)
-    .pipe(
-      catchError(this.handleError)
-    )
-}
+  // 详情
+  templateDetail(id: any): Observable<any> {
+    return this.httpClient.get<any>(this.urls.GetAdminTermTemplateDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
 

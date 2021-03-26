@@ -2,15 +2,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
-import { AdminWechatPageconfigService } from '../../../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
+import { AdminWechatPageconfigService } from '../../../../services/admin/admin-wechat/admin-wechat-pageconfig.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-upload-id-card',
-  templateUrl: './upload-id-card.component.html',
-  styleUrls: ['./upload-id-card.component.css']
+  selector: 'app-admin-upload-id-card',
+  templateUrl: './admin-upload-id-card.component.html',
+  styleUrls: ['./admin-upload-id-card.component.css']
 })
-export class UploadIdCardComponent implements OnInit {
+export class AdminUploadIdCardComponent implements OnInit {
   addForm!: FormGroup;
   isLoadingBtn = false;
 
@@ -21,7 +21,7 @@ export class UploadIdCardComponent implements OnInit {
 
 
 
-  constructor(public dialogRef: MatDialogRef<UploadIdCardComponent>, private msg: NzMessageService,
+  constructor(public dialogRef: MatDialogRef<AdminUploadIdCardComponent>, private msg: NzMessageService,
     public adminWechatPageconfigService: AdminWechatPageconfigService,) {
     this.addForm = new FormGroup({
       title: new FormControl('')
@@ -34,20 +34,20 @@ export class UploadIdCardComponent implements OnInit {
 
   // 上传图片之前
   beforeUpload = (file: NzUploadFile): boolean => {
-    let id:any = this.fileList.length;
-      this.fileList = this.fileList.concat({
-        uid: id,
-        name: file.name
-      });
-      this.imageList = this.imageList.concat(file);
+    let id: any = this.fileList.length;
+    this.fileList = this.fileList.concat({
+      uid: id,
+      name: file.name
+    });
+    this.imageList = this.imageList.concat(file);
     return false
   };
-  
+
 
 
   removeImg = (file: NzUploadFile) => {
-    this.imageList = this.imageList.filter(item=>item.name!=file.name);
-    console.log('this.imageList删除',this.imageList);
+    this.imageList = this.imageList.filter(item => item.name != file.name);
+    console.log('this.imageList删除', this.imageList);
     return true
   }
 
@@ -76,7 +76,7 @@ export class UploadIdCardComponent implements OnInit {
           this.dialogRef.close(res);
           this.isLoadingBtn = true;
         }
-      },error=>{
+      }, error => {
         this.isLoadingBtn = false;
       })
     })

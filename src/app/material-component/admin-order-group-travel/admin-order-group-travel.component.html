@@ -5,9 +5,9 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
                     <form [formGroup]="searchForm" nz-row nz-form>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">订单状态</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">订单状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
@@ -19,25 +19,33 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_id">产品id</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_id">产品id</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_id" placeholder="请输入产品id" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_code">产品编码</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_code">产品编码</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_code" placeholder="请输入产品编码" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
                                         <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
@@ -45,27 +53,28 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="order_number">订单号</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_number">订单号</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="order_number" placeholder="请输入订单号" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="date_start">出发日期</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="date_start">出发日期</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="date_start"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_start_date">下单日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDateOrder($event)" formControlName="order_start_date"></nz-range-picker>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -76,13 +85,34 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="3" [nzXs]="24">
+                        <!-- <nz-form-item nz-col [nzSm]="3" [nzXs]="24">
                             <div nz-row>
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addOrder()">添加订单</button>
                             </div>
-                        </nz-form-item>
+                        </nz-form-item> -->
 
                     </form>
+
+                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30px" style="letter-spacing: 1px;font-weight: bold;font-size: 16px">
+                        <div>
+                            <span>共{{totalModel?.total_num}}人（已支付，不包含婴儿）:</span>
+                            <span *ngIf="totalModel?.total_adult!=0">成人{{totalModel?.total_adult}}</span>
+                            <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
+                            <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
+                        </div>
+                        <div>总收款：
+                            <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
+                        </div>
+                        <div>待支付：
+                            <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
+                        </div>
+                        <div>已退款：
+                            <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
+                        </div>
+                    </div>
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
@@ -91,12 +121,12 @@
                                 <tr>
                                     <th style="text-align: center;">订单号</th>
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;">产品编码</th>
-                                    <th style="text-align: center;width: 20%;">产品名称</th>
+                                    <th style="text-align: center;width: 9%;">产品编码</th>
+                                    <th style="text-align: center;width: 12%;">产品名称</th>
                                     <th style="text-align: center;">订单出发日期</th>
+                                    <th style="text-align: center;">订单下单日期</th>
                                     <th style="text-align: center;">订单状态</th>
                                     <th style="text-align: center;">订单总价格</th>
-                                    <th style="text-align: center;">订单支付状态</th>
                                     <th style="text-align: center;">订单短信通知书</th>
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
@@ -111,6 +141,7 @@
                                     <td>{{data.product_code}}</td>
                                     <td>{{data.product_name}}</td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
                                         <span *ngIf="data.order_status===0">
                                             <nz-badge nzColor="yellow"></nz-badge>已取消
@@ -126,17 +157,6 @@
                                         </span>
                                     </td>
                                     <td>{{data.price_total}}元</td>
-                                    <td>
-                                        <span *ngIf="data.payment_status===0">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===1">
-                                            <nz-badge nzColor="green"></nz-badge>已支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待支付
-                                        </span>
-                                    </td>
                                     <td>
                                         <span *ngIf="data.order_sms===0">
                                             <nz-badge nzColor="yellow"></nz-badge>未发</span>
@@ -173,7 +193,11 @@
                                         </div>
                                     </td>
                                 </tr>
+
+
                             </tbody>
+
+
                         </nz-table>
                     </div>
 

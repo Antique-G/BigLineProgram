@@ -39,6 +39,7 @@ export class AdminProductQutedateComponent implements OnInit {
   setArr = new Set<any>();
   proName: any;
   childStatus: any;
+  isShowPrice_diff = true;
 
 
 
@@ -53,7 +54,8 @@ export class AdminProductQutedateComponent implements OnInit {
       this.detailId = params.detailId;
       this.proName = params.proName;
       this.childStatus = params.childStatus;
-
+      this.isShowPrice_diff = params.few_nights === '0' ? false : true;
+  
     });
     this.getQuteDateList();
   }

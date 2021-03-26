@@ -94,7 +94,6 @@ import { AODSubgroupMoveorderComponent } from './admin-order/admin-order-detail/
 import { AODSubgroupSendsmsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
 import { AODSubgroupSetguideComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
 import { AOGTDetailChangeDataComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
-import { UploadIdCardComponent } from './admin-order-group-travel/admin-order-group-order/upload-id-card/upload-id-card.component';
 import { AdminOrderRefundComponent } from './admin-order-refund/admin-order-refund.component';
 import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
 import { AdminOrderRefundTurnoverComponent } from './admin-order-refund-turnover/admin-order-refund-turnover.component';
@@ -115,6 +114,10 @@ import { AdminOrderRefundConfirmComponent } from './admin-order-refund-review/ad
 import { AdminServicerCreateComponent } from './admin-servicer/admin-servicer-create/admin-servicer-create.component';
 import { AdminServicerDetailComponent } from './admin-servicer/admin-servicer-detail/admin-servicer-detail.component';
 import { UserMoneyLogListComponent } from './admin-commission/user-money-log-list/user-money-log-list.component';
+import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
+import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
+import { AdminUploadIdCardComponent } from './admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 @NgModule({
@@ -129,6 +132,7 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
     CdkTableModule,
     NzCascaderModule,
     DemoNgZorroAntdModule,
+    NgxQRCodeModule
   ],
   providers: [],
   entryComponents: [
@@ -226,7 +230,6 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
     AODSubgroupSendsmsComponent,
     AODSubgroupSetguideComponent,
     AOGTDetailChangeDataComponent,
-    UploadIdCardComponent,
     AdminOrderRefundComponent,
     AdminOrderRefundReviewComponent,
     AdminOrderRefundTurnoverComponent,
@@ -247,6 +250,9 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
     AdminServicerCreateComponent,
     AdminServicerDetailComponent,
     UserMoneyLogListComponent,
+    AdminGroupAddOrderComponent,
+    AdminGroupAddOrderDetailComponent,
+    AdminUploadIdCardComponent,
   ]
 })
 export class MaterialComponentsModule {}

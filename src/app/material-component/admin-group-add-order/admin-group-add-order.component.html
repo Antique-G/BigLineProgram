@@ -1,0 +1,168 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="title">产品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="title" placeholder="请输入产品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date">出发日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-date-picker style="width: 100%;" [(ngModel)]="date" placeholder="请选择出发日期" formControlName="start_date"></nz-date-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择出发城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdepartureCity($event)" formControlName="departure_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择目的城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdestinationCity($event)" formControlName="destination_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="few_days">行程天数</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="few_days" placeholder="请输入行程天数" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+
+                    </form>
+
+
+                    <div>
+                        <nz-table #expandTable #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%;"></th>
+                                    <th style="text-align: center;">产品id</th>
+                                    <th style="text-align: center;">产品编码</th>
+                                    <th style="text-align: center;width: 15%;">产品名称</th>
+                                    <th style="text-align: center;">行程天数</th>
+                                    <th style="text-align: center;">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div>最低价格</div>
+                                            <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-left: 10px;">
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-up" nzTheme="outline" title="最低价格从高到低" (click)="sortDesc()"></i>
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-down" nzTheme="outline" title="最低价格从低到高" (click)="sortAsc()"></i>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th style="text-align: center;">当前团的数量</th>
+                                    <th style="text-align: center;">团的总人数</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">海报</th>
+                                    <th style="text-align: center;">下单</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
+                                    <tr>
+                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看团信息"></td>
+                                        <td>{{data.id}}</td>
+                                        <td>{{data.code}}</td>
+                                        <td>{{data.title}}</td>
+                                        <td>{{data.few_days}}天{{data.few_nights}}晚</td>
+                                        <td>{{data?.minimum_price}}元</td>
+                                        <td>{{data?.group_count}}</td>
+                                        <td>
+                                            {{ data?.member_total}}
+                                        </td>
+                                        <td>{{data.departure_city_name}}</td>
+                                        <td>{{data?.destination_city_name}}</td>
+                                        <td>
+                                            <div title="点击查看海报" *ngIf="data.poster_url!=''">
+                                                <a href={{data.poster_url}} target="_blank">
+                                                    <img [src]="data.poster_url" style="width: 50px;height: 50px;">
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a (click)="anOrder(data)">去下单</a>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr [nzExpand]="data.expand">
+                                        <nz-table #innerTable [nzData]="data?.group" [nzShowPagination]="false" *ngIf="data?.group?.length!=0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">团队id</th>
+                                                    <th style="text-align: center;">团队编号</th>
+                                                    <th style="text-align: center;">最小成团人数</th>
+                                                    <th style="text-align: center;">最大成团人数</th>
+                                                    <th style="text-align: center;">当前团人数</th>
+                                                    <th style="text-align: center;">成团日期</th>
+                                                    <th style="text-align: center;">出发日期</th>
+                                                    <th style="text-align: center;">团状态</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dataChild of innerTable.data">
+                                                    <td style="width: 10%;">{{ dataChild.group_id }}</td>
+                                                    <td style="width: 10%;">{{dataChild.group_code}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_min}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_max}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_total}}</td>
+                                                    <td style="width: 10%;">{{dataChild.active_date}}</td>
+                                                    <td style="width: 10%;">{{dataChild.start_date}}</td>
+                                                    <td style="width: 10%;">
+                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消，不成团</span>
+                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
+                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
+                                                        <span *ngIf="dataChild.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </nz-table>
+
+
+                                        <p *ngIf="data?.group?.length===0">无团信息</p>
+                                    </tr>
+
+
+                                </ng-template>
+                            </tbody>
+
+                        </nz-table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>
