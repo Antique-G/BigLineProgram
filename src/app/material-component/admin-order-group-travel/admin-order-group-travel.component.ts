@@ -102,8 +102,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.store_id = this.searchForm.value.store_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
-    this.order_start_date = this.dateArray[0];
-    this.order_end_date = this.dateArray[1];
+    this.order_start_date = this.dateArray1[0];
+    this.order_end_date = this.dateArray1[1];
     this.loading = true;
     this.groupTravel();
     this.getTotal();
