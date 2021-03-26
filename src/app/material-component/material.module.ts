@@ -117,6 +117,7 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
 import { AdminUploadIdCardComponent } from './admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 @NgModule({
@@ -131,6 +132,7 @@ import { AdminUploadIdCardComponent } from './admin-common/admin-upload-id-card/
     CdkTableModule,
     NzCascaderModule,
     DemoNgZorroAntdModule,
+    NgxQRCodeModule
   ],
   providers: [],
   entryComponents: [

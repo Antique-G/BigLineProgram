@@ -77,6 +77,7 @@
                                     <th style="text-align: center;width: 15%;">产品名称</th>
                                     <th style="text-align: center;">产品编码</th>
                                     <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;">创建人</th>
                                     <th style="text-align: center;">行程天数</th>
                                     <th style="text-align: center;">最低价格</th>
                                     <th style="text-align: center;">出发城市</th>
@@ -95,6 +96,7 @@
                                     <td>{{data.title}}</td>
                                     <td>{{data.code}}</td>
                                     <td>{{data.store_name}}</td>
+                                    <td>{{data.operation_name}}</td>
                                     <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                     <td>
                                         <div *ngIf="data.minimum_price===0"> - </div>
