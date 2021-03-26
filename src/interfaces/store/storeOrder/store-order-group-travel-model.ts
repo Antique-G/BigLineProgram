@@ -484,3 +484,21 @@ export interface ComfirmOrderModel {
   pay_time: any;
   transaction_id: any;
 }
+
+
+
+// 订单统计OrderTotal
+export interface OrderTotalModel {
+  data: DatumOrderTotalModel;
+}
+
+
+export interface DatumOrderTotalModel {
+  total_num: string;
+  total_adult: string;
+  total_kid: string;
+  baby_num: string;
+  receive: string;
+  is_pay_money?: any;
+  refund_money: string;
+}

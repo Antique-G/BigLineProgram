@@ -61,6 +61,9 @@ export class AdminGroupAddOrderComponent implements OnInit {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
+      this.dataSource.forEach((value: any, index: any) => {
+        value['expand'] = false; //展开属性
+      })
       this.total = res?.total;
     })
   }
@@ -112,7 +115,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
     console.log("点击的结果是", data);
     if (data !== null) {
       this.isDestination_city = data[data.length - 1];
-  
+
     }
   }
 
@@ -136,6 +139,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource = res?.data;
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
+        value['expand'] = false; //展开属性
       })
       this.total = res?.total;
     })
@@ -152,8 +156,16 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource = res?.data;
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
+        value['expand'] = false; //展开属性
       })
       this.total = res?.total;
     })
+  }
+
+
+
+
+  onExpandChange(id: number, checked: boolean): void {
+    console.log("点击的是", id, checked)
   }
 }
