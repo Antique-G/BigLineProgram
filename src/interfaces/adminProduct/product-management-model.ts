@@ -45,6 +45,7 @@ interface DatumModel {
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
+  operation_name: string;
 }
 
 

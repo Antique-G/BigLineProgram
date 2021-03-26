@@ -56,6 +56,8 @@ export interface DatumModel {
     check_log: LogModel[];
     date_quotes?: DatequoteModel;
     quote_status: number;
+    operation_name: string;
+
 }
 
 export interface StoreModel {
@@ -117,7 +119,7 @@ export interface DataFreeTravelDetailModel {
     departure_city: string;
     destination_city: string;
     earlier: number;
-  
+
     pay_method: number;
     service_phone: string;
     min_price: number;
