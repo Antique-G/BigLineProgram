@@ -101,16 +101,16 @@
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
                         </div>
                         <div>总收款：
-                            <span style="color: red;" *ngIf="totalModel?.receive!='0'&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.receive==='0'||totalModel?.receive===null">-</span>
+                            <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
                         </div>
                         <div>待支付：
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money!='0'&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money==='0'||totalModel?.is_pay_money===null">-</span>
+                            <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
                         </div>
                         <div>已退款：
-                            <span style="color: red;" *ngIf="totalModel?.refund_money!='0'&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.refund_money==='0'||totalModel?.refund_money===null">-</span>
+                            <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
                         </div>
                     </div>
 
