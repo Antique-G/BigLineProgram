@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AccountDetailComponent } from '../../../app/material-component/admin-common/account-detail/account-detail.component';
+import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreAccountDetailComponent } from '../../../app/store-app/store-material/common/store-account-detail/store-account-detail.component';
 import { AdminLoginService } from '../../../services/admin-login/admin-login.service';
 import { AdminAdminService } from '../../../services/admin/admin-admin.service';
 import { StoreLoginService } from '../../../services/store/store-login/store-login.service';
 import { MenuItems } from '../../shared/menu-items/menu-items';
-import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { AdminChangePasswordComponent } from '../../../app/material-component/admin/admin-change-password/admin-change-password.component';
 
 
 // 面包屑
@@ -35,7 +35,7 @@ export class FullComponent implements OnInit {
 
 
 
-  constructor(public menuItems: MenuItems, public dialog: MatDialog,
+  constructor(public menuItems: MenuItems, private modal: NzModalService,
     public router: Router, private activatedRoute: ActivatedRoute,
     public adminLoginService: AdminLoginService, public adminAdminService: AdminAdminService,
     public storeLoginService: StoreLoginService) {
@@ -70,6 +70,7 @@ export class FullComponent implements OnInit {
       localStorage.removeItem('account');
       localStorage.removeItem('adminId');
       this.router.navigate(['/admin/login']);
+      window.localStorage.clear(); //清除缓存
     })
   }
 
@@ -83,33 +84,48 @@ export class FullComponent implements OnInit {
       localStorage.removeItem('lastRegion');
       localStorage.removeItem('storeAccountId');
       this.router.navigate(['/store/login']);
+      window.localStorage.clear(); //清除缓存
     })
   }
 
 
   accountDetail() {
-    this.adminAdminService.accountDetail(localStorage.getItem('adminId')).subscribe(res => {
-      if (res) {
-        const dialogRef = this.dialog.open(AccountDetailComponent, {
-          width: '550px',
-          data: res
-        });
-        dialogRef.afterClosed().subscribe(result => {
-        });
-      }
-
+    const addmodal = this.modal.create({
+      nzTitle: '修改密码',
+      nzContent: AdminChangePasswordComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe((res: any) => {
     })
 
   }
 
 
   storeAccountDetail() {
-    const dialogRef = this.dialog.open(StoreAccountDetailComponent, {
-      width: '550px',
+    const addmodal = this.modal.create({
+      nzTitle: '修改密码',
+      nzContent: StoreAccountDetailComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe((res: any) => {
+    })
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    });
   }
 
 

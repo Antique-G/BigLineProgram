@@ -215,6 +215,8 @@ export const AdminUrls = {
 
 // 店铺后台api
 export const StoreUrls = {
+  PostStorePassword: api + '/store/update_password', // 修改密码
+
   StoreLogin: api + '/store/login', // 店铺后台登陆接口
   StoreLogout: api + '/store/logout',  //店铺后台登出接口
   StoreRefresh: api + '/store/refresh',  //店铺后台Token刷新接口
