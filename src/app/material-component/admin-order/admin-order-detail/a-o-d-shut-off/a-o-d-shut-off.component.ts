@@ -17,7 +17,7 @@ export class AODShutOffComponent implements OnInit {
   constructor(public fb: FormBuilder, public adminOrderService: AdminOrderService) {
     this.addForm = this.fb.group({
       group_id: ['', [Validators.required]],
-      reason: ['']
+      reason: ['', [Validators.required]]
     });
     this.shuffOrderModel = {
       group_id: '',
@@ -38,9 +38,17 @@ export class AODShutOffComponent implements OnInit {
   // 不成团关团
   add() {
     this.setValue();
-    this.adminOrderService.shutoff(this.shuffOrderModel).subscribe(res => {
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log("66666", this.addForm.valid)
+    if (this.addForm.valid) {
+      this.adminOrderService.shutoff(this.shuffOrderModel).subscribe(res => {
 
-    })
+      })
+    }
+
   }
 
 }

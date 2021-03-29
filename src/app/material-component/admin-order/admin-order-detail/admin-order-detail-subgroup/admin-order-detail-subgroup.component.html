@@ -36,7 +36,7 @@
                             <span *ngIf="tab.baby_num!=0">|婴儿{{tab?.baby_num}}</span>
                         </div>
                     </div>
-                    <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===1">
+                    <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed!=0">
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms()">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>

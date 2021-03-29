@@ -8,8 +8,8 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="reason">关闭理由</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="reason" nzRequired>关闭理由</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入关闭理由">
                     <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
