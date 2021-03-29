@@ -4,6 +4,9 @@ const api = environment.baseUrl;
 
 // 管理后台api
 export const AdminUrls = {
+  PostAdminPassword: api + '/admin/update_password', // 修改密码
+
+
   AdminLogin: api + '/admin/login', // 管理后台登陆接口
   AdminLogout: api + '/admin/logout',  //管理后台登出接口
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
