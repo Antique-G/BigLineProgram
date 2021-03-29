@@ -7,6 +7,7 @@ import { AdminProductFreeTravelService } from '../../../../services/admin/admin-
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AdminProductFreeReviewComponent } from './admin-product-free-review/admin-product-free-review.component';
 import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
+import { AdminProductMiniCodeComponent } from '../admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
 
 @Component({
   selector: 'app-admin-produc-free-travel',
@@ -131,4 +132,19 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights } });
   }
 
+
+
+  getCode(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '生成小程序码',
+      nzContent: AdminProductMiniCodeComponent,
+      nzWidth: 800,
+      nzComponentParams: {
+        data: [data, 1]
+      },
+      nzFooter: null
+    })
+    addmodal.afterClose.subscribe((res: any) => {
+    })
+  }
 }

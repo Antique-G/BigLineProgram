@@ -58,6 +58,11 @@ export const AdminUrls = {
   GetAdminProductManagementStoreList: api + '/admin/store/list',// 查询店铺
 
 
+  GetAdminProductMiniCode: api + '/admin/product/get_mini_code',// 生成小程序码
+
+
+
+
   PostAdminProductTrip: api + '/admin/product_trip', //行程
   PostAdminProductIndenTrip: api + '/admin/inden_product_trip', //行程
   PostAdminProductTripDel: api + '/admin/product_trip_del',

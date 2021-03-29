@@ -7,6 +7,7 @@ import { AdminProductTagService } from '../../../../services/admin/admin-product
 import { AdminProductSetStatusModel } from '../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
+import { AdminProductMiniCodeComponent } from './admin-product-mini-code/admin-product-mini-code.component';
 
 @Component({
   selector: 'app-admin-product-management',
@@ -170,5 +171,20 @@ export class AdminProductManagementComponent implements OnInit {
     })
   }
 
+
+
+  getCode(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '生成小程序码',
+      nzContent: AdminProductMiniCodeComponent,
+      nzWidth: 800,
+      nzComponentParams: {
+        data: [data, 0]
+      },
+      nzFooter: null
+    })
+    addmodal.afterClose.subscribe((res: any) => {
+    })
+  }
 
 }

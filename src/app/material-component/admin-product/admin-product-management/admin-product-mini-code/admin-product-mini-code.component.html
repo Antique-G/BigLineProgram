@@ -1,0 +1,28 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 5px 20px;" fxLayoutWrap="column" fxLayoutAlign="start strench">
+        <form nz-form [formGroup]="addForm" style="width: 100%;">
+            <div nz-row>
+                <nz-form-item nz-col [nzSm]="18" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="title">产品名称</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <input nz-input formControlName="title" readonly=true [ngModel]="data[0]?.title" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                    <div nz-row>
+                        <button nz-button [nzLoading]="isLoadingBtn" nzType="primary" style="letter-spacing: 2px;" (click)="getCode()">生成小程序码</button>
+                    </div>
+                </nz-form-item>
+            </div>
+
+            <div fxLayoutWrap="column" fxLayoutAlign="center center">
+                <img [src]="imgUrl" style="width: 200px;height: 200px;" *ngIf="isShow">
+            </div>
+        </form>
+
+    </div>
+</div>

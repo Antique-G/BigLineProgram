@@ -85,6 +85,7 @@
                                     <th style="text-align: center;">审核</th>
                                     <th style="text-align: center;">上下架</th>
                                     <th style="text-align: center;">日期报价审核</th>
+                                    <th style="text-align: center;">生成小程序码</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,7 +155,11 @@
                                             <img src="http://cdn.bigline.com.cn/static/images/assignment_finished.png" title="无需审核的报价" (click)="quteDateClick(data)">
                                         </div>
                                     </td>
-
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码" (click)="getCode(data)">
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </nz-table>
