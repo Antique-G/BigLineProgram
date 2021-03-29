@@ -52,6 +52,9 @@ export class AdminChangePasswordComponent implements OnInit {
         window.localStorage.clear(); //清除缓存
         this.router.navigate(['/admin/login']);
       
+      }
+      ,error=>{
+        console.log('object :>> ', 123);
       })
     }
   }

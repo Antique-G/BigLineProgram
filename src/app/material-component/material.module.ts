@@ -119,6 +119,7 @@ import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin
 import { AdminUploadIdCardComponent } from './admin-common/admin-upload-id-card/admin-upload-id-card.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { AdminChangePasswordComponent } from './admin/admin-change-password/admin-change-password.component';
+import { AdminProductMiniCodeComponent } from './admin-product/admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
 
 
 @NgModule({
@@ -255,6 +256,7 @@ import { AdminChangePasswordComponent } from './admin/admin-change-password/admi
     AdminGroupAddOrderDetailComponent,
     AdminUploadIdCardComponent,
     AdminChangePasswordComponent,
+    AdminProductMiniCodeComponent,
   ]
 })
 export class MaterialComponentsModule {}

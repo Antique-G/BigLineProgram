@@ -23,7 +23,7 @@ export class AdminProductManagementService {
 
 
   // 产品列表
-  productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string, code: any, few_days: any,  tag?: any): Observable<AdminProductManagementListResponseModel> {
+  productList(page: number, per_page: number, status: any, check_status: any, title: string, store_id: string, code: any, few_days: any, tag?: any): Observable<AdminProductManagementListResponseModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -157,12 +157,31 @@ export class AdminProductManagementService {
       )
   }
 
+
+
   QuteDateCheckState(date_id: any[], check_status: number) {
     return this.httpClient.post<any>(this.urls.PostAdminQuteDateSetCheck, { date_id, check_status }, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+
+  // 产品生成二维码
+  getProductMiniCode(product_id: any, product_type: any) {
+    const params = new HttpParams().set('product_id', product_id)
+      .set('product_type', product_type)
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<any>(this.urls.GetAdminProductMiniCode, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
 
