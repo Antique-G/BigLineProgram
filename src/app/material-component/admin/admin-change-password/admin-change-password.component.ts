@@ -1,16 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PassWordModel } from '../../../../../interfaces/store/common/password';
-import { StoreLoginService } from '../../../../../services/store/store-login/store-login.service';
-
+import { PassWordModel } from '../../../../interfaces/store/common/password';
+import { StoreLoginService } from '../../../../services/store/store-login/store-login.service';
 
 @Component({
-  selector: 'app-store-account-detail',
-  templateUrl: './store-account-detail.component.html',
-  styleUrls: ['./store-account-detail.component.css']
+  selector: 'app-admin-change-password',
+  templateUrl: './admin-change-password.component.html',
+  styleUrls: ['./admin-change-password.component.css']
 })
-export class StoreAccountDetailComponent implements OnInit {
+export class AdminChangePasswordComponent implements OnInit {
   addForm!: FormGroup;
   passWordModel: PassWordModel;
 
@@ -51,8 +50,7 @@ export class StoreAccountDetailComponent implements OnInit {
     if (this.addForm.valid) {
       this.storeLoginService.changePassword(this.passWordModel).subscribe(res => {
         console.log("res", res);
-        this.router.navigate(['/store/login']);
-        window.localStorage.clear(); //清除缓存
+    
       })
     }
   }
@@ -75,3 +73,4 @@ export class StoreAccountDetailComponent implements OnInit {
   };
 
 }
+
