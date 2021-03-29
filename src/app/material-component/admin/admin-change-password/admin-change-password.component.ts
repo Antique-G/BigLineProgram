@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminLoginService } from '../../../../services/admin-login/admin-login.service';
 import { PassWordModel } from '../../../../interfaces/store/common/password';
-import { StoreLoginService } from '../../../../services/store/store-login/store-login.service';
 
 @Component({
   selector: 'app-admin-change-password',
@@ -14,8 +14,7 @@ export class AdminChangePasswordComponent implements OnInit {
   passWordModel: PassWordModel;
 
 
-  constructor(public fb: FormBuilder, public router: Router,
-    public storeLoginService: StoreLoginService) {
+  constructor(public fb: FormBuilder, public router: Router, public adminLoginService: AdminLoginService) {
     this.addForm = this.fb.group({
       old_password: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -48,9 +47,11 @@ export class AdminChangePasswordComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-      this.storeLoginService.changePassword(this.passWordModel).subscribe(res => {
+      this.adminLoginService.changePassword(this.passWordModel).subscribe(res => {
         console.log("res", res);
-    
+        window.localStorage.clear(); //清除缓存
+        this.router.navigate(['/admin/login']);
+      
       })
     }
   }
