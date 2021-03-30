@@ -84,6 +84,7 @@
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">海报</th>
+                                    <th style="text-align: center;">行程详情</th>
                                     <th style="text-align: center;">下单</th>
                                 </tr>
                             </thead>
@@ -106,6 +107,13 @@
                                             <div title="点击查看海报" *ngIf="data.poster_url!=''">
                                                 <a href={{data.poster_url}} target="_blank">
                                                     <img [src]="data.poster_url" style="width: 50px;height: 50px;">
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div title="点击查看行程详情" *ngIf="data.schedule_file_url!=''">
+                                                <a href={{data.schedule_file_url}} target="_blank" title="下载">
+                                                    <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 20px;"></i>
                                                 </a>
                                             </div>
                                         </td>
