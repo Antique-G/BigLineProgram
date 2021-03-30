@@ -111,8 +111,8 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div title="点击查看行程详情" *ngIf="data.schedule_file_url!=''">
-                                                <a href={{data.schedule_file_url}} target="_blank" title="查看详情">
+                                            <div *ngIf="data.schedule_file_url!=''">
+                                                <a href={{data.schedule_file_url}} target="_blank" title="点击查看行程详情">
                                                     <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 20px;"></i>
                                                 </a>
                                             </div>
