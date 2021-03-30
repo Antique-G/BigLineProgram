@@ -32,28 +32,28 @@
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置分销金额">
                     <nz-input-number class="input" formControlName="dist_reward" [ngModel]="data?.obj?.dist_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                 </nz-form-control>
-                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+                <span style="margin-left: 5px;margin-top: 3px;letter-spacing: 1px;">元/人</span>
             </nz-form-item>
             <nz-form-item *ngIf="disSet===true">
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_reward" nzRequired>店铺佣金</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置店铺佣金">
                     <nz-input-number class="input" formControlName="store_reward" id="store_reward" [ngModel]="data?.obj?.store_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                 </nz-form-control>
-                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+                <span style="margin-left: 5px;margin-top: 3px;letter-spacing: 1px;">元/人</span>
             </nz-form-item>
             <nz-form-item *ngIf="disSet===true">
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="third_reward" nzRequired>第三方佣金</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置第三方佣金">
                     <nz-input-number class="input" formControlName="third_reward" id="third_reward" [ngModel]="data?.obj?.third_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                 </nz-form-control>
-                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+                <span style="margin-left: 5px;margin-top: 3px;letter-spacing: 1px;">元/人</span>
             </nz-form-item>
             <nz-form-item *ngIf="disSet===true">
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="commerce_reward" nzRequired>电中佣金</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请设置电中佣金">
                     <nz-input-number class="input" formControlName="commerce_reward" id="commerce_reward" [ngModel]="data?.obj?.commerce_reward" [nzPrecision]="2" nzPrecisionMode="cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                 </nz-form-control>
-                <span style="margin-left: 5px;margin-top: 3px;">元</span>
+                <span style="margin-left: 5px;margin-top: 3px;letter-spacing: 1px;">元/人</span>
             </nz-form-item>
         </form>
     </div>

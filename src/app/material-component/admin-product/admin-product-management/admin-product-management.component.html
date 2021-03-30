@@ -84,11 +84,12 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
-                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">操作</th>
+                                    <!-- <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">审核</th>
                                     <th style="text-align: center;">上下架</th>
                                     <th style="text-align: center;">日期报价审核</th>
-                                    <th style="text-align: center;">生成小程序码</th>
+                                    <th style="text-align: center;">生成小程序码</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,6 +133,39 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.check_status!=0" (click)="review(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="审核">审核
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
+                                                    <div *ngIf="data.status===0">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架"> 上架
+                                                    </div>
+                                                    <div *ngIf="data.status===1">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架"> 下架
+                                                    </div>
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.quote_status===1" (click)="quteDateClick(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" title="日期报价">日期报价
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.quote_status===0" (click)="quteDateClick(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_finished.png" title="无需审核的报价">无需审核的报价
+                                                </li>
+                                                <li nz-menu-item (click)="getCode(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
+                                    </td>
+                                    <!-- <td>
                                         <div style="cursor: pointer;" (click)="edit(data)" title="详情">
 
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png">
@@ -171,7 +205,10 @@
                                         <div style="cursor: pointer;">
                                             <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码" (click)="getCode(data)">
                                         </div>
-                                    </td>
+                                    </td> -->
+
+
+
                                 </tr>
                             </tbody>
                         </nz-table>

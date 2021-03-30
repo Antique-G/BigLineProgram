@@ -219,7 +219,7 @@ export class StoreProductManagementComponent implements OnInit {
       if(!flag){
         this.modal.confirm({
           nzTitle: '<h5>提示</h5>',
-          nzContent: '该日期无产品报价，请先进行日期报价，在设置佣金',
+          nzContent: '该日期无产品报价，请先进行日期报价，再设置佣金',
           nzOnOk: () => {
             
           }
