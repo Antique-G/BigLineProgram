@@ -64,6 +64,19 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource = res?.data;
       this.dataSource.forEach((value: any, index: any) => {
         value['expand'] = false; //展开属性
+        if (value.schedule_file_url != '') {
+          let filePath = value.schedule_file_url;
+          //获取最后一个.的位置
+          let index = filePath.lastIndexOf(".");
+          //获取后缀
+          let ext = filePath.substr(index + 1);
+          //输出结果
+          console.log('1212121', ext, ext === 'doc');
+          if (ext != 'pdf') {
+            value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+          }
+
+        }
       })
       this.total = res?.total;
     })
@@ -110,6 +123,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource = res?.data;
       this.dataSource.forEach((value: any, index: any) => {
         value['expand'] = false; //展开属性
+        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
       })
       this.total = res?.total;
     })
@@ -148,6 +162,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
         value['expand'] = false; //展开属性
+        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
       })
       this.total = res?.total;
     })
@@ -165,6 +180,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
         value['expand'] = false; //展开属性
+        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
       })
       this.total = res?.total;
     })

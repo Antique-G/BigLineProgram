@@ -7,10 +7,10 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>上传图片</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <nz-upload [nzBeforeUpload]="beforeUpload" [nzDisabled]="fileList.length===2" [(nzFileList)]="fileList" [nzRemove]="removeImg">
+                    <nz-upload [nzBeforeUpload]="beforeUpload" [nzDisabled]="fileList.length===2" [nzMultiple]='true' [nzLimit]='2' [(nzFileList)]="fileList" [nzRemove]="removeImg">
                         <div>
                             <button nz-button>
-                            <span><i nz-icon nzType="upload"></i> 选择图片</span>
+                            <span><i nz-icon nzType="upload"></i> 选择图片（只能上传两张）</span>
                           </button>
                         </div>
                     </nz-upload>
