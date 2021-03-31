@@ -10,28 +10,29 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./admin-product-qutedate.component.css']
 })
 export class AdminProductQutedateComponent implements OnInit {
-  dataSource: any[] = [];   //1.4将数据添加到dataSource
   dataSource1: any[] = [];   //1.4将数据添加到dataSource
-  dataSource2: any[] = [];   //1.4将数据添加到dataSource
-  dataSource3: any[] = [];   //1.4将数据添加到dataSource
+  page1 = 1;
+  per_page1 = 20;
+  total1 = 1;
 
+  dataSource2: any[] = [];   //1.4将数据添加到dataSource
+  page2 = 1;
+  per_page2 = 20;
+  total2 = 1;
+
+
+  dataSource3: any[] = [];   //1.4将数据添加到dataSource
+  page3 = 1;
+  per_page3 = 20;
+  total3 = 1;
 
 
   loading = true;
   detailId: any;
   // 分页
-  page = 1;
-  per_page = 20;
-  total = 1;
-  page1 = 1;
-  per_page1 = 20;
-  total1 = 1;
-  page2 = 1;
-  per_page2 = 20;
-  total2 = 1;
-  page3 = 1;
-  per_page3 = 20;
-  total3 = 1;
+
+
+
 
   checked = false;
   indeterminate = false;
@@ -55,40 +56,75 @@ export class AdminProductQutedateComponent implements OnInit {
       this.proName = params.proName;
       this.childStatus = params.childStatus;
       this.isShowPrice_diff = params.few_nights === '0' ? false : true;
-  
     });
-    this.getQuteDateList();
+    this.getQuteDateList1();
   }
 
-  getQuteDateList() {
-    this.adminProductManagementService.QuteDateList(this.detailId, this.page, this.per_page).subscribe(res => {
-      this.loading = false;
-      this.dataSource = res.data
-      this.total = res.total;   //总页数
-      console.log(res);
-      let arr1: any[] = [];
-      let arr2: any[] = [];
-      let arr3: any[] = [];
-      this.dataSource.forEach((ele: any, index: any) => {
-        console.log('ele123123', ele, ele.check_status, ele.check_status === 2, ele.check_status === '2');
-        if (ele.check_status === 1) {
-          arr1.push(ele)
-        }
-        if (ele.check_status === 2) {
-          arr2.push(ele)
-        }
-        else if (ele.check_status === 3) {
-          arr3.push(ele)
-        }
-      })
-      this.dataSource1 = arr1;
-      this.dataSource2 = arr2;
-      this.dataSource3 = arr3;
 
+  // 审核中
+  getQuteDateList1() {
+    this.adminProductManagementService.QuteDateList(this.detailId, this.page1, this.per_page1, 1).subscribe(res => {
+      this.loading = false;
+      this.dataSource1 = res.data
+      this.total1 = res.total;   //总页数
     })
   }
 
 
+  changePageSize1(per_page: number) {
+    this.per_page1 = per_page;
+    this.getQuteDateList1();
+  }
+
+  changePageIndex1(page: number) {
+    console.log("当前页", page);
+    this.page1 = page;
+    this.getQuteDateList1();
+  }
+
+
+  // 已通过
+  getQuteDateList2() {
+    this.adminProductManagementService.QuteDateList(this.detailId, this.page2, this.per_page2, 2).subscribe(res => {
+      this.loading = false;
+      this.dataSource2 = res.data
+      this.total2 = res.total;   //总页数
+    })
+  }
+
+
+  changePageSize2(per_page: number) {
+    this.per_page2 = per_page;
+    this.getQuteDateList2();
+  }
+
+  changePageIndex2(page: number) {
+    console.log("当前页", page);
+    this.page2 = page;
+    this.getQuteDateList2();
+  }
+
+
+  // 未通过
+  getQuteDateList3() {
+    this.adminProductManagementService.QuteDateList(this.detailId, this.page3, this.per_page3, 3).subscribe(res => {
+      this.loading = false;
+      this.dataSource3 = res.data
+      this.total3 = res.total;   //总页数
+    })
+  }
+
+
+  changePageSize3(per_page: number) {
+    this.per_page3 = per_page;
+    this.getQuteDateList3();
+  }
+
+  changePageIndex3(page: number) {
+    console.log("当前页", page);
+    this.page3 = page;
+    this.getQuteDateList3();
+  }
 
 
   checkStateClick(state: any) {
@@ -110,7 +146,9 @@ export class AdminProductQutedateComponent implements OnInit {
         console.log(ids);
         this.adminProductManagementService.QuteDateCheckState(ids, state).subscribe(res => {
           console.log(res);
-          this.getQuteDateList();
+          this.getQuteDateList1();
+          // this.getQuteDateList2();
+          // this.getQuteDateList3();
           this.setOfCheckedId.clear()
           this.setArr.clear()
         })
@@ -123,7 +161,7 @@ export class AdminProductQutedateComponent implements OnInit {
 
   onAllChecked(checked: boolean): void {
     this.dataSource1.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
-  
+
   }
 
 
@@ -142,7 +180,7 @@ export class AdminProductQutedateComponent implements OnInit {
 
   onItemChecked(data: any, checked: boolean): void {
     this.updateCheckedSet(data, checked);
-  
+
   }
 
   getState(state: any) {
@@ -166,4 +204,16 @@ export class AdminProductQutedateComponent implements OnInit {
     return str
   }
 
+
+
+
+  onTabChange(event: any) {
+    console.log('event :>> ', event,event===1);
+    if(event===1){
+      this.getQuteDateList2();
+    }
+    else if(event===2){
+      this.getQuteDateList3();
+    }
+  }
 }
