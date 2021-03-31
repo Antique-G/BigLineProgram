@@ -41,28 +41,26 @@
                                     <th>类型</th>
                                     <th>变动时间</th>
                                     <th>昵称</th>
-                                    <!-- <th>真实姓名</th> -->
                                     <th>头像</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.user.user_id}}</td>
-                                    <td>{{data.money}}元</td>
-                                    <td>{{data.change_money}}元</td>
+                                    <td>{{data?.user?.user_id}}</td>
+                                    <td>{{data?.money}}元</td>
+                                    <td>{{data?.change_money}}元</td>
                                     <td>
-                                        <div *ngIf="data.type===1">
+                                        <div *ngIf="data?.type===1">
                                             平台返佣
                                         </div>
-                                        <div *ngIf="data.type===2">
-                                            提现 
+                                        <div *ngIf="data?.type===2">
+                                            提现
                                         </div>
                                     </td>
-                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td>{{data.user.name}}</td>
-                                    <!-- <td>{{data.user.real_name}}</td> -->
+                                    <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{data?.user?.name}}</td>
                                     <td>
-                                        <img [src]="data.user.avatar_url" alt="" style="width: 50px;">
+                                        <img [src]="data?.user?.avatar_url" alt="" style="width: 50px;">
                                     </td>
                                 </tr>
                             </tbody>

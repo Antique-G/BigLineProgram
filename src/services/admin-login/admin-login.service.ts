@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { PassWordModel } from '../../interfaces/store/common/password';
 import { AdminUrls } from '../../api';
 import { LoginRequestModel, LoginResponseModel, LogOutResponseModel } from '../../interfaces/adminLogin/login-model';
 
@@ -60,6 +61,14 @@ export class AdminLoginService {
 
 
 
+  // 修改密码
+  changePassword(passWordModel: PassWordModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminPassword, passWordModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
     switch (error.status) {
@@ -67,18 +76,6 @@ export class AdminLoginService {
         // alert(error.message);
         break
     }
-
-    // if (error.error instanceof ErrorEvent) {
-    //   // 客户端本身引起的错误信息
-    //   alert()
-
-    //   console.error(`客户端错误：${error.error.message}`);
-    // } else {
-    //   // 服务端返回的错误信息
-    //   console.error(`服务端错误：HTTP 状态码：${error.status} \n\r 错误信息：${JSON.stringify(error.error)}`);
-    // }
-
-    // 反馈给用户的错误信息（用于组件中使用 error 回调时的错误提示）
     return throwError('');
   }
 

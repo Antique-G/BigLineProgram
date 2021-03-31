@@ -3,10 +3,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
-
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { AdminProductFreeReviewComponent } from './admin-product-free-review/admin-product-free-review.component';
 import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
+import { AdminProductMiniCodeComponent } from '../admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-produc-free-travel',
@@ -31,7 +32,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
   tagList: any[] = [];
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, private modal: NzModalService,
-    public adminProductFreeTravelService: AdminProductFreeTravelService,
+    public adminProductFreeTravelService: AdminProductFreeTravelService, private message: NzMessageService, 
     public router: Router, public adminProductTagService: AdminProductTagService,) {
     this.searchForm = this.fb.group({
       status: [''],
@@ -125,10 +126,30 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
   }
 
-  
+
   quteDateClick(data: any) {
     console.log('data :>> ', data);
     this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights } });
   }
 
+
+
+  getCode(data: any) {
+    if (data?.status === 0) {
+      this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+    }
+    else {
+      const addmodal = this.modal.create({
+        nzTitle: '生成小程序码',
+        nzContent: AdminProductMiniCodeComponent,
+        nzWidth: 800,
+        nzComponentParams: {
+          data: [data, 1]
+        },
+        nzFooter: null
+      })
+      addmodal.afterClose.subscribe((res: any) => {
+      })
+    }
+  }
 }

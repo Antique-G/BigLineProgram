@@ -7,6 +7,8 @@ import { AdminProductTagService } from '../../../../services/admin/admin-product
 import { AdminProductSetStatusModel } from '../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
+import { AdminProductMiniCodeComponent } from './admin-product-mini-code/admin-product-mini-code.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-product-management',
@@ -34,7 +36,8 @@ export class AdminProductManagementComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
-    public router: Router, private modal: NzModalService, public adminProductTagService: AdminProductTagService,) {
+    public router: Router, private modal: NzModalService,
+    private message: NzMessageService, public adminProductTagService: AdminProductTagService,) {
     this.adminProductSetStatusModel = {
       id: 0,
       status: 0
@@ -170,5 +173,27 @@ export class AdminProductManagementComponent implements OnInit {
     })
   }
 
+
+
+  getCode(data: any) {
+    console.log('data :>> ', data, data?.status === 0);
+    if (data?.status === 0) {
+      this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+    }
+    else {
+      const addmodal = this.modal.create({
+        nzTitle: '生成小程序码',
+        nzContent: AdminProductMiniCodeComponent,
+        nzWidth: 800,
+        nzComponentParams: {
+          data: [data, 0]
+        },
+        nzFooter: null
+      })
+      addmodal.afterClose.subscribe((res: any) => {
+      })
+    }
+
+  }
 
 }

@@ -86,13 +86,18 @@ export class StoreQuoteBydateComponent implements OnInit {
 
 
   nzPageIndexChange(index: any) {
-    console.log(index);
+    console.log('点击的index',index);
     let month = index < 10 ? '0' + index : index;
     let year = new Date().getFullYear();
     let day = new Date().getDate();
-    this.selectedDateValue = new Date(year + '-' + month + '-' + day);
+    console.log('month ', month,year + '-' + month + '-' + day,new Date(year + '-' + month + '-' + day));
+    // 以1号为基准不会报错
+    this.selectedDateValue = new Date(year + '-' + month + '-' + '01');
+    console.log('111111111 ', this.selectedDateValue);
     this.seletYearMonth = this.selectedYear + '-' + month;
+    console.log('2222222 ', this.seletYearMonth);
     this.nzPageIndex = index;
+    // alert(  this.nzPageIndex)
     this.isSpinning = true;
     this.getQuoteList();
   }
@@ -102,6 +107,7 @@ export class StoreQuoteBydateComponent implements OnInit {
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
     let newMon = format(new Date(select), 'MM');
     newMon = newMon.replace(/\b(0+)/gi, "");
+    // alert( Number(newMon))
     this.nzPageIndex = Number(newMon);
     let newDay = format(new Date(select), 'yyyy-MM-dd');
     // 处理不能点击的日期
@@ -216,6 +222,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   }
 
   panelChange(change: { date: Date; mode: string }): void {
+    alert(1)
     console.log('panelChange', change.date, change.mode);
   }
 

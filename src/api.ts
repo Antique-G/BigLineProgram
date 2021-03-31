@@ -4,6 +4,9 @@ const api = environment.baseUrl;
 
 // 管理后台api
 export const AdminUrls = {
+  PostAdminPassword: api + '/admin/update_password', // 修改密码
+
+
   AdminLogin: api + '/admin/login', // 管理后台登陆接口
   AdminLogout: api + '/admin/logout',  //管理后台登出接口
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
@@ -53,6 +56,11 @@ export const AdminUrls = {
   PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
   GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
   GetAdminProductManagementStoreList: api + '/admin/store/list',// 查询店铺
+
+
+  GetAdminProductMiniCode: api + '/admin/product/get_mini_code',// 生成小程序码
+
+
 
 
   PostAdminProductTrip: api + '/admin/product_trip', //行程
@@ -215,6 +223,8 @@ export const AdminUrls = {
 
 // 店铺后台api
 export const StoreUrls = {
+  PostStorePassword: api + '/store/update_password', // 修改密码
+
   StoreLogin: api + '/store/login', // 店铺后台登陆接口
   StoreLogout: api + '/store/logout',  //店铺后台登出接口
   StoreRefresh: api + '/store/refresh',  //店铺后台Token刷新接口

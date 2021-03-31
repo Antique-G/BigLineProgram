@@ -94,11 +94,13 @@ export class AdminProductFreeTravelService {
   }
 
   // 日期报价列表
-  freeTravelQuteDateList(product_id: any, page: number, per_page: number) {
-    const params = new HttpParams()
+  freeTravelQuteDateList(product_id: any, page: number, per_page: number, check_status: number) {
+    const params = new HttpParams().set('product_id', product_id)
       .set('page', page.toString())
       .set('per_page', per_page.toString())
-      .set('product_id', product_id)
+      .set('check_status', check_status.toString());
+
+
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
