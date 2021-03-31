@@ -18,14 +18,16 @@
                                 <button nz-button nzType="primary" style="margin-left: 10px;" nzDanger (click)="checkStateClick(3)">未通过</button>
                             </div>
 
+
                             <mat-card>
-                                <mat-tab-group>
+                                <mat-tab-group (selectedIndexChange)="onTabChange($event)">
                                     <mat-tab label="审核中">
                                         <div class="content">
                                             <div class="example-container" style="margin-bottom: 50px;">
                                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                                     <div class="mat-elevation-z8">
-                                                        <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true">
+                                                        <nz-table #rowSelectionTable1 nzBordered [nzFrontPagination]="false" [nzData]="dataSource1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" [nzTotal]="total1" [(nzPageIndex)]="page1" [(nzPageSize)]="per_page1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+                                                            (nzPageIndexChange)="changePageIndex1($event)" (nzPageSizeChange)="changePageSize1($event)">
                                                             <thead>
                                                                 <tr>
                                                                     <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
@@ -74,110 +76,117 @@
                                     </mat-tab>
 
                                     <mat-tab label="审核通过">
-                                        <div class="content">
-                                            <div class="example-container" style="margin-bottom: 50px;">
-                                                <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                    <div class="mat-elevation-z8">
-                                                        <nz-table #rowSelectionTable2 nzBordered [nzFrontPagination]="false" [nzData]="dataSource2">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="text-align: center;">id</th>
-                                                                    <th style="text-align: center;">日期</th>
-                                                                    <th style="text-align: center;">成人价格</th>
-                                                                    <th style="text-align: center;">儿童价格</th>
-                                                                    <th style="text-align: center;">差价</th>
-                                                                    <th style="text-align: center;">设置库存</th>
-                                                                    <th style="text-align: center;">库存数量</th>
-                                                                    <th style="text-align: center;">设置超卖</th>
-                                                                    <th style="text-align: center;">状态</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let data of rowSelectionTable2.data">
-                                                                    <td>{{data.id}}</td>
-                                                                    <td>{{data.date}}</td>
-                                                                    <td>{{data.adult_price}}</td>
-                                                                    <td>
-                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
-                                                                        <div *ngIf="childStatus==='0'">-</div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
-                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
-                                                                    </td>
-                                                                    <td>{{data.set_inventory=='1'?'是':'否'}}</td>
-                                                                    <td>
-                                                                        <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
-                                                                        <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
-                                                                    </td>
-                                                                    <td>{{data.allow_over =='1'?'是':'否'}}</td>
-                                                                    <td>
-                                                                        <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </nz-table>
+                                        <ng-template matTabContent>
+                                            <div class="content">
+                                                <div class="example-container" style="margin-bottom: 50px;">
+                                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                        <div class="mat-elevation-z8">
+                                                            <nz-table #rowSelectionTable2 nzBordered [nzFrontPagination]="false" [nzData]="dataSource2" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" [nzTotal]="total2" [(nzPageIndex)]="page2" [(nzPageSize)]="per_page2" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+                                                                (nzPageIndexChange)="changePageIndex2($event)" (nzPageSizeChange)="changePageSize2($event)">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="text-align: center;">id</th>
+                                                                        <th style="text-align: center;">日期</th>
+                                                                        <th style="text-align: center;">成人价格</th>
+                                                                        <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">差价</th>
+                                                                        <th style="text-align: center;">设置库存</th>
+                                                                        <th style="text-align: center;">库存数量</th>
+                                                                        <th style="text-align: center;">设置超卖</th>
+                                                                        <th style="text-align: center;">状态</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let data of rowSelectionTable2.data">
+                                                                        <td>{{data.id}}</td>
+                                                                        <td>{{data.date}}</td>
+                                                                        <td>{{data.adult_price}}</td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                            <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                        </td>
+                                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+                                                                        <td>
+                                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
+                                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                                                        </td>
+                                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
+                                                                        <td>
+                                                                            <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </nz-table>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </ng-template>
                                     </mat-tab>
 
 
                                     <mat-tab label="审核未通过">
-                                        <div class="content">
-                                            <div class="example-container" style="margin-bottom: 50px;">
-                                                <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                    <div class="mat-elevation-z8">
-                                                        <nz-table #rowSelectionTable3 nzBordered [nzFrontPagination]="false" [nzData]="dataSource3">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="text-align: center;">id</th>
-                                                                    <th style="text-align: center;">日期</th>
-                                                                    <th style="text-align: center;">成人价格</th>
-                                                                    <th style="text-align: center;">儿童价格</th>
-                                                                    <th style="text-align: center;">差价</th>
-                                                                    <th style="text-align: center;">设置库存</th>
-                                                                    <th style="text-align: center;">库存数量</th>
-                                                                    <th style="text-align: center;">设置超卖</th>
-                                                                    <th style="text-align: center;">状态</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let data of rowSelectionTable3.data">
-                                                                    <td>{{data.id}}</td>
-                                                                    <td>{{data.date}}</td>
-                                                                    <td>{{data.adult_price}}</td>
-                                                                    <td>
-                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
-                                                                        <div *ngIf="childStatus==='0'">-</div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
-                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
-                                                                    </td>
-                                                                    <td>{{data.set_inventory=='1'?'是':'否'}}</td>
-                                                                    <td>
-                                                                        <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
-                                                                        <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
-                                                                    </td>
-                                                                    <td>{{data.allow_over =='1'?'是':'否'}}</td>
-                                                                    <td>
-                                                                        <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </nz-table>
+                                        <ng-template matTabContent>
+                                            <div class="content">
+                                                <div class="example-container" style="margin-bottom: 50px;">
+                                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                        <div class="mat-elevation-z8">
+                                                            <nz-table #rowSelectionTable3 nzBordered [nzFrontPagination]="false" [nzData]="dataSource3" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" [nzTotal]="total3" [(nzPageIndex)]="page3" [(nzPageSize)]="per_page3" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+                                                                (nzPageIndexChange)="changePageIndex3($event)" (nzPageSizeChange)="changePageSize3($event)">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="text-align: center;">id</th>
+                                                                        <th style="text-align: center;">日期</th>
+                                                                        <th style="text-align: center;">成人价格</th>
+                                                                        <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">差价</th>
+                                                                        <th style="text-align: center;">设置库存</th>
+                                                                        <th style="text-align: center;">库存数量</th>
+                                                                        <th style="text-align: center;">设置超卖</th>
+                                                                        <th style="text-align: center;">状态</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let data of rowSelectionTable3.data">
+                                                                        <td>{{data.id}}</td>
+                                                                        <td>{{data.date}}</td>
+                                                                        <td>{{data.adult_price}}</td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                            <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                        </td>
+                                                                        <td>{{data.set_inventory=='1'?'是':'否'}}</td>
+                                                                        <td>
+                                                                            <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
+                                                                            <span *ngIf="data.inventory_num!=0&&data.inventory_num!=1">{{data.inventory_num}}</span>
+                                                                        </td>
+                                                                        <td>{{data.allow_over =='1'?'是':'否'}}</td>
+                                                                        <td>
+                                                                            <span [class]="data.check_status==2?'statu-success':data.check_status==3?'statu-error':''">{{getState(data.check_status)}}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </nz-table>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </ng-template>
                                     </mat-tab>
 
                                 </mat-tab-group>
                             </mat-card>
+
 
                         </div>
 
