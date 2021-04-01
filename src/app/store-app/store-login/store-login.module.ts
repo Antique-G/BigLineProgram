@@ -16,10 +16,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTableModule } from '@angular/cdk/table';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { DemoNgZorroAntdModule } from '../../../app/ng-zorro-antd.module';
+import { StoreRegisteredSuccessComponent } from './store-registered/store-registered-success/store-registered-success.component';
 
 
 @NgModule({
-  declarations: [StoreLoginComponent, StoreForgetPasswordComponent, StoreRegisteredComponent, StoreSetNewPasswordComponent, StoreBannerComponent],
+  declarations: [StoreLoginComponent, StoreForgetPasswordComponent, StoreRegisteredComponent, StoreSetNewPasswordComponent, StoreBannerComponent, StoreRegisteredSuccessComponent],
   imports: [
     CommonModule,
     HttpClientModule,
