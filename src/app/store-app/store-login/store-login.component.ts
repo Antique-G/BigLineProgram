@@ -57,12 +57,4 @@ export class StoreLoginComponent implements OnInit {
   }
 
 
-
-  forget() {
-    this.router.navigate(['/store/forgetPassword'])
-  }
-
-  registered(){
-    this.router.navigate(['/store/registered'])
-  }
 }
