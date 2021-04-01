@@ -223,6 +223,9 @@ export const AdminUrls = {
 
 // 店铺后台api
 export const StoreUrls = {
+
+  PostStoreApply: api + '/store/store_apply', // 申请供应商
+
   PostStorePassword: api + '/store/update_password', // 修改密码
 
   StoreLogin: api + '/store/login', // 店铺后台登陆接口
