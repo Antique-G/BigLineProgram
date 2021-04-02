@@ -5,6 +5,7 @@ import { AdminStoreCreateComponent } from './admin-store-create/admin-store-crea
 import { AdminStoreDetailComponent } from './admin-store-detail/admin-store-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminStoreCommissComponent } from './admin-store-commiss/admin-store-commiss.component';
 
 
 
@@ -22,13 +23,15 @@ export class AdminStoreComponent implements OnInit {
   loading = true;
   keyword: any;
   status: any;
+  is_approve: any;
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreService: AdminStoreService,
     public router: Router) {
     this.searchForm = fb.group({
-      status: ['' ],
-      storeName: ['' ]
+      status: [''],
+      is_approve: [''],
+      storeName: ['']
     });
   }
 
@@ -38,7 +41,7 @@ export class AdminStoreComponent implements OnInit {
 
   getData(): void {
     this.loading = true;
-    this.adminStoreService.storeList(this.page, this.per_page, this.keyword,this.status).subscribe((result: any) => {
+    this.adminStoreService.storeList(this.page, this.per_page, this.keyword, this.status, this.is_approve).subscribe((result: any) => {
       this.loading = false;
       this.total = result.total;   //总页数
       this.dataSource = result.data;
@@ -59,6 +62,7 @@ export class AdminStoreComponent implements OnInit {
 
   search() {
     this.status = this.searchForm.value.status;
+    this.is_approve = this.searchForm.value.is_approve;
     this.keyword = this.searchForm.value.storeName;
     this.getData();
     console.log("this.keyword", this.keyword);
@@ -69,7 +73,7 @@ export class AdminStoreComponent implements OnInit {
 
   add() {
     const dialogRef = this.dialog.open(AdminStoreCreateComponent, {
-      width: '550px'
+      width: '650px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
@@ -83,7 +87,7 @@ export class AdminStoreComponent implements OnInit {
   edit(element: any): void {
     console.log("拿到的值", element);
     const dialogRef = this.dialog.open(AdminStoreDetailComponent, {
-      width: '550px',
+      width: '650px',
       data: element
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -108,9 +112,28 @@ export class AdminStoreComponent implements OnInit {
   }
 
 
-  file(data:any){
+  file(data: any) {
     this.router.navigate(['/admin/main/contract'], { queryParams: { id: data.store_id } });
 
+  }
+
+
+  certifi(data: any) {
+
+  }
+
+  setMoney(data: any) {
+    const dialogRef = this.dialog.open(AdminStoreCommissComponent, {
+      width: '650px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log("result", result);
+      if (result !== undefined) {
+        this.getData();
+      }
+
+    });
   }
 }
 
