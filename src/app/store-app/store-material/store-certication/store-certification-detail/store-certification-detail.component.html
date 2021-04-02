@@ -23,7 +23,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="legal_person" nzRequired>公司法人</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入公司法人">
-                                                <input nz-input formControlName="legal_person" />
+                                                <input nz-input formControlName="legal_person" [ngModel]="certificationModel?.legal_person" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -31,7 +31,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="id_num" nzRequired>法人身份证号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入法人身份证号">
-                                                <nz-input-number formControlName="id_num" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="id_num" [ngModel]="certificationModel?.id_num" style="width: 100%"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -39,7 +39,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="taxpayer_num" nzRequired>纳税人识别号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入纳税人识别号">
-                                                <nz-input-number formControlName="taxpayer_num" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="taxpayer_num" [ngModel]="certificationModel?.taxpayer_num" style="width: 100%"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -47,7 +47,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_type" nzRequired>银行类型</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请选择">
-                                                <nz-radio-group formControlName="bank_type">
+                                                <nz-radio-group formControlName="bank_type" ngModel={{certificationModel?.bank_type}}>
                                                     <label nz-radio nzValue='0'>对公 </label>
                                                     <label nz-radio nzValue='1'>对私</label>
                                                 </nz-radio-group>
@@ -58,7 +58,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_open" nzRequired>银行卡开户行</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡开户行">
-                                                <input nz-input formControlName="bank_open" />
+                                                <input nz-input formControlName="bank_open" [ngModel]="certificationModel?.bank_open" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -66,7 +66,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_num" nzRequired>银行卡账号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡账号">
-                                                <nz-input-number formControlName="bank_num" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="bank_num" style="width: 100%" [ngModel]="certificationModel?.bank_num"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -74,7 +74,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_account_name" nzRequired>银行卡开户名</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡开户名">
-                                                <input nz-input formControlName="bank_account_name" />
+                                                <input nz-input formControlName="bank_account_name" [ngModel]="certificationModel?.bank_account_name" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

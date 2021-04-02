@@ -1,5 +1,5 @@
 <div class="steps-content">
-    <div class="lev3">
+    <div class="lev3" *ngIf="is_approve===1">
         <div style="padding: 90px">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
@@ -12,15 +12,15 @@
 
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="120px">
                     <div style="font-weight: bold;">当前审核进度：<span style="color: red;">等待审核</span></div>
-                    <div><a>查看审核历史记录</a></div>
+                    <div><a (click)="history()">查看审核历史记录</a></div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- 
-    <div class="lev3">
+
+    <div class="lev3" *ngIf="is_approve===2">
         <div style="padding: 90px">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
@@ -28,15 +28,36 @@
                     <h4>认证成功，感谢您对启航的支持</h4>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                    <span style="margin-left: 100px;"><a>您已认证成功啦，马上去发布产品吧！</a></span>
+                    <span style="margin-left: 100px;"><a routerLink="/store/main/storeProduct">您已认证成功啦，马上去发布产品吧！</a></span>
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="120px">
                     <div>当前审核进度：<span style="color: blue;">审核通过</span></div>
-                    <div><a>查看审核历史记录</a></div>
+                    <div><a (click)="history()">查看审核历史记录</a></div>
                 </div>
 
             </div>
         </div>
-    </div> -->
+    </div>
+
+    <div class="lev3" *ngIf="is_approve===3">
+        <div style="padding: 90px">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                    <img src="http://cdn.bigline.com.cn/static/images/smile.png">
+                    <h4>店铺名为：{{detailModel?.store?.name}}&nbsp;&nbsp;认证资料未通过审核</h4>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+                    <p style="margin-left: 100px;">认证未通过审核原因：</p>
+                    <p style="margin-left: 100px;">认证失败，已通过手机短信通知供应商。</p>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="120px">
+                    <div>当前审核进度：<span style="color: blue;">未通过</span></div>
+                    <div><a (click)="history()">查看审核历史记录</a></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

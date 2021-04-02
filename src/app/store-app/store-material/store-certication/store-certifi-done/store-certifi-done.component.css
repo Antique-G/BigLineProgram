@@ -1,0 +1,13 @@
+.steps-content {
+    height: 100vh;
+}
+
+.mat-elevation-z8 {
+    width: 90%;
+    margin: 21px auto;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}

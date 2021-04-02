@@ -23,7 +23,7 @@
                         <mat-tab label="认证进度" [disabled]="is_approve===0">
                             <ng-template matTabContent>
                                 <div class="content">
-                                    <app-store-certifi-progress></app-store-certifi-progress>
+                                    <app-store-certifi-progress [is_approve]="is_approve" (tabIndex)="getTabIndex($event)"></app-store-certifi-progress>
                                 </div>
                             </ng-template>
                         </mat-tab>
