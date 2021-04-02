@@ -104,7 +104,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="week">结算周期</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24">
-                                                <input nz-input formControlName="week" nzBorderless [ngModel]="" />
+                                                <input nz-input formControlName="week" nzBorderless [ngModel]="detailModel?.store?.settlement_cycle+'天'" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -112,7 +112,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="money">佣金比例</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24">
-                                                <input nz-input formControlName="money" nzBorderless [ngModel]="" />
+                                                <input nz-input formControlName="money" nzBorderless [ngModel]="detailModel?.store?.reward_percent+'%'" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

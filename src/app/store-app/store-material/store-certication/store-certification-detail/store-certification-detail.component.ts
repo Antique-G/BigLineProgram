@@ -70,7 +70,20 @@ export class StoreCertificationDetailComponent implements OnInit {
     this.store_id = this.detailModel?.store?.store_id;
     this.storeApplyService.getDetail(this.store_id).subscribe(res => {
       this.certificationModel = res?.data;
-      console.log('this.certificationModel', this.certificationModel);
+      if (this.certificationModel != '') {
+        console.log('this.certificationModel', this.certificationModel);
+        this.Id1 = this.certificationModel?.id_card_front;
+        this.Id2 = this.certificationModel?.id_card_reverse;
+        this.business_license = this.certificationModel?.business_license;
+        this.travel_agency = this.certificationModel?.travel_agency;
+        this.bank1 = this.certificationModel?.bank_front;
+        this.bank2 = this.certificationModel?.bank_reverse;
+        this.insuranceUrl = this.certificationModel?.insurance;
+        this.insuranceName = this.certificationModel?.insurance;
+        this.reCommit = true;
+        this.beforeCommit = false;
+        this.afterCommit = false;
+      }
     })
   }
 
@@ -109,14 +122,14 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
-            this.beforeCommit === false;
-            this.afterCommit === true;
+            this.beforeCommit = false;
+            this.afterCommit = true;
             this.tabIndex.emit({ is_approve: 1, tabIndex: 2 });
           }
           else {
-            this.reCommit === true;
-            this.beforeCommit === false;
-            this.afterCommit === false;
+            this.reCommit = true;
+            this.beforeCommit = false;
+            this.afterCommit = false;
           }
         })
       }

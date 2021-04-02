@@ -12,7 +12,7 @@ export interface StoreLoginResponseModel {
   store_account: StoreAccountModel;
 }
 
-export interface StoreModel{
+export interface StoreModel {
   store_id: any;
   name: string;
   code: string;
@@ -30,9 +30,12 @@ export interface StoreModel{
   created_at: string;
   updated_at: string;
   region_full_name: string;
+  settlement_cycle: any;
+  reward_percent: any;
+
 }
 
-export interface StoreAccountModel{
+export interface StoreAccountModel {
   account_id: any;
   name: string;
   remember_token?: any;
