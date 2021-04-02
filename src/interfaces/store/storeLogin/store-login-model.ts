@@ -5,12 +5,9 @@ export interface StoreLoginRequestModel {
 
 
 export interface StoreLoginResponseModel {
-  message?: string;
-  status_code: string;
   access_token: string;
-  token_type?: any;
-  expires_in?: any;
-  region_code: any;
+  token_type: string;
+  expires_in: number;
   store: StoreModel;
   store_account: StoreAccountModel;
 }
@@ -18,6 +15,7 @@ export interface StoreLoginResponseModel {
 export interface StoreModel{
   store_id: any;
   name: string;
+  code: string;
   region_code: string;
   address: string;
   fax: string;
@@ -26,6 +24,9 @@ export interface StoreModel{
   contact: string;
   profile_photo_path?: any;
   status: number;
+  work_date: any;
+  is_approve: number;
+  work_time: any;
   created_at: string;
   updated_at: string;
   region_full_name: string;

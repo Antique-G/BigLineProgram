@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-store-certifi-basic-info',
@@ -8,14 +8,73 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreCertifiBasicInfoComponent implements OnInit {
   detailForm!: FormGroup;
+  detailModel: any;
+  workTime: any;
+  week: any[] = [];
+  newWeek: any[] = [];
+  @Input() is_approve: any;
+
 
   constructor(public fb: FormBuilder,) {
     this.detailForm = this.fb.group({
-      account:['']
+      account: [''],
+      supplyName: [''],
+      region: [''],
+      address: [''],
+      contact: [''],
+      mobile: [''],
+      fax: [''],
+      phone: [''],
+      workTime: [''],
+      week: [''],
+      money: [''],
+      remark: [''],
     })
   }
 
   ngOnInit(): void {
+    this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
+    if (this.detailModel?.store?.work_date != '') {
+      this.week = eval('(' + this.detailModel?.store?.work_date + ')');
+      console.log('week :>> ', this.week, typeof (this.week));
+      this.week.forEach((element: any) => {
+        console.log('element :>> ', element, element === 0);
+        if (element === 0) {
+          element = '周日';
+          this.newWeek.push(element);
+        }
+        if (element === 1) {
+          element = '周一';
+          this.newWeek.push(element);
+        }
+        if (element === 2) {
+          element = '周二';
+          this.newWeek.push(element);
+        }
+        if (element === 3) {
+          element = '周三';
+          this.newWeek.push(element);
+        }
+        if (element === 4) {
+          element = '周四';
+          this.newWeek.push(element);
+        }
+        if (element === 5) {
+          element = '周五';
+          this.newWeek.push(element);
+        }
+        if (element === 6) {
+          element = '周六';
+          this.newWeek.push(element);
+        }
+
+      });
+      console.log('object :>> ', this.newWeek);
+      let a = this.newWeek.toString();  //把数组转换为字符串
+      console.log('a :>> ', a);
+      this.workTime = a + '   ' + this.detailModel?.store?.work_time;
+    }
+
   }
 
 }

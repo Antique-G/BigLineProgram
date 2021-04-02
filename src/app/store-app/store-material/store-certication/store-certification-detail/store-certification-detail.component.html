@@ -15,39 +15,39 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="supplier_name">入驻供应商名称</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24">
-                                                <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="'大航假期'" />
+                                                <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="detailModel?.store?.name" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="name" nzRequired>公司法人</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="legal_person" nzRequired>公司法人</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入公司法人">
-                                                <input nz-input formControlName="name" />
+                                                <input nz-input formControlName="legal_person" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="id" nzRequired>法人身份证号</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="id_num" nzRequired>法人身份证号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入法人身份证号">
-                                                <nz-input-number formControlName="id" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="id_num" style="width: 100%"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="identificationNumber" nzRequired>纳税人识别号</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="taxpayer_num" nzRequired>纳税人识别号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入纳税人识别号">
-                                                <nz-input-number formControlName="identificationNumber" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="taxpayer_num" style="width: 100%"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="type" nzRequired>银行类型</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_type" nzRequired>银行类型</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请选择">
-                                                <nz-radio-group formControlName="type">
+                                                <nz-radio-group formControlName="bank_type">
                                                     <label nz-radio nzValue='0'>对公 </label>
                                                     <label nz-radio nzValue='1'>对私</label>
                                                 </nz-radio-group>
@@ -56,25 +56,25 @@
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankCard" nzRequired>银行卡开户行</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_open" nzRequired>银行卡开户行</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡开户行">
-                                                <input nz-input formControlName="bankCard" />
+                                                <input nz-input formControlName="bank_open" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankNumber" nzRequired>银行卡账号</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_num" nzRequired>银行卡账号</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡账号">
-                                                <nz-input-number formControlName="bankNumber" style="width: 100%"></nz-input-number>
+                                                <nz-input-number formControlName="bank_num" style="width: 100%"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankName" nzRequired>银行卡开户名</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_account_name" nzRequired>银行卡开户名</nz-form-label>
                                             <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入银行卡开户名">
-                                                <input nz-input formControlName="bankName" />
+                                                <input nz-input formControlName="bank_account_name" />
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
@@ -100,24 +100,24 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证正面</nz-form-label>
                                                     </div>
-                                                    <div>
-                                                        <img src="" style="width: 300px;height: 200px;">
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="Id1" style="width: 267px;height: 166px;" *ngIf="Id1!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary">立即上传</button>
-                                                        <button nz-button nzType="default">删除</button>
+                                                        <button nz-button nzType="primary" (click)="uploadId1()">立即上传</button>
+                                                        <button nz-button nzType="default" (click)="deleteId1()">删除</button>
                                                     </div>
                                                 </div>
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证反面</nz-form-label>
                                                     </div>
-                                                    <div>
-                                                        <img src="" style="width: 300px;height: 200px;">
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="Id2" style="width: 267px;height: 166px;" *ngIf="Id2!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary">立即上传</button>
-                                                        <button nz-button nzType="default">删除</button>
+                                                        <button nz-button nzType="primary" (click)="uploadId2()">立即上传</button>
+                                                        <button nz-button nzType="default" (click)="deleteId2()">删除</button>
                                                     </div>
                                                 </div>
 
@@ -129,33 +129,33 @@
 
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankName" nzRequired>上传工商营业执照、旅行社资质、保险单信息</nz-form-label>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传工商营业执照、旅行社资质、保险单信息</nz-form-label>
                                         </div>
                                         <div class="imgContain">
-                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
                                                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>工商营业执照</nz-form-label>
                                                         </div>
-                                                        <div>
-                                                            <img src="" style="width: 300px;height: 200px;">
+                                                        <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                            <img [src]="business_license" style="width: 267px;height: 166px;" *ngIf="business_license!=''">
                                                         </div>
                                                         <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                            <button nz-button nzType="primary">立即上传</button>
-                                                            <button nz-button nzType="default">删除</button>
+                                                            <button nz-button nzType="primary" (click)="uploadBusiness_license()">立即上传</button>
+                                                            <button nz-button nzType="default" (click)="deleteBusiness_license()">删除</button>
                                                         </div>
                                                     </div>
                                                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>旅行社资质</nz-form-label>
                                                         </div>
-                                                        <div>
-                                                            <img src="" style="width: 300px;height: 200px;">
+                                                        <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                            <img [src]="travel_agency" style="width: 267px;height: 166px;" *ngIf="travel_agency!=''">
                                                         </div>
                                                         <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                            <button nz-button nzType="primary">立即上传</button>
-                                                            <button nz-button nzType="default">删除</button>
+                                                            <button nz-button nzType="primary" (click)="uploadTravel_agency()">立即上传</button>
+                                                            <button nz-button nzType="default" (click)="deleteTravel_agency()">删除</button>
                                                         </div>
                                                     </div>
 
@@ -163,19 +163,13 @@
 
                                                 <div>
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>立即上传</nz-form-label>
+                                                        <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>保险单</nz-form-label>
+                                                        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+                                                            <button nz-button nzType="primary" (click)="uploadInsurance()">立即上传</button>
+                                                            <P style="color: red;font-size: 15px;">{{insuranceName}}</P>
+                                                            <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''">预览</a>
+                                                        </div>
                                                     </div>
-
-                                                    <!-- <nz-form-control [nzSm]="14" [nzXs]="24">
-
-                                                <nz-upload [nzBeforeUpload]="beforeUpload" [nzDisabled]="fileList.length===2" [nzMultiple]='true' [nzLimit]='2' [(nzFileList)]="fileList" [nzRemove]="removeImg">
-                                                    <div>
-                                                        <button nz-button>
-                                                        <span><i nz-icon nzType="upload"></i> 选择文件</span>
-                                                      </button>
-                                                    </div>
-                                                </nz-upload>
-                                            </nz-form-control> -->
 
                                                 </div>
                                             </div>
@@ -194,24 +188,24 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>银行卡正面</nz-form-label>
                                                     </div>
-                                                    <div>
-                                                        <img src="" style="width: 300px;height: 200px;">
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="bank1" style="width: 267px;height: 166px;" *ngIf="bank1!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary">立即上传</button>
-                                                        <button nz-button nzType="default">删除</button>
+                                                        <button nz-button nzType="primary" (click)="uploadBank1()">立即上传</button>
+                                                        <button nz-button nzType="default" (click)="deleteBank1()">删除</button>
                                                     </div>
                                                 </div>
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>银行卡反面</nz-form-label>
                                                     </div>
-                                                    <div>
-                                                        <img src="" style="width: 300px;height: 200px;">
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="bank2" style="width: 267px;height: 166px;" *ngIf="bank2!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary">立即上传</button>
-                                                        <button nz-button nzType="default">删除</button>
+                                                        <button nz-button nzType="primary" (click)="uploadBank2()">立即上传</button>
+                                                        <button nz-button nzType="default" (click)="deleteBank2()">删除</button>
                                                     </div>
                                                 </div>
 
@@ -228,11 +222,11 @@
                     </div>
                 </div>
             </div>
-            <!-- <div fxLayout="row" fxLayoutAlign="center center">
-                <button class="btn" nz-button nzType="primary" (click)="next()">提交认证</button>
-                <button class="btn" nz-button nzType="default" (click)="next()">待审核中</button>
-                <button class="btn" nz-button nzType="primary" (click)="next()">重新提交认证</button>
-            </div> -->
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button class="btn" nz-button nzType="primary" (click)="next()" *ngIf="beforeCommit===true">提交认证</button>
+                <button class="btn" nz-button nzType="default" *ngIf="afterCommit===true">待审核中</button>
+                <button class="btn" nz-button nzType="primary" (click)="next()" *ngIf="reCommit===true">重新提交认证</button>
+            </div>
         </div>
     </div>
 </div>

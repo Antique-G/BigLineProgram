@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { StoreApplyRequestModel } from '../../../interfaces/store/storeApply/store-apply-model';
+import { StoreApplyCertifiDetailListModel, StoreApplyCertifiDetailModel, StoreApplyCertifiModel, StoreApplyRequestModel } from '../../../interfaces/store/storeApply/store-apply-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -20,9 +20,7 @@ export class StoreApplyService {
 
   constructor(public httpClient: HttpClient) { }
 
-
-
-  // 注册
+  // 申请供应商
   storeApply(storeApplyRequestModel: StoreApplyRequestModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreApply, storeApplyRequestModel, httpOptions)
       .pipe(
@@ -30,6 +28,69 @@ export class StoreApplyService {
       )
   }
 
+
+
+  //提交认证资料
+  storeApproveDetail(storeApplyCertifiModel: StoreApplyCertifiModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreApproveDetail, storeApplyCertifiModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
+  // 认证资料的上传
+  approveUpload(reqData: any): Observable<any> {
+    const imgHttpOptions = {
+      reportProgress: true,
+    };
+    return this.httpClient.post<any>(this.urls.PostStoreApproveUpload, reqData, imgHttpOptions)
+      .pipe(
+      )
+  }
+
+
+
+  // 上传pdf
+  uploadPdf(reqData: any): Observable<any> {
+    const imgHttpOptions = {
+      reportProgress: true,
+    };
+    return this.httpClient.post<any>(this.urls.PostStoreContractCreate, reqData, imgHttpOptions)
+      .pipe(
+      )
+  }
+
+
+  // 认证资料详情
+  getDetail(store_id: any): Observable<StoreApplyCertifiDetailModel> {
+    const params = new HttpParams().set('store_id', store_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+
+    return this.httpClient.get<StoreApplyCertifiDetailModel>(this.urls.GetStoreApproveDetail, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
+  // 认证资料的历史记录
+  getDetailList(store_id: any): Observable<StoreApplyCertifiDetailListModel> {
+    const params = new HttpParams().set('store_id', store_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreApplyCertifiDetailListModel>(this.urls.GetStoreApproveList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {
