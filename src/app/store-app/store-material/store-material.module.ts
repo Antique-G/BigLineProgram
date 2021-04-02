@@ -96,6 +96,8 @@ import { StoreCertifiDoneComponent } from './store-certication/store-certifi-don
 import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
 import { StoreCertifiProgressComponent } from './store-certication/store-certifi-progress/store-certifi-progress.component';
 import { StoreCertificationDetailComponent } from './store-certication/store-certification-detail/store-certification-detail.component';
+import { UploadCertificationComponent } from './store-certication/store-certification-detail/upload-certification/upload-certification.component';
+import { UploadPdfComponent } from './store-certication/store-certification-detail/upload-pdf/upload-pdf.component';
 
 @NgModule({
   imports: [
@@ -208,6 +210,8 @@ import { StoreCertificationDetailComponent } from './store-certication/store-cer
     StoreCertifiBasicInfoComponent,
     StoreCertifiProgressComponent,
     StoreCertificationDetailComponent,
+    UploadCertificationComponent,
+    UploadPdfComponent,
     
     
   ]

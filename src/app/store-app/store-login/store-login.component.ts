@@ -39,6 +39,7 @@ export class StoreLoginComponent implements OnInit {
     console.log("提交的model是什么", this.storeLoginRequestModel);
     this.storeLoginService.storeLogin(this.storeLoginRequestModel).subscribe(res => {
       console.log("res结果", res);
+      localStorage.setItem('storeAccountDetail', JSON.stringify(res))
       if (res.access_token != '') {
         this.storeLoginService.setToken(res.access_token);
         localStorage.setItem('mobile', this.storeLoginRequestModel.mobile);

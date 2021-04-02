@@ -213,18 +213,22 @@ export const AdminUrls = {
   GetAdminOrderGetPayQr: api + '/admin/order/get_pay_qr',   //生成收款码
 
 
-
-
-
-
 };
 
 
 
 // 店铺后台api
 export const StoreUrls = {
-
   PostStoreApply: api + '/store/store_apply', // 申请供应商
+  PostStoreApproveUpload: api + '/store/approve_upload', // 认证资料的上传
+  PostStoreApproveDetail: api + '/store/store_approve', // 提交认证资料
+  GetStoreApproveDetail: api + '/store/approve_detail', // 认证资料详情
+  GetStoreApproveList: api + '/store/approve_list', // 认证资料的历史记录
+
+
+
+
+
 
   PostStorePassword: api + '/store/update_password', // 修改密码
 
