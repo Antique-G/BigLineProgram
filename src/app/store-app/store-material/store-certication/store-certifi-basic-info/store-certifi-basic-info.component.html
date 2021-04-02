@@ -1,0 +1,135 @@
+<div class="content">
+    <div class="example-container" style="margin-bottom: 50px;">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+            <div class="textContain">
+                <div style="width: 1200px;margin: auto;">
+                    <div class="steps-content">
+                        <form nz-form [formGroup]="detailForm" nz-row>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
+                                <div fxLayoutAlign="start center" class="content-title">
+                                    <div>账户信息</div>
+                                </div>
+                                <div nz-row>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">账户名</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">供应商名称</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">区域</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">供应商地址</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                </div>
+
+                                <div fxLayoutAlign="start center" class="content-title">
+                                    <div>联系人信息</div>
+                                </div>
+                                <div nz-row>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">联系人</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">手机号</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">传真</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">座机</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">工作时段</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                </div>
+
+
+                                <div fxLayoutAlign="start center" class="content-title">
+                                    <div>结算信息</div>
+                                </div>
+                                <div nz-row>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">结算周期</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">佣金比例</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">备注</nz-form-label>
+                                            <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                <input nz-input formControlName="account" nzBorderless [ngModel]="'大航假期'" />
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+                                </div>
+
+
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

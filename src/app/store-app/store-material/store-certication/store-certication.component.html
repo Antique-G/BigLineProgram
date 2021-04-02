@@ -1,0 +1,56 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+
+
+            <div class="example-container">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <mat-tab-group>
+                        <mat-tab label="账户基本信息">
+                            <div class="content">
+                                <app-store-certifi-basic-info></app-store-certifi-basic-info>
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="认证资料">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certification-detail></app-store-certification-detail>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+
+                        <mat-tab label="认证进度">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certifi-progress></app-store-certifi-progress>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+
+                        <mat-tab label="查看合同">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certifi-done></app-store-certifi-done>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+
+
+
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<!-- [disabled]="isIndex<3" -->
+<!-- [disabled]="isIndex<2" -->

@@ -142,6 +142,12 @@ const StoreMENUITEMS = [
 
     ]
   },
+  {
+    title: '账户管理', icon: 'user',
+    children: [
+      { state: 'storeCertification', name: '账户信息' },
+    ]
+  },
 
 ];
 
