@@ -91,6 +91,11 @@ import { StoreTouristCreateComponent } from './store-tourist/store-tourist-creat
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-turnover/store-order-refund-turnover-detail/store-order-refund-turnover-detail.component';
+import { StoreCerticationComponent } from './store-certication/store-certication.component';
+import { StoreCertifiDoneComponent } from './store-certication/store-certifi-done/store-certifi-done.component';
+import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
+import { StoreCertifiProgressComponent } from './store-certication/store-certifi-progress/store-certifi-progress.component';
+import { StoreCertificationDetailComponent } from './store-certication/store-certification-detail/store-certification-detail.component';
 
 @NgModule({
   imports: [
@@ -198,6 +203,11 @@ import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-tu
     StoreOrderRefundDetailComponent,
     StoreOrderRefundTurnoverComponent,
     StoreOrderRefundTurnoverDetailComponent,
+    StoreCerticationComponent,
+    StoreCertifiDoneComponent,
+    StoreCertifiBasicInfoComponent,
+    StoreCertifiProgressComponent,
+    StoreCertificationDetailComponent,
     
     
   ]

@@ -24,6 +24,7 @@ import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetra
 import { StoreOrderRefundComponent } from './store-order-refund/store-order-refund.component';
 import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
 import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover/store-order-refund-turnover.component';
+import { StoreCerticationComponent } from './store-certication/store-certication.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -209,7 +210,13 @@ export const StoreMaterialRoutes: Routes = [
           breadcrumb: '订单退款流水'
         }
       },
-
+      {
+        path: 'storeCertification',
+        component: StoreCerticationComponent,
+        data: {
+          breadcrumb: '账户信息'
+        }
+      },
     ]
   }
 ];
