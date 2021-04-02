@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-store-set-new-password',
@@ -8,7 +9,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class StoreSetNewPasswordComponent implements OnInit {
   validateForm!: FormGroup;
-  constructor(public fb: FormBuilder, ) {
+  constructor(public fb: FormBuilder, public router: Router) {
     this.validateForm = this.fb.group({
       password: ['', [Validators.required, Validators.maxLength(16)]],
       password_confirmation: ['', [Validators.required, this.confirmValidator]],
@@ -39,7 +40,13 @@ export class StoreSetNewPasswordComponent implements OnInit {
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     };
-    
+    // if (this.validateForm.valid) {
+     
+      this.router.navigate(['/store/newPassword/success'])
+      // this.router.navigate(['/store/registered/success'])
+     
+    // }
+
   }
 }
 
