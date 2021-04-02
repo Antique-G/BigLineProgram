@@ -21,11 +21,12 @@ export class AdminStoreService {
 
 
   // 商户列表
-  storeList(page: number, per_page: number, keyword: any, status: any): Observable<AdminStoreListResponseModel> {
+  storeList(page: number, per_page: number, keyword: any, status: any,is_approve:any): Observable<AdminStoreListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('keyword', keyword ? keyword : '')
-      .set('status', status ? status : '');
+      .set('status', status ? status : '')
+      .set('is_approve', is_approve ? is_approve : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

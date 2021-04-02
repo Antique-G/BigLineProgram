@@ -37,7 +37,7 @@ export class AdminContractCreateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.selectedValue = params.id;
     });
-    this.adminStoreService.storeList(1, 1000, '', '').subscribe((result: any) => {
+    this.adminStoreService.storeList(1, 1000, '', '','').subscribe((result: any) => {
       console.log("商铺的结果", result.data);
       this.storeList = result.data;
 

@@ -3,14 +3,6 @@
     text-align: center !important;
 }
 
-
-/* // nzBordered 表格是否有边框 dataSet 数据源
-// [nzFrontPagination] 是否在前端分页，默认true
-// [nzLoading] 是否显示加载中 [nzTotal]数据总条数
-// [nzPageIndex] 当前页码，可双向绑定
-// [nzPageSize] 每页展示多少数据，可双向绑定
-// [nzShowQuickJumper] 是否可以快速跳转至某页 默认false
-// [nzShowSizeChanger] 是否可以改变 nzPageSize 默认false
-// [nzPageSize] 每页展示多少数据，可双向绑定
-// (nzPageIndexChange) 当前页码改版时的回调函数
-// (nzPageSizeChange) 页数改变时的回调函数 */
+.menu li {
+    vertical-align: middle;
+}
