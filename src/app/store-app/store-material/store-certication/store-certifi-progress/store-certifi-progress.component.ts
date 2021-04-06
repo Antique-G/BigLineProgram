@@ -8,8 +8,7 @@ import { StoreCertifiHistoryComponent } from './store-certifi-history/store-cert
   styleUrls: ['./store-certifi-progress.component.css']
 })
 export class StoreCertifiProgressComponent implements OnInit {
-  @Input() is_approve: any;
-  @Output() tabIndex = new EventEmitter;
+  is_approve: any;
   detailModel: any;
 
 
@@ -17,6 +16,7 @@ export class StoreCertifiProgressComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
   }
 
 
@@ -27,7 +27,7 @@ export class StoreCertifiProgressComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       console.log("result", res);
       if (res != undefined) {
-        this.tabIndex.emit({ tabIndex: 1 });
+      
       }
     });
 

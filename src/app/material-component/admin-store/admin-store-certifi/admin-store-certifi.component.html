@@ -10,9 +10,11 @@
 
                         <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                             <mat-tab label="店铺基本信息">
-                                <div class="content">
-                                    <app-admin-store-certifi-basic></app-admin-store-certifi-basic>
-                                </div>
+                                <ng-template matTabContent>
+                                    <div class="content">
+                                        <app-admin-store-certifi-basic></app-admin-store-certifi-basic>
+                                    </div>
+                                </ng-template>
                             </mat-tab>
 
                             <mat-tab label="审核认证资料" [disabled]="is_approve===0">

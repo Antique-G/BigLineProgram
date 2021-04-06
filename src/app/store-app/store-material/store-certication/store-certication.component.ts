@@ -17,14 +17,13 @@ export class StoreCerticationComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
-    this.is_approve = this.detailModel?.store?.is_approve;
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
   }
 
 
   onTabChange(event: any) {
     this.selectedTabIndex = event;
-    console.log("this.selectedTabIndex", this.selectedTabIndex);
-    console.log(' this.is_approve11111 ',  this.is_approve);
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
   }
 
 
@@ -32,7 +31,7 @@ export class StoreCerticationComponent implements OnInit {
   getTabIndex(event: any) {
     // 获取子组件传回来的index
     console.log("子组件传过来的值", event)
-    this.is_approve = event.is_approve;
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
     this.selectedTabIndex = event.tabIndex;
   }
 }

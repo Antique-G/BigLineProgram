@@ -31,9 +31,7 @@ export class StoreCertificationDetailComponent implements OnInit {
   bank2 = '';
   insuranceName = '';
   insuranceUrl = '';
-  beforeCommit = true;
-  afterCommit = false;
-  reCommit = false;
+  is_approve = 0;
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, private msg: NzMessageService,
     private modal: NzModalService, public storeApplyService: StoreApplyService,) {
@@ -68,6 +66,7 @@ export class StoreCertificationDetailComponent implements OnInit {
   ngOnInit(): void {
     this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
     this.store_id = this.detailModel?.store?.store_id;
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
     this.storeApplyService.getDetail(this.store_id).subscribe(res => {
       this.certificationModel = res?.data;
       if (this.certificationModel != '') {
@@ -80,9 +79,6 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.bank2 = this.certificationModel?.bank_reverse;
         this.insuranceUrl = this.certificationModel?.insurance;
         this.insuranceName = this.certificationModel?.insurance;
-        this.reCommit = true;
-        this.beforeCommit = false;
-        this.afterCommit = false;
       }
     })
   }
@@ -122,14 +118,10 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
-            this.beforeCommit = false;
-            this.afterCommit = true;
-            this.tabIndex.emit({ is_approve: 1, tabIndex: 2 });
+            localStorage.setItem('storeApprove', '1');
           }
           else {
-            this.reCommit = true;
-            this.beforeCommit = false;
-            this.afterCommit = false;
+            
           }
         })
       }

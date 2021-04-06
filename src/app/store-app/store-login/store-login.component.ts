@@ -40,13 +40,20 @@ export class StoreLoginComponent implements OnInit {
     this.storeLoginService.storeLogin(this.storeLoginRequestModel).subscribe(res => {
       console.log("res结果", res);
       localStorage.setItem('storeAccountDetail', JSON.stringify(res))
+      localStorage.setItem('storeApprove', res?.store?.is_approve.toString());
       if (res.access_token != '') {
         this.storeLoginService.setToken(res.access_token);
         localStorage.setItem('mobile', this.storeLoginRequestModel.mobile);
         localStorage.setItem('storeRegion', res.store.region_code);
         localStorage.setItem('storeAccountId', res.store_account.account_id);
         localStorage.setItem('storeId', res.store.store_id);
-        this.router.navigate(['/store/main/storeProduct'])
+        if(res?.store?.is_approve===2){
+          this.router.navigate(['/store/main/storeProduct'])
+        }
+        else{
+          this.router.navigate(['/store/main/storeCertification'])
+        }
+       
       }
     })
   }

@@ -151,6 +151,17 @@ const StoreMENUITEMS = [
 
 ];
 
+// 未认证
+
+const DisStoreMenu = [
+  {
+    title: '账户管理', icon: 'user',
+    children: [
+      { state: 'storeCertification', name: '账户信息' },
+    ]
+  },
+]
+
 @Injectable()
 export class MenuItems {
 
@@ -161,5 +172,11 @@ export class MenuItems {
 
   getStoreMenuitem(): StoreMenu[] {
     return StoreMENUITEMS;
+  }
+
+
+  // 未认证
+  getDisStoreMenu(): StoreMenu[] {
+    return DisStoreMenu;
   }
 }

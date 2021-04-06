@@ -44,8 +44,19 @@
                     </button>
                 </mat-menu>
             </div>
-            <ul nz-menu nzTheme="dark" nzMode="inline">
+
+            <!-- 认证通过 -->
+            <ul nz-menu nzTheme="dark" nzMode="inline" *ngIf="is_approve===2">
                 <li nz-submenu [nzOpen]="rla2.isActive" #rla2="routerLinkActive" [routerLinkActive]="['active1']" *ngFor="let menuitemList of menuItems.getStoreMenuitem()" nzTitle={{menuitemList.title}} nzIcon={{menuitemList.icon}}>
+                    <ul>
+                        <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngFor="let childList of menuitemList.children" [routerLink]="['/store/main', childList.state]">{{childList.name}}</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- 未认证，认证不通过 -->
+            <ul nz-menu nzTheme="dark" nzMode="inline" *ngIf="is_approve!=2">
+                <li nz-submenu [nzOpen]="rla2.isActive" #rla2="routerLinkActive" [routerLinkActive]="['active1']" *ngFor="let menuitemList of menuItems.getDisStoreMenu()" nzTitle={{menuitemList.title}} nzIcon={{menuitemList.icon}}>
                     <ul>
                         <li nz-menu-item routerLinkActive="ant-menu-item-selected" *ngFor="let childList of menuitemList.children" [routerLink]="['/store/main', childList.state]">{{childList.name}}</li>
                     </ul>
