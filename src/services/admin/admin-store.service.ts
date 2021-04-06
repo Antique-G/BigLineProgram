@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AddStoreRequestModel, AddStoreResponseModel, AdminStoreListRequestModel, AdminStoreListResponseModel, ApplyCheckModel, RewardSetModel, StoreUpdateRequestModel } from '../../interfaces/adminStore/admin-store-model';
 import { AdminUrls } from '../../api';
-import { StoreApplyCertifiDetailModel } from '../../interfaces/store/storeApply/store-apply-model';
+import { StoreApplyCertifiDetailListModel, StoreApplyCertifiDetailModel } from '../../interfaces/store/storeApply/store-apply-model';
 
 
 const httpOptions = {
@@ -77,9 +77,25 @@ export class AdminStoreService {
 
 
 
+  // 认证资料的历史记录
+  getDetailList(store_id: any): Observable<StoreApplyCertifiDetailListModel> {
+    const params = new HttpParams().set('store_id', store_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreApplyCertifiDetailListModel>(this.urls.GetAdminApproveList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
   // 供应商的认证审核
   approveCheck(applyCheckModel: ApplyCheckModel): Observable<any> {
-    return this.httpClient.post<any>(this.urls.PostAdminApproveCheck, applyCheckModel, httpOptions)
+    let id = applyCheckModel?.id;
+    return this.httpClient.post<any>(this.urls.PostAdminApproveCheck+id, applyCheckModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

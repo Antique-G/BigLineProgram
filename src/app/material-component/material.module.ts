@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
 import { DemoMaterialModule } from '../demo-material-module';
 import { CdkTableModule } from '@angular/cdk/table';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialRoutes } from './material.routing';
@@ -127,6 +125,7 @@ import { AdminStoreCertifiDataComponent } from './admin-store/admin-store-certif
 import { AdminStoreCertifiProgressComponent } from './admin-store/admin-store-certifi/admin-store-certifi-progress/admin-store-certifi-progress.component';
 import { AdminStoreCertifiContracrComponent } from './admin-store/admin-store-certifi/admin-store-certifi-contracr/admin-store-certifi-contracr.component';
 import { AdminStoreCertifiCheckComponent } from './admin-store/admin-store-certifi/admin-store-certifi-data/admin-store-certifi-check/admin-store-certifi-check.component';
+import { AdminStoreCertifiHistoryComponent } from './admin-store/admin-store-certifi/admin-store-certifi-progress/admin-store-certifi-history/admin-store-certifi-history.component';
 
 
 @NgModule({
@@ -271,6 +270,7 @@ import { AdminStoreCertifiCheckComponent } from './admin-store/admin-store-certi
     AdminStoreCertifiProgressComponent,
     AdminStoreCertifiContracrComponent,
     AdminStoreCertifiCheckComponent,
+    AdminStoreCertifiHistoryComponent,
   ]
 })
 export class MaterialComponentsModule {}

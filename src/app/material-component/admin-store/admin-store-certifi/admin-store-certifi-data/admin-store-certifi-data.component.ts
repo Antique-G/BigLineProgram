@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminStoreService } from '../../../../../services/admin/admin-store.service';
 import { AdminStoreCertifiCheckComponent } from './admin-store-certifi-check/admin-store-certifi-check.component';
 
+
 @Component({
   selector: 'app-admin-store-certifi-data',
   templateUrl: './admin-store-certifi-data.component.html',
@@ -77,7 +78,14 @@ export class AdminStoreCertifiDataComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log("result", result);
       if (result !== undefined) {
-
+        if (result === 1) {
+          this.is_approve = 2;
+          localStorage.setItem("is_approve", this.is_approve.toString());
+        }
+        else if (result === 2){
+          this.is_approve = 3;
+          localStorage.setItem("is_approve", this.is_approve.toString());
+        }
       }
 
     });

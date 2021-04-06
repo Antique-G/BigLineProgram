@@ -48,8 +48,9 @@ export class AdminStoreCertifiCheckComponent implements OnInit {
     }
     console.log("this.addForm.valid", this.addForm)
     if (this.addForm.valid) {
-      this.adminStoreService.approveCheck(this.applyCheckModel).subscribe(res=>{
+      this.adminStoreService.approveCheck(this.applyCheckModel).subscribe(res => {
         console.log('res :>> ', res);
+        this.dialogRef.close(Number(this.applyCheckModel.status));
       })
     }
   }

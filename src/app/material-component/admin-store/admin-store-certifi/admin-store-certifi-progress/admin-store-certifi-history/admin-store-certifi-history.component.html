@@ -1,0 +1,44 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <p style="font-size: 16px;font-weight: bold;">供应商入驻认证资料历史审核记录</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="50px">
+            <div style="width: 100%;">
+                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">店铺名称</th>
+                            <th style="text-align: center;">提交时间</th>
+                            <th style="text-align: center;">审核时间</th>
+                            <th style="text-align: center;">审核状态</th>
+                            <th style="text-align: center;">不通过原因</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{name}}</td>
+                            <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                            <td>{{data?.check_time|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                            <td>
+                                <span *ngIf="data?.status===0">待处理</span>
+                                <span *ngIf="data?.status===1">已通过</span>
+                                <span *ngIf="data?.status===2">拒绝</span>
+                            </td>
+                            <td>
+                                <span *ngIf="data?.status===2">{{data?.content}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button nz-button nzType="primary" (click)="close()">知道了</button>
+        </div>
+    </div>
+</div>
