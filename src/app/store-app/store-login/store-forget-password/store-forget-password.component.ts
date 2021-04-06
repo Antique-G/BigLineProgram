@@ -1,11 +1,12 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MobilCodeModel } from '../../../../interfaces/store/storeLogin/store-login-model';
 import { PhoneCodeService } from '../../../../services/common/phone-code.service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { MobilCodeModel } from '../../../../interfaces/store/storeForgetPassword/storeForgetPassword.model';
+import { StoreForgetPasswordService } from '../../../../services/store/store-forget-password/store-forget-password.service';
 
 @Component({
   selector: 'app-store-forget-password',
@@ -18,7 +19,7 @@ export class StoreForgetPasswordComponent implements OnInit {
   paracont = '发送验证码';
   mobilCodeModel:MobilCodeModel;
 
-  constructor(public fb: FormBuilder, public router: Router,public phoneCodeService: PhoneCodeService,) {
+  constructor(public fb: FormBuilder, public router: Router,public phoneCodeService: PhoneCodeService,public storeForgetPasswordService:StoreForgetPasswordService) {
     this.forms();
     this.mobilCodeModel={
       mobile: '',
@@ -26,15 +27,15 @@ export class StoreForgetPasswordComponent implements OnInit {
     }
    }
 
-  ngOnInit(): void {
-  }
-
   forms() {
     const { mobile } =MyValidators;
     this.addForm = this.fb.group({
       mobile: ['', [Validators.required, mobile]],
       verificationCode: ['', [Validators.required]],
     });
+  }
+
+  ngOnInit(): void {
   }
 
   getverifycode() {
@@ -58,17 +59,28 @@ export class StoreForgetPasswordComponent implements OnInit {
     });
   }
 
+  setValue() {
+    this.mobilCodeModel.mobile = this.addForm.value.mobile;
+    this.mobilCodeModel.code = this.addForm.value.verificationCode;
+  }
 
 
   next() {
+    this.setValue();
     for (const i in this.addForm.controls) {
       this.addForm.controls[i].markAsDirty();
       this.addForm.controls[i].updateValueAndValidity();
     }
-    // if (this.addForm.valid) {
+    console.log("ddddd",this.addForm.value)
+    if (this.addForm.valid) {
+      this.storeForgetPasswordService.storeForgetPassword(this.mobilCodeModel.mobile,this.mobilCodeModel.code).subscribe(res=>{
+        console.log("res",res.token)
+        if (res?.token) {
+          this.router.navigate(['/store/forgetPassword/setNewPassword'], { queryParams: { token:res.token , mobile:this.mobilCodeModel.mobile} });
+        }
+      })
 
-      this.router.navigate(['/store/forgetPassword/setNewPassword'])
-    // }
+    }
 
   }
 }
