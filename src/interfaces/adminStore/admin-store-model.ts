@@ -14,9 +14,9 @@ export interface AdminStoreListResponseModel {
   last_page: number;
   last_page_url: string;
   links: Link[];
-  next_page_url: string;
+  next_page_url?: any;
   path: string;
-  per_page: number;
+  per_page: string;
   prev_page_url?: any;
   to: number;
   total: number;
@@ -32,18 +32,24 @@ export interface Link {
 export interface Datum {
   store_id: number;
   name: string;
-  region_code: string;
   code: string;
+  region_code: string;
+  address: string;
   fax: string;
   phone: string;
   mobile: string;
   contact: string;
   profile_photo_path?: any;
   status: number;
+  work_date: string;
+  is_approve: number;
+  work_time: string;
+  settlement_cycle: number;
+  reward_percent: number;
+  remark: string;
   created_at: string;
   updated_at: string;
   region_full_name: string;
-  address: string;
 }
 
 
@@ -94,3 +100,16 @@ export interface StoreUpdateRequestModel {
   contact?: string;
 }
 
+export interface ApplyCheckModel {
+  id?: string;
+  status?: string;
+  content?: string;
+}
+
+
+export interface RewardSetModel {
+  store_id?: string;
+  settlement_cycle?: string;
+  reward_percent?: string;
+  remark: string;
+}

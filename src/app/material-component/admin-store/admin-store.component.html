@@ -25,6 +25,7 @@
                                         <mat-option value=0>未认证</mat-option>
                                         <mat-option value=1>待审核</mat-option>
                                         <mat-option value=2>已通过</mat-option>
+                                        <mat-option value=3>未通过</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -75,20 +76,14 @@
                                     <td>{{data.phone}}</td>
                                     <td>{{data.fax}}</td>
                                     <td>
-                                        <div *ngIf="data.status===0">
-                                            暂停
-                                        </div>
-                                        <div *ngIf="data.status===1">
-                                            正常
-                                        </div>
+                                        <div *ngIf="data.status===0">暂停</div>
+                                        <div *ngIf="data.status===1">正常</div>
                                     </td>
                                     <td>
-                                        <!-- <div *ngIf="data.status===0">
-                                            暂停
-                                        </div>
-                                        <div *ngIf="data.status===1">
-                                            正常
-                                        </div> -->
+                                        <div *ngIf="data.is_approve===0">未认证</div>
+                                        <div *ngIf="data.is_approve===1">待审核</div>
+                                        <div *ngIf="data.is_approve===2">已通过</div>
+                                        <div *ngIf="data.is_approve===3">未通过</div>
                                     </td>
                                     <td>
                                         <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">

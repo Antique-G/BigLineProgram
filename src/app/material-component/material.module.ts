@@ -121,6 +121,12 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { AdminChangePasswordComponent } from './admin/admin-change-password/admin-change-password.component';
 import { AdminProductMiniCodeComponent } from './admin-product/admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
 import { AdminStoreCommissComponent } from './admin-store/admin-store-commiss/admin-store-commiss.component';
+import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/admin-store-certifi.component';
+import { AdminStoreCertifiBasicComponent } from './admin-store/admin-store-certifi/admin-store-certifi-basic/admin-store-certifi-basic.component';
+import { AdminStoreCertifiDataComponent } from './admin-store/admin-store-certifi/admin-store-certifi-data/admin-store-certifi-data.component';
+import { AdminStoreCertifiProgressComponent } from './admin-store/admin-store-certifi/admin-store-certifi-progress/admin-store-certifi-progress.component';
+import { AdminStoreCertifiContracrComponent } from './admin-store/admin-store-certifi/admin-store-certifi-contracr/admin-store-certifi-contracr.component';
+import { AdminStoreCertifiCheckComponent } from './admin-store/admin-store-certifi/admin-store-certifi-data/admin-store-certifi-check/admin-store-certifi-check.component';
 
 
 @NgModule({
@@ -259,6 +265,12 @@ import { AdminStoreCommissComponent } from './admin-store/admin-store-commiss/ad
     AdminChangePasswordComponent,
     AdminProductMiniCodeComponent,
     AdminStoreCommissComponent,
+    AdminStoreCertifiComponent,
+    AdminStoreCertifiBasicComponent,
+    AdminStoreCertifiDataComponent,
+    AdminStoreCertifiProgressComponent,
+    AdminStoreCertifiContracrComponent,
+    AdminStoreCertifiCheckComponent,
   ]
 })
 export class MaterialComponentsModule {}

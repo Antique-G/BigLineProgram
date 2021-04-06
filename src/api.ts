@@ -11,6 +11,13 @@ export const AdminUrls = {
   AdminLogout: api + '/admin/logout',  //管理后台登出接口
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
 
+
+  
+  PostAdminApproveCheck: api + '/admin/approve_check', // 供应商的认证审核
+  GetAdminApproveDetail: api + '/admin/approve_detail', // 认证资料详情
+  PostAdminRewardSet: api + '/admin/rewrd_set', // 店铺佣金设置
+
+
   PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
   GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
   PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
