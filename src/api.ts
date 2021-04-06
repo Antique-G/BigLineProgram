@@ -12,9 +12,10 @@ export const AdminUrls = {
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
 
 
-  
-  PostAdminApproveCheck: api + '/admin/approve_check', // 供应商的认证审核
+
+  PostAdminApproveCheck: api + '/admin/approve_check/', // 供应商的认证审核
   GetAdminApproveDetail: api + '/admin/approve_detail', // 认证资料详情
+  GetAdminApproveList: api + '/admin/approve_list', // 认证资料的历史记录
   PostAdminRewardSet: api + '/admin/rewrd_set', // 店铺佣金设置
 
 

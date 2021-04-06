@@ -142,8 +142,8 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>保险单</nz-form-label>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <P style="color: red;font-size: 15px;">{{insuranceName}}</P>
-                                                        <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''">预览</a>
+                                                        <P style="color: red;font-size: 15px;line-height: 32px;">{{insuranceName}}</P>
+                                                        <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''" style="line-height: 32px;">预览</a>
                                                     </div>
                                                 </div>
 
@@ -156,7 +156,7 @@
 
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
-                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankName" nzRequired>公司对公银行卡</nz-form-label>
+                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankName" nzRequired>公司<span *ngIf="certificationModel?.bank_type===0">对公</span><span *ngIf="certificationModel?.bank_type===1">对私</span>银行卡</nz-form-label>
                                     </div>
                                     <div class="imgContain">
                                         <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">

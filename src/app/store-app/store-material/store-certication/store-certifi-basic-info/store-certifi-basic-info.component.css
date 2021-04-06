@@ -53,14 +53,3 @@ button {
 .ant-form-item {
     margin: 0 0 6px !important;
 }
-
-.content-title {
-    border-bottom: 2px dashed #000;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 30px;
-    color: #333333;
-    margin-top: 10px;
-    margin-bottom: 23px;
-    padding-left: 5px;
-}

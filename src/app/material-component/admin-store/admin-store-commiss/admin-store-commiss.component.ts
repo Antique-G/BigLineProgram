@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RewardSetModel } from '../../../../interfaces/adminStore/admin-store-model';
+import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 
 @Component({
   selector: 'app-admin-store-commiss',
@@ -11,28 +13,63 @@ export class AdminStoreCommissComponent implements OnInit {
   addForm!: FormGroup;
   settlement = '7';
   isShow = false;
+  rewardSetModel: RewardSetModel;
 
   constructor(public dialogRef: MatDialogRef<AdminStoreCommissComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public fb: FormBuilder,) {
+    public fb: FormBuilder, public adminStoreService: AdminStoreService) {
     this.addForm = this.fb.group({
       settlement_cycle: ['', [Validators.required]],
-      day: [''],
+      day: ['0', [Validators.required]],
       reward_percent: ['', [Validators.required]],
       remark: ['', [Validators.required]],
-    })
+    });
+    this.rewardSetModel = {
+      store_id: '',
+      settlement_cycle: '',
+      reward_percent: '',
+      remark: '',
+    }
   }
 
   ngOnInit(): void {
   }
 
-  add() { }
+  setValue() {
+    if (this.isShow === false) {
+      this.rewardSetModel.settlement_cycle = this.addForm.value.settlement_cycle;
+
+    }
+    else if (this.isShow === true) {
+      this.rewardSetModel.settlement_cycle = this.addForm.value.day;
+    }
+    this.rewardSetModel.reward_percent = this.addForm.value.reward_percent;
+    this.rewardSetModel.remark = this.addForm.value.remark;
+    this.rewardSetModel.store_id = this.data.store_id;
+  }
+
+  add() {
+    this.setValue();
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    console.log('5555555 ', this.addForm);
+    if (this.addForm.valid) {
+      this.adminStoreService.rewardSet(this.rewardSetModel).subscribe(res => {
+        console.log('res :>> ', res);
+        this.dialogRef.close();
+
+      })
+    }
+  }
 
   close() {
+    this.dialogRef.close();
   }
 
 
   change(event: any) {
-    console.log('event :>> ', event,event === '1');
+    console.log('event :>> ', event, event === '1');
     if (event === '1') {
       this.isShow = true;
     }

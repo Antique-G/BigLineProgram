@@ -16,9 +16,11 @@
                             </mat-tab>
 
                             <mat-tab label="审核认证资料" [disabled]="is_approve===0">
-                                <div class="content">
-                                    <app-admin-store-certifi-data></app-admin-store-certifi-data>
-                                </div>
+                                <ng-template matTabContent>
+                                    <div class="content">
+                                        <app-admin-store-certifi-data></app-admin-store-certifi-data>
+                                    </div>
+                                </ng-template>
                             </mat-tab>
 
 
