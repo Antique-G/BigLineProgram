@@ -23,6 +23,7 @@ export class AdminStoreCertifiComponent implements OnInit {
 
   onTabChange(event: any) {
     this.selectedTabIndex = event;
+    this.is_approve = Number(localStorage.getItem("certifiApprove"));
   }
 
 

@@ -32,6 +32,8 @@ export class FullComponent implements OnInit {
   public pathName: any;
   userName: any;
   mobile: any;
+  // 认证
+  is_approve = 0;
 
 
 
@@ -56,6 +58,10 @@ export class FullComponent implements OnInit {
       // console.log('切换路由后', root);
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
+
+
+    // 认证状态
+    this.is_approve = Number(localStorage.getItem('storeApprove'));
 
   }
 

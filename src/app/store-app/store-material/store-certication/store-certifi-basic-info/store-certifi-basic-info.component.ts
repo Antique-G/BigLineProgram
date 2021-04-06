@@ -12,7 +12,7 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
   workTime: any;
   week: any[] = [];
   newWeek: any[] = [];
-  @Input() is_approve: any;
+  is_approve: any;
 
 
   constructor(public fb: FormBuilder,) {
@@ -34,6 +34,7 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
+    this.is_approve = Number(localStorage.getItem("storeApprove"));
     if (this.detailModel?.store?.work_date != '') {
       this.week = eval('(' + this.detailModel?.store?.work_date + ')');
       console.log('week :>> ', this.week, typeof (this.week));

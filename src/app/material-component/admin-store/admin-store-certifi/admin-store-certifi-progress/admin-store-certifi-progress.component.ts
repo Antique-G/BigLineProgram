@@ -17,6 +17,7 @@ export class AdminStoreCertifiProgressComponent implements OnInit {
   ngOnInit(): void {
     this.detailModel = JSON.parse(localStorage.getItem("certification")!);
     this.is_approve = Number(localStorage.getItem("certifiApprove"));
+   
   }
 
 

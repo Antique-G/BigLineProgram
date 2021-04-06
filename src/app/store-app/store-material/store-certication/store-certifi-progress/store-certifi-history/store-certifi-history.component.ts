@@ -17,10 +17,21 @@ export class StoreCertifiHistoryComponent implements OnInit {
     let detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
     this.store_id = detailModel?.store?.store_id;
     this.storeApplyService.getDetailList(this.store_id).subscribe(res => {
-      console.log('res :>> ', res);
+      res?.data.forEach((element: any) => {
+        if (element.check_time != 0) {
+          element.check_time = new Date(element?.check_time * 1000)
+        }
+        else {
+          element.check_time = '';
+        }
+      })
       this.dataSource = res?.data;
+
     })
   }
+
+
+
 
 
   close() {

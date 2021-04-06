@@ -80,11 +80,11 @@ export class AdminStoreCertifiDataComponent implements OnInit {
       if (result !== undefined) {
         if (result === 1) {
           this.is_approve = 2;
-          localStorage.setItem("is_approve", this.is_approve.toString());
+          localStorage.setItem("certifiApprove", this.is_approve.toString());
         }
         else if (result === 2){
           this.is_approve = 3;
-          localStorage.setItem("is_approve", this.is_approve.toString());
+          localStorage.setItem("certifiApprove", this.is_approve.toString());
         }
       }
 
