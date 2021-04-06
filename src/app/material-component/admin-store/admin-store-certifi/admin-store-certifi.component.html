@@ -1,0 +1,54 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <div fxLayout="row" fxLayoutGap="20px">
+                <button mat-raised-button color="primary" style="letter-spacing:2px" routerLink="/admin/main/store">返回店铺管理</button>
+            </div>
+            <mat-card>
+                <div class="example-container">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                        <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+                            <mat-tab label="店铺基本信息">
+                                <div class="content">
+                                    <app-admin-store-certifi-basic></app-admin-store-certifi-basic>
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="审核认证资料" [disabled]="is_approve===0">
+                                <div class="content">
+                                    <app-admin-store-certifi-data></app-admin-store-certifi-data>
+                                </div>
+                            </mat-tab>
+
+
+                            <mat-tab label="审核进度" [disabled]="is_approve===0">
+                                <ng-template matTabContent>
+                                    <div class="content">
+                                        <app-admin-store-certifi-progress></app-admin-store-certifi-progress>
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+
+
+                            <mat-tab label="上传合同" [disabled]="is_approve===0">
+                                <ng-template matTabContent>
+                                    <div class="content">
+                                        <app-admin-store-certifi-contracr></app-admin-store-certifi-contracr>
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+
+                        </mat-tab-group>
+
+
+
+
+
+                    </div>
+
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

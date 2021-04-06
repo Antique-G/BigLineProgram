@@ -119,7 +119,9 @@ export class AdminStoreComponent implements OnInit {
 
 
   certifi(data: any) {
-
+    localStorage.setItem('certification', JSON.stringify(data));
+    localStorage.setItem('certifiApprove', data?.is_approve);
+    this.router.navigate(['/admin/main/store/certifi'], { queryParams: { id: data.store_id } });
   }
 
   setMoney(data: any) {
