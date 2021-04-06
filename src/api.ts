@@ -235,7 +235,8 @@ export const StoreUrls = {
 
 
 
-
+  GetStoreForgetPassword: api + '/store/find_password', // 找回密码（第一步）
+  PostStoreResetPasswordModel: api + '/store/reset_password', // 重置密码
 
 
   PostStorePassword: api + '/store/update_password', // 修改密码

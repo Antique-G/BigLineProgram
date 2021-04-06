@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ResetPasswordModel } from '../../../../../interfaces/store/storeForgetPassword/storeForgetPassword.model';
+import { StoreForgetPasswordService } from '../../../../../services/store/store-forget-password/store-forget-password.service';
 
 @Component({
   selector: 'app-store-set-new-password',
@@ -9,14 +11,32 @@ import { Router } from '@angular/router';
 })
 export class StoreSetNewPasswordComponent implements OnInit {
   validateForm!: FormGroup;
-  constructor(public fb: FormBuilder, public router: Router) {
+  token:any;
+  mobile:any;
+  resetPasswordModel: ResetPasswordModel;
+  
+  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, public storeForgetPasswordService:StoreForgetPasswordService) {
+    this.activatedRoute.queryParams.subscribe(params =>{
+      console.log("params",params)
+      this.token = params.token
+      this.mobile = params.mobile
+    })
+
     this.validateForm = this.fb.group({
       password: ['', [Validators.required, Validators.maxLength(16)]],
       password_confirmation: ['', [Validators.required, this.confirmValidator]],
     })
+    
+    this.resetPasswordModel ={
+      mobile: '',
+      token: '',
+      password: '',
+      password_confirmation: '',
+    }
   }
 
   ngOnInit(): void {
+      
   }
 
   //密码验证
@@ -34,18 +54,31 @@ export class StoreSetNewPasswordComponent implements OnInit {
     return {};
   };
 
+  setValue(){
+    this.resetPasswordModel.mobile = this.mobile;
+    this.resetPasswordModel.token = this.token;
+    this.resetPasswordModel.password = this.validateForm.value.password;
+    this.resetPasswordModel.password_confirmation = this.validateForm.value.password_confirmation;
+  }
 
   add(){
+    this.setValue();
+    console.log('resetPasswordModel',this.resetPasswordModel)
     for (const key in this.validateForm.controls) {  //验证表单输入内容不能为空
       this.validateForm.controls[key].markAsDirty();
       this.validateForm.controls[key].updateValueAndValidity();
     };
-    // if (this.validateForm.valid) {
-     
-      this.router.navigate(['/store/newPassword/success'])
-      // this.router.navigate(['/store/registered/success'])
-     
-    // }
+    if (this.validateForm.valid) {
+      this.storeForgetPasswordService.storeResetPassword(this.resetPasswordModel).subscribe(res => {
+        console.log('res',res.message)
+        if (res.message == "重置成功") {
+          setTimeout(() =>{
+            this.router.navigate(['/store/newPassword/success'])
+          }, 1000);
+        }
+      })
+    }
+  
 
   }
 }

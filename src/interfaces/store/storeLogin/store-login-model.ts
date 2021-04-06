@@ -54,8 +54,3 @@ export interface StoreLogOutResponseModel {
   message: string;
   code?: string;
 }
-
-export interface MobilCodeModel {
-  mobile: any;
-  code: any;
-}
