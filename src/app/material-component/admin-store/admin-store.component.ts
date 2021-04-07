@@ -150,10 +150,7 @@ export class AdminStoreComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       // console.log("result", result);
-      if (result !== undefined) {
-        this.getData();
-      }
-
+      this.getData();
     });
   }
 }

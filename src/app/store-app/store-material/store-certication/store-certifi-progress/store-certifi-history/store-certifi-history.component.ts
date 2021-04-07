@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StoreApplyService } from '../../../../../../services/store/store-apply/store-apply.service';
 
@@ -8,6 +8,7 @@ import { StoreApplyService } from '../../../../../../services/store/store-apply/
   styleUrls: ['./store-certifi-history.component.css']
 })
 export class StoreCertifiHistoryComponent implements OnInit {
+
   dataSource: any[] = [];
   store_id: any;
 
