@@ -151,6 +151,8 @@ export class AOFreetravelOrderComponent implements OnInit {
       id_num: new FormControl('', [Validators.required]),
       birthday: new FormControl(null, [Validators.required]),
       id_photo: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
+      eng_name: new FormControl(''),
     }))
     this.isChangeData.push(false);
     this.newImgArr.push([])
@@ -262,6 +264,8 @@ export class AOFreetravelOrderComponent implements OnInit {
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl('', [Validators.required]),
+        eng_name: new FormControl(''),
       }));
       this.isChangeData.push(false);
       this.newImgArr.push([])

@@ -223,6 +223,8 @@ interface MembersModel {
   id_num: string;
   sms_status: number;
   remarks: string;
+  eng_name: string;
+  gender:any
 }
 
 
