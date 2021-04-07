@@ -37,3 +37,7 @@ button {
     margin: 10px 10px;
     width: 90%;
 }
+
+.ant-form-item {
+    margin: 0 0 12px !important;
+}

@@ -4,6 +4,7 @@
             [nzTitle]="'签订合同记录'" (nzPageSizeChange)="changePageSize($event)">
             <thead>
                 <tr>
+                    <th style="text-align: center;">合同名称</th>
                     <th style="text-align: center;">合同开始日期</th>
                     <th style="text-align: center;">合同结束日期</th>
                     <th style="text-align: center;">状态</th>
@@ -13,6 +14,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of rowSelectionTable.data">
+                    <td>{{data?.contract_name}}</td>
                     <td>{{data?.start_date}}</td>
                     <td>{{data?.end_date}}</td>
                     <td>{{data?.isStatus}}</td>
