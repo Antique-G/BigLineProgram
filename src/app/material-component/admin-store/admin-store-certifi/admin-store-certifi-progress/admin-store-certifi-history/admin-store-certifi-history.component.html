@@ -26,7 +26,7 @@
                             <td>
                                 <span *ngIf="data?.status===0">待处理</span>
                                 <span *ngIf="data?.status===1">已通过</span>
-                                <span *ngIf="data?.status===2">拒绝</span>
+                                <span *ngIf="data?.status===2">未通过</span>
                             </td>
                             <td>
                                 <span *ngIf="data?.status===2">{{data?.content}}</span>

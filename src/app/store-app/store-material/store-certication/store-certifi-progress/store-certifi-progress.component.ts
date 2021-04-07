@@ -8,6 +8,8 @@ import { StoreCertifiHistoryComponent } from './store-certifi-history/store-cert
   styleUrls: ['./store-certifi-progress.component.css']
 })
 export class StoreCertifiProgressComponent implements OnInit {
+  @Output() tabIndex = new EventEmitter;
+
   is_approve: any;
   detailModel: any;
 
@@ -27,7 +29,7 @@ export class StoreCertifiProgressComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       console.log("result", res);
       if (res != undefined) {
-      
+        this.tabIndex.emit({  tabIndex: 1 })
       }
     });
 

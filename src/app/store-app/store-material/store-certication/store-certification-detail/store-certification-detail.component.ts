@@ -118,6 +118,7 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
+            this.tabIndex.emit({  tabIndex: 2 })
             localStorage.setItem('storeApprove', '1');
           }
           else {
