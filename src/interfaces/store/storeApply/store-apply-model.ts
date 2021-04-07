@@ -63,3 +63,14 @@ export interface DataApplyCertifiDetailModel {
 export interface StoreApplyCertifiDetailListModel {
   data: DataApplyCertifiDetailModel[];
 }
+
+
+export interface EditContractModel {
+  contact: string;
+  mobile: string;
+  phone: string;
+  fax: string;
+  work_date: any
+  work_time: string;
+  id: string;
+}

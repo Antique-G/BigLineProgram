@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AddStoreRequestModel } from '../../../../interfaces/adminStore/admin-store-model';
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { format } from 'date-fns';
 
 
 
@@ -24,35 +25,24 @@ export class AdminStoreCreateComponent implements OnInit {
 
   addStoreRequestModel: AddStoreRequestModel;
 
-  validationMessage: any = {
-    name: {
-      'maxlength': '商户名长度最多为64个字符',
-      'required': '请输入商户名！'
-    },
-    regionCode: {
-      'maxlength': '区域长度最多为12个字符',
-      'required': '请选择区域！'
-    },
-    contact: {
-      'maxlength': '联系人长度最多为32个字符',
-      'required': '请输入联系人姓名！'
-    },
-    mobile: {
-      'isNumber': '请输入非零的正整数',
-      'required': '请输入联系人手机号！'
-    },
-  };
-  formErrors: any = {
-    name: '',
-    regionCode: '',
-    contact: '',
-    mobile: ''
-  };
 
 
+  // 选择了周几
+  weekValue: any[] = [1, 2, 3, 4, 5, 6, 0];
+  // 选择周几
+  checkWeeks = [
+    { label: '周一', value: 1, checked: false },
+    { label: '周二', value: 2, checked: false },
+    { label: '周三', value: 3, checked: false },
+    { label: '周四', value: 4, checked: false },
+    { label: '周五', value: 5, checked: false },
+    { label: '周六', value: 6, checked: false },
+    { label: '周日', value: 0, checked: false },
+  ]
+  time1: any;
+  time2: any;
 
-
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreCreateComponent>,
+  constructor(public fb: FormBuilder,
     public adminRegionService: AdminRegionService, public adminStoreService: AdminStoreService) {
     this.forms();
     this.addStoreRequestModel = {
@@ -63,7 +53,9 @@ export class AdminStoreCreateComponent implements OnInit {
       phone: '',
       status: '',
       contact: '',
-      mobile: ''
+      mobile: '',
+      work_date: '',
+      work_time: '',
     }
   }
 
@@ -74,46 +66,18 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
       regionCode: ['', [Validators.required]],
-      address: ['', ],
-      fax: ['', ],
+      address: ['',],
+      fax: ['',],
       phone: ['',],
       status: ['', [Validators.required]],
       contact: ['', [Validators.required]],
       mobile: ['', [Validators.required, mobile]],
+      week: ['', [Validators.required]],
+      date1: [null, [Validators.required]],
+      date2: [null, [Validators.required]],
     });
-    // 每次表单数据发生变化的时候更新错误信息
-    this.addForm.valueChanges.subscribe(data => {
-      this.onValueChanged(data);
-    });
-    // 初始化错误信息
-    this.onValueChanged();
-  }
 
-  // 表单验证
-  onValueChanged(data?: any) {
-    // 如果表单不存在则返回
-    if (!this.addForm) return;
-    // 获取当前的表单
-    const form = this.addForm;
-    // 遍历错误消息对象
-    for (const field in this.formErrors) {
-      // 清空当前的错误消息
-      this.formErrors[field] = '';
-      // 获取当前表单的控件
-      const control: any = form.get(field);
-      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
-      if (control && !control.valid) {
-        // 获取验证不通过的控件名，为了获取更详细的不通过信息
-        const messages = this.validationMessage[field];
-        // 遍历当前控件的错误对象，获取到验证不通过的属性
-        for (const key in control.errors) {
-          // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] = messages[key];
-        }
-      }
-    }
   }
-
 
 
   ngOnInit(): void {
@@ -126,7 +90,6 @@ export class AdminStoreCreateComponent implements OnInit {
   }
 
 
-
   setValue() {
     this.addStoreRequestModel.name = this.addForm.value.name;
     this.addStoreRequestModel.region_code = this.addForm.value.regionCode;
@@ -136,8 +99,8 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addStoreRequestModel.status = this.addForm.value.status;
     this.addStoreRequestModel.contact = this.addForm.value.contact;
     this.addStoreRequestModel.mobile = this.addForm.value.mobile;
-
-
+    this.addStoreRequestModel.work_date = this.weekValue;
+    this.addStoreRequestModel.work_time = format(new Date(this.addForm.value.date1), 'HH:mm') + '-' + format(new Date(this.addForm.value.date2), 'HH:mm');
   }
 
 
@@ -154,7 +117,7 @@ export class AdminStoreCreateComponent implements OnInit {
         console.log("res结果", res);
         if (res.message) {
           // alert("创建成功");
-          this.dialogRef.close(1);
+
         }
         else {
           // alert("创建失败，请重新填写");
@@ -164,9 +127,6 @@ export class AdminStoreCreateComponent implements OnInit {
   }
 
 
-  close(): void {
-    this.dialogRef.close();
-  }
 
   onChanges(values: any): void {
     console.log("点击的结果是", values);
@@ -174,6 +134,21 @@ export class AdminStoreCreateComponent implements OnInit {
     if (values !== null) {
       this.idRegion = values[values.length - 1];
     }
+  }
+
+  ngCheckBoxChange(value: object[]): void {
+    let a: any;
+    a = value;
+    let i: any[] = [];
+    a.forEach((element: any) => {
+      console.log('11111111 :>> ', element);
+      if (element['checked'] === true) {
+        i.push(element['value'])
+      }
+    })
+    this.weekValue = i;
+    console.log('11111111111', value, this.weekValue);
+
   }
 
 
@@ -186,6 +161,7 @@ export class AdminStoreCreateComponent implements OnInit {
 // 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;

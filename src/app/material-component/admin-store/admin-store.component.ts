@@ -6,6 +6,7 @@ import { AdminStoreDetailComponent } from './admin-store-detail/admin-store-deta
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminStoreCommissComponent } from './admin-store-commiss/admin-store-commiss.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 
@@ -27,7 +28,7 @@ export class AdminStoreComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreService: AdminStoreService,
-    public router: Router) {
+    private modal: NzModalService, public router: Router) {
     this.searchForm = fb.group({
       status: [''],
       is_approve: [''],
@@ -72,32 +73,50 @@ export class AdminStoreComponent implements OnInit {
 
 
   add() {
-    const dialogRef = this.dialog.open(AdminStoreCreateComponent, {
-      width: '650px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.getData();
-      }
-
+    const editmodal = this.modal.create({
+      nzTitle: '添加',
+      nzWidth: 1000,
+      nzContent: AdminStoreCreateComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getData();
     });
   }
 
 
   edit(element: any): void {
     console.log("拿到的值", element);
-    const dialogRef = this.dialog.open(AdminStoreDetailComponent, {
-      width: '650px',
-      data: element
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log("result", result);
-      if (result !== undefined) {
-        this.getData();
-      }
-
+    const editmodal = this.modal.create({
+      nzTitle: '编辑店铺（供应商）基础信息',
+      nzWidth: 1000,
+      nzContent: AdminStoreDetailComponent,
+      nzComponentParams: {
+        data: element
+      },
+      nzFooter: [
+        {
+          label: '更新',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getData();
     });
   }
+
+
+
 
 
   account(data: any) {

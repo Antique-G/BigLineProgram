@@ -1,5 +1,7 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreCertifiChangeComponent } from './store-certifi-change/store-certifi-change.component';
 
 @Component({
   selector: 'app-store-certifi-basic-info',
@@ -15,7 +17,7 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
   is_approve: any;
 
 
-  constructor(public fb: FormBuilder,) {
+  constructor(public fb: FormBuilder,   private modal: NzModalService, ) {
     this.detailForm = this.fb.group({
       account: [''],
       supplyName: [''],
@@ -78,4 +80,25 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
 
   }
 
+
+
+  change(){
+    const editmodal = this.modal.create({
+      nzTitle: '修改联系人信息',
+      nzWidth: 1000,
+      nzContent: StoreCertifiChangeComponent,
+     
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+    
+    });
+  }
 }
