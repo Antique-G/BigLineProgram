@@ -3,54 +3,30 @@
 
         <div style="padding: 5px;">
             <form nz-form [formGroup]="addForm">
-                <h4 style="padding-left: 10px;padding-top: 10px;">账户信息</h4>
-                <nz-divider></nz-divider>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="name" nzRequired>供应商名称</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入供应商名称">
-                        <input nz-input formControlName="name" nzBorderless [ngModel]="storeDetailModel?.name" />
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
-                        <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="address">供应商地址</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <input nz-input formControlName="address" [ngModel]="storeDetailModel?.address" />
-                    </nz-form-control>
-                </nz-form-item>
-
-                <h4 style="padding-left: 10px;padding-top: 10px;">联系人信息</h4>
-                <nz-divider></nz-divider>
-
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人姓名">
-                        <input nz-input formControlName="contact" [ngModel]="storeDetailModel?.contact" />
+                        <input nz-input formControlName="contact" [ngModel]="storeDetailModel?.store?.contact" />
                     </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="mobile" nzRequired>手机号</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人手机号">
-                        <input nz-input formControlName="mobile" [ngModel]="storeDetailModel?.mobile" />
+                        <input nz-input formControlName="mobile" [ngModel]="storeDetailModel?.store?.mobile" />
                     </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="fax">传真</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <input nz-input formControlName="fax" [ngModel]="storeDetailModel?.fax" />
+                        <input nz-input formControlName="fax" [ngModel]="storeDetailModel?.store?.fax" />
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="phone">座机</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <input nz-input formControlName="phone" [ngModel]="storeDetailModel?.phone" />
+                        <input nz-input formControlName="phone" [ngModel]="storeDetailModel?.store?.phone" />
                     </nz-form-control>
                 </nz-form-item>
 
@@ -71,16 +47,6 @@
 
                 </nz-form-item>
 
-
-                <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <nz-radio-group formControlName="status" ngModel={{storeDetailModel.status}}>
-                            <label nz-radio nzValue=0>暂停</label>
-                            <label nz-radio nzValue=1>正常</label>
-                        </nz-radio-group>
-                    </nz-form-control>
-                </nz-form-item>
 
 
             </form>

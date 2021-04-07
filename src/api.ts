@@ -232,6 +232,8 @@ export const StoreUrls = {
   PostStoreApproveDetail: api + '/store/store_approve', // 提交认证资料
   GetStoreApproveDetail: api + '/store/approve_detail', // 认证资料详情
   GetStoreApproveList: api + '/store/approve_list', // 认证资料的历史记录
+  PostStoreEditContract: api + '/store/edit_contact/', // 修改联系人
+
 
 
 

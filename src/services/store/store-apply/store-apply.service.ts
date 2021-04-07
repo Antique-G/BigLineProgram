@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { StoreApplyCertifiDetailListModel, StoreApplyCertifiDetailModel, StoreApplyCertifiModel, StoreApplyRequestModel } from '../../../interfaces/store/storeApply/store-apply-model';
+import { EditContractModel, StoreApplyCertifiDetailListModel, StoreApplyCertifiDetailModel, StoreApplyCertifiModel, StoreApplyRequestModel } from '../../../interfaces/store/storeApply/store-apply-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -91,6 +91,17 @@ export class StoreApplyService {
         catchError(this.handleError)
       )
   }
+
+
+  // 修改账户
+  editContract(editContractModel: EditContractModel): Observable<any> {
+    let id = editContractModel?.id;
+    return this.httpClient.post<any>(this.urls.PostStoreEditContract + id, editContractModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
   private handleError(error: HttpErrorResponse) {

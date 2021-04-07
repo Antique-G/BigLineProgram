@@ -121,7 +121,7 @@ export class StoreCertificationDetailComponent implements OnInit {
             localStorage.setItem('storeApprove', '1');
           }
           else {
-            
+
           }
         })
       }
@@ -288,4 +288,44 @@ export class StoreCertificationDetailComponent implements OnInit {
       }
     });
   }
+
+
+  reNext() {
+    this.setValue();
+    for (const i in this.certificationForm.controls) {
+      this.certificationForm.controls[i].markAsDirty();
+      this.certificationForm.controls[i].updateValueAndValidity();
+    }
+    if (this.certificationForm.valid) {
+      if (this.storeApplyCertifiModel.insurance != '' && this.storeApplyCertifiModel.bank_reverse != '' && this.storeApplyCertifiModel.bank_front != ''
+        && this.storeApplyCertifiModel.travel_agency != '' && this.storeApplyCertifiModel.business_license != ''
+        && this.storeApplyCertifiModel.id_card_reverse != '' && this.storeApplyCertifiModel.id_card_front != '') {
+        console.log('提交的', this.storeApplyCertifiModel);
+        this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
+          console.log('res :>> ', res);
+          if (res?.message) {
+            localStorage.setItem('storeApprove', '1');
+            window.location.reload(); 
+          }
+          else {
+
+          }
+        })
+      }
+      else {
+        this.msg.error('请选择上传文件')
+      }
+    }
+  }
+
+
+  reCommit() {
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h5>是否重新提交认证</h5>',
+      nzOnOk: () =>
+        this.reNext()
+    });
+  }
+
 }

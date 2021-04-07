@@ -223,7 +223,7 @@
             <div fxLayout="row" fxLayoutAlign="center center">
                 <button class="btn" nz-button nzType="primary" (click)="next()" *ngIf="is_approve===0">提交认证</button>
                 <button class="btn" nz-button nzType="default" *ngIf="is_approve===1">待审核中</button>
-                <button class="btn" nz-button nzType="primary" (click)="next()" *ngIf="is_approve===2||is_approve===3">重新提交认证</button>
+                <button class="btn" nz-button nzType="primary" (click)="reCommit()" *ngIf="is_approve===2||is_approve===3">重新提交认证</button>
             </div>
         </div>
     </div>
