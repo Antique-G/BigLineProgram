@@ -41,8 +41,11 @@ export class AdminStoreCreateComponent implements OnInit {
   ]
   time1: any;
   time2: any;
+  HourArr1: any;
+  HourArr2: any;
 
-  constructor(public fb: FormBuilder,
+
+  constructor(public fb: FormBuilder, private msg: NzMessageService,
     public adminRegionService: AdminRegionService, public adminStoreService: AdminStoreService) {
     this.forms();
     this.addStoreRequestModel = {
@@ -101,6 +104,7 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addStoreRequestModel.mobile = this.addForm.value.mobile;
     this.addStoreRequestModel.work_date = this.weekValue;
     this.addStoreRequestModel.work_time = format(new Date(this.addForm.value.date1), 'HH:mm') + '-' + format(new Date(this.addForm.value.date2), 'HH:mm');
+
   }
 
 
@@ -113,16 +117,24 @@ export class AdminStoreCreateComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-      this.adminStoreService.addStore(this.addStoreRequestModel).subscribe(res => {
-        console.log("res结果", res);
-        if (res.message) {
-          // alert("创建成功");
+      this.HourArr1 = format(new Date(this.addForm.value.date1), 'HH');
+      this.HourArr2 = format(new Date(this.addForm.value.date2), 'HH');
+      if (Number(this.HourArr2) < Number(this.HourArr1)) {
+        this.msg.error('时间选择错误，请重新选择时间');
+      }
+      else {
+        this.adminStoreService.addStore(this.addStoreRequestModel).subscribe(res => {
+          console.log("res结果", res);
+          if (res.message) {
+            // alert("创建成功");
 
-        }
-        else {
-          // alert("创建失败，请重新填写");
-        }
-      })
+          }
+          else {
+            // alert("创建失败，请重新填写");
+          }
+        })
+      }
+
     }
   }
 
@@ -161,6 +173,7 @@ export class AdminStoreCreateComponent implements OnInit {
 // 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 // current locale is key of the MyErrorsOptions

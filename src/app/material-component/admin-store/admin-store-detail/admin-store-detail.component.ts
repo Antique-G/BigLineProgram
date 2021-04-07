@@ -4,6 +4,7 @@ import { StoreUpdateRequestModel, StoreDetailModel } from '../../../../interface
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { format } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 
@@ -68,10 +69,12 @@ export class AdminStoreDetailComponent implements OnInit {
   ]
   time1: any;
   time2: any;
+  HourArr1: any;
+  HourArr2: any;
 
 
 
-  constructor(public fb: FormBuilder,
+  constructor(public fb: FormBuilder,private msg: NzMessageService,
     public adminRegionService: AdminRegionService, public adminStoreService: AdminStoreService) {
     this.addForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -164,6 +167,7 @@ export class AdminStoreDetailComponent implements OnInit {
     this.storeUpdateRequestModel.mobile = this.addForm.value.mobile;
     this.storeUpdateRequestModel.work_date = this.weekValue;
     this.storeUpdateRequestModel.work_time = format(new Date(this.addForm.value.date1), 'HH:mm') + '-' + format(new Date(this.addForm.value.date2), 'HH:mm');
+ 
   }
 
 
@@ -174,20 +178,27 @@ export class AdminStoreDetailComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-
-      this.storeUpdateRequestModel.store_id = this.storeDetailModel.store_id;
-      this.storeUpdateRequestModel.region_code = this.idRegion;
-      console.log("提交的model是什么", this.storeUpdateRequestModel);
-      this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
-        console.log("res结果", res);
-        if (res.message) {
-          // alert("更新成功");
-
-        }
-        else {
-          // alert("更新失败")
-        }
-      })
+      this.HourArr1 = format(new Date(this.addForm.value.date1), 'HH');
+      this.HourArr2 = format(new Date(this.addForm.value.date2), 'HH');
+      if (Number(this.HourArr2) < Number(this.HourArr1)) {
+        this.msg.error('时间选择错误，请重新选择时间');
+      }
+      else{
+        this.storeUpdateRequestModel.store_id = this.storeDetailModel.store_id;
+        this.storeUpdateRequestModel.region_code = this.idRegion;
+        console.log("提交的model是什么", this.storeUpdateRequestModel);
+        this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
+          console.log("res结果", res);
+          if (res.message) {
+            // alert("更新成功");
+  
+          }
+          else {
+            // alert("更新失败")
+          }
+        })
+      }
+    
     }
   }
 

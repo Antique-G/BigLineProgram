@@ -84,12 +84,23 @@ export class AdminContractComponent implements OnInit {
 
 
   add() {
-    const dialogRef = this.dialog.open(AdminContractCreateComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe((result:any) => {
-      this.getStoreContract();
+    const addmodal = this.modal.create({
+      nzTitle: '添加合同',
+      nzContent: AdminContractCreateComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.add()
 
-    });
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.getStoreContract();
+    })
+
   }
 }
