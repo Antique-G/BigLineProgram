@@ -14,12 +14,12 @@ export class UploadCertificationComponent implements OnInit {
   // 上传
   imgList: NzUploadFile[] = [];
   imageList: NzUploadFile[] = [];
-
+  isAccept = '.jpg,.png,.gif,.jpeg';
 
 
   constructor(public dialogRef: MatDialogRef<UploadCertificationComponent>, private msg: NzMessageService,
     public storeApplyService: StoreApplyService,) {
-   
+
   }
 
   ngOnInit(): void {

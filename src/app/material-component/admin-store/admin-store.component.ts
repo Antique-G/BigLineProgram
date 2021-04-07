@@ -149,7 +149,7 @@ export class AdminStoreComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe(result => {
-      // console.log("result", result);
+    
       this.getData();
     });
   }

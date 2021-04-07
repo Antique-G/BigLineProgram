@@ -16,7 +16,7 @@ export class UploadPdfComponent implements OnInit {
   imageList: NzUploadFile[] = [];
   isSpinning = false;
   isLoadingBtn = false;
-  accept = "pdf";  //image/png, image/jpeg,
+  isAccept = '.pdf';
 
 
   constructor(public storeApplyService: StoreApplyService, private msg: NzMessageService,

@@ -10,7 +10,7 @@
                     <div nz-row>
                         <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传合同</nz-form-label>
                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                            <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="accept" [nzSize]="5120" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 8" [nzMultiple]='true' [nzLimit]='10' [nzRemove]="removeImg">
+                            <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="isAccept" [nzSize]="5120" [nzDisabled]="fileList.length===1" [nzLimit]='1' [(nzFileList)]="fileList" [nzRemove]="removeImg">
                                 <div>
                                     <button nz-button>
                                 <span><i nz-icon nzType="upload"></i> 选择文件</span>

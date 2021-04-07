@@ -32,6 +32,26 @@ export class AdminStoreCommissComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('this.data :>> ', this.data);
+    console.log('122222 :>> ', this.data?.settlement_cycle != 7, this.data?.settlement_cycle === 7);
+    console.log('222222222 :>> ', this.data?.settlement_cycle != 7 && this.data?.settlement_cycle != 30
+      && this.data?.settlement_cycle != 90 && this.data?.settlement_cycle != 180
+      && this.data?.settlement_cycle != 360);
+    let isSet = this.data?.settlement_cycle != 7 && this.data?.settlement_cycle != 30 && this.data?.settlement_cycle != 90 && this.data?.settlement_cycle != 180 && this.data?.settlement_cycle != 360;
+    if (isSet === true) {
+      this.isShow = true;
+      this.settlement = '1';
+      this.addForm.patchValue({
+        settlement_cycle: [1, [Validators.required]],
+        day: [this.data?.settlement_cycle, [Validators.required]],
+      })
+    }
+    else if (isSet === false) {
+      this.isShow = false;
+      this.addForm.patchValue({
+        settlement_cycle: [this.data?.settlement_cycle, [Validators.required]],
+      })
+    }
   }
 
   setValue() {
