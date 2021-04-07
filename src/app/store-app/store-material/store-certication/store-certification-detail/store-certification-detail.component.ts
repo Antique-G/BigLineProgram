@@ -118,7 +118,7 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
-            this.tabIndex.emit({  tabIndex: 2 })
+            this.tabIndex.emit({ tabIndex: 2 })
             localStorage.setItem('storeApprove', '1');
           }
           else {
@@ -306,7 +306,7 @@ export class StoreCertificationDetailComponent implements OnInit {
           console.log('res :>> ', res);
           if (res?.message) {
             localStorage.setItem('storeApprove', '1');
-            window.location.reload(); 
+            window.location.reload();
           }
           else {
 
@@ -329,4 +329,29 @@ export class StoreCertificationDetailComponent implements OnInit {
     });
   }
 
+/**
+* 获取当前月的总天数
+*/
+  getDays() {
+    var date = new Date();
+    //将当前月份加1，下移到下一个月
+    date.setMonth(date.getMonth() + 1);
+    //将当前的日期置为0，
+    date.setDate(0);
+    //再获取天数即取上个月的最后一天的天数
+    var days = date.getDate();
+    return days;
+  }
+
+  // starDate有效期，endDate当前时间
+  getD(starDate: any, endDate: any) {
+    var sDate = new Date(starDate).getTime();
+    var eDate = new Date().getTime();
+    var thisMothDays = 1000 * 3600 * 24 * this.getDays()
+    if (eDate - sDate > thisMothDays) {
+      return true
+    } else {
+      return false
+    }
+  }
 }

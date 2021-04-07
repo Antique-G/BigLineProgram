@@ -88,24 +88,36 @@
                                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bankName" nzRequired>法人身份证信息</nz-form-label>
                                     </div>
                                     <div class="imgContain">
-                                        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
-                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证正面</nz-form-label>
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
+                                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证正面</nz-form-label>
+                                                    </div>
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="Id1" style="width: 267px;height: 166px;" *ngIf="Id1!=''">
+                                                    </div>
                                                 </div>
-                                                <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
-                                                    <img [src]="Id1" style="width: 267px;height: 166px;" *ngIf="Id1!=''">
+                                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证反面</nz-form-label>
+                                                    </div>
+                                                    <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
+                                                        <img [src]="Id2" style="width: 267px;height: 166px;" *ngIf="Id2!=''">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>身份证反面</nz-form-label>
-                                                </div>
-                                                <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
-                                                    <img [src]="Id2" style="width: 267px;height: 166px;" *ngIf="Id2!=''">
-                                                </div>
-                                            </div>
+                                            <div>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="bank_account_name" nzRequired>身份证有效期至</nz-form-label>
+                                                        <nz-form-control [nzSm]="13" [nzXs]="24">
+                                                            <!-- <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="detailModel?.name" /> -->
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
 
+                                            </div>
                                         </div>
 
                                     </div>
@@ -126,6 +138,17 @@
                                                     <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
                                                         <img [src]="business_license" style="width: 267px;height: 166px;" *ngIf="business_license!=''">
                                                     </div>
+                                                    <div nz-row>
+                                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                            <div nz-row>
+                                                                <nz-form-label [nzSm]="14" [nzXs]="24" nzRequired>工商营业执照有效期至</nz-form-label>
+                                                                <nz-form-control [nzSm]="10" [nzXs]="24">
+                                                                    <!-- <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="detailModel?.name" /> -->
+                                                                </nz-form-control>
+                                                            </div>
+                                                        </nz-form-item>
+
+                                                    </div>
                                                 </div>
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                     <div nz-row>
@@ -134,17 +157,38 @@
                                                     <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
                                                         <img [src]="travel_agency" style="width: 267px;height: 166px;" *ngIf="travel_agency!=''">
                                                     </div>
+                                                    <div nz-row>
+                                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                            <div nz-row>
+                                                                <nz-form-label [nzSm]="14" [nzXs]="24" nzRequired>工商营业执照有效期至</nz-form-label>
+                                                                <nz-form-control [nzSm]="10" [nzXs]="24">
+                                                                    <!-- <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="detailModel?.name" /> -->
+                                                                </nz-form-control>
+                                                            </div>
+                                                        </nz-form-item>
+
+                                                    </div>
                                                 </div>
 
                                             </div>
 
-                                            <div>
+                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>保险单</nz-form-label>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
                                                         <P style="color: red;font-size: 15px;line-height: 32px;">{{insuranceName}}</P>
                                                         <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''" style="line-height: 32px;">预览</a>
                                                     </div>
+                                                </div>
+                                                <div nz-row>
+                                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>保险单有效期至</nz-form-label>
+                                                            <nz-form-control [nzSm]="10" [nzXs]="24">
+                                                                <!-- <input nz-input formControlName="supplier_name" nzBorderless [ngModel]="detailModel?.name" /> -->
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
                                                 </div>
 
                                             </div>

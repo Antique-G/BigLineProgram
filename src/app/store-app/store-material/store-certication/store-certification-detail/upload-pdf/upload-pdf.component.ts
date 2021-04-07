@@ -79,6 +79,7 @@ export class UploadPdfComponent implements OnInit {
       this.imageList.forEach((item: any, index) => {
         const formData = new FormData();
         formData.append('file', item);
+        formData.append('type', '1');
         formData.append('contract_name', this.addForm.value.contract_name);
         this.storeApplyService.uploadPdf(formData).subscribe(res => {
           console.log('res结果是 ', res);
