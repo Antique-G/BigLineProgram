@@ -23,7 +23,7 @@
                     </nz-form-control>
                 </div>
                 <div style="margin-left: 75px;" *ngIf="isShow===true">
-                    <nz-input-number formControlName="day" style="width: 100px"></nz-input-number> 天
+                    <nz-input-number formControlName="day" [ngModel]="data?.settlement_cycle" style="width: 100px"></nz-input-number> 天
                 </div>
             </nz-form-item>
 
@@ -33,7 +33,7 @@
                     <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="reward_percent" nzRequired>佣金比例</nz-form-label>
                     <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请输入佣金比例">
                         每笔订单金额的
-                        <nz-input-number formControlName="reward_percent" style="width: 100px"></nz-input-number> %
+                        <nz-input-number [ngModel]="data?.reward_percent" formControlName="reward_percent" style="width: 100px"></nz-input-number> %
                     </nz-form-control>
                     <p></p>
                 </div>
@@ -45,7 +45,7 @@
                 <div nz-row>
                     <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="remark" nzRequired>备注</nz-form-label>
                     <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请输入备注">
-                        <input nz-input formControlName="remark" />
+                        <input nz-input formControlName="remark" [ngModel]="data?.remark" />
                     </nz-form-control>
                 </div>
             </nz-form-item>
