@@ -26,7 +26,7 @@
                 <nz-form-item *ngIf="isShow===true">
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="content" nzRequired>原因</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入未通过的原因">
-                        <input nz-input formControlName="content" />
+                        <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                     </nz-form-control>
                 </nz-form-item>
             </form>
