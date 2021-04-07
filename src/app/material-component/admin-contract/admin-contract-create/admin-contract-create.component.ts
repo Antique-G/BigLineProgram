@@ -30,7 +30,7 @@ export class AdminContractCreateComponent implements OnInit {
 
 
   constructor(public adminContractService: AdminContractService, private msg: NzMessageService,
-    public adminStoreService: AdminStoreService, public activatedRoute: ActivatedRoute, public dialogRef: MatDialogRef<AdminContractCreateComponent>,
+    public adminStoreService: AdminStoreService, public activatedRoute: ActivatedRoute,
   ) {
     this.addForm = new FormGroup({
       contract_name: new FormControl('', [Validators.required]),
@@ -104,7 +104,6 @@ export class AdminContractCreateComponent implements OnInit {
           console.log('res结果是 ', res);
           this.isLoadingBtn = false;
           this.isSpinning = false;
-          this.dialogRef.close();
 
 
         },
@@ -120,12 +119,6 @@ export class AdminContractCreateComponent implements OnInit {
 
 
   log(daya: any) {
-
-  }
-
-
-  close() {
-    this.dialogRef.close();
 
   }
 

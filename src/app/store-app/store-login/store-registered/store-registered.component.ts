@@ -12,6 +12,7 @@ import { take } from 'rxjs/operators';
 // 手机号码校验
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
 export class MyValidators extends Validators {
@@ -66,11 +67,14 @@ export class StoreRegisteredComponent implements OnInit {
   time2 = new Date('2021-01-01 18:00:00');
 
   storeApplyRequestModel: StoreApplyRequestModel;
+  HourArr1: any;
+  HourArr2: any;
+
 
 
 
   constructor(public fb: FormBuilder, public storeRegionService: StoreRegionService, public storeApplyService: StoreApplyService,
-    public phoneCodeService: PhoneCodeService, public router: Router) {
+    public phoneCodeService: PhoneCodeService, private msg: NzMessageService, public router: Router) {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
@@ -131,6 +135,7 @@ export class StoreRegisteredComponent implements OnInit {
     this.storeApplyRequestModel.contact = this.addForm.value.contract_name;
     this.storeApplyRequestModel.work_date = this.weekValue;
     this.storeApplyRequestModel.work_time = format(new Date(this.addForm.value.date1), 'HH:mm') + '-' + format(new Date(this.addForm.value.date2), 'HH:mm');
+  
   }
 
 
@@ -145,12 +150,20 @@ export class StoreRegisteredComponent implements OnInit {
     }
     console.log("66666", this.addForm.valid)
     if (this.addForm.valid) {
-      this.storeApplyService.storeApply(this.storeApplyRequestModel).subscribe(res => {
-        console.log('结果是 :>> ', res);
-        if (res?.message) {
-          this.router.navigate(['/store/registered/success'])
-        }
-      })
+      this.HourArr1 = format(new Date(this.addForm.value.date1), 'HH');
+      this.HourArr2 = format(new Date(this.addForm.value.date2), 'HH');
+      if (Number(this.HourArr2) < Number(this.HourArr1)) {
+        this.msg.error('时间选择错误，请重新选择时间');
+      }
+      else{
+        this.storeApplyService.storeApply(this.storeApplyRequestModel).subscribe(res => {
+          console.log('结果是 :>> ', res);
+          if (res?.message) {
+            this.router.navigate(['/store/registered/success'])
+          }
+        })
+      }
+    
     }
 
   }
@@ -209,4 +222,6 @@ export class StoreRegisteredComponent implements OnInit {
     this.weekValue = value;
     console.log('11111111111', value, this.weekValue);
   }
+
+
 }
