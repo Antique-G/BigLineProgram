@@ -39,7 +39,7 @@ export class StoreProductManagementDetailDescComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
     console.log('this.dataDetailModel111111111 :>> ', this.dataDetailModel);
     let arr: any[] = [];

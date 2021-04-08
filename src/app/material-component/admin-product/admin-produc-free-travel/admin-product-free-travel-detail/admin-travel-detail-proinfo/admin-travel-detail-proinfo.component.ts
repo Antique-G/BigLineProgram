@@ -168,7 +168,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['tag_id'].setValue([]);
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
     });
     this.getCateList()
   }

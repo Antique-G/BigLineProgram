@@ -29,7 +29,7 @@ export class AdminProductManagementEditornoticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
   }
 

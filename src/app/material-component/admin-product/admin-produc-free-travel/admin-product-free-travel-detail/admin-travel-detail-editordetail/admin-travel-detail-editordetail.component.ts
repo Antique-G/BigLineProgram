@@ -80,7 +80,7 @@ export class AdminTravelDetailEditordetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
     });
     console.log('父组件的值 ', this.dataFreeDetailModel);
     console.log("few_days", this.dataFreeDetailModel.few_days);

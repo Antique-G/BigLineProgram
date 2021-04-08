@@ -86,7 +86,7 @@ export class StoreProductManagementDetailEditordetailComponent implements OnInit
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
     console.log('父组件的值 ', this.dataDetailModel);
     console.log("few_days", this.dataDetailModel.few_days);
