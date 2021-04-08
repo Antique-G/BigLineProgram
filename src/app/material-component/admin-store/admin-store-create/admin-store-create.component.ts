@@ -39,8 +39,8 @@ export class AdminStoreCreateComponent implements OnInit {
     { label: '周六', value: 6, checked: false },
     { label: '周日', value: 0, checked: false },
   ]
-  time1: any;
-  time2: any;
+  time1=new Date('2021-01-01 09:00:00');
+  time2=new Date('2021-01-01 18:00:00');
   HourArr1: any;
   HourArr2: any;
 
