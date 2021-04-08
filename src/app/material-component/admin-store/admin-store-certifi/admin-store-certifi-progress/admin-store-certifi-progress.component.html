@@ -4,9 +4,10 @@
         <div class="lev3" *ngIf="is_approve===1">
             <div style="padding: 90px">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+
                     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="120px">
                         <div style="font-weight: bold;">当前审核进度：<span style="color: red;">等待审核</span></div>
-
+                        <div><a (click)="history()">查看审核历史记录</a></div>
                     </div>
 
                 </div>

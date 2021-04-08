@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,6 +33,20 @@ export class StoreCertificationDetailComponent implements OnInit {
   insuranceName = '';
   insuranceUrl = '';
   is_approve = 0;
+  id_card_deadlineDate: any;
+  business_deadlineDate: any;
+  travel_deadlineDate: any;
+  insurance_deadlineDate: any;
+  isShowId_card = false;
+  isShowBusiness = false;
+  isShowTravel = false;
+  isShowInsurance = false;
+  isMin: any;
+  isText: any;
+  isShowText = false;
+  isShowText1 = false;
+
+
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, private msg: NzMessageService,
     private modal: NzModalService, public storeApplyService: StoreApplyService,) {
@@ -44,6 +59,10 @@ export class StoreCertificationDetailComponent implements OnInit {
       bank_open: ['', [Validators.required]],
       bank_num: ['', [Validators.required]],
       bank_account_name: ['', [Validators.required]],
+      id_card_deadline: [null, [Validators.required]],
+      business_deadline: [null, [Validators.required]],
+      travel_deadline: [null, [Validators.required]],
+      insurance_deadline: [null, [Validators.required]],
     });
     this.storeApplyCertifiModel = {
       legal_person: '',
@@ -60,6 +79,10 @@ export class StoreCertificationDetailComponent implements OnInit {
       bank_front: '',
       bank_reverse: '',
       insurance: '',
+      id_card_deadline: '',
+      business_deadline: '',
+      travel_deadline: '',
+      insurance_deadline: '',
     }
   }
 
@@ -79,6 +102,76 @@ export class StoreCertificationDetailComponent implements OnInit {
         this.bank2 = this.certificationModel?.bank_reverse;
         this.insuranceUrl = this.certificationModel?.insurance;
         this.insuranceName = this.certificationModel?.insurance;
+        this.id_card_deadlineDate = this.certificationModel?.id_card_deadline;
+        this.business_deadlineDate = this.certificationModel?.business_deadline;
+        this.travel_deadlineDate = this.certificationModel?.travel_deadline;
+        this.insurance_deadlineDate = this.certificationModel?.insurance_deadline;
+        // 时间有效期
+        let arrValue: any[] = [];
+        let a = this.getDay(this.id_card_deadlineDate);
+        if (a < 0) {
+          this.isShowId_card = true;
+        }
+        else {
+          this.isShowId_card = false;
+        }
+        arrValue.push(a);
+        let a1 = this.getDay(this.business_deadlineDate);
+        if (a1 < 0) {
+          this.isShowBusiness = true;
+        }
+        else {
+          this.isShowBusiness = false;
+        }
+        arrValue.push(a1);
+        let a2 = this.getDay(this.travel_deadlineDate);
+        if (a2 < 0) {
+          this.isShowTravel = true;
+        }
+        else {
+          this.isShowTravel = false;
+        }
+        arrValue.push(a2);
+        let a3 = this.getDay(this.insurance_deadlineDate);
+        if (a3 < 0) {
+          this.isShowInsurance = true;
+        }
+        else {
+          this.isShowInsurance = false;
+        }
+        arrValue.push(a3);
+        let newArr = [
+          { name: '法人身份证', value: a },
+          { name: '工商营业执照', value: a1 },
+          { name: '旅行社资质', value: a2 },
+          { name: '保险单', value: a3 },
+        ]
+        // 获取最小的值
+        let min = arrValue.sort(function (a, b) {
+          return a - b;
+        })
+        this.isMin = min[0];
+        if (this.isMin < 30 && this.isMin > 0) {
+          this.isShowText = true;
+          this.isShowText1 = false;
+          newArr.forEach((item: any) => {
+            if (item.value === min[0]) {
+              this.isText = item.name;
+            }
+          });
+        }
+        if (this.isMin < 0) {
+          this.isShowText = false;
+          this.isShowText1 = true;
+        }
+        else if (this.isMin > 30) {
+          this.isShowText = false;
+          this.isShowText1 = false;
+        }
+        console.log('min', this.isMin, this.isText);
+
+        console.log('aqqqqqqqqq :>> ', a, a1, a2, a3);
+
       }
     })
   }
@@ -100,6 +193,10 @@ export class StoreCertificationDetailComponent implements OnInit {
     this.storeApplyCertifiModel.bank_front = this.bank1;
     this.storeApplyCertifiModel.bank_reverse = this.bank2;
     this.storeApplyCertifiModel.insurance = this.insuranceUrl;
+    this.storeApplyCertifiModel.id_card_deadline = format(new Date(this.certificationForm.value.id_card_deadline), 'yyyy-MM-dd');
+    this.storeApplyCertifiModel.business_deadline = format(new Date(this.certificationForm.value.business_deadline), 'yyyy-MM-dd');
+    this.storeApplyCertifiModel.travel_deadline = format(new Date(this.certificationForm.value.travel_deadline), 'yyyy-MM-dd');
+    this.storeApplyCertifiModel.insurance_deadline = format(new Date(this.certificationForm.value.insurance_deadline), 'yyyy-MM-dd');
   }
 
 
@@ -120,6 +217,7 @@ export class StoreCertificationDetailComponent implements OnInit {
           if (res?.message) {
             this.tabIndex.emit({ tabIndex: 2 })
             localStorage.setItem('storeApprove', '1');
+            localStorage.setItem("loginApprove", '1');
           }
           else {
 
@@ -306,6 +404,7 @@ export class StoreCertificationDetailComponent implements OnInit {
           console.log('res :>> ', res);
           if (res?.message) {
             localStorage.setItem('storeApprove', '1');
+            localStorage.setItem("loginApprove", '1');
             window.location.reload();
           }
           else {
@@ -329,29 +428,28 @@ export class StoreCertificationDetailComponent implements OnInit {
     });
   }
 
-/**
-* 获取当前月的总天数
-*/
+  /**
+  * 获取当前月的总天数
+  */
   getDays() {
-    var date = new Date();
+    let date = new Date();
     //将当前月份加1，下移到下一个月
     date.setMonth(date.getMonth() + 1);
     //将当前的日期置为0，
     date.setDate(0);
     //再获取天数即取上个月的最后一天的天数
-    var days = date.getDate();
+    let days = date.getDate();
+    console.log('days111111111 :>> ', days);
     return days;
   }
 
-  // starDate有效期，endDate当前时间
-  getD(starDate: any, endDate: any) {
-    var sDate = new Date(starDate).getTime();
-    var eDate = new Date().getTime();
-    var thisMothDays = 1000 * 3600 * 24 * this.getDays()
-    if (eDate - sDate > thisMothDays) {
-      return true
-    } else {
-      return false
-    }
+
+  getDay(day: any) {
+    let s1 = new Date(day.replace(/-/g, "/"));
+    let s2 = new Date();//当前日期
+    let days = s1.getTime() - s2.getTime();
+    let a: any = days / (1000 * 60 * 60 * 24)
+    let b: any = parseInt(a);
+    return b
   }
 }

@@ -2,6 +2,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreCertifiChangeComponent } from './store-certifi-change/store-certifi-change.component';
+import { StoreApplyService } from '../../../../../services/store/store-apply/store-apply.service';
 
 @Component({
   selector: 'app-store-certifi-basic-info',
@@ -17,7 +18,7 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
   is_approve: any;
 
 
-  constructor(public fb: FormBuilder,   private modal: NzModalService, ) {
+  constructor(public fb: FormBuilder,  private modal: NzModalService, public storeApplyService: StoreApplyService) {
     this.detailForm = this.fb.group({
       account: [''],
       supplyName: [''],
@@ -35,8 +36,11 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
-    this.is_approve = Number(localStorage.getItem("storeApprove"));
+    this.storeApplyService.storeDetail().subscribe(res => {
+      console.log('1212121 ', res);
+      this.detailModel = res;
+      this.is_approve = Number(res?.store?.is_approve);
+      
     if (this.detailModel?.store?.work_date != '') {
       this.week = eval('(' + this.detailModel?.store?.work_date + ')');
       console.log('week :>> ', this.week, typeof (this.week));
@@ -77,6 +81,8 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
       console.log('a :>> ', a);
       this.workTime = a + '   ' + this.detailModel?.store?.work_time;
     }
+    })
+
 
   }
 

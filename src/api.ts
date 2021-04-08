@@ -233,7 +233,7 @@ export const StoreUrls = {
   GetStoreApproveDetail: api + '/store/approve_detail', // 认证资料详情
   GetStoreApproveList: api + '/store/approve_list', // 认证资料的历史记录
   PostStoreEditContract: api + '/store/edit_contact/', // 修改联系人
-
+  GetStoreAccount: api + '/store/account_info', // 账号详情
 
 
 

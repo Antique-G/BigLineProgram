@@ -41,6 +41,10 @@ export class AdminStoreCertifiDataComponent implements OnInit {
       bank_open: ['', [Validators.required]],
       bank_num: ['', [Validators.required]],
       bank_account_name: ['', [Validators.required]],
+      id_card_deadline: ['', [Validators.required]],
+      business_deadline: ['', [Validators.required]],
+      travel_deadline: ['', [Validators.required]],
+      insurance_deadline: ['', [Validators.required]],
     });
   }
 
@@ -85,6 +89,7 @@ export class AdminStoreCertifiDataComponent implements OnInit {
         else if (result === 2){
           this.is_approve = 3;
           localStorage.setItem("certifiApprove", this.is_approve.toString());
+       
         }
       }
 

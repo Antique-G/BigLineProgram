@@ -27,3 +27,7 @@ button {
     padding: 10px;
     width: 62%;
 }
+
+.ant-form-item {
+    margin: 0 0 12px !important;
+}

@@ -1,6 +1,18 @@
 <div class="content">
     <div class="example-container" style="margin-bottom: 50px;">
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="30px">
+            <div class="textForm" style="letter-spacing: 1px;" *ngIf="isShowText===true">
+                <span>{{detailModel?.name}}</span>，您的认证资料
+                <span style="font-weight: bold;">{{isText}}</span> 还有
+                <span style="font-weight: bold;">{{isMin}}</span>天就过期了，为了您的相关权益，请在有效期前重新提交认证，感谢您的支持！
+                <a>马上去更新资料提交认证</a>
+            </div>
+
+            <div class="textForm" style="letter-spacing: 1px;" *ngIf="isShowText1===true">
+                <span>{{detailModel?.name}}</span>，您的认证资料已过期，为了您的相关权益，请重新提交认证，感谢您的支持！
+                <a>马上去更新资料提交认证</a>
+            </div>
+
             <div class="textContain">
                 <div>
                     <form nz-form [formGroup]="certificationForm" nz-row>
@@ -120,14 +132,17 @@
                                                     </div>
                                                 </div>
 
+                                                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="isShowId_card===true">
+                                                    <p style="font-weight: bold;font-size: 16px;color: red;">*身份证已过期，请重新上传</p>
+                                                </div>
+
                                             </div>
                                             <div>
                                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="bank_account_name" nzRequired>身份证有效期至</nz-form-label>
+                                                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="id_card_deadline" nzRequired>身份证有效期至</nz-form-label>
                                                         <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入身份证有效期">
-                                                            <nz-date-picker></nz-date-picker>
-                                                            <!-- <nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker> -->
+                                                            <nz-date-picker [(ngModel)]="id_card_deadlineDate" formControlName="id_card_deadline"></nz-date-picker>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -143,11 +158,11 @@
                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>上传工商营业执照、旅行社资质、保险单信息</nz-form-label>
                                     </div>
                                     <div class="imgContain">
-                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>工商营业执照</nz-form-label>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>工商营业执照</nz-form-label>
                                                     </div>
                                                     <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
                                                         <img [src]="business_license" style="width: 267px;height: 166px;" *ngIf="business_license!=''">
@@ -159,18 +174,25 @@
                                                     <div nz-row>
                                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                             <div nz-row>
-                                                                <nz-form-label [nzSm]="14" [nzXs]="24" nzRequired>工商营业执照有效期至</nz-form-label>
-                                                                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入工商营业执照有效期">
-                                                                    <nz-date-picker></nz-date-picker>
+                                                                <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>工商营业执照有效期至</nz-form-label>
+                                                                <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入工商营业执照有效期">
+                                                                    <nz-date-picker [(ngModel)]="business_deadlineDate" formControlName="business_deadline"></nz-date-picker>
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>
 
                                                     </div>
                                                 </div>
+                                                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="isShowBusiness===true">
+                                                    <p style="font-weight: bold;font-size: 16px;color: red;">*工商营业执照已过期，请重新上传</p>
+                                                </div>
+                                            </div>
+
+
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>旅行社资质</nz-form-label>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>旅行社资质</nz-form-label>
                                                     </div>
                                                     <div style="width: 283px;height: 183px;border: 8px solid gainsboro;">
                                                         <img [src]="travel_agency" style="width: 267px;height: 166px;" *ngIf="travel_agency!=''">
@@ -182,14 +204,17 @@
                                                     <div nz-row>
                                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                             <div nz-row>
-                                                                <nz-form-label [nzSm]="14" [nzXs]="24" nzRequired>旅行社资质有效期至</nz-form-label>
-                                                                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入旅行社资质有效期">
-                                                                    <nz-date-picker></nz-date-picker>
+                                                                <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>旅行社资质有效期至</nz-form-label>
+                                                                <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入旅行社资质有效期">
+                                                                    <nz-date-picker [(ngModel)]="travel_deadlineDate" formControlName="travel_deadline"></nz-date-picker>
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>
 
                                                     </div>
+                                                </div>
+                                                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="isShowTravel===true">
+                                                    <p style="font-weight: bold;font-size: 16px;color: red;">*旅行社资质已过期，请重新上传</p>
                                                 </div>
 
                                             </div>
@@ -208,11 +233,16 @@
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>保险单有效期至</nz-form-label>
                                                             <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入保险单有效期">
-                                                                <nz-date-picker></nz-date-picker>
+                                                                <nz-date-picker [(ngModel)]="insurance_deadlineDate" formControlName="insurance_deadline"></nz-date-picker>
                                                             </nz-form-control>
+                                                            <div *ngIf="isShowInsurance===true">
+                                                                <p style="font-weight: bold;font-size: 16px;color: red;">*保险单已过期，请重新上传</p>
+                                                            </div>
                                                         </div>
+
                                                     </nz-form-item>
                                                 </div>
+
 
                                             </div>
                                         </div>
