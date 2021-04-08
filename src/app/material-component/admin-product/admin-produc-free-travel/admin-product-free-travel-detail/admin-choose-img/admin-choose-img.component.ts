@@ -38,7 +38,7 @@ export class AdminChooseImgComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
     });
     console.log("更新", this.dataFreeDetailModel?.albums?.data)
 

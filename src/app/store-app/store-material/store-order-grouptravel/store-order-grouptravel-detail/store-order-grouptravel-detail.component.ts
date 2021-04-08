@@ -47,7 +47,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("params", params)
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
       // 详情
       this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
@@ -98,7 +98,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
       this.activatedRoute.queryParams.subscribe(params => {
         console.log("params", params)
-        this.detailId = JSON.parse(params["detailId"]);
+        this.detailId = params?.detailId;
         // 详情
         this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
           console.log("结果是", res);
@@ -142,7 +142,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
       this.activatedRoute.queryParams.subscribe(params => {
         console.log("params", params)
-        this.detailId = JSON.parse(params["detailId"]);
+        this.detailId = params?.detailId;
         // 详情
         this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
           console.log("结果是", res);

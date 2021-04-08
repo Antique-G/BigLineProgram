@@ -106,7 +106,8 @@ export class AdminStoreAccountCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.store_id = JSON.parse(params["id"]);
+      this.store_id = params?.id;
+
     });
   };
 

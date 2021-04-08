@@ -27,7 +27,7 @@ export class AdminStoreAccountComponent implements OnInit {  //导出类AdminSto
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.store_id = JSON.parse(params["id"]);
+      this.store_id = params?.id;
     });
     this.search();
 
