@@ -40,6 +40,8 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
       console.log('1212121 ', res);
       this.detailModel = res;
       this.is_approve = Number(res?.store?.is_approve);
+      localStorage.setItem('storeApprove', this.is_approve.toString());
+
       
     if (this.detailModel?.store?.work_date != '') {
       this.week = eval('(' + this.detailModel?.store?.work_date + ')');
