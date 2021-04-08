@@ -10,6 +10,47 @@ import { UploadPdfComponent } from './upload-pdf/upload-pdf.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 
+
+
+// 银行卡校验
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
+export type MyValidationErrors = Record<string, MyErrorsOptions>;
+export class Bank extends Validators {
+  static bank_num(control: AbstractControl): MyValidationErrors | null {
+    const value = control.value;
+    if (isEmptyInputValue(value)) {
+      return null;
+    }
+    return isBank(value) ? null : { bank_num: { 'zh-cn': `银行卡号格式不正确`, en: `` } };
+  }
+}
+
+function isEmptyInputValue(value: NzSafeAny): boolean {
+  return value == null || value.length === 0;
+}
+
+function isBank(value: string): boolean {
+  return typeof value === 'string' && /[1-9]\d{12,18}/.test(value);
+}
+
+
+// 身份证号
+export class IdCard extends Validators {
+  static id_num(control: AbstractControl): MyValidationErrors | null {
+    const value = control.value;
+    if (isEmptyInputValue(value)) {
+      return null;
+    }
+    return isId_num(value) ? null : { id_num: { 'zh-cn': `身份证号格式不正确`, en: `` } };
+  }
+}
+
+function isId_num(value: string): boolean {
+  return typeof value === 'string' && /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value);
+}
+
+
 @Component({
   selector: 'app-store-certification-detail',
   templateUrl: './store-certification-detail.component.html',
@@ -50,14 +91,17 @@ export class StoreCertificationDetailComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, private msg: NzMessageService,
     private modal: NzModalService, public storeApplyService: StoreApplyService,) {
+    // 校验手机
+    const { bank_num } = Bank;
+    const { id_num } = IdCard;
     this.certificationForm = this.fb.group({
       supplier_name: [''],
       legal_person: ['', [Validators.required]],
-      id_num: ['', [Validators.required]],
+      id_num: ['', [Validators.required,id_num]],
       taxpayer_num: ['', [Validators.required]],
       bank_type: ['', [Validators.required]],
       bank_open: ['', [Validators.required]],
-      bank_num: ['', [Validators.required]],
+      bank_num: ['', [Validators.required, bank_num]],
       bank_account_name: ['', [Validators.required]],
       id_card_deadline: [null, [Validators.required]],
       business_deadline: [null, [Validators.required]],
