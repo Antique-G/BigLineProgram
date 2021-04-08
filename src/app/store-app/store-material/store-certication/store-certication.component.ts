@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreApplyService } from '../../../../services/store/store-apply/store-apply.service';
 
 @Component({
   selector: 'app-store-certication',
@@ -13,11 +14,16 @@ export class StoreCerticationComponent implements OnInit {
   detailModel: any;
   is_approve: any;
 
-  constructor() { }
+  constructor(public storeApplyService: StoreApplyService) { }
 
   ngOnInit(): void {
-    this.detailModel = JSON.parse(localStorage.getItem("storeAccountDetail")!);
-    this.is_approve = Number(localStorage.getItem("storeApprove"));
+    this.storeApplyService.storeDetail().subscribe(res => {
+      console.log('1212121 ', res);
+      localStorage.setItem('storeAccountDetail', JSON.stringify(res))
+      localStorage.setItem('storeApprove', res?.store?.is_approve.toString());
+      this.detailModel = res;
+      this.is_approve = Number(res?.store?.is_approve);
+    })
   }
 
 

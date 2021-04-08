@@ -29,6 +29,10 @@ export interface StoreApplyCertifiModel {
   bank_front: string;
   bank_reverse: string;
   insurance: string;
+  id_card_deadline: string;
+  business_deadline: string;
+  travel_deadline: string;
+  insurance_deadline: string;
 }
 
 
@@ -58,6 +62,10 @@ export interface DataApplyCertifiDetailModel {
   content: string;
   created_at: string;
   updated_at: string;
+  id_card_deadline: string;
+  business_deadline: string;
+  travel_deadline: string;
+  insurance_deadline: string;
 }
 
 export interface StoreApplyCertifiDetailListModel {
@@ -73,4 +81,45 @@ export interface EditContractModel {
   work_date: any
   work_time: string;
   id: string;
+}
+
+
+
+// 账号详情
+export interface StoreAccountDetailModel {
+  account_id: number;
+  name: string;
+  remember_token?: any;
+  mobile: string;
+  email: string;
+  level: number;
+  store_id: number;
+  status: number;
+  created_at: string;
+  updated_at: string;
+  store: StoreDetailModel;
+}
+
+export interface StoreDetailModel {
+  store_id: number;
+  name: string;
+  code: string;
+  region_code: string;
+  address: string;
+  fax: string;
+  phone: string;
+  mobile: string;
+  contact: string;
+  profile_photo_path?: any;
+  status: number;
+  type: number;
+  work_date: string;
+  is_approve: number;
+  work_time: string;
+  settlement_cycle: number;
+  reward_percent: number;
+  remark: string;
+  created_at: string;
+  updated_at: string;
+  region_full_name: string;
 }
