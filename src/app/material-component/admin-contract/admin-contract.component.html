@@ -32,6 +32,8 @@
                                     <th style="text-align: center;">合同id</th>
                                     <th style="text-align: center;">合同名称</th>
                                     <th style="text-align: center;width: 15%;">合同明细</th>
+                                    <th style="text-align: center;">合同开始时间</th>
+                                    <th style="text-align: center;">合同结束时间</th>
                                     <th style="text-align: center;">创建时间</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
@@ -47,6 +49,8 @@
                                             </a>
                                         </div>
                                     </td>
+                                    <td>{{data?.start_date}}</td>
+                                    <td>{{data?.end_date}}</td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
                                         <div style="cursor: pointer;" (click)="delete(data)">
