@@ -29,7 +29,7 @@ export class AdminTravelDetailFeatureComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
     });
   }
 

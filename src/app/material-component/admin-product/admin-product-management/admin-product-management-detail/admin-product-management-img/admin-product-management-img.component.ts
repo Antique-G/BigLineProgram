@@ -36,7 +36,7 @@ export class AdminProductManagementImgComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
     console.log("更新", this.adminProductDetailModel?.album?.data)
     let arr: any[] = [];

@@ -1,0 +1,23 @@
+.steps-content {
+    height: 100vh;
+}
+
+.mat-elevation-z8 {
+    width: 90%;
+    margin: 21px auto;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.textForm {
+    border: 1px solid lightblue;
+    border-radius: 6px;
+    line-height: 50px;
+    color: red;
+    font-size: 14px;
+    margin: 10px 10px;
+    width: 90%;
+}

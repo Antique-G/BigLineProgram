@@ -111,7 +111,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
             this.cursubGroupModelValue.splice(index, 1);
             this.activatedRoute.queryParams.subscribe(params => {
               console.log("params", params)
-              this.detailId = JSON.parse(params["detailId"]);
+              this.detailId = params?.detailId;
               // 详情
               this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
                 console.log("结果是", res.data);
@@ -182,7 +182,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
       this.activatedRoute.queryParams.subscribe(params => {
         console.log("params", params)
-        this.detailId = JSON.parse(params["detailId"]);
+        this.detailId = params?.detailId;
         // 详情
         this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
           console.log("结果是", res.data);
@@ -235,7 +235,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
       editmodal.afterClose.subscribe(res => {
         this.activatedRoute.queryParams.subscribe(params => {
           console.log("params", params)
-          this.detailId = JSON.parse(params["detailId"]);
+          this.detailId = params?.detailId;
           // 详情
           this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
             this.setOfCheckedId.clear();
@@ -286,7 +286,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
           dialogRef.afterClosed().subscribe(result => {
             this.activatedRoute.queryParams.subscribe(params => {
               console.log("params", params)
-              this.detailId = JSON.parse(params["detailId"]);
+              this.detailId = params?.detailId;
               // 详情
               this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
                 this.setOfCheckedId.clear();
@@ -402,7 +402,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
           this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
             this.activatedRoute.queryParams.subscribe(params => {
               console.log("params", params)
-              this.detailId = JSON.parse(params["detailId"]);
+              this.detailId = params?.detailId;
               // 详情
               this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
                 this.setOfCheckedId.clear();
@@ -448,7 +448,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
           this.adminOrderService.editMember(this.editMemberModel1).subscribe((res: any) => {
             this.activatedRoute.queryParams.subscribe(params => {
               console.log("params", params)
-              this.detailId = JSON.parse(params["detailId"]);
+              this.detailId = params?.detailId;
               // 详情
               this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
                 this.setOfCheckedId.clear();

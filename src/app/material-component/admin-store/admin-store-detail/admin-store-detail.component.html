@@ -1,73 +1,91 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayoutAlign="end start">
-        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+        <div style="padding: 5px;">
+            <form nz-form [formGroup]="addForm">
+                <h4 style="padding-left: 10px;padding-top: 10px;">账户信息</h4>
+                <nz-divider></nz-divider>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="name" nzRequired>供应商名称</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入供应商名称">
+                        <input nz-input formControlName="name" nzBorderless [ngModel]="storeDetailModel?.name" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
+                        <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="address">供应商地址</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="address" [ngModel]="storeDetailModel?.address" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <h4 style="padding-left: 10px;padding-top: 10px;">联系人信息</h4>
+                <nz-divider></nz-divider>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人姓名">
+                        <input nz-input formControlName="contact" [ngModel]="storeDetailModel?.contact" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="mobile" nzRequired>手机号</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人手机号">
+                        <input nz-input formControlName="mobile" [ngModel]="storeDetailModel?.mobile" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="fax">传真</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="fax" [ngModel]="storeDetailModel?.fax" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="phone">座机</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="phone" [ngModel]="storeDetailModel?.phone" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="work_time" nzRequired>工作时段</nz-form-label>
+                        <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请选择时间">
+                            <nz-checkbox-group [(ngModel)]="checkWeeks" formControlName="week" (ngModelChange)="ngCheckBoxChange(checkWeeks)"></nz-checkbox-group>
+                        </nz-form-control>
+                    </div>
+                    <div style="margin-left: 195px;">
+                        <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请选择时间">
+                            <nz-time-picker [(ngModel)]="time1" nzFormat="HH:mm" formControlName="date1"></nz-time-picker>
+                            <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                            <nz-time-picker [(ngModel)]="time2" nzFormat="HH:mm" formControlName="date2"></nz-time-picker>
+                        </nz-form-control>
+                    </div>
+
+                </nz-form-item>
+
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <nz-radio-group formControlName="status" ngModel={{storeDetailModel.status}}>
+                            <label nz-radio nzValue=0>暂停</label>
+                            <label nz-radio nzValue=1>正常</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+            </form>
+
+        </div>
     </div>
-    <div style="padding: 5px;">
 
-        <form nz-form [formGroup]="addForm">
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>商户名</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.name">
-                    <input nz-input formControlName="name" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.regionCode">
-                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="regionCode"></nz-cascader>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">商户详细地址</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <input nz-input formControlName="address" />
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.contact">
-                    <input nz-input formControlName="contact" />
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mobile" nzRequired>联系人手机号</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="formErrors.mobile">
-                    <input nz-input formControlName="mobile" />
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fax">传真</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <input nz-input formControlName="fax" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">座机号码</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <input nz-input formControlName="phone" />
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
-                <nz-form-control [nzSm]="15" [nzXs]="24">
-                    <nz-radio-group formControlName="status" ngModel={{storeDetailModel.status}}>
-                        <label nz-radio nzValue=0>暂停</label>
-                        <label nz-radio nzValue=1>正常</label>
-                    </nz-radio-group>
-                </nz-form-control>
-            </nz-form-item>
-
-
-            <nz-form-item nz-row class="register-area">
-                <nz-form-control [nzSpan]="14" [nzOffset]="11">
-                    <button nz-button nzType="primary" (click)="update()">更新</button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
-
-    </div>
 </div>

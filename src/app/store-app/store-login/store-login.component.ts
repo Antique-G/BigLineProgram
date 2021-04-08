@@ -45,7 +45,14 @@ export class StoreLoginComponent implements OnInit {
         localStorage.setItem('storeRegion', res.store.region_code);
         localStorage.setItem('storeAccountId', res.store_account.account_id);
         localStorage.setItem('storeId', res.store.store_id);
-        this.router.navigate(['/store/main/storeProduct'])
+        localStorage.setItem("loginApprove",res?.store?.is_approve.toString())
+        if(res?.store?.is_approve===2){
+          this.router.navigate(['/store/main/storeProduct'])
+        }
+        else{
+          this.router.navigate(['/store/main/storeCertification'])
+        }
+       
       }
     })
   }
@@ -55,5 +62,6 @@ export class StoreLoginComponent implements OnInit {
   onEnter() {
     this.login();
   }
+
 
 }

@@ -5,6 +5,8 @@ import { AdminStoreCreateComponent } from './admin-store-create/admin-store-crea
 import { AdminStoreDetailComponent } from './admin-store-detail/admin-store-detail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminStoreCommissComponent } from './admin-store-commiss/admin-store-commiss.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 
@@ -22,13 +24,15 @@ export class AdminStoreComponent implements OnInit {
   loading = true;
   keyword: any;
   status: any;
+  is_approve: any;
 
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminStoreService: AdminStoreService,
-    public router: Router) {
+    private modal: NzModalService, public router: Router) {
     this.searchForm = fb.group({
-      status: ['' ],
-      storeName: ['' ]
+      status: [''],
+      is_approve: [''],
+      storeName: ['']
     });
   }
 
@@ -38,7 +42,7 @@ export class AdminStoreComponent implements OnInit {
 
   getData(): void {
     this.loading = true;
-    this.adminStoreService.storeList(this.page, this.per_page, this.keyword,this.status).subscribe((result: any) => {
+    this.adminStoreService.storeList(this.page, this.per_page, this.keyword, this.status, this.is_approve).subscribe((result: any) => {
       this.loading = false;
       this.total = result.total;   //总页数
       this.dataSource = result.data;
@@ -59,6 +63,7 @@ export class AdminStoreComponent implements OnInit {
 
   search() {
     this.status = this.searchForm.value.status;
+    this.is_approve = this.searchForm.value.is_approve;
     this.keyword = this.searchForm.value.storeName;
     this.getData();
     console.log("this.keyword", this.keyword);
@@ -68,32 +73,50 @@ export class AdminStoreComponent implements OnInit {
 
 
   add() {
-    const dialogRef = this.dialog.open(AdminStoreCreateComponent, {
-      width: '550px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.getData();
-      }
-
+    const editmodal = this.modal.create({
+      nzTitle: '添加',
+      nzWidth: 1000,
+      nzContent: AdminStoreCreateComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getData();
     });
   }
 
 
   edit(element: any): void {
     console.log("拿到的值", element);
-    const dialogRef = this.dialog.open(AdminStoreDetailComponent, {
-      width: '550px',
-      data: element
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log("result", result);
-      if (result !== undefined) {
-        this.getData();
-      }
-
+    const editmodal = this.modal.create({
+      nzTitle: '编辑店铺（供应商）基础信息',
+      nzWidth: 1000,
+      nzContent: AdminStoreDetailComponent,
+      nzComponentParams: {
+        data: element
+      },
+      nzFooter: [
+        {
+          label: '更新',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getData();
     });
   }
+
+
+
 
 
   account(data: any) {
@@ -108,9 +131,27 @@ export class AdminStoreComponent implements OnInit {
   }
 
 
-  file(data:any){
+  file(data: any) {
     this.router.navigate(['/admin/main/contract'], { queryParams: { id: data.store_id } });
 
+  }
+
+
+  certifi(data: any) {
+    localStorage.setItem('certification', JSON.stringify(data));
+    localStorage.setItem('certifiApprove', data?.is_approve);
+    this.router.navigate(['/admin/main/store/certifi'], { queryParams: { id: data.store_id } });
+  }
+
+  setMoney(data: any) {
+    const dialogRef = this.dialog.open(AdminStoreCommissComponent, {
+      width: '650px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+      this.getData();
+    });
   }
 }
 

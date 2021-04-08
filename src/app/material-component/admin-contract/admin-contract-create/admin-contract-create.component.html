@@ -1,7 +1,5 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayoutAlign="end start">
-        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
-    </div>
+
     <div style="padding: 5px;">
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
 
@@ -33,11 +31,17 @@
                     </div>
                 </nz-form-item>
 
-                <nz-form-item nz-row class="register-area">
-                    <nz-form-control [nzSpan]="14" [nzOffset]="11">
-                        <button nz-button nzType="primary" (click)="add()" [nzLoading]="isLoadingBtn">提交</button>
-                    </nz-form-control>
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date">合同签订日期</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <nz-range-picker style="width: 100%;" nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="start_date"></nz-range-picker>
+                        </nz-form-control>
+                    </div>
                 </nz-form-item>
+
+
+
             </form>
         </nz-spin>
     </div>

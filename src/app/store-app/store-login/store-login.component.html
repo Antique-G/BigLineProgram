@@ -27,6 +27,10 @@
                 </div>
                 <p style="text-align: center;margin-top: 4px;font-size: 14px;">建议使用<a style="color: red;" href="https://www.google.com">谷歌浏览器</a></p>
 
+                <div fxLayout="row" fxLayoutAlign="space-between end" class="login-bottom">
+                    <a [routerLink]="[ '/store/forgetPassword']">忘记密码<i nz-icon nzType="question-circle" nzTheme="outline"></i></a>
+                    <a [routerLink]="[ '/store/registered']" style="float: right;">免费注册<i nz-icon nzType="user-add" nzTheme="outline"></i></a>
+                </div>
             </mat-card-content>
         </mat-card>
 

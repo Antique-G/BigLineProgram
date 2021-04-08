@@ -1,0 +1,34 @@
+<div class="steps-content">
+    <div class="tabs">
+        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+            [nzTitle]="'签订合同记录'" (nzPageSizeChange)="changePageSize($event)">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">合同名称</th>
+                    <th style="text-align: center;">合同开始日期</th>
+                    <th style="text-align: center;">合同结束日期</th>
+                    <th style="text-align: center;">状态</th>
+                    <th style="text-align: center;">上传时间</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data">
+                    <td>{{data?.contract_name}}</td>
+                    <td>{{data?.start_date}}</td>
+                    <td>{{data?.end_date}}</td>
+                    <td>{{data?.isStatus}}</td>
+                    <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                    <td>
+                        <div>
+                            <a href={{data.url}} target="_blank" title="下载">
+                       查看合同附件
+                    </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+
+    </div>
+</div>

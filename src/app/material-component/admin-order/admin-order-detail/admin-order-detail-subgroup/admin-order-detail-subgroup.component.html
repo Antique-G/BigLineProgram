@@ -109,7 +109,9 @@
                                         <thead>
                                             <tr>
                                                 <th>姓名</th>
+                                                <th>英文名</th>
                                                 <th>类型</th>
+                                                <th>性别</th>
                                                 <th>出生日期</th>
                                                 <th>联系方式</th>
                                                 <th>拼房类型</th>
@@ -122,10 +124,15 @@
                                         <tbody>
                                             <tr *ngFor="let dataChild of innerTable.data">
                                                 <td style="width: 8%;">{{ dataChild.name }}</td>
-                                                <td style="width: 9%;">
+                                                <td style="width: 8%;">{{ dataChild.eng_name }}</td>
+                                                <td style="width: 8%;">
                                                     <span *ngIf="dataChild.is_kid===0">成人</span>
                                                     <span *ngIf="dataChild.is_kid===1">儿童</span>
                                                     <span *ngIf="dataChild.is_kid===2">婴儿</span>
+                                                </td>
+                                                <td style="width: 8%;">
+                                                    <span *ngIf="dataChild.gender===1">男</span>
+                                                    <span *ngIf="dataChild.gender===2">女</span>
                                                 </td>
                                                 <td style="width: 9%;">{{dataChild.birthday}}</td>
                                                 <td style="width: 10%;">{{dataChild.phone}}</td>

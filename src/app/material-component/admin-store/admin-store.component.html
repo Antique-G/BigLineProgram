@@ -18,6 +18,17 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="认证状态" formControlName="is_approve">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>未认证</mat-option>
+                                        <mat-option value=1>待审核</mat-option>
+                                        <mat-option value=2>已通过</mat-option>
+                                        <mat-option value=3>未通过</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                             <div fxFlex=50>
                                 <mat-form-field>
                                     <mat-label>商户名/商铺编码/联系人/联系人手机号/座机号</mat-label>
@@ -48,9 +59,7 @@
                                     <th style="text-align: center;">座机号码</th>
                                     <th style="text-align: center;">传真</th>
                                     <th style="text-align: center;">状态</th>
-                                    <th style="text-align: center;">店铺账号管理</th>
-                                    <th style="text-align: center;">店铺银行账号管理</th>
-                                    <th style="text-align: center;">合同管理</th>
+                                    <th style="text-align: center;">认证状态</th>
                                     <th style="text-align: center;">操作</th>
 
                                 </tr>
@@ -67,37 +76,45 @@
                                     <td>{{data.phone}}</td>
                                     <td>{{data.fax}}</td>
                                     <td>
-                                        <div *ngIf="data.status===0">
-                                            暂停
-                                        </div>
-                                        <div *ngIf="data.status===1">
-                                            正常
-                                        </div>
+                                        <div *ngIf="data.status===0">暂停</div>
+                                        <div *ngIf="data.status===1">正常</div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="account(data)" title="账号详情">
-
-                                            <img src="http://cdn.bigline.com.cn/static/images/account.png">
-                                        </div>
+                                        <div *ngIf="data.is_approve===0">未认证</div>
+                                        <div *ngIf="data.is_approve===1">待审核</div>
+                                        <div *ngIf="data.is_approve===2">已通过</div>
+                                        <div *ngIf="data.is_approve===3">未通过</div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="bankAccount(data)" title="银行账号详情">
+                                        <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="certifi(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/certifi.png" title="编辑"> 查看详情&审核认证
+                                                </li>
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
+                                                </li>
+                                                <li nz-menu-item (click)="account(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/account.png" title="账号详情"> 店铺账号管理
+                                                </li>
 
-                                            <img src="http://cdn.bigline.com.cn/static/images/account.png">
-                                        </div>
+                                                <li nz-menu-item (click)="bankAccount(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/account.png" title="银行账号详情"> 店铺银行账号管理
+                                                </li>
+                                                <li nz-menu-item (click)="file(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/file.png" title="合同管理"> 合同管理
+                                                </li>
+                                                <li nz-menu-item (click)="setMoney(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="抽佣设置"> 抽佣设置
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
                                     </td>
-                                    <td>
-                                        <div style="cursor: pointer;" (click)="file(data)" title="合同管理">
 
-                                            <img src="http://cdn.bigline.com.cn/static/images/file.png">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)" title="更新">
-
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
-                                        </div>
-                                    </td>
                                 </tr>
                             </tbody>
                         </nz-table>

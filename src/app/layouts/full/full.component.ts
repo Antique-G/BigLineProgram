@@ -8,6 +8,7 @@ import { AdminAdminService } from '../../../services/admin/admin-admin.service';
 import { StoreLoginService } from '../../../services/store/store-login/store-login.service';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { AdminChangePasswordComponent } from '../../../app/material-component/admin/admin-change-password/admin-change-password.component';
+import { StoreApplyService } from '../../../services/store/store-apply/store-apply.service';
 
 
 // 面包屑
@@ -32,21 +33,22 @@ export class FullComponent implements OnInit {
   public pathName: any;
   userName: any;
   mobile: any;
+  // 认证
+  is_approve = 0;
 
 
 
   constructor(public menuItems: MenuItems, private modal: NzModalService,
     public router: Router, private activatedRoute: ActivatedRoute,
     public adminLoginService: AdminLoginService, public adminAdminService: AdminAdminService,
-    public storeLoginService: StoreLoginService) {
+    public storeLoginService: StoreLoginService, public storeApplyService: StoreApplyService) {
     this.breadcrumbs = [];
   }
 
   ngOnInit(): void {
     const root: ActivatedRoute = this.activatedRoute.root;
-    // console.log('初始化和刷新路由时', root);
     this.breadcrumbs = this.getBreadcrumbs(root);
-    // console.log('url地址123', location)
+  
     this.pathName = (location.pathname).slice(1, 6);
     this.userName = localStorage.getItem("account");
     this.mobile = localStorage.getItem("mobile");
@@ -56,6 +58,15 @@ export class FullComponent implements OnInit {
       // console.log('切换路由后', root);
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
+
+    console.log('this.pathName111111 :>> ', this.pathName);
+    if (this.pathName === 'store') {
+      // 认证状态
+      this.storeApplyService.storeDetail().subscribe(res => {
+        this.is_approve = Number(res?.store?.is_approve);
+      })
+    }
+
 
   }
 

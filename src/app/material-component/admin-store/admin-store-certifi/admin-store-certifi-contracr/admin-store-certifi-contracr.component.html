@@ -1,0 +1,90 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <div class="textForm">
+                合同格式后缀支持pdf格式,上传pdf大小建议10M以下。
+            </div>
+            <div>
+                <form nz-form [formGroup]="addForm">
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date" nzRequired>合同签订日期</nz-form-label>
+                            <nz-form-control [nzSm]="5" [nzXs]="24">
+                                <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="start_date"></nz-range-picker>
+                            </nz-form-control>
+                            <p style="font-size: 12px;color: red;letter-spacing: 1px;">合同签订日期必须与上传的合同附件签订日期一致</p>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传合同</nz-form-label>
+                            <nz-form-control [nzSm]="10" [nzXs]="24">
+                                <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="accept" [nzSize]="10240" [(nzFileList)]="fileList" [nzLimit]='1' [nzRemove]="removeImg">
+                                    <div>
+                                        <button nz-button>
+                                    <span><i nz-icon nzType="upload"></i> 选择文件</span>
+                                  </button>
+                                    </div>
+                                </nz-upload>
+                            </nz-form-control>
+                        </div>
+
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contract_name" nzRequired>合同名称</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入合同名称">
+                                <input nz-input formControlName="contract_name" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <div style="margin-left: 272px;">
+                        <button nz-button nzType="primary" (click)="add()" [nzLoading]="isLoadingBtn">保存合同</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="mat-elevation-z8">
+                <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                    [nzTitle]="'签订合同记录'" (nzPageSizeChange)="changePageSize($event)">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">店铺名称</th>
+                            <th style="text-align: center;">合同名称</th>
+                            <th style="text-align: center;">合同开始日期</th>
+                            <th style="text-align: center;">合同结束日期</th>
+                            <th style="text-align: center;">状态</th>
+                            <th style="text-align: center;">上传时间</th>
+                            <th style="text-align: center;">上传人</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{data?.store?.name}}</td>
+                            <td>{{data?.contract_name}}</td>
+                            <td>{{data?.start_date}}</td>
+                            <td>{{data?.end_date}}</td>
+                            <td>{{data?.isStatus}}</td>
+                            <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                            <td>{{data?.admin?.account}}</td>
+                            <td>
+                                <div>
+                                    <a href={{data.url}} target="_blank" title="下载">
+                               查看合同附件
+                            </a>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </nz-table>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StoreUpdateRequestModel, StoreDetailModel } from '../../../../interfaces/adminStore/admin-store-model';
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { format } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 
 
 @Component({
@@ -12,6 +14,9 @@ import { AdminRegionService } from '../../../../services/admin/admin-region.serv
   styleUrls: ['./admin-store-detail.component.css']
 })
 export class AdminStoreDetailComponent implements OnInit {
+  @Input() data: any;
+
+
   // 区域联动
   nzOptions: any[] | null = null;
   values: any[] = [];
@@ -21,7 +26,7 @@ export class AdminStoreDetailComponent implements OnInit {
   addForm!: FormGroup;
   status = '1';
 
-  storeDetailModel: StoreDetailModel;
+  storeDetailModel!: StoreDetailModel;
   storeUpdateRequestModel: StoreUpdateRequestModel;
 
   validationMessage: any = {
@@ -50,18 +55,40 @@ export class AdminStoreDetailComponent implements OnInit {
   };
 
 
-  constructor(public dialogRef: MatDialogRef<AdminStoreDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder,
+  // 选择了周几
+  weekValue: any[] = [1, 2, 3, 4, 5, 6, 0];
+  // 选择周几
+  checkWeeks = [
+    { label: '周一', value: 1, checked: false },
+    { label: '周二', value: 2, checked: false },
+    { label: '周三', value: 3, checked: false },
+    { label: '周四', value: 4, checked: false },
+    { label: '周五', value: 5, checked: false },
+    { label: '周六', value: 6, checked: false },
+    { label: '周日', value: 0, checked: false },
+  ]
+  time1: any;
+  time2: any;
+  HourArr1: any;
+  HourArr2: any;
+
+
+
+  constructor(public fb: FormBuilder,private msg: NzMessageService,
     public adminRegionService: AdminRegionService, public adminStoreService: AdminStoreService) {
-    this.storeDetailModel = this.data;
-    this.forms();
-
-    const str = this.storeDetailModel.region_code;
-    for (let i = 0; i < str.length / 4; i++) {
-      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
-      this.values.push(temp);
-    }
-    console.log("111", this.values);    //区域
-
+    this.addForm = this.fb.group({
+      name: ['', [Validators.required]],
+      regionCode: ['', [Validators.required]],
+      address: ['',],
+      fax: ['',],
+      phone: ['',],
+      status: ['', [Validators.required]],
+      contact: ['', [Validators.required]],
+      mobile: ['', [Validators.required]],
+      week: ['', [Validators.required]],
+      date1: [null, [Validators.required]],
+      date2: [null, [Validators.required]],
+    });
     this.storeUpdateRequestModel = {
       name: '',
       region_code: '',
@@ -71,65 +98,62 @@ export class AdminStoreDetailComponent implements OnInit {
       status: 0,
       contact: '',
       mobile: '',
+      work_date: '',
+      work_time: '',
     }
 
   }
 
 
-
-  forms() {
-    this.addForm = this.fb.group({
-      name: [this.storeDetailModel.name, [Validators.required]],
-      regionCode: [this.storeDetailModel.region_code, [Validators.required]],
-      address: [this.storeDetailModel.address?this.storeDetailModel.address:''],
-      fax: [this.storeDetailModel.fax],
-      phone: [this.storeDetailModel.phone],
-      status: [this.storeDetailModel.status, [Validators.required]],
-      contact: [this.storeDetailModel.contact, [Validators.required]],
-      mobile: [this.storeDetailModel.mobile, [Validators.required]],
-    });
-    // 每次表单数据发生变化的时候更新错误信息
-    this.addForm.valueChanges.subscribe(data => {
-      this.onValueChanged(data);
-    });
-    // 初始化错误信息
-    this.onValueChanged();
-  }
-
-  // 表单验证
-  onValueChanged(data?: any) {
-    // 如果表单不存在则返回
-    if (!this.addForm) return;
-    // 获取当前的表单
-    const form = this.addForm;
-    // 遍历错误消息对象
-    for (const field in this.formErrors) {
-      // 清空当前的错误消息
-      this.formErrors[field] = '';
-      // 获取当前表单的控件
-      const control: any = form.get(field);
-      // 当前表单存在此空间控件 && 此控件没有被修改 && 此控件验证不通过
-      if (control && !control.valid) {
-        // 获取验证不通过的控件名，为了获取更详细的不通过信息
-        const messages = this.validationMessage[field];
-        // 遍历当前控件的错误对象，获取到验证不通过的属性
-        for (const key in control.errors) {
-          // 把所有验证不通过项的说明文字拼接成错误消息
-          this.formErrors[field] = messages[key];
-        }
-      }
-    }
-  }
 
 
   ngOnInit(): void {
+    this.storeDetailModel = this.data;
+    console.log("111", this.values);    //区域
     this.adminRegionService.getAllRegionList().subscribe(res => {
       console.log("结果是", res);
       this.nzOptions = res;
+      if (this.storeDetailModel.work_date != '') {
+        this.weekValue = eval('(' + this.storeDetailModel?.work_date + ')');
+        console.log('this.weekValue111111 ', this.weekValue);
+        this.checkWeeks.forEach((item: any, index: any) => {
+          if (this.weekValue.includes(item.value)) {
+            item.checked = true;
+          }
+          else {
+            item.checked = false;
+          }
+        });
+      }
+      else {
+        this.checkWeeks.forEach((element: any) => {
+          element.checked = false;
+        });
+      }
+    
     })
 
-  }
+    if (this.storeDetailModel.work_time != '') {
+      console.log('object :>> ', this.storeDetailModel.work_time);
+      let arr = this.storeDetailModel.work_time.split("-");
+      console.log('arr :>> ', arr);
+      let time11 = '2021-01-01' + ' ' + arr[0];
+      this.time1 = new Date(time11);
+      let time22 = '2021-01-01' + ' ' + arr[1];
+      this.time2 = new Date(time22);
+    }
+    else {
+      this.time1 = new Date();
+      this.time2 = new Date();
+    }
 
+    const str = this.storeDetailModel.region_code;
+    for (let i = 0; i < str.length / 4; i++) {
+      let temp = this.values[i] || '' + str.substr(0, 4 * (i + 1))
+      this.values.push(temp);
+    }
+
+  }
 
 
   setValue() {
@@ -141,6 +165,9 @@ export class AdminStoreDetailComponent implements OnInit {
     this.storeUpdateRequestModel.status = this.addForm.value.status;
     this.storeUpdateRequestModel.contact = this.addForm.value.contact;
     this.storeUpdateRequestModel.mobile = this.addForm.value.mobile;
+    this.storeUpdateRequestModel.work_date = this.weekValue;
+    this.storeUpdateRequestModel.work_time = format(new Date(this.addForm.value.date1), 'HH:mm') + '-' + format(new Date(this.addForm.value.date2), 'HH:mm');
+ 
   }
 
 
@@ -151,27 +178,32 @@ export class AdminStoreDetailComponent implements OnInit {
       this.addForm.controls[i].updateValueAndValidity();
     }
     if (this.addForm.valid) {
-
-      this.storeUpdateRequestModel.store_id = this.storeDetailModel.store_id;
-      this.storeUpdateRequestModel.region_code = this.idRegion;
-      console.log("提交的model是什么", this.storeUpdateRequestModel);
-      this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
-        console.log("res结果", res);
-        if (res.message) {
-          // alert("更新成功");
-          this.dialogRef.close(1);
-        }
-        else {
-          // alert("更新失败")
-        }
-      })
+      this.HourArr1 = format(new Date(this.addForm.value.date1), 'HH');
+      this.HourArr2 = format(new Date(this.addForm.value.date2), 'HH');
+      if (Number(this.HourArr2) < Number(this.HourArr1)) {
+        this.msg.error('时间选择错误，请重新选择时间');
+      }
+      else{
+        this.storeUpdateRequestModel.store_id = this.storeDetailModel.store_id;
+        this.storeUpdateRequestModel.region_code = this.idRegion;
+        console.log("提交的model是什么", this.storeUpdateRequestModel);
+        this.adminStoreService.updateStore(this.storeUpdateRequestModel).subscribe(res => {
+          console.log("res结果", res);
+          if (res.message) {
+            // alert("更新成功");
+  
+          }
+          else {
+            // alert("更新失败")
+          }
+        })
+      }
+    
     }
   }
 
 
-  close(): void {
-    this.dialogRef.close();
-  }
+
 
   onChanges(values: any): void {
     console.log("点击的结果是", values);
@@ -182,4 +214,19 @@ export class AdminStoreDetailComponent implements OnInit {
   }
 
 
+
+  ngCheckBoxChange(value: object[]): void {
+    let a: any;
+    a = value;
+    let i: any[] = [];
+    a.forEach((element: any) => {
+      console.log('11111111 :>> ', element);
+      if (element['checked'] === true) {
+        i.push(element['value'])
+      }
+    })
+    this.weekValue = i;
+    console.log('11111111111', value, this.weekValue);
+
+  }
 }

@@ -161,6 +161,8 @@ export interface MemberDetailModel {
   id_type: number;
   id_num: string;
   sms_status: number;
+  eng_name: string;
+  gender:any
   // member.sms_status:number;
 }
 

@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { StoreBankAccountRequestModel } from '../../../../interfaces/adminStoreBankAccount/admin-store-bank-account-model';
 import { AdminStoreBankAccountService } from '../../../../services/admin/admin-store-bank-account.service';
 
@@ -55,7 +54,7 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminStoreBankAccountCreateComponent>,
+  constructor(public fb: FormBuilder,
     public adminStoreBankAccountService: AdminStoreBankAccountService,
     public activatedRoute: ActivatedRoute,) {
     this.forms();
@@ -119,7 +118,8 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.store_id = JSON.parse(params["id"]);
+      this.store_id = params?.id;
+
     });
   }
 
@@ -149,16 +149,12 @@ export class AdminStoreBankAccountCreateComponent implements OnInit {
         }
         else {
           // alert("创建成功");
-          this.dialogRef.close(1);
+       
         }
       })
     }
   }
 
-
-  close(): void {
-    this.dialogRef.close();
-  }
 
 
 }

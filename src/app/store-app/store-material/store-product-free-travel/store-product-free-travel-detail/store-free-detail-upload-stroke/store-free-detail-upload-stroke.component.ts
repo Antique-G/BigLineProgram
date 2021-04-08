@@ -22,7 +22,7 @@ export class StoreFreeDetailUploadStrokeComponent implements OnInit {
     console.log('this.dataDetailModel',this.dataDetailModel)
     this.activatedRoute.queryParams.subscribe(params => {
       console.log('free',params)
-      this.detailId = JSON.parse(params["detailId"]);
+      this.detailId = params?.detailId;
     });
   }
   

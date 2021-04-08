@@ -22,7 +22,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
     this.getProductDetail();
   }

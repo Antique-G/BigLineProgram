@@ -30,7 +30,7 @@ export class StoreProductManagementDetailPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = JSON.parse(params["detailDataId"]);
+      this.detailId = params?.detailDataId;
     });
     console.log("更新", this.dataDetailModel.poster_url);
     if(this.dataDetailModel.poster_url!=""){

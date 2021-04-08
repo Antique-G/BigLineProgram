@@ -163,7 +163,9 @@
                                             <tr>
                                                 <th style="text-align: center;">出行人id</th>
                                                 <th style="text-align: center;">姓名</th>
+                                                <th style="text-align: center;">英文名字</th>
                                                 <th style="text-align: center;">类型</th>
+                                                <th style="text-align: center;">性别</th>
                                                 <th style="text-align: center;">证件类型</th>
                                                 <th style="text-align: center;">证件号码</th>
                                                 <th style="text-align: center;">出生日期</th>
@@ -178,10 +180,15 @@
                                             <tr *ngFor="let data of rowSelectionTable.data">
                                                 <td>{{data.id}}</td>
                                                 <td>{{data.name}}</td>
+                                                <td>{{data.eng_name}}</td>
                                                 <td>
-                                                    <div *ngIf="data.is_kid===0">成人</div>
-                                                    <div *ngIf="data.is_kid===1">儿童</div>
-                                                    <div *ngIf="data.is_kid===2">婴儿</div>
+                                                    <span *ngIf="data.is_kid===0">成人</span>
+                                                    <span *ngIf="data.is_kid===1">儿童</span>
+                                                    <span *ngIf="data.is_kid===2">婴儿</span>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="data.gender===1">男</span>
+                                                    <span *ngIf="data.gender===2">女</span>
                                                 </td>
                                                 <td>
                                                     <div *ngIf="data.id_type===1">身份证</div>

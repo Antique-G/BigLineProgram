@@ -1,0 +1,55 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+
+
+            <div class="example-container">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+                        <mat-tab label="账户基本信息">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certifi-basic-info></app-store-certifi-basic-info>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+                        <mat-tab label="认证资料">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certification-detail (tabIndex)="getTabIndex($event)"></app-store-certification-detail>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+
+                        <mat-tab label="认证进度" [disabled]="is_approve===0">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certifi-progress (tabIndex)="getTabIndex($event)"></app-store-certifi-progress>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+
+                        <mat-tab label="查看合同" [disabled]="is_approve===0">
+                            <ng-template matTabContent>
+                                <div class="content">
+                                    <app-store-certifi-done></app-store-certifi-done>
+                                </div>
+                            </ng-template>
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+
+
+
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

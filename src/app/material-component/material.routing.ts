@@ -46,6 +46,7 @@ import { AdminServicerComponent } from './admin-servicer/admin-servicer.componen
 import { UserMoneyLogListComponent } from './admin-commission/user-money-log-list/user-money-log-list.component';
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
+import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/admin-store-certifi.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -72,6 +73,13 @@ export const MaterialRoutes: Routes = [
         component: AdminStoreComponent,
         data: {
           breadcrumb: '店铺列表'
+        }
+      },
+      {
+        path: 'store/certifi',
+        component: AdminStoreCertifiComponent,
+        data: {
+          breadcrumb: '店铺审核认证'
         }
       },
       {

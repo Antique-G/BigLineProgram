@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminStoreBankAccountService } from '../../../services/admin/admin-store-bank-account.service';
 import { AdminStoreBankAccountCreateComponent } from './admin-store-bank-account-create/admin-store-bank-account-create.component';
 import { AdminStoreBankAccountDetailComponent } from './admin-store-bank-account-detail/admin-store-bank-account-detail.component';
@@ -19,12 +20,14 @@ export class AdminStoreBankAccountComponent implements OnInit {
   loading = false;
   store_id: any;
 
-  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute, public adminStoreBankAccountService: AdminStoreBankAccountService) {
+  constructor(public dialog: MatDialog, public activatedRoute: ActivatedRoute,
+    public modal: NzModalService, public adminStoreBankAccountService: AdminStoreBankAccountService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.store_id = JSON.parse(params["id"]);
+      this.store_id = params?.id;
+
     });
     this.search();
   }
@@ -53,16 +56,23 @@ export class AdminStoreBankAccountComponent implements OnInit {
 
 
   add() {
-    const dialogRef = this.dialog.open(AdminStoreBankAccountCreateComponent, {
-      width: '550px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        if (this.dataSource != []) {
-          this.search();
+    const addmodal = this.modal.create({
+      nzTitle: '添加',
+      nzContent: AdminStoreBankAccountCreateComponent,
+      nzFooter: [
+        {
+          label: '提交',
+          type:'primary',
+          onClick: componentInstance => {
+              componentInstance?.add()
+
+          }
         }
-      }
-    });
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.search();
+    })
   }
 
 

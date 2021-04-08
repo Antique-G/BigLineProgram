@@ -1,0 +1,19 @@
+button {
+    margin-right: 8px;
+}
+
+.textContain {
+    width: 100%;
+    background-color: #fff !important;
+    margin-bottom: 100px;
+}
+
+.ant-divider-horizontal {
+    margin: 16px 0 !important;
+}
+
+.btn {
+    width: 250px;
+    border-radius: 20px;
+    height: 40px;
+}

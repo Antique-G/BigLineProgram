@@ -1,0 +1,57 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+        <div style="padding: 5px;">
+            <form nz-form [formGroup]="addForm">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="contact" nzRequired>联系人</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人姓名">
+                        <input nz-input formControlName="contact" [ngModel]="storeDetailModel?.store?.contact" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="mobile" nzRequired>手机号</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入联系人手机号">
+                        <input nz-input formControlName="mobile" [ngModel]="storeDetailModel?.store?.mobile" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="fax">传真</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="fax" [ngModel]="storeDetailModel?.store?.fax" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="phone">座机</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <input nz-input formControlName="phone" [ngModel]="storeDetailModel?.store?.phone" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="work_time" nzRequired>工作时段</nz-form-label>
+                        <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请选择时间">
+                            <nz-checkbox-group [(ngModel)]="checkWeeks" formControlName="week" (ngModelChange)="ngCheckBoxChange(checkWeeks)"></nz-checkbox-group>
+                        </nz-form-control>
+                    </div>
+                    <div style="margin-left: 195px;">
+                        <nz-form-control [nzSm]="19" [nzXs]="24" nzErrorTip="请选择时间">
+                            <nz-time-picker [(ngModel)]="time1" nzFormat="HH:mm" formControlName="date1"></nz-time-picker>
+                            <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                            <nz-time-picker [(ngModel)]="time2" nzFormat="HH:mm" formControlName="date2"></nz-time-picker>
+                        </nz-form-control>
+                    </div>
+
+                </nz-form-item>
+
+
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
