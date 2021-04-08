@@ -29,7 +29,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
       fee: new FormControl('', [Validators.required]),
       pay_type: new FormControl('', [Validators.required]),
       pay_time: new FormControl(null, [Validators.required]),
-      transaction_id: new FormControl(''),
+      transaction_id: new FormControl('',[Validators.maxLength(35)]),
     })
     this.comfirmOrderModel = {
       order_id: '',
@@ -93,7 +93,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     }
     else {
       this.isShow = true;
-      this?.addForm?.controls['transaction_id'].setValidators(Validators.required);
+      this?.addForm?.controls['transaction_id'].setValidators([Validators.required,Validators.maxLength(35)]);
       this?.addForm?.controls['transaction_id'].updateValueAndValidity();
     }
   }
