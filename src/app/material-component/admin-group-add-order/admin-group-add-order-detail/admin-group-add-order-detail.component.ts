@@ -142,7 +142,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       birthday: new FormControl(null, [Validators.required]),
       assembling_place_id: ['',],
       id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required]),
+      gender: new FormControl(1, [Validators.required]),
       eng_name: new FormControl(''),
     }))
     this.isChangeData.push(false);
@@ -162,6 +162,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       id_num: new FormControl(''),
       birthday: new FormControl(null),
       id_photo: new FormControl(''),
+      gender: new FormControl(1, [Validators.required]),
+      eng_name: new FormControl(''),
     }))
     this.isChangeBabyData.push(false);
     this.newBabyArr.push([]);
@@ -250,7 +252,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       birthday: new FormControl(null, [Validators.required]),
       assembling_place_id: new FormControl('', [Validators.required]),
       id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required]),
+      gender: new FormControl(1, [Validators.required]),
       eng_name: new FormControl(''),
 
     }));
