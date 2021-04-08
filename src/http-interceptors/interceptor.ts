@@ -104,7 +104,7 @@ export class Interceptor implements HttpInterceptor {
                   break
                 }
                 else {
-                  this.createFail(error.message)
+                  this.createFail(error?.error?.message)
                   break;
                 }
 
