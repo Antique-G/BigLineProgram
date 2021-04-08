@@ -115,8 +115,8 @@
                                                         <img [src]="Id1" style="width: 267px;height: 166px;" *ngIf="Id1!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary" (click)="uploadId1()">立即上传</button>
-                                                        <button nz-button nzType="default" (click)="deleteId1()">删除</button>
+                                                        <button mat-raised-button type="button" color="primary" (click)="uploadId1()">立即上传</button>
+                                                        <button mat-raised-button type="button" color="basic" (click)="deleteId1()">删除</button>
                                                     </div>
                                                 </div>
                                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
@@ -127,8 +127,8 @@
                                                         <img [src]="Id2" style="width: 267px;height: 166px;" *ngIf="Id2!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary" (click)="uploadId2()">立即上传</button>
-                                                        <button nz-button nzType="default" (click)="deleteId2()">删除</button>
+                                                        <button mat-raised-button type="button" color="primary" (click)="uploadId2()">立即上传</button>
+                                                        <button mat-raised-button type="button" color="basic" (click)="deleteId2()">删除</button>
                                                     </div>
                                                 </div>
 
@@ -168,8 +168,8 @@
                                                         <img [src]="business_license" style="width: 267px;height: 166px;" *ngIf="business_license!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary" (click)="uploadBusiness_license()">立即上传</button>
-                                                        <button nz-button nzType="default" (click)="deleteBusiness_license()">删除</button>
+                                                        <button mat-raised-button color="primary" type="button" (click)="uploadBusiness_license()">立即上传</button>
+                                                        <button mat-raised-button type="button" color="basic" (click)="deleteBusiness_license()">删除</button>
                                                     </div>
                                                     <div nz-row style="width: 100%;">
                                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
@@ -198,8 +198,8 @@
                                                         <img [src]="travel_agency" style="width: 267px;height: 166px;" *ngIf="travel_agency!=''">
                                                     </div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary" (click)="uploadTravel_agency()">立即上传</button>
-                                                        <button nz-button nzType="default" (click)="deleteTravel_agency()">删除</button>
+                                                        <button mat-raised-button color="primary" type="button" (click)="uploadTravel_agency()">立即上传</button>
+                                                        <button mat-raised-button type="button" color="basic" (click)="deleteTravel_agency()">删除</button>
                                                     </div>
                                                     <div nz-row style="width: 100%;">
                                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
@@ -223,9 +223,9 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>保险单</nz-form-label>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                        <button nz-button nzType="primary" (click)="uploadInsurance()">立即上传</button>
-                                                        <P style="color: red;font-size: 15px;line-height: 32px;">{{insuranceUrl}}</P>
-                                                        <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''" style="line-height: 32px;">预览</a>
+                                                        <button mat-raised-button color="primary" type="button" (click)="uploadInsurance()">立即上传</button>
+                                                        <P style="color: red;font-size: 15px;">{{insuranceUrl}}</P>
+                                                        <a href={{insuranceUrl}} target="_blank" *ngIf="insuranceUrl!=''">预览</a>
                                                     </div>
                                                 </div>
                                                 <div nz-row>
@@ -266,8 +266,8 @@
                                                     <img [src]="bank1" style="width: 267px;height: 166px;" *ngIf="bank1!=''">
                                                 </div>
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                    <button nz-button nzType="primary" (click)="uploadBank1()">立即上传</button>
-                                                    <button nz-button nzType="default" (click)="deleteBank1()">删除</button>
+                                                    <button mat-raised-button color="primary" type="button" (click)="uploadBank1()">立即上传</button>
+                                                    <button mat-raised-button type="button" color="basic" (click)="deleteBank1()">删除</button>
                                                 </div>
                                             </div>
                                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
@@ -278,8 +278,8 @@
                                                     <img [src]="bank2" style="width: 267px;height: 166px;" *ngIf="bank2!=''">
                                                 </div>
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="30px">
-                                                    <button nz-button nzType="primary" (click)="uploadBank2()">立即上传</button>
-                                                    <button nz-button nzType="default" (click)="deleteBank2()">删除</button>
+                                                    <button mat-raised-button color="primary" type="button" (click)="uploadBank2()">立即上传</button>
+                                                    <button mat-raised-button type="button" color="basic" (click)="deleteBank2()">删除</button>
                                                 </div>
                                             </div>
 
@@ -296,9 +296,9 @@
                 </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button class="btn" nz-button nzType="primary" (click)="next()" *ngIf="is_approve===0">提交认证</button>
+                <button class="btn" mat-raised-button color="primary" (click)="next()" *ngIf="is_approve===0">提交认证</button>
                 <button class="btn" nz-button nzType="default" *ngIf="is_approve===1">待审核中</button>
-                <button class="btn" nz-button nzType="primary" (click)="reCommit()" *ngIf="is_approve===2||is_approve===3">重新提交认证</button>
+                <button class="btn" mat-raised-button color="primary" (click)="reCommit()" *ngIf="is_approve===2||is_approve===3">重新提交认证</button>
             </div>
         </div>
     </div>
