@@ -120,6 +120,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">订单号</th>
+                                    <th style="text-align: center;">下单人</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;width: 9%;">产品编码</th>
                                     <th style="text-align: center;width: 12%;">产品名称</th>
@@ -137,6 +138,7 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
+                                    <td>{{data?.bind_account_name}}</td>
                                     <td>{{data.store_name}}</td>
                                     <td>{{data.product_code}}</td>
                                     <td>{{data.product_name}}</td>
