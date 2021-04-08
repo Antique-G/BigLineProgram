@@ -86,6 +86,7 @@ export class StoreCertificationDetailComponent implements OnInit {
   isText: any;
   isShowText = false;
   isShowText1 = false;
+  isLoadingBtn = false;
 
 
 
@@ -97,7 +98,7 @@ export class StoreCertificationDetailComponent implements OnInit {
     this.certificationForm = this.fb.group({
       supplier_name: [''],
       legal_person: ['', [Validators.required]],
-      id_num: ['', [Validators.required,id_num]],
+      id_num: ['', [Validators.required, id_num]],
       taxpayer_num: ['', [Validators.required]],
       bank_type: ['', [Validators.required]],
       bank_open: ['', [Validators.required]],
@@ -256,17 +257,22 @@ export class StoreCertificationDetailComponent implements OnInit {
         && this.storeApplyCertifiModel.travel_agency != '' && this.storeApplyCertifiModel.business_license != ''
         && this.storeApplyCertifiModel.id_card_reverse != '' && this.storeApplyCertifiModel.id_card_front != '') {
         console.log('提交的', this.storeApplyCertifiModel);
+        this.isLoadingBtn = true;
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
             this.tabIndex.emit({ tabIndex: 2 })
             localStorage.setItem('storeApprove', '1');
             localStorage.setItem("loginApprove", '1');
+            this.isLoadingBtn = false;
           }
           else {
 
           }
-        })
+        },
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
       else {
         this.msg.error('请选择上传文件')
@@ -444,16 +450,21 @@ export class StoreCertificationDetailComponent implements OnInit {
         && this.storeApplyCertifiModel.travel_agency != '' && this.storeApplyCertifiModel.business_license != ''
         && this.storeApplyCertifiModel.id_card_reverse != '' && this.storeApplyCertifiModel.id_card_front != '') {
         console.log('提交的', this.storeApplyCertifiModel);
+        this.isLoadingBtn = true;
         this.storeApplyService.storeApproveDetail(this.storeApplyCertifiModel).subscribe(res => {
           console.log('res :>> ', res);
           if (res?.message) {
             localStorage.setItem('storeApprove', '1');
             localStorage.setItem("loginApprove", '1');
+            this.isLoadingBtn = false;
             window.location.reload();
           }
           else {
 
           }
+        },
+        error => {
+          this.isLoadingBtn = false;
         })
       }
       else {
