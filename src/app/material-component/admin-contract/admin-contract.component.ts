@@ -42,6 +42,11 @@ export class AdminContractComponent implements OnInit {
   getStoreContract() {
     this.adminContractService.getContract(this.page, this.per_page, this.contract_name, this.store_id).subscribe(res => {
       console.log("结果是", res)
+      res?.data.forEach((element: any) => {
+        element['isStatus'] = '';
+        element.isStatus =  this.nowInDateBetwen(element.start_date, element.end_date, element.isStatus);
+        console.log('element.isStatus :>> ', element.isStatus);
+      });
       this.dataSource = res?.data;
       this.total = res.total;
       this.loading = false;
@@ -102,5 +107,30 @@ export class AdminContractComponent implements OnInit {
       this.getStoreContract();
     })
 
+  }
+
+
+
+  
+  // 判断时间是否为有效期内
+  nowInDateBetwen(d1: any, d2: any, isData: any) {
+    let dateBegin = new Date(d1);//将-转化为/，使用new Date
+    let dateEnd = new Date(d2);//将-转化为/，使用new Date
+    let dateNow = new Date();//获取当前时间
+
+    let beginDiff = dateNow.getTime() - dateBegin.getTime();//时间差的毫秒数       
+    let beginDayDiff = Math.floor(beginDiff / (24 * 3600 * 1000));//计算出相差天数
+
+    let endDiff = dateEnd.getTime() - dateNow.getTime();//时间差的毫秒数
+    let endDayDiff = Math.floor(endDiff / (24 * 3600 * 1000));//计算出相差天数       
+    console.log('1111', endDayDiff, beginDayDiff);
+    if (endDayDiff > 0) {
+      isData = '正常';
+      return isData
+    }
+    else if (beginDayDiff > 0) {
+      isData = '过期';
+      return isData
+    }
   }
 }
