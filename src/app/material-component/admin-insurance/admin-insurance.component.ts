@@ -22,7 +22,7 @@ export class AdminInsuranceComponent implements OnInit {
   status: any;
 
   constructor(
-    public fb: FormBuilder,public adminInsuranceService: AdminInsuranceService, private modal: NzModalService ) {
+    public fb: FormBuilder, public adminInsuranceService: AdminInsuranceService, private modal: NzModalService) {
     this.searchForm = fb.group({
       status: [""],
       name: [""],
@@ -32,28 +32,31 @@ export class AdminInsuranceComponent implements OnInit {
   ngOnInit(): void {
     this.getDataList();
   }
+
+
   //保险列表
   getDataList(): void {
     this.loading = true;
-    this.adminInsuranceService
-      .insuranceList(this.page, this.per_page, this.name, this.status)
-      .subscribe((result: any) => {
+    this.adminInsuranceService.insuranceList(this.page, this.per_page, this.name, this.status).subscribe((result: any) => {
         console.log("保险列表接口返回什么", result);
         this.loading = false;
         this.total = result.total;
         this.dataSource = result.data;
       });
   }
+
   changePageIndex(page: number) {
     console.log("aaa", page);
     this.page = page;
     this.getDataList();
   }
+
   changePageSize(per_page: number) {
     console.log("bbb", per_page);
     this.per_page = per_page;
     this.getDataList();
   }
+  
   search() {
     this.name = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
@@ -66,6 +69,7 @@ export class AdminInsuranceComponent implements OnInit {
     const editmodal = this.modal.create({
       nzTitle: "更新保险",
       nzContent: AdminInsuranceDetailComponent,
+      nzWidth:800,
       nzComponentParams: {
         data: element,
       },
@@ -86,9 +90,7 @@ export class AdminInsuranceComponent implements OnInit {
 
   statusEdit(element: any): void {
     console.log("id", element);
-    this.adminInsuranceService
-      .getAdminInsuranceDetail(element.id)
-      .subscribe((res) => {
+    this.adminInsuranceService .getAdminInsuranceDetail(element.id).subscribe((res) => {
         const statusmodal = this.modal.create({
           nzTitle: "修改保险状态",
           nzContent: AdminInsuranceStatusComponent,
@@ -106,9 +108,10 @@ export class AdminInsuranceComponent implements OnInit {
   }
 
   add() {
-      const addModal = this.modal.create({
+    const addModal = this.modal.create({
       nzTitle: "添加保险",
       nzContent: AdminInsuranceCreateComponent,
+      nzWidth:800,
       nzFooter: [
         {
           label: "添加",

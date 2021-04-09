@@ -1,38 +1,73 @@
 <div fxLayoutWrap="wrap">
     <div style="padding:  5px;">
-      <form nz-form [formGroup]="validateForm">
-          <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>保险名称</nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
-                  <input nz-input formControlName="name" placeholder="请输入保险名称！" />
-              </nz-form-control>
-          </nz-form-item>
-          <nz-form-item style="margin-bottom: 0px;">
-              <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="phone">保险价格 </nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24" >
-                  <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index" >
-                      <nz-form-control [nzSm]="24" [nzXs]="24" style="height:56px ;" nzErrorTip="请输入大于0且最多两位小数的数字！">
-                          <ng-template #prefix>
-                              <span>第{{dateIndex+1}}天</span>
-                          </ng-template>
-                          <nz-input-group [nzAddOnBefore]="prefix" nzPrefix="￥" [nzAddOnAfter]="suffixIconButton">
-                              <input nz-input placeholder="请输入保险价格！" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" [formControlName]="dateIndex"/>
-                          </nz-input-group>
-                          <ng-template #suffixIconButton >
-                              <i nz-icon nzType="minus" style="cursor: pointer;" (click)="remove(dateIndex)"></i>
-                          </ng-template>
-                      </nz-form-control>
-                  </nz-row>
-              </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-              <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 14, offset: 6 }">
-                <button nz-button nzType="dashed" class="add-button" (click)="add()">
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code" nzRequired>保险产品方案代码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.code">
+                    <input nz-input formControlName="code" placeholder="请输入保险产品方案代码！" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>保险名称</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
+                    <input nz-input formControlName="name" placeholder="请输入保险名称！" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">保险价格 </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index">
+                        <nz-form-control [nzSm]="24" [nzXs]="24" style="height:42px ;" nzErrorTip="请输入大于0且最多两位小数的数字！">
+                            <ng-template #prefix>
+                                <span>第{{dateIndex+1}}天</span>
+                            </ng-template>
+                            <nz-input-group [nzAddOnBefore]="prefix" nzPrefix="￥" [nzAddOnAfter]="suffixIconButton">
+                                <input nz-input placeholder="请输入保险价格！" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" [formControlName]="dateIndex" />
+                            </nz-input-group>
+                            <ng-template #suffixIconButton>
+                                <i nz-icon nzType="minus" style="cursor: pointer;" (click)="remove(dateIndex)"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-row>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 14, offset: 6 }">
+                    <button nz-button nzType="dashed" class="add-button" (click)="add()">
                   <i nz-icon nzType="plus"></i>
                   添加更多
                 </button>
                 </nz-form-control>
             </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_amount" nzRequired>保额</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.insurance_amount">
+                    <nz-input-number style=" width: 100%;" formControlName="insurance_amount"></nz-input-number>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="article" nzRequired>保险条款</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.article">
+                    <textarea nz-input formControlName="article" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group [(ngModel)]="status" formControlName="status">
+                        <label nz-radio nzValue='0'>禁用</label>
+                        <label nz-radio nzValue='1'>启用</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
         </form>
     </div>
 </div>
