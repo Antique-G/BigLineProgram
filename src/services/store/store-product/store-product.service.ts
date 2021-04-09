@@ -6,6 +6,7 @@ import { StoreUrls } from '../../../api';
 import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel, AddProductTrip, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
+import { AdminInsuranceListResponseModel } from '../../../interfaces/adminInsurance/admin-insurance-model';
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -193,6 +194,24 @@ export class StoreProductService {
   // 佣金
   setReward(setRewardModel: SetRewardModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreProductReward, setRewardModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
+  // 获取保险
+  insuranceList(page: number, per_page: number, status: any): Observable<AdminInsuranceListResponseModel> {
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<AdminInsuranceListResponseModel>(this.urls.GetStoreInsuranceList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
