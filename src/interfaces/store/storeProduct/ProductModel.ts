@@ -19,6 +19,8 @@ export interface AddStoreProductModel {
   reserve_ahead: number;
   step?: any;
   id?: any;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 // 返回
@@ -96,6 +98,8 @@ export interface DataModel {
   tag: Tag;
   album: Productalbum;
   product_trip: Producttrip;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 interface Producttrip {
@@ -197,6 +201,8 @@ export interface DatumListModel {
   third_reward?: any;
   store_reward?: any;
   dist_reward?: any;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 
@@ -236,6 +242,8 @@ export interface DetailModel {
   notice: string;
   status: number;
   tag_id: number[];
+  insurance_base?: any;
+  insurance_extra?: any;
 
 }
 
