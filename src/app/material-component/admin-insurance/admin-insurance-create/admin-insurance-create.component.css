@@ -5,21 +5,21 @@
     font-size: 24px;
     color: #999;
     transition: all 0.3s;
-  }
+}
 
-  .dynamic-delete-button:hover {
+.dynamic-delete-button:hover {
     color: #777;
-  }
+}
 
-  .passenger-input {
+.passenger-input {
     width: 60%;
     margin-right: 8px;
-  }
+}
 
-  [nz-form] {
-    max-width: 600px;
-  }
-
-  .add-button {
+.add-button {
     width: 60%;
-  }
+}
+
+.ant-form-item {
+    margin: 0 0 15px !important;
+}
