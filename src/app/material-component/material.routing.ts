@@ -47,6 +47,8 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
 import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/admin-store-certifi.component';
+import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
+import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -194,6 +196,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '跟团游订单列表'
         }
       },
+        // 注销
       {
         path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
         component: AdminOrderGroupOrderComponent,
@@ -201,6 +204,8 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单内容'
         }
       },
+
+
       {
         path: 'groupTravelOrder/detail',
         component: AdminOrderGroupTravelDetailComponent,
@@ -240,6 +245,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '自由行订单详情'
         }
       },
+      // 注销
       {
         path: 'freeTravelOrder/order',
         component: AOFreetravelOrderComponent,
@@ -247,6 +253,23 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单内容'
         }
       },
+
+
+      {
+        path: 'addFreeOrder',
+        component: AdminFreeTravelAddOrderComponent,
+        data: {
+          breadcrumb: '添加自由行订单'
+        }
+      },
+      {
+        path: 'addFreeOrder/add',
+        component: AdminFreeTravelAddOrderDetailComponent,
+        data: {
+          breadcrumb: '添加订单'
+        }
+      },
+
       {
         path: 'refund',
         component: AdminOrderRefundComponent,
