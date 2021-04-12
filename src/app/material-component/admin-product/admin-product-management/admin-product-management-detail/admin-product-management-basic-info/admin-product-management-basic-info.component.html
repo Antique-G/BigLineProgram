@@ -107,6 +107,37 @@
                                         </div>
                                     </nz-form-item>
 
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === 1">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_base" nzRequired>基础保险</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择启航基础保险！">
+                                                <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="insurance_base" (ngModelChange)="changeInsuranceBase($event)">
+                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzLabel]="insurance?.name" [nzValue]="insurance">
+                                                    </nz-option>
+                                                </nz-select>
+                                            </nz-form-control>
+                                        </div>
+                                        <p style="margin-left: 25%;color: #1890FF;margin-top: 3px;cursor: pointer;" (click)="baseInsDetail()" *ngIf="baseInsuranceName!=null">查看“{{baseInsuranceName}}”详情</p>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === 1">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_extra">额外保险</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
+                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzLabel]="insurance?.name" [nzValue]="insurance">
+                                                    </nz-option>
+                                                </nz-select>
+                                            </nz-form-control>
+                                        </div>
+                                        <div style="margin-left: 20%;color: #1890FF;margin-top: 3px;">
+                                            <ul>
+                                                <li *ngFor="let ins of extraInsurance"><a (click)="extraInsDetail(ins.id)">查看“{{ins.name}}”详情</a></li>
+                                            </ul>
+                                        </div>
+                                    </nz-form-item>
+
+
                                 </form>
                             </nz-spin>
                         </div>
