@@ -11,6 +11,7 @@ import { StoreProductService } from '../../../../../../services/store/store-prod
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
+import { StoreInsuranceDetailComponent } from './store-insurance-detail/store-insurance-detail.component';
 
 
 @Component({
@@ -347,7 +348,27 @@ export class StoreProductInfoComponent implements OnInit {
 
   baseInsDetail() {
     this.storeProductService.getInsuranceDetail(this.baseInsuranceId).subscribe(res => {
-      console.log('结果是 :>> ', res);
+      console.log('结果是 :>> ', res?.data);
+      const editmodal = this.modal.create({
+        nzTitle: '保险信息',
+        nzWidth:800,
+        nzContent: StoreInsuranceDetailComponent,
+        nzComponentParams: {
+          data: res.data
+        },
+        nzFooter: [
+          {
+            label: '知道了',
+            type:'primary',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+       
+      })
     })
   }
 
@@ -370,6 +391,26 @@ export class StoreProductInfoComponent implements OnInit {
     console.log("event", event);
     this.storeProductService.getInsuranceDetail(event).subscribe(res => {
       console.log('结果是 :>> ', res);
+      const editmodal = this.modal.create({
+        nzTitle: '保险信息',
+        nzWidth:800,
+        nzContent: StoreInsuranceDetailComponent,
+        nzComponentParams: {
+          data: res.data
+        },
+        nzFooter: [
+          {
+            label: '知道了',
+            type:'primary',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+       
+      })
     })
   }
 
