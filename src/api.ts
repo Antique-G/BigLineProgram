@@ -11,6 +11,8 @@ export const AdminUrls = {
   AdminLogout: api + '/admin/logout',  //管理后台登出接口
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
 
+  GetAdminPermissionList: api + '/admin/permission',    //权限列表
+
 
 
   PostAdminApproveCheck: api + '/admin/approve_check/', // 供应商的认证审核
