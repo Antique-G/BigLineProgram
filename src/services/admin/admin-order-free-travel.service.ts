@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Details, freeProModel, StoreOrderFreeTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { Details, freeProModel, FreeProSearchModel, StoreOrderFreeTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { OrderGroupProduct, OrderTotalModel, ProModel } from '../..//interfaces/store/storeOrder/store-order-group-travel-model';
@@ -85,6 +85,28 @@ export class AdminOrderFreeTravelService {
   }
 
 
+  // 搜索可下订单的产品
+  getFreePro(page: number, per_page: number, title: any, start_date: any, departure_city: any,
+    destination_city: any, few_days: any, sort_field?: any, sort?: any): Observable<FreeProSearchModel> {
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('title', title ? title : '')
+      .set('start_date', start_date ? start_date : '')
+      .set('departure_city', departure_city ? departure_city : '')
+      .set('destination_city', destination_city ? destination_city : '')
+      .set('few_days', few_days ? few_days : '')
+      .set('sort_field', sort_field ? sort_field : '')
+      .set('sort', sort ? sort : '');
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<FreeProSearchModel>(this.urls.GetAdminOrderfreeIndentSearch, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   // 订单统计
   getIndenOrderTotal(status: any, product_id: any, product_name: any, order_number: any,

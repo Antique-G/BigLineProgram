@@ -13,7 +13,7 @@
                             </div>
                         </nz-form-item>
 
-                        <!-- <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date">出发日期</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -38,7 +38,7 @@
                                     <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择目的城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdestinationCity($event)" formControlName="destination_city"></nz-cascader>
                                 </nz-form-control>
                             </div>
-                        </nz-form-item> -->
+                        </nz-form-item>
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
@@ -63,12 +63,19 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">id</th>
-                                    <th style="text-align: center; width: 15%;">产品名称</th>
+                                    <th style="text-align: center;">产品id</th>
                                     <th style="text-align: center;">产品编码</th>
-                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center; width: 15%;">产品名称</th>
                                     <th style="text-align: center;">行程天数</th>
-                                    <th style="text-align: center;">最低价格</th>
+                                    <th style="text-align: center;">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div>最低价格</div>
+                                            <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-left: 10px;">
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-up" nzTheme="outline" title="最低价格从高到低" (click)="sortDesc()"></i>
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-down" nzTheme="outline" title="最低价格从低到高" (click)="sortAsc()"></i>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">海报</th>
@@ -78,9 +85,8 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
-                                    <td>{{data.title}}</td>
                                     <td>{{data.code}}</td>
-                                    <td>{{data?.store?.name}}</td>
+                                    <td>{{data.title}}</td>
                                     <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                     <td>
                                         <div *ngIf="data.min_price===0"> - </div>
