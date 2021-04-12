@@ -49,6 +49,7 @@ import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin
 import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/admin-store-certifi.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
+import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -61,6 +62,13 @@ export const MaterialRoutes: Routes = [
         component: AdminComponent,
         data: {
           breadcrumb: '管理员账号列表'
+        }
+      },
+      {
+        path: 'adminPermission',
+        component: AdminPermissionComponent,
+        data: {
+          breadcrumb: '管理权限列表'
         }
       },
       {
