@@ -146,6 +146,9 @@ export const AdminUrls = {
 
   GetAdminOrderfreeTravelList: api + '/admin/order/free_travel',  //自由行订单列表
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
+  GetAdminOrderfreeIndentSearch: api + '/admin/indent_search',  //自由行下订单搜索产品
+
+  
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AdminProductFreeTravelService } from '../../../services/admin/admin-product-free-travel.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminRegionService } from '../../../services/admin/admin-region.service';
+import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
+import { format } from 'date-fns';
+
 
 @Component({
   selector: 'app-admin-free-travel-add-order',
@@ -9,24 +13,46 @@ import { AdminProductFreeTravelService } from '../../../services/admin/admin-pro
   styleUrls: ['./admin-free-travel-add-order.component.css']
 })
 export class AdminFreeTravelAddOrderComponent implements OnInit {
-  dataSource: any[] = [];   //1.4将数据添加到dataSource
-  searchForm!: FormGroup;
-  loading = true;
+  searchForm: FormGroup;
+  dataSource: any;
   page = 1;
   per_page = 20;
   total = 1;
+  loading = true;
   title: any;
+  start_date: any;
+  departure_city: any;
+  destination_city: any;
   few_days: any;
+  date = null;
 
-  constructor(public fb: FormBuilder,  public adminProductFreeTravelService: AdminProductFreeTravelService,
-    public router: Router, ) {
-    this.searchForm = this.fb.group({
+  // 目的城市
+  nzOptions: any[] | null = null;
+  idRegion: any;
+  isDeparture_city: any;
+  isDestination_city: any;
+  sortName: any;
+  sortValue: any;
+  sort_field = 'min_price';
+  sort: any;
+
+
+  constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public modal: NzModalService,) {
+    this.searchForm = fb.group({
       title: [''],
+      start_date: [''],
+      departure_city: [''],
+      destination_city: [''],
       few_days: [''],
-    })
-   }
+      group_status: [''],
+    });
+  }
 
   ngOnInit(): void {
+    this.adminRegionService.getAllRegionList().subscribe(res => {
+      this.nzOptions = res;
+    })
     this.getFeeTravelList();
   }
 
@@ -34,11 +60,85 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
 
   getFeeTravelList() {
     this.loading = true;
-    this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, 1, 2, this.title, '', '', this.few_days, '').subscribe(res => {
-      console.log("结果是", res)
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
+      console.log('结果是 :>> ', res);
       this.loading = false;
-      this.total = res.total;   //总页数
-      this.dataSource = res.data;
+      this.dataSource = res?.data;
+      this.total = res?.total;
+    })
+  }
+
+
+
+  setValue() {
+    this.title = this.searchForm.value.title;
+    console.log('this.searchForm.value.start_date :>> ', this.searchForm.value.start_date);
+    this.start_date = this.searchForm.value.start_date === null ? '' : format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
+    this.departure_city = this.isDeparture_city;
+    this.destination_city = this.isDestination_city;
+    this.few_days = this.searchForm.value.few_days;
+  }
+
+
+  anOrder(data: any) {
+    console.log('传递的值 :>> ', data);
+    localStorage.setItem('freeOrderData', JSON.stringify(data))
+    this.router.navigate(['/admin/main/addFreeOrder/add'])
+  }
+
+  search() {
+    this.loading = true;
+    this.setValue();
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.total = res?.total;
+    })
+  }
+
+
+
+  // 城市
+  onChangesdestinationCity(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.isDestination_city = data[data.length - 1];
+
+    }
+  }
+
+  onChangesdepartureCity(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.isDeparture_city = data[data.length - 1];
+    }
+  }
+
+
+
+  sortAsc() {
+    this.setValue();
+    this.sort = 'asc';
+    this.loading = true;
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.total = res?.total;
+    })
+  }
+
+
+  sortDesc() {
+    this.setValue();
+    this.sort = 'desc';
+    this.loading = true;
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      this.loading = false;
+      this.dataSource = res?.data;
+      this.total = res?.total;
     })
   }
 
@@ -52,19 +152,5 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     console.log("当前页", page);
     this.page = page;
     this.getFeeTravelList();
-  }
-
-  search() {
-    this.title = this.searchForm.value.title;
-    this.few_days = this.searchForm.value.few_days;
-    this.getFeeTravelList();
-
-  }
-
-
-
-  anOrder(data: any) {
-    localStorage.setItem('freeOrderData', JSON.stringify(data))
-    this.router.navigate(['/admin/main/addFreeOrder/add'])
   }
 }
