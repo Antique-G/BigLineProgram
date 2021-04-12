@@ -275,6 +275,9 @@ export const StoreUrls = {
   PostStoreFreeReward: api + '/store/inden_product_reward',//佣金的编辑
 
   GetStoreInsuranceList: api + '/store/insurance',      // 跟团游保险列表
+  GetStoreInsuranceDetail: api + '/store/insurance/',   // 保险详情
+
+  
 
 
   GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索

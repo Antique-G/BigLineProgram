@@ -218,6 +218,14 @@ export class StoreProductService {
   }
 
 
+  //保险详情
+  getInsuranceDetail(id: any) {
+    return this.httpClient.get<any>(this.urls.GetStoreInsuranceDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
 
   private handleError(error: HttpErrorResponse) {
