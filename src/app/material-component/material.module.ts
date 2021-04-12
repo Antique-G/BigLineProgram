@@ -128,6 +128,7 @@ import { AdminStoreCertifiCheckComponent } from './admin-store/admin-store-certi
 import { AdminStoreCertifiHistoryComponent } from './admin-store/admin-store-certifi/admin-store-certifi-progress/admin-store-certifi-history/admin-store-certifi-history.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
+import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
 
 
 @NgModule({
@@ -275,6 +276,7 @@ import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-
     AdminStoreCertifiHistoryComponent,
     AdminFreeTravelAddOrderComponent,
     AdminFreeTravelAddOrderDetailComponent,
+    AdminPermissionComponent,
   ]
 })
 export class MaterialComponentsModule {}
