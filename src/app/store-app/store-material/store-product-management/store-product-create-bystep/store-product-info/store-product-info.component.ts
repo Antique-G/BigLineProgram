@@ -11,6 +11,7 @@ import { StoreProductService } from '../../../../../../services/store/store-prod
 import { StoreRegionService } from '../../../../../../services/store/store-region/store-region.service';
 import { CommonModelComponent } from '../../../common/common-model/common-model.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
+import { StoreInsuranceDetailComponent } from './store-insurance-detail/store-insurance-detail.component';
 
 
 @Component({
@@ -22,10 +23,7 @@ export class StoreProductInfoComponent implements OnInit {
   @Output() tabIndex = new EventEmitter;
   @Input() isId: any;
   @Input() isShowId: any;
-
   @Input() getOneTab: any;
-
-
 
 
   addForm!: FormGroup;
@@ -52,9 +50,14 @@ export class StoreProductInfoComponent implements OnInit {
   isPlaceRegion: any;
 
   store_id: any;
-
-
   cateId: any;
+  isSupplierType: any;          //供应商类型：0其他供应商，1启航机器人
+  insuranceArr: any[] = [];
+  baseInsuranceId: any;      //基础保险id
+  baseInsuranceName: any;      //基础保险名称
+  extraInsurance: any[] = [];          //额外保险名称
+
+
 
   validationMessage: any = {
     scenic_spot: {
@@ -123,7 +126,9 @@ export class StoreProductInfoComponent implements OnInit {
       assembling_place_id: [],
       fee: '',
       tag_id: [],
-      reserve_ahead: 1
+      reserve_ahead: 1,
+      insurance_base: '',
+      insurance_extra: [],
     }
   }
 
@@ -147,6 +152,8 @@ export class StoreProductInfoComponent implements OnInit {
       reserve_num_max: [0],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
+      insurance_base: ['',],
+      insurance_extra: [''],
 
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -160,12 +167,17 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("isId111111111", this.isId)
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
+    this.addForm.controls['insurance_extra'].setValue([]);
     this.store_id = localStorage.getItem('storeId');
-    this.getCateList();
-
+    this.isSupplierType = Number(localStorage.getItem("supplierType"));
+    console.log('this.isSupplierType', this.isSupplierType);
+    this.storeProductService.insuranceList(1, 100, 1).subscribe(res => {
+      console.log('保险 :>> ', res);
+      this.insuranceArr = res?.data;
+      this.getCateList();
+    })
   }
 
   ngAfterViewInit(): void {
@@ -307,7 +319,12 @@ export class StoreProductInfoComponent implements OnInit {
     }
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
-
+    // 保险
+    if (this.isSupplierType === 1) {
+      this?.addForm?.controls['insurance_base'].setValidators(Validators.required);
+      this?.addForm?.controls['insurance_base'].updateValueAndValidity();
+      this.addStoreProductModel.insurance_base = this.baseInsuranceId;
+    }
   }
 
 
@@ -320,6 +337,84 @@ export class StoreProductInfoComponent implements OnInit {
     console.log('选择的值是vvv', a);
     this.addStoreProductModel.tag_id = a;
   }
+
+
+  // 单选保险
+  changeInsuranceBase(data: any) {
+    console.log('data :>> ', data);
+    this.baseInsuranceId = data?.id;
+    this.baseInsuranceName = data?.name;
+  }
+
+  baseInsDetail() {
+    this.storeProductService.getInsuranceDetail(this.baseInsuranceId).subscribe(res => {
+      console.log('结果是 :>> ', res?.data);
+      const editmodal = this.modal.create({
+        nzTitle: '保险信息',
+        nzWidth:800,
+        nzContent: StoreInsuranceDetailComponent,
+        nzComponentParams: {
+          data: res.data
+        },
+        nzFooter: [
+          {
+            label: '知道了',
+            type:'primary',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+       
+      })
+    })
+  }
+
+
+
+  // 多选保险
+  changeIns(a: any) {
+    console.log('a11111111 :>> ', a);
+    this.addStoreProductModel.insurance_extra = a;
+    let arr: any[] = [];
+    a.forEach((element: any) => {
+      let arrObj = { id: element.id, name: element.name }
+      arr.push(arrObj)
+    });
+    this.extraInsurance = arr;
+    console.log("arr", arr, this.extraInsurance);
+  }
+
+  extraInsDetail(event: any) {
+    console.log("event", event);
+    this.storeProductService.getInsuranceDetail(event).subscribe(res => {
+      console.log('结果是 :>> ', res);
+      const editmodal = this.modal.create({
+        nzTitle: '保险信息',
+        nzWidth:800,
+        nzContent: StoreInsuranceDetailComponent,
+        nzComponentParams: {
+          data: res.data
+        },
+        nzFooter: [
+          {
+            label: '知道了',
+            type:'primary',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+       
+      })
+    })
+  }
+
+
 
 
   onChanges(values: any): void {
