@@ -131,6 +131,7 @@ import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-
 import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
 import { APMBIIDComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/a-p-m-b-i-i-d/a-p-m-b-i-i-d.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
+import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
 
 
 @NgModule({
@@ -281,6 +282,7 @@ import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-
     AdminPermissionComponent,
     APMBIIDComponent,
     AdminInsuranceHistoryComponent,
+    AdminInsuredListComponent,
   ]
 })
 export class MaterialComponentsModule {}
