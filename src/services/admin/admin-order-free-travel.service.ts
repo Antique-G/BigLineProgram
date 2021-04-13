@@ -26,7 +26,7 @@ export class AdminOrderFreeTravelService {
 
   // 自由行订单列表
   freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any): Observable<StoreOrderFreeTravelListRequestModel> {
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<StoreOrderFreeTravelListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -38,7 +38,9 @@ export class AdminOrderFreeTravelService {
       .set('product_code', product_code ? product_code : '')
       .set('store_id', store_id ? store_id : '')
       .set('order_start_date', order_start_date ? order_start_date : '')
-      .set('order_end_date', order_end_date ? order_end_date : '');
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
 
 
 
@@ -110,7 +112,7 @@ export class AdminOrderFreeTravelService {
 
   // 订单统计
   getIndenOrderTotal(status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any): Observable<OrderTotalModel> {
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<OrderTotalModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
       .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')
@@ -120,7 +122,10 @@ export class AdminOrderFreeTravelService {
       .set('product_code', product_code ? product_code : '')
       .set('store_id', store_id ? store_id : '')
       .set('order_start_date', order_start_date ? order_start_date : '')
-      .set('order_end_date', order_end_date ? order_end_date : '');
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

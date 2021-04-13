@@ -24,7 +24,7 @@ export class AdminOrderGroupTravelService {
 
   // 跟团游订单列表
   groupTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any): Observable<StoreOrderGroupTravelListRequestModel> {
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any,contact_name:any,contact_phone:any): Observable<StoreOrderGroupTravelListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -36,7 +36,10 @@ export class AdminOrderGroupTravelService {
       .set('product_code', product_code ? product_code : '')
       .set('store_id', store_id ? store_id : '')
       .set('order_start_date', order_start_date ? order_start_date : '')
-      .set('order_end_date', order_end_date ? order_end_date : '');
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -139,7 +142,7 @@ export class AdminOrderGroupTravelService {
 
   // 订单统计
   getOrderTotal(status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any): Observable<OrderTotalModel> {
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any,contact_name:any,contact_phone:any): Observable<OrderTotalModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
       .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')
@@ -149,7 +152,9 @@ export class AdminOrderGroupTravelService {
       .set('product_code', product_code ? product_code : '')
       .set('store_id', store_id ? store_id : '')
       .set('order_start_date', order_start_date ? order_start_date : '')
-      .set('order_end_date', order_end_date ? order_end_date : '');
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

@@ -111,7 +111,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
 
-  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, private modal: NzModalService, 
+  constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, private modal: NzModalService,
     public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
     public adminProductTagService: AdminProductTagService, private msg: NzMessageService, public adminInsuranceService: AdminInsuranceService,
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
@@ -204,8 +204,10 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
+    this.addForm.controls['insurance_extra'].setValue([]);
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params?.detailDataId;
+      this.isSupplierType = params?.storeSupplierType;
     });
     this.adminInsuranceService.insuranceList(1, 100, '', 1).subscribe(res => {
       console.log("结果是", res)
@@ -385,8 +387,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     let timeArr = this.timeStamp(this.dataProductDetailModel.earlier);
     this.addForm.get('earlier1')?.setValue(timeArr[0]);   //目的城市
     let timeDate = format(this.earlierTime, 'yyyy-MM-dd') + ' ' + timeArr[1] + ':' + timeArr[2];
-    this.earlierTime = new Date(timeDate)
+    this.earlierTime = new Date(timeDate);
     // 保险
+    this.addForm.get('insurance_base')?.setValue(this.dataProductDetailModel.insurance_base);
+    console.log('111111111 :>> ', this.dataProductDetailModel.insurance_base);
+    console.log('2222222222 :>> ', this.addForm.value.insurance_base);
   }
 
   //传入的分钟数  转换成天、时、分 [天,时,分]
@@ -420,8 +425,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
 
-   // 单选保险
-   changeInsuranceBase(data: any) {
+  // 单选保险
+  changeInsuranceBase(data: any) {
     console.log('data :>> ', data);
     this.baseInsuranceId = data?.id;
     this.baseInsuranceName = data?.name;
@@ -432,7 +437,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       console.log('结果是 :>> ', res?.data);
       const editmodal = this.modal.create({
         nzTitle: '保险信息',
-        nzWidth:800,
+        nzWidth: 800,
         nzContent: APMBIIDComponent,
         nzComponentParams: {
           data: res.data
@@ -440,7 +445,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         nzFooter: [
           {
             label: '知道了',
-            type:'primary',
+            type: 'primary',
             onClick: componentInstance => {
               componentInstance?.update()
             }
@@ -448,7 +453,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         ]
       })
       editmodal.afterClose.subscribe(res => {
-       
+
       })
     })
   }
@@ -474,7 +479,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       console.log('结果是 :>> ', res);
       const editmodal = this.modal.create({
         nzTitle: '保险信息',
-        nzWidth:800,
+        nzWidth: 800,
         nzContent: APMBIIDComponent,
         nzComponentParams: {
           data: res.data
@@ -482,7 +487,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         nzFooter: [
           {
             label: '知道了',
-            type:'primary',
+            type: 'primary',
             onClick: componentInstance => {
               componentInstance?.update()
             }
@@ -490,7 +495,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         ]
       })
       editmodal.afterClose.subscribe(res => {
-       
+
       })
     })
   }

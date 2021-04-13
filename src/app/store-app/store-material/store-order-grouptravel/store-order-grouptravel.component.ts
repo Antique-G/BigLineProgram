@@ -24,9 +24,14 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   product_name: any;
   order_number: any;
   date_start: any;
+  contact_name: any;
+  contact_phone: any;
   date_end: any;
   dateArray: any[] = [];
+  dateArray1: any[] = [];
   product_code: any;
+  order_start_date: any;
+  order_end_date: any;
 
 
   constructor(public fb: FormBuilder, public router: Router,
@@ -37,7 +42,10 @@ export class StoreOrderGrouptravelComponent implements OnInit {
       product_name: [''],
       order_number: [''],
       date_start: [''],
-      product_code: ['']
+      product_code: [''],
+      order_start_date: [''],
+      contact_name: [''],
+      contact_phone: [''],
     });
   }
 
@@ -46,7 +54,7 @@ export class StoreOrderGrouptravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.storeOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code).subscribe(res => {
+    this.storeOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -75,8 +83,12 @@ export class StoreOrderGrouptravelComponent implements OnInit {
     this.product_name = this.searchForm.value.product_name;
     this.order_number = this.searchForm.value.order_number;
     this.product_code = this.searchForm.value.product_code;
+    this.contact_name = this.searchForm.value.contact_name;
+    this.contact_phone = this.searchForm.value.contact_phone;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
+    this.order_start_date = this.dateArray1[0];
+    this.order_end_date = this.dateArray1[1];
     this.getFreeTravel();
   }
 
@@ -90,6 +102,17 @@ export class StoreOrderGrouptravelComponent implements OnInit {
     this.dateArray.push(myFormattedDate1);
     console.log("event", this.dateArray);
 
+  }
+
+
+  onChangeDateOrder(event: any) {
+    this.dateArray1 = [];
+    const datePipe = new DatePipe('en-US');
+    const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+    this.dateArray1.push(myFormattedDate);
+    const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+    this.dateArray1.push(myFormattedDate1);
+    console.log("event", this.dateArray);
   }
 
 

@@ -106,7 +106,7 @@ export class AdminProductManagementComponent implements OnInit {
 
   // 查看详情
   edit(data: any) {
-    this.router.navigate(['/admin/main/productManagement/detail'], { queryParams: { detailDataId: data.id } });
+    this.router.navigate(['/admin/main/productManagement/detail'], { queryParams: { detailDataId: data.id, storeSupplierType: data?.store?.data[0]?.type } });
   }
 
 

@@ -20,7 +20,7 @@ export class StoreOrderGroupTravelService {
 
   // 跟团游订单列表
   groupTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-    date_start: any, date_end: any, product_code: any): Observable<StoreOrderGroupTravelListRequestModel> {
+    date_start: any, date_end: any, product_code: any, order_start_date: any, order_end_date: any,contact_name:any,contact_phone:any): Observable<StoreOrderGroupTravelListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -29,7 +29,11 @@ export class StoreOrderGroupTravelService {
       .set('order_number', order_number ? order_number : '')
       .set('date_start', date_start ? date_start : '')
       .set('date_end', date_end ? date_end : '')
-      .set('product_code', product_code ? product_code : '');
+      .set('product_code', product_code ? product_code : '')
+      .set('order_start_date', order_start_date ? order_start_date : '')
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),

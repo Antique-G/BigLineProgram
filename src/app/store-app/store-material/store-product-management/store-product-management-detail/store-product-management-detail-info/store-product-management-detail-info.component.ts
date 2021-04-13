@@ -202,6 +202,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   ngOnInit(): void {
     this.addForm.controls['assembling_place_id'].setValue([]);
     this.addForm.controls['tag_id'].setValue([]);
+    this.addForm.controls['insurance_extra'].setValue([]);
     this.activatedRoute.queryParams.subscribe(params => {
       this.detailId = params?.detailDataId;
     });
