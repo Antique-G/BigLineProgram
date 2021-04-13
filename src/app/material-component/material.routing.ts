@@ -50,6 +50,7 @@ import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/ad
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
+import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -351,6 +352,14 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '保险管理列表'
         }
       },
+      {
+        path: 'insuranceHistory',
+        component: AdminInsuranceHistoryComponent,
+        data: {
+          breadcrumb: '保险购买记录'
+        }
+      },
+      
       {
         path: 'user',
         component: AdminUserinfoComponent,

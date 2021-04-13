@@ -21,6 +21,7 @@ export class AdminStoreCreateComponent implements OnInit {
 
   addForm!: FormGroup;
   status = '1';
+  typeValue = '1';
 
   addStoreRequestModel: AddStoreRequestModel;
 

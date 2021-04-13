@@ -11,15 +11,19 @@
                         <input nz-input formControlName="name" />
                     </nz-form-control>
                 </nz-form-item>
+
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="type" nzRequired>供应商类型</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择供应商类型">
-                        <nz-select nzPlaceHolder="请选择供应商类型" formControlName="type">
-                            <nz-option [nzLabel]="'其他供应商'" [nzValue]="0"></nz-option>
-                            <nz-option [nzLabel]="'启航机器人'" [nzValue]="1"></nz-option>
-                        </nz-select>
+                        <nz-radio-group [(ngModel)]="typeValue" formControlName="type">
+                            <label nz-radio nzValue='1'>内部供应商 </label>
+                            <label nz-radio nzValue='0'>外部供应商</label>
+                        </nz-radio-group>
+                        <p style="color: red;font-size: 12px;margin-top: 1px;">(设置为内部供应商,发布跟团游产品可关联保险产品,请慎重设置)</p>
                     </nz-form-control>
                 </nz-form-item>
+
+
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="regionCode" nzRequired>区域</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择区域！">
@@ -84,7 +88,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <nz-radio-group formControlName="status">
+                        <nz-radio-group formControlName="status" [(ngModel)]="status">
                             <label nz-radio nzValue=0>暂停</label>
                             <label nz-radio nzValue=1>正常</label>
                         </nz-radio-group>

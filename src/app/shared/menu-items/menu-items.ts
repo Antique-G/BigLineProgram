@@ -85,6 +85,7 @@ const MENUITEMS = [
     title: '保险管理', icon: 'safety-certificate',
     children: [
       { state: 'insurance', name: '保险' },
+      { state: 'insuranceHistory', name: '保险购买记录' },
 
     ]
   },

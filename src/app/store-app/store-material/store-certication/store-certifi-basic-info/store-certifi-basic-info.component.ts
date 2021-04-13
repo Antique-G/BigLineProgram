@@ -32,6 +32,7 @@ export class StoreCertifiBasicInfoComponent implements OnInit {
       week: [''],
       money: [''],
       remark: [''],
+      type: [''],
     })
   }
 
