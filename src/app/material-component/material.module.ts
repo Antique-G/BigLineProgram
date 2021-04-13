@@ -133,6 +133,7 @@ import { APMBIIDComponent } from './admin-product/admin-product-management/admin
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
 import { AdminPermissionCreateComponent } from './admin-permission/admin-permission-create/admin-permission-create.component';
+import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
 
 
 
@@ -286,6 +287,7 @@ import { AdminPermissionCreateComponent } from './admin-permission/admin-permiss
     AdminInsuranceHistoryComponent,
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
+    AdminPermissionDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

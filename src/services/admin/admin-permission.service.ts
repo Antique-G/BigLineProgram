@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { AddPermissionRequestModel, AddPermissionResponseModel, AdminPermissionListResponseModel, PermissionParentListModel} from '../../interfaces/adminPermission/admin-permission-model';
+import { AddPermissionRequestModel, AddPermissionResponseModel, AdminPermissionListResponseModel, PermissionParentListModel,  UpdatePermissionRequestModel} from '../../interfaces/adminPermission/admin-permission-model';
 import { AdminUrls } from '../../api';
 
 const httpOptions = {
@@ -32,22 +32,32 @@ export class AdminPermissionService {
       )
   }
 
-  // 权限添加
-  addPermission(addPermissionRequestModel: AddPermissionRequestModel): Observable<AddPermissionResponseModel> {
-    return this.httpClient.post<AddPermissionResponseModel>(this.urls.PostAdminPermissionadd, addPermissionRequestModel, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-
-
-   //权限父级列表
+  //权限父级列表
   permissionParentList(): Observable<PermissionParentListModel> {
     return this.httpClient.get<PermissionParentListModel>(this.urls.GetAdminPermissionList, httpOptions)
       .pipe(
         catchError(this.handleError)
       )
   }
+
+  // 权限添加
+  addPermission(addPermissionRequestModel: AddPermissionRequestModel): Observable<AddPermissionResponseModel> {
+    return this.httpClient.post<AddPermissionResponseModel>(this.urls.PostAdminPermissionCreate, addPermissionRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+  // 权限修改
+  updatePermission(updatePermissionRequestModel: UpdatePermissionRequestModel): Observable<any> {
+    const id = updatePermissionRequestModel.id;
+    return this.httpClient.put(this.urls.PutAdminPermissionUpdate + id, updatePermissionRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);
