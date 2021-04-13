@@ -22,6 +22,8 @@
                                 </mat-form-field>
 
                             </div>
+
+
                             <div fxFlex=20>
                                 <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
@@ -57,7 +59,9 @@
                                     <td></td>
                                     <td></td>
                                     <td>{{data.insurance_amount}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a (click)="insuredDetail()">查看参保人</a>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
