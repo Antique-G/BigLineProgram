@@ -83,3 +83,24 @@ export interface Datum {
     message: string;
     code?: string;
   }
+  export interface PermissionDetailtModel {
+    id: number;
+    name: string;
+    display_name: string;
+    description?: string;
+    controller: string;
+    action: string;
+    pid: number;
+    type: number;
+    status: number;
+    created_at: string;
+    updated_at: string;
+  }
+  export interface UpdatePermissionRequestModel {
+    id?: number;
+    controller: string;
+    action: string;
+    pid: string;
+    display_name: string;
+    description: string;
+  }

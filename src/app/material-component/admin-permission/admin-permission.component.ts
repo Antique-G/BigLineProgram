@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminPermissionService } from '../../../services/admin/admin-permission.service';
 import { AdminPermissionCreateComponent } from './admin-permission-create/admin-permission-create.component';
+import { AdminPermissionDetailComponent } from './admin-permission-detail/admin-permission-detail.component';
 
 @Component({
   selector: 'app-admin-permission',
@@ -78,8 +79,29 @@ export class AdminPermissionComponent implements OnInit {
 
   }
 
+
   edit(element: any) {
     console.log("当前id", element);
+    const editmodal = this.modal.create({
+      nzTitle: "更新权限",
+      nzContent: AdminPermissionDetailComponent,
+      nzWidth:800,
+      nzComponentParams: {
+        data: element,
+      },
+      nzFooter: [
+        {
+          label: "更新",
+          type: "primary",
+          onClick: (componentInstance) => {
+            componentInstance?.update();
+          },
+        },
+      ],
+    });
+    editmodal.afterClose.subscribe((res) => {
+      this.getDataList();
+    });
   }
 
 }

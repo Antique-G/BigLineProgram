@@ -12,8 +12,9 @@ export const AdminUrls = {
   AdminRefresh: api + '/admin/refresh',  //管理后台Token刷新接口
 
   GetAdminPermissionList: api + '/admin/permission',    //权限列表
-  PostAdminPermissionadd: api + '/admin/permission',    //权限列表
   GetAdminPermissionParent: api + '/admin/permission_parent',    //权限父级列表
+  PostAdminPermissionCreate: api + '/admin/permission',    //权限创建
+  PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
 
 

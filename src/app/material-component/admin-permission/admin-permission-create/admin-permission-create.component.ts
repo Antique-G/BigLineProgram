@@ -11,7 +11,7 @@ import { AdminPermissionService } from '../../../../services/admin/admin-permiss
 export class AdminPermissionCreateComponent implements OnInit {
   addForm!: FormGroup;
   parentData:any;
-  addPermissionRequestModel: AddPermissionRequestModel
+  addPermissionRequestModel: AddPermissionRequestModel;
 
  
 
@@ -42,9 +42,6 @@ export class AdminPermissionCreateComponent implements OnInit {
       });
   }
 
-  
-
- 
 
   setValue() {
     console.log('this.addForm.value',this.addForm.value)
@@ -68,15 +65,16 @@ export class AdminPermissionCreateComponent implements OnInit {
     if (this.addForm.valid) {
       this.adminPermissionService.addPermission(this.addPermissionRequestModel).subscribe(res => {
         console.log("res结果", res);
-        if (res?.message) {
-          // alert("创建成功");
+        // if (res?.message) {
+        //   // alert("创建成功");
 
-        }
-        else {
-          // alert("创建失败，请重新填写");
-        }
+        // }
+        // else {
+        //   // alert("创建失败，请重新填写");
+        // }
       })
 
     }
   }
+
 }
