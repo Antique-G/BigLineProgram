@@ -71,6 +71,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     },
     child_price: {
     },
+    baby_price: {
+    },
     original_adult_price: {
 
     },
@@ -89,6 +91,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   formErrors: any = {
     adult_price: '',
     child_price: '',
+    baby_price: '',
     original_adult_price: '',
     original_child_price: '',
     difference_price: '',
@@ -146,6 +149,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       date: ['', [Validators.required]],
       adult_price: ['', [Validators.required]],
       child_price: [0, []],
+      baby_price: [0, []],
       difference_price: [0, []],
       inventory_num: [1, [Validators.required, isNumber]],
       set_inventory: [0, [Validators.required]],
@@ -399,6 +403,11 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
   }
 
   numTest3(data: any) {
+    console.log('data :>> ', data,)
+    data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+  }
+
+  numTest4(data: any) {
     console.log('data :>> ', data,)
     data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
   }
