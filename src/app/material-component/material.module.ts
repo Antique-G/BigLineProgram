@@ -132,6 +132,8 @@ import { AdminPermissionComponent } from './admin-permission/admin-permission.co
 import { APMBIIDComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/a-p-m-b-i-i-d/a-p-m-b-i-i-d.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
+import { AdminPermissionCreateComponent } from './admin-permission/admin-permission-create/admin-permission-create.component';
+
 
 
 @NgModule({
@@ -283,6 +285,7 @@ import { AdminInsuredListComponent } from './admin-insurance-history/admin-insur
     APMBIIDComponent,
     AdminInsuranceHistoryComponent,
     AdminInsuredListComponent,
+    AdminPermissionCreateComponent,
   ]
 })
 export class MaterialComponentsModule {}
