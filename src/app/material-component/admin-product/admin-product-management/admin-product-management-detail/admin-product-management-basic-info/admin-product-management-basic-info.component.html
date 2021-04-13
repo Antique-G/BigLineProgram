@@ -107,7 +107,7 @@
                                         </div>
                                     </nz-form-item>
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === 1">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === '1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_base" nzRequired>基础保险</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择启航基础保险！">
@@ -120,7 +120,7 @@
                                         <p style="margin-left: 25%;color: #1890FF;margin-top: 3px;cursor: pointer;" (click)="baseInsDetail()" *ngIf="baseInsuranceName!=null">查看“{{baseInsuranceName}}”详情</p>
                                     </nz-form-item>
 
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === 1">
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isSupplierType === '1'">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_extra">额外保险</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
