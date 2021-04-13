@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { AdminPermissionListResponseModel } from '../../interfaces/adminPermission/admin-permission-model';
+import { AddPermissionRequestModel, AddPermissionResponseModel, AdminPermissionListResponseModel, PermissionParentListModel} from '../../interfaces/adminPermission/admin-permission-model';
 import { AdminUrls } from '../../api';
 
 const httpOptions = {
@@ -27,6 +27,23 @@ export class AdminPermissionService {
       params: params
     };
     return this.httpClient.get<AdminPermissionListResponseModel>(this.urls.GetAdminPermissionList, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 权限添加
+  addPermission(addPermissionRequestModel: AddPermissionRequestModel): Observable<AddPermissionResponseModel> {
+    return this.httpClient.post<AddPermissionResponseModel>(this.urls.PostAdminPermissionadd, addPermissionRequestModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+   //权限父级列表
+  permissionParentList(): Observable<PermissionParentListModel> {
+    return this.httpClient.get<PermissionParentListModel>(this.urls.GetAdminPermissionList, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

@@ -39,3 +39,47 @@ export interface Datum {
     created_at: string;
     updated_at: string;
   }
+  export interface PermissionParentListModel {
+    data: Datum[];
+  }
+  
+  export interface Datum {
+    id: number;
+    name: string;
+    display_name: string;
+    description?: string;
+    controller: string;
+    action: string;
+    pid: number;
+    type: number;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    son: Son[];
+  }
+  
+  export interface Son {
+    id: number;
+    name: string;
+    display_name: string;
+    description: string;
+    controller: string;
+    action: string;
+    pid: number;
+    type: number;
+    status: number;
+    created_at: string;
+    updated_at: string;
+  }
+  export interface AddPermissionRequestModel {
+    controller: string;
+    action: string;
+    pid: string;
+    display_name: string;
+    description: string;
+  }
+  
+  export interface AddPermissionResponseModel {
+    message: string;
+    code?: string;
+  }
