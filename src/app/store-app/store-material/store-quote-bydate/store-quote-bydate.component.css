@@ -21,44 +21,48 @@
     font-size: 28px;
 }
 
-.mat-elevation-z8{
+.mat-elevation-z8 {
     padding: 10px;
 }
 
-.ant-picker-calendar-date-content{
+.ant-picker-calendar-date-content {
     display: flex !important;
 }
-.events{
+
+.events {
     display: flex !important;
     flex-direction: column;
     flex: 1 !important;
 }
-.item{
+
+.item {
     flex: 1 !important;
 }
-.itemFree{
+
+.itemFree {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    
+    justify-content: space-between;
 }
 
-.itemFree div{
+.itemFree div {
     width: 50%;
 }
+
+
 /* .ant-picker-calendar-header{
     opacity: 0 !important;
 } */
 
-.item-bg-success{
+.item-bg-success {
     background: rgba(20, 247, 20, 0.2) !important;
 }
 
-.item-bg-error{
+.item-bg-error {
     background: rgba(243, 33, 33, 0.2) !important;
 }
 
-.dot{
+.dot {
     display: inline-block;
     width: 10px;
     height: 10px;

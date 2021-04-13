@@ -34,6 +34,7 @@
                                                                     <th style="text-align: center;">日期</th>
                                                                     <th style="text-align: center;">成人价格</th>
                                                                     <th style="text-align: center;">儿童价格</th>
+                                                                    <th style="text-align: center;">婴儿价格</th>
                                                                     <th style="text-align: center;">差价</th>
                                                                     <th style="text-align: center;">设置库存</th>
                                                                     <th style="text-align: center;">库存数量</th>
@@ -49,6 +50,10 @@
                                                                     <td>{{data.adult_price}}</td>
                                                                     <td>
                                                                         <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                        <div *ngIf="childStatus==='0'">-</div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div *ngIf="childStatus==='1'"></div>
                                                                         <div *ngIf="childStatus==='0'">-</div>
                                                                     </td>
                                                                     <td>
@@ -88,6 +93,7 @@
                                                                         <th style="text-align: center;">日期</th>
                                                                         <th style="text-align: center;">成人价格</th>
                                                                         <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">婴儿价格</th>
                                                                         <th style="text-align: center;">差价</th>
                                                                         <th style="text-align: center;">设置库存</th>
                                                                         <th style="text-align: center;">库存数量</th>
@@ -102,6 +108,10 @@
                                                                         <td>{{data.adult_price}}</td>
                                                                         <td>
                                                                             <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'"></div>
                                                                             <div *ngIf="childStatus==='0'">-</div>
                                                                         </td>
                                                                         <td>
@@ -143,6 +153,7 @@
                                                                         <th style="text-align: center;">日期</th>
                                                                         <th style="text-align: center;">成人价格</th>
                                                                         <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">婴儿价格</th>
                                                                         <th style="text-align: center;">差价</th>
                                                                         <th style="text-align: center;">设置库存</th>
                                                                         <th style="text-align: center;">库存数量</th>
@@ -157,6 +168,10 @@
                                                                         <td>{{data.adult_price}}</td>
                                                                         <td>
                                                                             <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'"></div>
                                                                             <div *ngIf="childStatus==='0'">-</div>
                                                                         </td>
                                                                         <td>
