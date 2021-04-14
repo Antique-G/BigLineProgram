@@ -64,7 +64,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '产品主标题最多为20个字符',
+      'maxlength': '产品主标题最多为30个字符',
       'required': '请填写产品主标题'
     },
     sub_title: {
@@ -133,7 +133,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(30)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
