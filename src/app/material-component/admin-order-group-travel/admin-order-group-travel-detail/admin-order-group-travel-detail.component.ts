@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AOGTDFullRefundComponent } from './a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 
 
 
@@ -157,5 +158,51 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
     })
   }
+
+
+
+
+  
+  // 订单改价
+  changePrice() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单改价',
+      nzContent: AOGTDChangePriceComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = params?.detailId;
+        // 详情
+        this.adminOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
+          this.isSpinning = false;
+
+        })
+      });
+    })
+  }
+
 }
 

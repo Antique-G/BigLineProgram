@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { AOFTDChangePriceComponent } from './a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 
 
 @Component({
@@ -61,7 +62,45 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   }
 
 
-  
+    
+  // 订单改价
+  changePrice() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单改价',
+      nzContent: AOFTDChangePriceComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = params?.detailId;
+        // 详情
+        this.adminOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
+        })
+      });
+    })
+  }
 
 }
 
