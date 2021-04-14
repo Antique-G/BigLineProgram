@@ -57,9 +57,9 @@ export class StoreProductInfoComponent implements OnInit {
   cateId: any;
 
   validationMessage: any = {
-    scenic_spot: {
-      'maxlength': '主要景区长度最多为20个字符',
-      'required': '请填写主要景区'
+    title: {
+      'maxlength': '产品主标题长度最多为20个字符',
+      'required': '请填写产品主标题'
     },
     sub_title: {
       'maxlength': '副标题长度最多为225个字符',
@@ -87,7 +87,7 @@ export class StoreProductInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    scenic_spot: '',
+    title: '',
     sub_title: '',
     few_days: '',
     few_nights: '',
@@ -106,7 +106,7 @@ export class StoreProductInfoComponent implements OnInit {
     private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.addStoreProductModel = {
-      scenic_spot: '',
+      title: '',
       sub_title: '',
       departure_city: '',
       destination_city: '',
@@ -130,7 +130,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      scenic_spot: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(20)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
@@ -270,7 +270,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   setValue() {
-    this.addStoreProductModel.scenic_spot = this.addForm.value.scenic_spot;
+    this.addStoreProductModel.title = this.addForm.value.title;
     this.addStoreProductModel.sub_title = this.addForm.value.sub_title;
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
     this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
