@@ -1,5 +1,6 @@
 export interface AddStoreProductModel {
-  scenic_spot: string;
+  scenic_spot?: string;
+  title: string;
   sub_title: string;
   departure_city: string;
   destination_city: string;

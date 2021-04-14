@@ -60,9 +60,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
   validationMessage: any = {
-    scenic_spot: {
-      'maxlength': '主要景区长度最多为20个字符',
-      'required': '请填写主要景区'
+    title: {
+      'maxlength': '产品主标题长度最多为20个字符',
+      'required': '请填写产品主标题'
     },
     sub_title: {
       'maxlength': '副标题长度最多为64个字符',
@@ -90,7 +90,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    scenic_spot: '',
+    title: '',
     sub_title: '',
     few_days: '',
     few_nights: '',
@@ -107,7 +107,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     public adminMeetingPlaceService: AdminMeetingPlaceService) {
     this.buildForm();
     this.detailUpdateModel = {
-      scenic_spot: '',
+      title: '',
       sub_title: '',
       departure_city: '',
       destination_city: '',
@@ -134,7 +134,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      scenic_spot: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(20)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
@@ -267,7 +267,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
   }
 
   setValue() {
-    this.detailUpdateModel.scenic_spot = this.addForm.value.scenic_spot;
+    this.detailUpdateModel.title = this.addForm.value.title;
     this.detailUpdateModel.sub_title = this.addForm.value.sub_title;
     this.detailUpdateModel.few_days = this.addForm.value.few_days;
     this.detailUpdateModel.few_nights = this.addForm.value.few_nights;
@@ -326,7 +326,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
-    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.title);
+    this.addForm.get('title')?.setValue(this.dataProductDetailModel.title);
     this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
