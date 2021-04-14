@@ -136,6 +136,8 @@ import { AdminPermissionCreateComponent } from './admin-permission/admin-permiss
 import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
 import { AOGTDFullRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOFTDChangePriceComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
+import { AOGTDChangePriceComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 
 
 
@@ -292,6 +294,8 @@ import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order
     AdminPermissionDetailComponent,
     AOGTDFullRefundComponent,
     AOGTDPartRefundComponent,
+    AOFTDChangePriceComponent,
+    AOGTDChangePriceComponent,
   ]
 })
 export class MaterialComponentsModule {}

@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
-import { ChangeDateRequestModel, ChangeDateResponModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 
@@ -167,6 +167,14 @@ export class AdminOrderGroupTravelService {
   }
 
 
+
+    // 改价
+    changePrice(changePriceModel: ChangePriceModel): Observable<any> {
+      return this.httpClient.post<any>(this.urls.PostAdminOrderAddPriceDetails, changePriceModel, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        )
+    }
 
 
   private handleError(error: HttpErrorResponse) {

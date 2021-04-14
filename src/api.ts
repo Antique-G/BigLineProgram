@@ -146,6 +146,7 @@ export const AdminUrls = {
   PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
 
 
+  PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
 
 
 
