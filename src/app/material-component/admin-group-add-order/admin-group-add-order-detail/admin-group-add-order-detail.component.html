@@ -108,6 +108,10 @@
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.child_price}}</span>
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
                                                             </div>
+                                                            <!-- <div>婴儿:
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥</span>
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
+                                                            </div> -->
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
                                                             <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
@@ -574,13 +578,25 @@
                             <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                                 <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
                             </div>
-
                         </div>
 
                     </div>
                 </mat-card>
 
-                <div></div>
+
+                <!-- <mat-card>
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
+                        <div>
+                            <p style="font-size: 16px;font-weight: bold;">共<span>￥1998元</span>：</p>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                            <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
+                        </div>
+                    </div>
+
+                </mat-card> -->
+
+
 
 
 
