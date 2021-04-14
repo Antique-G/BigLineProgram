@@ -115,6 +115,7 @@ export class StoreProductInfoComponent implements OnInit {
       few_nights: 0,
       child_status: 0,
       child_age_max: 0,
+      child_age_min: 0,
       child_height_min: 0,
       child_height_max: 0,
       reserve_num_min: 0,
@@ -141,6 +142,7 @@ export class StoreProductInfoComponent implements OnInit {
       reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
       child_age_max: [14],
+      child_age_min: [2],
       child_height_min: [0],
       child_height_max: [0],
       reserve_num_min: [1, [Validators.required]],
@@ -305,6 +307,7 @@ export class StoreProductInfoComponent implements OnInit {
     //   this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
     //   this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
     // }
+    this.addStoreProductModel.child_age_min = this.addForm.value.child_age_min;
     this.addStoreProductModel.child_age_max = this.addForm.value.child_age_max;
     this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
     this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;

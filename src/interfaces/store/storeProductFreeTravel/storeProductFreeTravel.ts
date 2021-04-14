@@ -12,6 +12,7 @@ export interface StoreFreeTravelModel {
   reserve_num: number;
   reserve_children: number;
   reserve_ahead: number;
+  child_age_min: number;
   children_age: number;
   child_height_min: number;
   child_height_max: number;
@@ -79,6 +80,7 @@ export interface Datum {
   reserve_num: number;
   reserve_children: number;
   reserve_ahead: number;
+  child_age_min: number;
   children_age: number;
   child_height_min: number;
   child_height_max: number;

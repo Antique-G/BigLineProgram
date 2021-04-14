@@ -103,6 +103,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       reserve_children: 0,
       reserve_ahead: 0,
       children_age: 0,
+      child_age_min: 0,
       child_height_min: 0,
       child_height_max: 0,
       fee: '',
@@ -129,6 +130,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       reserve_num: new FormControl(0, [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
       children_age: new FormControl(''),
+      child_age_min: new FormControl(''),
       child_height_min: new FormControl(''),
       child_height_max: new FormControl(''),
     });
@@ -233,6 +235,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('reserve_ahead')?.setValue(this.dataDetailModel.reserve_ahead);
     this.addForm.get('reserve_num')?.setValue(this.dataDetailModel.reserve_num);
     this.addForm.get('reserve_children')?.setValue(this.dataDetailModel.reserve_children);
+    this.addForm.get('child_age_min')?.setValue(this.dataDetailModel.child_age_min);
     this.addForm.get('children_age')?.setValue(this.dataDetailModel.children_age);
     this.addForm.get('child_height_min')?.setValue(this.dataDetailModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataDetailModel.child_height_max);
@@ -347,6 +350,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     //   this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
     //   this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
     // }
+    
+    this.freeTravelUpdateModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
     this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;

@@ -115,6 +115,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       few_days: 0,
       few_nights: 0,
       child_status: 0,
+      child_age_min: 0,
       child_age_max: 0,
       child_height_min: 0,
       child_height_max: 0,
@@ -145,6 +146,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       child_status: ['1', [Validators.required]],
       reserve_ahead: new FormControl(1, [Validators.required]),
       child_age_max: [14],
+      child_age_min: [2],
       child_height_min: [''],
       child_height_max: [''],
       reserve_num_min: [1, [Validators.required]],
@@ -301,6 +303,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     //   this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
     //   this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     // }
+    this.detailUpdateModel.child_age_min = this.addForm.value.child_age_min;
     this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
     this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
     this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
@@ -323,10 +326,11 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   setFormValue() {
     console.log("拿到的值是", this.dataProductDetailModel)
-    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.scenic_spot);
+    this.addForm.get('scenic_spot')?.setValue(this.dataProductDetailModel.title);
     this.addForm.get('sub_title')?.setValue(this.dataProductDetailModel.sub_title);
     this.addForm.controls['few_days'].setValue(this.dataProductDetailModel.few_days);
     this.addForm.get('few_nights')?.setValue(this.dataProductDetailModel.few_nights);
+    this.addForm.get('child_age_min')?.setValue(this.dataProductDetailModel.child_age_min);
     this.addForm.get('child_age_max')?.setValue(this.dataProductDetailModel.child_age_max);
     this.addForm.get('child_height_min')?.setValue(this.dataProductDetailModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
