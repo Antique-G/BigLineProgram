@@ -43,7 +43,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
 
   @ViewChild("feeBox") feeBox: any;       // 费用 获取dom
   isReserveAhead = '0';
-  isReserveChildren = '0';
+  // isReserveChildren = '0';
 
   cateId: any;
 
@@ -337,16 +337,19 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelUpdateModel.reserve_num = 0;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
-    if (parseInt(this.isReserveChildren) === 0) {
-      this.freeTravelUpdateModel.children_age = 0;
-      this.freeTravelUpdateModel.child_height_min = 0;
-      this.freeTravelUpdateModel.child_height_max = 0;
-    }
-    else if (parseInt(this.isReserveChildren) === 1) {
-      this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
-      this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
-      this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    }
+    // if (parseInt(this.isReserveChildren) === 0) {
+    //   this.freeTravelUpdateModel.children_age = 0;
+    //   this.freeTravelUpdateModel.child_height_min = 0;
+    //   this.freeTravelUpdateModel.child_height_max = 0;
+    // }
+    // else if (parseInt(this.isReserveChildren) === 1) {
+    //   this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
+    //   this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    //   this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    // }
+    this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
+    this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.freeTravelUpdateModel.departure_city = this.idRegion;
     this.freeTravelUpdateModel.destination_city = this.idDestin;
 
@@ -442,11 +445,11 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead
   }
 
-  isReserveChildrenChange(status: any) {
-    console.log(status, 'status');
-    this.isReserveChildren = status
-    this.addForm.value.reserve_children = this.isReserveChildren
-  }
+  // isReserveChildrenChange(status: any) {
+  //   console.log(status, 'status');
+  //   this.isReserveChildren = status
+  //   this.addForm.value.reserve_children = this.isReserveChildren
+  // }
 
 
   // 只输入整数

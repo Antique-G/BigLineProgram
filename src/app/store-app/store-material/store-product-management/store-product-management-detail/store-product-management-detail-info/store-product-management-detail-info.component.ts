@@ -42,7 +42,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   // 预定截止日期
   earlierTime = new Date('2021-01-01 18:00');
   isReserveAhead = '0';
-  isReserveChildren = '0';
+  // isReserveChildren = '0';
 
   newDay: any;
   newHour: any;
@@ -373,16 +373,19 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
       }
       console.log('date是多少', this.detailUpdateModel.earlier);
     }
-    if (parseInt(this.isReserveChildren) === 0) {
-      this.detailUpdateModel.child_age_max = 14;
-      this.detailUpdateModel.child_height_min = 0;
-      this.detailUpdateModel.child_height_max = 0;
-    }
-    else if (parseInt(this.isReserveChildren) === 1) {
-      this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
-      this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
-      this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    }
+    // if (parseInt(this.isReserveChildren) === 0) {
+    //   this.detailUpdateModel.child_age_max = 14;
+    //   this.detailUpdateModel.child_height_min = 0;
+    //   this.detailUpdateModel.child_height_max = 0;
+    // }
+    // else if (parseInt(this.isReserveChildren) === 1) {
+    //   this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
+    //   this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    //   this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
+    // }
+    this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
+    this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
+    this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
 
@@ -592,11 +595,11 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
   }
 
 
-  isReserveChildrenChange(status: any) {
-    console.log(status, 'status');
-    this.isReserveChildren = status;
-    this.addForm.value.child_status = this.isReserveChildren;
-  }
+  // isReserveChildrenChange(status: any) {
+  //   console.log(status, 'status');
+  //   this.isReserveChildren = status;
+  //   this.addForm.value.child_status = this.isReserveChildren;
+  // }
 
 
   // 只输入整数
