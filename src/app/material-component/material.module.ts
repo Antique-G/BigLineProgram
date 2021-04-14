@@ -134,6 +134,8 @@ import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-
 import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
 import { AdminPermissionCreateComponent } from './admin-permission/admin-permission-create/admin-permission-create.component';
 import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
+import { AOGTDFullRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
+import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 
 
 
@@ -288,6 +290,8 @@ import { AdminPermissionDetailComponent } from './admin-permission/admin-permiss
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
     AdminPermissionDetailComponent,
+    AOGTDFullRefundComponent,
+    AOGTDPartRefundComponent,
   ]
 })
 export class MaterialComponentsModule {}
