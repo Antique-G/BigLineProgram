@@ -1,5 +1,4 @@
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyValidators } from '../../../../app/util/phone';
 import { PhoneCodeService } from '../../../../services/common/phone-code.service';
@@ -14,6 +13,8 @@ import { AdminTouristService } from '../../../../services/admin/admin-tourist.se
   styleUrls: ['./admin-tourist-detail.component.css']
 })
 export class AdminTouristDetailComponent implements OnInit {
+  @Input() data: any;
+
   addForm!: FormGroup;
   disabledClick = false;
   paracont = '发送验证码';
@@ -21,8 +22,8 @@ export class AdminTouristDetailComponent implements OnInit {
   touristDetailModel: TouristDetailModel;
   touristUpdateRequestModel: TouristUpdateRequestModel
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AdminTouristDetailComponent>, public phoneCodeService: PhoneCodeService,
-     @Inject(MAT_DIALOG_DATA) public data: any,public adminTouristService: AdminTouristService,) {
+  constructor(private fb: FormBuilder, public phoneCodeService: PhoneCodeService,
+   public adminTouristService: AdminTouristService,) {
     this.touristDetailModel = this.data;
     this.forms();
     this.touristUpdateRequestModel = {
@@ -38,15 +39,20 @@ export class AdminTouristDetailComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
-      name: [this.touristDetailModel.name, [Validators.required]],
-      mobile: [this.touristDetailModel.mobile, [Validators.required, mobile]],
+      name: ['', [Validators.required]],
+      mobile: ['', [Validators.required, mobile]],
       verificationCode: [''],
-      status: [this.touristDetailModel.status, [Validators.required]]
+      status: ['', [Validators.required]]
     });
   }
 
 
   ngOnInit(): void {
+    this.touristDetailModel = this.data;
+    this.addForm.patchValue({
+      mobile:this.touristDetailModel?.mobile
+    })
+
   }
 
 
@@ -92,7 +98,7 @@ export class AdminTouristDetailComponent implements OnInit {
       this.touristUpdateRequestModel.id = this.touristDetailModel.id;
       this.adminTouristService.updataTourist(this.touristUpdateRequestModel).subscribe(res => {
         console.log("resjieguo", res);
-        this.dialogRef.close();
+      
 
       })
     }
@@ -115,8 +121,6 @@ export class AdminTouristDetailComponent implements OnInit {
     }
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
+
 }
 
