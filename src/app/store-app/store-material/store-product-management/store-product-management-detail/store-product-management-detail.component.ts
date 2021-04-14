@@ -13,6 +13,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   infoId: any;
   detailId: any;
   dataDetailModel: any;
+  productName: any;
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,
@@ -31,6 +32,7 @@ export class StoreProductManagementDetailComponent implements OnInit {
   getProductDetail() {
     this.storeProductService.getProductDetail(this.detailId).subscribe(res => {
       this.dataDetailModel = res.data;
+      this.productName = this.dataDetailModel?.title;
       console.log('父组件', this.dataDetailModel);
       console.log('几天的值', this.dataDetailModel.few_days);
       localStorage.setItem("few_days", this.dataDetailModel.few_days);

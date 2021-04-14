@@ -14,6 +14,7 @@ export class AdminProductFreeTravelDetailComponent implements OnInit {
   selectedTabIndex = 0;    //选中的tab 默认第一个
   detailId: any;
   dataFreeDetailModel!: DataFreeTravelDetailModel;
+  productName: any;
 
 
   constructor(public fb: FormBuilder, public adminProductFreeTravelService: AdminProductFreeTravelService,
@@ -34,6 +35,7 @@ export class AdminProductFreeTravelDetailComponent implements OnInit {
     this.adminProductFreeTravelService.freeTravelDetail(this.detailId).subscribe(res => {
       console.log('详情拿到的model', res);
       this.dataFreeDetailModel = res.data;
+      this.productName=this.dataFreeDetailModel?.title;
       localStorage.setItem("few_days", res.data.few_days.toString());
 
     })
