@@ -70,17 +70,7 @@ export class AdminTouristComponent implements OnInit {
 
   }
 
-  // 查看详情
-  edit(data: any) {
-    const dialogRef = this.dialog.open(AdminTouristDetailComponent, {
-      width: '550px',
-      data: data
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
-      this.getTouristList();
-    });
-  }
+
 
   delete(data: any) {
     console.log("data", data);
@@ -96,17 +86,49 @@ export class AdminTouristComponent implements OnInit {
 
 
   add() {
-    const dialogRef = this.dialog.open(AdminTouristCreateComponent, {
-      width: '550px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("result", result);
+    const editmodal = this.modal.create({
+      nzTitle: '添加',
+      nzContent: AdminTouristCreateComponent,
+      nzMaskClosable:false,
+      nzFooter: [
+        {
+          label: '提交',
+          type:'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
       this.getTouristList();
-    });
+    })
   }
 
 
-
+  // 查看详情
+  edit(data: any) {
+    const editmodal = this.modal.create({
+      nzTitle: '修改',
+      nzContent: AdminTouristDetailComponent,
+      nzMaskClosable:false,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '更新',
+          type:'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getTouristList();
+    })
+  }
 
 
 
