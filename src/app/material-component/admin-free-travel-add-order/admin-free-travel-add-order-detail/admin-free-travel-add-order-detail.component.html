@@ -132,7 +132,7 @@
                             <div fxLayout="column" fxLayoutAlign="start stretch" style="padding:10px 10px" fxLayoutGap="10px">
                                 <div fxLayout="column" fxLayoutGap="5px">
                                     <p style="color: red;font-size: 16px;">请填写出行人详细信息</p>
-                                    <p style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">儿童标准信息：年龄：2-{{detailModel?.children_age}}岁<span *ngIf="detailModel?.child_height_max!=0">，身高：{{detailModel?.child_height_min}}~{{detailModel?.child_height_max}}cm</span></p>
+                                    <p style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">儿童标准信息：年龄：{{detailModel?.child_age_min}}-{{detailModel?.children_age}}岁<span *ngIf="detailModel?.child_height_max!=0">，身高：{{detailModel?.child_height_min}}-{{detailModel?.child_height_max}}cm</span></p>
                                 </div>
 
                                 <div>

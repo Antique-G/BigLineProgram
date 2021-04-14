@@ -8,6 +8,7 @@ export interface AddStoreProductModel {
   few_nights: number;
   child_status: number;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   reserve_num_min: number;
@@ -72,6 +73,7 @@ export interface DataModel {
   destination_city: string;
   child_status: number;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   reserve_num_min: number;
@@ -189,6 +191,7 @@ export interface DatumListModel {
   created_at: string;
   updated_at: string;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   finish_status: boolean;
@@ -234,6 +237,8 @@ export interface DetailModel {
   reserve_children: number;
   reserve_ahead: number;
   children_age: number;
+  child_age_min: number;
+
   child_height_min: number;
   child_height_max: number;
   feature: string;

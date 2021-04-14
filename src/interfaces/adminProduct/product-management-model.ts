@@ -38,6 +38,7 @@ interface DatumModel {
   created_at: string;
   updated_at: string;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   store_name: string;
@@ -94,6 +95,7 @@ export interface AdminProductManagementUpdateModel {
   destination: string;
   advance: number;
   child_status: number;
+  child_age_min: number;
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;
@@ -152,6 +154,7 @@ export interface DataProductDetailModel {
   difference_price: number;
   destination_city: string;
   child_status: number;
+  child_age_min: number;
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;

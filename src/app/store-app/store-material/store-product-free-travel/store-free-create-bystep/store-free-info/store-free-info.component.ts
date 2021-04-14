@@ -119,6 +119,7 @@ export class StoreFreeInfoComponent implements OnInit {
       reserve_num: 0,
       reserve_children: 0,
       reserve_ahead: 0,
+      child_age_min: 0,
       children_age: 0,
       child_height_min: 0,
       child_height_max: 0,
@@ -155,6 +156,7 @@ export class StoreFreeInfoComponent implements OnInit {
       reserve_ahead: new FormControl(1, [Validators.required]),
       // reserve_num: new FormControl('0', [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
+      child_age_min: new FormControl(2),
       children_age: new FormControl(14),
       child_height_min: new FormControl(0),
       child_height_max: new FormControl(0),
@@ -325,6 +327,7 @@ export class StoreFreeInfoComponent implements OnInit {
     //   this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
     //   this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
     // }
+    this.freeTravelModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelModel.children_age = this.addForm.value.children_age;
     this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
