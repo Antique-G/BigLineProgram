@@ -155,9 +155,9 @@ export class StoreFreeInfoComponent implements OnInit {
       reserve_ahead: new FormControl(1, [Validators.required]),
       // reserve_num: new FormControl('0', [Validators.required]),
       reserve_children: new FormControl(0, [Validators.required]),
-      children_age: new FormControl('14'),
-      child_height_min: new FormControl(''),
-      child_height_max: new FormControl(''),
+      children_age: new FormControl(14),
+      child_height_min: new FormControl(0),
+      child_height_max: new FormControl(0),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -315,16 +315,19 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
     console.log("fdgdfg", this.freeTravelModel.reserve_children);
 
-    if (parseInt(this.isReserveChildren) === 0) {
-      this.freeTravelModel.children_age = 0;
-      this.freeTravelModel.child_height_min = 0;
-      this.freeTravelModel.child_height_max = 0;
-    }
-    else if (parseInt(this.isReserveChildren) === 1) {
-      this.freeTravelModel.children_age = this.addForm.value.children_age;
-      this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
-      this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    }
+    // if (parseInt(this.isReserveChildren) === 0) {
+    //   this.freeTravelModel.children_age = 0;
+    //   this.freeTravelModel.child_height_min = 0;
+    //   this.freeTravelModel.child_height_max = 0;
+    // }
+    // else if (parseInt(this.isReserveChildren) === 1) {
+    //   this.freeTravelModel.children_age = this.addForm.value.children_age;
+    //   this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
+    //   this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
+    // }
+    this.freeTravelModel.children_age = this.addForm.value.children_age;
+    this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
+    this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
     this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1]
     this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1]
 
@@ -428,11 +431,11 @@ export class StoreFreeInfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead;
   }
 
-  isReserveChildrenChange(status: any) {
-    console.log(status, 'status');
-    this.isReserveChildren = status;
-    this.addForm.value.reserve_children = this.isReserveChildren;
-  }
+  // isReserveChildrenChange(status: any) {
+  //   console.log(status, 'status');
+  //   this.isReserveChildren = status;
+  //   this.addForm.value.reserve_children = this.isReserveChildren;
+  // }
 
 
   // 只输入整数

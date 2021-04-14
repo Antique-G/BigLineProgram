@@ -44,7 +44,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
   feeList: any[] = []    //图片
 
   isReserveAhead = '0';
-  isReserveChildren = '0';
+  // isReserveChildren = '0';
 
   cateId: any;
   newDay: any;
@@ -379,16 +379,19 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelModel.reserve_num = 0;
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
-    if (parseInt(this.isReserveChildren) === 0) {
-      this.freeTravelModel.children_age = 0;
-      this.freeTravelModel.child_height_min = 0;
-      this.freeTravelModel.child_height_max = 0;
-    }
-    else if (parseInt(this.isReserveChildren) === 1) {
-      this.freeTravelModel.children_age = this.addForm.value.children_age;
-      this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
-      this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    }
+    // if (parseInt(this.isReserveChildren) === 0) {
+    //   this.freeTravelModel.children_age = 0;
+    //   this.freeTravelModel.child_height_min = 0;
+    //   this.freeTravelModel.child_height_max = 0;
+    // }
+    // else if (parseInt(this.isReserveChildren) === 1) {
+    //   this.freeTravelModel.children_age = this.addForm.value.children_age;
+    //   this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
+    //   this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
+    // }
+    this.freeTravelModel.children_age = this.addForm.value.children_age;
+    this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
+    this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
     this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1]
     this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1]
 
@@ -504,11 +507,11 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead
   }
 
-  isReserveChildrenChange(status: any) {
-    console.log(status, 'status');
-    this.isReserveChildren = status
-    this.addForm.value.reserve_children = this.isReserveChildren
-  }
+  // isReserveChildrenChange(status: any) {
+  //   console.log(status, 'status');
+  //   this.isReserveChildren = status
+  //   this.addForm.value.reserve_children = this.isReserveChildren
+  // }
 
 
 
