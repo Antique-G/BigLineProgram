@@ -17,7 +17,7 @@ const MENUITEMS = [
     title: '系统设置模块', icon: 'setting',
     children: [
       { state: 'adminAccount', name: '管理员账号' },
-      { state: 'adminPermission', name: '管理权限' }
+      // { state: 'adminPermission', name: '管理权限' }
     ]
   },
   {
@@ -85,7 +85,7 @@ const MENUITEMS = [
     title: '保险管理', icon: 'safety-certificate',
     children: [
       { state: 'insurance', name: '保险' },
-      { state: 'insuranceHistory', name: '保险购买记录' },
+      // { state: 'insuranceHistory', name: '保险购买记录' },
 
     ]
   },
