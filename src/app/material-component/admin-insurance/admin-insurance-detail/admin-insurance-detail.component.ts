@@ -14,17 +14,32 @@ export class AdminInsuranceDetailComponent implements OnInit {
   validateForm!: FormGroup;
   insuranceDetailModel!:InsuranceDetailModel;
   adminInsuranceUpdateRequestModel!: AdminInsuranceUpdateRequestModel;
+  status = '1';
+
 
   @Input() data:any;
 
   validationMessage: any = {
-    name: {
-      'maxlength': '保险名称长度最多为32个字符',
-      'required': '请输入保险名称！'
+    code: {
+      maxlength: "保险产品方案代码长度最多为20个字符",
+      required: "请输入保险产品方案代码！",
     },
+    name: {
+      maxlength: "保险名称长度最多为32个字符",
+      required: "请输入保险名称！",
+    },
+    insurance_amount: {
+      required: "请输入保额！",
+    },
+    article: {
+      required: "请输入保险条款！",
+    }
   };
   formErrors: any = {
     name: '',
+    code: '',
+    insurance_amount: '',
+    article: '',
   };
   
   constructor(public fb:FormBuilder,private adminInsuranceService:AdminInsuranceService) { 
@@ -34,18 +49,19 @@ export class AdminInsuranceDetailComponent implements OnInit {
       insured_date: [],
       id: 0,
       status: 1,
+      code: "",
+      insurance_amount: "",
+      article: "",
     }
   };
   forms(){
     this.validateForm = this.fb.group({
-      name: new FormControl(null, [Validators.required,Validators.maxLength(32)]),
-      insured_date: new FormArray([
-        new FormControl(null, [
-          Validators.required,
-          Validators.min(0),
-        ]),
-      ]),
-      
+      name: new FormControl(null, [Validators.required, Validators.maxLength(32)]),
+      code: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
+      insured_date: new FormArray([new FormControl(null, [Validators.required, Validators.min(0)])]),
+      insurance_amount: new FormControl(null, [Validators.required]),
+      article: new FormControl(null, [Validators.required]),
+      status: new FormControl('1'),
     });
   
   };
@@ -85,24 +101,28 @@ export class AdminInsuranceDetailComponent implements OnInit {
     });
     console.log('insuredDateArray',this.insuredDateArray.value)
   }
+
+
+
+
   setValue(){
-    // let flag = newList.every((item:any)=>item!=null || item!='' || item!='0')
-    // console.log(flag);
-    // if(!flag) return false
-    // console.log('newList',newList)
     if(this.insuredDateArray.length > 1) {
       this.removeNull();
     }
     this.adminInsuranceUpdateRequestModel.name = this.validateForm.value.name;
+    this.adminInsuranceUpdateRequestModel.code = this.validateForm.value.code;
+    this.adminInsuranceUpdateRequestModel.insurance_amount = this.validateForm.value.insurance_amount;
+    this.adminInsuranceUpdateRequestModel.article = this.validateForm.value.article;
+    this.adminInsuranceUpdateRequestModel.status = this.validateForm.value.status;
     this.adminInsuranceUpdateRequestModel.insured_date = this.insuredDateArray.value;
     this.adminInsuranceUpdateRequestModel.id = this.insuranceDetailModel.id;
-    this.adminInsuranceUpdateRequestModel.status = this.insuranceDetailModel.status;
     console.log('this.adminInsuranceUpdateRequestModel',this.adminInsuranceUpdateRequestModel)
   }
+
+
+
   update(){
     this.setValue();
-    // console.log(t,'t');
-    // if(t != undefined ) return
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();

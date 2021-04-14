@@ -15,7 +15,9 @@ export interface Menus {
 const MENUITEMS = [
   {
     title: '系统设置模块', icon: 'setting',
-    children: [{ state: 'adminAccount', name: '管理员账号' }
+    children: [
+      { state: 'adminAccount', name: '管理员账号' },
+      // { state: 'adminPermission', name: '管理权限' }
     ]
   },
   {
@@ -38,6 +40,7 @@ const MENUITEMS = [
       { state: 'groupTravelOrder', name: '跟团游订单列表' },
       { state: 'freeTravelOrder', name: '自由行订单列表' },
       { state: 'addGroupOrder', name: '跟团游添加订单' },
+      { state: 'addFreeOrder', name: '自由行添加订单' },
       { state: 'refund', name: '订单退款处理' },
       { state: 'refundReview', name: '订单审核退款' },
       { state: 'refundTurnOver', name: '订单退款流水列表' },
@@ -82,6 +85,7 @@ const MENUITEMS = [
     title: '保险管理', icon: 'safety-certificate',
     children: [
       { state: 'insurance', name: '保险' },
+      // { state: 'insuranceHistory', name: '保险购买记录' },
 
     ]
   },

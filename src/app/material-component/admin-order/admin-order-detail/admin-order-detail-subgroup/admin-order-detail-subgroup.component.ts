@@ -477,4 +477,14 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     }
 
   }
+
+
+  // 不成团退款
+  closedGroupRefund(){
+    this.modal.confirm({
+      nzTitle: "<h3>确认退款</h3>",
+      nzContent: '<h5>如果您确认退款后,将生成退款申请记录,请前往"订单退款处"审核,提交财务退款。</h5>',
+      // nzOnOk: () =>
+    })
+  }
 }

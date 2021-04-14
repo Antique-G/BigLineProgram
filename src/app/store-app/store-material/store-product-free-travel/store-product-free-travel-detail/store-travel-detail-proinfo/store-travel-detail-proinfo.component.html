@@ -133,7 +133,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reserve_children">儿童是否可预定</nz-form-label>
                                             <nz-form-control [nzSm]="10" [nzXs]="24">
-                                                <nz-radio-group (ngModelChange)="isReserveChildrenChange($event)" ngModel={{dataModel?.reserve_children}} formControlName="reserve_children">
+                                                <nz-radio-group ngModel={{dataModel?.reserve_children}} formControlName="reserve_children">
                                                     <label nz-radio nzValue='1'>可以</label>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                 </nz-radio-group>
@@ -141,18 +141,20 @@
                                         </div>
                                     </nz-form-item>
 
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
+                                    <!-- *ngIf="isReserveChildren==='1'" -->
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童最大年龄</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入">
-                                                <nz-input-number style="width: 100%;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="children_age" nzRequired>儿童年龄范围</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-input-number class="demo-input-right" (keyup)="numTest($event)" style="width: 70px;margin-top: 1px;" formControlName="child_age_min" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                <input type="text" disabled nz-input placeholder="~" class="demo-input-split" style="width: 30px; border-left: 0px; border-right: 0px; pointer-events: none; background-color: rgb(255, 255, 255);" />
+                                                <nz-input-number class="demo-input-right" style="width: 70px;margin-top: 1px;" (keyup)="numTest($event)" formControlName="children_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
 
-
-                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isReserveChildren==='1'">
+                                    <!-- *ngIf="isReserveChildren==='1'" -->
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child_height_min">儿童身高范围</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">

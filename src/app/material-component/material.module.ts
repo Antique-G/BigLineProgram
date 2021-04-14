@@ -126,6 +126,17 @@ import { AdminStoreCertifiProgressComponent } from './admin-store/admin-store-ce
 import { AdminStoreCertifiContracrComponent } from './admin-store/admin-store-certifi/admin-store-certifi-contracr/admin-store-certifi-contracr.component';
 import { AdminStoreCertifiCheckComponent } from './admin-store/admin-store-certifi/admin-store-certifi-data/admin-store-certifi-check/admin-store-certifi-check.component';
 import { AdminStoreCertifiHistoryComponent } from './admin-store/admin-store-certifi/admin-store-certifi-progress/admin-store-certifi-history/admin-store-certifi-history.component';
+import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
+import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
+import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
+import { APMBIIDComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/a-p-m-b-i-i-d/a-p-m-b-i-i-d.component';
+import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
+import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
+import { AdminPermissionCreateComponent } from './admin-permission/admin-permission-create/admin-permission-create.component';
+import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
+import { AOGTDFullRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
+import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+
 
 
 @NgModule({
@@ -271,6 +282,16 @@ import { AdminStoreCertifiHistoryComponent } from './admin-store/admin-store-cer
     AdminStoreCertifiContracrComponent,
     AdminStoreCertifiCheckComponent,
     AdminStoreCertifiHistoryComponent,
+    AdminFreeTravelAddOrderComponent,
+    AdminFreeTravelAddOrderDetailComponent,
+    AdminPermissionComponent,
+    APMBIIDComponent,
+    AdminInsuranceHistoryComponent,
+    AdminInsuredListComponent,
+    AdminPermissionCreateComponent,
+    AdminPermissionDetailComponent,
+    AOGTDFullRefundComponent,
+    AOGTDPartRefundComponent,
   ]
 })
 export class MaterialComponentsModule {}

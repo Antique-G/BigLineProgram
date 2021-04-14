@@ -2,10 +2,16 @@
     <div fxFlex.gt-sm="100%" fxFlex="100">
 
         <div class="example-container">
-            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                 <div fxLayout="row" fxLayoutGap="20px">
                     <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
                 </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <h4 style="font-weight: bold;">{{productName}}</h4>
+                </div>
+
+
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">

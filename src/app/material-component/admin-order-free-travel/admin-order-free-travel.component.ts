@@ -25,6 +25,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   product_name: any;
   store_id: any;
   order_number: any;
+  contact_name: any;
+  contact_phone: any;
   date_start: any;
   date_end: any;
   order_start_date: any;
@@ -51,6 +53,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
       product_code: [''],
       store_id: [''],
       order_start_date: [''],
+      contact_name: [''],
+      contact_phone: [''],
     });
   }
 
@@ -65,7 +69,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date).subscribe(res => {
+    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -75,7 +79,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
 
 
   getTotal() {
-    this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date).subscribe(res => {
+    this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
       console.log('统计', res?.data);
       this.totalModel = res?.data;
     })
@@ -102,6 +106,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.product_name = this.searchForm.value.product_name;
     this.product_code = this.searchForm.value.product_code;
     this.order_number = this.searchForm.value.order_number;
+    this.contact_name = this.searchForm.value.contact_name;
+    this.contact_phone = this.searchForm.value.contact_phone;
     this.store_id = this.searchForm.value.store_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];

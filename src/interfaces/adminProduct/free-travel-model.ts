@@ -40,6 +40,7 @@ export interface DatumModel {
     reserve_children: number;
     reserve_ahead: number;
     children_age: number;
+    child_age_min: number;
     child_height_min: number;
     child_height_max: number;
     feature?: string;
@@ -119,13 +120,13 @@ export interface DataFreeTravelDetailModel {
     departure_city: string;
     destination_city: string;
     earlier: number;
-
     pay_method: number;
     service_phone: string;
     min_price: number;
     reserve_num: number;
     reserve_children: number;
     reserve_ahead: number;
+    child_age_min: number;
     children_age: number;
     children_height: number;
     feature: string;
@@ -158,6 +159,7 @@ export interface FreeTravelUpdateModel {
     reserve_num: number;
     reserve_children: number;
     reserve_ahead: number;
+    child_age_min: number;
     children_age: number;
     child_height_min: number;
     child_height_max: number;

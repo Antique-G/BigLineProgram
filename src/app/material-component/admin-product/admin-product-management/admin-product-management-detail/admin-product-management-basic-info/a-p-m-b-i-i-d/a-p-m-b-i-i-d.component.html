@@ -1,0 +1,54 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding:  5px;">
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code">保险产品方案代码</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="code" nzBorderless ngModel={{insuranceDetailModel?.code}} />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">保险名称</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="name" nzBorderless ngModel={{insuranceDetailModel?.name}}/>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item style="margin-bottom: 0px;">
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone">保险价格 </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index">
+                        <nz-form-control [nzSm]="24" [nzXs]="24" style="margin-bottom: 20px;">
+                            <ng-template #prefix>
+                                <span>第{{dateIndex+1}}天</span>
+                            </ng-template>
+                            <nz-input-group [nzAddOnBefore]="prefix" nzPrefix="￥">
+                                <input nz-input [formControlName]="dateIndex" readonly="true" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-row>
+                </nz-form-control>
+            </nz-form-item>
+
+
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_amount">保额</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <input nz-input formControlName="insurance_amount" nzBorderless ngModel={{insuranceDetailModel?.insurance_amount}}/>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="article">保险条款</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <textarea nz-input formControlName="article" ngModel={{insuranceDetailModel?.article}} [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+
+
+        </form>
+    </div>
+</div>

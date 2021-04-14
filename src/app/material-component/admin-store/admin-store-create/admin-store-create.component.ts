@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 import { AddStoreRequestModel } from '../../../../interfaces/adminStore/admin-store-model';
 import { AdminStoreService } from '../../../../services/admin/admin-store.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
@@ -22,6 +21,7 @@ export class AdminStoreCreateComponent implements OnInit {
 
   addForm!: FormGroup;
   status = '1';
+  typeValue = '1';
 
   addStoreRequestModel: AddStoreRequestModel;
 
@@ -39,8 +39,8 @@ export class AdminStoreCreateComponent implements OnInit {
     { label: '周六', value: 6, checked: false },
     { label: '周日', value: 0, checked: false },
   ]
-  time1=new Date('2021-01-01 09:00:00');
-  time2=new Date('2021-01-01 18:00:00');
+  time1 = new Date('2021-01-01 09:00:00');
+  time2 = new Date('2021-01-01 18:00:00');
   HourArr1: any;
   HourArr2: any;
 
@@ -59,6 +59,7 @@ export class AdminStoreCreateComponent implements OnInit {
       mobile: '',
       work_date: '',
       work_time: '',
+      type: 1,
     }
   }
 
@@ -78,6 +79,7 @@ export class AdminStoreCreateComponent implements OnInit {
       week: ['', [Validators.required]],
       date1: [null, [Validators.required]],
       date2: [null, [Validators.required]],
+      type: [1, [Validators.required]],
     });
 
   }
@@ -100,6 +102,7 @@ export class AdminStoreCreateComponent implements OnInit {
     this.addStoreRequestModel.fax = this.addForm.value.fax;
     this.addStoreRequestModel.phone = this.addForm.value.phone
     this.addStoreRequestModel.status = this.addForm.value.status;
+    this.addStoreRequestModel.type = this.addForm.value.type;
     this.addStoreRequestModel.contact = this.addForm.value.contact;
     this.addStoreRequestModel.mobile = this.addForm.value.mobile;
     this.addStoreRequestModel.work_date = this.weekValue;

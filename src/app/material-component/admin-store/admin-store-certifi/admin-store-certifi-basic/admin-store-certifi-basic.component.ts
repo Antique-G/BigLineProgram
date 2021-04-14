@@ -29,6 +29,7 @@ export class AdminStoreCertifiBasicComponent implements OnInit {
       week: [''],
       money: [''],
       remark: [''],
+      type: [''],
     })
   }
 

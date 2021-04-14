@@ -50,6 +50,7 @@ export interface Datum {
   created_at: string;
   updated_at: string;
   region_full_name: string;
+  type?:number
 }
 
 
@@ -66,6 +67,7 @@ export interface AddStoreRequestModel {
   contact: string;
   work_date?: any;
   work_time?: string;
+  type?:number
 }
 
 export interface AddStoreResponseModel {
@@ -90,6 +92,7 @@ export interface StoreDetailModel {
   region_full_name: string;
   work_date?: any;
   work_time?:  any;
+  type?:number
 }
 
 export interface StoreUpdateRequestModel {
@@ -104,6 +107,7 @@ export interface StoreUpdateRequestModel {
   contact?: string;
   work_date?: any;
   work_time?: string;
+  type?:number
 }
 
 export interface ApplyCheckModel {

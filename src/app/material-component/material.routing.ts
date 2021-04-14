@@ -47,6 +47,10 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
 import { AdminStoreCertifiComponent } from './admin-store/admin-store-certifi/admin-store-certifi.component';
+import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
+import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
+import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
+import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -59,6 +63,13 @@ export const MaterialRoutes: Routes = [
         component: AdminComponent,
         data: {
           breadcrumb: '管理员账号列表'
+        }
+      },
+      {
+        path: 'adminPermission',
+        component: AdminPermissionComponent,
+        data: {
+          breadcrumb: '管理权限列表'
         }
       },
       {
@@ -194,6 +205,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '跟团游订单列表'
         }
       },
+        // 注销
       {
         path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
         component: AdminOrderGroupOrderComponent,
@@ -201,6 +213,8 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单内容'
         }
       },
+
+
       {
         path: 'groupTravelOrder/detail',
         component: AdminOrderGroupTravelDetailComponent,
@@ -240,6 +254,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '自由行订单详情'
         }
       },
+      // 注销
       {
         path: 'freeTravelOrder/order',
         component: AOFreetravelOrderComponent,
@@ -247,6 +262,23 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单内容'
         }
       },
+
+
+      {
+        path: 'addFreeOrder',
+        component: AdminFreeTravelAddOrderComponent,
+        data: {
+          breadcrumb: '添加自由行订单'
+        }
+      },
+      {
+        path: 'addFreeOrder/add',
+        component: AdminFreeTravelAddOrderDetailComponent,
+        data: {
+          breadcrumb: '添加订单'
+        }
+      },
+
       {
         path: 'refund',
         component: AdminOrderRefundComponent,
@@ -320,6 +352,14 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '保险管理列表'
         }
       },
+      {
+        path: 'insuranceHistory',
+        component: AdminInsuranceHistoryComponent,
+        data: {
+          breadcrumb: '保险购买记录'
+        }
+      },
+      
       {
         path: 'user',
         component: AdminUserinfoComponent,

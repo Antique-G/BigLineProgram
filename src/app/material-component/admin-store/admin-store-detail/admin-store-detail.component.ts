@@ -88,6 +88,7 @@ export class AdminStoreDetailComponent implements OnInit {
       week: ['', [Validators.required]],
       date1: [null, [Validators.required]],
       date2: [null, [Validators.required]],
+      type: ['', [Validators.required]],
     });
     this.storeUpdateRequestModel = {
       name: '',
@@ -100,6 +101,7 @@ export class AdminStoreDetailComponent implements OnInit {
       mobile: '',
       work_date: '',
       work_time: '',
+      type:1
     }
 
   }
@@ -163,6 +165,7 @@ export class AdminStoreDetailComponent implements OnInit {
     this.storeUpdateRequestModel.fax = this.addForm.value.fax;
     this.storeUpdateRequestModel.phone = this.addForm.value.phone
     this.storeUpdateRequestModel.status = this.addForm.value.status;
+    this.storeUpdateRequestModel.type = this.addForm.value.type;
     this.storeUpdateRequestModel.contact = this.addForm.value.contact;
     this.storeUpdateRequestModel.mobile = this.addForm.value.mobile;
     this.storeUpdateRequestModel.work_date = this.weekValue;

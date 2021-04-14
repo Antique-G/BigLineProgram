@@ -15,6 +15,7 @@ export class StoreProductCreateBystepComponent implements OnInit {
   addDataDetailModel: any;
   isId: any;
   isShowId = true;
+  productName: any;
 
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService,) {
@@ -59,6 +60,7 @@ export class StoreProductCreateBystepComponent implements OnInit {
   getProductDetail() {
     this.storeProductService.getProductDetail(this.infoId).subscribe(res => {
       this.addDataDetailModel = res.data;
+      this.productName = this.addDataDetailModel?.title;
       localStorage.setItem("few_days", this.addDataDetailModel.few_days);
       console.log('父组件', this.addDataDetailModel);
     })

@@ -57,9 +57,9 @@ export class StoreProductInfoComponent implements OnInit {
   cateId: any;
 
   validationMessage: any = {
-    scenic_spot: {
-      'maxlength': '主要景区长度最多为20个字符',
-      'required': '请填写主要景区'
+    title: {
+      'maxlength': '产品主标题长度最多为30个字符',
+      'required': '请填写产品主标题'
     },
     sub_title: {
       'maxlength': '副标题长度最多为225个字符',
@@ -87,7 +87,7 @@ export class StoreProductInfoComponent implements OnInit {
     },
   };
   formErrors: any = {
-    scenic_spot: '',
+    title: '',
     sub_title: '',
     few_days: '',
     few_nights: '',
@@ -106,7 +106,7 @@ export class StoreProductInfoComponent implements OnInit {
     private modal: NzModalService, private viewContainerRef: ViewContainerRef) {
     this.buildForm();
     this.addStoreProductModel = {
-      scenic_spot: '',
+      title: '',
       sub_title: '',
       departure_city: '',
       destination_city: '',
@@ -115,6 +115,7 @@ export class StoreProductInfoComponent implements OnInit {
       few_nights: 0,
       child_status: 0,
       child_age_max: 0,
+      child_age_min: 0,
       child_height_min: 0,
       child_height_max: 0,
       reserve_num_min: 0,
@@ -129,7 +130,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      scenic_spot: ['', [Validators.required, Validators.maxLength(20)]],
+      title: ['', [Validators.required, Validators.maxLength(30)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
@@ -141,8 +142,9 @@ export class StoreProductInfoComponent implements OnInit {
       reserve_ahead: new FormControl(1, [Validators.required]),
       child_status: ['1', [Validators.required]],
       child_age_max: [14],
-      child_height_min: [''],
-      child_height_max: [''],
+      child_age_min: [2],
+      child_height_min: [0],
+      child_height_max: [0],
       reserve_num_min: [1, [Validators.required]],
       reserve_num_max: [0],
       earlier1: new FormControl(1, [Validators.required]),
@@ -268,7 +270,7 @@ export class StoreProductInfoComponent implements OnInit {
 
 
   setValue() {
-    this.addStoreProductModel.scenic_spot = this.addForm.value.scenic_spot;
+    this.addStoreProductModel.title = this.addForm.value.title;
     this.addStoreProductModel.sub_title = this.addForm.value.sub_title;
     this.addStoreProductModel.few_days = this.addForm.value.few_days;
     this.addStoreProductModel.few_nights = this.addForm.value.few_nights;
@@ -295,16 +297,20 @@ export class StoreProductInfoComponent implements OnInit {
       console.log('date是多少', this.addStoreProductModel.earlier);
 
     }
-    if (parseInt(this.isReserveChildren) === 0) {
-      this.addStoreProductModel.child_age_max = 14;
-      this.addStoreProductModel.child_height_min = 0;
-      this.addStoreProductModel.child_height_max = 0;
-    }
-    else if (parseInt(this.isReserveChildren) === 1) {
-      this.addStoreProductModel.child_age_max = this.addForm.value.child_age_max;
-      this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
-      this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
-    }
+    // if (parseInt(this.isReserveChildren) === 0) {
+    //   this.addStoreProductModel.child_age_max = 14;
+    //   this.addStoreProductModel.child_height_min = 0;
+    //   this.addStoreProductModel.child_height_max = 0;
+    // }
+    // else if (parseInt(this.isReserveChildren) === 1) {
+    //   this.addStoreProductModel.child_age_max = this.addForm.value.child_age_max;
+    //   this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
+    //   this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
+    // }
+    this.addStoreProductModel.child_age_min = this.addForm.value.child_age_min;
+    this.addStoreProductModel.child_age_max = this.addForm.value.child_age_max;
+    this.addStoreProductModel.child_height_min = this.addForm.value.child_height_min;
+    this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
 
@@ -511,11 +517,11 @@ export class StoreProductInfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead;
   }
 
-  isReserveChildrenChange(status: any) {
-    console.log(status, 'status');
-    this.isReserveChildren = status;
-    this.addForm.value.child_status = this.isReserveChildren;
-  }
+  // isReserveChildrenChange(status: any) {
+  //   console.log(status, 'status');
+  //   this.isReserveChildren = status;
+  //   this.addForm.value.child_status = this.isReserveChildren;
+  // }
 
 
   // 只输入整数

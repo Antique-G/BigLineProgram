@@ -1,5 +1,6 @@
 export interface AddStoreProductModel {
-  scenic_spot: string;
+  scenic_spot?: string;
+  title: string;
   sub_title: string;
   departure_city: string;
   destination_city: string;
@@ -8,6 +9,7 @@ export interface AddStoreProductModel {
   few_nights: number;
   child_status: number;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   reserve_num_min: number;
@@ -19,6 +21,8 @@ export interface AddStoreProductModel {
   reserve_ahead: number;
   step?: any;
   id?: any;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 // 返回
@@ -70,6 +74,7 @@ export interface DataModel {
   destination_city: string;
   child_status: number;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   reserve_num_min: number;
@@ -96,6 +101,8 @@ export interface DataModel {
   tag: Tag;
   album: Productalbum;
   product_trip: Producttrip;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 interface Producttrip {
@@ -185,6 +192,7 @@ export interface DatumListModel {
   created_at: string;
   updated_at: string;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   finish_status: boolean;
@@ -197,6 +205,8 @@ export interface DatumListModel {
   third_reward?: any;
   store_reward?: any;
   dist_reward?: any;
+  insurance_base?: any;
+  insurance_extra?: any;
 }
 
 
@@ -228,6 +238,8 @@ export interface DetailModel {
   reserve_children: number;
   reserve_ahead: number;
   children_age: number;
+  child_age_min: number;
+
   child_height_min: number;
   child_height_max: number;
   feature: string;
@@ -236,6 +248,8 @@ export interface DetailModel {
   notice: string;
   status: number;
   tag_id: number[];
+  insurance_base?: any;
+  insurance_extra?: any;
 
 }
 

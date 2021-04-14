@@ -58,6 +58,7 @@
                                     <th style="text-align: center;">联系人手机号</th>
                                     <th style="text-align: center;">座机号码</th>
                                     <th style="text-align: center;">传真</th>
+                                    <!-- <th style="text-align: center;">供应商类型</th> -->
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">认证状态</th>
                                     <th style="text-align: center;">操作</th>
@@ -75,6 +76,10 @@
                                     <td>{{data.mobile}}</td>
                                     <td>{{data.phone}}</td>
                                     <td>{{data.fax}}</td>
+                                    <!-- <td>
+                                        <div *ngIf="data.type===0">其他供应商</div>
+                                        <div *ngIf="data.type===1">启航机器人</div>
+                                    </td> -->
                                     <td>
                                         <div *ngIf="data.status===0">暂停</div>
                                         <div *ngIf="data.status===1">正常</div>

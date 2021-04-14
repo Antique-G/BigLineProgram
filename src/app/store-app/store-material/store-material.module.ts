@@ -100,6 +100,7 @@ import { UploadCertificationComponent } from './store-certication/store-certific
 import { UploadPdfComponent } from './store-certication/store-certification-detail/upload-pdf/upload-pdf.component';
 import { StoreCertifiHistoryComponent } from './store-certication/store-certifi-progress/store-certifi-history/store-certifi-history.component';
 import { StoreCertifiChangeComponent } from './store-certication/store-certifi-basic-info/store-certifi-change/store-certifi-change.component';
+import { StoreInsuranceDetailComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-insurance-detail/store-insurance-detail.component';
 
 @NgModule({
   imports: [
@@ -216,6 +217,7 @@ import { StoreCertifiChangeComponent } from './store-certication/store-certifi-b
     UploadPdfComponent,
     StoreCertifiHistoryComponent,
     StoreCertifiChangeComponent,
+    StoreInsuranceDetailComponent,
     
     
   ]

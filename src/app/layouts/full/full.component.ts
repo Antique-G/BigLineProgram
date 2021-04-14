@@ -64,6 +64,10 @@ export class FullComponent implements OnInit {
       // 认证状态
       this.storeApplyService.storeDetail().subscribe(res => {
         this.is_approve = Number(res?.store?.is_approve);
+
+        // 将供应商的类型存到缓存中
+        localStorage.setItem("supplierType",res?.store?.type.toString());
+      
       })
     }
 

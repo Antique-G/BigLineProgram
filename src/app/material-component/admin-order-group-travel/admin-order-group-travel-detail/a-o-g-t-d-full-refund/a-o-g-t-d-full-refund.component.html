@@ -1,0 +1,22 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm" nz-row>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                    <nz-form-control [nzSm]="18" [nzXs]="24">
+                        <input nz-input formControlName="order_id" nzBorderless [ngModel]="" readonly/>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="reason" nzRequired>全额退款原因</nz-form-label>
+                    <nz-form-control [nzSm]="18" [nzXs]="24">
+                        <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

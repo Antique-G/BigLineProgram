@@ -5,7 +5,6 @@ import { take } from 'rxjs/operators';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { PhoneCodeService } from '../../../../services/common/phone-code.service';
-import { MatDialogRef } from '@angular/material/dialog';
 import { AddTouristModel } from '../../../../interfaces/store/storeTourist/store-tourist-model';
 import { AdminTouristService } from '../../../../services/admin/admin-tourist.service';
 
@@ -22,7 +21,7 @@ export class AdminTouristCreateComponent implements OnInit {
   addTouristModel:AddTouristModel;
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminTouristCreateComponent>, 
+  constructor(public fb: FormBuilder,
     public phoneCodeService: PhoneCodeService,public adminTouristService: AdminTouristService,) {
     this.forms();
     this.addTouristModel={
@@ -90,7 +89,7 @@ export class AdminTouristCreateComponent implements OnInit {
       console.log("res",res)
       if (res === null) {
         // alert("创建成功");
-        this.dialogRef.close(1);
+      
       }
       else {
         // alert("创建失败，请重新填写")
@@ -100,9 +99,6 @@ export class AdminTouristCreateComponent implements OnInit {
   }
 
 
-  close(): void {
-    this.dialogRef.close();
-  }
 
 }
 

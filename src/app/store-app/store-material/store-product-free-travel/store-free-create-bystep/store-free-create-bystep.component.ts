@@ -18,6 +18,7 @@ export class StoreFreeCreateBystepComponent implements OnInit {
   isId: any;
   infoId: any;
   isShowId = true;
+  productName: any;
 
 
   constructor(public activatedRoute: ActivatedRoute, private freeTravelService: StoreProductTreeTravelService) { }
@@ -39,6 +40,7 @@ export class StoreFreeCreateBystepComponent implements OnInit {
   getDetail() {
     this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
       this.dataDetailModel = res.data;
+      this.productName = this.dataDetailModel?.title;
       localStorage.setItem("few_days", this.dataDetailModel.few_days);
       this.isSpinning = false
     })

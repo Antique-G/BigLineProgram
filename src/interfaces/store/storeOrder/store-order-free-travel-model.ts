@@ -290,3 +290,88 @@ export interface DatequoteList {
   created_at: string;
   updated_at: string;
 }
+
+
+// 自由行后台下订单产品搜索
+export interface FreeProSearchModel {
+  current_page: number;
+  data: DatumfreeProSearchModel[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: LinkfreeProSearchModel[];
+  next_page_url?: any;
+  path: string;
+  per_page: string;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+
+interface LinkfreeProSearchModel {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+interface DatumfreeProSearchModel {
+  id: number;
+  code: string;
+  title: string;
+  sub_title: string;
+  store_id: number;
+  few_days: number;
+  few_nights: number;
+  departure_city: string;
+  destination_city: string;
+  earlier: number;
+  confirm: number;
+  service_phone: string;
+  min_price: number;
+  price_range: number;
+  reserve_num: number;
+  reserve_children: number;
+  reserve_ahead: number;
+  children_age: number;
+  child_height_min: number;
+  child_height_max: number;
+  feature: string;
+  details: string;
+  fee: string;
+  notice: string;
+  status: number;
+  check_status: number;
+  created_at?: string;
+  updated_at: string;
+  poster_url: string;
+  trip_type: number;
+  dist_reward: number;
+  store_reward: number;
+  third_reward: number;
+  commerce_reward: number;
+  reward_set: number;
+  operation_name: string;
+  operation_id: number;
+  third_product_id: number;
+  departure: string;
+  destination: string;
+  date_quote: DatequotefreeProSearchModel[];
+}
+
+interface DatequotefreeProSearchModel {
+  id: number;
+  independent_product_id: number;
+  date: string;
+  adult_price: number;
+  child_price: number;
+  difference_price: number;
+  inventory_num: number;
+  sold_num: number;
+  set_inventory: number;
+  allow_over: number;
+  check_status: number;
+  created_at: string;
+  updated_at: string;
+}

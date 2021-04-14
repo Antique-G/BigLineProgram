@@ -108,6 +108,10 @@
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.child_price}}</span>
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
                                                             </div>
+                                                            <!-- <div>婴儿:
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥</span>
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
+                                                            </div> -->
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
                                                             <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
@@ -126,8 +130,9 @@
                             </div>
 
                             <div fxLayout="column" fxLayoutAlign="start stretch" style="padding:10px 10px" fxLayoutGap="10px">
-                                <div>
-                                    <p style="color: red;">请填写出行人详细信息</p>
+                                <div fxLayout="column" fxLayoutGap="5px">
+                                    <p style="color: red;font-size: 16px;">请填写出行人详细信息</p>
+                                    <p style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">儿童标准信息：年龄：{{detailModel?.child_age_min}}-{{detailModel?.child_age_max}}岁<span *ngIf="detailModel?.child_height_max!=0">，身高：{{detailModel?.child_height_min}}-{{detailModel?.child_height_max}}cm</span></p>
                                 </div>
 
                                 <div>
@@ -148,7 +153,6 @@
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入儿童数">
                                                         <nz-input-number style=" width: 100%;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
-                                                    <p style="color: red;margin-left: 5px;margin-top: 2px;">2-{{detailModel?.child_age_max}}岁</p>
                                                 </div>
                                             </nz-form-item>
 
@@ -179,8 +183,8 @@
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24">
                                                         <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter2($event)" formControlName="baby_num" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
-                                                    <p style="color: red;margin-left: 5px;margin-top: 2px;">0-2岁</p>
                                                 </div>
+                                                <p style="color: red;margin-left: 29%;margin-top: 2px;">0-2岁</p>
                                             </nz-form-item>
 
                                             <div style="margin-left: 14px;">
@@ -455,7 +459,7 @@
                                             </nz-form-item>
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="customer_remarks">备注</nz-form-label>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="customer_remarks">客人需求备注</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24">
                                                         <input nz-input formControlName="customer_remarks" />
                                                     </nz-form-control>
@@ -471,6 +475,41 @@
 
                     </div>
                 </mat-card>
+
+                <!-- 
+                <mat-card>
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">保险信息</h4>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <div>
+                                    <form nz-form nz-row [formGroup]="contactForm">
+                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>婴儿出行基础保险</nz-form-label>
+                                                <div>
+                                                    <nz-form-label [nzSm]="10" [nzXs]="24">保险价格</nz-form-label>
+                                                </div>
+                                            </div>
+                                        </nz-form-item>
+
+
+
+                                    </form>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </mat-card> -->
 
 
 
@@ -539,13 +578,25 @@
                             <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                                 <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
                             </div>
-
                         </div>
 
                     </div>
                 </mat-card>
 
-                <div></div>
+
+                <!-- <mat-card>
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
+                        <div>
+                            <p style="font-size: 16px;font-weight: bold;">共<span>￥1998元</span>：</p>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                            <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
+                        </div>
+                    </div>
+
+                </mat-card> -->
+
+
 
 
 

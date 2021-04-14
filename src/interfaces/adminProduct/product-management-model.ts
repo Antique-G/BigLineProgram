@@ -38,6 +38,7 @@ interface DatumModel {
   created_at: string;
   updated_at: string;
   child_age_max: number;
+  child_age_min: number;
   child_height_min: number;
   child_height_max: number;
   store_name: string;
@@ -46,8 +47,36 @@ interface DatumModel {
   departure_city_name: string;
   destination_city_name: string;
   operation_name: string;
+  store: StoreModel;
 }
 
+export interface StoreModel {
+  data: StoreAccountListModel[];
+}
+
+export interface StoreAccountListModel {
+  store_id: number;
+  name: string;
+  code: string;
+  region_code: string;
+  address: string;
+  fax: string;
+  phone: string;
+  mobile: string;
+  contact: string;
+  profile_photo_path?: any;
+  status: number;
+  type: number;
+  work_date: string;
+  is_approve: number;
+  work_time: string;
+  settlement_cycle: number;
+  reward_percent: number;
+  remark: string;
+  created_at: string;
+  updated_at: string;
+  region_full_name: string;
+}
 
 export interface AdminProductManagementUpdateModel {
   title: string;
@@ -66,6 +95,7 @@ export interface AdminProductManagementUpdateModel {
   destination: string;
   advance: number;
   child_status: number;
+  child_age_min: number;
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;
@@ -124,6 +154,7 @@ export interface DataProductDetailModel {
   difference_price: number;
   destination_city: string;
   child_status: number;
+  child_age_min: number;
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;
@@ -144,6 +175,9 @@ export interface DataProductDetailModel {
   assembling_place: Assemblingplace;
   tag: Tag;
   album: Productalbum;
+  insurance_base?: any;
+  insurance_extra?: any;
+
 }
 
 

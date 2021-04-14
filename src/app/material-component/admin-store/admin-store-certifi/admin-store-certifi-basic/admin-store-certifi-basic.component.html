@@ -20,6 +20,16 @@
 
                                 </div>
                             </nz-form-item>
+
+                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                <div nz-row>
+                                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="type">供应商类型</nz-form-label>
+                                    <nz-form-control [nzSm]="13" [nzXs]="24">
+                                        <input nz-input formControlName="type" nzBorderless [ngModel]="detailModel?.type===1?'内部供应商':'外部供应商'" />
+                                    </nz-form-control>
+                                </div>
+                            </nz-form-item>
+
                             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                 <div nz-row>
                                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="region">区域</nz-form-label>
