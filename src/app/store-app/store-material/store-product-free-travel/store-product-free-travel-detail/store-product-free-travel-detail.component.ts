@@ -12,7 +12,10 @@ export class StoreProductFreeTravelDetailComponent implements OnInit {
   selectedTabIndex = 0;    //选中的tab 默认第一个
   detailId: any
   dataDetailModel: any
-  isSpinning: boolean = true
+  isSpinning: boolean = true;
+  productName:any;
+
+  
   constructor(public activatedRoute: ActivatedRoute, private freeTravelService: StoreProductTreeTravelService) { }
 
   ngOnInit(): void {
@@ -30,6 +33,7 @@ export class StoreProductFreeTravelDetailComponent implements OnInit {
   getDetail() {
     this.freeTravelService.GetFreeTravelDetail(this.detailId).subscribe((res: any) => {
       this.dataDetailModel = res.data;
+      this.productName = this.dataDetailModel?.title;
       this.isSpinning = false
       localStorage.setItem("few_days", this.dataDetailModel.few_days);
     })

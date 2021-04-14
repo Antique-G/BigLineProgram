@@ -14,6 +14,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
 
   detailId: any;
   adminProductDetailModel!: DataProductDetailModel;
+  productName: any;
 
 
   constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
@@ -33,6 +34,7 @@ export class AdminProductManagementDetailComponent implements OnInit {
   getProductDetail() {
     this.adminProductManagementService.productDetail(this.detailId).subscribe(res => {
       this.adminProductDetailModel = res.data;
+      this.productName = this.adminProductDetailModel?.title;
       localStorage.setItem("few_days", res.data.few_days.toString());
       console.log('父组件', this.adminProductDetailModel);
     })
