@@ -20,7 +20,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   dataMember: any;
   audltPrice: any;
   childPrice: any;
-
+  priceTotal: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService) {
@@ -67,6 +67,8 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     // 费用明细
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
+
   }
 
   // 订单改价

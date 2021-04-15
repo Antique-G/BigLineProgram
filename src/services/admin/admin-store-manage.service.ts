@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { StoreManageListResponseModel, StoreManageRequestModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
+import { AddScheduleModel, StoreManageListResponseModel, StoreManageRequestModel, StoreScheduleListResponseModel, StoreShopAccountModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
 import { AdminUrls } from '../../api';
 
 
@@ -48,11 +48,49 @@ export class AdminStoreManageService {
   }
 
 
-  //商户信息修改
+  //门店更新
   updateStore(storeManageRequestModel: StoreManageRequestModel): Observable<any> {
     const id = storeManageRequestModel.id;
     return this.httpClient.put(this.urls.PutAdminShopUpdate + id, storeManageRequestModel, httpOptions)
       .pipe(
+      )
+  }
+
+
+  // 门店排班
+  shopScheduleList(page: number, per_page: number, admin_id: any, date: any, shop_id: any): Observable<StoreScheduleListResponseModel> {
+    const params = new HttpParams().set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('admin_id', admin_id ? admin_id : '')
+      .set('date', date ? date : '')
+      .set('shop_id', shop_id ? shop_id : '');
+
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreScheduleListResponseModel>(this.urls.GetAdminShopSchedule, findhttpOptions)
+      .pipe(
+
+      )
+  }
+
+  // 添加排班
+  addScheduleList(addScheduleModel: AddScheduleModel[]): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminShopSchedule, addScheduleModel, httpOptions)
+      .pipe(
+      )
+  }
+
+  shopAccountList(shop_id: any): Observable<StoreShopAccountModel> {
+    const params = new HttpParams().set('shop_id', shop_id)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreShopAccountModel>(this.urls.GetAdminShopAccountList, findhttpOptions)
+      .pipe(
+
       )
   }
 

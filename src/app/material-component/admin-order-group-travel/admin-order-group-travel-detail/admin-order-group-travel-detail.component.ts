@@ -28,7 +28,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   childPrice: any;
   babyPrice: any;
 
-
+  priceTotal: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService) {
@@ -87,6 +87,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
     this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
+    this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
   }
 
   // 订单修改日期
@@ -188,7 +189,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           label: '提交',
           onClick: componentInstance => {
             componentInstance?.update()
-          
+
           }
         }
       ]

@@ -25,6 +25,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   audltPrice: any;
   childPrice: any;
   babyPrice: any;
+  priceTotal:any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
@@ -84,6 +85,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
     this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
+    this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.price_receive);
 
   }
 

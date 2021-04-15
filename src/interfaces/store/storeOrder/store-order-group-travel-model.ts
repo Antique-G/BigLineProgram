@@ -91,6 +91,7 @@ export interface ProductList {
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;
+  price_receive: any;
   reserve_num_min: number;
   reserve_num_max: number;
   reserve_ahead: number;
@@ -139,10 +140,12 @@ export interface DetailModel {
 export interface DetailsModel {
   id: number;
   user_id: number;
+  amount_received: number;
   product_id: number;
   product_name: string;
   start_date: string;
   store_id: number;
+  price_receive: any;
   product_type: number;
   group_id: number;
   sub_group_id: number;

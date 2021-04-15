@@ -1,0 +1,46 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 0px; margin-top: 20px;">
+
+        <form nz-form [formGroup]="addForm" nz-row>
+            <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="name">门店名称</nz-form-label>
+                <nz-form-control [nzSm]="20" [nzXs]="24">
+                    <input nz-input formControlName="name" nzBorderless [ngModel]="name" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="week">周几</nz-form-label>
+                <nz-form-control [nzSm]="20" [nzXs]="24">
+                    <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="ngCheckBoxChange($event)">
+                        <div nz-row>
+                            <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
+                                <label nz-checkbox formControlName="week" [nzValue]="item.value" [ngModel]="item.checked">{{item.label}}</label>
+                            </div>
+                        </div>
+                    </nz-checkbox-wrapper>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
+                <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="请输入日期范围">
+                    <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="date" nzRequired>员工</nz-form-label>
+                <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" (ngModelChange)="changeAdmin($event)" formControlName="admin_id">
+                        <nz-option *ngFor="let admin of adminList" [nzLabel]="admin.real_name" [nzValue]="admin.admin_id">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+
+    </div>
+</div>
