@@ -17,6 +17,10 @@ export const AdminUrls = {
   PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
 
+  GetAdminShopList: api + '/admin/shop',    //门店列表
+  PostAdminShopCreate: api + '/admin/shop',    //门店创建
+
+
 
   PostAdminApproveCheck: api + '/admin/approve_check/', // 供应商的认证审核
   GetAdminApproveDetail: api + '/admin/approve_detail', // 认证资料详情
@@ -154,7 +158,7 @@ export const AdminUrls = {
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderfreeIndentSearch: api + '/admin/indent_search',  //自由行下订单搜索产品
 
-  
+
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
@@ -281,7 +285,7 @@ export const StoreUrls = {
   GetStoreInsuranceList: api + '/store/insurance',      // 跟团游保险列表
   GetStoreInsuranceDetail: api + '/store/insurance/',   // 保险详情
 
-  
+
 
 
   GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索

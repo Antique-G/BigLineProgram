@@ -17,6 +17,8 @@ const MENUITEMS = [
     title: '系统设置模块', icon: 'setting',
     children: [
       { state: 'adminAccount', name: '管理员账号' },
+      { state: 'adminStoreManage', name: '门店管理' },
+
       // { state: 'adminPermission', name: '管理权限' }
     ]
   },
