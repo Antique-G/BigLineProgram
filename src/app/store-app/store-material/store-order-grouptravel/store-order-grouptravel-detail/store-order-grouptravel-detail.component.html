@@ -245,18 +245,30 @@
                                             <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
                                         </div>
                                     </div>
+
                                     <div style="margin-top:13px">
-                                        <div style="margin-top:13px">
-                                            <div style="font-weight: 500;font-size: 16px;">
-                                                <span style="color: red;">共{{detailModel?.price_total}}元：</span>
-                                                <span *ngIf="detailModel?.num_adult!=0">成人{{audltPrice}}元&nbsp;|&nbsp;</span>
-                                                <span *ngIf="detailModel?.num_kid!=0">儿童{{childPrice}}元&nbsp;|&nbsp;</span>
-                                                <span *ngIf="detailModel?.baby_num!=0">婴儿{{babyPrice}}元&nbsp;|&nbsp;</span>
-                                                <span>其他{{detailModel?.price_other}}元
-                                                    <ng-container *ngIf="detailModel?.price_detail?.data.length!=0">（<span *ngFor="let fee of detailModel?.price_detail?.data">{{fee?.title}}:{{fee?.price}}，</span>                                                ）</ng-container>
-                                                &nbsp;|&nbsp;</span>
-                                                <span>补差价{{detailModel?.price_diff}}元</span>
-                                            </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span *ngIf="detailModel?.num_adult!=0">成人{{audltPrice}}元&nbsp;|&nbsp;</span>
+                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{childPrice}}元&nbsp;|&nbsp;</span>
+                                            <span *ngIf="detailModel?.baby_num!=0">婴儿{{babyPrice}}元&nbsp;|&nbsp;</span>
+                                            <span>其他{{detailModel?.price_other}}元
+                                                <ng-container *ngIf="detailModel?.price_detail?.data.length!=0">（<span *ngFor="let fee of detailModel?.price_detail?.data">{{fee?.title}}:<span *ngIf="fee?.type==1">-</span>{{fee?.price}}，</span>
+                                            ）
+                                            </ng-container>
+                                            &nbsp;|&nbsp;</span>
+                                            <span>补差价{{detailModel?.price_diff}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">累计已付金额：{{detailModel?.price_receive}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">实收金额（减去退款金额）：{{detailModel?.amount_received}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">当前订单金额：{{detailModel?.price_total}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">应付金额：{{priceTotal<0?'0':priceTotal}}元</span>
                                         </div>
                                     </div>
                                 </nz-spin>

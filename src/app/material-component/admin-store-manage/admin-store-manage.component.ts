@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminStoreManageService } from '../../../services/admin/admin-store-manage.service';
@@ -27,7 +28,7 @@ export class AdminStoreManageComponent implements OnInit {
   idRegion: any;
 
   constructor(public fb: FormBuilder, public adminRegionService: AdminRegionService, public adminStoreManageService: AdminStoreManageService,
-    private modal: NzModalService) {
+    private modal: NzModalService, public router: Router) {
     this.searchForm = fb.group({
       status: [''],
       region_code: [''],
@@ -128,6 +129,6 @@ export class AdminStoreManageComponent implements OnInit {
   }
 
   set(data: any) {
-
+    this.router.navigate(['/admin/main/adminStoreManage/schedule'], { queryParams: { id: data.id, shopName: data.shop_name } });
   }
 }

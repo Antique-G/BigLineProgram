@@ -25,6 +25,12 @@ export const AdminUrls = {
   GetAdminShopList: api + '/admin/shop',    //门店列表
   PostAdminShopCreate: api + '/admin/shop',    //门店创建
   PutAdminShopUpdate: api + '/admin/shop/', //门店更新
+  GetAdminShopSchedule: api + '/admin/shop_schedule', //门店排班
+  PostAdminShopSchedule: api + '/admin/shop_schedule', //门店排班添加
+  GetAdminShopAccountList: api + '/admin/shop_admin_list', //门店的账号列表
+
+
+  
 
 
 

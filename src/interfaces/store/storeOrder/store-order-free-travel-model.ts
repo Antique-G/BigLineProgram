@@ -140,8 +140,10 @@ export interface DetailsModel {
   num_kid: number;
   baby_num: number;
   price_total: number;
+  amount_received: number;
   price_adult: number;
   price_kid: number;
+  price_receive: any;
   price_diff: number;
   price_insurance: number;
   price_other: number;
