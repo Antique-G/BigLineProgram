@@ -83,7 +83,8 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     // 费用明细
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
-    this.babyPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
+
   }
 
   // 订单改价

@@ -86,7 +86,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     // 费用明细
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
-    this.babyPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
   }
 
   // 订单修改日期
@@ -188,6 +188,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           label: '提交',
           onClick: componentInstance => {
             componentInstance?.update()
+          
           }
         }
       ]
