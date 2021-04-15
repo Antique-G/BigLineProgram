@@ -10,7 +10,6 @@ import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-c
 import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FreePriceDetailComponent } from '../../admin-free-travel-add-order/admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
 import { GroupPriceDetailComponent } from './group-price-detail/group-price-detail.component';
 
 
@@ -85,9 +84,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
   totalPrice: any;
   feeAll: any;
-  discountPrice: any;
+  discountPrice = 0;
   isShowFeeDetail = false;
-  showRoom = false;
+  showRoom = true;
 
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
@@ -136,6 +135,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       shared_status: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
+      discount: '',
     }
   }
 
@@ -354,7 +354,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
-
+    // 优惠金额
+    this.orderGroupProduct.discount = this.discountPrice;
   }
 
   add() {
@@ -461,18 +462,26 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       })
     }
     else if (item.checked === false) {
+      this.isShowFeeDetail = false;
     }
   }
 
 
   priceAll() {
     this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
-    this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
-    this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.child_status === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+      this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
+    }
+    else {
+      this.childAllPrice = 0;
+      this.babyAllPrice = 0
+    }
     this.difRoom = (Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult) - Number(this.informationForm.value.shared_status));
     this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
     console.log('是否拼房 :>> ', Number(this.informationForm.value.shared_status));
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
   }
 
 

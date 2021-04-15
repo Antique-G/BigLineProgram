@@ -82,7 +82,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
   totalPrice: any;
   feeAll: any;
-  discountPrice: any;
+  discountPrice = 0;
   isShowFeeDetail = false;
 
 
@@ -131,6 +131,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       customer_remarks: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
+      discount: '',
     }
   }
 
@@ -301,6 +302,9 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
+    // 优惠金额
+    this.orderGroupProduct.discount = this.discountPrice;
+
   }
 
 
@@ -409,15 +413,23 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       })
     }
     else if (item.checked === false) {
+      this.isShowFeeDetail = false;
+
     }
   }
 
 
   priceAll() {
     this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
-    this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.reserve_children === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+    }
+    else {
+      this.childAllPrice = 0;
+    }
     this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
   }
 
 
