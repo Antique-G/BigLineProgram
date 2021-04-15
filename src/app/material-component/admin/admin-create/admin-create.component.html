@@ -5,6 +5,16 @@
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="shop_id" nzRequired>门店</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择门店">
+                    <nz-select nzPlaceHolder="请选择" formControlName="shop_id">
+                        <nz-option *ngFor="let store of listDataMap" [nzLabel]="store.shop_name" [nzValue]="store.id">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.account">
                     <input nz-input formControlName="account" placeholder="用户名只能由字母、数字、'-'、'_'组成" />
