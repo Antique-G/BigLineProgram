@@ -151,6 +151,7 @@ export interface DetailsModel {
   num_kid: number;
   baby_num: number;
   price_total: number;
+  price_baby: number;
   price_adult: number;
   price_kid: number;
   price_diff: number;

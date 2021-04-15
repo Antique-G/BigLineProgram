@@ -111,7 +111,7 @@
 
                     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30px" style="letter-spacing: 1px;font-weight: bold;font-size: 16px">
                         <div>
-                            <span>共{{totalModel?.total_num}}人（已支付，不包含婴儿）:</span>
+                            <span>共{{totalModel?.total_num}}人:</span>
                             <span *ngIf="totalModel?.total_adult!=0">成人{{totalModel?.total_adult}}</span>
                             <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
