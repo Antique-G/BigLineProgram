@@ -37,7 +37,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="baby_num">请输入优惠金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                <nz-input-number formControlName="money" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                <nz-input-number formControlName="money" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzMax]="totalPrice" [nzStep]="1"></nz-input-number>
                             </nz-form-control>
                         </div>
                     </nz-form-item>

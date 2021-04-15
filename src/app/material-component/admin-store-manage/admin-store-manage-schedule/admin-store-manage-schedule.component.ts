@@ -25,7 +25,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   toDay = new Date();
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   selectedDateValue = new Date();
   public isSpinning: boolean = true;
   nzPageIndex = new Date().getMonth() + 1;
