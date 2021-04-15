@@ -59,6 +59,7 @@ export class StoreQuoteBydateComponent implements OnInit {
       independent_product_id: 0,
       adult_price: 0,
       child_price: 0,
+      baby_price: 0,
       difference_price: 0,
       inventory_num: 0,
       set_inventory: 0,

@@ -44,6 +44,7 @@ export interface Datum {
   few_nights: number;//	几晚
   adult_price: number;//	成人价格
   child_price: number;//儿童价格
+  baby_price?: number;//婴儿价格
   status: number;//状态：0/禁用，1/启用
   updated_at: string;
 }
