@@ -29,7 +29,13 @@
                 </nz-form-control>
             </nz-form-item>
 
-
+            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                <nz-form-control [nzSpan]="24">
+                    <div style="display: flex;flex-direction: column;align-items: center;">
+                        <button style="width: 120px;" [nzLoading]="isLoadingBtn" nz-button nzType="primary" (click)="update()">提交</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
         </form>
     </div>
 </div>

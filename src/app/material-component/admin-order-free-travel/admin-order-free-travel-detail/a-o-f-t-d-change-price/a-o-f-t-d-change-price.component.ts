@@ -14,6 +14,8 @@ export class AOFTDChangePriceComponent implements OnInit {
   dataDetail: any;
   isId: any;
   changePriceModel: ChangePriceModel;
+  isLoadingBtn = false;
+
 
 
   constructor(public fb: FormBuilder, public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
@@ -55,9 +57,15 @@ export class AOFTDChangePriceComponent implements OnInit {
     console.log("this.addForm.valid", this.addForm.valid);
     console.log("this.addForm.valid", this.addForm);
     if (this.addForm.valid) {
+      this.isLoadingBtn = true;
       this.adminOrderGroupTravelService.changePrice(this.changePriceModel).subscribe(res=>{
-        console.log("ada",res);
-      })
+        console.log("ada", res);
+        this.isLoadingBtn = false;
+      },
+        error => {
+          this.isLoadingBtn = false;
+        }
+      )
     }
   }
 }
