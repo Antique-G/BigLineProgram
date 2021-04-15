@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AOGTDFullRefundComponent } from './a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 
 
 
@@ -23,8 +24,11 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   detailModel!: DetailsModel;
   dataMember: any;
   isAssemblinTime: any;
+  audltPrice: any;
+  childPrice: any;
+  babyPrice: any;
 
-
+  priceTotal: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService) {
@@ -71,11 +75,20 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           console.log('object :>> ', newDate, i);
           this.isAssemblinTime = format(new Date(newDate), 'HH:mm');
         }
+        // 费用明细
+        this.fee();
       })
     });
   }
 
 
+  fee() {
+    // 费用明细
+    this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
+    this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
+    this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
+  }
 
   // 订单修改日期
   changeDate() {
@@ -89,7 +102,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.update()
           }
@@ -114,6 +127,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
 
         })
       });
@@ -121,7 +135,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
 
-  orderFullRefund(){
+  orderFullRefund() {
     const editmodal = this.modal.create({
       nzTitle: '订单全额退款',
       nzWidth: 800,
@@ -132,7 +146,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       nzFooter: [
         {
           label: '提交退款申请',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.add()
           }
@@ -144,7 +158,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
 
-  orderPartRefund(){
+  orderPartRefund() {
     const editmodal = this.modal.create({
       nzTitle: '订单退款',
       nzWidth: 1000,
@@ -157,5 +171,54 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
     })
   }
+
+
+
+
+
+  // 订单改价
+  changePrice() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单改价',
+      nzContent: AOGTDChangePriceComponent,
+      nzComponentParams: {
+        data: this.detailModel
+      },
+      nzFooter: null
+      // nzFooter: [
+      //   {
+      //     label: '提交',
+      //     onClick: componentInstance => {
+      //       componentInstance?.update()
+
+      //     }
+      //   }
+      // ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.activatedRoute.queryParams.subscribe(params => {
+        console.log("params", params)
+        this.detailId = params?.detailId;
+        // 详情
+        this.adminOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
+          console.log("结果是", res);
+          this.detailModel = res.data;
+          this.dataMember = res.data?.member?.data;
+          this.dataMember.forEach((element: any) => {
+            if (element.birthday === null) {
+              let year = element.id_num.slice(6, 10);
+              let month = element.id_num.slice(10, 12);
+              let date = element.id_num.slice(12, 14);
+              element.birthday = year + '-' + month + '-' + date;
+            }
+          });
+          this.isSpinning = false;
+          this.fee();
+
+        })
+      });
+    })
+  }
+
 }
 

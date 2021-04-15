@@ -9,6 +9,8 @@ import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { FreePriceDetailComponent } from './free-price-detail/free-price-detail.component';
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
@@ -70,11 +72,23 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
 
 
+  audltPrice: any;
+  audltAllPrice: any;
+  childPrice: any;
+  childAllPrice: any;
+  difPrice: any;
+  difAllPrice: any;
 
+
+  totalPrice: any;
+  feeAll: any;
+  discountPrice = 0;
+  isShowFeeDetail = false;
 
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,) {
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,
+    private modal: NzModalService) {
     this.addForm = this.fb.group({
       product_id: ['',],
       departure_city_name: ['',],
@@ -117,6 +131,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       customer_remarks: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
+      discount: '',
     }
   }
 
@@ -194,10 +209,12 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   onEnter(data: any) {
     console.log('data :>> ', data);
     this.isNum();
+    this.priceAll();
   }
 
   onEnter1(data: any) {
     this.isNum();
+    this.priceAll();
   }
 
 
@@ -283,8 +300,11 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
     this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
-    this.orderGroupProduct.emergency_contact_person= this.informationForm.value.emergency_contact_person;
-    this.orderGroupProduct.emergency_contact_number= this.informationForm.value.emergency_contact_number;
+    this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
+    this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
+    // 优惠金额
+    this.orderGroupProduct.discount = this.discountPrice;
+
   }
 
 
@@ -370,8 +390,14 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
   changeId(item: any) {
     console.log('object :>> ', item);
+    this.feeAll = item;
     if (item.checked === true) {
+      this.isShowFeeDetail = true;
       this.isdate_quotes_id = item.id;
+      this.audltPrice = item.adult_price;
+      this.childPrice = item.child_price;
+      this.difPrice = item.difference_price;
+      this.priceAll();
       console.log('this.orderGroupProduct.date_quotes_id ', this.orderGroupProduct.date_quotes_id);
       this.ids.push(item.id)
       console.log("333333", this.ids);
@@ -387,12 +413,58 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       })
     }
     else if (item.checked === false) {
+      this.isShowFeeDetail = false;
+
     }
   }
 
 
+  priceAll() {
+    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.reserve_children === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+    }
+    else {
+      this.childAllPrice = 0;
+    }
+    this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
+  }
 
 
+
+  feeDetail() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单费用明细',
+      nzContent: FreePriceDetailComponent,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        data: {
+          feeAll: this.feeAll,
+          audlts: Number(this.informationForm.value.num_adult),
+          childs: Number(this.informationForm.value.num_kid),
+          rooms: Number(this.informationForm.value.num_room)
+        }
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          type: 'primary',
+          onClick: componentInstance => {
+            let a = componentInstance?.update();
+            editmodal.close(a)
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      if (res != undefined) {
+        this.discountPrice = res?.discount;
+        this.totalPrice = res?.totalPrice;
+      }
+    })
+  }
 
   // 上传证件照
   choiceImg(i: any) {
@@ -474,5 +546,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.newBabyArr[i].splice(index, 1)
     this.babyArray.controls[i].patchValue({ 'id_photo': this.newBabyArr[i] });
   }
+
+
+
 }
 

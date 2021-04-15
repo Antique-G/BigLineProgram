@@ -91,6 +91,7 @@ export interface ProductList {
   child_age_max: number;
   child_height_min: number;
   child_height_max: number;
+  price_receive: any;
   reserve_num_min: number;
   reserve_num_max: number;
   reserve_ahead: number;
@@ -139,10 +140,12 @@ export interface DetailModel {
 export interface DetailsModel {
   id: number;
   user_id: number;
+  amount_received: number;
   product_id: number;
   product_name: string;
   start_date: string;
   store_id: number;
+  price_receive: any;
   product_type: number;
   group_id: number;
   sub_group_id: number;
@@ -151,6 +154,7 @@ export interface DetailsModel {
   num_kid: number;
   baby_num: number;
   price_total: number;
+  price_baby: number;
   price_adult: number;
   price_kid: number;
   price_diff: number;
@@ -158,6 +162,7 @@ export interface DetailsModel {
   price_other: number;
   emergency_contact_person: string;
   emergency_contact_number: string;
+  price_detail: any;
   discount_other: number;
   insurance_id: number;
   order_status: number;
@@ -311,7 +316,7 @@ export interface MemberModel {
   sms_status: number;
   remarks: string;
   eng_name: string;
-  gender:any
+  gender: any
 }
 
 
@@ -522,6 +527,7 @@ export interface OrderGroupProduct {
   shared_status?: any;
   emergency_contact_person?: any;
   emergency_contact_number?: any;
+  discount?: any;
 }
 
 

@@ -16,6 +16,23 @@ export const AdminUrls = {
   PostAdminPermissionCreate: api + '/admin/permission',    //权限创建
   PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
+  GetAdminRoleList: api + '/admin/role',    //角色列表
+  GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
+  PostAdminRoleCreate: api + '/admin/role',    //角色创建
+  PutAdminRoleUpdate: api + '/admin/role/', //角色更新
+
+
+  GetAdminShopList: api + '/admin/shop',    //门店列表
+  PostAdminShopCreate: api + '/admin/shop',    //门店创建
+  PutAdminShopUpdate: api + '/admin/shop/', //门店更新
+  GetAdminShopSchedule: api + '/admin/shop_schedule', //门店排班
+  PostAdminShopSchedule: api + '/admin/shop_schedule', //门店排班添加
+  GetAdminShopAccountList: api + '/admin/shop_admin_list', //门店的账号列表
+
+
+  
+
+
 
 
   PostAdminApproveCheck: api + '/admin/approve_check/', // 供应商的认证审核
@@ -146,6 +163,7 @@ export const AdminUrls = {
   PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
 
 
+  PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
 
 
 
@@ -153,7 +171,7 @@ export const AdminUrls = {
   GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
   GetAdminOrderfreeIndentSearch: api + '/admin/indent_search',  //自由行下订单搜索产品
 
-  
+
   GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
   GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
   GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
@@ -280,7 +298,7 @@ export const StoreUrls = {
   GetStoreInsuranceList: api + '/store/insurance',      // 跟团游保险列表
   GetStoreInsuranceDetail: api + '/store/insurance/',   // 保险详情
 
-  
+
 
 
   GetStoreProSearchFree: api + '/store/independent_product/search',  //自由行产品搜索

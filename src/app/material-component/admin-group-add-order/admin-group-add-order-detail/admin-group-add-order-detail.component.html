@@ -108,10 +108,10 @@
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.child_price}}</span>
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
                                                             </div>
-                                                            <!-- <div>婴儿:
-                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥</span>
+                                                            <div>婴儿:
+                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.baby_price}}</span>
                                                                 <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
-                                                            </div> -->
+                                                            </div>
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
                                                             <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
@@ -160,16 +160,16 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入房间数">
-                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
-                                                <div nz-row>
+                                                <div nz-row *ngIf="showRoom===true">
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="shared_status" nzRequired>拼房</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
-                                                        <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status">
+                                                        <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status" (ngModelChange)="isChangeRoom($event)">
                                                             <label nz-radio nzValue='0'>不拼房 </label>
                                                             <label nz-radio nzValue='1'>拼房</label>
                                                         </nz-radio-group>
@@ -575,26 +575,36 @@
 
                             </div>
 
-                            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                            <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                                 <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
                 </mat-card>
 
 
-                <!-- <mat-card>
+
+                <mat-card>
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
-                        <div>
-                            <p style="font-size: 16px;font-weight: bold;">共<span>￥1998元</span>：</p>
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
+                            <div *ngIf="isShowFeeDetail===true">
+                                共<span style="color: red;">￥{{totalPrice}}元</span>：
+                                <span>成人{{audltAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.child_status===1">儿童{{childAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.child_status===1">婴儿{{babyAllPrice}}元| </span>
+                                <span>房差{{difAllPrice}}元 </span>
+                                <span>优惠{{discountPrice}}元 </span>
+                            </div>
+                            <div><a (click)="feeDetail()" *ngIf="isShowFeeDetail===true">费用明细</a></div>
                         </div>
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                             <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
                         </div>
                     </div>
 
-                </mat-card> -->
+                </mat-card>
+
 
 
 

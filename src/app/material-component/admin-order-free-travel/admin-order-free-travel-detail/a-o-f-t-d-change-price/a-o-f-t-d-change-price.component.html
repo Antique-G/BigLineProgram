@@ -1,0 +1,41 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id" nzRequired>订单id</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24">
+                    <input nz-input formControlName="id" readonly="true" [(ngModel)]="isId" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>改价原因</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入改价原因">
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>改价类别</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" formControlName="type">
+                        <nz-option [nzValue]="0" [nzLabel]="'附加收费'"></nz-option>
+                        <nz-option [nzValue]="1" [nzLabel]="'优惠'"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>价格</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入价格">
+                    <input nz-input formControlName="price" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                <nz-form-control [nzSpan]="24">
+                    <div style="display: flex;flex-direction: column;align-items: center;">
+                        <button style="width: 120px;" [nzLoading]="isLoadingBtn" nz-button nzType="primary" (click)="update()">提交</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

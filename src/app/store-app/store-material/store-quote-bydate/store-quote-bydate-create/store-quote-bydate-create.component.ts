@@ -106,6 +106,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       independent_product_id: 0,
       adult_price: 0,
       child_price: 0,
+      baby_price: 0,
       difference_price: 0,
       inventory_num: 1,
       set_inventory: 0,
@@ -167,6 +168,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         console.log('this.selectDate', this.selectDate);
         this.addForm.controls["adult_price"].setValue(this.selectItem.adult_price);
         this.addForm.controls["child_price"].setValue(this.selectItem.child_price);
+        this.addForm.controls["baby_price"].setValue(this.selectItem.baby_price);
         this.addForm.controls["difference_price"].setValue(this.selectItem.difference_price);
         this.addForm.controls["inventory_num"].setValue(this.selectItem.inventory_num);
         this.isSetInventory = (this.selectItem.set_inventory).toString() || '0'
@@ -213,6 +215,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
     this.addForm.controls["adult_price"].setValue(this.freeTravelModel.adult_price);
     this.addForm.controls["child_price"].setValue(this.freeTravelModel.child_price);
+    this.addForm.controls["baby_price"].setValue(this.freeTravelModel.baby_price);
     this.addForm.controls["difference_price"].setValue(this.freeTravelModel.difference_price);
     this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num || 0);
     console.log(this.freeTravelModel.set_inventory, ' this.freeTravelModel.set_inventory');
@@ -280,6 +283,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.quoteBydateModel.adult_price = this.addForm.value.adult_price;
       this.quoteBydateModel.product_id = this.productId;
       this.quoteBydateModel.child_price = this.addForm.value.child_price > 0 ? this.addForm.value.child_price : 0;
+      this.quoteBydateModel.baby_price = this.addForm.value.baby_price > 0 ? this.addForm.value.baby_price : 0;
       this.quoteBydateModel.difference_price = this.addForm.value.difference_price > 0 ? this.addForm.value.difference_price : 0;
       this.quoteBydateModel.allow_over = this.addForm.value.allow_over;
       this.quoteBydateModel.set_inventory = this.addForm.value.set_inventory;
@@ -312,6 +316,7 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
       this.freeTraveModel.independent_product_id = this.productId;
       this.freeTraveModel.adult_price = this.addForm.value.adult_price;
       this.freeTraveModel.child_price = this.addForm.value.child_price > 0 ? this.addForm.value.child_price : 0;
+      // this.freeTraveModel.baby_price = this.addForm.value.baby_price > 0 ? this.addForm.value.baby_price : 0;
       this.freeTraveModel.difference_price = this.addForm.value.difference_price > 0 ? this.addForm.value.difference_price : 0;
       this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
       this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;

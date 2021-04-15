@@ -1,0 +1,109 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'禁用'" [nzValue]="0"></nz-option>
+                                        <nz-option [nzLabel]="'启用'" [nzValue]="1"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="region_code">门店区域</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="region_code"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="shop_name">门店名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="shop_name" placeholder="请输入门店名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+
+
+                    </form>
+
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">门店id</th>
+                                    <th style="text-align: center;">门店名称</th>
+                                    <th style="text-align: center;">区域</th>
+                                    <th style="text-align: center;">详细地址</th>
+                                    <th style="text-align: center;">联系人</th>
+                                    <th style="text-align: center;">联系人手机号</th>
+                                    <th style="text-align: center;">座机号</th>
+                                    <th style="text-align: center;">传真</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.shop_name}}</td>
+                                    <td>{{data.region_name}}</td>
+                                    <td>{{data.address}}</td>
+                                    <td>{{data.contact_name}}</td>
+                                    <td>{{data.contact_mobile}}</td>
+                                    <td>{{data.phone}}</td>
+                                    <td>{{data.fax}}</td>
+                                    <td>
+                                        <div *ngIf="data?.status===0">禁用</div>
+                                        <div *ngIf="data?.status===1">启用</div>
+                                    </td>
+                                    <td>
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px">
+                                            <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                            </div>
+                                            <div style="cursor: pointer;" (click)="set(data)" title="设置排班">
+                                                <img src="http://cdn.bigline.com.cn/static/images/paiban.png">
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>

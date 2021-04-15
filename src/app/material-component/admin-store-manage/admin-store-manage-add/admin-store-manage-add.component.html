@@ -1,0 +1,65 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>门店名称</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入门店名称">
+                    <input nz-input formControlName="shop_name" placeholder="请输入门店名称" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">联系人</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="contact_name" placeholder="请输入联系人" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">联系手机号</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="contact_mobile" placeholder="请输入联系手机号" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">座机号码</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="phone" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">传真</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="fax" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="region_code" nzRequired>区域名称</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择区域!">
+                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="region_code"></nz-cascader>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>详细地址</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入详细地址!">
+                    <input nz-input formControlName="address" />
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="4" [nzXs]="24">状态</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-radio-group [(ngModel)]="status" formControlName="status">
+                        <label nz-radio nzValue="1">启用</label>
+                        <label nz-radio nzValue="0">禁用</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+        </form>
+    </div>
+</div>

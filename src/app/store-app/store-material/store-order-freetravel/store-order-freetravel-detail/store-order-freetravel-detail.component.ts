@@ -19,7 +19,9 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
   detailId: any;
   detailModel!: DetailsModel;
   dataMember: any;
-
+  audltPrice: any;
+  childPrice: any;
+  priceTotal: any;
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -60,8 +62,18 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
           }
         });
         this.isSpinning = false;
+        this.fee();
+
       })
     });
+  }
+
+  fee() {
+    // 费用明细
+    this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
+    this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
+  
   }
 
 
@@ -101,6 +113,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
+
         })
       });
     })
@@ -144,6 +158,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
+
         })
       });
     })

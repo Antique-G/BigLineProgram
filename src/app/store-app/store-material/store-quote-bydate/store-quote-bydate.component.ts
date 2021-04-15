@@ -33,7 +33,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   listDataMap: StoreQuoteBydateRsponseListModel | FreeTraveRsponseListModel;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = [ '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   selectedDateValue = new Date();
   public isSpinning: boolean = true;
   freeTraveQuoteBydateModel: FreeTraveQuoteBydateModel;
@@ -59,6 +59,7 @@ export class StoreQuoteBydateComponent implements OnInit {
       independent_product_id: 0,
       adult_price: 0,
       child_price: 0,
+      baby_price: 0,
       difference_price: 0,
       inventory_num: 0,
       set_inventory: 0,
@@ -86,18 +87,17 @@ export class StoreQuoteBydateComponent implements OnInit {
 
 
   nzPageIndexChange(index: any) {
-    console.log('点击的index',index);
+    console.log('点击的index', index);
     let month = index < 10 ? '0' + index : index;
-    let year = new Date().getFullYear();
+    let year = this.selectedYear;
     let day = new Date().getDate();
-    console.log('month ', month,year + '-' + month + '-' + day,new Date(year + '-' + month + '-' + day));
+    console.log('month ', month, year + '-' + month + '-' + day, new Date(year + '-' + month + '-' + day));
     // 以1号为基准不会报错
     this.selectedDateValue = new Date(year + '-' + month + '-' + '01');
     console.log('111111111 ', this.selectedDateValue);
     this.seletYearMonth = this.selectedYear + '-' + month;
     console.log('2222222 ', this.seletYearMonth);
     this.nzPageIndex = index;
-    // alert(  this.nzPageIndex)
     this.isSpinning = true;
     this.getQuoteList();
   }
@@ -217,7 +217,9 @@ export class StoreQuoteBydateComponent implements OnInit {
   // 选择年
   ngYearChange(year: any) {
     let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
-    this.seletYearMonth = this.selectedYear + '-' + month;
+    this.nzPageIndex = Number(month);
+    this.selectedDateValue = new Date(year + '-' + month + '-' + '01');
+    this.seletYearMonth = year + '-' + month;
     this.getQuoteList()
   }
 

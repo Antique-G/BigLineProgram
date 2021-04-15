@@ -29,7 +29,7 @@ export class AdminPermissionComponent implements OnInit {
     this.getDataList();
   }
 
-    //保险列表
+  //权限列表
   getDataList(): void {
     this.loading = true;
     this.adminPermissionService.permissionList(this.page, this.per_page, this.key_word).subscribe((result: any) => {

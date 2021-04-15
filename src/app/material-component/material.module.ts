@@ -136,8 +136,20 @@ import { AdminPermissionCreateComponent } from './admin-permission/admin-permiss
 import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
 import { AOGTDFullRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOFTDChangePriceComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 import { AdminProductManagementPostComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-post/admin-product-management-post.component';
 import { AdminTravelDetailPostComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-post/admin-travel-detail-post.component';
+import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
+import { AdminStoreManageAddComponent } from './admin-store-manage/admin-store-manage-add/admin-store-manage-add.component';
+import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-store-manage-detail/admin-store-manage-detail.component';
+import { AdminRoleComponent } from './admin-role/admin-role.component';
+import { AdminRoleCreateComponent } from './admin-role/admin-role-create/admin-role-create.component';
+import { AdminStoreManageScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-schedule.component';
+import { AdminStoreManageSetScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
+import { AdminRoleDetailComponent } from './admin-role/admin-role-detail/admin-role-detail.component';
+import { AOGTDChangePriceComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
+import { FreePriceDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
+import { GroupPriceDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
 
 
 
@@ -292,10 +304,24 @@ import { AdminTravelDetailPostComponent } from './admin-product/admin-produc-fre
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
     AdminPermissionDetailComponent,
+
     AOGTDFullRefundComponent,
     AOGTDPartRefundComponent,
+    AOFTDChangePriceComponent,
+    AOGTDChangePriceComponent,
+    FreePriceDetailComponent,
+    GroupPriceDetailComponent,
     AdminProductManagementPostComponent,
     AdminTravelDetailPostComponent,
+    AdminStoreManageComponent,
+    AdminStoreManageAddComponent,
+    AdminStoreManageDetailComponent,
+    AdminRoleComponent,
+    AdminRoleCreateComponent,
+    AdminRoleDetailComponent,
+    AdminStoreManageScheduleComponent,
+    AdminStoreManageSetScheduleComponent,
+
   ]
 })
 export class MaterialComponentsModule {}

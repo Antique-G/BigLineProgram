@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
 import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { GroupPriceDetailComponent } from './group-price-detail/group-price-detail.component';
 
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -68,8 +70,27 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   newBabyArr: any[] = []       //婴儿证件照片
 
 
+
+  audltPrice: any;
+  audltAllPrice: any;
+  childPrice: any;
+  childAllPrice: any;
+  babyPrice: any;
+  babyAllPrice: any;
+  difPrice: any;
+  difAllPrice: any;
+  difRoom: any
+
+
+  totalPrice: any;
+  feeAll: any;
+  discountPrice = 0;
+  isShowFeeDetail = false;
+  showRoom = true;
+
+
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
-    public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog,) {
+    public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog, public modal: NzModalService,) {
     this.addForm = this.fb.group({
       product_id: ['',],
       departure_city_name: ['',],
@@ -114,6 +135,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       shared_status: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
+      discount: '',
     }
   }
 
@@ -192,10 +214,15 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   onEnter(data: any) {
     console.log('data :>> ', data);
     this.isNum();
+    this.priceAll();
+    this.roomChange(Number(this.informationForm.value.num_room));
+    this.isShowRoom();
   }
 
   onEnter1(data: any) {
     this.isNum();
+    this.priceAll();
+    this.roomChange(Number(this.informationForm.value.num_room));
   }
 
 
@@ -203,6 +230,39 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   onEnter2(data: any) {
     console.log('data :>> ', data);
     this.isBabyNum();
+    this.priceAll();
+  }
+
+  // 房间数校验
+  roomChange(a: any) {
+    let min = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    let max = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
+    console.log('11111111 :>> ', min, max, a);
+    if (a >= min && a <= max) {
+      console.log('zhengque :>> ', 'zhengque');
+    }
+    else {
+      this.message.error("房间数量不正确");
+    }
+  }
+
+  // 房间数
+  onEnterRoom(data: any) {
+    console.log('房间数', data);
+    this.roomChange(data);
+    this.isShowRoom();
+    this.priceAll();
+  }
+
+  // 是否显示拼房
+  isShowRoom() {
+    let rooms = Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult);
+    if (rooms === 1) {
+      this.showRoom = true;
+    }
+    else {
+      this.showRoom = false;
+    }
   }
 
   isBabyNum() {
@@ -294,7 +354,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
-
+    // 优惠金额
+    this.orderGroupProduct.discount = this.discountPrice;
   }
 
   add() {
@@ -378,7 +439,14 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   changeId(item: any) {
     console.log('object :>> ', item);
     if (item.checked === true) {
+      this.feeAll = item;
       this.isdate_quotes_id = item.id;
+      this.isShowFeeDetail = true;
+      this.audltPrice = item.adult_price;
+      this.childPrice = item.child_price;
+      this.babyPrice = item.baby_price;
+      this.difPrice = item.difference_price;
+      this.priceAll();
       console.log('this.orderGroupProduct.date_quotes_id ', this.orderGroupProduct.date_quotes_id);
       this.ids.push(item.id)
       console.log("333333", this.ids);
@@ -394,8 +462,70 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       })
     }
     else if (item.checked === false) {
+      this.isShowFeeDetail = false;
     }
   }
+
+
+  priceAll() {
+    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.child_status === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+      this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
+    }
+    else {
+      this.childAllPrice = 0;
+      this.babyAllPrice = 0
+    }
+    this.difRoom = (Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult) - Number(this.informationForm.value.shared_status));
+    this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
+    console.log('是否拼房 :>> ', Number(this.informationForm.value.shared_status));
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
+  }
+
+
+  // 是否拼房
+  isChangeRoom(event: any) {
+    console.log('event :>> ', event);
+    this.priceAll();
+  }
+
+  feeDetail() {
+    const editmodal = this.modal.create({
+      nzTitle: '订单费用明细',
+      nzContent: GroupPriceDetailComponent,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        data: {
+          feeAll: this.feeAll,
+          audlts: Number(this.informationForm.value.num_adult),
+          childs: Number(this.informationForm.value.num_kid),
+          babys: Number(this.informationForm.value.baby_num),
+          rooms: Number(this.difRoom)
+        }
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          type: 'primary',
+          onClick: componentInstance => {
+            let a = componentInstance?.update();
+            editmodal.close(a)
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      console.log(res, 'aaaaaaaaaaaa');
+      if (res != undefined) {
+        this.discountPrice = res?.discount;
+        this.totalPrice = res?.totalPrice;
+      }
+
+    })
+  }
+
 
 
   // 上传证件照
