@@ -25,7 +25,7 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>价格</nz-form-label>
                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入价格">
-                    <nz-input-number formControlName="price" [nzMin]="0"></nz-input-number>
+                    <input nz-input formControlName="price" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" />
                 </nz-form-control>
             </nz-form-item>
 
