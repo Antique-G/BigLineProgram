@@ -158,6 +158,7 @@ export interface DetailsModel {
   price_other: number;
   emergency_contact_person: string;
   emergency_contact_number: string;
+  price_detail: any;
   discount_other: number;
   insurance_id: number;
   order_status: number;
@@ -311,7 +312,7 @@ export interface MemberModel {
   sms_status: number;
   remarks: string;
   eng_name: string;
-  gender:any
+  gender: any
 }
 
 

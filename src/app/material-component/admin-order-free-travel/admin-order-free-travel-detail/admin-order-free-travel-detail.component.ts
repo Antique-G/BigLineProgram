@@ -18,11 +18,12 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   detailId: any;
   detailModel!: DetailsModel;
   dataMember: any;
-
+  audltPrice: any;
+  childPrice: any;
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService,private modal: NzModalService) {
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
@@ -37,7 +38,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
     });
-  
+
   }
 
   ngOnInit(): void {
@@ -57,12 +58,17 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             element.birthday = year + '-' + month + '-' + date;
           }
         });
+        this.fee();
       })
     });
   }
 
+  fee() {
+    // 费用明细
+    this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
+    this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+  }
 
-    
   // 订单改价
   changePrice() {
     const editmodal = this.modal.create({
@@ -97,6 +103,8 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
               element.birthday = year + '-' + month + '-' + date;
             }
           });
+          this.fee();
+
         })
       });
     })

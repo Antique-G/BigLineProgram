@@ -232,12 +232,14 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
-                                        <div>
-                                            <span>共{{detailModel?.price_total}}元：</span>
-                                            <span *ngIf="detailModel?.num_adult!=0">成人{{detailModel?.price_adult}}元&nbsp;|&nbsp;</span>
-                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{detailModel?.price_kid}}元&nbsp;|&nbsp;</span>
-                                            <span> 保险{{detailModel?.price_insurance}}元&nbsp;|&nbsp;</span>
-                                            <span>其他{{detailModel?.price_other}}元&nbsp;|&nbsp;</span>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">共{{detailModel?.price_total}}元：</span>
+                                            <span *ngIf="detailModel?.num_adult!=0">成人{{audltPrice}}元&nbsp;|&nbsp;</span>
+                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{childPrice}}元&nbsp;|&nbsp;</span>
+
+                                            <span>其他{{detailModel?.price_other}}元
+                                                <ng-container *ngIf="detailModel?.price_detail?.data.length!=0">（<span *ngFor="let fee of detailModel?.price_detail?.data">{{fee?.title}}:{{fee?.price}}，</span>                                            ）</ng-container>
+                                            &nbsp;|&nbsp;</span>
                                             <span>补差价{{detailModel?.price_diff}}元</span>
                                         </div>
                                     </div>
