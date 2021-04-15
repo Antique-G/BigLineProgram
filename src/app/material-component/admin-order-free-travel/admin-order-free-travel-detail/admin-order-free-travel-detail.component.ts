@@ -79,14 +79,15 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       nzComponentParams: {
         data: this.detailModel
       },
-      nzFooter: [
-        {
-          label: '提交',
-          onClick: componentInstance => {
-            componentInstance?.update()
-          }
-        }
-      ]
+      nzFooter: null
+      // nzFooter: [
+      //   {
+      //     label: '提交',
+      //     onClick: componentInstance => {
+      //       componentInstance?.update()
+      //     }
+      //   }
+      // ]
     })
     editmodal.afterClose.subscribe(res => {
       this.activatedRoute.queryParams.subscribe(params => {
