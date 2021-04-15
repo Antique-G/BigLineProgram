@@ -139,6 +139,7 @@ import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order
 import { AOFTDChangePriceComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 import { AOGTDChangePriceComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { FreePriceDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
+import { GroupPriceDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
 
 
 
@@ -298,6 +299,7 @@ import { FreePriceDetailComponent } from './admin-free-travel-add-order/admin-fr
     AOFTDChangePriceComponent,
     AOGTDChangePriceComponent,
     FreePriceDetailComponent,
+    GroupPriceDetailComponent,
   ]
 })
 export class MaterialComponentsModule {}

@@ -15,6 +15,7 @@ export interface StoreQuoteBydateModel {
     independent_product_id?: number;
     adult_price?: number;
     child_price?: number;
+    baby_price?: number;
     difference_price?: number;
     inventory_num?: number;
     set_inventory?: number;
@@ -42,6 +43,7 @@ export interface FreeTraveQuoteBydateModel {
     id?: number;
     independent_product_id: number;
     adult_price: number;
+    baby_price?: number;
     child_price: number;
     difference_price: number;
     inventory_num: number;

@@ -447,9 +447,10 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
-      console.log(res, 'aaaaaaaaaaaa');
-      this.discountPrice = res?.discount;
-      this.totalPrice = res?.totalPrice;
+      if (res != undefined) {
+        this.discountPrice = res?.discount;
+        this.totalPrice = res?.totalPrice;
+      }
     })
   }
 

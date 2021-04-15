@@ -11,6 +11,7 @@ import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { FreePriceDetailComponent } from '../../admin-free-travel-add-order/admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
+import { GroupPriceDetailComponent } from './group-price-detail/group-price-detail.component';
 
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -75,6 +76,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   audltAllPrice: any;
   childPrice: any;
   childAllPrice: any;
+  babyPrice: any;
+  babyAllPrice: any;
   difPrice: any;
   difAllPrice: any;
   difRoom: any
@@ -227,6 +230,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   onEnter2(data: any) {
     console.log('data :>> ', data);
     this.isBabyNum();
+    this.priceAll();
   }
 
   // 房间数校验
@@ -439,6 +443,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       this.isShowFeeDetail = true;
       this.audltPrice = item.adult_price;
       this.childPrice = item.child_price;
+      this.babyPrice = item.baby_price;
       this.difPrice = item.difference_price;
       this.priceAll();
       console.log('this.orderGroupProduct.date_quotes_id ', this.orderGroupProduct.date_quotes_id);
@@ -463,10 +468,11 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   priceAll() {
     this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
     this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+    this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
     this.difRoom = (Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult) - Number(this.informationForm.value.shared_status));
     this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
     console.log('是否拼房 :>> ', Number(this.informationForm.value.shared_status));
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice);
   }
 
 
@@ -479,13 +485,14 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   feeDetail() {
     const editmodal = this.modal.create({
       nzTitle: '订单费用明细',
-      nzContent: FreePriceDetailComponent,
+      nzContent: GroupPriceDetailComponent,
       nzMaskClosable: false,
       nzComponentParams: {
         data: {
           feeAll: this.feeAll,
           audlts: Number(this.informationForm.value.num_adult),
           childs: Number(this.informationForm.value.num_kid),
+          babys: Number(this.informationForm.value.baby_num),
           rooms: Number(this.difRoom)
         }
       },
@@ -502,8 +509,11 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     })
     editmodal.afterClose.subscribe(res => {
       console.log(res, 'aaaaaaaaaaaa');
-      this.discountPrice = res?.discount;
-      this.totalPrice = res?.totalPrice;
+      if (res != undefined) {
+        this.discountPrice = res?.discount;
+        this.totalPrice = res?.totalPrice;
+      }
+
     })
   }
 
