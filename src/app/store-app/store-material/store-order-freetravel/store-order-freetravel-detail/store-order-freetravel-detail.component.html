@@ -236,9 +236,13 @@
                                             <span *ngIf="detailModel?.num_adult!=0">成人{{audltPrice}}元&nbsp;|&nbsp;</span>
                                             <span *ngIf="detailModel?.num_kid!=0">儿童{{childPrice}}元&nbsp;|&nbsp;</span>
 
-                                            <span>其他{{detailModel?.price_other}}元
-                                                <ng-container *ngIf="detailModel?.price_detail?.data.length!=0">（<span *ngFor="let fee of detailModel?.price_detail?.data">{{fee?.title}}:<span *ngIf="fee?.type==1"></span>{{fee?.price}}，</span>
-                                            ）</ng-container>
+                                            <span>其他收费:{{detailModel?.price_other}}元
+                                                ( <ng-container *ngIf="detailModel?.price_detail?.data.length!=0"><span *ngFor="let fee of detailModel?.price_detail?.data" ><span *ngIf="fee?.type==0">{{fee?.title}}:{{fee?.price}}，</span></span>
+                                            )</ng-container>
+                                            &nbsp;|&nbsp;</span>
+                                            <span>优惠:{{detailModel?.discount_other}}元
+                                                 ( <ng-container *ngIf="detailModel?.price_detail?.data.length!=0"><span *ngFor="let fee of detailModel?.price_detail?.data" ><span *ngIf="fee?.type==1">{{fee?.title}}:{{fee?.price}}，</span></span>
+                                            )</ng-container>
                                             &nbsp;|&nbsp;</span>
                                             <span>补差价{{detailModel?.price_diff}}元</span>
                                         </div>
