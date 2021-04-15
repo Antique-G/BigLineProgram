@@ -1,7 +1,5 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayoutAlign="end start">
-        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
-    </div>
+
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
@@ -63,11 +61,7 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item nz-row class="register-area">
-                <nz-form-control [nzSpan]="14" [nzOffset]="11">
-                    <button nz-button nzType="primary" (click)="add()">提交</button>
-                </nz-form-control>
-            </nz-form-item>
+
         </form>
 
     </div>
