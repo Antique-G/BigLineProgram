@@ -10,14 +10,14 @@
                     <div nz-row>
                         <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired>上传合同</nz-form-label>
                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                            <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="isAccept" [nzSize]="5120" [nzDisabled]="fileList.length===1" [nzLimit]='1' [(nzFileList)]="fileList" [nzRemove]="removeImg">
+                            <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="isAccept" [nzSize]="10240" [nzDisabled]="fileList.length===1" [nzLimit]='1' [(nzFileList)]="fileList" [nzRemove]="removeImg">
                                 <div>
                                     <button nz-button>
                                 <span><i nz-icon nzType="upload"></i> 选择文件</span>
                               </button>
                                 </div>
                             </nz-upload>
-                            <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">！只能上传5M以内的PDF文件</p>
+                            <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">！只能上传10M以内的PDF文件</p>
 
                         </nz-form-control>
 

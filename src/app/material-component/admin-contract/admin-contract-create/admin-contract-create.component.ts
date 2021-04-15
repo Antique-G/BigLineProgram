@@ -61,9 +61,9 @@ export class AdminContractCreateComponent implements OnInit {
       });
       this.imageList = this.imageList.concat(file);
     }
-    const isLt5M = file.size! / 1024 / 1024 < 5;
+    const isLt5M = file.size! / 1024 / 1024 < 10;
     if (!isLt5M) {
-      this.msg.error('请上传 ≤ 5MB 以内的文件!');
+      this.msg.error('请上传 ≤ 10MB 以内的文件!');
     }
 
     return false

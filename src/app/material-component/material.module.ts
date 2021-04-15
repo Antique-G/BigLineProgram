@@ -147,7 +147,6 @@ import { AdminStoreManageAddComponent } from './admin-store-manage/admin-store-m
 import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-store-manage-detail/admin-store-manage-detail.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
