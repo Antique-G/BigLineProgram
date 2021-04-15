@@ -4,6 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminStoreManageService } from '../../../services/admin/admin-store-manage.service';
 import { AdminStoreManageAddComponent } from './admin-store-manage-add/admin-store-manage-add.component';
+import { AdminStoreManageDetailComponent } from './admin-store-manage-detail/admin-store-manage-detail.component';
 
 
 @Component({
@@ -80,28 +81,50 @@ export class AdminStoreManageComponent implements OnInit {
   }
 
   add() {
-    // const addmodal = this.modal.create({
-    //   nzTitle: '添加',
-    //   nzContent: AdminStoreManageAddComponent,
-    //   nzMaskClosable:false,
-    //   nzFooter: [
-    //     {
-    //       label: '提交',
-    //       type: 'primary',
-    //       onClick: componentInstance => {
-    //         componentInstance?.add()
+    const addmodal = this.modal.create({
+      nzTitle: '添加',
+      nzWidth: 800,
+      nzContent: AdminStoreManageAddComponent,
+      nzMaskClosable: false,
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
 
-    //       }
-    //     }
-    //   ]
-    // })
-    // addmodal.afterClose.subscribe(res => {
-    //   this.list();
-    // })
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.list();
+    })
   }
 
   edit(data: any) {
+    const addmodal = this.modal.create({
+      nzTitle: '编辑',
+      nzWidth: 800,
+      nzContent: AdminStoreManageDetailComponent,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.add()
 
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      this.list();
+    })
   }
 
   set(data: any) {

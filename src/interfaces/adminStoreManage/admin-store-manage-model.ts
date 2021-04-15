@@ -35,10 +35,12 @@ export interface DatumStoreManageListResponseModel {
 export interface StoreManageRequestModel {
   shop_name: string;
   contact_name: string;
-  password: string;
-  password_confirmation: string;
-  real_name: string;
-  mobile: string;
+  contact_mobile: string;
+  phone: string;
+  fax: string;
+  region_code: string;
+  address: string;
   status: number;
+  id?: any;
 }
 
