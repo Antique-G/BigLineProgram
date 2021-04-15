@@ -51,6 +51,7 @@ import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
+import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -432,6 +433,14 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '金额变动记录'
         }
       },
+      {
+        path: 'adminStoreManage',
+        component: AdminStoreManageComponent,
+        data: {
+          breadcrumb: '门店管理列表'
+        }
+      },
+      
     ]
   }
 ];
