@@ -75,5 +75,6 @@ export interface UpdateRequestModel {
   mobile?: string;
   status?: string;
   admin_id?: number;
+  shop_id?: any;
 }
 

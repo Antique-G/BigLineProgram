@@ -92,6 +92,16 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   }
 
 
+  // 选择年
+  ngYearChange(year: any) {
+    console.log('year :>> ', year);
+    let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
+    this.nzPageIndex = Number(month);
+    this.selectedDateValue = new Date(year + '-' + month + '-' + '01');
+    this.seletYearMonth = year + '-' + month;
+    this.date = this.seletYearMonth;
+    this.getList();
+  }
 
 
   isMidDate(beginStr: any, endStr: any, str: any) {
@@ -121,12 +131,6 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   mode: NzCalendarMode = 'month';
 
 
-  // 选择年
-  ngYearChange(year: any) {
-    let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
-    this.seletYearMonth = this.selectedYear + '-' + month;
-    this.getList();
-  }
 
 
 
