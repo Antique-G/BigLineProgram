@@ -39,7 +39,7 @@ export class AdminPermissionCreateComponent implements OnInit {
     this.adminPermissionService.permissionParentList().subscribe((result: any) => {
         console.log("权限父级列表接口返回什么", result);
         this.parentData =result.data
-      });
+    });
   }
 
 

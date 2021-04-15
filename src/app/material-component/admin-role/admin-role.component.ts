@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminPermissionService } from '../../../services/admin/admin-permission.service';
-import { AdminPermissionCreateComponent } from './admin-permission-create/admin-permission-create.component';
-import { AdminPermissionDetailComponent } from './admin-permission-detail/admin-permission-detail.component';
+import { AdminRoleService } from '../../../services/admin/admin-role.service';
+import { AdminRoleCreateComponent } from './admin-role-create/admin-role-create.component';
+import { AdminRoleDetailComponent } from './admin-role-detail/admin-role-detail.component';
 
 @Component({
-  selector: 'app-admin-permission',
-  templateUrl: './admin-permission.component.html',
-  styleUrls: ['./admin-permission.component.css']
+  selector: 'app-admin-role',
+  templateUrl: './admin-role.component.html',
+  styleUrls: ['./admin-role.component.css']
 })
-export class AdminPermissionComponent implements OnInit {
+export class AdminRoleComponent implements OnInit {
   searchForm: FormGroup;
   dataSource = [];
   page = 1;
@@ -19,25 +19,25 @@ export class AdminPermissionComponent implements OnInit {
   key_word: any;
   loading = true;
 
-  constructor(public fb: FormBuilder, public adminPermissionService:AdminPermissionService,private modal: NzModalService) { 
+  constructor(public fb: FormBuilder,private modal: NzModalService, public adminRoleService:AdminRoleService) {
     this.searchForm = fb.group({
       name: [""],
     });
-  }
+   }
 
   ngOnInit(): void {
     this.getDataList();
   }
 
-  //权限列表
+  //角色列表
   getDataList(): void {
     this.loading = true;
-    this.adminPermissionService.permissionList(this.page, this.per_page, this.key_word).subscribe((result: any) => {
-        console.log("权限列表接口返回什么", result);
-        this.loading = false;
-        this.total = result.total;
-        this.dataSource = result.data;
-      });
+    this.adminRoleService.roleList(this.page, this.per_page, this.key_word).subscribe((result: any) => {
+      console.log("列表接口返回什么", result);
+      this.loading = false;
+      this.total = result.total;
+      this.dataSource = result.data;
+    });
   }
 
   changePageIndex(page: number) {
@@ -60,8 +60,8 @@ export class AdminPermissionComponent implements OnInit {
 
   add(){
     const addModal = this.modal.create({
-      nzTitle: "添加权限",
-      nzContent: AdminPermissionCreateComponent,
+      nzTitle: "添加角色",
+      nzContent: AdminRoleCreateComponent,
       nzWidth:800,
       nzFooter: [
         {
@@ -79,12 +79,11 @@ export class AdminPermissionComponent implements OnInit {
 
   }
 
-
   edit(element: any) {
     console.log("当前id", element);
     const editmodal = this.modal.create({
-      nzTitle: "更新权限",
-      nzContent: AdminPermissionDetailComponent,
+      nzTitle: "更新角色",
+      nzContent: AdminRoleDetailComponent,
       nzWidth:800,
       nzComponentParams: {
         data: element,

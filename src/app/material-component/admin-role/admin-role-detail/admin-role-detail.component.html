@@ -1,0 +1,37 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+
+        <div style="padding: 5px;">
+            <form nz-form [formGroup]="validateForm">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="name" nzRequired>角色标识</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入角色标识">
+                        <input nz-input formControlName="name" [ngModel]="roleDetailModel?.name"/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="display_name" nzRequired>角色名称</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入角色名称">
+                        <input nz-input formControlName="display_name" [ngModel]="roleDetailModel?.display_name"/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="description">详细描述</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <textarea nz-input formControlName="description" [nzAutosize]="{ minRows: 3, maxRows: 5 }" [ngModel]="roleDetailModel?.description"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" >权限id</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                        <!-- [nzExpandedKeys]="defaultExpandedKeys" [nzSelectedKeys]="defaultSelectedKeys" [nzCheckedKeys]="defaultCheckedKeys" -->
+                        <nz-tree [nzData]="nodes" nzCheckable nzMultiple (nzClick)="nzEvent($event)" (nzExpandChange)="nzEvent($event)" (nzCheckBoxChange)="nzEvent($event)" [nzExpandedKeys]="defaultExpandedKeys" [nzSelectedKeys]="defaultSelectedKeys" [nzCheckedKeys]="defaultCheckedKeys">
+                        </nz-tree>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+
+        </div>
+    </div>
+
+</div>
