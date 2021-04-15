@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminDetailModel, UpdateRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
+import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 
 
@@ -15,6 +15,7 @@ export class AdminDetailComponent implements OnInit {
   addForm!: FormGroup;
   adminDetailModel: AdminDetailModel;
   updateRequestModel: UpdateRequestModel;
+  @Input() data: any;
 
   validationMessage: any = {
     account: {
@@ -36,27 +37,30 @@ export class AdminDetailComponent implements OnInit {
     phoneNumber: '',
   };
 
+  listDataMap: any
 
+  statussss: any;
 
-
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-    public adminAdminService: AdminAdminService) {
+  constructor(public fb: FormBuilder,
+    public adminAdminService: AdminAdminService, public adminStoreManageService: AdminStoreManageService,) {
     this.adminDetailModel = this.data;
     this.forms();
     this.updateRequestModel = {
       real_name: '',
       mobile: '',
-      status: ''
+      status: '',
+      shop_id: '',
     }
   }
 
 
   forms() {
     this.addForm = this.fb.group({
-      account: [this.adminDetailModel.account, [Validators.required]],
-      name: [this.adminDetailModel.real_name, [Validators.required]],
-      phoneNumber: [this.adminDetailModel.mobile, [Validators.required]],
-      status: [this.adminDetailModel.status, [Validators.required]]
+      shop_id: ['', [Validators.required]],
+      account: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
+      status: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -97,15 +101,23 @@ export class AdminDetailComponent implements OnInit {
     this.updateRequestModel.real_name = this.addForm.value.name;
     this.updateRequestModel.mobile = this.addForm.value.phoneNumber;
     this.updateRequestModel.status = this.addForm.value.status;
+    this.updateRequestModel.shop_id = this.addForm.value.shop_id;
+
   }
 
 
   ngOnInit(): void {
+    this.adminStoreManageService.storeManageList(1, 50, 1, '', '').subscribe(res => {
+      console.log('res :>> ', res);
+      this.listDataMap = res?.data;
+    })
+    this.adminDetailModel = this.data;
+    console.log('this.data :>> ', this.data);
+    this.statussss=this.adminDetailModel?.shop_id;
+    console.log(' this.statussss :>> ',  this.statussss,typeof( this.statussss));
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
+
 
 
   update() {
@@ -121,7 +133,7 @@ export class AdminDetailComponent implements OnInit {
         console.log("res", res);
         if (res === null) {
           // alert("更新成功");
-          this.dialogRef.close(1);
+
         }
         else {
           // alert("更新失败");

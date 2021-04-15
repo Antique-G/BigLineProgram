@@ -66,18 +66,26 @@ export class AdminComponent implements OnInit {
 
 
   edit(element: any): void {
-    console.log("拿到的值", element);
-    const dialogRef = this.dialog.open(AdminDetailComponent, {
-      width: '550px',
-      data: element
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log("result", result);
-      if (result !== undefined) {
-        this.getData();
-      }
-
-    });
+    const editmodal = this.modal.create({
+      nzTitle: '修改',
+      nzContent: AdminDetailComponent,
+      nzWidth: 800,
+      nzComponentParams: {
+        data:element
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getData();
+    })
   }
 
   add() {
