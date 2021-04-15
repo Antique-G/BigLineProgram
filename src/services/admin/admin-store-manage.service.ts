@@ -1,8 +1,15 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { StoreManageListResponseModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
+import { StoreManageListResponseModel, StoreManageRequestModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
 import { AdminUrls } from '../../api';
+
+
+const httpOptions = {
+  headers: new HttpHeaders().set('Content-Type', 'application/json')
+};
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +21,7 @@ export class AdminStoreManageService {
 
 
   // 列表
-  storeManageList(page: number, per_page: number, status: any, region_code: any,  shop_name: any): Observable<StoreManageListResponseModel> {
+  storeManageList(page: number, per_page: number, status: any, region_code: any, shop_name: any): Observable<StoreManageListResponseModel> {
     const params = new HttpParams().set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
@@ -27,20 +34,27 @@ export class AdminStoreManageService {
     };
     return this.httpClient.get<StoreManageListResponseModel>(this.urls.GetAdminShopList, findhttpOptions)
       .pipe(
-        
+
       )
   }
 
 
 
   // 注册
-  // register(registerRequestModel: RegisterRequestModel): Observable<any> {
-  //   return this.httpClient.post<any>(this.urls.PostAdminShopCreate, registerRequestModel, httpOptions)
-  //     .pipe(
-  //     )
-  // }
+  register(storeManageRequestModel: StoreManageRequestModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminShopCreate, storeManageRequestModel, httpOptions)
+      .pipe(
+      )
+  }
 
 
-  
+  //商户信息修改
+  updateStore(storeManageRequestModel: StoreManageRequestModel): Observable<any> {
+    const id = storeManageRequestModel.id;
+    return this.httpClient.put(this.urls.PutAdminShopUpdate + id, storeManageRequestModel, httpOptions)
+      .pipe(
+      )
+  }
+
 }
 

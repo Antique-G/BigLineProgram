@@ -19,6 +19,8 @@ export const AdminUrls = {
 
   GetAdminShopList: api + '/admin/shop',    //门店列表
   PostAdminShopCreate: api + '/admin/shop',    //门店创建
+  PutAdminShopUpdate: api + '/admin/shop/', //门店更新
+
 
 
 
