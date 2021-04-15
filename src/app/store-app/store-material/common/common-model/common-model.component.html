@@ -20,7 +20,7 @@
                 <nz-form-item class="nz-form-item" nz-row>
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>上传图片</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
-                        <!-- <nz-upload [(nzFileList)]="fileList" [nzSize]="5120"  [nzBeforeUpload]="beforeUpload" [nzMultiple]='true' [nzLimit]='10'>
+                        <!-- <nz-upload [(nzFileList)]="fileList" [nzSize]="10240"  [nzBeforeUpload]="beforeUpload" [nzMultiple]='true' [nzLimit]='10'>
                             <button nz-button><i nz-icon nzType="upload"></i>选择图片</button>
                         </nz-upload> -->
                         <nz-upload [nzBeforeUpload]="beforeUpload" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 8" [nzMultiple]='true' [nzLimit]='10' [nzRemove]="removeImg">
