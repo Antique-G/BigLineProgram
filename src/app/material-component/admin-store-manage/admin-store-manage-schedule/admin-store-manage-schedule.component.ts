@@ -67,7 +67,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   nzPageIndexChange(index: any) {
     console.log('点击的index', index);
     let month = index < 10 ? '0' + index : index;
-    let year = new Date().getFullYear();
+    let year = this.selectedYear;
     let day = new Date().getDate();
     console.log('month ', month, year + '-' + month + '-' + day, new Date(year + '-' + month + '-' + day));
     // 以1号为基准不会报错
