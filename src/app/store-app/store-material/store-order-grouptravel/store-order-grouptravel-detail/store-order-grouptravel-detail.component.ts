@@ -22,8 +22,9 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   detailModel!: DetailsModel;
   dataMember: any;
   isAssemblinTime: any;
-
-
+  audltPrice: any;
+  childPrice: any;
+  babyPrice: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
@@ -65,18 +66,25 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         if (this.detailModel?.assembling_time === '00:00:00') {
           this.isAssemblinTime = '待定';
         }
-        else { 
+        else {
           // 时间格式化，去除秒
-          let i='2021-01-01'+' '+ this.detailModel?.assembling_time;
-          let newDate= new Date(i);
-          console.log('object :>> ', newDate,i);
-          this.isAssemblinTime =format(new Date(newDate), 'HH:mm');
-          
-        } 
+          let i = '2021-01-01' + ' ' + this.detailModel?.assembling_time;
+          let newDate = new Date(i);
+          console.log('object :>> ', newDate, i);
+          this.isAssemblinTime = format(new Date(newDate), 'HH:mm');
+
+        }
+        this.fee();
       })
     });
   }
 
+  fee() {
+    // 费用明细
+    this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
+    this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.babyPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+  }
 
   // 订单改价
   changePrice() {
@@ -113,6 +121,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
 
         })
       });
@@ -157,6 +166,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
 
         })
       });

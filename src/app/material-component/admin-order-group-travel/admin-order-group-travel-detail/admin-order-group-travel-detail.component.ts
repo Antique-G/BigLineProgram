@@ -24,6 +24,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   detailModel!: DetailsModel;
   dataMember: any;
   isAssemblinTime: any;
+  audltPrice: any;
+  childPrice: any;
+  babyPrice: any;
 
 
 
@@ -72,11 +75,19 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           console.log('object :>> ', newDate, i);
           this.isAssemblinTime = format(new Date(newDate), 'HH:mm');
         }
+        // 费用明细
+        this.fee();
       })
     });
   }
 
 
+  fee() {
+    // 费用明细
+    this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
+    this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.babyPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+  }
 
   // 订单修改日期
   changeDate() {
@@ -90,7 +101,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.update()
           }
@@ -115,6 +126,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
 
         })
       });
@@ -122,7 +134,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
 
-  orderFullRefund(){
+  orderFullRefund() {
     const editmodal = this.modal.create({
       nzTitle: '订单全额退款',
       nzWidth: 800,
@@ -133,7 +145,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       nzFooter: [
         {
           label: '提交退款申请',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.add()
           }
@@ -145,7 +157,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
 
-  orderPartRefund(){
+  orderPartRefund() {
     const editmodal = this.modal.create({
       nzTitle: '订单退款',
       nzWidth: 1000,
@@ -162,7 +174,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
 
-  
+
   // 订单改价
   changePrice() {
     const editmodal = this.modal.create({
@@ -198,6 +210,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             }
           });
           this.isSpinning = false;
+          this.fee();
 
         })
       });

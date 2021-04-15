@@ -40,6 +40,7 @@ export interface StoreOrderFreeTravelList {
   price_diff: number;
   price_insurance: number;
   price_other: number;
+  price_detail: any;
   discount_other: number;
   insurance_id: number;
   order_status: number;
@@ -150,6 +151,7 @@ export interface DetailsModel {
   payment_status: number;
   refund_status: number;
   cancel_type: number;
+  price_detail: any;
   shared_status: number;
   num_room: number;
   contact_name: string;
@@ -224,7 +226,7 @@ interface MembersModel {
   sms_status: number;
   remarks: string;
   eng_name: string;
-  gender:any
+  gender: any
 }
 
 
