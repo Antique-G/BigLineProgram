@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataOrderDetail, EditMemberModel, OrderSmsModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
@@ -36,12 +36,20 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   editMemberModel: EditMemberModel;
   editMemberModel1: EditMemberModel;
 
+  amountReceived:any;
+  priceTotal:any;
+  payTime:any;
+  transactionId:any;
+  payLog:any[] = []
+  
+  url:any;
 
 
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
-    public dialog: MatDialog, public adminOrderService: AdminOrderService,) {
+    public dialog: MatDialog, public adminOrderService: AdminOrderService,public router: Router,) {
+    
     this.orderSmsModel = {
       order_ids: []
     };
@@ -55,14 +63,27 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.url = '/admin/main/groupTravelOrder/detail?detailId=';
+   }
 
+  edit(data: any) {
+    this.router.navigate(['/admin/main/groupTravelOrder/detail'], { queryParams: { detailId: data.id } });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes['subGroupModel']?.currentValue != undefined) {
       this.isClosed = changes['subGroupModel'].currentValue?.group_status;
       this.proCode = changes['subGroupModel'].currentValue?.product?.data?.code;
       this.tabTitle = changes['subGroupModel'].currentValue?.product_name;
+
+      // this.amountReceived =changes['subGroupModel'].currentValue?.sub_group?.data[0]?.order?.data[0]?.amount_received;
+      // this.priceTotal =changes['subGroupModel'].currentValue?.sub_group?.data[0]?.order?.data[0]?.price_total;
+      // this.payTime =changes['subGroupModel'].currentValue?.sub_group?.data[0]?.order?.data[0]?.pay_log.data[0].pay_time;
+      // this.transactionId =changes['subGroupModel'].currentValue?.sub_group?.data[0]?.order?.data[0]?.pay_log.data[0].transaction_id;
+      // this.payLog =changes['subGroupModel'].currentValue?.sub_group?.data[0]?.order?.data[0]?.pay_log.data;
+      // console.log('this.payLog',this.payLog);
 
       // 子团的值
       this.cursubGroupModelValue = changes['subGroupModel'].currentValue?.sub_group?.data;
@@ -114,7 +135,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
               this.detailId = params?.detailId;
               // 详情
               this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
-                console.log("结果是", res.data);
+                console.log("结果是111", res.data);
                 this.detailModel = res.data;
                 this.cursubGroupModelValue = this.detailModel.sub_group.data;
                 this.cursubGroupModelValue.forEach((value: any, index: any) => {
