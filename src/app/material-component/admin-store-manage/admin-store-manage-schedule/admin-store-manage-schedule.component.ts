@@ -25,7 +25,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   toDay = new Date();
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   selectedDateValue = new Date();
   public isSpinning: boolean = true;
   nzPageIndex = new Date().getMonth() + 1;
@@ -67,7 +67,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   nzPageIndexChange(index: any) {
     console.log('点击的index', index);
     let month = index < 10 ? '0' + index : index;
-    let year = new Date().getFullYear();
+    let year = this.selectedYear;
     let day = new Date().getDate();
     console.log('month ', month, year + '-' + month + '-' + day, new Date(year + '-' + month + '-' + day));
     // 以1号为基准不会报错
