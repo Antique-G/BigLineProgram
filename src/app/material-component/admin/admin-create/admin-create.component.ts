@@ -45,7 +45,7 @@ export class AdminCreateComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminCreateComponent>, public adminStoreManageService: AdminStoreManageService,
+  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService,
     public adminAdminService: AdminAdminService) {
     this.forms();
     this.registerRequestModel = {
@@ -153,7 +153,7 @@ export class AdminCreateComponent implements OnInit {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
-          this.dialogRef.close(1);
+         
         }
         else {
           // alert("创建失败，请重新填写")
@@ -163,9 +163,7 @@ export class AdminCreateComponent implements OnInit {
   }
 
 
-  close(): void {
-    this.dialogRef.close();
-  }
+
 
 
 }
