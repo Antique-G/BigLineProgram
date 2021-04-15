@@ -457,4 +457,5 @@ export interface OrderGroupProduct {
   shared_status: any;
   emergency_contact_person?: any;
   emergency_contact_number?: any;
+  discount?: any;
 }

@@ -588,11 +588,11 @@
                 <mat-card>
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
-                            <div>
+                            <div *ngIf="isShowFeeDetail===true">
                                 共<span style="color: red;">￥{{totalPrice}}元</span>：
                                 <span>成人{{audltAllPrice}}元| </span>
-                                <span>儿童{{childAllPrice}}元| </span>
-                                <span>婴儿{{babyAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.child_status===1">儿童{{childAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.child_status===1">婴儿{{babyAllPrice}}元| </span>
                                 <span>房差{{difAllPrice}}元 </span>
                                 <span>优惠{{discountPrice}}元 </span>
                             </div>
