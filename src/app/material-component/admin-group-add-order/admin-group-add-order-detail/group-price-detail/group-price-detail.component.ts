@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-group-price-detail',
@@ -23,7 +24,7 @@ export class GroupPriceDetailComponent implements OnInit {
   basicPrice: any;
 
 
-  constructor(public fb: FormBuilder, private modal: NzModalService) {
+  constructor(public fb: FormBuilder, private msg: NzMessageService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       money: ['',],
     })
@@ -41,10 +42,33 @@ export class GroupPriceDetailComponent implements OnInit {
     this.rooms = this.data?.rooms;
     this.difAllPrice = Number(this.data?.feeAll?.difference_price) * Number(this.rooms);
     this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice);
+    this.totalPrice = this.toDecimal(this.totalPrice);
   }
 
   onEnter(data: any) {
-    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money);
+    console.log('data :>> ', data);
+    if (data > this.totalPrice) {
+      this.msg.error('优惠价格不能大于总价格');
+      this.addForm.patchValue({
+        money: 0
+      });
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)
+    }
+    else {
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money);
+      this.totalPrice = this.toDecimal(this.totalPrice);
+    }
+
+  }
+
+
+  toDecimal(x: any) {
+    var f = parseFloat(x);
+    if (isNaN(f)) {
+      return;
+    }
+    f = Math.round(x * 100) / 100;
+    return f;
   }
 
   update() {
