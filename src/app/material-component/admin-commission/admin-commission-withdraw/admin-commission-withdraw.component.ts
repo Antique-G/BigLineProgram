@@ -15,6 +15,7 @@ export class AdminCommissionWithdrawComponent implements OnInit {
   total = 1;
   status: any;
   user_id: any;
+  loading = true;
 
   constructor(public fb:FormBuilder,public adminUserCommissionListService:AdminUserCommissionListService,) { 
     this.searchForm = fb.group({
@@ -30,8 +31,10 @@ export class AdminCommissionWithdrawComponent implements OnInit {
 
   //提现列表
   getDataList():void{
+    this.loading = true;
     this.adminUserCommissionListService.UserWithdrawList(this.page,this.per_page,this.status,this.user_id).subscribe((res:any) =>{
       console.log('res',res)
+      this.loading = false;
       this.total = res.total;
       this.dataSource = res.data;
     })

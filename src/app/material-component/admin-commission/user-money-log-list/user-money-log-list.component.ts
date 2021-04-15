@@ -16,6 +16,7 @@ export class UserMoneyLogListComponent implements OnInit {
   total = 1;
   type: any;
   user_id: any;
+  loading = true;
 
   constructor(public fb:FormBuilder,public adminUserMoneyLogService:AdminUserMoneyLogService) { 
     this.searchForm = fb.group({
@@ -31,8 +32,10 @@ export class UserMoneyLogListComponent implements OnInit {
 
   //金额变动记录
   getDataList():void{
+    this.loading = true;
     this.adminUserMoneyLogService.UserWithdrawList(this.page,this.per_page,this.type,this.user_id).subscribe((res:any) =>{
       console.log('res',res)
+      this.loading = false
       this.total = res.total;
       this.dataSource = res.data;
     })

@@ -24,7 +24,7 @@
                     
                     <div class="mat-elevation-z8 ListBox">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
-                            (nzPageSizeChange)="changePageSize($event)">
+                            (nzPageSizeChange)="changePageSize($event)" [nzLoading]="loading">
                             <thead>
                                 <tr>
                                     <th>权限标识</th>

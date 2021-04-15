@@ -52,6 +52,8 @@ import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-
 import { AdminPermissionComponent } from './admin-permission/admin-permission.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
+import { AdminRoleComponent } from './admin-role/admin-role.component';
+
 
 export const MaterialRoutes: Routes = [
 
@@ -71,6 +73,13 @@ export const MaterialRoutes: Routes = [
         component: AdminPermissionComponent,
         data: {
           breadcrumb: '管理权限列表'
+        }
+      },
+      {
+        path: 'adminRole',
+        component: AdminRoleComponent,
+        data: {
+          breadcrumb: '角色列表'
         }
       },
       {

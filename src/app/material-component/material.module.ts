@@ -145,6 +145,11 @@ import { AdminTravelDetailPostComponent } from './admin-product/admin-produc-fre
 import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
 import { AdminStoreManageAddComponent } from './admin-store-manage/admin-store-manage-add/admin-store-manage-add.component';
 import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-store-manage-detail/admin-store-manage-detail.component';
+import { AdminRoleComponent } from './admin-role/admin-role.component';
+import { AdminRoleCreateComponent } from './admin-role/admin-role-create/admin-role-create.component';
+import { AdminRoleDetailComponent } from './admin-role/admin-role-detail/admin-role-detail.component';
+
+
 
 
 @NgModule({
@@ -298,6 +303,7 @@ import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-stor
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
     AdminPermissionDetailComponent,
+
     AOGTDFullRefundComponent,
     AOGTDPartRefundComponent,
     AOFTDChangePriceComponent,
@@ -309,6 +315,10 @@ import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-stor
     AdminStoreManageComponent,
     AdminStoreManageAddComponent,
     AdminStoreManageDetailComponent,
+    AdminRoleComponent,
+    AdminRoleCreateComponent,
+    AdminRoleDetailComponent,
+
   ]
 })
 export class MaterialComponentsModule {}

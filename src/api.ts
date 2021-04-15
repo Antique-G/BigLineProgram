@@ -16,6 +16,11 @@ export const AdminUrls = {
   PostAdminPermissionCreate: api + '/admin/permission',    //权限创建
   PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
+  GetAdminRoleList: api + '/admin/role',    //角色列表
+  GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
+  PostAdminRoleCreate: api + '/admin/role',    //角色创建
+  PutAdminRoleUpdate: api + '/admin/role/', //角色更新
+
 
   GetAdminShopList: api + '/admin/shop',    //门店列表
   PostAdminShopCreate: api + '/admin/shop',    //门店创建
