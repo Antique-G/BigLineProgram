@@ -14,7 +14,7 @@ export class AdminCreateComponent implements OnInit {
   addForm!: FormGroup;
   statusValue = '1';
   registerRequestModel: RegisterRequestModel;
-
+  listDataMap: any[] = [];
 
   validationMessage: any = {
     account: {
@@ -45,7 +45,7 @@ export class AdminCreateComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminCreateComponent>,
+  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminCreateComponent>, public adminStoreManageService: AdminStoreManageService,
     public adminAdminService: AdminAdminService) {
     this.forms();
     this.registerRequestModel = {
@@ -55,6 +55,7 @@ export class AdminCreateComponent implements OnInit {
       real_name: '',
       mobile: '',
       status: 1,
+      shop_id: '',
     }
   }
 
@@ -62,6 +63,7 @@ export class AdminCreateComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
+      shop_id: ['', [Validators.required]],
       account: ['', [Validators.required, Validators.maxLength(32)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       checkPassword: ['', [Validators.required, this.confirmationValidator]],
@@ -69,15 +71,15 @@ export class AdminCreateComponent implements OnInit {
       phoneNumber: ['', [Validators.required, mobile]],
       status: ['', [Validators.required]]
     });
-     // 每次表单数据发生变化的时候更新错误信息
-     this.addForm.valueChanges.subscribe(data => {
+    // 每次表单数据发生变化的时候更新错误信息
+    this.addForm.valueChanges.subscribe(data => {
       this.onValueChanged(data);
     });
     // 初始化错误信息
     this.onValueChanged();
   }
 
-  
+
   // 表单验证
   onValueChanged(data?: any) {
     // 如果表单不存在则返回
@@ -121,7 +123,10 @@ export class AdminCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.adminStoreManageService.storeManageList(1, 50, 1, '', '').subscribe(res => {
+      console.log('res :>> ', res);
+      this.listDataMap = res?.data;
+    })
   }
 
   setValue() {
@@ -131,6 +136,8 @@ export class AdminCreateComponent implements OnInit {
     this.registerRequestModel.real_name = this.addForm.value.name;
     this.registerRequestModel.mobile = this.addForm.value.phoneNumber
     this.registerRequestModel.status = this.addForm.value.status;
+    this.registerRequestModel.shop_id = this.addForm.value.shop_id;
+
   }
 
 
@@ -169,6 +176,7 @@ export class AdminCreateComponent implements OnInit {
 // 手机号码校验
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -176,7 +184,7 @@ export type MyValidationErrors = Record<string, MyErrorsOptions>;
 
 export class MyValidators extends Validators {
 
- static mobile(control: AbstractControl): MyValidationErrors | null {
+  static mobile(control: AbstractControl): MyValidationErrors | null {
     const value = control.value;
 
     if (isEmptyInputValue(value)) {
