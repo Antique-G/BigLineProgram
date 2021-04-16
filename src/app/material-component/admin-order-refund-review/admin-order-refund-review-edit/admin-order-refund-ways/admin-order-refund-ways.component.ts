@@ -60,7 +60,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
       console.log('结果是 :>> ', res);
       this.dataSource = res.data;
       this.dataSource.forEach((element) => {
-        element['addNum'] = this.detailModel?.refund_amount;
+        element['addNum'] = '';
       })
     })
   }
