@@ -1,12 +1,10 @@
-import { Router } from '@angular/router';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, retry, tap } from 'rxjs/operators';
-import { AdminLoginService } from '../services/admin-login/admin-login.service';
+import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { AdminLoginService } from '../services/admin-login/admin-login.service';
 
 // 拦截器
 
@@ -199,7 +197,7 @@ export class Interceptor implements HttpInterceptor {
       // ,transform:translate 
     })
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
+    // setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
   }
 
 }
