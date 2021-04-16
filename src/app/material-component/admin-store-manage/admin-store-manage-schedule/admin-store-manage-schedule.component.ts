@@ -1,16 +1,16 @@
-import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
+import { Component, OnInit } from '@angular/core';
 // 引用报价组件
 // 接收传过来的参数
-import { ActivatedRoute, Router } from '@angular/router';
-import { format } from 'date-fns';
+import { ActivatedRoute } from '@angular/router';
+import { differenceInCalendarDays, format } from 'date-fns';
 import { NzCalendarMode } from 'ng-zorro-antd/calendar';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
+registerLocaleData(zh);
 
 
 @Component({
@@ -88,7 +88,57 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     newMon = newMon.replace(/\b(0+)/gi, "");
     this.nzPageIndex = Number(newMon);
     this.date = this.seletYearMonth;
-    this.getList();
+
+    console.log(differenceInCalendarDays(select,this.toDay),'AAA');
+    if(differenceInCalendarDays(select,this.toDay)<0){
+      this.msg.warning('当前日期不能排班')
+      return
+    }else{
+      // shopScheduleInfo
+      this.adminStoreManageService.shopScheduleInfo(format(select,'yyyy-MM-dd'), this.shop_id).subscribe(res => {
+        console.log('111111111', res);
+        // let resArr = res.data.map(item=>item.admin_id)
+        const editmodal = this.modal.create({
+          nzTitle: '门店员工排班设置',
+          nzContent: AdminStoreManageSetScheduleComponent,
+          nzWidth: 1000,
+          nzComponentParams: {
+            data: [this.shop_id,this.shopName,select,res.data]
+          },
+          nzFooter: [
+            {
+              label: '删除',
+              danger: true,
+              onClick: componentInstance=> {
+                this.modal.confirm({
+                  nzTitle: '提示?',
+                  nzContent: '<b style="color: red;">请确认是否删除当天排班</b>',
+                  nzOkText: '确认',
+                  nzOkType: 'primary',
+                  nzOnOk: () => componentInstance?.deleteDate(),
+                  nzCancelText: '取消',
+                  nzOnCancel: () => console.log('Cancel')
+                });
+              }
+            },
+            {
+              label: '提交',
+              type: 'primary',
+              onClick: componentInstance => {
+                componentInstance?.update()
+              }
+            },
+          ]
+        })
+        editmodal.afterClose.subscribe(res => {
+          this.getList();
+        })
+      })
+      
+    }
+
+    // this.getList();
+    
   }
 
 

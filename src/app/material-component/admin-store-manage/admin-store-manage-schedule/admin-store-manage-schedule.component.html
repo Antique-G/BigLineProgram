@@ -28,7 +28,7 @@
                                 <div *nzDateCell="let date" class="events">
                                     <ng-container *ngFor="let item of listDataMap">
                                         <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
-                                            <div class="item itemFree item-bg-success">
+                                            <div class="item itemFree item-bg-success" >
                                                 <div><span style="color: red;">{{item.admin_name}}</span></div>
                                             </div>
                                         </ng-container>
