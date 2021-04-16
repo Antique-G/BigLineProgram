@@ -37,7 +37,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="baby_num">请输入优惠金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                <input nz-input formControlName="money" (ngModelChange)="onEnter($event)" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" />
+                                <nz-input-number formControlName="money" style="width: 100%;" (ngModelChange)="onEnter($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
                             </nz-form-control>
                         </div>
                     </nz-form-item>
