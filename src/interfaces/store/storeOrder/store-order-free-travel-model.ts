@@ -174,7 +174,7 @@ export interface DetailsModel {
   member: Members;
   independent_product: Independentproducts;
   pay_log: Paylog;
-
+  refund: any;
 }
 
 
