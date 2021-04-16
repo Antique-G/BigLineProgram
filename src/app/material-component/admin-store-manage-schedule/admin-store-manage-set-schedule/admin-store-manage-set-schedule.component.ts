@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { differenceInCalendarDays, format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AddScheduleModel } from '../../../../../interfaces/adminStoreManage/admin-store-manage-model';
-import { AdminStoreManageService } from '../../../../../services/admin/admin-store-manage.service';
+import { AddScheduleModel } from '../../../../interfaces/adminStoreManage/admin-store-manage-model';
+import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 
 @Component({

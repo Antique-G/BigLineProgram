@@ -1,14 +1,12 @@
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
-// 引用报价组件
-// 接收传过来的参数
 import { ActivatedRoute } from '@angular/router';
 import { differenceInCalendarDays, format } from 'date-fns';
 import { NzCalendarMode } from 'ng-zorro-antd/calendar';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
+import { AdminStoreManageService } from '../../../services/admin/admin-store-manage.service';
 import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 registerLocaleData(zh);
 
@@ -38,7 +36,6 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   admin_id: any;
   date: any = format(new Date(), 'yyyy-MM');
   shop_id: any;
-  shopName: any;
 
 
   constructor(private modal: NzModalService, public activatedRoute: ActivatedRoute,
@@ -48,12 +45,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.shop_id = params.id;
-      this.shopName = params.shopName;
-      this.getList();
-    })
-
+    this.getList();
   }
 
   getList() {
@@ -81,6 +73,9 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     this.getList();
   }
 
+
+
+  // 单个
   selectChange(select: Date): void {
     console.log('选择的', select);
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
@@ -94,16 +89,14 @@ export class AdminStoreManageScheduleComponent implements OnInit {
       this.msg.warning('当前日期不能排班')
       return
     }else{
-      // shopScheduleInfo
       this.adminStoreManageService.shopScheduleInfo(format(select,'yyyy-MM-dd'), this.shop_id).subscribe(res => {
         console.log('111111111', res);
-        // let resArr = res.data.map(item=>item.admin_id)
         const editmodal = this.modal.create({
           nzTitle: '门店员工排班设置',
           nzContent: AdminStoreManageSetScheduleComponent,
           nzWidth: 1000,
           nzComponentParams: {
-            data: [this.shop_id,this.shopName,select,res.data]
+            data: [select,res.data]
           },
           nzFooter: [
             {
@@ -202,9 +195,9 @@ export class AdminStoreManageScheduleComponent implements OnInit {
       nzTitle: '门店员工排班设置',
       nzContent: AdminStoreManageSetScheduleComponent,
       nzWidth: 1000,
-      nzComponentParams: {
-        data: [this.shop_id,this.shopName]
-      },
+      // nzComponentParams: {
+      //   data: [this.shop_id]
+      // },
       nzFooter: [
         {
           label: '提交',

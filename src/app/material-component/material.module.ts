@@ -144,12 +144,12 @@ import { AdminStoreManageAddComponent } from './admin-store-manage/admin-store-m
 import { AdminStoreManageDetailComponent } from './admin-store-manage/admin-store-manage-detail/admin-store-manage-detail.component';
 import { AdminRoleComponent } from './admin-role/admin-role.component';
 import { AdminRoleCreateComponent } from './admin-role/admin-role-create/admin-role-create.component';
-import { AdminStoreManageScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-schedule.component';
-import { AdminStoreManageSetScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 import { AdminRoleDetailComponent } from './admin-role/admin-role-detail/admin-role-detail.component';
 import { AOGTDChangePriceComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { FreePriceDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
 import { GroupPriceDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
+import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-schedule.component';
+import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 
 
 
@@ -304,7 +304,6 @@ import { GroupPriceDetailComponent } from './admin-group-add-order/admin-group-a
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
     AdminPermissionDetailComponent,
-
     AOGTDFullRefundComponent,
     AOGTDPartRefundComponent,
     AOFTDChangePriceComponent,
