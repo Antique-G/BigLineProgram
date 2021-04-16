@@ -160,7 +160,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入房间数">
-                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [(ngModel)]="isForRoom" [nzMin]="minNumber" [nzMax]="maxNumber" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -300,7 +300,7 @@
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
                                                             <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="assembling_place_id">
-                                                                    <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place?.name" [nzValue]="place.id">
+                                                                    <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+place.time" [nzValue]="place.value">
                                                                     </nz-option>
                                                                 </nz-select>
                                                             </nz-form-control>

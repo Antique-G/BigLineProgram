@@ -20,7 +20,8 @@ export class FreePriceDetailComponent implements OnInit {
   totalPrice: any;
 
   basicPrice: any;
-
+  precision = 2;
+  cutValue = 0;
 
   constructor(public fb: FormBuilder,private msg: NzMessageService,  private modal: NzModalService) {
     this.addForm = this.fb.group({
@@ -43,8 +44,9 @@ export class FreePriceDetailComponent implements OnInit {
 
 
   onEnter(data: any) {
-    console.log('data :>> ', data);
-    if (data > this.totalPrice) {
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice);
+    console.log('Number(data) :>> ', Number(data), Number(data) > Number(this.totalPrice));
+    if (Number(data) > Number(this.totalPrice)) {
       this.msg.error('优惠价格不能大于总价格');
       this.addForm.patchValue({
         money: 0
@@ -57,6 +59,8 @@ export class FreePriceDetailComponent implements OnInit {
     }
 
   }
+
+
 
 
   toDecimal(x: any) {
