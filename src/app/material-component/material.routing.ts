@@ -53,8 +53,11 @@ import { AdminPermissionComponent } from './admin-permission/admin-permission.co
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
 import { AdminRoleComponent } from './admin-role/admin-role.component';
-import { AdminStoreManageScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-schedule.component';
+import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-schedule.component';
+
 export const MaterialRoutes: Routes = [
+
+
 
   {
     path: '',
@@ -449,7 +452,7 @@ export const MaterialRoutes: Routes = [
         }
       },
       {
-        path: 'adminStoreManage/schedule',
+        path: 'adminSchedule',
         component: AdminStoreManageScheduleComponent,
         data: {
           breadcrumb: '排班管理'
