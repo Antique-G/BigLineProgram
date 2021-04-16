@@ -79,6 +79,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   difPrice: any;
   difAllPrice: any;
 
+  other_price = 0;
 
   totalPrice: any;
   feeAll: any;
@@ -132,6 +133,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       emergency_contact_person: '',
       emergency_contact_number: '',
       discount: '',
+      other_price: '',
+
     }
   }
 
@@ -304,6 +307,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
+    // 收费
+    this.orderGroupProduct.other_price = this.other_price;
 
   }
 
@@ -429,7 +434,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       this.childAllPrice = 0;
     }
     this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice)+Number(this.other_price);
   }
 
 
@@ -461,6 +466,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
       if (res != undefined) {
         this.discountPrice = res?.discount;
+        this.other_price= res?.other_price;
         this.totalPrice = res?.totalPrice;
       }
     })
