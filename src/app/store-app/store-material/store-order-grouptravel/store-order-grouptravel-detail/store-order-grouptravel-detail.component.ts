@@ -26,6 +26,8 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   childPrice: any;
   babyPrice: any;
   priceTotal:any;
+  dataPayLog: any;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
@@ -54,6 +56,13 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
+        let pagLogArr: any[] = [];
+        res.data?.pay_log?.data.forEach((element: any) => {
+          if (element.status == 2) {
+            pagLogArr.push(element)
+          }
+        });
+        this.dataPayLog = pagLogArr;
         this.dataMember = res.data?.member?.data;
         this.dataMember.forEach((element: any) => {
           if (element.birthday === null) {
