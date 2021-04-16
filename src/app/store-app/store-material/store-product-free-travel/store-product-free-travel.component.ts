@@ -39,6 +39,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
   isEar: any;
   setRewardModel: any;
 
+  setQuery: any;
+
+
   constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
     public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
     private nzContextMenuService: NzContextMenuService) {
@@ -55,6 +58,23 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTagList();
+    // 将上次查询的筛选条件赋值
+    let getSeatch = JSON.parse(localStorage.getItem("storeFreeSearch")!)
+    this.status = getSeatch?.status ? getSeatch?.status : '';
+    this.checkStatus = getSeatch?.check_status ? getSeatch?.check_status : '';
+    this.title = getSeatch?.title ? getSeatch?.title : '';
+    this.code = getSeatch?.code ? getSeatch?.code : '';
+    this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
+    this.tag = getSeatch?.tag ? getSeatch?.tag : '';
+    this.page = getSeatch?.page ? getSeatch?.page : 1;
+    this.searchForm.patchValue({
+      status: this.status,
+      checkStatus: this.checkStatus,
+      title: this.title,
+      code: this.code,
+      tag: this.tag,
+      few_days: this.few_days,
+    })
     this.getProductList();
   }
 
@@ -92,6 +112,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('storeFreeSearch', JSON.stringify(this.setQuery));
     this.getProductList();
   }
 
@@ -102,6 +125,9 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('storeFreeSearch', JSON.stringify(this.setQuery));
     this.getProductList();
 
   }

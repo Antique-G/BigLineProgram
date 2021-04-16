@@ -30,9 +30,11 @@ export class AdminProducFreeTravelComponent implements OnInit {
   few_days: any;
   tag: any;
   tagList: any[] = [];
+  setQuery: any;
+
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, private modal: NzModalService,
-    public adminProductFreeTravelService: AdminProductFreeTravelService, private message: NzMessageService, 
+    public adminProductFreeTravelService: AdminProductFreeTravelService, private message: NzMessageService,
     public router: Router, public adminProductTagService: AdminProductTagService,) {
     this.searchForm = this.fb.group({
       status: [''],
@@ -52,6 +54,25 @@ export class AdminProducFreeTravelComponent implements OnInit {
       console.log("jieguo", result);
       this.tagList = result.data;
     });
+    // 将上次查询的筛选条件赋值
+    let getSeatch = JSON.parse(localStorage.getItem("adminFreeSearch")!)
+    this.status = getSeatch?.status ? getSeatch?.status : '';
+    this.check_status = getSeatch?.check_status ? getSeatch?.check_status : '';
+    this.title = getSeatch?.title ? getSeatch?.title : '';
+    this.store_name = getSeatch?.store_name ? getSeatch?.store_name : '';
+    this.code = getSeatch?.code ? getSeatch?.code : '';
+    this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
+    this.tag = getSeatch?.tag ? getSeatch?.tag : '';
+    this.page = getSeatch?.page ? getSeatch?.page : 1;
+    this.searchForm.patchValue({
+      status: this.status,
+      checkStatus: this.check_status,
+      title: this.title,
+      code: this.code,
+      tag: this.tag,
+      store_name: this.store_name,
+      few_days: this.few_days,
+    })
     this.getFeeTravelList();
   }
 
@@ -75,6 +96,9 @@ export class AdminProducFreeTravelComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.check_status, title: this.title, store_name: this.store_name, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('adminFreeSearch', JSON.stringify(this.setQuery));
     this.getFeeTravelList();
   }
 
@@ -86,6 +110,9 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.few_days = this.searchForm.value.few_days;
     this.tag = this.searchForm.value.tag;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.check_status, title: this.title, store_name: this.store_name, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('adminFreeSearch', JSON.stringify(this.setQuery));
     this.getFeeTravelList();
 
   }
