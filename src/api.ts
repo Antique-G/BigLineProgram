@@ -28,7 +28,8 @@ export const AdminUrls = {
   GetAdminShopSchedule: api + '/admin/shop_schedule', //门店排班
   PostAdminShopSchedule: api + '/admin/shop_schedule', //门店排班添加
   GetAdminShopAccountList: api + '/admin/shop_admin_list', //门店的账号列表
-
+  getAdminShopDateScheduleInfo: api + '/admin/date_schedule', //某天的所有排班
+  PostAdminShopDateScheduleInfo: api + '/admin/schedule_destroy', //删除排班
 
   
 
