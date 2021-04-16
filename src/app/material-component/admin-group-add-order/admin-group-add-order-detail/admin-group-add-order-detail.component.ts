@@ -85,9 +85,12 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   totalPrice: any;
   feeAll: any;
   discountPrice = 0;
+  other_price = 0;
   isShowFeeDetail = false;
   showRoom = true;
-
+  isForRoom = 1;
+  minNumber = 1;
+  maxNumber = 1;
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog, public modal: NzModalService,) {
@@ -104,7 +107,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       babyList: this.fb.array([]),
       num_adult: [1,],
       num_kid: [0,],
-      num_room: [1,],
+      num_room: [1,[Validators.required]],
       baby_num: [0],
       shared_status: [0,],
       customer_remarks: ['',],
@@ -136,6 +139,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       emergency_contact_person: '',
       emergency_contact_number: '',
       discount: '',
+      other_price: '',
     }
   }
 
@@ -212,17 +216,22 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
   // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
-    console.log('data :>> ', data);
+    console.log('成人数 ', data);
     this.isNum();
-    this.priceAll();
-    this.roomChange(Number(this.informationForm.value.num_room));
+    this.isForRoom = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.minNumber = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.maxNumber = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
     this.isShowRoom();
+    this.priceAll();
   }
 
   onEnter1(data: any) {
     this.isNum();
+    this.minNumber = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.maxNumber = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
+    this.isShowRoom();
+
     this.priceAll();
-    this.roomChange(Number(this.informationForm.value.num_room));
   }
 
 
@@ -242,28 +251,77 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       console.log('zhengque :>> ', 'zhengque');
     }
     else {
-      this.message.error("房间数量不正确");
+      this.message.error("最大房间数不能大于成人数和儿童数总和的一半");
     }
   }
 
   // 房间数
   onEnterRoom(data: any) {
-    console.log('房间数', data);
-    this.roomChange(data);
-    this.isShowRoom();
-    this.priceAll();
+    console.log('删除前', this.isForRoom, data != '')
+    if (data != '') {
+      console.log('房间数的修改', data);
+      this.isForRoom = data;
+      this.roomChange(data);
+      this.isShowRoom();
+      this.priceAll();
+    }
+    else {
+      console.log('空值时候 ', this.isForRoom);
+      this.isForRoom=this.isForRoom
+    }
+
   }
+
 
   // 是否显示拼房
   isShowRoom() {
-    let rooms = Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult);
-    if (rooms === 1) {
+    console.log("房间数", this.isForRoom)
+    let rooms = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult);
+    console.log("666666", Number(rooms), Number(this.informationForm.value.num_adult))
+    console.log("777777777", Number(rooms) === 1 || Number(rooms) > 1)
+    if (Number(rooms) === 1) {
       this.showRoom = true;
     }
+
     else {
+
       this.showRoom = false;
+      this.isshared_status = '0';
+      console.log(this.isshared_status)
     }
   }
+
+
+
+  priceAll() {
+    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.child_status === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+      this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
+    }
+    else {
+      this.childAllPrice = 0;
+      this.babyAllPrice = 0
+    }
+
+
+    this.difRoom = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult) - Number(this.isshared_status);
+    // 房间数
+    console.log('222222222222 :>> ', Number(this.isForRoom), Number(this.isForRoom) * 2, Number(this.informationForm.value.num_adult), Number(this.isshared_status));
+    console.log('Number(this.difRoom) :>> ', Number(this.difRoom));
+    this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
+    console.log('是否拼房 :>> ', Number(this.isshared_status));
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
+  }
+
+
+  // 是否拼房
+  isChangeRoom(event: any) {
+    console.log('event :>> ', event);
+    this.priceAll();
+  }
+
 
   isBabyNum() {
     let nums = Number(this.informationForm.value.baby_num);
@@ -276,7 +334,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   }
 
 
-
+  // 详细人信息校验
   isNum() {
     let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
     console.log('nums, :>> ', nums, Number(this.humanArray.controls.length), nums === Number(this.humanArray.controls.length))
@@ -294,7 +352,27 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.assemblingPlaceList = [];
     this.detailModel = JSON.parse(localStorage.getItem("orderData")!)
     this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
-    this.assemblingPlaceList = this.detailModel?.assembling_place;
+    // 集合时间
+    if (this.detailModel?.assembling_place.length === 0) {
+      this.assemblingPlaceList = [];
+    }
+    else {
+      for (let i of this.detailModel?.assembling_place) {
+        console.log("集合地点ii", i, i.time_state === 0);
+        if (i.time_state === 0) {
+          let a = { value: i.id, label: i.name, time: i.time };
+          this.assemblingPlaceList.push(a);
+        }
+        else if (i.time_state === 1) {
+          let a = { value: i.id, label: i.name, time: '' };
+          this.assemblingPlaceList.push(a);
+        }
+      }
+      this.isShowRoom()
+    }
+
+
+    console.log('结婚', this.assemblingPlaceList)
     this.listDataMap = this.detailModel?.date_quote;
     console.log('this.listDataMap :>> ', this.listDataMap);
     this.listDataMap?.forEach((value: any) => {
@@ -333,11 +411,11 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       this.orderGroupProduct.num_room = 0;
     }
     else {
-      this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+      this.orderGroupProduct.num_room = this.isForRoom;
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
     this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
-    this.orderGroupProduct.shared_status = this.informationForm.value.shared_status;
+    this.orderGroupProduct.shared_status = this.isshared_status;
 
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
@@ -356,6 +434,10 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
+    // 附加收费
+    this.orderGroupProduct.other_price = this.other_price;
+
+    console.log("提交的", this.orderGroupProduct)
   }
 
   add() {
@@ -467,29 +549,6 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   }
 
 
-  priceAll() {
-    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
-    // 儿童是否可预订
-    if (this.detailModel?.child_status === 1) {
-      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
-      this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
-    }
-    else {
-      this.childAllPrice = 0;
-      this.babyAllPrice = 0
-    }
-    this.difRoom = (Number(this.informationForm.value.num_room) * 2 - Number(this.informationForm.value.num_adult) - Number(this.informationForm.value.shared_status));
-    this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
-    console.log('是否拼房 :>> ', Number(this.informationForm.value.shared_status));
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice)-Number(this.discountPrice);
-  }
-
-
-  // 是否拼房
-  isChangeRoom(event: any) {
-    console.log('event :>> ', event);
-    this.priceAll();
-  }
 
   feeDetail() {
     const editmodal = this.modal.create({
@@ -520,6 +579,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       console.log(res, 'aaaaaaaaaaaa');
       if (res != undefined) {
         this.discountPrice = res?.discount;
+        this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
       }
 

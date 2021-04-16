@@ -458,4 +458,5 @@ export interface OrderGroupProduct {
   emergency_contact_person?: any;
   emergency_contact_number?: any;
   discount?: any;
+  other_price?: any;
 }

@@ -20,11 +20,14 @@ export class FreePriceDetailComponent implements OnInit {
   totalPrice: any;
 
   basicPrice: any;
-
+  precision = 2;
+  cutValue = 0;
 
   constructor(public fb: FormBuilder,private msg: NzMessageService,  private modal: NzModalService) {
     this.addForm = this.fb.group({
-      money: ['',],
+      money: [0,],
+      other_price: [0,],
+
     })
   }
 
@@ -43,18 +46,26 @@ export class FreePriceDetailComponent implements OnInit {
 
 
   onEnter(data: any) {
-    console.log('data :>> ', data);
-    if (data > this.totalPrice) {
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
+    console.log('Number(data) :>> ', Number(data), Number(data) > Number(this.totalPrice));
+    if (Number(data) > Number(this.totalPrice)) {
       this.msg.error('优惠价格不能大于总价格');
       this.addForm.patchValue({
         money: 0
       });
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
     }
     else {
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money);
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);
       this.totalPrice = this.toDecimal(this.totalPrice);
     }
+
+  }
+
+
+  onEnter1(data: any) {
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);;
+    this.totalPrice = this.toDecimal(this.totalPrice);
 
   }
 
@@ -69,7 +80,7 @@ export class FreePriceDetailComponent implements OnInit {
   }
 
   update() {
-    let a = { totalPrice: this.totalPrice, discount: Number(this.addForm.value.money) };
+    let a = { totalPrice: this.totalPrice, discount: Number(this.addForm.value.money),other_price: Number(this.addForm.value.other_price) };
     return a
   }
 }
