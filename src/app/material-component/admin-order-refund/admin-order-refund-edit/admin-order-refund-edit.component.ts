@@ -21,6 +21,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   dataSource: any;
   pro_num_adult: any;
   pro_num_kid: any;
+  pro_num_baby: any;
   price_diff: any;
   price_other: any;
   price_total: any;
@@ -53,6 +54,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   addMoney: any;
   deleteMoney: any;
   isKidR: any;
+  isBabyR: any;
 
 
 
@@ -74,6 +76,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       product_contact_phone: [''],
       pro_num_adult: [''],
       pro_num_kid: [''],
+      pro_num_baby: [''],
       price_diff: [''],
       price_other: [''],
       price_total: [''],
@@ -102,15 +105,18 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.detailId = params.detailId;
       this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
         this.detailModel = res.data;
-        console.log('结果是 :>> ', this.detailModel);
+        console.log('退款2323结果是 :>> ', this.detailModel);
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
+        this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
         console.log('object :>> ', this.detailModel.price_detail.data,);
+        // 优惠附加收费
         let priceArr = this.detailModel.price_detail.data;
         priceArr.forEach((element: any) => {
           if (element.type === 0) {
@@ -322,20 +328,23 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
 
     // 基础金额:
-    //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价+手续费
+    //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价+（出行总婴儿数-退款婴儿数）*单价+手续费
     let last: any;
     let adultSSSS = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
     let kidSSSS = Number(this.allKidNum.length) - Number(this.checkkidNum);
-    console.log('剩余的成人 :>> ', adultSSSS, kidSSSS);
+    let babySSSS = Number(this.allbabyNum.length) - Number(this.checkbaNum);
+
+    console.log('剩余的人数 :>> ', adultSSSS, kidSSSS,babySSSS);
     let adultfff = Number(adultSSSS) * Number(this.detailModel.order?.data?.price_adult);
     let KidFff = Number(kidSSSS) * Number(this.detailModel.order?.data?.price_kid);
-    console.log('剩余的人付钱 :>> ', adultfff, KidFff);
+    let babyFff = Number(babySSSS) * Number(this.detailModel.order?.data?.price_baby);
+    console.log('剩余的人付钱 :>> ', adultfff, KidFff,babyFff);
     if (Number(this.detailModel.order?.data?.service_charge) != 0 || this.detailModel.order?.data?.service_charge != '') {
-      // alert(this.detailModel.order?.data?.service_charge)
-      last = Number(adultfff) + Number(KidFff) + Number(this.detailModel.order?.data?.service_charge);
+     console.log("肤浅的",Number(adultfff),Number(KidFff), Number(babyFff))
+      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.service_charge);
     }
     else {
-      last = Number(adultfff) + Number(KidFff);
+      last = Number(adultfff) + Number(KidFff)+Number(babyFff) ;
     }
 
 
