@@ -85,7 +85,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   totalPrice: any;
   feeAll: any;
   discountPrice = 0;
-  other_price= 0;
+  other_price = 0;
   isShowFeeDetail = false;
   showRoom = true;
   isForRoom = 1;
@@ -257,11 +257,19 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
   // 房间数
   onEnterRoom(data: any) {
-    console.log('房间数的修改', data);
-    this.isForRoom = data;
-    this.roomChange(data);
-    this.isShowRoom();
-    this.priceAll();
+    console.log('删除前', this.isForRoom, data != '')
+    if (data != '') {
+      console.log('房间数的修改', data);
+      this.isForRoom = data;
+      this.roomChange(data);
+      this.isShowRoom();
+      this.priceAll();
+    }
+    else {
+      console.log('空值时候 ', this.isForRoom);
+      this.isForRoom=this.isForRoom
+    }
+
   }
 
 
@@ -276,9 +284,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     }
 
     else {
-      
+
       this.showRoom = false;
-      this.isshared_status='0';
+      this.isshared_status = '0';
       console.log(this.isshared_status)
     }
   }
@@ -304,7 +312,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     console.log('Number(this.difRoom) :>> ', Number(this.difRoom));
     this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
     console.log('是否拼房 :>> ', Number(this.isshared_status));
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice)+Number(this.other_price);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
   }
 
 
@@ -427,9 +435,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
     // 附加收费
-    this.orderGroupProduct.other_price= this.other_price;
+    this.orderGroupProduct.other_price = this.other_price;
 
-    console.log("提交的",this.orderGroupProduct)
+    console.log("提交的", this.orderGroupProduct)
   }
 
   add() {
@@ -571,7 +579,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       console.log(res, 'aaaaaaaaaaaa');
       if (res != undefined) {
         this.discountPrice = res?.discount;
-        this.other_price= res?.other_price;
+        this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
       }
 
