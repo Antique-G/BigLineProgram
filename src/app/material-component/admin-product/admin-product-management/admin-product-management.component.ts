@@ -33,7 +33,7 @@ export class AdminProductManagementComponent implements OnInit {
   few_days: any;
   tag: any;
   tagList: any[] = [];
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public dialog: MatDialog, public adminProductManagementService: AdminProductManagementService,
     public router: Router, private modal: NzModalService,
@@ -63,6 +63,27 @@ export class AdminProductManagementComponent implements OnInit {
         console.log("jieguo", result);
         this.tagList = result.data;
       });
+
+      // 将上次查询的筛选条件赋值
+      let getSeatch = JSON.parse(localStorage.getItem("adminGroupSearch")!)
+      this.status = getSeatch?.status ? getSeatch?.status : '';
+      this.check_status = getSeatch?.check_status ? getSeatch?.check_status : '';
+      this.title = getSeatch?.title ? getSeatch?.title : '';
+      this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+      this.code = getSeatch?.code ? getSeatch?.code : '';
+      this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
+      this.tag = getSeatch?.tag ? getSeatch?.tag : '';
+      this.page = getSeatch?.page ? getSeatch?.page : 1;
+      console.log("111111", this.status, this.check_status)
+      this.searchForm.patchValue({
+        status: this.status,
+        checkStatus: this.check_status,
+        title: this.title,
+        store_id: this.store_id,
+        code: this.code,
+        tag: this.tag,
+        few_days: this.few_days,
+      })
       this.getProductList();
     })
 
@@ -88,6 +109,9 @@ export class AdminProductManagementComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.check_status, title: this.title, store_id: this.store_id, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('adminGroupSearch', JSON.stringify(this.setQuery));
     this.getProductList();
   }
 
@@ -99,6 +123,9 @@ export class AdminProductManagementComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.few_days = this.searchForm.value.few_days;
     this.tag = this.searchForm.value.tag;
+    // 筛选条件存进cookie
+    this.setQuery = { status: this.status, check_status: this.check_status, title: this.title, store_id: this.store_id, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    localStorage.setItem('adminGroupSearch', JSON.stringify(this.setQuery));
     this.getProductList();
 
   }
