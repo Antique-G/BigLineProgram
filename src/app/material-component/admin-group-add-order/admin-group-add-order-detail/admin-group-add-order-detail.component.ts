@@ -249,7 +249,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       console.log('zhengque :>> ', 'zhengque');
     }
     else {
-      this.message.error("房间数量不正确");
+      this.message.error("最大房间数不能大于成人数和儿童数总和的一半");
     }
   }
 
