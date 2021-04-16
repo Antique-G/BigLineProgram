@@ -82,8 +82,8 @@ export class AdminStoreManageService {
       )
   }
 
-  shopAccountList(shop_id: any): Observable<StoreShopAccountModel> {
-    const params = new HttpParams().set('shop_id', shop_id)
+  shopAccountList(): Observable<StoreShopAccountModel> {
+    const params = new HttpParams()
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params

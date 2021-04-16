@@ -43,6 +43,7 @@
                                     <th style="text-align: center;">姓名</th>
                                     <th style="text-align: center;">账号</th>
                                     <th style="text-align: center;">手机号</th>
+                                    <th style="text-align: center;">门店员工</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
@@ -52,6 +53,14 @@
                                     <td>{{data.real_name}}</td>
                                     <td>{{data.account}}</td>
                                     <td>{{data.mobile}}</td>
+                                    <td>
+                                        <div *ngIf="data.staff_type===0">
+                                            否
+                                        </div>
+                                        <div *ngIf="data.staff_type===1">
+                                            是
+                                        </div>
+                                    </td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             暂停

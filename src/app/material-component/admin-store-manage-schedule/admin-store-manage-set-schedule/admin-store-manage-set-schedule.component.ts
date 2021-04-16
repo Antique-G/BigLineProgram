@@ -32,6 +32,7 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
   ]
 
   adminList: any[] = [];
+  shopList: any[] = [];
   name: any;
   // addScheduleModel: AddScheduleModel;
   resultArr: AddScheduleModel ;
@@ -41,7 +42,7 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
   constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService,private message: NzMessageService) {
     this.addForm = this.fb.group({
       week: [false],
-      name: [''],
+      shop_id: ['',[Validators.required]],
       date: ['', [Validators.required]],
       admin_id: [[], [Validators.required]],
     });
@@ -55,21 +56,32 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('data :>> ', this.data);
-    this.name = this.data[1];
-    this.adminStoreManageService.shopAccountList(this.data[0]).subscribe(res => {
+    // this.name = this.data[1];
+    this.adminStoreManageService.shopAccountList().subscribe(res => {
       console.log('res :>> ', res);
       this.adminList = res.data;
     })
 
+    this.adminStoreManageService.storeManageList(1, 200, 1, '','').subscribe(res => {
+      console.log('res :>> ', res);
+      this.shopList = res?.data;
+     
+     
+    })
+
     // 修改排班信息
-    if(this.data.length===4){
-      console.log(this.data[2],'this.data[2]');
-      let timeDate = this.data[2]
+    if(this.data.length===2){
+      console.log(this.data[0],'this.data[0]');
+      let timeDate = this.data[0]
       this.selectDate=[timeDate,timeDate]
       // this.addForm.setValue({'admin_id':[this.data[2].admin_id]})
-      let arrId = this.data[3].map((item:any)=>item.admin_id)
-      this.addForm.patchValue({admin_id:arrId})
+      let arrId = this.data[1].map((item:any)=>item.admin_id)
+      let shopIds = this.data[1].map((item:any)=>item.shop_id)
+
+      this.addForm.patchValue({admin_id:arrId,shop_id:shopIds[0]})
+      // this.addForm.patchValue({})
     }
+
   
   }
 
@@ -81,7 +93,7 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
    
     this.resultArr.admin_id = this.addForm.value.admin_id
     this.resultArr.date = this.dateArr
-    this.resultArr.shop_id = this.data[0]
+    this.resultArr.shop_id = this.addForm.value.shop_id//this.data[0]
 
     console.log('添加值', this.resultArr);
     console.log('添加值', this.resultArr);
@@ -90,7 +102,7 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
 
   update() {
     if(this.selectDate.length != 2){
-      this.message.create('error', `请选择排版日期`);
+      this.message.create('error', `请选择排班日期`);
       return
     }
    
@@ -103,9 +115,9 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
       this.setValue()
 
       // data长度为4 表示修改 否则为添加
-      if(this.data.length===4){
+      if(this.data.length===2&&this.data[1].length>0){
         
-        let ids = this.data[3].map((item:any)=>item.id)
+        let ids = this.data[1].map((item:any)=>item.id)
         this.adminStoreManageService.DeleteShopScheduleInfo(ids).subscribe(del=>{
           this.adminStoreManageService.addScheduleList(this.resultArr).subscribe(res => {
             console.log('111111111',res);
@@ -124,10 +136,13 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
   }
 
   deleteDate(){
-    let ids = this.data[3].map((item:any)=>item.id)
-    this.adminStoreManageService.DeleteShopScheduleInfo(ids).subscribe(del=>{
-     
+    return new Promise((resolve, reject) => {
+      let ids = this.data[1].map((item:any)=>item.id)
+      this.adminStoreManageService.DeleteShopScheduleInfo(ids).subscribe(del=>{
+        resolve(true)
+      })
     })
+    
   }
 
 
@@ -150,6 +165,9 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
   changeAdmin(data: any) {
     console.log(data);
     console.log(this.addForm.value.admin_id);
+  }
+  changeShop(data: any) {
+    console.log(data);
   }
 
 
