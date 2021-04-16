@@ -36,7 +36,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   admin_id: any;
   date: any = format(new Date(), 'yyyy-MM');
   shop_id: any;
-
+  shopName: any;
 
   constructor(private modal: NzModalService, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public adminStoreManageService: AdminStoreManageService,) {
@@ -45,7 +45,12 @@ export class AdminStoreManageScheduleComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getList();
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.shop_id = params.id;
+      this.shopName = params.shopName;
+      this.getList();
+    })
+
   }
 
   getList() {

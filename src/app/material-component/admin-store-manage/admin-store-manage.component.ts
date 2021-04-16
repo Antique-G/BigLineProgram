@@ -128,4 +128,10 @@ export class AdminStoreManageComponent implements OnInit {
     })
   }
 
+
+
+  set(data: any) {
+    this.router.navigate(['/admin/main/adminStoreManage/schedule'], { queryParams: { id: data.id, shopName: data.shop_name } });
+  }
+
 }
