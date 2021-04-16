@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminStoreManageService } from '../../../services/admin/admin-store-manage.service';
+import { AdminStoreManageSetScheduleComponent } from '../admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 import { AdminStoreManageAddComponent } from './admin-store-manage-add/admin-store-manage-add.component';
 import { AdminStoreManageDetailComponent } from './admin-store-manage-detail/admin-store-manage-detail.component';
 
@@ -132,6 +133,28 @@ export class AdminStoreManageComponent implements OnInit {
 
   set(data: any) {
     this.router.navigate(['/admin/main/adminStoreManage/schedule'], { queryParams: { id: data.id, shopName: data.shop_name } });
+  }
+
+  setSchedule(){
+    const editmodal = this.modal.create({
+      nzTitle: '门店员工排班设置',
+      nzContent: AdminStoreManageSetScheduleComponent,
+      nzWidth: 1000,
+      // nzComponentParams: {
+      //   data: [this.shop_id]
+      // },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+    })
   }
 
 }
