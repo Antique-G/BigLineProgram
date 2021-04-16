@@ -53,8 +53,11 @@ import { AdminPermissionComponent } from './admin-permission/admin-permission.co
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
 import { AdminRoleComponent } from './admin-role/admin-role.component';
-import { AdminStoreManageScheduleComponent } from './admin-store-manage/admin-store-manage-schedule/admin-store-manage-schedule.component';
+import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-schedule.component';
+
 export const MaterialRoutes: Routes = [
+
+
 
   {
     path: '',
@@ -214,7 +217,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '跟团游订单列表'
         }
       },
-        // 注销
+      // 注销
       {
         path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
         component: AdminOrderGroupOrderComponent,
@@ -368,7 +371,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '保险购买记录'
         }
       },
-      
+
       {
         path: 'user',
         component: AdminUserinfoComponent,

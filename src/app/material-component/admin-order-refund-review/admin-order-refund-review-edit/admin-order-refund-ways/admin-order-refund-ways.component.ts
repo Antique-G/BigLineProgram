@@ -57,11 +57,18 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     this.detailModel = this.data;
     this.order_id = this.detailModel?.order_id;
     this.adminRefundService.getPayLog(this.order_id).subscribe(res => {
-      console.log('结果是 :>> ', res);
+      console.log('结果是22222222 :>> ', res);
       this.dataSource = res.data;
+      if(this.detailModel?.refund_amount==0){
+        this.dataSource.forEach((element) => {
+          element['addNum'] = 0;
+        })
+      }
+     else{
       this.dataSource.forEach((element) => {
         element['addNum'] = '';
       })
+     }
     })
   }
 
@@ -72,7 +79,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     console.log('23423 ', this.dataSource);
     let newArr: any[] = [];
     this.dataSource.forEach((element: any) => {
-      if (Number(element.addNum) > 0) {
+      if (Number(element.addNum) >= 0) {
         let i = { "pay_type": element.pay_type, "refund_amount": element.addNum, "payment_id": element.id };
         newArr.push(i)
       }

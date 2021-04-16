@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminDetailModel, UpdateRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 
 
 
@@ -47,7 +47,8 @@ export class AccountDetailComponent implements OnInit {
     this.updateRequestModel = {
       real_name: '',
       mobile: '',
-      status: ''
+      status: '',
+      staff_type:''
     }
   }
 
@@ -57,7 +58,8 @@ export class AccountDetailComponent implements OnInit {
       account: [this.adminDetailModel.account, [Validators.required]],
       name: [this.adminDetailModel.real_name, [Validators.required]],
       phoneNumber: [this.adminDetailModel.mobile, [Validators.required]],
-      status: [this.adminDetailModel.status, [Validators.required]]
+      status: [this.adminDetailModel.status, [Validators.required]],
+      staff_type: [this.adminDetailModel.staff_type, [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -98,6 +100,7 @@ export class AccountDetailComponent implements OnInit {
     this.updateRequestModel.real_name = this.addForm.value.name;
     this.updateRequestModel.mobile = this.addForm.value.phoneNumber;
     this.updateRequestModel.status = this.addForm.value.status;
+    this.updateRequestModel.staff_type = this.addForm.value.staff_type;
   }
 
 

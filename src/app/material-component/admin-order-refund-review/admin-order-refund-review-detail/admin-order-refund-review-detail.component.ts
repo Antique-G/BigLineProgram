@@ -39,6 +39,8 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
   RefundLogData: any[] = [];
   isWayFor = true;
   isKidR: any;
+  pro_num_baby: any;
+  isBabyR: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService, public dialog: MatDialog) {
@@ -58,6 +60,7 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
       product_contact_phone: [''],
       pro_num_adult: [''],
       pro_num_kid: [''],
+      pro_num_baby: [''],
       price_diff: [''],
       price_other: [''],
       price_total: [''],
@@ -88,7 +91,11 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+        this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
+        this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
+        
+      
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;

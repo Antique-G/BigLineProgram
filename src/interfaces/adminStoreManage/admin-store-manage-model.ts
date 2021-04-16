@@ -94,6 +94,7 @@ export interface StoreShopAccountModel {
 
 
 export interface StoreShopAccountModels {
+  id:any;
   admin_id: any;
   account: any;
   real_name: any;

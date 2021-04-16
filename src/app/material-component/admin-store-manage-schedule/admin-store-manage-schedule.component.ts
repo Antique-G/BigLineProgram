@@ -1,16 +1,14 @@
-import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
-// 引用报价组件
-// 接收传过来的参数
-import { ActivatedRoute, Router } from '@angular/router';
-import { format } from 'date-fns';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { differenceInCalendarDays, format } from 'date-fns';
 import { NzCalendarMode } from 'ng-zorro-antd/calendar';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminStoreManageService } from '../../../services/admin/admin-store-manage.service';
 import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
+registerLocaleData(zh);
 
 
 @Component({
@@ -39,7 +37,6 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   date: any = format(new Date(), 'yyyy-MM');
   shop_id: any;
   shopName: any;
-
 
   constructor(private modal: NzModalService, public activatedRoute: ActivatedRoute,
     private msg: NzMessageService, public adminStoreManageService: AdminStoreManageService,) {
@@ -81,6 +78,9 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     this.getList();
   }
 
+
+
+  // 单个
   selectChange(select: Date): void {
     console.log('选择的', select);
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
@@ -88,7 +88,71 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     newMon = newMon.replace(/\b(0+)/gi, "");
     this.nzPageIndex = Number(newMon);
     this.date = this.seletYearMonth;
-    this.getList();
+
+    console.log(differenceInCalendarDays(select,this.toDay),'AAA');
+    if(differenceInCalendarDays(select,this.toDay)<0){
+      this.msg.warning('当前日期不能排班')
+      return
+    }else{
+      this.adminStoreManageService.shopScheduleInfo(format(select,'yyyy-MM-dd'), this.shop_id).subscribe(res => {
+        console.log('111111111', res);
+        const editmodal = this.modal.create({
+          nzTitle: '门店员工排班设置',
+          nzContent: AdminStoreManageSetScheduleComponent,
+          nzWidth: 1000,
+          nzComponentParams: {
+            data: [select,res.data]
+          },
+          nzFooter: [
+            {
+              label: '删除',
+              danger: true,
+              onClick: componentInstance=> {
+                this.modal.confirm({
+                  nzTitle: '提示?',
+                  nzContent: '<b style="color: red;">请确认是否删除当天排班</b>',
+                  nzOkText: '确认',
+                  nzOkType: 'primary',
+                  nzOnOk:async () => {
+                   let flag = await componentInstance?.deleteDate().catch(err=>{
+                    this.modal['error']({
+                      nzMask: false,
+                      nzTitle: `提示`,
+                      nzContent: `删除失败：`+err,
+                    })
+                   })
+                   if(flag){
+                    this.modal['success']({
+                      nzMask: false,
+                      nzTitle: `提示`,
+                      nzContent: `删除成功`,
+                    })
+                   }
+                   setTimeout(() => this.modal.closeAll(), 1500);
+                  },
+                  nzCancelText: '取消',
+                  nzOnCancel: () => console.log('Cancel')
+                });
+              }
+            },
+            {
+              label: '提交',
+              type: 'primary',
+              onClick: componentInstance => {
+                componentInstance?.update()
+              }
+            },
+          ]
+        })
+        editmodal.afterClose.subscribe(res => {
+          this.getList();
+        })
+      })
+      
+    }
+
+    // this.getList();
+    
   }
 
 
@@ -152,9 +216,9 @@ export class AdminStoreManageScheduleComponent implements OnInit {
       nzTitle: '门店员工排班设置',
       nzContent: AdminStoreManageSetScheduleComponent,
       nzWidth: 1000,
-      nzComponentParams: {
-        data: [this.shop_id,this.shopName]
-      },
+      // nzComponentParams: {
+      //   data: [this.shop_id]
+      // },
       nzFooter: [
         {
           label: '提交',

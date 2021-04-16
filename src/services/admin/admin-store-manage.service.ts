@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { AddScheduleModel, StoreManageListResponseModel, StoreManageRequestModel, StoreScheduleListResponseModel, StoreShopAccountModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
+import { Observable } from 'rxjs';
 import { AdminUrls } from '../../api';
+import { AddScheduleModel, StoreManageListResponseModel, StoreManageRequestModel, StoreScheduleListResponseModel, StoreShopAccountModel } from '../../interfaces/adminStoreManage/admin-store-manage-model';
 
 
 const httpOptions = {
@@ -76,14 +76,14 @@ export class AdminStoreManageService {
   }
 
   // 添加排班
-  addScheduleList(addScheduleModel: AddScheduleModel[]): Observable<any> {
+  addScheduleList(addScheduleModel: AddScheduleModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostAdminShopSchedule, addScheduleModel, httpOptions)
       .pipe(
       )
   }
 
-  shopAccountList(shop_id: any): Observable<StoreShopAccountModel> {
-    const params = new HttpParams().set('shop_id', shop_id)
+  shopAccountList(): Observable<StoreShopAccountModel> {
+    const params = new HttpParams()
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -91,6 +91,29 @@ export class AdminStoreManageService {
     return this.httpClient.get<StoreShopAccountModel>(this.urls.GetAdminShopAccountList, findhttpOptions)
       .pipe(
 
+      )
+  }
+
+  // 获取某天排班
+  shopScheduleInfo(date:any,shop_id:any){
+    const params = new HttpParams().set('shop_id', shop_id)
+      .set('date',date)
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<StoreShopAccountModel>(this.urls.getAdminShopDateScheduleInfo, findhttpOptions)
+      .pipe(
+
+      )
+  }
+
+  // 删除
+  // admin/schedule_destroy
+  DeleteShopScheduleInfo(arr:any){
+    
+    return this.httpClient.post<any>(this.urls.PostAdminShopDateScheduleInfo, {ids:arr}, httpOptions)
+      .pipe(
       )
   }
 

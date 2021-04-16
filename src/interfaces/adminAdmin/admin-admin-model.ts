@@ -49,7 +49,8 @@ export interface RegisterRequestModel {
   real_name: string;
   mobile: string;
   status: number;
-  shop_id: any;
+  shop_id?: any;
+  staff_type:any;
 }
 
 export interface RegisterResponseModel {
@@ -67,7 +68,7 @@ export interface AdminDetailModel {
   created_at: string;
   updated_at: string;
   shop_id: number;
-
+  staff_type:any;
 }
 
 export interface UpdateRequestModel {
@@ -76,5 +77,7 @@ export interface UpdateRequestModel {
   status?: string;
   admin_id?: number;
   shop_id?: any;
+  staff_type:any;
+
 }
 

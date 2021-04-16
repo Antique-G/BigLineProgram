@@ -5,6 +5,7 @@
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div>
                         <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="add()">添加</button>
+                        <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;margin-left: 20px;" (click)="setSchedule()">排班</button>
                     </div>
 
                     <form [formGroup]="searchForm" nz-row nz-form>
@@ -92,6 +93,7 @@
                                             <div style="cursor: pointer;" (click)="set(data)" title="设置排班">
                                                 <img src="http://cdn.bigline.com.cn/static/images/paiban.png">
                                             </div>
+
                                         </div>
                                     </td>
 
