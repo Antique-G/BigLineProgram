@@ -42,8 +42,8 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('this.data :>> ', this.data);
-    this.isPrice = Math.ceil((this.data?.price_total - this.data?.price_receive) * 100) / 100 + ' 元';
-    this.fee = Math.ceil((this.data?.price_total - this.data?.price_receive) * 100) / 100;
+    this.isPrice = Math.ceil((this.data?.price_total - this.data?.amount_received) * 100) / 100 + ' 元';
+    this.fee = Math.ceil((this.data?.price_total - this.data?.amount_received) * 100) / 100;
     // 请求二维码接口
     this.adminOrderGroupTravelService.orderGetPayQr(this.data.id).subscribe(res => {
       console.log('二维码 :>> ', res);
