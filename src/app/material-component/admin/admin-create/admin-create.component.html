@@ -2,7 +2,7 @@
 
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
-            <nz-form-item>
+            <!-- <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="shop_id" nzRequired>门店</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择门店">
                     <nz-select nzPlaceHolder="请选择" formControlName="shop_id">
@@ -10,7 +10,7 @@
                         </nz-option>
                     </nz-select>
                 </nz-form-control>
-            </nz-form-item>
+            </nz-form-item> -->
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
@@ -60,7 +60,15 @@
                     </nz-radio-group>
                 </nz-form-control>
             </nz-form-item>
-
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="staff_type" nzRequired>门店员工</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-radio-group [(ngModel)]="staffTypeValue" formControlName="staff_type">
+                        <label nz-radio nzValue='0'>否</label>
+                        <label nz-radio nzValue='1'>是</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
 
         </form>
 

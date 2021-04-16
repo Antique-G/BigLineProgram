@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminDetailModel, UpdateRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 
@@ -49,18 +49,20 @@ export class AdminDetailComponent implements OnInit {
       real_name: '',
       mobile: '',
       status: '',
-      shop_id: '',
+      // shop_id: '',
+      staff_type:''
     }
   }
 
 
   forms() {
     this.addForm = this.fb.group({
-      shop_id: ['', [Validators.required]],
+      // shop_id: ['', [Validators.required]],
       account: ['', [Validators.required]],
       name: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
+      staff_type: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -101,7 +103,8 @@ export class AdminDetailComponent implements OnInit {
     this.updateRequestModel.real_name = this.addForm.value.name;
     this.updateRequestModel.mobile = this.addForm.value.phoneNumber;
     this.updateRequestModel.status = this.addForm.value.status;
-    this.updateRequestModel.shop_id = this.addForm.value.shop_id;
+    this.updateRequestModel.staff_type = this.addForm.value.staff_type;
+    // this.updateRequestModel.shop_id = this.addForm.value.shop_id;
 
   }
 

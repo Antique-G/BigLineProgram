@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
+import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
+import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-ad
 export class AdminCreateComponent implements OnInit {
   addForm!: FormGroup;
   statusValue = '1';
+  staffTypeValue = '0'
   registerRequestModel: RegisterRequestModel;
   listDataMap: any[] = [];
 
@@ -55,7 +57,8 @@ export class AdminCreateComponent implements OnInit {
       real_name: '',
       mobile: '',
       status: 1,
-      shop_id: '',
+      staff_type:0
+      // shop_id: '',
     }
   }
 
@@ -63,13 +66,14 @@ export class AdminCreateComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
-      shop_id: ['', [Validators.required]],
+      // shop_id: ['', [Validators.required]],
       account: ['', [Validators.required, Validators.maxLength(32)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       checkPassword: ['', [Validators.required, this.confirmationValidator]],
       name: ['', [Validators.required, Validators.maxLength(32)]],
       phoneNumber: ['', [Validators.required, mobile]],
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
+      staff_type: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -136,7 +140,8 @@ export class AdminCreateComponent implements OnInit {
     this.registerRequestModel.real_name = this.addForm.value.name;
     this.registerRequestModel.mobile = this.addForm.value.phoneNumber
     this.registerRequestModel.status = this.addForm.value.status;
-    this.registerRequestModel.shop_id = this.addForm.value.shop_id;
+    this.registerRequestModel.staff_type = this.addForm.value.staff_type;
+    // this.registerRequestModel.shop_id = this.addForm.value.shop_id;
 
   }
 
@@ -171,10 +176,6 @@ export class AdminCreateComponent implements OnInit {
 
 
 
-// 手机号码校验
-import { AbstractControl, ValidatorFn } from "@angular/forms";
-import { NzSafeAny } from "ng-zorro-antd/core/types";
-import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;

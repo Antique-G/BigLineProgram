@@ -113,7 +113,23 @@ export class AdminStoreManageScheduleComponent implements OnInit {
                   nzContent: '<b style="color: red;">请确认是否删除当天排班</b>',
                   nzOkText: '确认',
                   nzOkType: 'primary',
-                  nzOnOk: () => componentInstance?.deleteDate(),
+                  nzOnOk:async () => {
+                   let flag = await componentInstance?.deleteDate().catch(err=>{
+                    this.modal['error']({
+                      nzMask: false,
+                      nzTitle: `提示`,
+                      nzContent: `删除失败：`+err,
+                    })
+                   })
+                   if(flag){
+                    this.modal['success']({
+                      nzMask: false,
+                      nzTitle: `提示`,
+                      nzContent: `删除成功`,
+                    })
+                   }
+                   setTimeout(() => this.modal.closeAll(), 1500);
+                  },
                   nzCancelText: '取消',
                   nzOnCancel: () => console.log('Cancel')
                 });
