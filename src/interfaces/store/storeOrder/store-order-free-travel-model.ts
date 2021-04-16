@@ -173,6 +173,25 @@ export interface DetailsModel {
   order_sms: number;
   member: Members;
   independent_product: Independentproducts;
+  pay_log: Paylog;
+
+}
+
+
+
+export interface Paylog {
+  data: PaylogModel[];
+}
+
+export interface PaylogModel {
+  id: number;
+  order_id: number;
+  fee: number;
+  pay_status: number;
+  transaction_id: string;
+  pay_type: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Independentproducts {
