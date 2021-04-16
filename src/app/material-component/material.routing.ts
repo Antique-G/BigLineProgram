@@ -217,7 +217,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '跟团游订单列表'
         }
       },
-        // 注销
+      // 注销
       {
         path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
         component: AdminOrderGroupOrderComponent,
@@ -371,7 +371,7 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '保险购买记录'
         }
       },
-      
+
       {
         path: 'user',
         component: AdminUserinfoComponent,
@@ -452,7 +452,7 @@ export const MaterialRoutes: Routes = [
         }
       },
       {
-        path: 'adminSchedule',
+        path: 'adminStoreManage/schedule',
         component: AdminStoreManageScheduleComponent,
         data: {
           breadcrumb: '排班管理'
