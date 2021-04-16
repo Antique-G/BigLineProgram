@@ -107,7 +107,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       babyList: this.fb.array([]),
       num_adult: [1,],
       num_kid: [0,],
-      num_room: [1,],
+      num_room: [1,[Validators.required]],
       baby_num: [0],
       shared_status: [0,],
       customer_remarks: ['',],
