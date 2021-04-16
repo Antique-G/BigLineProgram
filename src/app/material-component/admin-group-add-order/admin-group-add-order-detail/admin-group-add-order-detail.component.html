@@ -163,6 +163,7 @@
                                                         <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [(ngModel)]="isForRoom" [nzMin]="minNumber" [nzMax]="maxNumber" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
+                                                <p title="成人数/2<=房间数<=(成人数+儿童数)/2,最大房间数不能大于成人数和儿童数总和的一半" style="color: red;margin-left: 30%;cursor: pointer;"><img style="width: 5%;" src="http://cdn.bigline.com.cn/static/images/help.png">房间数规则</p>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
