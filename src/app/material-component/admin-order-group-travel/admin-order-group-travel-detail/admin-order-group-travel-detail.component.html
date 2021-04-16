@@ -253,7 +253,7 @@
                                             <tr *ngFor="let data of rowSelectionTablePayLog.data">
                                                 <td>{{data.order_id}}</td>
                                                 <td>{{data.transaction_id}}</td>
-                                                <td>{{data.fee}}</td>
+                                                <td>{{data.fee}}元</td>
                                                 <td>
                                                     <span *ngIf="data.status===0">已取消/失效</span>
                                                     <span *ngIf="data.status===1">待完成</span>
