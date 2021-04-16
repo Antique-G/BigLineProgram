@@ -168,6 +168,7 @@ export interface DetailsModel {
   order_status: number;
   payment_status: number;
   refund_status: number;
+  refund: any;
   cancel_type: number;
   shared_status: number;
   num_room: number;

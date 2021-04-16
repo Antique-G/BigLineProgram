@@ -25,9 +25,9 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   audltPrice: any;
   childPrice: any;
   babyPrice: any;
-  priceTotal:any;
+  priceTotal: any;
   dataPayLog: any;
-
+  refundLog: any[]=[];
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
@@ -56,6 +56,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       this.storeOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
+        // 支付流水
         let pagLogArr: any[] = [];
         res.data?.pay_log?.data.forEach((element: any) => {
           if (element.status == 2) {
@@ -63,6 +64,14 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
           }
         });
         this.dataPayLog = pagLogArr;
+        // 退款流水
+        let reFundLogArr: any[] = [];
+        res.data?.refund?.data.forEach((element: any) => {
+          if (element.status == 2 || element.status == 3) {
+            reFundLogArr.push(element)
+          }
+        });
+        this.refundLog = reFundLogArr;
         this.dataMember = res.data?.member?.data;
         this.dataMember.forEach((element: any) => {
           if (element.birthday === null) {

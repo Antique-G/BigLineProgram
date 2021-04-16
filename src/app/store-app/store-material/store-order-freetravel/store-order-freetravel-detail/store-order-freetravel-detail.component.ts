@@ -23,6 +23,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
   childPrice: any;
   priceTotal: any;
   dataPayLog: any;
+  refundLog: any[]=[];
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -53,6 +54,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
         this.detailModel = res.data;
+        // 支付流水
         let pagLogArr: any[] = [];
         res.data?.pay_log?.data.forEach((element: any) => {
           if (element.status == 2) {
@@ -60,6 +62,14 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
           }
         });
         this.dataPayLog = pagLogArr;
+        // 退款流水
+        let reFundLogArr: any[] = [];
+        res.data?.refund?.data.forEach((element: any) => {
+          if (element.status == 2 || element.status == 3) {
+            reFundLogArr.push(element)
+          }
+        });
+        this.refundLog = reFundLogArr;
         this.dataMember = res.data?.member?.data;
         this.dataMember.forEach((element: any) => {
           if (element.birthday === null) {
@@ -81,7 +91,7 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
     this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
-  
+
   }
 
 
