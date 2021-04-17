@@ -138,6 +138,11 @@ export class StoreProductManagementComponent implements OnInit {
     this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
   }
 
+  // 克隆
+  copy(data: any) {
+    // this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
+  }
+
   // 提交审核
   checkStatusClick(data: any) {
     this.modal.confirm({

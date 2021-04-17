@@ -97,7 +97,14 @@
                                                 </div>
                                             </nz-form-item>
 
-
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="internal_remarks">计调内部备注</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="internal_remarks" nzBorderless [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
                                         </form>
                                     </div>
                                 </nz-spin>
@@ -154,14 +161,7 @@
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="internal_remarks">计调内部备注</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="internal_remarks" nzBorderless [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
+
                                     </form>
                                 </div>
                                 <div class="mat-elevation-z8">
