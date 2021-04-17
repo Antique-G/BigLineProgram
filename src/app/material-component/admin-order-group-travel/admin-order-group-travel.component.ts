@@ -66,7 +66,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   }
 
   groupTravel() {
-    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
+    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -75,7 +75,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   }
 
   getTotal() {
-    this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
+    this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
       console.log('统计', res?.data);
       this.totalModel = res?.data;
       console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
@@ -110,6 +110,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     this.date_end = this.dateArray[1];
     this.order_start_date = this.dateArray1[0];
     this.order_end_date = this.dateArray1[1];
+    this.page = 1;
     this.loading = true;
     this.groupTravel();
     this.getTotal();
