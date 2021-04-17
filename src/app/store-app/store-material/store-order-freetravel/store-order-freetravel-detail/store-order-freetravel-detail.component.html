@@ -279,7 +279,7 @@
                                                 <th style="text-align: center;">退款原因</th>
                                                 <th style="text-align: center;">退款金额</th>
                                                 <th style="text-align: center;">退款状态</th>
-                                                <th style="text-align: center;">退款方式</th>
+                                                <th style="text-align: center;">退款类型</th>
                                                 <th style="text-align: center;">退款审核时间</th>
                                             </tr>
                                         </thead>
@@ -293,9 +293,8 @@
                                                     <span *ngIf="data.status===3">已完成</span>
                                                 </td>
                                                 <td>
-                                                    <span *ngIf="data.type===0">微信</span>
-                                                    <span *ngIf="data.type===1">支付宝</span>
-                                                    <span *ngIf="data.type===2">银行转账</span>
+                                                    <span *ngIf="data.type===0">全额退</span>
+                                                    <span *ngIf="data.type===1">部分退款</span>
                                                 </td>
                                                 <td>
                                                     {{data.check_at}}

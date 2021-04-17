@@ -114,6 +114,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.order_start_date = this.dateArray1[0];
     this.order_end_date = this.dateArray1[1];
     this.loading = true;
+    this.page = 1;
     this.getFreeTravel();
     this.getTotal();
 

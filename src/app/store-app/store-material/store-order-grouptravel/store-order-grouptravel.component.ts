@@ -89,6 +89,7 @@ export class StoreOrderGrouptravelComponent implements OnInit {
     this.date_end = this.dateArray[1];
     this.order_start_date = this.dateArray1[0];
     this.order_end_date = this.dateArray1[1];
+    this.page = 1;
     this.getFreeTravel();
   }
 
