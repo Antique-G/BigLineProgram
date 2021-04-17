@@ -129,8 +129,13 @@
                                         <div>{{data.contact_phone}}</div>
                                     </td>
                                     <td>
-                                        <div>3</div>
-                                        <div>成人1|儿童1|婴儿1</div>
+                                        <div>总人数{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                        <div>
+                                            <span>成人{{data?.num_adult}}|</span>
+                                            <span>儿童{{data?.num_kid}}|</span>
+                                            <span>婴儿{{data?.baby_num}}</span>
+
+                                        </div>
                                     </td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
