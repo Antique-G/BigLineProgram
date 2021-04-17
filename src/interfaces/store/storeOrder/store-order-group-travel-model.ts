@@ -187,10 +187,12 @@ export interface DetailsModel {
   order_sms: number;
   member: Members;
   product: Products;
+  refund_amount:any;
   group: Group;
   sub_group: Subgroup;
   cancel_log: Cancellog;
   pay_log: Paylog;
+  service_charge:any;
 }
 
 export interface Paylog {
