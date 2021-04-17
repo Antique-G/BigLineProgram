@@ -26,7 +26,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
   childPrice: any;
   babyPrice: any;
   priceTotal: any;
-  dataPayLog: any;
+  dataPayLog: any[]=[];
   refundLog: any[]=[];
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -44,6 +44,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
+      internal_remarks: ['', [Validators.required]],
     });
 
   }

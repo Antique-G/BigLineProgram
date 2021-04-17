@@ -100,6 +100,15 @@
                                                 </div>
                                             </nz-form-item>
 
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="internal_remarks">计调内部备注</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="internal_remarks" nzBorderless [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
                                         </form>
                                     </div>
                                 </nz-spin>
@@ -227,7 +236,7 @@
 
 
 
-                <mat-card>
+                <mat-card *ngIf="dataPayLog.length!=0">
                     <div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -351,33 +360,39 @@
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
-                                        <div style="font-weight: 500;font-size: 16px;">
-                                            <span *ngIf="detailModel?.num_adult!=0">成人{{audltPrice}}元&nbsp;|&nbsp;</span>
-                                            <span *ngIf="detailModel?.num_kid!=0">儿童{{childPrice}}元&nbsp;|&nbsp;</span>
-                                            <span *ngIf="detailModel?.baby_num!=0">婴儿{{babyPrice}}元&nbsp;|&nbsp;</span>
-                                            <span>其他收费:{{detailModel?.price_other}}元
+                                        <div style="font-weight: 500;font-size: 16px;letter-spacing: 1px;">
+                                            <div>成人{{audltPrice}}元：{{detailModel?.price_adult}}元/人*{{detailModel?.num_adult}}</div>
+                                            <div>儿童{{childPrice}}元：{{detailModel?.price_kid}}元/人*{{detailModel?.num_kid}}</div>
+                                            <div>婴儿{{babyPrice}}元：{{detailModel?.price_baby}}元/人*{{detailModel?.baby_num}}</div>
+                                            <div>补差价{{detailModel?.price_diff}}元：{{detailModel?.price_diff}}元/床*{{detailModel?.num_room}}</div>
+                                            <div>附加收费:{{detailModel?.price_other}}元
                                                 <ng-container *ngIf="detailModel?.price_other!=0">(
-                                                    <span *ngFor="let fee of detailModel?.price_detail?.data" ><span *ngIf="fee?.type==0">{{fee?.title}}:{{fee?.price}}，</span></span>
-                                            )</ng-container>
-                                            &nbsp;|&nbsp;</span>
-                                            <span>优惠:{{detailModel?.discount_other}}元
-                                                 <ng-container *ngIf="detailModel?.discount_other!=0">(
-                                                     <span *ngFor="let fee of detailModel?.price_detail?.data" ><span *ngIf="fee?.type==1">{{fee?.title}}:{{fee?.price}}，</span></span>
-                                            )</ng-container>
-                                            &nbsp;|&nbsp;</span>
-                                            <span>补差价{{detailModel?.price_diff}}元</span>
+                                                    <span *ngFor="let fee of detailModel?.price_detail?.data"><span *ngIf="fee?.type==0">{{fee?.title}}:{{fee?.price}}，</span></span>
+                                                    )</ng-container>
+                                            </div>
+                                            <div>优惠：{{detailModel?.discount_other}}元
+                                                <ng-container *ngIf="detailModel?.discount_other!=0">(
+                                                    <span *ngFor="let fee of detailModel?.price_detail?.data"><span *ngIf="fee?.type==1">{{fee?.title}}:{{fee?.price}}，</span></span>
+                                                    )</ng-container>
+                                            </div>
                                         </div>
                                         <div style="font-weight: 500;font-size: 16px;">
-                                            <span style="color: red;">累计已付金额：{{detailModel?.price_receive}}元</span>
+                                            <span style="color: red;">已付金额（客人总付款）：{{detailModel?.price_receive}}元</span>
                                         </div>
                                         <div style="font-weight: 500;font-size: 16px;">
-                                            <span style="color: red;">实收金额（减去退款金额）：{{detailModel?.amount_received}}元</span>
+                                            <span style="color: red;">退款金额：{{detailModel?.refund_amount}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">实际付款金额（已付金额-退款金额）：{{detailModel?.amount_received}}元</span>
                                         </div>
                                         <div style="font-weight: 500;font-size: 16px;">
                                             <span style="color: red;">当前订单金额：{{detailModel?.price_total}}元</span>
                                         </div>
                                         <div style="font-weight: 500;font-size: 16px;">
-                                            <span style="color: red;">应付金额：{{priceTotal<0?'0':priceTotal}}元</span>
+                                            <span style="color: red;">手续费：{{detailModel?.service_charge}}元</span>
+                                        </div>
+                                        <div style="font-weight: 500;font-size: 16px;">
+                                            <span style="color: red;">应付金额（当前订单还应付）：{{priceTotal<0?'0':priceTotal}}元</span>
                                         </div>
                                     </div>
                                 </nz-spin>

@@ -29,7 +29,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   babyPrice: any;
 
   priceTotal: any;
-  dataPayLog: any;
+  dataPayLog: any[]=[];
   refundLog: any[]=[];
 
 
@@ -48,6 +48,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
+      internal_remarks: ['', [Validators.required]],
     });
 
   }
@@ -68,6 +69,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           }
         });
         this.dataPayLog = pagLogArr;
+      
         // 退款流水
         let reFundLogArr: any[] = [];
         res.data?.refund?.data.forEach((element: any) => {
