@@ -140,7 +140,17 @@ export class StoreProductManagementComponent implements OnInit {
 
   // 克隆
   copy(data: any) {
-    // this.router.navigate(['/store/main/storeProduct/detail'], { queryParams: { detailDataId: data.id } });
+    this.modal.confirm({
+      nzTitle: '<h5>请确认</h5>',
+      nzContent: '<h6>是否生成该产品副本？</h6>',
+   
+      // nzOnOk: () => {
+      //   this.storeProductService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
+      //     console.log(res);
+      //     this.getProductList();
+      //   })
+      // }
+    });
   }
 
   // 提交审核
