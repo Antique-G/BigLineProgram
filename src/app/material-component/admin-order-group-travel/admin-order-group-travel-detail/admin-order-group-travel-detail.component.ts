@@ -110,6 +110,18 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
     this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
     this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
+    this.priceTotal=this.toDecimal(this.priceTotal);
+  }
+
+
+  // 保留两位小数
+  toDecimal(x: any) {
+    var f = parseFloat(x);
+    if (isNaN(f)) {
+      return;
+    }
+    f = Math.round(x * 100) / 100;
+    return f;
   }
 
   // 订单修改日期
