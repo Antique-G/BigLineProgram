@@ -28,6 +28,10 @@ body {
     content: "\e6d2";
 }
 
+.ant-picker-calendar-date-content {
+    height: 88px !important;
+}
+
 
 /* @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import "~ng-zorro-antd/style/index.min.css";

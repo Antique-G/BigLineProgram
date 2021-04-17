@@ -29,7 +29,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   babyPrice: any;
 
   priceTotal: any;
-  dataPayLog: any;
+  dataPayLog: any[]=[];
   refundLog: any[]=[];
 
 
@@ -48,6 +48,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
+      internal_remarks: ['', [Validators.required]],
     });
 
   }
@@ -68,6 +69,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           }
         });
         this.dataPayLog = pagLogArr;
+      
         // 退款流水
         let reFundLogArr: any[] = [];
         res.data?.refund?.data.forEach((element: any) => {
@@ -108,6 +110,18 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
     this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
     this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
+    this.priceTotal=this.toDecimal(this.priceTotal);
+  }
+
+
+  // 保留两位小数
+  toDecimal(x: any) {
+    var f = parseFloat(x);
+    if (isNaN(f)) {
+      return;
+    }
+    f = Math.round(x * 100) / 100;
+    return f;
   }
 
   // 订单修改日期

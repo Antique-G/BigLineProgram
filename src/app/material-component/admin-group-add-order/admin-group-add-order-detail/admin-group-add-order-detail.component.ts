@@ -43,6 +43,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   addForm!: FormGroup;
   informationForm!: FormGroup;
   contactForm!: FormGroup;
+  planForm!: FormGroup;
   detailModel: any;
   code: any;
   isDay: any;
@@ -100,6 +101,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       destination_city_name: ['',],
       isDay: ['',],
     });
+    this.planForm = this.fb.group({
+      internal_remarks: ['',],
+    });
     // 校验手机
     const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
@@ -107,7 +111,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       babyList: this.fb.array([]),
       num_adult: [1,],
       num_kid: [0,],
-      num_room: [1,[Validators.required]],
+      num_room: [1, [Validators.required]],
       baby_num: [0],
       shared_status: [0,],
       customer_remarks: ['',],
@@ -140,6 +144,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       emergency_contact_number: '',
       discount: '',
       other_price: '',
+      internal_remarks: '',
     }
   }
 
@@ -267,7 +272,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     }
     else {
       console.log('空值时候 ', this.isForRoom);
-      this.isForRoom=this.isForRoom
+      this.isForRoom = this.isForRoom
     }
 
   }
@@ -436,6 +441,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.discount = this.discountPrice;
     // 附加收费
     this.orderGroupProduct.other_price = this.other_price;
+    // 计调备注
+    this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
 
     console.log("提交的", this.orderGroupProduct)
   }

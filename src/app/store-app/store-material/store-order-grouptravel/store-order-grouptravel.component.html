@@ -106,6 +106,7 @@
                                     <th style="text-align: center;">产品编码</th>
                                     <th style="text-align: center;width: 20%;">产品名称</th>
                                     <th style="text-align: center;">联系人姓名/手机号</th>
+                                    <th style="text-align: center;">订单人数</th>
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">订单下单日期</th>
                                     <th style="text-align: center;">订单状态</th>
@@ -123,7 +124,19 @@
                                     <td>{{data?.bind_account_name}}</td>
                                     <td>{{data.product_code}}</td>
                                     <td>{{data.product_name}}</td>
-                                    <td>{{data.contact_name}}/{{data.contact_phone}}</td>
+                                    <td>
+                                        <div>{{data.contact_name}}</div>
+                                        <div>{{data.contact_phone}}</div>
+                                    </td>
+                                    <td>
+                                        <div>总人数{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                        <div>
+                                            <span>成人{{data?.num_adult}}|</span>
+                                            <span>儿童{{data?.num_kid}}|</span>
+                                            <span>婴儿{{data?.baby_num}}</span>
+
+                                        </div>
+                                    </td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>

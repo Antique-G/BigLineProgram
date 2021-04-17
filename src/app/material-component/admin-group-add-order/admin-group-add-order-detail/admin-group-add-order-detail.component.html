@@ -99,7 +99,7 @@
                                                 <ng-container *ngFor="let item of listDataMap">
                                                     <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
                                                         <div style="position: absolute;top: 5px;">
-                                                            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="changeId(item)"></label>
+                                                            <label nz-checkbox [(ngModel)]="item.checked" *ngIf="!(item.set_inventory==1&&item.allow_over==0&&item.inventory_num-item.sold_num<0)" (ngModelChange)="changeId(item)"></label>
                                                         </div>
 
                                                         <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
@@ -114,10 +114,20 @@
                                                             </div>
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
-                                                            <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
-                                                                <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
+                                                            <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">{{item.inventory_num}}</span>
                                                                 </span>
                                                             </div>
+                                                            <div>剩余库存: <span style="color: red;">
+                                                                <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">
+                                                                    <span *ngIf="item.allow_over==0">{{item.inventory_num-item.sold_num<0?'0':item.inventory_num-item.sold_num}}</span>
+                                                                <span *ngIf="item.allow_over==1">{{item.inventory_num-item.sold_num}}</span>
+                                                                </span>
+                                                                </span>
+                                                            </div>
+                                                            <div *ngIf="item.set_inventory==1" style="color: red;">！{{item.allow_over==1?'可超卖':'不能超卖'}}</div>
+
                                                         </div>
                                                     </ng-container>
 
@@ -477,43 +487,6 @@
                     </div>
                 </mat-card>
 
-                <!-- 
-                <mat-card>
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">保险信息</h4>
-                                </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
-                                <div>
-                                    <form nz-form nz-row [formGroup]="contactForm">
-                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>婴儿出行基础保险</nz-form-label>
-                                                <div>
-                                                    <nz-form-label [nzSm]="10" [nzXs]="24">保险价格</nz-form-label>
-                                                </div>
-                                            </div>
-                                        </nz-form-item>
-
-
-
-                                    </form>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </mat-card> -->
-
-
-
                 <mat-card>
                     <div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
@@ -575,10 +548,37 @@
                                 </div>
 
                             </div>
+                        </div>
 
-                            <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
-                                <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
-                            </div> -->
+                    </div>
+                </mat-card>
+
+                <mat-card>
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">计调信息</h4>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <div>
+                                    <form nz-form nz-row [formGroup]="planForm">
+                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="7" [nzXs]="24">内部备注</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <input nz-input formControlName="internal_remarks" />
+                                                </nz-form-control>
+                                            </div>
+                                        </nz-form-item>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
                         </div>
 
                     </div>
