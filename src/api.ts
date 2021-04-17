@@ -277,6 +277,8 @@ export const StoreUrls = {
 
   PostStoreProductCreate: api + '/store/product', //添加产品api
   GetStoreAssemblingPlaceList: api + '/store/assembling_place/list',  // 产品管理获取集合地点
+  PostStoreCopyProduct: api + '/store/copy_product',  // 复制产品
+  
   GetStoreTagList: api + '/store/product/tag',  // 产品管理获取标签
   GetStoreCateList: api + '/store/tags/cate_list',  // 产品管理获取标签
   GetStoreProductList: api + '/store/product', //获取产品列表api

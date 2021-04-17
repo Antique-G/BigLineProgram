@@ -39,7 +39,7 @@ export class StoreProductManagementComponent implements OnInit {
   tagList: any[] = [];
   setRewardModel: any;
   setQuery: any;
-
+  product_id: any;
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
     private modal: NzModalService, private nzContextMenuService: NzContextMenuService, public quoteBydateService: StoreQuoteBydateService) {
@@ -140,16 +140,16 @@ export class StoreProductManagementComponent implements OnInit {
 
   // 克隆
   copy(data: any) {
+    this.product_id = data?.id;
     this.modal.confirm({
       nzTitle: '<h5>请确认</h5>',
       nzContent: '<h6>是否生成该产品副本？</h6>',
-   
-      // nzOnOk: () => {
-      //   this.storeProductService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
-      //     console.log(res);
-      //     this.getProductList();
-      //   })
-      // }
+      nzOnOk: () => {
+        this.storeProductService.copyProduct(this.product_id).subscribe(res => {
+          console.log(res);
+          this.getProductList();
+        })
+      }
     });
   }
 

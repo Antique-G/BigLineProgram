@@ -55,6 +55,13 @@ export class StoreProductService {
       )
   }
 
+  // 复制产品
+  copyProduct(product_id:any): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostStoreCopyProduct, { product_id }, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   // 审核日志
   checkLog(id: any): Observable<CheckLogModule[]> {
