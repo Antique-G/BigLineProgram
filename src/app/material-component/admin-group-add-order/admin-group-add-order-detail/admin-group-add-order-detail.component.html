@@ -99,7 +99,7 @@
                                                 <ng-container *ngFor="let item of listDataMap">
                                                     <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
                                                         <div style="position: absolute;top: 5px;">
-                                                            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="changeId(item)"></label>
+                                                            <label nz-checkbox [(ngModel)]="item.checked" *ngIf="!(item.set_inventory==1&&item.allow_over==0&&item.inventory_num-item.sold_num<0)" (ngModelChange)="changeId(item)"></label>
                                                         </div>
 
                                                         <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
@@ -114,15 +114,20 @@
                                                             </div>
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
-                                                            <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
-                                                                <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
+                                                            <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">{{item.inventory_num}}</span>
                                                                 </span>
                                                             </div>
                                                             <div>剩余库存: <span style="color: red;">
-                                                                <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
-                                                                <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num-item.sold_num}}</span>
+                                                                <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">
+                                                                    <span *ngIf="item.allow_over==0">{{item.inventory_num-item.sold_num<0?'0':item.inventory_num-item.sold_num}}</span>
+                                                                <span *ngIf="item.allow_over==1">{{item.inventory_num-item.sold_num}}</span>
+                                                                </span>
                                                                 </span>
                                                             </div>
+                                                            <div *ngIf="item.set_inventory==1" style="color: red;">！{{item.allow_over==1?'可超卖':'不能超卖'}}</div>
+
                                                         </div>
                                                     </ng-container>
 

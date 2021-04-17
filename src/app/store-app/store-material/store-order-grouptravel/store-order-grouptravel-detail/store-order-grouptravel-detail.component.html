@@ -420,7 +420,7 @@
                                                 <div style="width: 50%;">当前订单金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
                                             </div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status==3">
                                                 <div style="width: 50%;">手续费</div>
                                                 <div style="width: 50%;">￥{{detailModel?.service_charge}}</div>
                                             </div>
