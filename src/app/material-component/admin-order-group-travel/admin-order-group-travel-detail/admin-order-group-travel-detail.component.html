@@ -415,11 +415,11 @@
                                                 <div style="width: 50%;">退款金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.refund_amount}}</div>
                                             </div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                 <div style="width: 50%;">实际付款金额（已付金额-退款金额）</div>
                                                 <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
                                             </div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                 <div style="width: 50%;">当前订单金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
                                             </div>
