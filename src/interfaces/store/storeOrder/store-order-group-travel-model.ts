@@ -64,6 +64,7 @@ export interface StoreOrderGroupTravelList {
   order_sms: number;
   member: Member;
   product: Product;
+  baby_num?: number;
 }
 
 export interface Product {
@@ -187,12 +188,12 @@ export interface DetailsModel {
   order_sms: number;
   member: Members;
   product: Products;
-  refund_amount:any;
+  refund_amount: any;
   group: Group;
   sub_group: Subgroup;
   cancel_log: Cancellog;
   pay_log: Paylog;
-  service_charge:any;
+  service_charge: any;
 }
 
 export interface Paylog {
