@@ -338,7 +338,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       this.editMemberModel.birthday = this.idChangeBirDate;
     }
     this.editMemberModel.assembling_place = data.assembling_place;
-    this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
+    if(data.assembling_time!=null){
+      this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
+    }
     console.log('v33333333 ', this.editMemberModel);
     if (this.editMemberModel.birthday == null) {
       this.msg.error('出生年月日不能为空');
