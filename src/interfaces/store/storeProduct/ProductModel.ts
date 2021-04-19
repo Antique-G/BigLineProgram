@@ -23,6 +23,7 @@ export interface AddStoreProductModel {
   id?: any;
   insurance_base?: any;
   insurance_extra?: any;
+  request_id_num?: number;
 }
 
 // 返回
@@ -104,6 +105,8 @@ export interface DataModel {
   product_trip: Producttrip;
   insurance_base?: any;
   insurance_extra?: any;
+  request_id_num?: number;
+
 }
 
 interface Producttrip {
@@ -208,6 +211,8 @@ export interface DatumListModel {
   dist_reward?: any;
   insurance_base?: any;
   insurance_extra?: any;
+  request_id_num?: number;
+
 }
 
 
@@ -240,7 +245,7 @@ export interface DetailModel {
   reserve_ahead: number;
   children_age: number;
   child_age_min: number;
-
+  request_id_num?: number;
   child_height_min: number;
   child_height_max: number;
   feature: string;

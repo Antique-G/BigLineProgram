@@ -92,6 +92,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   isForRoom = 1;
   minNumber = 1;
   maxNumber = 1;
+  isRequestIdNum = false;
+  isChangebirthday:any;
+
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog, public modal: NzModalService,) {
@@ -164,19 +167,36 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   addHuman() {
     // 校验手机
     const { mobile } = MyValidators;
-    this.humanArray.push(this.fb.group({
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [mobile]),
-      is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-      id_type: new FormControl('', [Validators.required]),
-      id_num: new FormControl('', [Validators.required]),
-      birthday: new FormControl(null, [Validators.required]),
-      assembling_place_id: ['',],
-      id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl(1, [Validators.required]),
-      eng_name: new FormControl(''),
-    }))
-    this.isChangeData.push(false);
+    if (this.isRequestIdNum) {
+      this.humanArray.push(this.fb.group({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl('', [Validators.required]),
+        id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        assembling_place_id: ['',],
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }))
+    }
+    else {
+      this.humanArray.push(this.fb.group({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0),
+        id_num: new FormControl(''),
+        birthday: new FormControl(null, [Validators.required]),
+        assembling_place_id: ['',],
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }))
+    }
+
+    this.isChangeData.push(true);
     this.newImgArr.push([])
     this.isNum();
   }
@@ -355,7 +375,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.assemblingPlaceList = [];
-    this.detailModel = JSON.parse(localStorage.getItem("orderData")!)
+    this.detailModel = JSON.parse(localStorage.getItem("orderData")!);
+    this.isRequestIdNum = this.detailModel?.request_id_num == 1 ? true : false;
     this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
     // 集合时间
     if (this.detailModel?.assembling_place.length === 0) {
@@ -386,20 +407,36 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     let control = <FormArray>this.informationForm.controls['humanList'];
     // 校验手机
     const { mobile } = MyValidators;
-    control.push(new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [mobile]),
-      is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-      id_type: new FormControl('', [Validators.required]),
-      id_num: new FormControl('', [Validators.required]),
-      birthday: new FormControl(null, [Validators.required]),
-      assembling_place_id: new FormControl('', [Validators.required]),
-      id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl(1, [Validators.required]),
-      eng_name: new FormControl(''),
+    if (this.isRequestIdNum) {
+      control.push(new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0, [Validators.required]),
+        id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        assembling_place_id: new FormControl('', [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }));
+    }
+    else {
+      control.push(new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0),
+        id_num: new FormControl(''),
+        birthday: new FormControl(null, [Validators.required]),
+        assembling_place_id: new FormControl('', [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }));
+    }
 
-    }));
-    this.isChangeData.push(false);
+    this.isChangeData.push(true);
     this.newImgArr.push([])
 
   }
@@ -638,6 +675,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       this.isChangeData[i] = true;
     }
   }
+
 
   changeBabyType(data: any, i: any) {
     console.log('data :>> ', data, data === 1, data === '1');

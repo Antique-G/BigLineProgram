@@ -11,6 +11,7 @@ import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -36,9 +37,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   isChange = false;
   editMemberModel: EditMemberModel;
   editInfoModel: EditInfoModel;
+  idChangeBir = false;
+  idChangeBirDate: any;
 
-
-  constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
+  constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
     public adminOrderService: AdminOrderService) {
     this.addForm = this.fb.group({
@@ -292,7 +294,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     // 处理婴儿
     if (data.is_kid == 2) {
       if (data.birthday = '--') {
-        data.birthday = format(new Date(), 'yyyy-MM-dd');
+        data.birthday = null;
       }
       if (data.assembling_time == '') {
         data.assembling_time = format(new Date(), 'yyyy-MM-dd HH:mm');
@@ -317,11 +319,6 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
   saveEdit(data: any): void {
-    this.dataMember.filter(function (item: any, index: any) {
-      if (item.id === data.id) {
-        item.edit = false;
-      }
-    });
     this.editMemberModel.id = data.id;
     this.editMemberModel.name = data.name;
     this.editMemberModel.eng_name = data.eng_name;
@@ -329,14 +326,38 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.editMemberModel.phone = data.phone;
     this.editMemberModel.id_type = data.id_type;
     this.editMemberModel.id_num = data.id_num;
-    this.editMemberModel.birthday = data.birthday;
+    if (this.idChangeBir === false) {
+      this.editMemberModel.birthday = data.birthday;
+    }
+    else {
+      this.editMemberModel.birthday = this.idChangeBirDate;
+    }
     this.editMemberModel.assembling_place = data.assembling_place;
     this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
     console.log('v33333333 ', this.editMemberModel);
-    this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
-      console.log('结果是 :>> ', res);
-      this.getgroupTravelDetail();
-    })
+    if (this.editMemberModel.birthday == null) {
+      this.msg.error('出生年月日不能为空');
+    }
+    else {
+      this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+        console.log('结果是 :>> ', res);
+        this.dataMember.filter(function (item: any, index: any) {
+          if (item.id === data.id) {
+            item.edit = false;
+          }
+        });
+        this.getgroupTravelDetail();
+      })
+    }
+
+  }
+
+  onChangeBir(event: any) {
+    console.log('event :>> ', event);
+    if (event != null) {
+      this.idChangeBir = true;
+      this.idChangeBirDate = format(new Date(event), 'yyyy-MM-dd');
+    }
   }
 }
 
