@@ -48,6 +48,8 @@ interface DatumModel {
   destination_city_name: string;
   operation_name: string;
   store: StoreModel;
+  request_id_num?: number;
+
 }
 
 export interface StoreModel {
@@ -76,6 +78,8 @@ export interface StoreAccountListModel {
   created_at: string;
   updated_at: string;
   region_full_name: string;
+  request_id_num?: number;
+
 }
 
 export interface AdminProductManagementUpdateModel {
@@ -114,6 +118,8 @@ export interface AdminProductManagementUpdateModel {
   status: number;
   tag_id: number[];
   id?: any;
+  request_id_num?: number;
+
 }
 
 export interface AdminProductSetStatusModel {
@@ -177,7 +183,7 @@ export interface DataProductDetailModel {
   album: Productalbum;
   insurance_base?: any;
   insurance_extra?: any;
-
+  request_id_num?: number;
 }
 
 

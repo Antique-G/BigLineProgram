@@ -243,7 +243,7 @@
                                                     </td>
                                                 </ng-container>
                                                 <ng-template #editTemplate>
-                                                    <td><input type="text" nz-input [(ngModel)]="data.id" /></td>
+                                                    <td>{{data.id}}</td>
                                                     <td><input type="text" nz-input [(ngModel)]="data.name" /></td>
                                                     <td><input type="text" nz-input [(ngModel)]="data.eng_name" /></td>
                                                     <td>
@@ -266,7 +266,7 @@
                                                     </td>
                                                     <td><input type="text" nz-input [(ngModel)]="data.id_num" /></td>
                                                     <td>
-                                                        <nz-date-picker [(ngModel)]="data.birthday"></nz-date-picker>
+                                                        <nz-date-picker [(ngModel)]="data.birthday" nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeBir($event)"></nz-date-picker>
                                                     </td>
 
                                                     <td><input type="text" nz-input [(ngModel)]="data.phone" /></td>

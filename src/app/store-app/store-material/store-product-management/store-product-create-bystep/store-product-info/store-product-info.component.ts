@@ -58,7 +58,7 @@ export class StoreProductInfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '产品主标题长度最多为30个字符',
+      'maxlength': '产品主标题长度最多为50个字符',
       'required': '请填写产品主标题'
     },
     sub_title: {
@@ -124,13 +124,15 @@ export class StoreProductInfoComponent implements OnInit {
       assembling_place_id: [],
       fee: '',
       tag_id: [],
-      reserve_ahead: 1
+      reserve_ahead: 1,
+      request_id_num: 0
+
     }
   }
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(30)]],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],
@@ -149,6 +151,7 @@ export class StoreProductInfoComponent implements OnInit {
       reserve_num_max: [0],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
+      request_id_num: ['0', [Validators.required]],
 
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -313,7 +316,7 @@ export class StoreProductInfoComponent implements OnInit {
     this.addStoreProductModel.child_height_max = this.addForm.value.child_height_max;
     this.addStoreProductModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.addStoreProductModel.reserve_num_max = this.addForm.value.reserve_num_max;
-
+    this.addStoreProductModel.request_id_num = this.addForm.value.request_id_num;
   }
 
 
