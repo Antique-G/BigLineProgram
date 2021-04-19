@@ -162,7 +162,7 @@ export interface MemberDetailModel {
   id_num: string;
   sms_status: number;
   eng_name: string;
-  gender:any
+  gender: any
   // member.sms_status:number;
 }
 
@@ -214,7 +214,7 @@ export interface OrderGroupNum {
   id?: any
 }
 
-// 集合地点
+// 修改出行人信息
 export interface EditMemberModel {
   id: string;
   name?: string;
@@ -224,7 +224,24 @@ export interface EditMemberModel {
   remarks?: string;
   birthday?: string;
   id_photo?: string;
+  gender?: string;
   assembling_place?: string;
+  eng_name?: string;
   assembling_time?: string;
+
+}
+
+
+// 修改订单信息
+export interface EditInfoModel {
+  id: string;
+  contact_name?: string;
+  contact_phone?: string;
+  contact_wechat?: string;
+  contact_qq?: string;
+  contact_email?: string;
+  emergency_contact_person?: string;
+  emergency_contact_number?: string;
+  customer_remarks?: string;
 
 }

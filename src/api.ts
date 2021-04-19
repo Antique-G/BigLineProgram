@@ -180,8 +180,10 @@ export const AdminUrls = {
   PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
   GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
   PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
-  PostAdminEditMember: api + '/admin/order/edit_member',  //修改集合地
+  PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
+  PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
 
+  
 
 
 
