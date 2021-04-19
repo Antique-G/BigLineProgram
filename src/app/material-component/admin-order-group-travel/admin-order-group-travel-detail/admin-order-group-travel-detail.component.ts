@@ -46,17 +46,15 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
-      assembling_place: ['', [Validators.required]],
-      assembling_time: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
-      contact_wechat: ['', [Validators.required]],
-      contact_qq: ['', [Validators.required]],
-      contact_email: ['', [Validators.required]],
-      emergency_contact_person: ['', [Validators.required]],
-      emergency_contact_number: ['', [Validators.required]],
-      customer_remarks: ['', [Validators.required]],
-      internal_remarks: ['', [Validators.required]],
+      contact_wechat: [''],
+      contact_qq: [''],
+      contact_email: [''],
+      emergency_contact_person: [''],
+      emergency_contact_number: [''],
+      customer_remarks: [''],
+      internal_remarks: [''],
     });
     this.editMemberModel = {
       id: '',
@@ -272,16 +270,23 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
   commitDetail() {
     this.setValue();
-    this.modal.confirm({
-      nzTitle: "<h4>提示</h4>",
-      nzContent: "<h6>确认修改联系人信息</h6>",
-      nzOnOk: () =>
-        this.adminOrderService.editInfo(this.editInfoModel).subscribe(res => {
-          console.log('res :>> ', res);
-          this.getgroupTravelDetail();
-          this.isChange = false;
-        })
-    });
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    if (this.addForm.valid) {
+      this.modal.confirm({
+        nzTitle: "<h4>提示</h4>",
+        nzContent: "<h6>确认修改联系人信息</h6>",
+        nzOnOk: () =>
+          this.adminOrderService.editInfo(this.editInfoModel).subscribe(res => {
+            console.log('res :>> ', res);
+            this.getgroupTravelDetail();
+            this.isChange = false;
+          })
+      });
+    }
+
   }
 
   cancelDetail() {
