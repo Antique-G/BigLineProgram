@@ -22,7 +22,7 @@ export class StoreProductService {
   constructor(public httpClient: HttpClient) { }
 
   // 获取产品列表
-  getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any, status: any, tag?: any): Observable<ProductResponseListResponseModel> {
+  getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any, status: any, tag?: any,operation_id?:any): Observable<ProductResponseListResponseModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('check_status', check_status ? check_status : '')
@@ -30,7 +30,9 @@ export class StoreProductService {
       .set('few_days', few_days ? few_days : '')
       .set('code', code ? code : '')
       .set('status', status ? status : '')
-      .set('tag', tag ? tag : '');
+      .set('tag', tag ? tag : '')
+      .set('operation_id', operation_id ? operation_id : '');
+
 
 
 
@@ -56,7 +58,7 @@ export class StoreProductService {
   }
 
   // 复制产品
-  copyProduct(product_id:any): Observable<any> {
+  copyProduct(product_id: any): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostStoreCopyProduct, { product_id }, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -233,6 +235,14 @@ export class StoreProductService {
       )
   }
 
+
+  // 店铺的所有账户
+  accountList(): Observable<any> {
+    return this.httpClient.get<any>(this.urls.GetStoreAccountList, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {

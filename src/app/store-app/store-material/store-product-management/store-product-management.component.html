@@ -29,6 +29,16 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
+
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="店铺账号" formControlName="operation_id" [(ngModel)]="operation_id">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option *ngFor="let account of accountList" [value]="account.account_id"> {{account.name}}</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </div>
                             <div fxFlex=10>
                                 <mat-form-field>
                                     <mat-select placeholder="产品标签" formControlName="tag">
