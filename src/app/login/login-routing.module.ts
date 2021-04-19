@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminForgotPasswordComponent } from './admin-forgot-password/admin-forgot-password.component';
 import { LoginComponent } from './login.component';
 
 const routes: Routes = [
@@ -13,7 +14,11 @@ const routes: Routes = [
       },
   
     ]
-  }
+  },
+  {
+    path: 'forgotPassword',
+    component: AdminForgotPasswordComponent
+  },
 ];
 
 @NgModule({

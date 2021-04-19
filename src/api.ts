@@ -57,7 +57,7 @@ export const AdminUrls = {
   GetAdminStoreBankDetail: api + '/admin/store/', //商铺的银行卡详情
   PutAdminStoreBankUpdate: api + '/admin/store_bank/', //商铺的银行卡更新
 
-  PostAdminStoreAccountCreate: api + '/admin/store_account', //商铺的账号创建
+  PostAdminStoreAccountCreate: api + '/admin/store_account', //商铺的账号创建store_account
   GetAdminStoreAccountList: api + '/admin/store_account',    //店铺的账号列表
   GetAdminStoreAccountDetail: api + '/admin/store_account/', //店铺账号的编辑详情
   PutAdminStoreAccountUpdate: api + '/admin/store_account/', //店铺的账号的修改
@@ -180,8 +180,10 @@ export const AdminUrls = {
   PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
   GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
   PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
-  PostAdminEditMember: api + '/admin/order/edit_member',  //修改集合地
+  PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
+  PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
 
+  
 
 
 
@@ -262,6 +264,7 @@ export const StoreUrls = {
   PostStoreEditContract: api + '/store/edit_contact/', // 修改联系人
   GetStoreAccount: api + '/store/account_info', // 账号详情
 
+  GetStoreAccountList: api + '/store/store_account',    //店铺的账号列表
 
 
   GetStoreForgetPassword: api + '/store/find_password', // 找回密码（第一步）

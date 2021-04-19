@@ -34,12 +34,14 @@ export class StoreProductManagementComponent implements OnInit {
   newDay: any
   newHour: any;
   newMin: any;
+  operation_id=Number(localStorage.getItem("storeAccountId"));
 
   isEar: any;
   tagList: any[] = [];
   setRewardModel: any;
   setQuery: any;
   product_id: any;
+  accountList: any;
 
   constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
     private modal: NzModalService, private nzContextMenuService: NzContextMenuService, public quoteBydateService: StoreQuoteBydateService) {
@@ -50,6 +52,7 @@ export class StoreProductManagementComponent implements OnInit {
       code: [''],
       status: [''],
       tag: [''],
+      operation_id: [Number(this.operation_id)],
     })
   }
 
@@ -57,7 +60,7 @@ export class StoreProductManagementComponent implements OnInit {
   ngOnInit(): void {
     this.getTagList();
     // 将上次查询的筛选条件赋值
-    let getSeatch = JSON.parse(localStorage.getItem("storeGroupSearch")!)
+    let getSeatch = JSON.parse(localStorage.getItem("storeGroupSearch")!);
     this.status = getSeatch?.status ? getSeatch?.status : '';
     this.checkStatus = getSeatch?.check_status ? getSeatch?.check_status : '';
     this.title = getSeatch?.title ? getSeatch?.title : '';
@@ -65,6 +68,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
     this.tag = getSeatch?.tag ? getSeatch?.tag : '';
     this.page = getSeatch?.page ? getSeatch?.page : 1;
+    this.operation_id = getSeatch?.operation_id;
     this.searchForm.patchValue({
       status: this.status,
       checkStatus: this.checkStatus,
@@ -72,11 +76,21 @@ export class StoreProductManagementComponent implements OnInit {
       code: this.code,
       tag: this.tag,
       few_days: this.few_days,
+      operation_id: Number(this.operation_id)
     })
+    this.accountListData();
+    
 
-    this.getProductList();
+   
   }
 
+  accountListData() {
+    this.storeProductService.accountList().subscribe(res => {
+      this.accountList = res?.data;
+      this.operation_id=Number(localStorage.getItem("storeAccountId"));
+      this.getProductList();
+    })
+  }
 
   getTagList() {
     this.storeProductService.productTagList(1).subscribe(res => {
@@ -95,12 +109,13 @@ export class StoreProductManagementComponent implements OnInit {
 
   getProductList() {
     this.loading = true;
-    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag).subscribe(res => {
+    this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag, this.operation_id).subscribe(res => {
       this.loading = false;
       console.log("11111", res);
       this.total = res.meta.pagination.total;   //总页数
       console.log("页码", this.total);
       this.dataSource = res.data;
+
     })
   }
 
@@ -114,7 +129,7 @@ export class StoreProductManagementComponent implements OnInit {
     console.log("当前页", page);
     this.page = page;
     // 筛选条件存进cookie
-    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page, operation_id: this.operation_id }
     localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));
     this.getProductList();
   }
@@ -126,8 +141,10 @@ export class StoreProductManagementComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;
+    this.operation_id = this.searchForm.value.operation_id;
+
     // 筛选条件存进cookie
-    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
+    this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page, operation_id: this.operation_id }
     localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));
     this.getProductList();
 

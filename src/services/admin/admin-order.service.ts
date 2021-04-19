@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
+import { EditInfoModel, EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
 import { AdminUrls } from '../../api';
 import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
@@ -137,7 +137,7 @@ export class AdminOrderService {
       )
   }
 
-  // 修改集合地
+  // 修改出行人信息
   editMember(editMemberModel: EditMemberModel): Observable<any> {
     return this.httpClient.post<any>(this.urls.PostAdminEditMember, editMemberModel, httpOptions)
       .pipe(
@@ -145,7 +145,13 @@ export class AdminOrderService {
       )
   }
 
-
+// 修改订单信息
+editInfo(editInfoModel: EditInfoModel): Observable<any> {
+  return this.httpClient.post<any>(this.urls.PostAdminOrderEditInfo, editInfoModel, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+}
 
   private handleError(error: HttpErrorResponse) {
     console.log("1212", error);

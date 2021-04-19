@@ -15,7 +15,7 @@
                                             <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.title">
                                                 <input nz-input formControlName="title" />
                                             </nz-form-control>
-                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">填写产品主标题，不超过30个字</p>
+                                            <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">填写产品主标题，不超过50个字</p>
                                         </div>
                                     </nz-form-item>
 
@@ -105,6 +105,18 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contacts_status" nzRequired>是否公布联系方式</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
                                                 <nz-radio-group formControlName="contacts_status" ngModel={{dataProductDetailModel?.contacts_status}}>
+                                                    <label nz-radio nzValue='0'>否 </label>
+                                                    <label nz-radio nzValue='1'>是</label>
+                                                </nz-radio-group>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="request_id_num" nzRequired>证件信息是否必填</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-radio-group formControlName="request_id_num" ngModel={{dataProductDetailModel?.request_id_num}}>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                     <label nz-radio nzValue='1'>是</label>
                                                 </nz-radio-group>

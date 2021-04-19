@@ -61,7 +61,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   validationMessage: any = {
     title: {
-      'maxlength': '产品主标题长度最多为30个字符',
+      'maxlength': '产品主标题长度最多为50个字符',
       'required': '请填写产品主标题'
     },
     sub_title: {
@@ -126,7 +126,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       fee: '',
       tag_id: [],
       step: 0,
-      reserve_ahead: 0
+      reserve_ahead: 0,
+      request_id_num: 0,
     }
 
   }
@@ -153,6 +154,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       reserve_num_max: [''],
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
+      request_id_num: ['1', [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -309,6 +311,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
+    this.detailUpdateModel.request_id_num = this.addForm.value.request_id_num;
 
   }
 
