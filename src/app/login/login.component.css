@@ -12,3 +12,16 @@
     margin: 0 auto;
     vertical-align: middle;
 }
+
+.login-bottom {
+    margin-top: 70px;
+    font-size: 14px;
+}
+
+.login-bottom a {
+    color: #1e88e5;
+}
+
+.login-bottom a:hover {
+    color: red;
+}
