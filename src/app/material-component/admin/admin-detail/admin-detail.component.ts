@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { AdminDetailModel, UpdateRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
@@ -37,11 +38,16 @@ export class AdminDetailComponent implements OnInit {
     phoneNumber: '',
   };
 
-  listDataMap: any
-
+  listDataMap: any;
   statussss: any;
 
-  constructor(public fb: FormBuilder,
+
+  // 城市
+  nzOptions: any[] | null = null;
+  destinationPalce: any[] = [];
+  isCity: any[] = [];
+
+  constructor(public fb: FormBuilder, public adminRegionService: AdminRegionService,
     public adminAdminService: AdminAdminService, public adminStoreManageService: AdminStoreManageService,) {
     this.adminDetailModel = this.data;
     this.forms();
@@ -49,20 +55,20 @@ export class AdminDetailComponent implements OnInit {
       real_name: '',
       mobile: '',
       status: '',
-      // shop_id: '',
-      staff_type:''
+      staff_type: '',
+      region_code: '',
     }
   }
 
 
   forms() {
     this.addForm = this.fb.group({
-      // shop_id: ['', [Validators.required]],
       account: ['', [Validators.required]],
       name: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      staff_type: ['', [Validators.required]]
+      staff_type: ['', [Validators.required]],
+      region_code: ['', [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -104,8 +110,7 @@ export class AdminDetailComponent implements OnInit {
     this.updateRequestModel.mobile = this.addForm.value.phoneNumber;
     this.updateRequestModel.status = this.addForm.value.status;
     this.updateRequestModel.staff_type = this.addForm.value.staff_type;
-    // this.updateRequestModel.shop_id = this.addForm.value.shop_id;
-
+    this.updateRequestModel.region_code = this.isCity;
   }
 
 
@@ -113,11 +118,30 @@ export class AdminDetailComponent implements OnInit {
     this.adminStoreManageService.storeManageList(1, 50, 1, '', '').subscribe(res => {
       console.log('res :>> ', res);
       this.listDataMap = res?.data;
+      this.adminRegionService.getAllRegionList().subscribe(res => {
+        this.nzOptions = res;
+      })
     })
     this.adminDetailModel = this.data;
     console.log('this.data :>> ', this.data);
-    this.statussss=this.adminDetailModel?.shop_id;
-    console.log(' this.statussss :>> ',  this.statussss,typeof( this.statussss));
+    this.statussss = this.adminDetailModel?.shop_id;
+    console.log(' this.statussss :>> ', this.statussss, typeof (this.statussss));
+    // 区域
+    const strDest = this.adminDetailModel.region_code;
+    for (let i = 0; i < strDest.length / 4; i++) {
+      let temp = this.destinationPalce[i] || '' + strDest.substr(0, 4 * (i + 1))
+      this.destinationPalce.push(temp);
+    }
+    this.addForm.get('region_code')?.setValue(this.destinationPalce);   //区域
+  }
+
+
+  // 城市
+  onDestChange(values: any): void {
+    console.log("点击的结果是", values);
+    if (values !== null) {
+      this.isCity = values[values.length - 1];
+    }
   }
 
 

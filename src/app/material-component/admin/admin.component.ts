@@ -71,7 +71,7 @@ export class AdminComponent implements OnInit {
       nzContent: AdminDetailComponent,
       nzWidth: 800,
       nzComponentParams: {
-        data:element
+        data: element
       },
       nzFooter: [
         {
@@ -110,10 +110,10 @@ export class AdminComponent implements OnInit {
 
 
   // 重置
-  reset(){
+  reset() {
     this.searchForm.patchValue({
       status: '',
-      name:''
+      name: ''
     });
   }
 }
