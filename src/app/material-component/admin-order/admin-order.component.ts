@@ -36,7 +36,7 @@ export class AdminOrderComponent implements OnInit {
   group_code: any;
   store_id: any;
   storeList: any[] = [];
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public router: Router, public adminOrderService: AdminOrderService,
     public adminRegionService: AdminRegionService, public adminProductManagementService: AdminProductManagementService,) {
@@ -45,7 +45,7 @@ export class AdminOrderComponent implements OnInit {
       product_name: [''],
       group_id: [''],
       order_number: [''],
-      date_start: [''],
+      date_starts: [''],
       destination_city: [''],
       group_status: [''],
       group_code: [''],
@@ -60,12 +60,54 @@ export class AdminOrderComponent implements OnInit {
       this.adminProductManagementService.storeList('').subscribe(res => {
         console.log("24234", res);
         this.storeList = res;
+
+        // 将上次查询的筛选条件赋值
+        let getSeatch = JSON.parse(localStorage.getItem("adminOrderSearch")!);
+        this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
+        this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
+        this.group_id = getSeatch?.group_id ? getSeatch?.group_id : '';
+        this.order_number = getSeatch?.order_number ? getSeatch?.order_number : '';
+        this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
+        this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
+        this.group_status = getSeatch?.group_status ? getSeatch?.group_status : '';
+        this.group_code = getSeatch?.group_code ? getSeatch?.group_code : '';
+        this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+        this.page = getSeatch?.page ? getSeatch?.page : 1;
+
+        this.searchForm.patchValue({
+          product_id: this.product_id,
+          product_name: this.product_name,
+          group_id: this.group_id,
+          order_number: this.order_number,
+          date_starts: this.date_start == null ? [] : [this.date_start, this.date_end],
+          destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+          group_code: this.group_code,
+          group_status: this.group_status,
+          store_id:this.store_id
+
+
+        })
+
+
         this.getStoreOrderGroup();
       })
 
     })
 
   }
+
+
+  //区域解析
+  cityChange(data: any) {
+    let arr: any[] = []
+    for (let i = 0; i < data.length / 4; i++) {
+      let temp = arr[i] || '' + data.substr(0, 4 * (i + 1))
+      arr.push(temp);
+    }
+    return arr
+  }
+
 
   getStoreOrderGroup() {
     this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end, this.group_status, this.group_code, this.store_id).subscribe(res => {
@@ -80,6 +122,14 @@ export class AdminOrderComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      product_id: this.product_id, product_name: this.product_name, group_id: this.group_id, order_number: this.order_number,
+      destination_city: this.destination_city, date_start: this.date_start, date_end: this.date_end, group_code: this.group_code,
+      group_status: this.group_status, store_id: this.store_id, page: this.page
+    }
+    localStorage.setItem('adminOrderSearch', JSON.stringify(this.setQuery));
+
     this.getStoreOrderGroup();
   }
 
@@ -99,11 +149,19 @@ export class AdminOrderComponent implements OnInit {
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
     this.group_status = this.searchForm.value.group_status;
-    this.group_status = this.searchForm.value.group_status;
-    this.group_status = this.searchForm.value.group_status;
     this.group_code = this.searchForm.value.group_code;
     this.store_id = this.searchForm.value.store_id;
-    console.log('3242342 ', this.group_status);
+
+    // 筛选条件存进cookie
+    this.setQuery = {
+      product_id: this.product_id, product_name: this.product_name, group_id: this.group_id, order_number: this.order_number,
+      destination_city: this.destination_city, date_start: this.date_start, date_end: this.date_end, group_code: this.group_code,
+      group_status: this.group_status, store_id: this.store_id, page: this.page
+    }
+    localStorage.setItem('adminOrderSearch', JSON.stringify(this.setQuery));
+
+
+
     this.adminOrderService.getStoreOrderGroup(this.page, this.per_page, this.product_id, this.product_name, this.group_id, this.order_number, this.destination_city, this.date_start, this.date_end, this.group_status, this.group_code, this.store_id).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
@@ -146,7 +204,7 @@ export class AdminOrderComponent implements OnInit {
       product_name: '',
       group_id: '',
       order_number: '',
-      date_start: '',
+      date_starts: '',
       destination_city: '',
       group_status: '',
       group_code: '',
