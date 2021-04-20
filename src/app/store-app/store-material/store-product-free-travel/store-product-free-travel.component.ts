@@ -251,4 +251,15 @@ export class StoreProductFreeTravelComponent implements OnInit {
     })
   }
 
+   // 重置
+   reset(){
+    this.searchForm.patchValue({
+      checkStatus:'',
+      title: '',
+      few_days: '',
+      code: '',
+      status: '',
+      tag: '',
+    })
+  }
 }

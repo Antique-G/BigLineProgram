@@ -161,8 +161,16 @@ export class StoreMeetingPlaceComponent implements OnInit {
       }
 
     });
+  }
 
+  
 
+  // 重置
+  reset(){
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+    })
   }
 }
 

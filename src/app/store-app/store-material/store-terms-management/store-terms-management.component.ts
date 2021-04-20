@@ -25,10 +25,10 @@ export class StoreTermsManagementComponent implements OnInit {
 
 
   constructor(public fb: FormBuilder, public storeTermsManagementService: StoreTermsManagementService, public dialog: MatDialog,
-    private router: Router,private modal: NzModalService, ) {
+    private router: Router, private modal: NzModalService,) {
     this.searchForm = this.fb.group({
       status: [''],
-      checkStatus: [''], 
+      checkStatus: [''],
     })
   }
 
@@ -40,7 +40,7 @@ export class StoreTermsManagementComponent implements OnInit {
 
   termsList(): void {
     this.loading = true;
-    this.storeTermsManagementService.storeTermsList(this.page, this.per_page,this.status,this.check_status).subscribe((result: any) => {
+    this.storeTermsManagementService.storeTermsList(this.page, this.per_page, this.status, this.check_status).subscribe((result: any) => {
       console.log("jieguyo", result)
       this.loading = false;
       this.total = result.meta.pagination.total;   //总页数
@@ -59,7 +59,7 @@ export class StoreTermsManagementComponent implements OnInit {
     this.termsList();
   }
 
-  search(){
+  search() {
     this.status = this.searchForm.value.status;
     this.check_status = this.searchForm.value.checkStatus;
     this.termsList();
@@ -126,7 +126,7 @@ export class StoreTermsManagementComponent implements OnInit {
             // alert("删除失败");
           }
         })
-    
+
       }
       else {
         this.termsList();
@@ -136,7 +136,7 @@ export class StoreTermsManagementComponent implements OnInit {
   }
 
 
-  review(data:any){
+  review(data: any) {
     console.log("拿到的值", data);
     const dialogRef = this.dialog.open(StoreTermManagementReviewComponent, {
       width: '500px',
@@ -150,19 +150,27 @@ export class StoreTermsManagementComponent implements OnInit {
 
 
 
-    // 上下架操作
-    up(data: any) {
-      console.log("nadao", data);
-      this.modal.confirm({
-        nzTitle: '<h4>提示</h4>',
-        nzContent: '<h6>请确认操作</h6>',
-        nzOnOk: () =>
+  // 上下架操作
+  up(data: any) {
+    console.log("nadao", data);
+    this.modal.confirm({
+      nzTitle: '<h4>提示</h4>',
+      nzContent: '<h6>请确认操作</h6>',
+      nzOnOk: () =>
         this.storeTermsManagementService.setStatus(data.id).subscribe(res => {
-            this.termsList();
-          })
-      });
-    }
+          this.termsList();
+        })
+    });
+  }
 
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      checkStatus: '',
+      status: '',
+    })
+  }
 }
 
 

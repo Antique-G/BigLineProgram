@@ -22,7 +22,7 @@ export class StoreContractComponent implements OnInit {
   dataSource: any;
 
 
-  constructor(public fb: FormBuilder, public storeContractService: StoreContractService,public modal: NzModalService) {
+  constructor(public fb: FormBuilder, public storeContractService: StoreContractService, public modal: NzModalService) {
     this.searchForm = fb.group({
       contract_name: ['']
     });
@@ -37,7 +37,7 @@ export class StoreContractComponent implements OnInit {
       console.log("结果是", res)
       res?.data.forEach((element: any) => {
         element['isStatus'] = '';
-        element.isStatus =  this.nowInDateBetwen(element.start_date, element.end_date, element.isStatus);
+        element.isStatus = this.nowInDateBetwen(element.start_date, element.end_date, element.isStatus);
         console.log('element.isStatus :>> ', element.isStatus);
       });
       this.dataSource = res?.data;
@@ -74,9 +74,9 @@ export class StoreContractComponent implements OnInit {
       nzFooter: [
         {
           label: '添加',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
-              componentInstance?.add()
+            componentInstance?.add()
 
           }
         }
@@ -85,10 +85,10 @@ export class StoreContractComponent implements OnInit {
     addmodal.afterClose.subscribe(res => {
       this.getStoreContract();
     })
-   }
+  }
 
 
-    
+
   // 判断时间是否为有效期内
   nowInDateBetwen(d1: any, d2: any, isData: any) {
     let dateBegin = new Date(d1);//将-转化为/，使用new Date
@@ -109,5 +109,12 @@ export class StoreContractComponent implements OnInit {
       isData = '过期';
       return isData
     }
+  }
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      contract_name: '',
+    })
   }
 }

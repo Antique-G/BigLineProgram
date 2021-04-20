@@ -34,8 +34,8 @@ export class StoreOrderFreetravelComponent implements OnInit {
 
 
 
-  constructor(public fb: FormBuilder,public modal: NzModalService,
-     public router: Router, public storeOrderFreeTravelService: StoreOrderFreeTravelService) {
+  constructor(public fb: FormBuilder, public modal: NzModalService,
+    public router: Router, public storeOrderFreeTravelService: StoreOrderFreeTravelService) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -54,7 +54,7 @@ export class StoreOrderFreetravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.storeOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
+    this.storeOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -115,12 +115,12 @@ export class StoreOrderFreetravelComponent implements OnInit {
     console.log("event", this.dateArray);
   }
 
-  
+
   edit(data: any) {
     this.router.navigate(['/store/main/storeOrderFreeTravel/detail'], { queryParams: { detailId: data.id } });
   }
 
-  addOrder(){
+  addOrder() {
     this.router.navigate(['/store/main/storeOrderFreeTravel/addOrder'],);
   }
 
@@ -147,6 +147,19 @@ export class StoreOrderFreetravelComponent implements OnInit {
     })
   }
 
-  
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      product_id: '',
+      product_name: '',
+      order_number: '',
+      date_start: '',
+      product_code: '',
+      order_start_date: '',
+      contact_name: '',
+      contact_phone: '',
+    })
+  }
 }
 
