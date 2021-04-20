@@ -101,6 +101,8 @@ import { UploadPdfComponent } from './store-certication/store-certification-deta
 import { StoreCertifiHistoryComponent } from './store-certication/store-certifi-progress/store-certifi-history/store-certifi-history.component';
 import { StoreCertifiChangeComponent } from './store-certication/store-certifi-basic-info/store-certifi-change/store-certifi-change.component';
 import { StoreInsuranceDetailComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-insurance-detail/store-insurance-detail.component';
+import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
+import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store-free-quote/store-free-quote-create/store-free-quote-create.component';
 
 @NgModule({
   imports: [
@@ -218,6 +220,8 @@ import { StoreInsuranceDetailComponent } from './store-product-management/store-
     StoreCertifiHistoryComponent,
     StoreCertifiChangeComponent,
     StoreInsuranceDetailComponent,
+    StoreFreeQuoteComponent,
+    StoreFreeQuoteCreateComponent,
     
     
   ]

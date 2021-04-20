@@ -64,26 +64,21 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几晚！'
     },
-    departure_city: {
-      'required': '请输入出发城市！'
-    },
     destination_city: {
       'required': '请输入目的城市！'
     },
-    // reserve_num: {
-    //   'required': '请输入可预订人数！'
-    // },
+   
   };
   formErrors: any = {
     title: '',
     sub_title: '',
     few_days: '',
     few_nights: '',
-    departure_city: '',
     destination_city: '',
-    // reserve_num: '',
   }
 
+  // 报价类型
+  isQuoteType = false;
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, public dialog: MatDialog,
     public adminProductFreeTravelService: AdminProductFreeTravelService, public adminProductManagementService: AdminProductManagementService,
@@ -109,7 +104,12 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       fee: '',
       status: 0,
       tag_id: [],
-      step: 0
+      step: 0,
+      quote_type: '',
+      copies_max: '',
+      use_num: '',
+      inclusive: '',
+      buy_num_max: '',
     }
   }
 
@@ -121,7 +121,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl(''),
-      departure_city: new FormControl('', [Validators.required]),
+      departure_city: new FormControl(''),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
       earlier1: new FormControl(1, [Validators.required]),
@@ -133,6 +133,11 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       child_age_min: new FormControl(''),
       child_height_min: new FormControl(''),
       child_height_max: new FormControl(''),
+      quote_type: new FormControl('1', [Validators.required]),
+      buy_num_max: new FormControl(0, [Validators.required]),
+      copies_max: new FormControl(0),
+      use_num: new FormControl(1),
+      inclusive: new FormControl(0),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -239,6 +244,12 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('children_age')?.setValue(this.dataDetailModel.children_age);
     this.addForm.get('child_height_min')?.setValue(this.dataDetailModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataDetailModel.child_height_max);
+    this.addForm.get('buy_num_max')?.setValue(this.dataDetailModel.buy_num_max);
+    this.addForm.get('copies_max')?.setValue(this.dataDetailModel.copies_max);
+    this.addForm.get('use_num')?.setValue(this.dataDetailModel.use_num);
+    this.addForm.get('inclusive')?.setValue(this.dataDetailModel.inclusive);
+
+
     console.log(this.dataDetailModel, 'this.dataDetailModel');
     let b = this.dataDetailModel.tag.data;
     let bNums: any[] = []
@@ -340,16 +351,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelUpdateModel.reserve_num = 0;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
-    // if (parseInt(this.isReserveChildren) === 0) {
-    //   this.freeTravelUpdateModel.children_age = 0;
-    //   this.freeTravelUpdateModel.child_height_min = 0;
-    //   this.freeTravelUpdateModel.child_height_max = 0;
-    // }
-    // else if (parseInt(this.isReserveChildren) === 1) {
-    //   this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
-    //   this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
-    //   this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    // }
+ 
     
     this.freeTravelUpdateModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
@@ -357,6 +359,21 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.child_height_max = this.addForm.value.child_height_max;
     this.freeTravelUpdateModel.departure_city = this.idRegion;
     this.freeTravelUpdateModel.destination_city = this.idDestin;
+    this.freeTravelUpdateModel.quote_type = this.addForm.value.quote_type;
+    // 按套餐
+    if (this.isQuoteType === false) {
+      this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max;
+      this.freeTravelUpdateModel.use_num = this.addForm.value.use_num;
+      this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive;
+    }
+    else {
+      // 按人头
+      this.freeTravelUpdateModel.buy_num_max = this.addForm.value.buy_num_max;
+      this.freeTravelUpdateModel.copies_max = 0;
+      this.freeTravelUpdateModel.use_num = 0;
+      this.freeTravelUpdateModel.inclusive = '';
+
+    }
 
   }
 
@@ -450,16 +467,24 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead
   }
 
-  // isReserveChildrenChange(status: any) {
-  //   console.log(status, 'status');
-  //   this.isReserveChildren = status
-  //   this.addForm.value.reserve_children = this.isReserveChildren
-  // }
-
 
   // 只输入整数
   numTest($event: any) {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 
+  
+  // 报价类型
+  quoteType(event: any) {
+    if (event == 1) {
+      this.isQuoteType = false;
+      this.addForm?.controls['use_num'].setValidators(Validators.required);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+    else {
+      this.isQuoteType = true;
+      this.addForm?.controls['use_num'].setValidators(null);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+  }
 }

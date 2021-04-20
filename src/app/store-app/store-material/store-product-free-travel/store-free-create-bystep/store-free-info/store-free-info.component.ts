@@ -76,9 +76,6 @@ export class StoreFreeInfoComponent implements OnInit {
     tag_id: {
       'required': '请选择产品标签'!
     },
-    departure_city: {
-      'required': '请输入出发城市！'
-    },
     destination_city: {
       'required': '请输入目的城市！'
     },
@@ -92,12 +89,11 @@ export class StoreFreeInfoComponent implements OnInit {
     few_days: '',
     few_nights: '',
     tag_id: '',
-    departure_city: '',
     destination_city: '',
-    // reserve_num: '',
   }
 
-
+  // 报价类型
+  isQuoteType = false;
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -126,7 +122,12 @@ export class StoreFreeInfoComponent implements OnInit {
       fee: '',
       status: 0,
       tag_id: [],
-      step: 0
+      step: 0,
+      quote_type: '',
+      copies_max: '',
+      use_num: '',
+      inclusive: '',
+      buy_num_max: '',
     }
 
   }
@@ -138,6 +139,11 @@ export class StoreFreeInfoComponent implements OnInit {
     console.log('this.detailId', this.detailId);
     this.addForm.controls['tag_id'].setValue([]);
     this.getCateList();
+    if(this.isQuoteType === false){
+      this.addForm?.controls['use_num'].setValidators(Validators.required);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+   
   }
 
   // 表单初始化
@@ -148,7 +154,7 @@ export class StoreFreeInfoComponent implements OnInit {
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
-      departure_city: new FormControl('', [Validators.required]),
+      departure_city: new FormControl(''),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
       earlier1: new FormControl(1, [Validators.required]),
@@ -160,6 +166,11 @@ export class StoreFreeInfoComponent implements OnInit {
       children_age: new FormControl(14),
       child_height_min: new FormControl(0),
       child_height_max: new FormControl(0),
+      quote_type: new FormControl('1', [Validators.required]),
+      buy_num_max: new FormControl(0, [Validators.required]),
+      copies_max: new FormControl(0),
+      use_num: new FormControl(1),
+      inclusive: new FormControl(''),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -316,23 +327,27 @@ export class StoreFreeInfoComponent implements OnInit {
 
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
     console.log("fdgdfg", this.freeTravelModel.reserve_children);
-
-    // if (parseInt(this.isReserveChildren) === 0) {
-    //   this.freeTravelModel.children_age = 0;
-    //   this.freeTravelModel.child_height_min = 0;
-    //   this.freeTravelModel.child_height_max = 0;
-    // }
-    // else if (parseInt(this.isReserveChildren) === 1) {
-    //   this.freeTravelModel.children_age = this.addForm.value.children_age;
-    //   this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
-    //   this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    // }
     this.freeTravelModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelModel.children_age = this.addForm.value.children_age;
     this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1]
-    this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1]
+    this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1];
+    this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1];
+    this.freeTravelModel.quote_type = this.addForm.value.quote_type;
+    // 按套餐
+    if (this.isQuoteType === false) {
+      this.freeTravelModel.copies_max = this.addForm.value.copies_max;
+      this.freeTravelModel.use_num = this.addForm.value.use_num;
+      this.freeTravelModel.inclusive = this.addForm.value.inclusive;
+    }
+    else {
+      // 按人头
+      this.freeTravelModel.buy_num_max = this.addForm.value.buy_num_max;
+      this.freeTravelModel.copies_max = 0;
+      this.freeTravelModel.use_num = 0;
+      this.freeTravelModel.inclusive = '';
+
+    }
 
 
   }
@@ -434,12 +449,6 @@ export class StoreFreeInfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead;
   }
 
-  // isReserveChildrenChange(status: any) {
-  //   console.log(status, 'status');
-  //   this.isReserveChildren = status;
-  //   this.addForm.value.reserve_children = this.isReserveChildren;
-  // }
-
 
   // 只输入整数
   numTest($event: any) {
@@ -473,5 +482,21 @@ export class StoreFreeInfoComponent implements OnInit {
 
     }
 
+  }
+
+
+
+  // 报价类型
+  quoteType(event: any) {
+    if (event == 1) {
+      this.isQuoteType = false;
+      this.addForm?.controls['use_num'].setValidators(Validators.required);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+    else {
+      this.isQuoteType = true;
+      this.addForm?.controls['use_num'].setValidators(null);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
   }
 }
