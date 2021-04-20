@@ -139,11 +139,11 @@ export class StoreFreeInfoComponent implements OnInit {
     console.log('this.detailId', this.detailId);
     this.addForm.controls['tag_id'].setValue([]);
     this.getCateList();
-    if(this.isQuoteType === false){
+    if (this.isQuoteType === false) {
       this.addForm?.controls['use_num'].setValidators(Validators.required);
       this.addForm?.controls['use_num'].updateValueAndValidity();
     }
-   
+
   }
 
   // 表单初始化
@@ -336,15 +336,15 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.quote_type = this.addForm.value.quote_type;
     // 按套餐
     if (this.isQuoteType === false) {
-      this.freeTravelModel.copies_max = this.addForm.value.copies_max;
-      this.freeTravelModel.use_num = this.addForm.value.use_num;
+      this.freeTravelModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
+      this.freeTravelModel.use_num = this.addForm.value.use_num == '' ? 0 : this.addForm.value.use_num;
       this.freeTravelModel.inclusive = this.addForm.value.inclusive;
       this.freeTravelModel.buy_num_max = 0;
 
     }
     else {
       // 按人头
-      this.freeTravelModel.buy_num_max = this.addForm.value.buy_num_max;
+      this.freeTravelModel.buy_num_max = this.addForm.value.buy_num_max == '' ? 0 : this.addForm.value.buy_num_max;
       this.freeTravelModel.copies_max = 0;
       this.freeTravelModel.use_num = 0;
       this.freeTravelModel.inclusive = '';

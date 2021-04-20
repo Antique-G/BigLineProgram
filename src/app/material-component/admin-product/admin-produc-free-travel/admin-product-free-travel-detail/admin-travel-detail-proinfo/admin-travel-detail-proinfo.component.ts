@@ -67,7 +67,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     destination_city: {
       'required': '请输入目的城市！'
     },
-   
+
   };
   formErrors: any = {
     title: '',
@@ -351,8 +351,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelUpdateModel.reserve_num = 0;
     this.freeTravelUpdateModel.reserve_children = this.addForm.value.reserve_children;
- 
-    
+
+
     this.freeTravelUpdateModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelUpdateModel.children_age = this.addForm.value.children_age;
     this.freeTravelUpdateModel.child_height_min = this.addForm.value.child_height_min;
@@ -362,14 +362,15 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.quote_type = this.addForm.value.quote_type;
     // 按套餐
     if (this.isQuoteType === false) {
-      this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max;
-      this.freeTravelUpdateModel.use_num = this.addForm.value.use_num;
+      this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
+      this.freeTravelUpdateModel.use_num = this.addForm.value.use_num == '' ? 0 : this.addForm.value.use_num;
       this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive;
       this.freeTravelUpdateModel.buy_num_max = 0;
+
     }
     else {
       // 按人头
-      this.freeTravelUpdateModel.buy_num_max = this.addForm.value.buy_num_max;
+      this.freeTravelUpdateModel.buy_num_max = this.addForm.value.buy_num_max == '' ? 0 : this.addForm.value.buy_num_max;
       this.freeTravelUpdateModel.copies_max = 0;
       this.freeTravelUpdateModel.use_num = 0;
       this.freeTravelUpdateModel.inclusive = '';
@@ -474,7 +475,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 
-  
+
   // 报价类型
   quoteType(event: any) {
     if (event == 1) {
