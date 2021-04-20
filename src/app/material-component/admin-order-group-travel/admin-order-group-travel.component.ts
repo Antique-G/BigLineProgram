@@ -175,6 +175,21 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
 
 
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status:  '',
+      product_id:  '',
+      product_name:  '',
+      order_number:  '',
+      date_start:  '',
+      product_code:  '',
+      store_id:  '',
+      order_start_date:  '',
+      contact_name:  '',
+      contact_phone:  '',
+    });
+  }
 }
 
 

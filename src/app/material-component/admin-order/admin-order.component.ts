@@ -32,7 +32,7 @@ export class AdminOrderComponent implements OnInit {
   nzOptions: any[] | null = null;
   idRegion: any;
 
-  group_status:any;
+  group_status: any;
   group_code: any;
   store_id: any;
   storeList: any[] = [];
@@ -138,4 +138,19 @@ export class AdminOrderComponent implements OnInit {
     this.router.navigate(['/admin/main/orderList/detail'], { queryParams: { detailId: data.group_id } });
   }
 
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      product_id: '',
+      product_name: '',
+      group_id: '',
+      order_number: '',
+      date_start: '',
+      destination_city: '',
+      group_status: '',
+      group_code: '',
+      store_id: '',
+    });
+  }
 }

@@ -133,7 +133,12 @@ export class AdminTermTemplateComponent implements OnInit {
     // });
   }
 
-
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      title: '',
+    })
+  }
 }
 
 

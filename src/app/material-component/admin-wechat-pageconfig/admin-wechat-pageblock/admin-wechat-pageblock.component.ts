@@ -84,5 +84,12 @@ export class AdminWechatPageblockComponent implements OnInit {
 
   }
 
-
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+      keye: '',
+    })
+  }
 }

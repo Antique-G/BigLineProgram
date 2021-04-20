@@ -86,7 +86,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   setValue() {
     this.title = this.searchForm.value.title;
     console.log('this.searchForm.value.start_date :>> ', this.searchForm.value.start_date);
-    this.start_date = this.searchForm.value.start_date === null ? '' : format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
+    this.start_date = this.searchForm.value.start_date == '' ? null : format(new Date(this.searchForm.value.start_date), 'yyyy-MM-dd');
     this.departure_city = this.isDeparture_city;
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
@@ -192,4 +192,18 @@ export class AdminGroupAddOrderComponent implements OnInit {
   onExpandChange(id: number, checked: boolean): void {
     console.log("点击的是", id, checked)
   }
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      title: '',
+      start_date: '',
+      departure_city: '',
+      destination_city: '',
+      few_days: '',
+      group_status: '',
+    });
+  }
+
 }

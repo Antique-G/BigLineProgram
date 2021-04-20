@@ -130,11 +130,18 @@ export class AdminServicerComponent implements OnInit {
       nzTitle: "<h4>提示</h4>",
       nzContent: "<h6>是否删除</h6>",
       nzOnOk: () =>
-      this.adminServicerService.deleteRegionService(data.id).subscribe((res) => {
+        this.adminServicerService.deleteRegionService(data.id).subscribe((res) => {
           this.getDataList();
         }),
     });
   }
 
 
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      region_code: '',
+      phone: '',
+    })
+  }
 }

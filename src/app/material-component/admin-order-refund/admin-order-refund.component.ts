@@ -174,4 +174,29 @@ export class AdminOrderRefundComponent implements OnInit {
     const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
     this.dateArray2.push(myFormattedDate1);
   }
+
+
+  //重置
+  reset1(){
+    this.searchForm1.patchValue({
+      product_name: '',
+      store_id: '',
+      order_id:  '',
+      time:  '',
+      refund_id:  '',
+      id:  '',
+    });
+  }
+
+  reset2(){
+    this.searchForm2.patchValue({
+      product_name: '',
+      store_id: '',
+      order_id: '',
+      time: '',
+      refund_id: '',
+      id: '',
+      status: '',
+    });
+  }
 }

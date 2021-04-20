@@ -135,7 +135,7 @@ export class AdminStoreManageComponent implements OnInit {
     this.router.navigate(['/admin/main/adminStoreManage/schedule'], { queryParams: { id: data.id, shopName: data.shop_name } });
   }
 
-  setSchedule(){
+  setSchedule() {
     const editmodal = this.modal.create({
       nzTitle: '门店员工排班设置',
       nzContent: AdminStoreManageSetScheduleComponent,
@@ -157,4 +157,14 @@ export class AdminStoreManageComponent implements OnInit {
     })
   }
 
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      region_code: '',
+      shop_name: '',
+    });
+  }
 }
