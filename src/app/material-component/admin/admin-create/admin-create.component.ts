@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
@@ -44,10 +45,12 @@ export class AdminCreateComponent implements OnInit {
     phoneNumber: '',
   };
 
+  // 城市
+  nzOptions: any[] | null = null;
+  isDestination_city: any;
 
 
-
-  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService,
+  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService, public adminRegionService: AdminRegionService,
     public adminAdminService: AdminAdminService) {
     this.forms();
     this.registerRequestModel = {
@@ -57,8 +60,8 @@ export class AdminCreateComponent implements OnInit {
       real_name: '',
       mobile: '',
       status: 1,
-      staff_type:0
-      // shop_id: '',
+      staff_type: 0,
+      region_code: '',
     }
   }
 
@@ -73,7 +76,8 @@ export class AdminCreateComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(32)]],
       phoneNumber: ['', [Validators.required, mobile]],
       status: ['', [Validators.required]],
-      staff_type: ['', [Validators.required]]
+      staff_type: ['', [Validators.required]],
+      region_code: ['', [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -130,6 +134,9 @@ export class AdminCreateComponent implements OnInit {
     this.adminStoreManageService.storeManageList(1, 50, 1, '', '').subscribe(res => {
       console.log('res :>> ', res);
       this.listDataMap = res?.data;
+      this.adminRegionService.getAllRegionList().subscribe(res => {
+        this.nzOptions = res;
+      })
     })
   }
 
@@ -141,8 +148,18 @@ export class AdminCreateComponent implements OnInit {
     this.registerRequestModel.mobile = this.addForm.value.phoneNumber
     this.registerRequestModel.status = this.addForm.value.status;
     this.registerRequestModel.staff_type = this.addForm.value.staff_type;
-    // this.registerRequestModel.shop_id = this.addForm.value.shop_id;
+    this.registerRequestModel.region_code = this.isDestination_city;
 
+  }
+
+
+  // 城市
+  onChangesdestinationCity(data: any): void {
+    console.log("点击的结果是", data);
+    if (data !== null) {
+      this.isDestination_city = data[data.length - 1];
+
+    }
   }
 
 
@@ -158,7 +175,7 @@ export class AdminCreateComponent implements OnInit {
         console.log("res结果", res);
         if (res === null) {
           // alert("创建成功");
-         
+
         }
         else {
           // alert("创建失败，请重新填写")

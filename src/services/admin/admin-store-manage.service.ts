@@ -82,8 +82,8 @@ export class AdminStoreManageService {
       )
   }
 
-  shopAccountList(): Observable<StoreShopAccountModel> {
-    const params = new HttpParams()
+  shopAccountList(region_code?: any): Observable<StoreShopAccountModel> {
+    const params = new HttpParams().set('region_code', region_code ? region_code : '')
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -95,9 +95,9 @@ export class AdminStoreManageService {
   }
 
   // 获取某天排班
-  shopScheduleInfo(date:any,shop_id:any){
+  shopScheduleInfo(date: any, shop_id: any) {
     const params = new HttpParams().set('shop_id', shop_id)
-      .set('date',date)
+      .set('date', date)
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
@@ -110,9 +110,9 @@ export class AdminStoreManageService {
 
   // 删除
   // admin/schedule_destroy
-  DeleteShopScheduleInfo(arr:any){
-    
-    return this.httpClient.post<any>(this.urls.PostAdminShopDateScheduleInfo, {ids:arr}, httpOptions)
+  DeleteShopScheduleInfo(arr: any) {
+
+    return this.httpClient.post<any>(this.urls.PostAdminShopDateScheduleInfo, { ids: arr }, httpOptions)
       .pipe(
       )
   }
