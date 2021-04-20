@@ -149,8 +149,19 @@ export class AdminStoreComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe(result => {
-    
+
       this.getData();
+    });
+  }
+
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      is_approve: '',
+      storeName: '',
     });
   }
 }

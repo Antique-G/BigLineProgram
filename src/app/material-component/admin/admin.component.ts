@@ -107,6 +107,15 @@ export class AdminComponent implements OnInit {
       this.getData();
     })
   }
+
+
+  // 重置
+  reset(){
+    this.searchForm.patchValue({
+      status: '',
+      name:''
+    });
+  }
 }
 
 

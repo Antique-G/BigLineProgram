@@ -144,6 +144,13 @@ export class AdminSystemAreaComponent implements OnInit {
     }
 
   }
+
+    // 重置
+    reset() {
+      this.nameForm.patchValue({
+        keyword: '',
+      })
+    }
 }
 
 

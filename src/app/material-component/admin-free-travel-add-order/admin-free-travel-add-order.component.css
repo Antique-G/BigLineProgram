@@ -2,3 +2,7 @@
 .ant-table-tbody>tr>td {
     text-align: center !important;
 }
+
+.ant-form-item {
+    margin: 0 0 10px !important;
+}

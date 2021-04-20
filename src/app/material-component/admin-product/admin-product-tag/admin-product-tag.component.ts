@@ -128,8 +128,16 @@ export class AdminProductTagComponent implements OnInit {
         })
       }
     })
+  }
 
 
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      cate_id: '',
+      name: '',
+    });
   }
 }
 

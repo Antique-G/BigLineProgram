@@ -63,13 +63,13 @@ export class AdminOrderRefundReviewComponent implements OnInit {
   ngOnInit(): void {
     // tabIndex
     this.activatedRoute.queryParams.subscribe(params => {
-     console.log('params.tabIndex :>> ', params.tabIndex);
-     if(params.tabIndex===undefined){
-       this.selectedTabIndex = 0;
-     }
-     else{
-      this.selectedTabIndex = 1;
-     }
+      console.log('params.tabIndex :>> ', params.tabIndex);
+      if (params.tabIndex === undefined) {
+        this.selectedTabIndex = 0;
+      }
+      else {
+        this.selectedTabIndex = 1;
+      }
     })
 
     this.adminProductManagementService.storeList('').subscribe(res => {
@@ -171,4 +171,25 @@ export class AdminOrderRefundReviewComponent implements OnInit {
     this.router.navigate(['/admin/main/refundReview/detail'], { queryParams: { detailId: data.id, isFinished: 2 } });
   }
 
+
+  // 重置
+  reset1() {
+    this.searchForm1.patchValue({
+      order_id: '',
+      store_id: '',
+      product_name: '',
+      time: '',
+      id: '',
+    })
+  }
+
+  reset2() {
+    this.searchForm2.patchValue({
+      order_id: '',
+      store_id: '',
+      product_name: '',
+      time: '',
+      id: '',
+    })
+  }
 }

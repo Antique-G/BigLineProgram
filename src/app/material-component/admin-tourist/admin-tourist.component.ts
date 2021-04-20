@@ -89,11 +89,11 @@ export class AdminTouristComponent implements OnInit {
     const editmodal = this.modal.create({
       nzTitle: '添加',
       nzContent: AdminTouristCreateComponent,
-      nzMaskClosable:false,
+      nzMaskClosable: false,
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.add()
           }
@@ -111,14 +111,14 @@ export class AdminTouristComponent implements OnInit {
     const editmodal = this.modal.create({
       nzTitle: '修改',
       nzContent: AdminTouristDetailComponent,
-      nzMaskClosable:false,
+      nzMaskClosable: false,
       nzComponentParams: {
         data: data
       },
       nzFooter: [
         {
           label: '更新',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.update()
           }
@@ -153,4 +153,13 @@ export class AdminTouristComponent implements OnInit {
     });
   }
 
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+      mobile: '',
+    })
+  }
 }

@@ -103,4 +103,14 @@ export class AdminUserinfoComponent implements OnInit {
         this.getDataList();
       })
   }
+
+
+  
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+    })
+  }
 }
