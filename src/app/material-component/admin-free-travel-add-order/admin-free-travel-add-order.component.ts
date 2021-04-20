@@ -35,7 +35,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   sortValue: any;
   sort_field = 'min_price';
   sort: any;
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, public modal: NzModalService,) {
@@ -52,11 +52,38 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   ngOnInit(): void {
     this.adminRegionService.getAllRegionList().subscribe(res => {
       this.nzOptions = res;
+      // 将上次查询的筛选条件赋值
+      let getSeatch = JSON.parse(localStorage.getItem("adminAddFreeOrderSearch")!);
+      this.title = getSeatch?.title ? getSeatch.title : '';
+      this.start_date = getSeatch?.start_date ? getSeatch?.start_date : null;
+      this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
+      this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+      this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
+
+
+      this.searchForm.patchValue({
+        title: this.title,
+        start_date: this.start_date,
+        departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
+        destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+        few_days: this.few_days,
+      })
     })
+
     this.getFeeTravelList();
   }
 
 
+   //区域解析
+   cityChange(data: any) {
+    let arr: any[] = []
+    for (let i = 0; i < data.length / 4; i++) {
+      let temp = arr[i] || '' + data.substr(0, 4 * (i + 1))
+      arr.push(temp);
+    }
+    return arr
+  }
+  
 
   getFeeTravelList() {
     this.loading = true;
@@ -77,6 +104,13 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.departure_city = this.isDeparture_city;
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
+
+    // 筛选条件存进cookie
+    this.setQuery = {
+      title: this.title, start_date: this.start_date, departure_city: this.departure_city,
+      destination_city: this.destination_city, few_days: this.few_days
+    }
+    localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
   }
 
 
@@ -151,11 +185,17 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      title: this.title, start_date: this.start_date, departure_city: this.departure_city,
+      destination_city: this.destination_city, few_days: this.few_days
+    }
+    localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
     this.getFeeTravelList();
   }
 
 
-  
+
   // 重置
   reset() {
     this.searchForm.patchValue({
