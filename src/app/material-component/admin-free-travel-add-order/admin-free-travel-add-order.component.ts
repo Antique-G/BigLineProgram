@@ -74,8 +74,8 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   }
 
 
-   //区域解析
-   cityChange(data: any) {
+  //区域解析
+  cityChange(data: any) {
     let arr: any[] = []
     for (let i = 0; i < data.length / 4; i++) {
       let temp = arr[i] || '' + data.substr(0, 4 * (i + 1))
@@ -83,7 +83,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     }
     return arr
   }
-  
+
 
   getFeeTravelList() {
     this.loading = true;
@@ -117,7 +117,13 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   anOrder(data: any) {
     console.log('传递的值 :>> ', data);
     localStorage.setItem('freeOrderData', JSON.stringify(data))
-    this.router.navigate(['/admin/main/addFreeOrder/add'])
+    if (data.quote_type == 2) {
+      this.router.navigate(['/admin/main/addFreeOrder/add'])
+    }
+    else {
+      this.router.navigate(['/admin/main/addFreeOrder/add/byQuote']);
+    }
+
   }
 
   search() {

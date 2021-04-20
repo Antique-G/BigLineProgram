@@ -365,6 +365,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max;
       this.freeTravelUpdateModel.use_num = this.addForm.value.use_num;
       this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive;
+      this.freeTravelUpdateModel.buy_num_max = 0;
     }
     else {
       // 按人头

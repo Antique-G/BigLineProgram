@@ -339,6 +339,8 @@ export class StoreFreeInfoComponent implements OnInit {
       this.freeTravelModel.copies_max = this.addForm.value.copies_max;
       this.freeTravelModel.use_num = this.addForm.value.use_num;
       this.freeTravelModel.inclusive = this.addForm.value.inclusive;
+      this.freeTravelModel.buy_num_max = 0;
+
     }
     else {
       // 按人头
