@@ -25,6 +25,7 @@ import { StoreOrderRefundComponent } from './store-order-refund/store-order-refu
 import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
 import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover/store-order-refund-turnover.component';
 import { StoreCerticationComponent } from './store-certication/store-certication.component';
+import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 
 export const StoreMaterialRoutes: Routes = [
 
@@ -63,6 +64,13 @@ export const StoreMaterialRoutes: Routes = [
       {
         path: 'storeFreeTravel/storeQuote',
         component: StoreQuoteBydateComponent,
+        data: {
+          breadcrumb: '按日期报价'
+        }
+      },
+      {
+        path: 'storeFreeTravel/storeQuote/byPack',
+        component: StoreFreeQuoteComponent,
         data: {
           breadcrumb: '按日期报价'
         }

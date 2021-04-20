@@ -51,8 +51,8 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city" nzRequired>出发城市</nz-form-label>
-                                            <nz-form-control [nzSm]="8" [nzXs]="24" [nzErrorTip]="formErrors.departure_city">
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="departure_city" formControlName="departure_city"></nz-cascader>
                                             </nz-form-control>
                                         </div>
@@ -76,6 +76,58 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type" nzRequired>报价方式</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                <nz-radio-group (ngModelChange)="quoteType($event)" formControlName="quote_type" ngModel={{dataModel?.quote_type}}>
+                                                    <label nz-radio nzValue='2'>按人头</label>
+                                                    <label nz-radio nzValue='1'>按套餐份数</label>
+                                                </nz-radio-group>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="isQuoteType">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="buy_num_max">最大购买人数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                <input nz-input formControlName="buy_num_max" />
+                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">默认为0表示不限制购买人数</p>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="!isQuoteType">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="copies_max">最大购买份数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                <input nz-input formControlName="copies_max" />
+                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">默认为0表示不限制购买份数</p>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="!isQuoteType">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="use_num" nzRequired>套餐使用人数</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入套餐使用人数">
+                                                <nz-input-number formControlName="use_num" [nzMin]="0"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">人</span>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="!isQuoteType">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="inclusive">套餐包含</nz-form-label>
+                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                <textarea nz-input formControlName="inclusive" [nzAutosize]="{ minRows: 3, maxRows: 5 }" maxLength="200"></textarea>
+                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">最大字数为200字</p>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
 
                                 </form>
                             </nz-spin>

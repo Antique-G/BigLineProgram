@@ -58,7 +58,11 @@ export interface DatumModel {
     date_quotes?: DatequoteModel;
     quote_status: number;
     operation_name: string;
-
+    quote_type?: any;
+    copies_max?: any;
+    use_num?: any;
+    inclusive?: any;
+    buy_num_max?: any;
 }
 
 export interface StoreModel {
@@ -138,6 +142,11 @@ export interface DataFreeTravelDetailModel {
     created_at?: any;
     updated_at: string;
     albums: Storeimage;
+    quote_type?: any;
+    copies_max?: any;
+    use_num?: any;
+    inclusive?: any;
+    buy_num_max?: any;
 }
 
 interface Storeimage {
@@ -167,6 +176,11 @@ export interface FreeTravelUpdateModel {
     status: number;
     tag_id: number[];
     step: any;
+    quote_type?: any;
+    copies_max?: any;
+    use_num?: any;
+    inclusive?: any;
+    buy_num_max?: any;
 }
 
 export interface FreeTravelQuteDateModel {
@@ -183,6 +197,7 @@ export interface FreeTravelQuteDateModel {
     prev_page_url?: any;
     to: number;
     total: number;
+    
 }
 
 export interface SetCheckModel {

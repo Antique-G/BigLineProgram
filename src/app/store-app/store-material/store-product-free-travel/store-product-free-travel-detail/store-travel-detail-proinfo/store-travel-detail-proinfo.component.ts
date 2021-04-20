@@ -69,9 +69,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       'isNumber': '请输入非零的正整数',
       'required': '请输入出行几晚！'
     },
-    departure_city: {
-      'required': '请输入出发城市！'
-    },
     destination_city: {
       'required': '请输入目的城市！'
     },
@@ -84,12 +81,11 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     sub_title: '',
     few_days: '',
     few_nights: '',
-    departure_city: '',
     destination_city: '',
-    // reserve_num: '',
   }
 
-
+  // 报价类型
+  isQuoteType = false;
 
 
   constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -118,7 +114,12 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       fee: '',
       status: 0,
       tag_id: [],
-      step: 0
+      step: 0,
+      quote_type: '',
+      copies_max: '',
+      use_num: '',
+      inclusive: '',
+      buy_num_max: '',
     }
 
   }
@@ -140,7 +141,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       few_days: new FormControl(2, [Validators.required]),
       few_nights: new FormControl(1, [Validators.required]),
       tag_id: new FormControl('', [Validators.required]),
-      departure_city: new FormControl('', [Validators.required]),
+      departure_city: new FormControl(''),
       destination_city: new FormControl('', [Validators.required]),
       service_phone: new FormControl(''),
       earlier1: new FormControl(1, [Validators.required]),
@@ -152,6 +153,11 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
       children_age: new FormControl(''),
       child_height_min: new FormControl(''),
       child_height_max: new FormControl(''),
+      quote_type: new FormControl('1', [Validators.required]),
+      buy_num_max: new FormControl(0, [Validators.required]),
+      copies_max: new FormControl(0),
+      use_num: new FormControl(1),
+      inclusive: new FormControl(0),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -209,6 +215,11 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.addForm.get('children_age')?.setValue(this.dataModel.children_age);
     this.addForm.get('child_height_min')?.setValue(this.dataModel.child_height_min);
     this.addForm.get('child_height_max')?.setValue(this.dataModel.child_height_max);
+    this.addForm.get('buy_num_max')?.setValue(this.dataModel.buy_num_max);
+    this.addForm.get('copies_max')?.setValue(this.dataModel.copies_max);
+    this.addForm.get('use_num')?.setValue(this.dataModel.use_num);
+    this.addForm.get('inclusive')?.setValue(this.dataModel.inclusive);
+
 
     let b = this.dataModel.tag.data;
     let bNums: any[] = []
@@ -382,24 +393,27 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     }
     this.freeTravelModel.reserve_num = 0;
     this.freeTravelModel.reserve_children = this.addForm.value.reserve_children;
-    // if (parseInt(this.isReserveChildren) === 0) {
-    //   this.freeTravelModel.children_age = 0;
-    //   this.freeTravelModel.child_height_min = 0;
-    //   this.freeTravelModel.child_height_max = 0;
-    // }
-    // else if (parseInt(this.isReserveChildren) === 1) {
-    //   this.freeTravelModel.children_age = this.addForm.value.children_age;
-    //   this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
-    //   this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
-    // }
-    
     this.freeTravelModel.child_age_min = this.addForm.value.child_age_min;
     this.freeTravelModel.children_age = this.addForm.value.children_age;
     this.freeTravelModel.child_height_min = this.addForm.value.child_height_min;
     this.freeTravelModel.child_height_max = this.addForm.value.child_height_max;
     this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1]
     this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1]
+    this.freeTravelModel.quote_type = this.addForm.value.quote_type;
+    // 按套餐
+    if (this.isQuoteType === false) {
+      this.freeTravelModel.copies_max = this.addForm.value.copies_max;
+      this.freeTravelModel.use_num = this.addForm.value.use_num;
+      this.freeTravelModel.inclusive = this.addForm.value.inclusive;
+    }
+    else {
+      // 按人头
+      this.freeTravelModel.buy_num_max = this.addForm.value.buy_num_max;
+      this.freeTravelModel.copies_max = 0;
+      this.freeTravelModel.use_num = 0;
+      this.freeTravelModel.inclusive = '';
 
+    }
 
   }
 
@@ -512,11 +526,6 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     this.addForm.value.reserve_ahead = this.isReserveAhead
   }
 
-  // isReserveChildrenChange(status: any) {
-  //   console.log(status, 'status');
-  //   this.isReserveChildren = status
-  //   this.addForm.value.reserve_children = this.isReserveChildren
-  // }
 
 
 
@@ -525,4 +534,19 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
     $event.target.value = $event.target.value.replace(/[^\d]/g, '');
   }
 
+
+
+  // 报价类型
+  quoteType(event: any) {
+    if (event == 1) {
+      this.isQuoteType = false;
+      this.addForm?.controls['use_num'].setValidators(Validators.required);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+    else {
+      this.isQuoteType = true;
+      this.addForm?.controls['use_num'].setValidators(null);
+      this.addForm?.controls['use_num'].updateValueAndValidity();
+    }
+  }
 }

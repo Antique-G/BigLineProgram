@@ -8,12 +8,8 @@
                     </div>
 
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <ng-container *ngIf="type == 'management'; else elseTemplate">
-                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;" routerLink="/store/main/storeProduct">返回产品管理</button>
-                        </ng-container>
-                        <ng-template #elseTemplate>
-                            <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
-                        </ng-template>
+                        <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
+
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
 
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="quoteDelete()">批量删除报价</button>
@@ -27,7 +23,7 @@
                     <div>
                         <div fxLayout="row" fxLayoutGap="150px" fxLayoutAlign="start stretch" style="background-color: #e6f7ff;border: 1px solid #91d5ff;height: 41px;padding: 9px;">
                             <div style="font-size: 15px;font-weight: bold;">当前时间: {{ seletYearMonth}}</div>
-                            <div style="font-size: 15px;font-weight: bold;" *ngIf="type == 'freeTravel'">当前报价类型: 按人头报价</div>
+                            <div style="font-size: 15px;font-weight: bold;" *ngIf="type == 'freeTravel'">当前报价类型: 按套餐报价</div>
 
                         </div>
                     </div>
@@ -42,9 +38,8 @@
                         <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="allCheckedChoose($event)" *ngIf="listDataMap.data.length!=0" style="margin-left: 20px;">全选已报价日期</label>
                     </div>
                     <div class="mat-elevation-z8">
-                        <!--  (nzSelectChange)="onSelectChange($event)" (click)="onSelectChange(item)"-->
                         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                            <nz-calendar (nzPanelChange)="panelChange($event)" [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
+                            <nz-calendar [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
 
                                 <div *nzDateCell="let date" class="events">
                                     <ng-container *ngFor="let item of listDataMap.data">
@@ -54,19 +49,9 @@
                                             </div>
 
                                             <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
-                                                <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
-                                                <div>儿童:
-                                                    <span style="color: red;" *ngIf="childStatus==='1'">¥{{item.child_price}}</span>
-                                                    <span style="color: red;" *ngIf="childStatus==='0'">-</span>
-                                                </div>
-                                                <div *ngIf="type === 'management'">婴儿:
-                                                    <span style="color: red;" *ngIf="childStatus==='1'">¥{{item.baby_price}}</span>
-                                                    <span style="color: red;" *ngIf="childStatus==='0'">-</span>
-                                                </div>
-
-                                                <div>差价:
-                                                    <span style="color: red;" *ngIf="isShowPrice_diff===true">¥{{item.difference_price}}</span>
-                                                    <span style="color: red;" *ngIf="isShowPrice_diff===false">-</span>
+                                                <div>使用人数: <span style="color: red;">{{is_use_num}}人</span></div>
+                                                <div>价格:
+                                                    <span style="color: red;">¥{{item.inclusive_price}}</span>
                                                 </div>
                                                 <div>库存: <span style="color: red;">
                                                 <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>

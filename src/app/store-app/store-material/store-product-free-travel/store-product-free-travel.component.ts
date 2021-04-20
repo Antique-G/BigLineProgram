@@ -195,7 +195,14 @@ export class StoreProductFreeTravelComponent implements OnInit {
     else {
       this.isEar = Math.floor(minutes / 60 / 24);
     }
-    this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights } });
+    // 按套餐
+    if(data?.quote_type==1){
+      this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights,use_num:data?.use_num } });
+    }
+    // 按人头
+    else{
+      this.router.navigate(['/store/main/storeFreeTravel/storeQuote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights } });
+    }
   }
 
 

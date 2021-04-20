@@ -20,7 +20,12 @@ export interface StoreFreeTravelModel {
   // notice: string;
   status: number;
   tag_id: number[];
-  step: any
+  step: any;
+  quote_type?: any;
+  copies_max?: any;
+  use_num?: any;
+  inclusive?: any;
+  buy_num_max?: any;
 }
 
 export interface ProductTabListModel {
@@ -100,7 +105,11 @@ export interface Datum {
   store_reward?: any;
   dist_reward?: any;
   commerce_reward?: any;
-
+  quote_type?: any;
+  copies_max?: any;
+  use_num?: any;
+  inclusive?: any;
+  buy_num_max?: any;
 }
 
 export interface LogModel {
