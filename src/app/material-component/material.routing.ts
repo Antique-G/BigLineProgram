@@ -54,6 +54,7 @@ import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-
 import { AdminStoreManageComponent } from './admin-store-manage/admin-store-manage.component';
 import { AdminRoleComponent } from './admin-role/admin-role.component';
 import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-schedule.component';
+import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -290,6 +291,14 @@ export const MaterialRoutes: Routes = [
           breadcrumb: '添加订单'
         }
       },
+      {
+        path: 'addFreeOrder/add/byQuote',
+        component: AdminFreeAddOrderByQuoteComponent,
+        data: {
+          breadcrumb: '添加订单'
+        }
+      },
+      
 
       {
         path: 'refund',
