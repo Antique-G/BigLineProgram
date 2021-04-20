@@ -153,4 +153,18 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.page = page;
     this.getFeeTravelList();
   }
+
+
+  
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      title: '',
+      start_date: '',
+      departure_city: '',
+      destination_city: '',
+      few_days: '',
+      group_status: '',
+    });
+  }
 }

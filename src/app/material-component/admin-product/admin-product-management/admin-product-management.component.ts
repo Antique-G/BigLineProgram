@@ -223,4 +223,19 @@ export class AdminProductManagementComponent implements OnInit {
 
   }
 
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      checkStatus: '',
+      title: '',
+      store_id: '',
+      code: '',
+      tag: '',
+      few_days: '',
+    });
+    this.page = 1;
+
+  }
 }

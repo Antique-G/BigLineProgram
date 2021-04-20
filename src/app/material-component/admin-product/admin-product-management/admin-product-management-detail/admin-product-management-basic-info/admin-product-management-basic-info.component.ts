@@ -135,7 +135,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
   buildForm(): void {
     this.addForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(30)]],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
       sub_title: ['', [Validators.required]],
       few_days: [2, [Validators.required]],
       few_nights: [1, [Validators.required]],

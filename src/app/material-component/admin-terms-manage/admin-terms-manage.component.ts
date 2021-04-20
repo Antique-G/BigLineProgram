@@ -115,7 +115,14 @@ export class AdminTermsManageComponent implements OnInit {
     });
   }
 
-
+  // 重置
+  reset(){
+    this.searchForm.patchValue({
+      status: '',
+      storeId: '',
+      title: '',
+    })
+  }
 }
 
 

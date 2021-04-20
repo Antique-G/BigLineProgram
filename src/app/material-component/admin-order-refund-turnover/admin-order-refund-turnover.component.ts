@@ -127,4 +127,15 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
 
   }
 
+
+  reset(){
+    this.searchForm.patchValue({
+      order_id: '',
+      store_id: '',
+      refund_id: '',
+      time: '',
+      transaction_id: '',
+      status: '',
+    });
+  }
 }

@@ -69,7 +69,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   }
 
   getFreeTravel() {
-    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
+    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -79,7 +79,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
 
 
   getTotal() {
-    this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date,this.contact_name,this.contact_phone).subscribe(res => {
+    this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
       console.log('统计', res?.data);
       this.totalModel = res?.data;
     })
@@ -174,6 +174,24 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     addmodal.afterClose.subscribe(res => {
       this.getFreeTravel();
     })
+  }
+
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      product_id: '',
+      product_name: '',
+      order_number: '',
+      date_start: '',
+      product_code: '',
+      store_id: '',
+      order_start_date: '',
+      contact_name: '',
+      contact_phone: '',
+    });
   }
 }
 

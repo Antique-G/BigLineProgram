@@ -106,4 +106,14 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
     }
   }
 
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      order_id: '',
+      refund_id: '',
+      time: '',
+      transaction_id: '',
+    })
+  }
 }

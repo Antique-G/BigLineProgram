@@ -24,7 +24,7 @@ export class StoreOrderRefundComponent implements OnInit {
   date_end: any;
   id: any;
   status: any;
-  product_name:any;
+  product_name: any;
 
 
   constructor(public fb: FormBuilder, public router: Router, public storeRefundService: StoreRefundService) {
@@ -46,7 +46,7 @@ export class StoreOrderRefundComponent implements OnInit {
 
   getRefundlist() {
     this.loading = true;
-    this.storeRefundService.getRefundList(this.page, this.per_page, this.order_id, this.product_id, this.product_name,this.date_start, this.date_end, this.id).subscribe(res => {
+    this.storeRefundService.getRefundList(this.page, this.per_page, this.order_id, this.product_id, this.product_name, this.date_start, this.date_end, this.id).subscribe(res => {
       this.loading = false;
       this.dataSource1 = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -70,7 +70,7 @@ export class StoreOrderRefundComponent implements OnInit {
   search1() {
     this.order_id = this.searchForm1.value.order_id;
     this.product_id = this.searchForm1.value.product_id;
-    this.product_name= this.searchForm1.value.product_name
+    this.product_name = this.searchForm1.value.product_name
     this.date_start = this.dateArray1[0];
     this.date_end = this.dateArray1[1];
     this.id = this.searchForm1.value.id;
@@ -95,4 +95,17 @@ export class StoreOrderRefundComponent implements OnInit {
     this.router.navigate(['/store/main/storeRefund/detail'], { queryParams: { detailId: data.id, isFinished: data.status } });
   }
 
+
+  // 重置
+  reset() {
+    this.searchForm1.patchValue({
+      product_id: '',
+      store_id: '',
+      order_id: '',
+      time: '',
+      refund_id: '',
+      id: '',
+      product_name: '',
+    })
+  }
 }

@@ -38,11 +38,11 @@ export class AdminInsuranceComponent implements OnInit {
   getDataList(): void {
     this.loading = true;
     this.adminInsuranceService.insuranceList(this.page, this.per_page, this.name, this.status).subscribe((result: any) => {
-        console.log("保险列表接口返回什么", result);
-        this.loading = false;
-        this.total = result.total;
-        this.dataSource = result.data;
-      });
+      console.log("保险列表接口返回什么", result);
+      this.loading = false;
+      this.total = result.total;
+      this.dataSource = result.data;
+    });
   }
 
   changePageIndex(page: number) {
@@ -56,7 +56,7 @@ export class AdminInsuranceComponent implements OnInit {
     this.per_page = per_page;
     this.getDataList();
   }
-  
+
   search() {
     this.name = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
@@ -69,7 +69,7 @@ export class AdminInsuranceComponent implements OnInit {
     const editmodal = this.modal.create({
       nzTitle: "更新保险",
       nzContent: AdminInsuranceDetailComponent,
-      nzWidth:800,
+      nzWidth: 800,
       nzComponentParams: {
         data: element,
       },
@@ -90,28 +90,28 @@ export class AdminInsuranceComponent implements OnInit {
 
   statusEdit(element: any): void {
     console.log("id", element);
-    this.adminInsuranceService .getAdminInsuranceDetail(element.id).subscribe((res) => {
-        const statusmodal = this.modal.create({
-          nzTitle: "修改保险状态",
-          nzContent: AdminInsuranceStatusComponent,
-          nzComponentParams: {
-            data: res.data,
-          },
-          nzOnOk: (componentInstance) => {
-            componentInstance.setStatus();
-          },
-        });
-        statusmodal.afterClose.subscribe((res) => {
-          this.getDataList();
-        });
+    this.adminInsuranceService.getAdminInsuranceDetail(element.id).subscribe((res) => {
+      const statusmodal = this.modal.create({
+        nzTitle: "修改保险状态",
+        nzContent: AdminInsuranceStatusComponent,
+        nzComponentParams: {
+          data: res.data,
+        },
+        nzOnOk: (componentInstance) => {
+          componentInstance.setStatus();
+        },
       });
+      statusmodal.afterClose.subscribe((res) => {
+        this.getDataList();
+      });
+    });
   }
 
   add() {
     const addModal = this.modal.create({
       nzTitle: "添加保险",
       nzContent: AdminInsuranceCreateComponent,
-      nzWidth:800,
+      nzWidth: 800,
       nzFooter: [
         {
           label: "添加",
@@ -136,5 +136,13 @@ export class AdminInsuranceComponent implements OnInit {
           this.getDataList();
         }),
     });
+  }
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+    })
   }
 }

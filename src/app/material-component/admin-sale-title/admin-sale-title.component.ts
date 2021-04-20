@@ -103,4 +103,11 @@ export class AdminSaleTitleComponent implements OnInit {
       }
     });
   }
+
+  reset(){
+    this.searchForm.patchValue({
+      status: '',
+      name:''
+    })
+  }
 }

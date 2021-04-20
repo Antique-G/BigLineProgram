@@ -11,7 +11,7 @@ import { UserCommissionAuditComponent } from './user-commission-audit/user-commi
 })
 export class UserCommissionListComponent implements OnInit {
 
-  searchForm:FormGroup;
+  searchForm: FormGroup;
   dataSource = [];
   page = 1;
   per_page = 20;
@@ -25,16 +25,16 @@ export class UserCommissionListComponent implements OnInit {
   checked = false;
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
-  ids:any = [];
-  allChecked:any;
+  ids: any = [];
+  allChecked: any;
   dialogRef: any;
 
-  constructor(public fb:FormBuilder,public adminUserCommissionListService:AdminUserCommissionListService,public dialog: MatDialog,) { 
+  constructor(public fb: FormBuilder, public adminUserCommissionListService: AdminUserCommissionListService, public dialog: MatDialog,) {
     this.searchForm = fb.group({
-      order_id:[""],
-      product_name:[""],
-      product_code:[""],
-      status:[""]
+      order_id: [""],
+      product_name: [""],
+      product_code: [""],
+      status: [""]
     })
   }
 
@@ -42,7 +42,7 @@ export class UserCommissionListComponent implements OnInit {
     this.getDataList();
   }
 
-  getDataList():void {
+  getDataList(): void {
     this.loading = true
     this.adminUserCommissionListService.UserCommissionList(this.page, this.per_page, this.order_id, this.product_name, this.product_code, this.status).subscribe((result: any) => {
       console.log("result", result)
@@ -62,8 +62,8 @@ export class UserCommissionListComponent implements OnInit {
     this.per_page = per_page;
     this.getDataList();
   }
-  search(){
-    console.log("value",this.searchForm.value)
+  search() {
+    console.log("value", this.searchForm.value)
     this.order_id = this.searchForm.value.order_id;
     this.product_name = this.searchForm.value.product_name;
     this.product_code = this.searchForm.value.product_code;
@@ -73,14 +73,14 @@ export class UserCommissionListComponent implements OnInit {
 
   onAllChecked(checked: boolean): void {
     this.dataSource.filter(({ disabled }) => !disabled).forEach((data) => this.updateCheckedSet(data, checked));
-    
-  
+
+
   }
   updateCheckedSet(data: any, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(data.id);
       this.setArr.add(data);
-      console.log('checked',checked,data)
+      console.log('checked', checked, data)
 
     } else {
       this.setOfCheckedId.delete(data.id);
@@ -88,13 +88,13 @@ export class UserCommissionListComponent implements OnInit {
     }
   }
 
-  onItemChecked(data: any, checked: boolean):void {
+  onItemChecked(data: any, checked: boolean): void {
     this.updateCheckedSet(data, checked);
   }
 
-   // 审核
-   checkClick() {
-     const dialogRef = this.dialog.open(UserCommissionAuditComponent, {
+  // 审核
+  checkClick() {
+    const dialogRef = this.dialog.open(UserCommissionAuditComponent, {
       width: '800px',
       data: [...this.setArr]
     })
@@ -107,23 +107,30 @@ export class UserCommissionListComponent implements OnInit {
   }
 
   //批量审核
-  checkAllClick(){
+  checkAllClick() {
     this.ids = [...this.setOfCheckedId]
     this.loading = true;
     console.log(this.ids)
-    this.adminUserCommissionListService.AllUserCommissionAudit(this.ids).subscribe((res:any) =>{
-      console.log('res',res)
+    this.adminUserCommissionListService.AllUserCommissionAudit(this.ids).subscribe((res: any) => {
+      console.log('res', res)
       this.loading = false;
       if (res?.status_code) {
 
-      }else {
+      } else {
         this.dialogRef.close(1)
       }
     })
-  
+
   }
 
-  
+  reset() {
+    this.searchForm.patchValue({
+      order_id: '',
+      product_name: '',
+      product_code: '',
+      status: '',
+    })
+  }
 }
 
 

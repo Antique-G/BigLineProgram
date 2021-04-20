@@ -14,7 +14,7 @@ import { AdminWechatPageconfigDetailComponent } from './admin-wechat-pageconfig-
 })
 export class AdminWechatPageconfigComponent implements OnInit {
   searchForm!: FormGroup;
-  dataSource :any[]=[];
+  dataSource: any[] = [];
   page = 1;
   per_page = 10;
   total = 1;
@@ -28,7 +28,7 @@ export class AdminWechatPageconfigComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, public fb: FormBuilder, private modal: NzModalService,
-    public adminWechatPageconfigService: AdminWechatPageconfigService,public router:Router) {
+    public adminWechatPageconfigService: AdminWechatPageconfigService, public router: Router) {
     this.searchForm = this.fb.group({
       status: [''],
       name: [''],
@@ -86,15 +86,15 @@ export class AdminWechatPageconfigComponent implements OnInit {
       nzFooter: [
         {
           label: '添加',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
-              componentInstance?.add()
+            componentInstance?.add()
           }
         }
       ]
     })
     addmodal.afterClose.subscribe(res => {
-      this. pageConfigList();
+      this.pageConfigList();
     })
   }
 
@@ -108,21 +108,31 @@ export class AdminWechatPageconfigComponent implements OnInit {
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
-              componentInstance?.update()
+            componentInstance?.update()
           }
         }
       ]
     })
     addmodal.afterClose.subscribe(res => {
-      this. pageConfigList();
+      this.pageConfigList();
     })
-   }
+  }
 
 
-   redirectTo(data:any){
+  redirectTo(data: any) {
     this.router.navigate(['/admin/main/pageBlock'], { queryParams: { pageId: data.page_id } });
-   }
+  }
 
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      name: '',
+      keye: '',
+    })
+  }
 }

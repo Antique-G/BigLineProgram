@@ -179,4 +179,20 @@ export class AdminProducFreeTravelComponent implements OnInit {
       })
     }
   }
+
+
+
+  // 重置
+  reset() {
+    this.searchForm.patchValue({
+      status: '',
+      checkStatus: '',
+      title: '',
+      store_name: '',
+      code: '',
+      tag: '',
+      few_days: '',
+    });
+    this.page = 1;
+  }
 }
