@@ -65,6 +65,8 @@ export class AdminStoreComponent implements OnInit {
     this.status = this.searchForm.value.status;
     this.is_approve = this.searchForm.value.is_approve;
     this.keyword = this.searchForm.value.storeName;
+    this.page = 1;
+
     this.getData();
     console.log("this.keyword", this.keyword);
 

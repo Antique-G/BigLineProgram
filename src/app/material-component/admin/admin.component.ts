@@ -58,6 +58,7 @@ export class AdminComponent implements OnInit {
   search() {
     this.keyword = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
+    this.page = 1;
     this.getData();
     console.log("this.keyword", this.keyword);
 

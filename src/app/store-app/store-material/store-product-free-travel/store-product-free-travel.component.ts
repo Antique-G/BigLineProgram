@@ -125,6 +125,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;
+    this.page = 1;
     // 筛选条件存进cookie
     this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
     localStorage.setItem('storeFreeSearch', JSON.stringify(this.setQuery));

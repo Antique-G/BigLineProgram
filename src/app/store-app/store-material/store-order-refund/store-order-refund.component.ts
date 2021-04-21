@@ -74,6 +74,7 @@ export class StoreOrderRefundComponent implements OnInit {
     this.date_start = this.dateArray1[0];
     this.date_end = this.dateArray1[1];
     this.id = this.searchForm1.value.id;
+    this.page = 1;
     this.getRefundlist();
   }
 

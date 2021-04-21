@@ -128,7 +128,7 @@ export class StoreOrderGroupComponent implements OnInit {
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
     this.group_code = this.searchForm.value.group_code;
-
+    this.page = 1;
     console.log('object :>> ', this.searchForm.value.date_starts);
 
     // 筛选条件存进cookie

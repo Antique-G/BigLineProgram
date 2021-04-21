@@ -128,6 +128,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
 
   search() {
     this.loading = true;
+    this.page = 1;
     this.setValue();
     this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
       console.log('结果是 :>> ', res);

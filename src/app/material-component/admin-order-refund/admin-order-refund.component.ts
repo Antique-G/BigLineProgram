@@ -101,6 +101,7 @@ export class AdminOrderRefundComponent implements OnInit {
     this.date_start = this.dateArray1[0];
     this.date_end = this.dateArray1[1];
     this.id = this.searchForm1.value.id;
+    this.page = 1;
     this.getList();
   }
 
@@ -122,6 +123,7 @@ export class AdminOrderRefundComponent implements OnInit {
     this.date_end = this.dateArray2[1];
     this.id = this.searchForm2.value.id;
     this.status = this.searchForm2.value.status;
+    this.page = 1;
     this.getList1();
   }
 
