@@ -244,7 +244,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   reset() {
     this.searchForm.patchValue({
       title: '',
-      start_date: '',
+      start_date: null,
       departure_city: '',
       destination_city: '',
       few_days: '',
