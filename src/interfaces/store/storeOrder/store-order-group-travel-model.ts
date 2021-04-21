@@ -515,9 +515,9 @@ interface DatequoteList {
 export interface OrderGroupProduct {
   product_id: any;
   date_quotes_id: any;
-  num_adult: any;
-  num_kid: any;
-  num_room: any;
+  num_adult?: any;
+  num_kid?: any;
+  num_room?: any;
   members: any[],
   contact_name: string;
   contact_phone: string;
@@ -533,7 +533,8 @@ export interface OrderGroupProduct {
   emergency_contact_number?: any;
   discount?: any;
   other_price?: any;
-
+  num_total?:any
+  internal_remarks?:any
 }
 
 

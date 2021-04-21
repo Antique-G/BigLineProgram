@@ -115,6 +115,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       contact_wechat: ['',],
       contact_qq: ['',],
       contact_email: ['',],
+      internal_remarks: ['',],
     });
     this.orderGroupProduct = {
       product_id: '',
@@ -134,6 +135,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       emergency_contact_number: '',
       discount: '',
       other_price: '',
+      internal_remarks: '',
 
     }
   }
@@ -227,15 +229,24 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.isBabyNum();
   }
 
-  isBabyNum() {
-    let nums = Number(this.informationForm.value.baby_num);
-    if (nums > this.babyArray.controls.length) {
-      this.isBabyShow = true;
+  onEnterRoom() {
+    this.priceAll();
+  }
+
+
+  priceAll() {
+    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
+    // 儿童是否可预订
+    if (this.detailModel?.reserve_children === 1) {
+      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
     }
     else {
-      this.isBabyShow = false;
+      this.childAllPrice = 0;
     }
+    this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
   }
+
 
   isNum() {
     let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
@@ -248,6 +259,16 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     }
   }
 
+    
+  isBabyNum() {
+    let nums = Number(this.informationForm.value.baby_num);
+    if (nums > this.babyArray.controls.length) {
+      this.isBabyShow = true;
+    }
+    else {
+      this.isBabyShow = false;
+    }
+  }
 
 
   ngOnInit(): void {
@@ -305,6 +326,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
+    this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
+
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
     // 收费
@@ -424,19 +447,6 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   }
 
 
-  priceAll() {
-    this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
-    // 儿童是否可预订
-    if (this.detailModel?.reserve_children === 1) {
-      this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
-    }
-    else {
-      this.childAllPrice = 0;
-    }
-    this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice)+Number(this.other_price);
-  }
-
 
 
   feeDetail() {
@@ -466,7 +476,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     editmodal.afterClose.subscribe(res => {
       if (res != undefined) {
         this.discountPrice = res?.discount;
-        this.other_price= res?.other_price;
+        this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
       }
     })
