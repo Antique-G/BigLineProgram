@@ -41,7 +41,9 @@ export class AdminOrderRefundDetailComponent implements OnInit {
   isKidR: any;
   pro_num_baby: any;
   isBabyR: any;
-
+  // 套餐
+  packAge: any;
+  selectPack: any
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService) {
@@ -78,6 +80,8 @@ export class AdminOrderRefundDetailComponent implements OnInit {
       bank_number: [''],
       pay_at: [''],
       transaction_id: [''],
+      packAge: [''],
+      selectPack: [''],
     })
 
   }
@@ -153,10 +157,10 @@ export class AdminOrderRefundDetailComponent implements OnInit {
           this.percentage = 0;
           this.percent = 0;
         }
-      
+
         let humans = this.detailModel?.member_detail;
-        console.log('3444',humans)
-        if(humans!=null){
+        console.log('3444', humans)
+        if (humans != null) {
           if (humans[0] != 0) {
             this.selectHumans = '成人' + humans[0] + '个';
             if (humans[1] != 0) {
@@ -179,7 +183,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
             this.selectHumans = '婴儿' + humans[2] + '个';
           }
         }
-     
+
 
         this.RefundLogData = this.detailModel?.refund_log?.data;
         this.RefundLogData.forEach((ele: any) => {
@@ -190,6 +194,10 @@ export class AdminOrderRefundDetailComponent implements OnInit {
             this.isWayFor === true;
           }
         })
+
+
+        // 按套餐
+        this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
       })
     });
   }

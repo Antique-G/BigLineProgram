@@ -41,7 +41,7 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
   isKidR: any;
   pro_num_baby: any;
   isBabyR: any;
-
+  packAge: any;
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService, public dialog: MatDialog) {
     this.addForm = this.fb.group({
@@ -77,6 +77,8 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
       bank_number: [''],
       pay_at: [''],
       transaction_id: [''],
+      packAge: [''],
+      selectPack: [''],
     })
 
   }
@@ -94,8 +96,8 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
         this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
-        
-      
+
+
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
@@ -154,71 +156,6 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         }
 
         // 退款人
-        // let newArr = this.selectMemberData;
-        // let adultNum: any[] = [];
-        // let kidNum: any[] = [];
-        // let adultName: any[] = [];
-        // let kidName: any[] = [];
-        // let babyNum: any[] = [];
-        // let babyName: any[] = [];
-        // newArr.forEach((ele: any) => {
-        //   if (ele.is_kid === 0) {
-        //     adultNum.push(ele);
-        //     adultName.push(ele.name);
-        //   }
-        //   else if (ele.is_kid === 1) {
-        //     kidNum.push(ele);
-        //     kidName.push(ele.name);
-        //   }
-        //   else if (ele.is_kid === 2) {
-        //     babyNum.push(ele);
-        //     babyName.push(ele.name);
-        //   }
-        // })
-        // console.log('选择的 ', adultNum, adultName, kidNum, kidName);
-        // let ad_names: any;
-        // let ad_i: any;
-        // let kid_names: any;
-        // let kid_i: any;
-        // let baby_names: any;
-        // let baby_i: any;
-        // if (adultNum.length != 0) {
-        //   ad_names = adultName.toString();
-        //   ad_i = '成人' + adultNum.length + '个' + '(' + ad_names + ')';
-        // }
-        // if (kidNum.length != 0) {
-        //   kid_names = kidName.toString();
-        //   kid_i = '儿童' + kidNum.length + '个' + '(' + kid_names + ')';
-        // }
-        // if (babyNum.length != 0) {
-        //   baby_names = babyName.toString();
-        //   baby_i = '婴儿' + babyNum.length + '个' + '(' + babyName + ')';
-        // }
-
-        // if (adultNum.length != 0) {
-        //   this.selectHumans = ad_i;
-        //   if (kidNum.length != 0) {
-        //     this.selectHumans = ad_i + '|' + kid_i;
-        //     if (babyNum.length != 0) {
-        //       this.selectHumans = ad_i + '|' + kid_i + '|' + baby_i;
-        //     }
-        //   }
-        //   else if (babyNum.length != 0) {
-        //     this.selectHumans = ad_i + '|' + baby_i;
-        //   }
-        // }
-        // else if (kidNum.length != 0) {
-        //   this.selectHumans = kid_i;
-        //   if (babyNum.length != 0) {
-        //     this.selectHumans = kid_i + '|' + baby_i;
-        //   }
-        // }
-        // else if (babyNum.length != 0) {
-        //   this.selectHumans = baby_i;
-        // }
-        // else if (adultNum.length === 0 && kidNum.length === 0 && babyNum.length === 0) {
-        //   this.selectHumans = '';
-        // }
         let humans = this.detailModel?.member_detail;
         if (humans[0] != 0) {
           this.selectHumans = '成人' + humans[0] + '个';
@@ -250,6 +187,8 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
             this.isWayFor === true;
           }
         })
+        // 按套餐
+        this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
       })
     });
   }
