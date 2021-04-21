@@ -25,22 +25,35 @@ export class StoreOrderRefundComponent implements OnInit {
   id: any;
   status: any;
   product_name: any;
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public router: Router, public storeRefundService: StoreRefundService) {
     this.searchForm1 = fb.group({
-      product_id: [''],
-      store_id: [''],
       order_id: [''],
-      time: [''],
-      refund_id: [''],
-      id: [''],
+      product_id: [''],
       product_name: [''],
+      time: [''],
+      id: [''],
     });
   }
 
   ngOnInit(): void {
-
+    // 将上次查询的筛选条件赋值
+    let getSeatch1 = JSON.parse(localStorage.getItem("storeRefundSearch")!);
+    this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
+    this.product_id = getSeatch1?.product_id ? getSeatch1?.product_id : '';
+    this.product_name = getSeatch1?.product_name ? getSeatch1?.product_name : '';
+    this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
+    this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
+    this.id = getSeatch1?.id ? getSeatch1?.id : '';
+    this.page = 1;
+    this.searchForm1.patchValue({
+      order_id: this.order_id,
+      product_id: this.product_id,
+      product_name: this.product_name,
+      time: this.date_start == null ? [] : [this.date_start, this.date_end],
+      id: '',
+    })
     this.getRefundlist()
   }
 
@@ -56,6 +69,12 @@ export class StoreOrderRefundComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, product_id: this.product_id, product_name: this.product_name,
+      id: this.id, date_start: this.date_start, date_end: this.date_end, page: this.page
+    }
+    localStorage.setItem('storeRefundSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 
@@ -75,6 +94,12 @@ export class StoreOrderRefundComponent implements OnInit {
     this.date_end = this.dateArray1[1];
     this.id = this.searchForm1.value.id;
     this.page = 1;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, product_id: this.product_id, product_name: this.product_name,
+      id: this.id, date_start: this.date_start, date_end: this.date_end, page: this.page
+    }
+    localStorage.setItem('storeRefundSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 
@@ -100,13 +125,11 @@ export class StoreOrderRefundComponent implements OnInit {
   // 重置
   reset() {
     this.searchForm1.patchValue({
-      product_id: '',
-      store_id: '',
       order_id: '',
-      time: '',
-      refund_id: '',
-      id: '',
+      product_id: '',
       product_name: '',
+      time: '',
+      id: '',
     })
   }
 }
