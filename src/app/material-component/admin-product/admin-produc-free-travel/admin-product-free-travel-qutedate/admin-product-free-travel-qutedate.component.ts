@@ -37,7 +37,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
   setArr = new Set<any>();
   proName: any;
   isShowPrice_diff = true;
-
+  quote_type: any;
 
   constructor(public adminProductFreeTravelService: AdminProductFreeTravelService,
     public activatedRoute: ActivatedRoute,
@@ -49,6 +49,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
       this.detailId = params.detailId;
       this.proName = params.proName;
       this.childStatus = params.childStatus;
+      this.quote_type = params.quote_type;
       this.isShowPrice_diff = params.few_nights === '0' ? false : true;
     });
     this.getQuteDateList1();
@@ -66,7 +67,7 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
 
 
-  
+
   changePageSize1(per_page: number) {
     this.per_page1 = per_page;
     this.getQuteDateList1();
@@ -199,11 +200,11 @@ export class AdminProductFreeTravelQutedateComponent implements OnInit {
 
 
   onTabChange(event: any) {
-    console.log('event :>> ', event,event===1);
-    if(event===1){
+    console.log('event :>> ', event, event === 1);
+    if (event === 1) {
       this.getQuteDateList2();
     }
-    else if(event===2){
+    else if (event === 2) {
       this.getQuteDateList3();
     }
   }

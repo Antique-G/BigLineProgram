@@ -110,6 +110,8 @@ export class AdminProducFreeTravelComponent implements OnInit {
     this.code = this.searchForm.value.code;
     this.few_days = this.searchForm.value.few_days;
     this.tag = this.searchForm.value.tag;
+    this.page = 1;
+
     // 筛选条件存进cookie
     this.setQuery = { status: this.status, check_status: this.check_status, title: this.title, store_name: this.store_name, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page }
     localStorage.setItem('adminFreeSearch', JSON.stringify(this.setQuery));
@@ -156,7 +158,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
   quteDateClick(data: any) {
     console.log('data :>> ', data);
-    this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights } });
+    this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights, quote_type:data?.quote_type} });
   }
 
 

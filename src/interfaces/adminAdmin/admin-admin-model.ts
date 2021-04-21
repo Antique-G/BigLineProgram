@@ -37,6 +37,10 @@ export interface Datum {
   status: number;
   created_at: string;
   updated_at: string;
+  region_code?: any;
+  shop_id?: any;
+  staff_type?: any;
+  region_name?: any;
 }
 
 
@@ -50,7 +54,8 @@ export interface RegisterRequestModel {
   mobile: string;
   status: number;
   shop_id?: any;
-  staff_type:any;
+  staff_type: any;
+  region_code?: any;
 }
 
 export interface RegisterResponseModel {
@@ -68,7 +73,8 @@ export interface AdminDetailModel {
   created_at: string;
   updated_at: string;
   shop_id: number;
-  staff_type:any;
+  staff_type: any;
+  region_code: any;
 }
 
 export interface UpdateRequestModel {
@@ -77,7 +83,7 @@ export interface UpdateRequestModel {
   status?: string;
   admin_id?: number;
   shop_id?: any;
-  staff_type:any;
-
+  staff_type: any;
+  region_code?: any;
 }
 

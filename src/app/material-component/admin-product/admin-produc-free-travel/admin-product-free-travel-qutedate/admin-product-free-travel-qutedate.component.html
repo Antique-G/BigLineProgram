@@ -33,10 +33,15 @@
                                                                     <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
                                                                     <th style="text-align: center;">id</th>
                                                                     <th style="text-align: center;">日期</th>
-                                                                    <th style="text-align: center;">成人价格</th>
-                                                                    <th style="text-align: center;">儿童价格</th>
-                                                                    <!-- <th style="text-align: center;">婴儿价格</th> -->
-                                                                    <th style="text-align: center;">差价</th>
+                                                                    <ng-container *ngIf="quote_type==2">
+                                                                        <th style="text-align: center;">成人价格</th>
+                                                                        <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">婴儿价格</th>
+                                                                        <th style="text-align: center;">差价</th>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="quote_type==1">
+                                                                        <th style="text-align: center;">套餐价格</th>
+                                                                    </ng-container>
                                                                     <th style="text-align: center;">设置库存</th>
                                                                     <th style="text-align: center;">库存数量</th>
                                                                     <th style="text-align: center;">设置超卖</th>
@@ -48,19 +53,28 @@
                                                                     <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
                                                                     <td>{{data.id}}</td>
                                                                     <td>{{data.date}}</td>
-                                                                    <td>{{data.adult_price}}</td>
-                                                                    <td>
-                                                                        <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
-                                                                        <div *ngIf="childStatus==='0'">-</div>
-                                                                    </td>
-                                                                    <!-- <td>
-                                                                        <div *ngIf="childStatus==='1'"></div>
-                                                                        <div *ngIf="childStatus==='0'">-</div>
-                                                                    </td> -->
-                                                                    <td>
-                                                                        <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
-                                                                        <span *ngIf="isShowPrice_diff===false">-</span>
-                                                                    </td>
+                                                                    <ng-container *ngIf="quote_type==2">
+                                                                        <td>{{data.adult_price}}</td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                            <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                        </td>
+
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="quote_type==1">
+                                                                        <td>
+                                                                            <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                            <div *ngIf="data.inclusive_price=='0'">-</div>
+                                                                        </td>
+                                                                    </ng-container>
                                                                     <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                     <td>
                                                                         <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
@@ -92,10 +106,15 @@
                                                                     <tr>
                                                                         <th style="text-align: center;">id</th>
                                                                         <th style="text-align: center;">日期</th>
-                                                                        <th style="text-align: center;">成人价格</th>
-                                                                        <th style="text-align: center;">儿童价格</th>
-                                                                        <!-- <th style="text-align: center;">婴儿价格</th> -->
-                                                                        <th style="text-align: center;">差价</th>
+                                                                        <ng-container *ngIf="quote_type==2">
+                                                                            <th style="text-align: center;">成人价格</th>
+                                                                            <th style="text-align: center;">儿童价格</th>
+                                                                            <th style="text-align: center;">婴儿价格</th>
+                                                                            <th style="text-align: center;">差价</th>
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="quote_type==1">
+                                                                            <th style="text-align: center;">套餐价格</th>
+                                                                        </ng-container>
                                                                         <th style="text-align: center;">设置库存</th>
                                                                         <th style="text-align: center;">库存数量</th>
                                                                         <th style="text-align: center;">设置超卖</th>
@@ -106,19 +125,28 @@
                                                                     <tr *ngFor="let data of rowSelectionTable2.data">
                                                                         <td>{{data.id}}</td>
                                                                         <td>{{data.date}}</td>
-                                                                        <td>{{data.adult_price}}</td>
-                                                                        <td>
-                                                                            <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
-                                                                            <div *ngIf="childStatus==='0'">-</div>
-                                                                        </td>
-                                                                        <!-- <td>
-                                                                            <div *ngIf="childStatus==='1'"></div>
-                                                                            <div *ngIf="childStatus==='0'">-</div>
-                                                                        </td> -->
-                                                                        <td>
-                                                                            <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
-                                                                            <span *ngIf="isShowPrice_diff===false">-</span>
-                                                                        </td>
+                                                                        <ng-container *ngIf="quote_type==2">
+                                                                            <td>{{data.adult_price}}</td>
+                                                                            <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                                <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                            </td>
+
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="quote_type==1">
+                                                                            <td>
+                                                                                <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                                <div *ngIf="data.inclusive_price=='0'">-</div>
+                                                                            </td>
+                                                                        </ng-container>
                                                                         <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                         <td>
                                                                             <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>
@@ -152,10 +180,15 @@
                                                                     <tr>
                                                                         <th style="text-align: center;">id</th>
                                                                         <th style="text-align: center;">日期</th>
-                                                                        <th style="text-align: center;">成人价格</th>
-                                                                        <th style="text-align: center;">儿童价格</th>
-                                                                        <!-- <th style="text-align: center;">婴儿价格</th> -->
-                                                                        <th style="text-align: center;">差价</th>
+                                                                        <ng-container *ngIf="quote_type==2">
+                                                                            <th style="text-align: center;">成人价格</th>
+                                                                            <th style="text-align: center;">儿童价格</th>
+                                                                            <th style="text-align: center;">婴儿价格</th>
+                                                                            <th style="text-align: center;">差价</th>
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="quote_type==1">
+                                                                            <th style="text-align: center;">套餐价格</th>
+                                                                        </ng-container>
                                                                         <th style="text-align: center;">设置库存</th>
                                                                         <th style="text-align: center;">库存数量</th>
                                                                         <th style="text-align: center;">设置超卖</th>
@@ -166,19 +199,28 @@
                                                                     <tr *ngFor="let data of rowSelectionTable3.data">
                                                                         <td>{{data.id}}</td>
                                                                         <td>{{data.date}}</td>
-                                                                        <td>{{data.adult_price}}</td>
-                                                                        <td>
-                                                                            <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
-                                                                            <div *ngIf="childStatus==='0'">-</div>
-                                                                        </td>
-                                                                        <!-- <td>
-                                                                            <div *ngIf="childStatus==='1'"></div>
-                                                                            <div *ngIf="childStatus==='0'">-</div>
-                                                                        </td> -->
-                                                                        <td>
-                                                                            <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
-                                                                            <span *ngIf="isShowPrice_diff===false">-</span>
-                                                                        </td>
+                                                                        <ng-container *ngIf="quote_type==2">
+                                                                            <td>{{data.adult_price}}</td>
+                                                                            <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.child_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
+                                                                                <span *ngIf="isShowPrice_diff===false">-</span>
+                                                                            </td>
+
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="quote_type==1">
+                                                                            <td>
+                                                                                <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                                <div *ngIf="data.inclusive_price=='0'">-</div>
+                                                                            </td>
+                                                                        </ng-container>
                                                                         <td>{{data.set_inventory=='1'?'是':'否'}}</td>
                                                                         <td>
                                                                             <span *ngIf="data.inventory_num===0||data.inventory_num===1">-</span>

@@ -175,6 +175,12 @@ export interface DetailsModel {
   independent_product: Independentproducts;
   pay_log: Paylog;
   refund: any;
+  refund_amount: any;
+  service_charge: any;
+  inclusive_price?:any
+  use_num?:any
+  price_inclusive?:any
+  price_baby?:any
 }
 
 
@@ -229,6 +235,8 @@ export interface IndependentproductsModel {
   poster_url: string;
   departure: string;
   destination: string;
+  quote_type?:string;
+  use_num?:string;
 }
 
 interface Members {

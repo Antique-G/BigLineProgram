@@ -79,17 +79,13 @@
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">创建人</th>
                                     <th style="text-align: center;">行程天数</th>
-                                    <th style="text-align: center;">最低价格</th>
+                                    <th style="text-align: center;">最低价格/套餐价格</th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">报价类型</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">操作</th>
-                                    <!-- <th style="text-align: center;">查看详情</th>
-                                    <th style="text-align: center;">审核</th>
-                                    <th style="text-align: center;">上下架</th>
-                                    <th style="text-align: center;">日期报价审核</th>
-                                    <th style="text-align: center;">生成小程序码</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,11 +97,25 @@
                                     <td>{{data.operation_name}}</td>
                                     <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                     <td>
-                                        <div *ngIf="data.min_price===0"> - </div>
-                                        <div *ngIf="data.min_price!=0"> {{data.min_price}}&nbsp;元 </div>
+                                        <div *ngIf="data.quote_type==2">
+                                            <div *ngIf="data.min_price===0"> - </div>
+                                            <div *ngIf="data.min_price!=0"> {{data.min_price}}&nbsp;元 </div>
+                                        </div>
+                                        <div *ngIf="data.quote_type==1">
+                                            <div *ngIf="data.min_price===0"> - </div>
+                                            <div *ngIf="data.min_price!=0"> {{data.min_price}}&nbsp;元 </div>
+                                        </div>
                                     </td>
                                     <td>{{data.departure}}</td>
                                     <td>{{data.destination}}</td>
+                                    <td>
+                                        <div *ngIf="data.quote_type==1">
+                                            按套餐
+                                        </div>
+                                        <div *ngIf="data.quote_type==2">
+                                            按人头
+                                        </div>
+                                    </td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             下架

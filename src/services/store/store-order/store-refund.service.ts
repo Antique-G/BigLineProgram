@@ -19,7 +19,7 @@ export class StoreRefundService {
   constructor(public httpClient: HttpClient) { }
 
   // 退款列表
-  getRefundList(page: number, per_page: number, order_id: any, product_id: any, product_name: any, date_start: any, date_end: any, id: any): Observable<RefundModel> {
+  getRefundList(page: number, per_page: number, order_id: any, product_id?: any, product_name?: any, date_start?: any, date_end?: any, id?: any): Observable<RefundModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('order_id', order_id ? order_id : '')

@@ -243,5 +243,5 @@ export interface EditInfoModel {
   emergency_contact_person?: string;
   emergency_contact_number?: string;
   customer_remarks?: string;
-
+  internal_remarks: '',
 }

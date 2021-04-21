@@ -78,6 +78,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       emergency_contact_person: '',
       emergency_contact_number: '',
       customer_remarks: '',
+      internal_remarks: '',
     }
   }
 
@@ -261,6 +262,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     this.editInfoModel.emergency_contact_person = this.addForm.value.emergency_contact_person;
     this.editInfoModel.emergency_contact_number = this.addForm.value.emergency_contact_number;
     this.editInfoModel.customer_remarks = this.addForm.value.customer_remarks;
+    this.editInfoModel.internal_remarks = this.addForm.value.internal_remarks;
+
   }
 
   changeDetail() {

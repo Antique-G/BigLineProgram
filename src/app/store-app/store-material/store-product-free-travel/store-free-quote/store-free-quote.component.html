@@ -1,0 +1,84 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+                    <div>
+                        <h4 style="padding-left: 10px;padding-top: 10px;">{{proName}}</h4>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="width: 140px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
+
+                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
+
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="quoteDelete()">批量删除报价</button>
+
+                        <div style="display: flex;align-items: center;">
+                            <div><span class="dot item-bg-success"></span>审核通过</div>
+                            <div style="margin-left: 5px;"><span class="dot item-bg-error"></span>审核未通过</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div fxLayout="row" fxLayoutGap="150px" fxLayoutAlign="start stretch" style="background-color: #e6f7ff;border: 1px solid #91d5ff;height: 41px;padding: 9px;">
+                            <div style="font-size: 15px;font-weight: bold;">当前时间: {{ seletYearMonth}}</div>
+                            <div style="font-size: 15px;font-weight: bold;" *ngIf="type == 'freeTravel'">当前报价类型: 按套餐报价</div>
+
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center;">
+                        年
+                        <nz-select [(ngModel)]="selectedYear" nzPlaceHolder="Choose" (ngModelChange)="ngYearChange($event)" style="margin: 0 5px;width: 100px;">
+                            <nz-option *ngFor="let option of yearList" [nzValue]="option" [nzLabel]="option"></nz-option>
+                        </nz-select>
+                        <span style="margin-right: 5px;">月</span>
+                        <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
+                        <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="allCheckedChoose($event)" *ngIf="listDataMap.data.length!=0" style="margin-left: 20px;">全选已报价日期</label>
+                    </div>
+                    <div class="mat-elevation-z8">
+                        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                            <nz-calendar [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
+
+                                <div *nzDateCell="let date" class="events">
+                                    <ng-container *ngFor="let item of listDataMap.data">
+                                        <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                            <div style="position: absolute;top: 5px;">
+                                                <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="changeId(item)"></label>
+                                            </div>
+
+                                            <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
+                                                <div>使用人数: <span style="color: red;">{{is_use_num}}人</span></div>
+                                                <div>价格:
+                                                    <span style="color: red;">¥{{item.inclusive_price}}</span>
+                                                </div>
+                                                <div>库存: <span style="color: red;">
+                                                <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
+                                                    <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
+                                                    </span>
+                                                </div>
+                                                <div>剩余库存: <span style="color: red;">
+                                                    <span *ngIf="item.set_inventory==0">-</span>
+                                                    <span *ngIf="item.set_inventory==1">
+                                                        <span *ngIf="item.allow_over==0">{{item.inventory_num-item.sold_num<0?'0':item.inventory_num-item.sold_num}}</span>
+                                                    <span *ngIf="item.allow_over==1">{{item.inventory_num-item.sold_num}}</span>
+                                                    </span>
+                                                    </span>
+                                                </div>
+                                                <div *ngIf="item.set_inventory==1" style="color: red;">！{{item.allow_over==1?'可超卖':'不能超卖'}}</div>
+
+                                            </div>
+                                        </ng-container>
+
+                                    </ng-container>
+                                </div>
+                            </nz-calendar>
+                        </nz-spin>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>0

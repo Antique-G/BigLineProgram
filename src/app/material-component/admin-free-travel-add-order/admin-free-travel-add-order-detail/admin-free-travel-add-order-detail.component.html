@@ -73,6 +73,8 @@
                 <div></div>
 
 
+
+
                 <mat-card>
                     <div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
@@ -99,7 +101,7 @@
                                                 <ng-container *ngFor="let item of listDataMap">
                                                     <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
                                                         <div style="position: absolute;top: 5px;">
-                                                            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="changeId(item)"></label>
+                                                            <label nz-checkbox [(ngModel)]="item.checked" *ngIf="!(item.set_inventory==1&&item.allow_over==0&&item.inventory_num-item.sold_num<0)" (ngModelChange)="changeId(item)"></label>
                                                         </div>
 
                                                         <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
@@ -108,16 +110,26 @@
                                                                 <span style="color: red;" *ngIf="detailModel?.reserve_children===1">¥{{item.child_price}}</span>
                                                                 <span style="color: red;" *ngIf="detailModel?.reserve_children===0">-</span>
                                                             </div>
-                                                            <!-- <div>婴儿:
-                                                                <span style="color: red;" *ngIf="detailModel?.child_status===1">¥</span>
-                                                                <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
-                                                            </div> -->
+                                                            <div>婴儿:
+                                                                <span style="color: red;" *ngIf="detailModel?.reserve_children===1">¥{{item.baby_price}}</span>
+                                                                <span style="color: red;" *ngIf="detailModel?.reserve_children===0">-</span>
+                                                            </div>
                                                             <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
                                                             <div>库存: <span style="color: red;">
-                                                            <span *ngIf="item.inventory_num===0||item.inventory_num===1">-</span>
-                                                                <span *ngIf="item.inventory_num!=0&&item.inventory_num!=1">{{item.inventory_num}}</span>
+                                                            <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">{{item.inventory_num}}</span>
                                                                 </span>
                                                             </div>
+                                                            <div>剩余库存: <span style="color: red;">
+                                                                <span *ngIf="item.set_inventory==0">-</span>
+                                                                <span *ngIf="item.set_inventory==1">
+                                                                    <span *ngIf="item.allow_over==0">{{item.inventory_num-item.sold_num<0?'0':item.inventory_num-item.sold_num}}</span>
+                                                                <span *ngIf="item.allow_over==1">{{item.inventory_num-item.sold_num}}</span>
+                                                                </span>
+                                                                </span>
+                                                            </div>
+                                                            <div *ngIf="item.set_inventory==1" style="color: red;">！{{item.allow_over==1?'可超卖':'不能超卖'}}</div>
+
                                                         </div>
                                                     </ng-container>
 
@@ -142,7 +154,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_adult" nzRequired>成人数</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入成人数">
-                                                        <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter($event)" formControlName="num_adult" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_adult" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -151,7 +163,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_kid" nzRequired>儿童数</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入儿童数">
-                                                        <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter1($event)" formControlName="num_kid" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -160,7 +172,20 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
                                                     <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入房间数">
-                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" [nzMin]="1" [nzMax]="45" [nzStep]="1"></nz-input-number>
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [(ngModel)]="isForRoom" [nzMin]="minNumber" [nzMax]="maxNumber" [nzStep]="1"></nz-input-number>
+                                                    </nz-form-control>
+                                                </div>
+                                                <p title="成人数/2<=房间数<=(成人数+儿童数)/2,最大房间数不能大于成人数和儿童数总和的一半" style="color: red;margin-left: 30%;cursor: pointer;"><img style="width: 5%;" src="http://cdn.bigline.com.cn/static/images/help.png">房间数规则</p>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
+                                                <div nz-row *ngIf="showRoom===true">
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="shared_status" nzRequired>拼房</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
+                                                        <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status" (ngModelChange)="isChangeRoom($event)">
+                                                            <label nz-radio nzValue='0'>不拼房 </label>
+                                                            <label nz-radio nzValue='1'>拼房</label>
+                                                        </nz-radio-group>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -172,12 +197,11 @@
                                                         <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter2($event)" formControlName="baby_num" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
-                                                <p style="color: red;margin-left: 29%;margin-top: 2px;">年龄：0-2岁</p>
+                                                <p style="color: red;margin-left: 29%;margin-top: 2px;">0-2岁</p>
                                             </nz-form-item>
 
-
-                                            <div style="margin-left: 14px;" *ngIf="numIsShow">
-                                                <button nz-button nzType="dashed" class="add-button" (click)="addHuman()">
+                                            <div style="margin-left: 14px;">
+                                                <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
                                                     <i nz-icon nzType="plus"></i>
                                                     添加出行人详细信息
                                                 </button>
@@ -189,7 +213,6 @@
                                                     添加婴儿详细信息
                                                 </button>
                                             </div>
-
                                         </div>
 
                                         <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
@@ -225,6 +248,7 @@
                                                         </div>
                                                     </nz-form-item>
 
+
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
@@ -241,6 +265,8 @@
                                                         </div>
                                                     </nz-form-item>
 
+
+
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
@@ -251,10 +277,10 @@
                                                     </nz-form-item>
 
 
-
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" nzRequired>证件类型</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" nzRequired *ngIf="isRequestIdNum">证件类型</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" *ngIf="!isRequestIdNum">证件类型</nz-form-label>
                                                             <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="id_type" (ngModelChange)="changeType($event,i)">
                                                                     <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
@@ -267,7 +293,8 @@
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" nzRequired>证件号码</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" nzRequired *ngIf="isRequestIdNum">证件号码</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" *ngIf="!isRequestIdNum">证件号码</nz-form-label>
                                                             <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入证件号码">
                                                                 <input nz-input formControlName="id_num" />
                                                             </nz-form-control>
@@ -282,20 +309,15 @@
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
-
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                        <div nz-row>
-                                                            <button nz-button nzType="primary" (click)="setContract(human)">设为联系人</button>
-                                                        </div>
-                                                    </nz-form-item>
+                                                    <button nz-button nzType="primary" (click)="setContract(human)">设为联系人</button>
 
                                                     <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
-                                                            <div *ngIf="newImgArr[i]?.length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                            <div *ngIf="newImgArr[i].length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                                 <div *ngFor="let img of newImgArr[i],let index=index" style="position: relative;">
                                                                     <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
-                                                                    <span (click)="deleteImg(i,index)" style="position: absolute;left: 39px;top: -2px;color: red;color: red;font-weight: bolder; cursor: pointer;">X</span>
+                                                                    <span (click)="deleteImg(i,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
                                                                 </div>
                                                             </div>
                                                             <button nz-button [disabled]="newImgArr[i]?.length > 1" nzType="primary" (click)="choiceImg(i)">选择图片(只能上传两张)</button>
@@ -303,9 +325,9 @@
                                                     </nz-form-item>
 
 
-
                                                 </div>
                                             </div>
+
 
 
                                             <!-- 婴儿 -->
@@ -329,6 +351,7 @@
                                                         </div>
                                                     </nz-form-item>
 
+
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_kid">类型</nz-form-label>
@@ -339,6 +362,7 @@
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
+
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
@@ -365,8 +389,6 @@
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
-
-
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
@@ -410,7 +432,7 @@
                                                                     <span (click)="deleteBabyImg(t,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
                                                                 </div>
                                                             </div>
-                                                            <button nz-button [disabled]="babyArray[t]?.length > 1" nzType="primary" (click)="choiceBabyImg(t)">选择图片(只能上传两张)</button>
+                                                            <button [disabled]="babyArray[t]?.length > 1" nz-button nzType="primary" (click)="choiceBabyImg(t)">选择图片(只能上传两张)</button>
                                                         </div>
                                                     </nz-form-item>
 
@@ -447,7 +469,6 @@
                                                 </div>
                                             </nz-form-item>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -520,11 +541,36 @@
                                 </div>
 
                             </div>
+                        </div>
 
-                            <!-- <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
-                                <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>
-                            </div> -->
+                    </div>
+                </mat-card>
 
+
+                <mat-card>
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">计调信息</h4>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <div>
+                                    <form nz-form nz-row [formGroup]="contactForm">
+                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="7" [nzXs]="24">内部备注</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <input nz-input formControlName="internal_remarks" />
+                                                </nz-form-control>
+                                            </div>
+                                        </nz-form-item>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
@@ -538,6 +584,7 @@
                                 共<span style="color: red;">￥{{totalPrice}}元</span>：
                                 <span>成人{{audltAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.reserve_children===1">儿童{{childAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.reserve_children===1">婴儿{{babyAllPrice}}元| </span>
                                 <span>房差{{difAllPrice}}元 </span>
                                 <span>优惠{{discountPrice}}元 </span>
                                 <span>附加收费{{other_price}}元 </span>

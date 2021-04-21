@@ -1,0 +1,70 @@
+.events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.notes-month {
+    text-align: center;
+    font-size: 28px;
+}
+
+.notes-month section {
+    font-size: 28px;
+}
+
+.mat-elevation-z8 {
+    padding: 10px;
+}
+
+.ant-picker-calendar-date-content {
+    display: flex !important;
+}
+
+.events {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 !important;
+}
+
+.item {
+    flex: 1 !important;
+}
+
+.itemFree {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.itemFree div {
+    width: 50%;
+}
+
+
+/* .ant-picker-calendar-header{
+    opacity: 0 !important;
+} */
+
+.item-bg-success {
+    background: rgba(20, 247, 20, 0.2) !important;
+}
+
+.item-bg-error {
+    background: rgba(243, 33, 33, 0.2) !important;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+}

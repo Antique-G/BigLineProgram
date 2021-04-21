@@ -58,6 +58,7 @@ export class AdminComponent implements OnInit {
   search() {
     this.keyword = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
+    this.page = 1;
     this.getData();
     console.log("this.keyword", this.keyword);
 
@@ -71,7 +72,7 @@ export class AdminComponent implements OnInit {
       nzContent: AdminDetailComponent,
       nzWidth: 800,
       nzComponentParams: {
-        data:element
+        data: element
       },
       nzFooter: [
         {
@@ -110,10 +111,10 @@ export class AdminComponent implements OnInit {
 
 
   // 重置
-  reset(){
+  reset() {
     this.searchForm.patchValue({
       status: '',
-      name:''
+      name: ''
     });
   }
 }

@@ -82,6 +82,8 @@
                                     </th>
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">报价类型</th>
+
                                     <th style="text-align: center;">海报</th>
                                     <th style="text-align: center;">下单</th>
                                 </tr>
@@ -98,6 +100,14 @@
                                     </td>
                                     <td>{{data.departure}}</td>
                                     <td>{{data.destination}}</td>
+                                    <td>
+                                        <div *ngIf="data.quote_type==1">
+                                            按套餐
+                                        </div>
+                                        <div *ngIf="data.quote_type==2">
+                                            按人头
+                                        </div>
+                                    </td>
                                     <td>
                                         <div title="点击查看海报" *ngIf="data.poster_url!=''">
                                             <a href={{data.poster_url}} target="_blank">

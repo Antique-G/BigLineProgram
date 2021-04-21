@@ -1,0 +1,71 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 0px; margin-top: 20px;">
+        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+            <form nz-form [formGroup]="addForm" nz-row>
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24">套餐使用人数</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="is_use_num" ngModel={{is_use_num}} nzBorderless/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="week">周几</nz-form-label>
+                    <nz-form-control [nzSm]="20" [nzXs]="24">
+                        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="ngCheckBoxChange($event)">
+                            <div nz-row>
+                                <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
+                                    <label nz-checkbox formControlName="week" [nzValue]="item.value" [ngModel]="item.checked">{{item.label}}</label>
+                                </div>
+                            </div>
+                        </nz-checkbox-wrapper>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
+                        <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inclusive_price" nzRequired>套餐价格</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入套餐价格">
+                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" nzPrecisionMode="cut" formControlName="inclusive_price" [nzMin]="0"></nz-input-number>
+
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="set_inventory" nzRequired>设置库存</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请设置库存">
+                        <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory" (ngModelChange)="ngRadioChange($event)" formControlName="set_inventory">
+                            <label nz-radio nzValue='0'>否 </label>
+                            <label nz-radio nzValue='1'>是</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inventory_num" nzRequired>库存数量</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请设置库存数量">
+                        <nz-input-number style="width: 200px;" [nzDisabled]="isSetInventory == '0'" formControlName="inventory_num" [nzMin]="1" [nzStep]="1"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="allow_over" nzRequired>设置超卖 </nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请设置">
+                        <nz-radio-group class="nz-form-item" [nzDisabled]="isSetInventory == '0'" [(ngModel)]="isAllowOver" formControlName="allow_over">
+                            <label nz-radio nzValue='0'>否 </label>
+                            <label nz-radio nzValue='1'>是</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </form>
+        </nz-spin>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupMoneyComponent } from '../admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -37,8 +38,9 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   storeList: any[] = [];
   totalModel: any;
 
-
-
+  setQuery: any;
+  api = environment.baseUrl;
+  isExport: any;
 
 
   constructor(public fb: FormBuilder, public router: Router, public modal: NzModalService,
@@ -49,10 +51,10 @@ export class AdminOrderFreeTravelComponent implements OnInit {
       product_id: [''],
       product_name: [''],
       order_number: [''],
-      date_start: [''],
+      date_starts: [''],
       product_code: [''],
       store_id: [''],
-      order_start_date: [''],
+      order_start_dates: [''],
       contact_name: [''],
       contact_phone: [''],
     });
@@ -62,6 +64,35 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.adminProductManagementService.storeList('').subscribe(res => {
       console.log("24234", res);
       this.storeList = res;
+      // 将上次查询的筛选条件赋值
+      let getSeatch = JSON.parse(localStorage.getItem("adminOrderFreeSearch")!);
+      this.status = getSeatch?.status ? getSeatch.status : '';
+      this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
+      this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
+      this.order_number = getSeatch?.order_number ? getSeatch?.order_number : '';
+      this.product_code = getSeatch?.product_code ? getSeatch?.product_code : '';
+      this.contact_name = getSeatch?.contact_name ? getSeatch?.contact_name : '';
+      this.contact_phone = getSeatch?.contact_phone ? getSeatch?.contact_phone : '';
+      this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
+      this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
+      this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
+      this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
+      this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+
+
+      this.searchForm.patchValue({
+        status: this.status,
+        product_id: this.product_id,
+        product_name: this.product_name,
+        order_number: this.order_number,
+        date_starts: this.date_start == null ? [] : [this.date_start, this.date_end],
+        product_code: this.product_code,
+        order_start_dates: this.order_start_date == null ? [] : [this.order_start_date, this.order_end_date],
+        contact_name: this.contact_name,
+        contact_phone: this.contact_phone,
+        store_id: this.store_id,
+      })
+
       this.getFreeTravel();
       this.getTotal();
     })
@@ -89,6 +120,15 @@ export class AdminOrderFreeTravelComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      status: this.status, product_id: this.product_id, product_name: this.product_name,
+      order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
+      contact_phone: this.contact_phone, store_id: this.store_id,
+      date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
+      order_end_date: this.order_end_date, page: this.page
+    }
+    localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
     this.getFreeTravel();
   }
 
@@ -99,8 +139,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.getFreeTravel();
   }
 
-
-  search() {
+  setValue() {
     this.status = this.searchForm.value.status;
     this.product_id = this.searchForm.value.product_id;
     this.product_name = this.searchForm.value.product_name;
@@ -115,9 +154,22 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     this.order_end_date = this.dateArray1[1];
     this.loading = true;
     this.page = 1;
+
+    // 筛选条件存进cookie
+    this.setQuery = {
+      status: this.status, product_id: this.product_id, product_name: this.product_name,
+      order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
+      contact_phone: this.contact_phone, store_id: this.store_id,
+      date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
+      order_end_date: this.order_end_date, page: this.page
+    }
+    localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
+  }
+
+  search() {
+    this.setValue();
     this.getFreeTravel();
     this.getTotal();
-
   }
 
 
@@ -185,13 +237,30 @@ export class AdminOrderFreeTravelComponent implements OnInit {
       product_id: '',
       product_name: '',
       order_number: '',
-      date_start: '',
+      date_starts: '',
       product_code: '',
       store_id: '',
-      order_start_date: '',
+      order_start_dates: '',
       contact_name: '',
       contact_phone: '',
     });
+  }
+
+
+
+  // 导出
+  export() {
+    this.setValue();
+    this.date_start = this.date_start == null ? '' : this.date_start;
+    this.date_end = this.date_end == null ? '' : this.date_end;
+    this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
+    this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
+    this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+      '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
+      '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
+      '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
+      '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone;
+    console.log('object :>> ', this.isExport);
   }
 }
 

@@ -27,7 +27,7 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
   status: any;
   dateArray: any[] = [];
   storeList: any[] = [];
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
     public storeRefundService: StoreRefundService,) {
@@ -42,7 +42,20 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    // 将上次查询的筛选条件赋值
+    let getSeatch1 = JSON.parse(localStorage.getItem("storeRefundTurnSearch")!);
+    this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
+    this.refund_id = getSeatch1?.refund_id ? getSeatch1?.refund_id : '';
+    this.transaction_id = getSeatch1?.transaction_id ? getSeatch1?.transaction_id : '';
+    this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
+    this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
+    this.page = 1;
+    this.searchForm.patchValue({
+      order_id: this.order_id,
+      refund_id: this.refund_id,
+      time: this.date_start == null ? [] : [this.date_start, this.date_end],
+      transaction_id: this.transaction_id,
+    })
     this.getRefundlist();
   }
 
@@ -58,6 +71,12 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, refund_id: this.refund_id, transaction_id: this.transaction_id,
+      date_start: this.date_start, date_end: this.date_end, page: this.page
+    }
+    localStorage.setItem('storeRefundTurnSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 
@@ -75,6 +94,12 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
     this.transaction_id = this.searchForm.value.transaction_id;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, refund_id: this.refund_id, transaction_id: this.transaction_id,
+      date_start: this.date_start, date_end: this.date_end, page: this.page
+    }
+    localStorage.setItem('storeRefundTurnSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 

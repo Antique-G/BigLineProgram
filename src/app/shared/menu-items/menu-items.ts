@@ -124,15 +124,6 @@ const StoreMENUITEMS = [
     ]
   },
   {
-    title: '集合地点', icon: 'environment',
-    children: [{ state: 'storeMeetingPlace', name: '集合地点' }]
-  },
-  {
-    title: '条款管理模块', icon: 'file',
-    children: [{ state: 'storeTermsManage', name: '条款管理' }]
-  },
-
-  {
     title: '订单管理模块', icon: 'ordered-list',
     children: [
       { state: 'storeOrderGroup', name: '团订单列表' },
@@ -142,6 +133,16 @@ const StoreMENUITEMS = [
       { state: 'storeRefundTurnOver', name: '订单退款流水' },
     ]
   },
+  {
+    title: '集合地点', icon: 'environment',
+    children: [{ state: 'storeMeetingPlace', name: '集合地点' }]
+  },
+  {
+    title: '条款管理模块', icon: 'file',
+    children: [{ state: 'storeTermsManage', name: '条款管理' }]
+  },
+
+ 
   {
     title: '合同管理', icon: 'file',
     children: [
