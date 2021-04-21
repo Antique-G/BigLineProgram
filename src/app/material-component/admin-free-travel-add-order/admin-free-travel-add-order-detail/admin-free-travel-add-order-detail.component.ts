@@ -181,7 +181,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       name: new FormControl('',),
       phone: new FormControl('', [mobile]),
       is_kid: new FormControl(2, [Validators.required]),
-      id_type: new FormControl(''),
+      id_type: new FormControl(0),
       id_num: new FormControl(''),
       birthday: new FormControl(null),
       id_photo: new FormControl(''),
