@@ -15,6 +15,8 @@ export class FreePriceDetailComponent implements OnInit {
   audltAllPrice: any;
   childs: any;
   childAllPrice: any;
+  babys: any;
+  babyAllPrice: any;
   rooms: any;
   difAllPrice: any;
   totalPrice: any;
@@ -37,7 +39,9 @@ export class FreePriceDetailComponent implements OnInit {
     this.audltAllPrice = Number(this.data?.feeAll?.adult_price) * Number(this.audlts);
     this.childs = this.data?.childs;
     this.childAllPrice = Number(this.data?.feeAll?.child_price) * Number(this.childs);
-    this.basicPrice = Number(this.audltAllPrice) + Number(this.childAllPrice);
+    this.babys = this.data?.babys;
+    this.babyAllPrice = Number(this.data?.feeAll?.baby_price) * Number(this.babys);
+    this.basicPrice = Number(this.audltAllPrice) + Number(this.childAllPrice)+ Number(this.babyAllPrice);
     this.rooms = this.data?.rooms;
     this.difAllPrice = Number(this.data?.feeAll?.difference_price) * Number(this.rooms);
     this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice);

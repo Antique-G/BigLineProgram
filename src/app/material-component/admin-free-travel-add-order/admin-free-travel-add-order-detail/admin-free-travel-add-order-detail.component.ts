@@ -78,7 +78,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   childAllPrice: any;
   difPrice: any;
   difAllPrice: any;
-
+  babyPrice: any;
+  babyAllPrice: any;
   other_price = 0;
 
   totalPrice: any;
@@ -239,12 +240,15 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     // 儿童是否可预订
     if (this.detailModel?.reserve_children === 1) {
       this.childAllPrice = Number(this.informationForm.value.num_kid) * Number(this.childPrice);
+      this.babyAllPrice = Number(this.informationForm.value.baby_num) * Number(this.babyPrice);
     }
     else {
       this.childAllPrice = 0;
+      this.babyAllPrice = 0
+
     }
     this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
-    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
+    this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
   }
 
 
@@ -424,6 +428,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       this.isdate_quotes_id = item.id;
       this.audltPrice = item.adult_price;
       this.childPrice = item.child_price;
+      this.babyPrice = item.baby_price;
       this.difPrice = item.difference_price;
       this.priceAll();
       console.log('this.orderGroupProduct.date_quotes_id ', this.orderGroupProduct.date_quotes_id);
@@ -459,6 +464,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
           feeAll: this.feeAll,
           audlts: Number(this.informationForm.value.num_adult),
           childs: Number(this.informationForm.value.num_kid),
+          babys: Number(this.informationForm.value.baby_num),
           rooms: Number(this.informationForm.value.num_room)
         }
       },

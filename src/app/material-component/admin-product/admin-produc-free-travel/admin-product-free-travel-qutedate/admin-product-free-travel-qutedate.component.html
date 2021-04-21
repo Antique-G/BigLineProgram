@@ -36,6 +36,7 @@
                                                                     <ng-container *ngIf="quote_type==2">
                                                                         <th style="text-align: center;">成人价格</th>
                                                                         <th style="text-align: center;">儿童价格</th>
+                                                                        <th style="text-align: center;">婴儿价格</th>
                                                                         <th style="text-align: center;">差价</th>
                                                                     </ng-container>
                                                                     <ng-container *ngIf="quote_type==1">
@@ -59,9 +60,14 @@
                                                                             <div *ngIf="childStatus==='0'">-</div>
                                                                         </td>
                                                                         <td>
+                                                                            <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                            <div *ngIf="childStatus==='0'">-</div>
+                                                                        </td>
+                                                                        <td>
                                                                             <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                             <span *ngIf="isShowPrice_diff===false">-</span>
                                                                         </td>
+
                                                                     </ng-container>
                                                                     <ng-container *ngIf="quote_type==1">
                                                                         <td>
@@ -103,6 +109,7 @@
                                                                         <ng-container *ngIf="quote_type==2">
                                                                             <th style="text-align: center;">成人价格</th>
                                                                             <th style="text-align: center;">儿童价格</th>
+                                                                            <th style="text-align: center;">婴儿价格</th>
                                                                             <th style="text-align: center;">差价</th>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
@@ -125,9 +132,14 @@
                                                                                 <div *ngIf="childStatus==='0'">-</div>
                                                                             </td>
                                                                             <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
                                                                                 <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                                 <span *ngIf="isShowPrice_diff===false">-</span>
                                                                             </td>
+
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
@@ -171,6 +183,7 @@
                                                                         <ng-container *ngIf="quote_type==2">
                                                                             <th style="text-align: center;">成人价格</th>
                                                                             <th style="text-align: center;">儿童价格</th>
+                                                                            <th style="text-align: center;">婴儿价格</th>
                                                                             <th style="text-align: center;">差价</th>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
@@ -193,9 +206,14 @@
                                                                                 <div *ngIf="childStatus==='0'">-</div>
                                                                             </td>
                                                                             <td>
+                                                                                <div *ngIf="childStatus==='1'">{{data.baby_price}}</div>
+                                                                                <div *ngIf="childStatus==='0'">-</div>
+                                                                            </td>
+                                                                            <td>
                                                                                 <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                                 <span *ngIf="isShowPrice_diff===false">-</span>
                                                                             </td>
+
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
