@@ -84,7 +84,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="buy_num_max">最大购买人数</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <input nz-input formControlName="buy_num_max" />
+                                                <nz-input-number style="width:100%;" formControlName="buy_num_max" [nzMin]="0" [nzMax]="99"></nz-input-number>
                                                 <p style="font-size: 12px;color: red;letter-spacing: 1px;">默认为0表示不限制购买人数</p>
                                             </nz-form-control>
                                         </div>
@@ -94,7 +94,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="copies_max">最大购买份数</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                <input nz-input formControlName="copies_max" />
+                                                <nz-input-number style="width:100%;" formControlName="copies_max" [nzMin]="0" [nzMax]="999"></nz-input-number>
                                                 <p style="font-size: 12px;color: red;letter-spacing: 1px;">默认为0表示不限制购买份数</p>
                                             </nz-form-control>
                                         </div>
@@ -104,7 +104,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="use_num" nzRequired>套餐使用人数</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入套餐使用人数">
-                                                <nz-input-number style="width: 86%;" formControlName="use_num" [nzMin]="0"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">人</span>
+                                                <nz-input-number style="width: 86%;" formControlName="use_num" [nzMin]="0" [nzMax]="99"></nz-input-number><span style="line-height: 32px;padding: 0 9px;">人</span>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
