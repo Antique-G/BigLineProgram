@@ -60,7 +60,7 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
     { label: '周日', value: 0, checked: true },
   ]
 
-  precision = 2
+  precision = 2;
   is_use_num: any;
 
 
@@ -101,7 +101,7 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
       week: [false],
       is_use_num: [''],
       date: ['', [Validators.required]],
-      inclusive_price: ['', [Validators.required, isNumber]],
+      inclusive_price: ['', [Validators.required]],
       inventory_num: [1, [Validators.required, isNumber]],
       set_inventory: [0, [Validators.required]],
       allow_over: [0, [Validators.required]],

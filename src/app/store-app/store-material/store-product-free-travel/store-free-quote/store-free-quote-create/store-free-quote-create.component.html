@@ -31,7 +31,7 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inclusive_price" nzRequired>套餐价格</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入套餐价格">
-                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" (keyup)="numTest1($event)" formControlName="inclusive_price" [nzMin]="0"></nz-input-number>
+                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" nzPrecisionMode="cut" formControlName="inclusive_price" [nzMin]="0"></nz-input-number>
 
                     </nz-form-control>
                 </nz-form-item>
