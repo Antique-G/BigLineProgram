@@ -29,7 +29,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   status: any;
   dateArray: any[] = [];
   storeList: any[] = [];
-
+  setQuery: any;
 
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog, private modal: NzModalService,
     public adminRefundService: AdminRefundService, public adminProductManagementService: AdminProductManagementService,) {
@@ -51,6 +51,24 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
       this.storeList = res;
       this.loading = false;
     })
+    // 将上次查询的筛选条件赋值
+    let getSeatch1 = JSON.parse(localStorage.getItem("adminRefundTurnSearch")!);
+    this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
+    this.store_id = getSeatch1?.store_id ? getSeatch1?.store_id : '';
+    this.refund_id = getSeatch1?.refund_id ? getSeatch1?.refund_id : '';
+    this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
+    this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
+    this.transaction_id = getSeatch1?.transaction_id ? getSeatch1?.transaction_id : null;
+    this.status = getSeatch1?.status ? getSeatch1?.status : '';
+    this.page = 1;
+    this.searchForm.patchValue({
+      order_id:this.order_id,
+      store_id: this.store_id,
+      refund_id: this.refund_id,
+      time: this.date_start == null ? [] : [this.date_start, this.date_end],
+      transaction_id: this.transaction_id,
+      status: this.status,
+    });
     this.getRefundlist();
   }
 
@@ -65,6 +83,14 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   changePageIndex(page: number) {
     console.log("当前页", page);
     this.page = page;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, store_id: this.store_id, refund_id: this.refund_id,
+      transaction_id: this.transaction_id, status: this.status,
+      date_start: this.date_start, date_end: this.date_end,
+      page: this.page
+    }
+    localStorage.setItem('adminRefundTurnSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 
@@ -84,6 +110,15 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
     this.status = this.searchForm.value.status;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
+    this.page = 1;
+    // 筛选条件存进cookie
+    this.setQuery = {
+      order_id: this.order_id, store_id: this.store_id, refund_id: this.refund_id,
+      transaction_id: this.transaction_id, status: this.status,
+      date_start: this.date_start, date_end: this.date_end,
+      page: this.page
+    }
+    localStorage.setItem('adminRefundTurnSearch', JSON.stringify(this.setQuery));
     this.getRefundlist();
   }
 
@@ -128,7 +163,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   }
 
 
-  reset(){
+  reset() {
     this.searchForm.patchValue({
       order_id: '',
       store_id: '',
