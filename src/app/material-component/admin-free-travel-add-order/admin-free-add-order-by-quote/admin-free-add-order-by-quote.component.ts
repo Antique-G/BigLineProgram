@@ -153,13 +153,15 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
 
 
   removeIcon(index: number) {
-    if (this.humanArray.length > 1) {
-      this.humanArray.removeAt(index);
-      this.isNum();
-    }
-    else {
-      this.message.create('warning', '无法删除，至少存在一组');
-    }
+    // if (this.humanArray.length > 1) {
+    //   this.humanArray.removeAt(index);
+    //   this.isNum();
+    // }
+    // else {
+    //   this.message.create('warning', '无法删除，至少存在一组');
+    // }
+    this.humanArray.removeAt(index);
+    this.isNum();
   }
 
 
@@ -193,17 +195,17 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
     let control = <FormArray>this.informationForm.controls['humanList'];
     // 校验手机
     const { mobile } = MyValidators;
-    control.push(new FormGroup({
-      name: new FormControl(''),
-      phone: new FormControl('',),
-      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0),
-      id_type: new FormControl(''),
-      id_num: new FormControl(''),
-      birthday: new FormControl(null),
-      id_photo: new FormControl(''),
-      gender: new FormControl(1),
-      eng_name: new FormControl(''),
-    }));
+    // control.push(new FormGroup({
+    //   name: new FormControl(''),
+    //   phone: new FormControl('',),
+    //   is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0),
+    //   id_type: new FormControl(''),
+    //   id_num: new FormControl(''),
+    //   birthday: new FormControl(null),
+    //   id_photo: new FormControl(''),
+    //   gender: new FormControl(1),
+    //   eng_name: new FormControl(''),
+    // }));
     this.isChangeData.push(false);
     this.isNum();
     this.newImgArr.push([])

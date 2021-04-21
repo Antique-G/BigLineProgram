@@ -37,7 +37,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="baby_num">优惠金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                <nz-input-number formControlName="money" style="width: 100%;" (ngModelChange)="onEnter($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                                <nz-input-number formControlName="money" style="width: 100%;" [nzMin]="0" (ngModelChange)="onEnter($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
                                 <p style="color: red;">！优惠金额不能大于订单总价</p>
                             </nz-form-control>
                         </div>
@@ -58,7 +58,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="other_price">附加收费金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                <nz-input-number formControlName="other_price" style="width: 100%;" (ngModelChange)="onEnter1($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                                <nz-input-number formControlName="other_price" style="width: 100%;" [nzMin]="0" (ngModelChange)="onEnter1($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
                             </nz-form-control>
                         </div>
                     </nz-form-item>
