@@ -6,6 +6,7 @@ import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-o
 import { StoreOrderFreeTravelService } from '../../../../../services/store/store-order/store-order-free-travel.service';
 import { StoreOrderFreeChangeDateComponent } from './store-order-free-change-date/store-order-free-change-date.component';
 import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-price/store-order-free-change-price.component';
+import { format } from 'date-fns';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-pr
   styleUrls: ['./store-order-freetravel-detail.component.css']
 })
 export class StoreOrderFreetravelDetailComponent implements OnInit {
-  public isSpinning = true;
+  public isSpinning = false;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DetailsModel;
@@ -22,8 +23,9 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
   audltPrice: any;
   childPrice: any;
   priceTotal: any;
-  dataPayLog: any;
-  refundLog: any[]=[];
+  dataPayLog: any[] = [];
+  refundLog: any[] = [];
+
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -41,6 +43,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
       emergency_contact_person: ['', [Validators.required]],
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
+      internal_remarks: ['', [Validators.required]],
+      quote_type: ['', [Validators.required]],
     });
 
   }
@@ -49,50 +53,75 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("params", params)
       this.detailId = params?.detailId;
-
       // 详情
-      this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
-        console.log("结果是", res);
-        this.detailModel = res.data;
-        // 支付流水
-        let pagLogArr: any[] = [];
-        res.data?.pay_log?.data.forEach((element: any) => {
-          if (element.status == 2) {
-            pagLogArr.push(element)
-          }
-        });
-        this.dataPayLog = pagLogArr;
-        // 退款流水
-        let reFundLogArr: any[] = [];
-        res.data?.refund?.data.forEach((element: any) => {
-          if (element.status == 2 || element.status == 3) {
-            reFundLogArr.push(element)
-          }
-        });
-        this.refundLog = reFundLogArr;
-        this.dataMember = res.data?.member?.data;
-        this.dataMember.forEach((element: any) => {
-          if (element.birthday === null) {
-            let year = element.id_num.slice(6, 10);
-            let month = element.id_num.slice(10, 12);
-            let date = element.id_num.slice(12, 14);
-            element.birthday = year + '-' + month + '-' + date;
-          }
-        });
-        this.isSpinning = false;
-        this.fee();
-
-      })
+      this.getDetail();
     });
   }
+
+
+  getDetail() {
+    this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
+      console.log("自由行详情结果是", res);
+      this.detailModel = res.data;
+      // 支付流水
+      let pagLogArr: any[] = [];
+      res.data?.pay_log?.data.forEach((element: any) => {
+        if (element.status == 2) {
+          pagLogArr.push(element)
+        }
+      });
+      this.dataPayLog = pagLogArr;
+      // 退款流水
+      let reFundLogArr: any[] = [];
+      res.data?.refund?.data.forEach((element: any) => {
+        if (element.status == 2 || element.status == 3) {
+          reFundLogArr.push(element)
+        }
+      });
+      this.refundLog = reFundLogArr;
+
+      this.dataMember = res.data?.member?.data;
+      this.dataMember.forEach((element: any) => {
+        if (element.birthday === null) {
+          let year = element.id_num.slice(6, 10);
+          let month = element.id_num.slice(10, 12);
+          let date = element.id_num.slice(12, 14);
+          element.birthday = year + '-' + month + '-' + date;
+        }
+        element['edit'] = false;
+        if (element?.assembling_time != null) {
+          let i = '2021-01-01' + ' ' + element?.assembling_time;
+          let newDate = new Date(i);
+          console.log('object :>> ', newDate, i);
+          element.assembling_time = format(new Date(newDate), 'yyyy-MM-dd HH:mm');
+        }
+      });
+      this.fee();
+    })
+  }
+
+
+
 
   fee() {
     // 费用明细
     this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
     this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    // this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
     this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
-
+    this.priceTotal = this.toDecimal(this.priceTotal);
   }
+
+
+    // 保留两位小数
+    toDecimal(x: any) {
+      var f = parseFloat(x);
+      if (isNaN(f)) {
+        return;
+      }
+      f = Math.round(x * 100) / 100;
+      return f;
+    }
 
 
   // 订单修改日期
@@ -118,22 +147,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
         this.detailId = params?.detailId;
 
         // 详情
-        this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
-          console.log("结果是", res);
-          this.detailModel = res.data;
-          this.dataMember = res.data?.member?.data;
-          this.dataMember.forEach((element: any) => {
-            if (element.birthday === null) {
-              let year = element.id_num.slice(6, 10);
-              let month = element.id_num.slice(10, 12);
-              let date = element.id_num.slice(12, 14);
-              element.birthday = year + '-' + month + '-' + date;
-            }
-          });
-          this.isSpinning = false;
-          this.fee();
+        this.getDetail();
 
-        })
       });
     })
 
@@ -163,22 +178,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
         console.log("params", params)
         this.detailId = params?.detailId;
         // 详情
-        this.storeOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
-          console.log("结果是", res);
-          this.detailModel = res.data;
-          this.dataMember = res.data?.member?.data;
-          this.dataMember.forEach((element: any) => {
-            if (element.birthday === null) {
-              let year = element.id_num.slice(6, 10);
-              let month = element.id_num.slice(10, 12);
-              let date = element.id_num.slice(12, 14);
-              element.birthday = year + '-' + month + '-' + date;
-            }
-          });
-          this.isSpinning = false;
-          this.fee();
+        this.getDetail();
 
-        })
       });
     })
   }
