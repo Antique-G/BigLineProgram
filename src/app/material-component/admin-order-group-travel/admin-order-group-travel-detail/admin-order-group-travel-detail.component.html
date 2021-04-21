@@ -448,30 +448,33 @@
                                                 <div style="width: 50%;">补差价</div>
                                                 <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_room}}</div>
                                             </div>
-
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <ng-container *ngIf="detailModel?.price_other!=0">
-                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                        <!-- 附加收费 -->
-                                                        <ng-container *ngIf="fee?.type==0">
-                                                            <div style="width: 50%;">{{fee?.title}}</div>
-                                                            <div style="width: 50%;">￥{{fee?.price}}</div>
-                                                        </ng-container>
+                                            <ng-container *ngIf="detailModel?.price_other!=0">
+                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                    <ng-container *ngIf="fee?.type==0">
+                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                            <!-- 附加收费 -->
+                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                <div style="width: 50%;">{{fee?.title}}</div>
+                                                                <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                            </div>
+                                                        </div>
                                                     </ng-container>
                                                 </ng-container>
-                                            </div>
+                                            </ng-container>
 
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <ng-container *ngIf="detailModel?.price_other!=0">
-                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                        <!-- 优惠 -->
-                                                        <ng-container *ngIf="fee?.type==1">
-                                                            <div style="width: 50%;">{{fee?.title}}</div>
-                                                            <div style="width: 50%;">-￥{{fee?.price}}</div>
-                                                        </ng-container>
+                                            <ng-container *ngIf="detailModel?.discount_other!=0">
+                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                    <ng-container *ngIf="fee?.type==1">
+                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                <!-- 优惠 -->
+                                                                <div style="width: 50%;">{{fee?.title}}</div>
+                                                                <div style="width: 50%;">-￥{{fee?.price}}</div>
+                                                            </div>
+                                                        </div>
                                                     </ng-container>
                                                 </ng-container>
-                                            </div>
+                                            </ng-container>
                                         </div>
 
                                         <div style="font-weight: 500;font-size: 16px;color: red;">
@@ -479,7 +482,7 @@
                                                 <div style="width: 50%;">已付金额（客人总付款）</div>
                                                 <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
                                             </div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
                                                 <div style="width: 50%;">退款金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.refund_amount}}</div>
                                             </div>
