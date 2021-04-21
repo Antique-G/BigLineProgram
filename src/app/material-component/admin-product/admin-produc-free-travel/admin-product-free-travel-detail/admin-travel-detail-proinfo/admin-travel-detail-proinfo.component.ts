@@ -110,6 +110,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       use_num: '',
       inclusive: '',
       buy_num_max: '',
+      request_id_num: 0,
+
     }
   }
 
@@ -138,6 +140,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       copies_max: new FormControl(0),
       use_num: new FormControl(1),
       inclusive: new FormControl(0),
+      request_id_num:  new FormControl('1', [Validators.required]),
+
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -360,6 +364,8 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     this.freeTravelUpdateModel.departure_city = this.idRegion;
     this.freeTravelUpdateModel.destination_city = this.idDestin;
     this.freeTravelUpdateModel.quote_type = this.addForm.value.quote_type;
+    this.freeTravelUpdateModel.request_id_num = this.addForm.value.request_id_num;
+
     // 按套餐
     if (this.isQuoteType === false) {
       this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;

@@ -26,6 +26,7 @@ export interface StoreFreeTravelModel {
   use_num?: any;
   inclusive?: any;
   buy_num_max?: any;
+  request_id_num?: any;
 }
 
 export interface ProductTabListModel {
@@ -110,6 +111,8 @@ export interface Datum {
   use_num?: any;
   inclusive?: any;
   buy_num_max?: any;
+  request_id_num?: any;
+
 }
 
 export interface LogModel {

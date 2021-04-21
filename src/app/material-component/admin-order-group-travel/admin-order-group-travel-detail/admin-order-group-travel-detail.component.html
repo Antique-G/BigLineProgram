@@ -449,7 +449,7 @@
 
                                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                 <div style="width: 50%;">补差价</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_room}}</div>
+                                                <div style="width: 50%;">￥{{detailModel?.price_diff}}</div>
                                             </div>
                                             <ng-container *ngIf="detailModel?.price_other!=0">
                                                 <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
