@@ -24,6 +24,8 @@
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="baby_num">优惠金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
                                 <nz-input-number formControlName="money" style="width: 100%;" (ngModelChange)="onEnter($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                                <p style="color: red;margin-left: 25%;">！优惠金额不能大于订单总价</p>
+
                             </nz-form-control>
                         </div>
                     </nz-form-item>
