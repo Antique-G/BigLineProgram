@@ -72,7 +72,6 @@ export class StoreOrderRefundDetailComponent implements OnInit {
       basicRefund: [''],
       amount_add: [0],
       amount_cut: [0],
-      store_name: [''],
       bank_user: [''],
       bank_address: [''],
       bank_number: [''],

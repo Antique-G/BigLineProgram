@@ -100,6 +100,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       ispackNum: [''],
       isPackbasicRefund: [''],
       selectPack: [''],
+      store_name: [''],
     })
     this.reundCheckModel = {
       id: '',

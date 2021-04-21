@@ -113,6 +113,15 @@
 
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div nz-row>
+                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
+                                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                                        <input nz-input formControlName="store_name" nzBorderless [ngModel]="detailModel?.order?.data?.store_name" />
+                                                                    </nz-form-control>
+                                                                </div>
+                                                            </nz-form-item>
+
+                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                                <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_order_id">订单编号</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
                                                                         <input nz-input formControlName="product_order_id" nzBorderless [ngModel]="detailModel?.order?.data?.id" />
