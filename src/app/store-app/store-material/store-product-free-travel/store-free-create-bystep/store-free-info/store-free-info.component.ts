@@ -128,6 +128,7 @@ export class StoreFreeInfoComponent implements OnInit {
       use_num: '',
       inclusive: '',
       buy_num_max: '',
+      request_id_num: 0
     }
 
   }
@@ -170,7 +171,9 @@ export class StoreFreeInfoComponent implements OnInit {
       buy_num_max: new FormControl(0, [Validators.required]),
       copies_max: new FormControl(0),
       use_num: new FormControl(1),
-      inclusive: new FormControl(''),
+      inclusive: new FormControl(''),     
+       request_id_num: new FormControl(0, [Validators.required]),
+
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -334,6 +337,8 @@ export class StoreFreeInfoComponent implements OnInit {
     this.freeTravelModel.departure_city = this.departure_city[this.departure_city.length - 1];
     this.freeTravelModel.destination_city = this.valuesDestination_city[this.valuesDestination_city.length - 1];
     this.freeTravelModel.quote_type = this.addForm.value.quote_type;
+    this.freeTravelModel.request_id_num = this.addForm.value.request_id_num;
+
     // 按套餐
     if (this.isQuoteType === false) {
       this.freeTravelModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
