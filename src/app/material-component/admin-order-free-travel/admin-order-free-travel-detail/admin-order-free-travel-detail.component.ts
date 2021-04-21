@@ -6,6 +6,10 @@ import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-or
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { AOFTDChangePriceComponent } from './a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 import { format } from 'date-fns';
+import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
+import { AdminOrderService } from '../../../../services/admin/admin-order.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 
 
 @Component({
@@ -24,28 +28,55 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   priceTotal: any;
   dataPayLog: any[] = [];
   refundLog: any[] = [];
+  // 修改信息
+  isChange = false;
+  editInfoModel: EditInfoModel;
+  editMemberModel: EditMemberModel;
+
+  idChangeBirDate: any;
+  idChangeBir = false;
 
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService) {
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService, private msg: NzMessageService,
+    public adminOrderService: AdminOrderService) {
     this.addForm = this.fb.group({
       order_id: ['', [Validators.required]],
       start_date: ['', [Validators.required]],
-      assembling_place: ['', [Validators.required]],
-      assembling_time: ['', [Validators.required]],
       contact_name: ['', [Validators.required]],
       contact_phone: ['', [Validators.required]],
-      contact_wechat: ['', [Validators.required]],
-      contact_qq: ['', [Validators.required]],
-      contact_email: ['', [Validators.required]],
-      emergency_contact_person: ['', [Validators.required]],
-      emergency_contact_number: ['', [Validators.required]],
-      customer_remarks: ['', [Validators.required]],
-      internal_remarks: ['', [Validators.required]],
-      quote_type: ['', [Validators.required]],
+      contact_wechat: ['',],
+      contact_qq: ['',],
+      contact_email: ['',],
+      emergency_contact_person: ['',],
+      emergency_contact_number: ['',],
+      customer_remarks: ['',],
+      internal_remarks: ['',],
+      quote_type: [''],
     });
-
+    this.editInfoModel = {
+      id: '',
+      contact_name: '',
+      contact_phone: '',
+      contact_wechat: '',
+      contact_qq: '',
+      contact_email: '',
+      emergency_contact_person: '',
+      emergency_contact_number: '',
+      customer_remarks: '',
+      internal_remarks: '',
+    };
+    this.editMemberModel = {
+      id: '',
+      name: '',
+      eng_name: '',
+      gender: '',
+      phone: '',
+      id_type: '',
+      id_num: '',
+      birthday: '',
+    };
   }
 
   ngOnInit(): void {
@@ -82,19 +113,18 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
       this.dataMember = res.data?.member?.data;
       this.dataMember.forEach((element: any) => {
-        if (element.birthday === null) {
-          let year = element.id_num.slice(6, 10);
-          let month = element.id_num.slice(10, 12);
-          let date = element.id_num.slice(12, 14);
-          element.birthday = year + '-' + month + '-' + date;
+        if (element.birthday == null) {
+          if (element.id_num != '') {
+            let year = element.id_num.slice(6, 10);
+            let month = element.id_num.slice(10, 12);
+            let date = element.id_num.slice(12, 14);
+            element.birthday = year + '-' + month + '-' + date;
+          }
+          else {
+            element.birthday = null;
+          }
         }
         element['edit'] = false;
-        if (element?.assembling_time != null) {
-          let i = '2021-01-01' + ' ' + element?.assembling_time;
-          let newDate = new Date(i);
-          console.log('object :>> ', newDate, i);
-          element.assembling_time = format(new Date(newDate), 'yyyy-MM-dd HH:mm');
-        }
       });
       this.fee();
     })
@@ -111,7 +141,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   }
 
 
-  
+
   // 保留两位小数
   toDecimal(x: any) {
     var f = parseFloat(x);
@@ -123,16 +153,16 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   }
 
 
+
   // 订单改价
   changePrice() {
     const editmodal = this.modal.create({
       nzTitle: '订单改价',
-      nzContent: AOFTDChangePriceComponent,
+      nzContent: AOGTDChangePriceComponent,
       nzComponentParams: {
         data: this.detailModel
       },
       nzFooter: null
-
     })
     editmodal.afterClose.subscribe(res => {
       this.activatedRoute.queryParams.subscribe(params => {
@@ -141,10 +171,130 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         // 详情
         this.getDetail();
         this.fee();
+
       });
     })
   }
 
+
+  changeDetail() {
+    this.isChange = true;
+  }
+
+
+
+  // 修改联系人信息
+  setValue() {
+    this.editInfoModel.id = this.detailId;
+    this.editInfoModel.contact_name = this.addForm.value.contact_name;
+    this.editInfoModel.contact_phone = this.addForm.value.contact_phone;
+    this.editInfoModel.contact_wechat = this.addForm.value.contact_wechat;
+    this.editInfoModel.contact_qq = this.addForm.value.contact_qq;
+    this.editInfoModel.contact_email = this.addForm.value.contact_email;
+    this.editInfoModel.emergency_contact_person = this.addForm.value.emergency_contact_person;
+    this.editInfoModel.emergency_contact_number = this.addForm.value.emergency_contact_number;
+    this.editInfoModel.customer_remarks = this.addForm.value.customer_remarks;
+    this.editInfoModel.internal_remarks = this.addForm.value.internal_remarks;
+
+  }
+
+
+  commitDetail() {
+    this.setValue();
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
+    }
+    if (this.addForm.valid) {
+      this.modal.confirm({
+        nzTitle: "<h4>提示</h4>",
+        nzContent: "<h6>确认修改联系人信息</h6>",
+        nzOnOk: () =>
+          this.adminOrderService.editInfo(this.editInfoModel).subscribe(res => {
+            console.log('res :>> ', res);
+            this.getDetail();
+            this.isChange = false;
+          })
+      });
+    }
+
+  }
+
+  cancelDetail() {
+    this.isChange = false;
+  }
+
+
+
+  cancelEdit(id: string): void {
+    console.log('id :>> ', id);
+    this.dataMember.filter(function (item: any, index: any) {
+      if (item.id === id) {
+        item.edit = false;
+      }
+    });
+  }
+
+
+  // 修改出行人信息
+  startEdit(data: any): void {
+    console.log('点击的饿id :>> ', data, data.is_kid, data.is_kid == 2);
+    // 处理婴儿
+    if (data.is_kid == 2) {
+      if (data.birthday = '--') {
+        data.birthday = null;
+      }
+    }
+    this.dataMember.filter(function (item: any, index: any) {
+      if (item.id === data.id) {
+        item.edit = true;
+      }
+    });
+
+  }
+
+
+  saveEdit(data: any): void {
+    this.editMemberModel.id = data.id;
+    this.editMemberModel.name = data.name;
+    this.editMemberModel.eng_name = data.eng_name;
+    this.editMemberModel.gender = data.gender;
+    this.editMemberModel.phone = data.phone;
+    this.editMemberModel.id_type = data.id_type;
+    this.editMemberModel.id_num = data.id_num;
+    if (this.idChangeBir === false) {
+      this.editMemberModel.birthday = data.birthday;
+    }
+    else {
+      this.editMemberModel.birthday = this.idChangeBirDate;
+    }
+    console.log('v33333333 ', this.editMemberModel);
+    if (this.editMemberModel.birthday == null) {
+      this.msg.error('出生年月日不能为空');
+    }
+    else {
+      this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+        console.log('结果是 :>> ', res);
+        this.dataMember.filter(function (item: any, index: any) {
+          if (item.id === data.id) {
+            item.edit = false;
+          }
+        });
+        this.getDetail();
+      })
+    }
+
+  }
+
+
+
+  onChangeBir(event: any) {
+    console.log('event :>> ', event);
+    if (event != null) {
+      this.idChangeBir = true;
+      this.idChangeBirDate = format(new Date(event), 'yyyy-MM-dd');
+    }
+  }
 }
 
 

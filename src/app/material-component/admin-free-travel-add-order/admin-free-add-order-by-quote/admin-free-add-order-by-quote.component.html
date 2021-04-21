@@ -251,15 +251,15 @@
                                 <div fxLayout="column" fxLayoutGap="5px">
                                     <p style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">儿童标准信息：年龄：{{detailModel?.child_age_min}}-{{detailModel?.children_age}}岁<span *ngIf="detailModel?.child_height_max!=0">，身高：{{detailModel?.child_height_min}}-{{detailModel?.child_height_max}}cm</span></p>
                                 </div>
+                                <div nz-row *ngIf="numIsShow">
+                                    <div style="margin-left: 14px;">
+                                        <button nz-button class="add-button" (click)="addHuman()"><i nz-icon nzType="plus"></i>  添加出行人详细信息</button>
+                                    </div>
+                                </div>
 
                                 <div>
                                     <form nz-form [formGroup]="informationForm">
                                         <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
-                                            <div nz-row style="margin-top: 14px;" *ngIf="numIsShow">
-                                                <div style="margin-left: 14px;">
-                                                    <button nz-button class="add-button" (click)="addHuman()"><i nz-icon nzType="plus"></i>  添加出行人详细信息</button>
-                                                </div>
-                                            </div>
 
                                             <div formArrayName="humanList" *ngFor="let human of humanArray.controls as FormArray;let i = index" style="margin-bottom:10px;margin-top: 10px;">
                                                 <div [formGroupName]="i" nz-row>
