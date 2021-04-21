@@ -2,28 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 import { NzSafeAny } from "ng-zorro-antd/core/types";
-import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
-import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FreePriceDetailComponent } from './free-price-detail/free-price-detail.component';
+import { GroupPriceDetailComponent } from '../../admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
+import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
+
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
-
 export class MyValidators extends Validators {
-
   static mobile(control: AbstractControl): MyValidationErrors | null {
     const value = control.value;
-
     if (isEmptyInputValue(value)) {
       return null;
     }
-
     return isMobile(value) ? null : { mobile: { 'zh-cn': `手机号码格式不正确`, en: `Mobile phone number is not valid` } };
   }
 }
@@ -36,6 +33,7 @@ function isMobile(value: string): boolean {
   return typeof value === 'string' && /(^1\d{10}$)/.test(value);
 }
 
+
 @Component({
   selector: 'app-admin-free-travel-add-order-detail',
   templateUrl: './admin-free-travel-add-order-detail.component.html',
@@ -47,7 +45,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   informationForm!: FormGroup;
   contactForm!: FormGroup;
   detailModel: any;
-
+  code: any;
   isDay: any;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
@@ -55,16 +53,16 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   nzPageIndex = new Date().getMonth() + 1;
   selectedDateValue = new Date();
   listDataMap: any;
+  isshared_status = '0';
   orderGroupProduct: OrderGroupProduct;
   isdate_quotes_id: any;
   ids: any[] = [];
   numIsShow = false;
-
   isName: any;
   isPhone: any;
+  isChangeData: any[] = [];
+  newImgArr: any[] = []
 
-  isChangeData: any[] = [];    //证件类型
-  newImgArr: any[] = []       //证件照片
 
   isBabyShow = false;
   isChangeBabyData: any[] = [];    //婴儿证件类型
@@ -76,36 +74,45 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   audltAllPrice: any;
   childPrice: any;
   childAllPrice: any;
-  difPrice: any;
-  difAllPrice: any;
   babyPrice: any;
   babyAllPrice: any;
-  other_price = 0;
+  difPrice: any;
+  difAllPrice: any;
+  difRoom: any
+
 
   totalPrice: any;
   feeAll: any;
   discountPrice = 0;
+  other_price = 0;
   isShowFeeDetail = false;
+  showRoom = true;
+  isForRoom = 1;
+  minNumber = 1;
+  maxNumber = 1;
+  isRequestIdNum = false;
+  isChangebirthday:any;
 
 
-  constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,
-    private modal: NzModalService) {
+  constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService,  public dialog: MatDialog, public modal: NzModalService,) {
     this.addForm = this.fb.group({
       product_id: ['',],
       departure_city_name: ['',],
       destination_city_name: ['',],
       isDay: ['',],
     });
+  
     // 校验手机
     const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
       humanList: this.fb.array([]),
       babyList: this.fb.array([]),
-      num_adult: [1, [Validators.required]],
+      num_adult: [1,],
       num_kid: [0,],
       num_room: [1, [Validators.required]],
       baby_num: [0],
+      shared_status: [0,],
       customer_remarks: ['',],
       emergency_contact_person: [''],
       emergency_contact_number: ['', [mobile]],
@@ -132,12 +139,12 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       contact_qq: '',
       contact_email: '',
       customer_remarks: '',
+      shared_status: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
       discount: '',
       other_price: '',
       internal_remarks: '',
-
     }
   }
 
@@ -157,22 +164,37 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   addHuman() {
     // 校验手机
     const { mobile } = MyValidators;
-    this.humanArray.push(this.fb.group({
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [mobile]),
-      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-      id_type: new FormControl('', [Validators.required]),
-      id_num: new FormControl('', [Validators.required]),
-      birthday: new FormControl(null, [Validators.required]),
-      id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl(1, [Validators.required]),
-      eng_name: new FormControl(''),
-    }))
-    this.isChangeData.push(false);
+    if (this.isRequestIdNum) {
+      this.humanArray.push(this.fb.group({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl('', [Validators.required]),
+        id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }))
+    }
+    else {
+      this.humanArray.push(this.fb.group({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0),
+        id_num: new FormControl(''),
+        birthday: new FormControl(null, [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }))
+    }
+
+    this.isChangeData.push(true);
     this.newImgArr.push([])
     this.isNum();
   }
-
 
   // 添加婴儿
   addBaby() {
@@ -182,7 +204,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       name: new FormControl('',),
       phone: new FormControl('', [mobile]),
       is_kid: new FormControl(2, [Validators.required]),
-      id_type: new FormControl(0),
+      id_type: new FormControl(''),
       id_num: new FormControl(''),
       birthday: new FormControl(null),
       id_photo: new FormControl(''),
@@ -197,13 +219,13 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   removeIcon(index: number) {
     if (this.humanArray.length > 1) {
       this.humanArray.removeAt(index);
-      this.isBabyNum();
+      this.isChangeData.splice(index, 1)
+      this.isNum();
     }
     else {
       this.message.create('warning', '无法删除，至少存在一组');
     }
   }
-
 
   removeBaby(index: number) {
     this.babyArray.removeAt(index);
@@ -211,15 +233,24 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   }
 
 
+
   // 验证类型与输入的成人儿童数是否一致
   onEnter(data: any) {
-    console.log('data :>> ', data);
+    console.log('成人数 ', data);
     this.isNum();
+    this.isForRoom = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.minNumber = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.maxNumber = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
+    this.isShowRoom();
     this.priceAll();
   }
 
   onEnter1(data: any) {
     this.isNum();
+    this.minNumber = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    this.maxNumber = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
+    this.isShowRoom();
+
     this.priceAll();
   }
 
@@ -228,11 +259,58 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   onEnter2(data: any) {
     console.log('data :>> ', data);
     this.isBabyNum();
-  }
-
-  onEnterRoom() {
     this.priceAll();
   }
+
+  // 房间数校验
+  roomChange(a: any) {
+    let min = Math.ceil(Number(this.informationForm.value.num_adult / 2));
+    let max = Math.ceil((Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid)) / 2);
+    console.log('11111111 :>> ', min, max, a);
+    if (a >= min && a <= max) {
+      console.log('zhengque :>> ', 'zhengque');
+    }
+    else {
+      this.message.error("最大房间数不能大于成人数和儿童数总和的一半");
+    }
+  }
+
+  // 房间数
+  onEnterRoom(data: any) {
+    console.log('删除前', this.isForRoom, data != '')
+    if (data != '') {
+      console.log('房间数的修改', data);
+      this.isForRoom = data;
+      this.roomChange(data);
+      this.isShowRoom();
+      this.priceAll();
+    }
+    else {
+      console.log('空值时候 ', this.isForRoom);
+      this.isForRoom = this.isForRoom
+    }
+
+  }
+
+
+  // 是否显示拼房
+  isShowRoom() {
+    console.log("房间数", this.isForRoom)
+    let rooms = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult);
+    console.log("666666", Number(rooms), Number(this.informationForm.value.num_adult))
+    console.log("777777777", Number(rooms) === 1 || Number(rooms) > 1)
+    if (Number(rooms) === 1) {
+      this.showRoom = true;
+    }
+
+    else {
+
+      this.showRoom = false;
+      this.isshared_status = '0';
+      console.log(this.isshared_status)
+    }
+  }
+
 
 
   priceAll() {
@@ -245,25 +323,26 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     else {
       this.childAllPrice = 0;
       this.babyAllPrice = 0
-
     }
-    this.difAllPrice = Number(this.informationForm.value.num_room) * Number(this.difPrice);
+
+
+    this.difRoom = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult) - Number(this.isshared_status);
+    // 房间数
+    console.log('222222222222 :>> ', Number(this.isForRoom), Number(this.isForRoom) * 2, Number(this.informationForm.value.num_adult), Number(this.isshared_status));
+    console.log('Number(this.difRoom) :>> ', Number(this.difRoom));
+    this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
+    console.log('是否拼房 :>> ', Number(this.isshared_status));
     this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
   }
 
 
-  isNum() {
-    let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
-    console.log('nums, :>> ', nums, Number(this.humanArray.controls.length), nums === Number(this.humanArray.controls.length))
-    if (nums > Number(this.humanArray.controls.length)) {
-      this.numIsShow = true;
-    }
-    else {
-      this.numIsShow = false;
-    }
+  // 是否拼房
+  isChangeRoom(event: any) {
+    console.log('event :>> ', event);
+    this.priceAll();
   }
 
-    
+
   isBabyNum() {
     let nums = Number(this.informationForm.value.baby_num);
     if (nums > this.babyArray.controls.length) {
@@ -275,32 +354,63 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   }
 
 
+  // 详细人信息校验
+  isNum() {
+    let nums = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
+    console.log('nums, :>> ', nums, Number(this.humanArray.controls.length), nums === Number(this.humanArray.controls.length))
+    if (nums > Number(this.humanArray.controls.length)) {
+      this.numIsShow = true;
+    }
+    else {
+      this.numIsShow = false;
+    }
+  }
+
+
+
   ngOnInit(): void {
-    this.detailModel = JSON.parse(localStorage.getItem("freeOrderData")!)
-    this.isDay = this.detailModel.few_days + '天' + this.detailModel.few_nights + '晚';
+    this.detailModel =  JSON.parse(localStorage.getItem("freeOrderData")!)
+    this.isRequestIdNum = this.detailModel?.request_id_num == 1 ? true : false;
+    this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
     this.listDataMap = this.detailModel?.date_quote;
+    console.log('this.listDataMap :>> ', this.listDataMap);
     this.listDataMap?.forEach((value: any) => {
       value['checked'] = false;
     })
     let control = <FormArray>this.informationForm.controls['humanList'];
     // 校验手机
     const { mobile } = MyValidators;
-    control.push(new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      phone: new FormControl('',),
-      is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-      id_type: new FormControl('', [Validators.required]),
-      id_num: new FormControl('', [Validators.required]),
-      birthday: new FormControl(null, [Validators.required]),
-      id_photo: new FormControl('', [Validators.required]),
-      gender: new FormControl(1, [Validators.required]),
-      eng_name: new FormControl(''),
-    }));
-    this.isChangeData.push(false);
+    if (this.isRequestIdNum) {
+      control.push(new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0, [Validators.required]),
+        id_num: new FormControl('', [Validators.required]),
+        birthday: new FormControl(null, [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }));
+    }
+    else {
+      control.push(new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        phone: new FormControl('', [mobile]),
+        is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
+        id_type: new FormControl(0),
+        id_num: new FormControl(''),
+        birthday: new FormControl(null, [Validators.required]),
+        id_photo: new FormControl('', [Validators.required]),
+        gender: new FormControl(1, [Validators.required]),
+        eng_name: new FormControl(''),
+      }));
+    }
+    this.isShowRoom();
+    this.isChangeData.push(true);
     this.newImgArr.push([])
+
   }
-
-
 
 
   setValue() {
@@ -308,12 +418,15 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
     this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
     if (this.detailModel.few_nights === 0) {
-      this.orderGroupProduct.num_room = 0
+      this.orderGroupProduct.num_room = 0;
     }
     else {
-      this.orderGroupProduct.num_room = this.informationForm.value.num_room;
+      this.orderGroupProduct.num_room = this.isForRoom;
     }
     this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
+    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
+    this.orderGroupProduct.shared_status = this.isshared_status;
+
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
     this.orderGroupProduct.members.forEach((element: any) => {
@@ -321,7 +434,6 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
       }
     });
-    this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
@@ -330,19 +442,19 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
     this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
-    this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
-
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
-    // 收费
+    // 附加收费
     this.orderGroupProduct.other_price = this.other_price;
+    // 计调备注
+    this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
 
+    console.log("提交的", this.orderGroupProduct)
   }
-
-
 
   add() {
     this.setValue();
+    this.isLoadingAdd = true;
     // 校验出行人信息
     let adult = this.orderGroupProduct.num_adult;
     let kid = this.orderGroupProduct.num_kid;
@@ -373,10 +485,10 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         this.isLoadingAdd = false;
       }
       else {
-        this.isLoadingAdd = true;
         this.adminOrderFreeTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
           this.isLoadingAdd = false;
           this.router.navigate(['/admin/main/freeTravelOrder']);
+          localStorage.removeItem("freeOrderData");
         },
           error => {
             this.isLoadingAdd = false;
@@ -384,9 +496,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       }
     }
 
+
   }
-
-
 
 
 
@@ -409,7 +520,6 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.nzPageIndex = index;
   }
 
-
   selectChange(select: Date): void {
     console.log('选择的', select);
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
@@ -422,10 +532,10 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
   changeId(item: any) {
     console.log('object :>> ', item);
-    this.feeAll = item;
     if (item.checked === true) {
-      this.isShowFeeDetail = true;
+      this.feeAll = item;
       this.isdate_quotes_id = item.id;
+      this.isShowFeeDetail = true;
       this.audltPrice = item.adult_price;
       this.childPrice = item.child_price;
       this.babyPrice = item.baby_price;
@@ -447,17 +557,15 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     }
     else if (item.checked === false) {
       this.isShowFeeDetail = false;
-
     }
   }
-
 
 
 
   feeDetail() {
     const editmodal = this.modal.create({
       nzTitle: '订单费用明细',
-      nzContent: FreePriceDetailComponent,
+      nzContent: GroupPriceDetailComponent,
       nzMaskClosable: false,
       nzComponentParams: {
         data: {
@@ -465,7 +573,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
           audlts: Number(this.informationForm.value.num_adult),
           childs: Number(this.informationForm.value.num_kid),
           babys: Number(this.informationForm.value.baby_num),
-          rooms: Number(this.informationForm.value.num_room)
+          rooms: Number(this.difRoom)
         }
       },
       nzFooter: [
@@ -480,13 +588,17 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
+      console.log(res, 'aaaaaaaaaaaa');
       if (res != undefined) {
         this.discountPrice = res?.discount;
         this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
       }
+
     })
   }
+
+
 
   // 上传证件照
   choiceImg(i: any) {
@@ -512,7 +624,6 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     console.log('this.newImgArr ', this.newImgArr);
     this.humanArray.controls[i].patchValue({ 'id_photo': this.newImgArr[i] });
   }
-
 
   // 出行人设为联系人
   setContract(human: any) {
@@ -569,7 +680,4 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.babyArray.controls[i].patchValue({ 'id_photo': this.newBabyArr[i] });
   }
 
-
-
 }
-

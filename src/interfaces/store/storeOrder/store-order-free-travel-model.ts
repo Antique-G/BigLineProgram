@@ -180,6 +180,7 @@ export interface DetailsModel {
   inclusive_price?:any
   use_num?:any
   price_inclusive?:any
+  price_baby?:any
 }
 
 

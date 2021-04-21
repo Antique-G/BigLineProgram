@@ -815,7 +815,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add" nzRequired>额外退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTest($event)" (keyup)="numStay($event)" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack($event)" (keyup)="numStay($event)" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -823,7 +823,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut" nzRequired>其他扣除费用</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTest1($event)" (keyup)="numStay1($event)" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack2($event)" (keyup)="numStay1($event)" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>

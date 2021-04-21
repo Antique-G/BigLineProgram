@@ -580,6 +580,28 @@ export class AdminOrderRefundEditComponent implements OnInit {
   }
 
 
+// isPackRefundBasic
+  numTestPack(data: any) {
+    console.log('Number(this.isPackbasicRefund)111111 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
+    this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
+    this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+    if (this.isPack_refund_amount < 0) {
+      this.message.create('error', `总金额不能小于0`)
+    }
+  }
+
+  numTestPack2(data: any) {
+    console.log('Number(this.isP44444444411 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
+      
+    this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
+    this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+    if (this.isPack_refund_amount < 0) {
+      this.message.create('error', `总金额不能小于0`)
+    }
+  }
+
+
+
 
   addPack() {
     this.setPackValue();
