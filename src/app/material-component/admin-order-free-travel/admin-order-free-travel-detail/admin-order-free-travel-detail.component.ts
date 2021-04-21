@@ -286,6 +286,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       }
     }
     else {
+      this.editMemberModel.birthday ='';
       this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
         console.log('结果是 :>> ', res);
         this.dataMember.filter(function (item: any, index: any) {

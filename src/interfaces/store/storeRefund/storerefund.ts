@@ -231,6 +231,7 @@ export interface ReundCheckModel {
   members: any;
   remark: string;
   type?: any;
+  number?: any;
 }
 
 // 支付流水

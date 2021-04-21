@@ -41,6 +41,7 @@ export class StoreOrderRefundDetailComponent implements OnInit {
   isKidR: any;
   pro_num_baby: any;
   isBabyR: any;
+  packAge: any;
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public storeRefundService: StoreRefundService, public dialog: MatDialog) {
@@ -77,6 +78,8 @@ export class StoreOrderRefundDetailComponent implements OnInit {
       bank_number: [''],
       pay_at: [''],
       transaction_id: [''],
+      packAge: [''],
+      selectPack: [''],
     })
 
   }
@@ -95,7 +98,7 @@ export class StoreOrderRefundDetailComponent implements OnInit {
         this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
         this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
-       
+
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
@@ -153,9 +156,9 @@ export class StoreOrderRefundDetailComponent implements OnInit {
           this.percent = 0;
         }
 
-      
+
         let humans = this.detailModel?.member_detail;
-        if(humans!=null){
+        if (humans != null) {
           if (humans[0] != 0) {
             this.selectHumans = '成人' + humans[0] + '个';
             if (humans[1] != 0) {
@@ -187,6 +190,8 @@ export class StoreOrderRefundDetailComponent implements OnInit {
             this.isWayFor === true;
           }
         })
+        // 按套餐
+        this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
       })
     });
   }
