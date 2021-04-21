@@ -363,7 +363,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     // 按套餐
     if (this.isQuoteType === false) {
       this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
-      this.freeTravelUpdateModel.use_num = this.addForm.value.use_num == '' ? 0 : this.addForm.value.use_num;
+      this.freeTravelUpdateModel.use_num = this.addForm.value.use_num == '' ? 1 : this.addForm.value.use_num;
       this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive;
       this.freeTravelUpdateModel.buy_num_max = 0;
 
@@ -372,7 +372,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
       // 按人头
       this.freeTravelUpdateModel.buy_num_max = this.addForm.value.buy_num_max == '' ? 0 : this.addForm.value.buy_num_max;
       this.freeTravelUpdateModel.copies_max = 0;
-      this.freeTravelUpdateModel.use_num = 0;
+      this.freeTravelUpdateModel.use_num = 1;
       this.freeTravelUpdateModel.inclusive = '';
 
     }
