@@ -74,6 +74,8 @@ export class AdminProductTagComponent implements OnInit {
     this.cate_id = this.searchForm.value.cate_id;
     this.name = this.searchForm.value.name;
     this.status = this.searchForm.value.status;
+    this.page = 1;
+
     this.getData();
 
   }

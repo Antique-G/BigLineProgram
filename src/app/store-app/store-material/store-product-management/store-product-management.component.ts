@@ -142,7 +142,7 @@ export class StoreProductManagementComponent implements OnInit {
     this.status = this.searchForm.value.status;
     this.tag = this.searchForm.value.tag;
     this.operation_id = this.searchForm.value.operation_id;
-
+    this.page = 1;
     // 筛选条件存进cookie
     this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page, operation_id: this.operation_id }
     localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));

@@ -151,6 +151,7 @@ export class AdminOrderComponent implements OnInit {
     this.group_status = this.searchForm.value.group_status;
     this.group_code = this.searchForm.value.group_code;
     this.store_id = this.searchForm.value.store_id;
+    this.page = 1;
 
     // 筛选条件存进cookie
     this.setQuery = {

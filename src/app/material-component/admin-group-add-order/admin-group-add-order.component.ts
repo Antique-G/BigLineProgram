@@ -119,6 +119,8 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.departure_city = this.isDeparture_city;
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
+
+
     // 筛选条件存进cookie
     this.setQuery = {
       title: this.title, start_date: this.start_date, departure_city: this.departure_city,
@@ -158,6 +160,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
 
   search() {
     this.loading = true;
+    this.page = 1;
     this.setValue();
 
     this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days).subscribe(res => {
