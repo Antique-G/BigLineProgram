@@ -269,8 +269,21 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       this.editMemberModel.birthday = this.idChangeBirDate;
     }
     console.log('v33333333 ', this.editMemberModel);
-    if (this.editMemberModel.birthday == null) {
-      this.msg.error('出生年月日不能为空');
+    if (this.detailModel?.independent_product?.data?.quote_type == '2') {
+      if (this.editMemberModel.birthday == null) {
+        this.msg.error('出生年月日不能为空');
+      }
+      else {
+        this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+          console.log('结果是 :>> ', res);
+          this.dataMember.filter(function (item: any, index: any) {
+            if (item.id === data.id) {
+              item.edit = false;
+            }
+          });
+          this.getDetail();
+        })
+      }
     }
     else {
       this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {

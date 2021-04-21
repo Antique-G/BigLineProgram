@@ -178,6 +178,8 @@ export interface DetailsModel {
   refund_amount: any;
   service_charge: any;
   inclusive_price?:any
+  use_num?:any
+  price_inclusive?:any
 }
 
 
@@ -233,6 +235,7 @@ export interface IndependentproductsModel {
   departure: string;
   destination: string;
   quote_type?:string;
+  use_num?:string;
 }
 
 interface Members {
