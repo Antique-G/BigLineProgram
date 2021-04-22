@@ -128,6 +128,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       step: 0,
       reserve_ahead: 0,
       request_id_num: 0,
+      baby_occupy: 0,
+
     }
 
   }
@@ -155,6 +157,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       earlier1: new FormControl(1, [Validators.required]),
       earlier2: new FormControl(null),
       request_id_num: ['1', [Validators.required]],
+      baby_occupy: new FormControl(0, [Validators.required]),
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -295,16 +298,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
       }
       console.log('date是多少', this.detailUpdateModel.earlier);
     }
-    // if (parseInt(this.isReserveChildren) === 0) {
-    //   this.detailUpdateModel.child_age_max = 14;
-    //   this.detailUpdateModel.child_height_min = 0;
-    //   this.detailUpdateModel.child_height_max = 0;
-    // }
-    // else if (parseInt(this.isReserveChildren) === 1) {
-    //   this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
-    //   this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
-    //   this.detailUpdateModel.child_height_max = this.addForm.value.child_height_max;
-    // }
+
     this.detailUpdateModel.child_age_min = this.addForm.value.child_age_min;
     this.detailUpdateModel.child_age_max = this.addForm.value.child_age_max;
     this.detailUpdateModel.child_height_min = this.addForm.value.child_height_min;
@@ -312,6 +306,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     this.detailUpdateModel.reserve_num_min = this.addForm.value.reserve_num_min;
     this.detailUpdateModel.reserve_num_max = this.addForm.value.reserve_num_max;
     this.detailUpdateModel.request_id_num = this.addForm.value.request_id_num;
+    this.detailUpdateModel.baby_occupy = this.addForm.value.baby_occupy;
 
   }
 
@@ -531,9 +526,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
           console.log("res结果", res);
           localStorage.setItem("few_days", this.addForm.value.few_days);
         },
-        error => {
-          this.isLoadingBtn = false;
-        })
+          error => {
+            this.isLoadingBtn = false;
+          })
       }
 
     }

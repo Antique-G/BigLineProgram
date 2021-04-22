@@ -171,8 +171,8 @@ export class StoreFreeInfoComponent implements OnInit {
       buy_num_max: new FormControl(0, [Validators.required]),
       copies_max: new FormControl(0),
       use_num: new FormControl(1),
-      inclusive: new FormControl(''),     
-       request_id_num: new FormControl(0, [Validators.required]),
+      inclusive: new FormControl(''),
+      request_id_num: new FormControl('0', [Validators.required]),
 
     });
     // 每次表单数据发生变化的时候更新错误信息
@@ -343,7 +343,7 @@ export class StoreFreeInfoComponent implements OnInit {
     if (this.isQuoteType === false) {
       this.freeTravelModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
       this.freeTravelModel.use_num = this.addForm.value.use_num == '' ? 1 : this.addForm.value.use_num;
-      this.freeTravelModel.inclusive = this.addForm.value.inclusive;
+      this.freeTravelModel.inclusive = this.addForm.value.inclusive==null||this.addForm.value.inclusive==''?'':this.addForm.value.inclusive;
       this.freeTravelModel.buy_num_max = 0;
 
     }

@@ -302,6 +302,7 @@ export interface ProductModel {
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
+  request_id_num?: any;
 }
 
 export interface Members {
@@ -533,8 +534,8 @@ export interface OrderGroupProduct {
   emergency_contact_number?: any;
   discount?: any;
   other_price?: any;
-  num_total?:any
-  internal_remarks?:any
+  num_total?: any
+  internal_remarks?: any
 }
 
 
@@ -547,6 +548,11 @@ export interface ComfirmOrderModel {
   transaction_id: any;
 }
 
+// 二维码收款
+export interface WeChatModel {
+  order_id: any;
+  fee: any;
+}
 
 
 // 订单统计OrderTotal

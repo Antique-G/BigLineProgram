@@ -370,7 +370,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
     if (this.isQuoteType === false) {
       this.freeTravelUpdateModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
       this.freeTravelUpdateModel.use_num = this.addForm.value.use_num == '' ? 1 : this.addForm.value.use_num;
-      this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive;
+      this.freeTravelUpdateModel.inclusive = this.addForm.value.inclusive==null||this.addForm.value.inclusive==''?'':this.addForm.value.inclusive;
       this.freeTravelUpdateModel.buy_num_max = 0;
 
     }

@@ -249,7 +249,9 @@ export const AdminUrls = {
 
   GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
   GetAdminOrderIndenOrderTotal: api + '/admin/order/inden_order_total',   //自由行订单统计
-  GetAdminOrderGetPayQr: api + '/admin/order/get_pay_qr',   //生成收款码
+  PostAdminOrderGetWeChatPayQr: api + '/admin/order/get_wechat_pay_qr',   //生成微信收款码
+  GetAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码
+
 
 
 };

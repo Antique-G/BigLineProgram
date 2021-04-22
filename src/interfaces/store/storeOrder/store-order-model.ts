@@ -59,6 +59,7 @@ export interface DataOrderDetail {
   destination_city: string;
   member_min: number;
   member_max: number;
+  member_total: number;
   days: number;
   start_date: string;
   end_date: string;

@@ -6,6 +6,7 @@ import { AdminOrderService } from '../../../../services/admin/admin-order.servic
 import { AODChangeNumsComponent } from './a-o-d-change-nums/a-o-d-change-nums.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AODShutOffComponent } from './a-o-d-shut-off/a-o-d-shut-off.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-order-detail',
@@ -21,6 +22,10 @@ export class AdminOrderDetailComponent implements OnInit {
   isActiveDate: any;
   isMemberMax: any;
   subGroupModel!: DataOrderDetail;
+  isExport: any;
+  api = environment.baseUrl;
+  group_id: any;
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     public adminOrderService: AdminOrderService, public modal: NzModalService,) {
@@ -30,6 +35,7 @@ export class AdminOrderDetailComponent implements OnInit {
       active_date: ['', [Validators.required]],
       returnDate: ['', [Validators.required]],
       member_max: ['', [Validators.required]],
+      group_member: ['', [Validators.required]],
     })
   }
 
@@ -147,5 +153,12 @@ export class AdminOrderDetailComponent implements OnInit {
         })
       });
     })
+  }
+
+
+  // 导出人数
+  export() {
+    this.group_id = this.detailModel.group_id;
+    this.isExport = this.api + '/admin/group_member_export/' + this.group_id;
   }
 }

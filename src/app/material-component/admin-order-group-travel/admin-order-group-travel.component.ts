@@ -253,6 +253,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
   // 导出
   export() {
     this.setValue();
+    this.status = this.status == null ? '' : this.status;
     this.date_start = this.date_start == null ? '' : this.date_start;
     this.date_end = this.date_end == null ? '' : this.date_end;
     this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;

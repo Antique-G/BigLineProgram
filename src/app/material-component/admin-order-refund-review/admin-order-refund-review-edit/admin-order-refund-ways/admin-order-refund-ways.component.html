@@ -64,7 +64,9 @@
                             <div *ngIf="data?.pay_type===1">微信支付</div>
                             <div *ngIf="data?.pay_type===2">支付宝</div>
                             <div *ngIf="data?.pay_type===3">银行卡</div>
-                            <div *ngIf="data?.pay_type===4">二维码付款</div>
+                            <div *ngIf="data?.pay_type===4">微信二维码付款</div>
+                            <span *ngIf="data.pay_type===5">支付宝二维码收款</span>
+
                         </td>
                         <td>{{data?.pay_time|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                         <td>
