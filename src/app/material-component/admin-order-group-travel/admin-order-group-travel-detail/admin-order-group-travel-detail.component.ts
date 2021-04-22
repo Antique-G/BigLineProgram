@@ -57,6 +57,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       emergency_contact_number: [''],
       customer_remarks: [''],
       internal_remarks: [''],
+      days: [''],
     });
     this.editMemberModel = {
       id: '',

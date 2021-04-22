@@ -51,6 +51,15 @@
 
                                             <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_member">团队总人数</nz-form-label>
+                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                        <input nz-input formControlName="group_member" nzBorderless [ngModel]="detailModel?.member_total" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
                                                         <input nz-input formControlName="member_min" nzBorderless [ngModel]="detailModel?.member_min" />

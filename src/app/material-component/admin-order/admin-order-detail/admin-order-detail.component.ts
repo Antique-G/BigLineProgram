@@ -30,6 +30,7 @@ export class AdminOrderDetailComponent implements OnInit {
       active_date: ['', [Validators.required]],
       returnDate: ['', [Validators.required]],
       member_max: ['', [Validators.required]],
+      group_member: ['', [Validators.required]],
     })
   }
 

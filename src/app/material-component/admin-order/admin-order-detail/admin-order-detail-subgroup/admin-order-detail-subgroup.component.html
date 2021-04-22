@@ -41,6 +41,9 @@
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms()">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
+                        <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出报名人数</a>
+
+
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===0">
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="sendClosedGroup()">不成团关团短信通知</button>
@@ -58,6 +61,7 @@
                             <tr>
                                 <th style="text-align: left;">选择</th>
                                 <th style="text-align: left;">订单号</th>
+                                <th style="text-align: center;">订单人数</th>
                                 <th style="text-align: center;">应收总额</th>
                                 <th style="text-align: center;">已收总额</th>
                                 <th style="text-align: center;">是否有退款</th>
@@ -76,44 +80,52 @@
                                                 <div> {{ data.id }}</div>
                                                 <div>
                                                     <span *ngIf="data.order_status===0">
-                                                <nz-badge nzColor="yellow"></nz-badge>订单已取消
+                                                <nz-badge nzColor="yellow"></nz-badge>已取消
                                             </span>
                                                     <span *ngIf="data.order_status===1">
-                                                <nz-badge nzColor="red"></nz-badge>订单待支付
+                                                <nz-badge nzColor="red"></nz-badge>待支付
                                             </span>
                                                     <span *ngIf="data.order_status===2">
-                                                <nz-badge nzColor="pink"></nz-badge>订单待出行
+                                                <nz-badge nzColor="pink"></nz-badge>待出行
                                             </span>
                                                     <span *ngIf="data.order_status===3">
-                                                <nz-badge nzColor="green"></nz-badge>订单已完成
+                                                <nz-badge nzColor="green"></nz-badge>已完成
                                             </span>
                                                 </div>
                                                 <div>
                                                     <span *ngIf="data.order_sms===0">
-                                                <nz-badge nzColor="pink"></nz-badge>未发送订单短信通知
+                                                <nz-badge nzColor="pink"></nz-badge>未发送订单短信
                                             </span>
                                                     <span *ngIf="data.order_sms===1">
-                                                <nz-badge nzColor="green"></nz-badge>成功发送订单短信通知
+                                                <nz-badge nzColor="green"></nz-badge>成功发送订单短信
                                             </span>
                                                     <span *ngIf="data.order_sms===2">
-                                                <nz-badge nzColor="red"></nz-badge>订单短信通知发送失败
+                                                <nz-badge nzColor="red"></nz-badge>订单短信发送失败
                                             </span>
                                                 </div>
                                                 <div *ngIf="isClosed===0">
                                                     <span *ngIf="data.cancel_sms===0">
-                                                <nz-badge nzColor="pink"></nz-badge>未发送不成团短信通知
+                                                <nz-badge nzColor="pink"></nz-badge>未发送不成团短信
                                             </span>
                                                     <span *ngIf="data.cancel_sms===1">
-                                                <nz-badge nzColor="green"></nz-badge>成功发送不成团短信通知
+                                                <nz-badge nzColor="green"></nz-badge>成功发送不成团短信
                                             </span>
                                                     <span *ngIf="data.cancel_sms===2">
-                                                <nz-badge nzColor="red"></nz-badge>不成团短信通知发送失败
+                                                <nz-badge nzColor="red"></nz-badge>不成团短信发送失败
                                             </span>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style="text-align: center;">{{data?.price_total}}</td>
-                                        <td style="text-align: center;">{{data?.amount_received}}</td>
+                                        <td style="text-align: center;">
+                                            <div>{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                            <div>
+                                                <span>成人{{data?.num_adult}}|</span>
+                                                <span>儿童{{data?.num_kid}}|</span>
+                                                <span>婴儿{{data?.baby_num}}</span>
+                                            </div>
+                                        </td>
+                                        <td style="text-align: center;">￥{{data?.price_total}}</td>
+                                        <td style="text-align: center;">￥{{data?.amount_received}}</td>
                                         <td style="text-align: center;">
                                             <div *ngIf="data?.refund_status!=0">￥{{data?.refund_amount}}</div>
                                             <div *ngIf="data?.refund_status===0">否</div>
