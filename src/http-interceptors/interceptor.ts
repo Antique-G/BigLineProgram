@@ -73,7 +73,9 @@ export class Interceptor implements HttpInterceptor {
       },
         error => { // 统一处理所有的http错误
           if (error instanceof HttpErrorResponse) {
+
             switch (error.status) {
+
               case 401:
                 console.log("当前页", window.location.pathname)
                 if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
@@ -107,6 +109,7 @@ export class Interceptor implements HttpInterceptor {
                 }
 
               case 504:
+                break;
               case 404:
                 this.createFail(error.message)
                 break;
@@ -134,6 +137,11 @@ export class Interceptor implements HttpInterceptor {
                 console.log("弹出的错误", error.error.message);
                 this.createFail(error.error.message)
                 break;
+              case 201:
+                this.createRefund(error.error.text)
+                console.log("弹出的错误", error.error.text);
+                break;
+           
               default:
                 this.createFail('未知错误')
                 break;
@@ -200,6 +208,20 @@ export class Interceptor implements HttpInterceptor {
     // setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
   }
 
+
+
+  // 退款
+  createRefund(content: any): void {
+    this.modal['error']({
+      nzMask: true,
+      nzTitle: "<h3>错误提示</h3>",
+      nzContent: `<h5>${content}</h5>`,
+      nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
+      // ,transform:translate 
+    })
+    this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+    // setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
+  }
 }
 
 
