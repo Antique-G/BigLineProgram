@@ -225,7 +225,17 @@
                                     </nz-form-item>
 
 
-
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                        <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="baby_occupy" nzRequired>婴儿是否占位</nz-form-label>
+                                            <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-radio-group formControlName="baby_occupy" ngModel={{dataProductDetailModel?.baby_occupy}}>
+                                                    <label nz-radio nzValue='0'>否 </label>
+                                                    <label nz-radio nzValue='1'>是</label>
+                                                </nz-radio-group>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
 
 
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
