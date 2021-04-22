@@ -91,18 +91,18 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   minNumber = 1;
   maxNumber = 1;
   isRequestIdNum = false;
-  isChangebirthday:any;
+  isChangebirthday: any;
 
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
-    public adminOrderFreeTravelService: AdminOrderFreeTravelService,  public dialog: MatDialog, public modal: NzModalService,) {
+    public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog, public modal: NzModalService,) {
     this.addForm = this.fb.group({
       product_id: ['',],
       departure_city_name: ['',],
       destination_city_name: ['',],
       isDay: ['',],
     });
-  
+
     // 校验手机
     const { mobile } = MyValidators;
     this.informationForm = this.fb.group({
@@ -169,7 +169,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl('', [Validators.required]),
+        id_type: new FormControl(1, [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
@@ -182,7 +182,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0),
+        id_type: new FormControl(1),
         id_num: new FormControl(''),
         birthday: new FormControl(null, [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
@@ -191,7 +191,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       }))
     }
 
-    this.isChangeData.push(true);
+    this.isChangeData.push(false);
     this.newImgArr.push([])
     this.isNum();
   }
@@ -369,7 +369,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.detailModel =  JSON.parse(localStorage.getItem("freeOrderData")!)
+    this.detailModel = JSON.parse(localStorage.getItem("freeOrderData")!)
     this.isRequestIdNum = this.detailModel?.request_id_num == 1 ? true : false;
     this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
     this.listDataMap = this.detailModel?.date_quote;
@@ -385,7 +385,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0, [Validators.required]),
+        id_type: new FormControl(1, [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
@@ -398,16 +398,16 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0),
+        id_type: new FormControl(1),
         id_num: new FormControl(''),
-        birthday: new FormControl(null, [Validators.required]),
+        birthday: new FormControl('', [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
         gender: new FormControl(1, [Validators.required]),
         eng_name: new FormControl(''),
       }));
     }
     this.isShowRoom();
-    this.isChangeData.push(true);
+    this.isChangeData.push(false);
     this.newImgArr.push([])
 
   }
@@ -429,11 +429,24 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
-    this.orderGroupProduct.members.forEach((element: any) => {
-      if (element.birthday != null) {
-        element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
-      }
-    });
+
+    // 必填，写的身份证
+    if (this.isRequestIdNum) {
+      this.orderGroupProduct.members.forEach((element: any) => {
+        if (element.birthday != null) {
+          element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
+        }
+      });
+    }
+    else {
+      this.orderGroupProduct.members.forEach((element: any) => {
+        if (element.birthday != '') {
+          element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
+        }
+      });
+    }
+
+
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;

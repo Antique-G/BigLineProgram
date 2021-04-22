@@ -172,7 +172,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl('', [Validators.required]),
+        id_type: new FormControl(1, [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
         assembling_place_id: ['',],
@@ -186,17 +186,16 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0),
+        id_type: new FormControl(1),
         id_num: new FormControl(''),
-        birthday: new FormControl(null, [Validators.required]),
+        birthday: new FormControl('', [Validators.required]),
         assembling_place_id: ['',],
         id_photo: new FormControl('', [Validators.required]),
         gender: new FormControl(1, [Validators.required]),
         eng_name: new FormControl(''),
       }))
     }
-
-    this.isChangeData.push(true);
+    this.isChangeData.push(false);
     this.newImgArr.push([])
     this.isNum();
   }
@@ -412,7 +411,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0, [Validators.required]),
+        id_type: new FormControl(1, [Validators.required]),
         id_num: new FormControl('', [Validators.required]),
         birthday: new FormControl(null, [Validators.required]),
         assembling_place_id: new FormControl('', [Validators.required]),
@@ -426,17 +425,16 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         phone: new FormControl('', [mobile]),
         is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-        id_type: new FormControl(0),
+        id_type: new FormControl(1),
         id_num: new FormControl(''),
-        birthday: new FormControl(null, [Validators.required]),
+        birthday: new FormControl('', [Validators.required]),
         assembling_place_id: new FormControl('', [Validators.required]),
         id_photo: new FormControl('', [Validators.required]),
         gender: new FormControl(1, [Validators.required]),
         eng_name: new FormControl(''),
       }));
     }
-
-    this.isChangeData.push(true);
+    this.isChangeData.push(false);
     this.newImgArr.push([])
 
   }
@@ -461,11 +459,22 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
-    this.orderGroupProduct.members.forEach((element: any) => {
-      if (element.birthday != null) {
-        element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
-      }
-    });
+    // 必填，写的身份证
+    if(this.isRequestIdNum){
+      this.orderGroupProduct.members.forEach((element: any) => {
+        if (element.birthday != null) {
+          element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
+        }
+      });
+    }
+    else{
+      this.orderGroupProduct.members.forEach((element: any) => {
+        if (element.birthday != '') {
+          element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
+        }
+      });
+    }
+
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
     this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
