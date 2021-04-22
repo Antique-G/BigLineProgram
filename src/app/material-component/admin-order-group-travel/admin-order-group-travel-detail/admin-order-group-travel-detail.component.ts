@@ -20,7 +20,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./admin-order-group-travel-detail.component.css']
 })
 export class AdminOrderGroupTravelDetailComponent implements OnInit {
-  public isSpinning = false;
+  public isSpinning = true;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DetailsModel;
@@ -39,6 +39,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   editInfoModel: EditInfoModel;
   idChangeBir = false;
   idChangeBirDate: any;
+
+
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
@@ -87,6 +89,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       console.log("params", params)
       this.detailId = params?.detailId;
       // 详情
+      this.isSpinning = true;
       this.getgroupTravelDetail();
     });
   }
@@ -95,6 +98,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   getgroupTravelDetail() {
     this.adminOrderGroupTravelService.getgroupTravelDetail(this.detailId).subscribe(res => {
       console.log("结果是", res);
+      this.isSpinning = false;
+
       this.detailModel = res.data;
       // 支付流水
       let pagLogArr: any[] = [];
@@ -341,14 +346,32 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       this.editMemberModel.birthday = this.idChangeBirDate;
     }
     this.editMemberModel.assembling_place = data.assembling_place;
-    if(data.assembling_time!=null){
+    if (data.assembling_time != null) {
       this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
     }
     console.log('v33333333 ', this.editMemberModel);
-    if (this.editMemberModel.birthday == null) {
-      this.msg.error('出生年月日不能为空');
+
+    // 证件照必填
+    if (this.detailModel?.product?.data?.request_id_num == 1) {
+      if (this.editMemberModel.birthday == null) {
+        this.msg.error('出生年月日不能为空');
+      }
+      else {
+        this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+          console.log('结果是 :>> ', res);
+          this.dataMember.filter(function (item: any, index: any) {
+            if (item.id === data.id) {
+              item.edit = false;
+            }
+          });
+          this.getgroupTravelDetail();
+        })
+      }
     }
     else {
+      if (this.editMemberModel.birthday == null) {
+        this.editMemberModel.birthday = '';
+      }
       this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
         console.log('结果是 :>> ', res);
         this.dataMember.filter(function (item: any, index: any) {
@@ -360,8 +383,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       })
     }
 
+
   }
 
+  // 修改出生日期
   onChangeBir(event: any) {
     console.log('event :>> ', event);
     if (event != null) {
