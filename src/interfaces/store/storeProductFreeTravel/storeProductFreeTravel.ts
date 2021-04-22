@@ -27,6 +27,7 @@ export interface StoreFreeTravelModel {
   inclusive?: any;
   buy_num_max?: any;
   request_id_num?: any;
+  baby_occupy?: any;
 }
 
 export interface ProductTabListModel {
@@ -112,6 +113,7 @@ export interface Datum {
   inclusive?: any;
   buy_num_max?: any;
   request_id_num?: any;
+  baby_occupy?: any;
 
 }
 

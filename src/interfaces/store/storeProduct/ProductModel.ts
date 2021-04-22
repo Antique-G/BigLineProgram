@@ -24,6 +24,7 @@ export interface AddStoreProductModel {
   insurance_base?: any;
   insurance_extra?: any;
   request_id_num?: number;
+  baby_occupy?: any;
 }
 
 // 返回
@@ -106,6 +107,7 @@ export interface DataModel {
   insurance_base?: any;
   insurance_extra?: any;
   request_id_num?: number;
+  baby_occupy?: any;
 
 }
 
@@ -212,6 +214,7 @@ export interface DatumListModel {
   insurance_base?: any;
   insurance_extra?: any;
   request_id_num?: number;
+  baby_occupy?: any;
 
 }
 
@@ -256,6 +259,7 @@ export interface DetailModel {
   tag_id: number[];
   insurance_base?: any;
   insurance_extra?: any;
+  baby_occupy?: any;
 
 }
 

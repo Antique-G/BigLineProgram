@@ -410,7 +410,7 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
      if (this.isQuoteType === false) {
       this.freeTravelModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;
       this.freeTravelModel.use_num = this.addForm.value.use_num == '' ? 1 : this.addForm.value.use_num;
-      this.freeTravelModel.inclusive = this.addForm.value.inclusive;
+      this.freeTravelModel.inclusive = this.addForm.value.inclusive==null||this.addForm.value.inclusive==''?'':this.addForm.value.inclusive;
       this.freeTravelModel.buy_num_max = 0;
 
     }
