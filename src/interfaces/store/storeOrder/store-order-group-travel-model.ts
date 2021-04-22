@@ -548,6 +548,11 @@ export interface ComfirmOrderModel {
   transaction_id: any;
 }
 
+// 二维码收款
+export interface WeChatModel {
+  order_id: any;
+  fee: any;
+}
 
 
 // 订单统计OrderTotal

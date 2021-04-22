@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
-import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 
@@ -101,14 +101,29 @@ export class AdminOrderGroupTravelService {
   }
 
 
-  // 二维码收款
-  orderGetPayQr(order_id: any): Observable<any> {
+  // 微信二维码收款
+  orderGetPayWechatQr(weChatModel: WeChatModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderGetWeChatPayQr, weChatModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+  // 支付宝二维码收款
+  // orderGetAlipayQr(weChatModel: WeChatModel): Observable<any> {
+  //   return this.httpClient.post<any>(this.urls.GetAdminOrderAlipayCode, weChatModel, httpOptions)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     )
+  // }
+  orderGetAlipayQr(order_id: any): Observable<any> {
     const params = new HttpParams().set('order_id', order_id)
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
-    return this.httpClient.get<any>(this.urls.GetAdminOrderGetPayQr, findhttpOptions)
+    return this.httpClient.get<any>(this.urls.GetAdminOrderAlipayCode, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
@@ -179,33 +194,33 @@ export class AdminOrderGroupTravelService {
 
 
   // 订单导出
-exportExcel(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
-  date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<any> {
-  const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
-    .set('per_page', per_page.toString())
-    .set('status', status ? status : '')
-    .set('product_id', product_id ? product_id : '')
-    .set('product_name', product_name ? product_name : '')
-    .set('order_number', order_number ? order_number : '')
-    .set('date_start', date_start ? date_start : '')
-    .set('date_end', date_end ? date_end : '')
-    .set('product_code', product_code ? product_code : '')
-    .set('store_id', store_id ? store_id : '')
-    .set('order_start_date', order_start_date ? order_start_date : '')
-    .set('order_end_date', order_end_date ? order_end_date : '')
-    .set('contact_name', contact_name ? contact_name : '')
-    .set('contact_phone', contact_phone ? contact_phone : '');
+  exportExcel(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
+    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<any> {
+    const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+      .set('per_page', per_page.toString())
+      .set('status', status ? status : '')
+      .set('product_id', product_id ? product_id : '')
+      .set('product_name', product_name ? product_name : '')
+      .set('order_number', order_number ? order_number : '')
+      .set('date_start', date_start ? date_start : '')
+      .set('date_end', date_end ? date_end : '')
+      .set('product_code', product_code ? product_code : '')
+      .set('store_id', store_id ? store_id : '')
+      .set('order_start_date', order_start_date ? order_start_date : '')
+      .set('order_end_date', order_end_date ? order_end_date : '')
+      .set('contact_name', contact_name ? contact_name : '')
+      .set('contact_phone', contact_phone ? contact_phone : '');
 
 
-  const findhttpOptions = {
-    headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-    params: params
-  };
-  return this.httpClient.get<any>(this.urls.GetAdminOrderExport, findhttpOptions)
-    .pipe(
-      catchError(this.handleError)
-    )
-}
+    const findhttpOptions = {
+      headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+      params: params
+    };
+    return this.httpClient.get<any>(this.urls.GetAdminOrderExport, findhttpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
 
   private handleError(error: HttpErrorResponse) {

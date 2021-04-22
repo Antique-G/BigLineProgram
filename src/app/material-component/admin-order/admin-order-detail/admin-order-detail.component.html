@@ -112,6 +112,10 @@
                                 <div>
                                     <h4 style="padding-left: 10px;padding-top: 10px;">团队信息</h4>
                                 </div>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                    <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出报名名单</a>
+                                </div>
+
                             </div>
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">

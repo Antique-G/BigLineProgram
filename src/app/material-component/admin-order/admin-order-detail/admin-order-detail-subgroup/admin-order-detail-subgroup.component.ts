@@ -43,7 +43,6 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   payLog:any[] = []
   
   url:any;
-  isExport:any;
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
@@ -509,8 +508,5 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   }
 
 
-  // 导出人数
-  export(){
 
-  }
 }

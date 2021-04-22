@@ -41,9 +41,6 @@
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms()">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
-                        <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出报名人数</a>
-
-
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===0">
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="sendClosedGroup()">不成团关团短信通知</button>
@@ -135,7 +132,8 @@
                                                 <span *ngIf="aa.pay_type===1">微信</span>
                                                 <span *ngIf="aa.pay_type===2">支付宝</span>
                                                 <span *ngIf="aa.pay_type===3">银行转账</span>
-                                                <span *ngIf="aa.pay_type===4">二维码收款</span>
+                                                <span *ngIf="aa.pay_type===4">微信二维码收款</span>
+                                                <span *ngIf="aa.pay_type===5">支付宝二维码收款</span>
 
                                             </div>
                                         </td>
