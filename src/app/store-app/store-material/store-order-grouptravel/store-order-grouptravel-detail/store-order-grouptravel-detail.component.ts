@@ -45,6 +45,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
       emergency_contact_number: ['', [Validators.required]],
       customer_remarks: ['', [Validators.required]],
       internal_remarks: ['', [Validators.required]],
+      days: ['', [Validators.required]],
     });
 
   }

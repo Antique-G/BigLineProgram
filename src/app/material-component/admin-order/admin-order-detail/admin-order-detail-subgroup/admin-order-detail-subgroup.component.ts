@@ -45,8 +45,6 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   url:any;
 
 
-
-
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
     public dialog: MatDialog, public adminOrderService: AdminOrderService,public router: Router,) {
     
@@ -508,4 +506,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
       // nzOnOk: () =>
     })
   }
+
+
+
 }

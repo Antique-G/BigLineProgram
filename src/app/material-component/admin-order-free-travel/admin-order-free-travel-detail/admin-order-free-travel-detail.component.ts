@@ -83,6 +83,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("params", params)
       this.detailId = params?.detailId;
+      this.isSpinning = true;
       // 详情
       this.getDetail();
 
@@ -93,6 +94,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
   getDetail() {
     this.adminOrderFreeTravelService.getfreeTravelDetail(this.detailId).subscribe(res => {
       console.log("自由行详情结果是", res);
+      this.isSpinning = false;
       this.detailModel = res.data;
       // 支付流水
       let pagLogArr: any[] = [];
