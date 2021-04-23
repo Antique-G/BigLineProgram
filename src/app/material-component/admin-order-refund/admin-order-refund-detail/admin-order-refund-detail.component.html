@@ -455,9 +455,10 @@
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>
                                                                                 <span *ngIf="data.pay_type===2">支付宝</span>
-                                                                                <span *ngIf="data.pay_type===3">银行转账</span>
+                                                                                <span *ngIf="data.pay_type===3">现金</span>
                                                                                 <span *ngIf="data.pay_type===4">微信二维码</span>
                                                                                 <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                                                                <span *ngIf="data.pay_type===6">银行卡转账</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
@@ -799,9 +800,10 @@
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>
                                                                                 <span *ngIf="data.pay_type===2">支付宝</span>
-                                                                                <span *ngIf="data.pay_type===3">银行转账</span>
+                                                                                <span *ngIf="data.pay_type===3">现金</span>
                                                                                 <span *ngIf="data.pay_type===4">微信二维码</span>
                                                                                 <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                                                                <span *ngIf="data.pay_type===6">银行卡转账</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
