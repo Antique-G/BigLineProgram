@@ -180,7 +180,7 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         }
         this.RefundLogData = this.detailModel?.refund_log?.data;
         this.RefundLogData.forEach((ele: any) => {
-          if (ele.pay_type === 3) {
+          if (ele.pay_type === 6) {
             this.isWayFor === false;
           }
           else {

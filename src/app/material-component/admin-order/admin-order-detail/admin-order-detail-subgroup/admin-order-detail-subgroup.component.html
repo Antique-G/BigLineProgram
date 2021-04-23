@@ -131,10 +131,10 @@
                                             <div *ngFor="let aa of data?.pay_log?.data">
                                                 <span *ngIf="aa.pay_type===1">微信</span>
                                                 <span *ngIf="aa.pay_type===2">支付宝</span>
-                                                <span *ngIf="aa.pay_type===3">银行转账</span>
-                                                <span *ngIf="aa.pay_type===4">微信二维码收款</span>
-                                                <span *ngIf="aa.pay_type===5">支付宝二维码收款</span>
-
+                                                <span *ngIf="aa.pay_type===3">现金</span>
+                                                <span *ngIf="aa.pay_type===4">微信二维码</span>
+                                                <span *ngIf="aa.pay_type===5">支付宝二维码</span>
+                                                <span *ngIf="aa.pay_type===6">银行卡转账</span>
                                             </div>
                                         </td>
                                         <td style="text-align: center;">

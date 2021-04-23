@@ -91,7 +91,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     }
     else {
       // 银行转账
-      this.refund1Model2.pay_type = 3;
+      this.refund1Model2.pay_type = 6;
       this.refund1Model2.pay_at = format(new Date(this.addForm.value.pay_at), 'yyyy-MM-dd HH:mm:ss');
       this.refund1Model2.bank_address = this.addForm.value.bank_address;
       this.refund1Model2.bank_user = this.addForm.value.bank_user;
