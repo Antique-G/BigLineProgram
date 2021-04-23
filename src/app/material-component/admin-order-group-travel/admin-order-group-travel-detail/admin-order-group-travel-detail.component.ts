@@ -198,6 +198,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     const editmodal = this.modal.create({
       nzTitle: '订单全额退款',
       nzWidth: 800,
+      nzMaskClosable: false,
       nzContent: AOGTDFullRefundComponent,
       nzComponentParams: {
         data: this.detailModel
@@ -219,8 +220,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
   orderPartRefund() {
     const editmodal = this.modal.create({
-      nzTitle: '订单退款',
+      nzTitle: '订单部分退款',
       nzWidth: 1000,
+      nzMaskClosable: false,
       nzContent: AOGTDPartRefundComponent,
       nzComponentParams: {
         data: this.detailModel
