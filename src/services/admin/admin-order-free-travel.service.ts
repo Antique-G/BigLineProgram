@@ -89,7 +89,7 @@ export class AdminOrderFreeTravelService {
 
   // 搜索可下订单的产品
   getFreePro(page: number, per_page: number, title: any, start_date: any, departure_city: any,
-    destination_city: any, few_days: any, sort_field?: any, sort?: any): Observable<FreeProSearchModel> {
+    destination_city: any, few_days: any,quote_type?: any, sort_field?: any, sort?: any): Observable<FreeProSearchModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('title', title ? title : '')
@@ -97,8 +97,10 @@ export class AdminOrderFreeTravelService {
       .set('departure_city', departure_city ? departure_city : '')
       .set('destination_city', destination_city ? destination_city : '')
       .set('few_days', few_days ? few_days : '')
+      .set('quote_type', quote_type ? quote_type : '')
       .set('sort_field', sort_field ? sort_field : '')
       .set('sort', sort ? sort : '');
+
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
