@@ -215,9 +215,15 @@ interface MemberModel {
 
 // 创建退款单
 export interface CreateReundModel {
-  id: number;
-  type: number;
+  id: any;
+  type: any;
   reason: string;
+  refund_amount: any;
+  members: any;
+  amount_add: any;
+  amount_cut: any;
+  remark: string;
+
 }
 
 
