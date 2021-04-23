@@ -1,0 +1,81 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm" nz-row>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_no">退款单号</nz-form-label>
+                    <nz-form-control [nzSm]="17" [nzXs]="24">
+                        <input nz-input formControlName="refund_no" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_type" nzRequired>退款方式</nz-form-label>
+                    <nz-form-control [nzSm]="17" [nzXs]="24" nzErrorTip="请选择">
+                        <nz-select nzPlaceHolder="请选择" formControlName="pay_type" (ngModelChange)="changeType($event)">
+                            <nz-option [nzLabel]="'微信'" [nzValue]="'1'"></nz-option>
+                            <nz-option [nzLabel]="'支付宝'" [nzValue]="'2'"></nz-option>
+                            <nz-option [nzLabel]="'银行卡转账'" [nzValue]="'3'"></nz-option>
+                            <nz-option [nzLabel]="'微信二维码'" [nzValue]="'4'"></nz-option>
+                            <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="'5'"></nz-option>
+                            <nz-option [nzLabel]="'现金'" [nzValue]="'6'"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <ng-container *ngIf="isShow">
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_user">开户名</nz-form-label>
+                        <nz-form-control [nzSm]="17" [nzXs]="24">
+                            <input nz-input formControlName="bank_user" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_address">开户行</nz-form-label>
+                        <nz-form-control [nzSm]="17" [nzXs]="24">
+                            <input nz-input formControlName="bank_address" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="bank_number">账户</nz-form-label>
+                        <nz-form-control [nzSm]="17" [nzXs]="24">
+                            <input nz-input formControlName="bank_number" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+            </ng-container>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="transaction_id">流水号</nz-form-label>
+                    <nz-form-control [nzSm]="17" [nzXs]="24">
+                        <input nz-input formControlName="transaction_id" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_at" nzRequired>退款时间</nz-form-label>
+                    <nz-form-control [nzSm]="17" [nzXs]="24" nzErrorTip="请选择">
+                        <nz-date-picker style="width: 100%; " nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="pay_at"></nz-date-picker>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+
+
+        </form>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRefundService } from '../../../services/admin/admin-refund.service';
+import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
 
 @Component({
@@ -30,6 +31,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   dateArray: any[] = [];
   storeList: any[] = [];
   setQuery: any;
+  isUrl: any;
 
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog, private modal: NzModalService,
     public adminRefundService: AdminRefundService, public adminProductManagementService: AdminProductManagementService,) {
@@ -62,7 +64,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
     this.status = getSeatch1?.status ? getSeatch1?.status : '';
     this.page = 1;
     this.searchForm.patchValue({
-      order_id:this.order_id,
+      order_id: this.order_id,
       store_id: this.store_id,
       refund_id: this.refund_id,
       time: this.date_start == null ? [] : [this.date_start, this.date_end],
@@ -172,5 +174,43 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
       transaction_id: '',
       status: '',
     });
+  }
+
+
+  // 修改状态
+  statusEdit(data: any) {
+    console.log('data :>> ', data);
+    const editmodal = this.modal.create({
+      nzTitle: '修改退款状态',
+      nzContent: AdminOrderRefundChangStatusComponent,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type:'primary',
+          onClick: componentInstance => {
+            componentInstance?.update()
+          }
+        }
+      ]
+    })
+    editmodal.afterClose.subscribe(res => {
+      this.getRefundlist();
+    })
+  }
+
+
+  // 跳转到订单详情
+  routTo(data: any) {
+    // 跟团游
+    if (data?.product_type==0) {
+      this.isUrl = '/admin/main/groupTravelOrder/detail?detailId=' + data.order_id;
+    }
+    // 自由行
+    else  if (data?.product_type==1){
+      this.isUrl = '/admin/main/freeTravelOrder/detail?detailId=' + data.order_id;
+    }
   }
 }

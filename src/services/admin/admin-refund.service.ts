@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CreateReundModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundLogEditModel, CreateReundModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 
@@ -122,6 +122,16 @@ export class AdminRefundService {
         catchError(this.handleError)
       )
   }
+
+
+  // 变更退款流水信息
+  postAdminRefundLogEdit(adminRefundLogEditModel: AdminRefundLogEditModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminRefundLogEdit, adminRefundLogEditModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
 
   public handleError(error: HttpErrorResponse) {
     console.log("1212", error);

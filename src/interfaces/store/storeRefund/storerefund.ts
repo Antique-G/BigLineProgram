@@ -317,3 +317,17 @@ interface DatumRefundListModel {
   bank_number: string;
   store_name: string;
 }
+
+
+
+// 流水
+export interface AdminRefundLogEditModel {
+  pay_at: any;
+  pay_type: number;
+  bank_address?: any;
+  bank_user?: any;
+  bank_number?: any;
+  transaction_id: any;
+  refund_no: any;
+  id: any
+}
