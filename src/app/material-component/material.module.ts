@@ -152,6 +152,7 @@ import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule
 import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/fee-by-quote/fee-by-quote.component';
+import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 
 
 
@@ -324,6 +325,7 @@ import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-ad
     AdminStoreManageSetScheduleComponent,
     AdminFreeAddOrderByQuoteComponent,
     FeeByQuoteComponent,
+    AdminOrderRefundChangStatusComponent,
 
   ]
 })
