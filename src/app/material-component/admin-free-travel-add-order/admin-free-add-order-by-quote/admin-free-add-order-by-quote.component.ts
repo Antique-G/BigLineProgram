@@ -75,6 +75,8 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
   discountPrice = 0;
   isShowFeeDetail = false;
 
+  discount_tit: any;
+  other_price_tit: any;
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog,
@@ -119,7 +121,9 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
       discount: '',
       other_price: '',
       num_total: '',
-      internal_remarks: ''
+      internal_remarks: '',
+      discount_tit: '',
+      other_price_tit: '',
     }
   }
 
@@ -237,8 +241,11 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
     this.orderGroupProduct.num_total = this.contactForm.value.num_total;
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
+    this.orderGroupProduct.discount_tit = this.discount_tit;
     // 收费
     this.orderGroupProduct.other_price = this.other_price;
+    this.orderGroupProduct.other_price_tit = this.other_price_tit;
+
 
   }
 
@@ -361,6 +368,8 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
         this.discountPrice = res?.discount;
         this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
+        this.discount_tit = res?.discount_tit;
+        this.other_price_tit = res?.other_price_tit
       }
     })
   }

@@ -23,7 +23,8 @@ export class FeeByQuoteComponent implements OnInit {
     this.addForm = this.fb.group({
       money: [0,],
       other_price: [0,],
-
+      discount_tit: [''],
+      other_price_tit: [''],
     })
   }
 
@@ -71,7 +72,11 @@ export class FeeByQuoteComponent implements OnInit {
   }
 
   update() {
-    let a = { totalPrice: this.totalPrice, discount: Number(this.addForm.value.money), other_price: Number(this.addForm.value.other_price) };
+    let a = {
+      totalPrice: this.totalPrice, discount: Number(this.addForm.value.money),
+      other_price: Number(this.addForm.value.other_price),
+      discount_tit: this.addForm.value.discount_tit, other_price_tit: this.addForm.value.other_price_tit
+    };
     return a
   }
 }

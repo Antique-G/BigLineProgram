@@ -1,3 +1,7 @@
 .ant-divider-horizontal {
     margin: 10px 0 !important;
 }
+
+.ant-form-item {
+    margin: 0 0 10px !important;
+}
