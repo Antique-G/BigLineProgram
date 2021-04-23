@@ -27,14 +27,14 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <!-- <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_code">产品编码</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_code" placeholder="请输入产品编码" />
                                 </nz-form-control>
                             </div>
-                        </nz-form-item>
+                        </nz-form-item> -->
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
@@ -150,14 +150,13 @@
                                     <th style="text-align: center;">订单号</th>
                                     <th style="text-align: center;">下单人</th>
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;width: 6%;">产品编码</th>
+                                    <!-- <th style="text-align: center;width: 6%;">产品编码</th> -->
                                     <th style="text-align: center;width: 12%;">产品名称</th>
                                     <th style="text-align: center;">联系人姓名/手机号</th>
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">订单下单日期</th>
                                     <th style="text-align: center;">订单状态</th>
                                     <th style="text-align: center;">订单总价格</th>
-                                    <!-- <th style="text-align: center;">订单支付状态</th> -->
                                     <th style="text-align: center;">订单短信通知书</th>
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
@@ -170,7 +169,7 @@
                                     <td>{{data.id}}</td>
                                     <td>{{data?.bind_account_name}}</td>
                                     <td>{{data.store_name}}</td>
-                                    <td>{{data.product_id}}</td>
+                                    <!-- <td>{{data.product_id}}</td> -->
                                     <td>{{data.product_name}}</td>
                                     <td>{{data.contact_name}}/{{data.contact_phone}}</td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
@@ -190,17 +189,6 @@
                                         </span>
                                     </td>
                                     <td>{{data.price_total}}元</td>
-                                    <!-- <td>
-                                        <span *ngIf="data.payment_status===0">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===1">
-                                            <nz-badge nzColor="green"></nz-badge>已支付
-                                        </span>
-                                        <span *ngIf="data.payment_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待支付
-                                        </span>
-                                    </td> -->
                                     <td>
                                         <span *ngIf="data.order_sms===0">
                                             <nz-badge nzColor="yellow"></nz-badge>未发</span>
