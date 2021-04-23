@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -29,6 +29,8 @@ export class GroupPriceDetailComponent implements OnInit {
     this.addForm = this.fb.group({
       money: [0,],
       other_price: [0,],
+      discount_tit: [''],
+      other_price_tit: [''],
     })
   }
 
@@ -48,17 +50,17 @@ export class GroupPriceDetailComponent implements OnInit {
   }
 
   onEnter(data: any) {
-    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) + Number(this.addForm.value.other_price);
     console.log('Number(data) :>> ', Number(data), Number(data) > Number(this.totalPrice));
     if (Number(data) > Number(this.totalPrice)) {
       this.msg.error('优惠价格不能大于总价格');
       this.addForm.patchValue({
         money: 0
       });
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) + Number(this.addForm.value.other_price);
     }
     else {
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);;
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money) + Number(this.addForm.value.other_price);;
       this.totalPrice = this.toDecimal(this.totalPrice);
     }
 
@@ -66,7 +68,7 @@ export class GroupPriceDetailComponent implements OnInit {
 
 
   onEnter1(data: any) {
-    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);;
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money) + Number(this.addForm.value.other_price);;
     this.totalPrice = this.toDecimal(this.totalPrice);
 
   }
@@ -82,7 +84,11 @@ export class GroupPriceDetailComponent implements OnInit {
   }
 
   update() {
-    let a = { totalPrice: this.totalPrice, discount: Number(this.addForm.value.money) ,other_price: Number(this.addForm.value.other_price)};
+    let a = {
+      totalPrice: this.totalPrice, discount: Number(this.addForm.value.money),
+      other_price: Number(this.addForm.value.other_price),
+      discount_tit: this.addForm.value.discount_tit, other_price_tit: this.addForm.value.other_price_tit
+    };
     return a
   }
 }

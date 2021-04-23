@@ -46,6 +46,14 @@
                             </nz-form-control>
                         </div>
                     </nz-form-item>
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="discount_tit">优惠原因</nz-form-label>
+                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                <input nz-input formControlName="discount_tit" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
                 </form>
             </div>
             <nz-divider></nz-divider>
@@ -63,6 +71,14 @@
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="other_price">附加收费金额</nz-form-label>
                             <nz-form-control [nzSm]="12 " [nzXs]="24">
                                 <nz-input-number formControlName="other_price" style="width: 100%;" [nzMin]="0" (ngModelChange)="onEnter1($event)" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="other_price_tit">附加收费原因</nz-form-label>
+                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                <input nz-input formControlName="other_price_tit" />
                             </nz-form-control>
                         </div>
                     </nz-form-item>

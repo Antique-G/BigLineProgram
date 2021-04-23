@@ -93,9 +93,10 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
   minNumber = 1;
   maxNumber = 1;
   isRequestIdNum = false;
-  isChangebirthday:any;
+  isChangebirthday: any;
 
-
+  discount_tit: any;
+  other_price_tit: any;
 
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
     public adminOrderGroupTravelService: AdminOrderGroupTravelService, public dialog: MatDialog, public modal: NzModalService,) {
@@ -149,6 +150,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
       discount: '',
       other_price: '',
       internal_remarks: '',
+      discount_tit: '',
+      other_price_tit: '',
     }
   }
 
@@ -461,14 +464,14 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     // 处理出生日期
     this.orderGroupProduct.members = this.informationForm.value.humanList.concat(this.informationForm.value.babyList);
     // 必填，写的身份证
-    if(this.isRequestIdNum){
+    if (this.isRequestIdNum) {
       this.orderGroupProduct.members.forEach((element: any) => {
         if (element.birthday != null) {
           element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
         }
       });
     }
-    else{
+    else {
       this.orderGroupProduct.members.forEach((element: any) => {
         if (element.birthday != '') {
           element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
@@ -486,8 +489,10 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
+    this.orderGroupProduct.discount_tit = this.discount_tit;
     // 附加收费
     this.orderGroupProduct.other_price = this.other_price;
+    this.orderGroupProduct.other_price_tit = this.other_price_tit;
     // 计调备注
     this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
 
@@ -635,6 +640,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         this.discountPrice = res?.discount;
         this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
+        this.discount_tit = res?.discount_tit;
+        this.other_price_tit = res?.other_price_tit
       }
 
     })
