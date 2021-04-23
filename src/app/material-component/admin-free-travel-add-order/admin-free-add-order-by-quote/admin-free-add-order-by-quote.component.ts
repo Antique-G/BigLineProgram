@@ -329,7 +329,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
     }
     else if (item.checked === false) {
       this.isShowFeeDetail = false;
-
+      this.isdate_quotes_id = '';
     }
   }
 

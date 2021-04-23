@@ -578,7 +578,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
 
   changeId(item: any) {
-    console.log('object :>> ', item);
+    console.log('object :>> 111111', item);
     if (item.checked === true) {
       this.feeAll = item;
       this.isdate_quotes_id = item.id;
@@ -604,6 +604,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     }
     else if (item.checked === false) {
       this.isShowFeeDetail = false;
+      this.isdate_quotes_id = '';
     }
   }
 
