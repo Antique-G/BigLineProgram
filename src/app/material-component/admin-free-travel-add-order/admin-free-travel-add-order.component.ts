@@ -37,6 +37,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
   sort: any;
   setQuery: any;
   quote_type: any;
+  id: any;
 
   constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, public modal: NzModalService,) {
@@ -48,6 +49,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
       few_days: [''],
       group_status: [''],
       quote_type: [''],
+      id: [''],
     });
   }
 
@@ -62,6 +64,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
       this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
       this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
       this.quote_type = getSeatch?.quote_type ? getSeatch?.quote_type : '';
+      this.id = getSeatch?.id ? getSeatch?.id : '';
 
       console.log('this.quote_type', this.quote_type);
       this.searchForm.patchValue({
@@ -71,6 +74,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
         few_days: this.few_days,
         quote_type: this.quote_type,
+        id: this.id
       })
       this.getFeeTravelList();
     })
@@ -92,7 +96,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
 
   getFeeTravelList() {
     this.loading = true;
-    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.quote_type).subscribe(res => {
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.quote_type, this.id).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -110,10 +114,12 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
     this.quote_type = this.searchForm.value.quote_type;
+    this.id = this.searchForm.value.id;
+
     // 筛选条件存进cookie
     this.setQuery = {
       title: this.title, start_date: this.start_date, departure_city: this.departure_city,
-      destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type
+      destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type,id:this.id
     }
     localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
   }
@@ -135,7 +141,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.loading = true;
     this.page = 1;
     this.setValue();
-    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.quote_type).subscribe(res => {
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.quote_type,this.id).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -167,7 +173,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.setValue();
     this.sort = 'asc';
     this.loading = true;
-    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type).subscribe(res => {
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type,this.id).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -180,7 +186,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     this.setValue();
     this.sort = 'desc';
     this.loading = true;
-    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type).subscribe(res => {
+    this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.start_date, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type,this.id).subscribe(res => {
       console.log('结果是 :>> ', res);
       this.loading = false;
       this.dataSource = res?.data;
@@ -200,7 +206,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     // 筛选条件存进cookie
     this.setQuery = {
       title: this.title, start_date: this.start_date, departure_city: this.departure_city,
-      destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type
+      destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type,id:this.id
     }
     localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
     this.getFeeTravelList();
@@ -218,6 +224,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
       few_days: '',
       group_status: '',
       quote_type: '',
+      id:''
     });
   }
 }

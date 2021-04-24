@@ -6,7 +6,6 @@ import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-o
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { format } from 'date-fns';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
-import { AOGTDFullRefundComponent } from './a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
@@ -194,12 +193,15 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
   }
 
 
-  orderFullRefund() {
+
+
+
+  orderPartRefund() {
     const editmodal = this.modal.create({
-      nzTitle: '订单全额退款',
-      nzWidth: 800,
+      nzTitle: '订单退款',
+      nzWidth: 1000,
       nzMaskClosable: false,
-      nzContent: AOGTDFullRefundComponent,
+      nzContent: AOGTDPartRefundComponent,
       nzComponentParams: {
         data: this.detailModel
       },
@@ -212,22 +214,6 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
           }
         }
       ]
-    })
-    editmodal.afterClose.subscribe(res => {
-    })
-  }
-
-
-  orderPartRefund() {
-    const editmodal = this.modal.create({
-      nzTitle: '订单部分退款',
-      nzWidth: 1000,
-      nzMaskClosable: false,
-      nzContent: AOGTDPartRefundComponent,
-      nzComponentParams: {
-        data: this.detailModel
-      },
-      nzFooter: null
     })
     editmodal.afterClose.subscribe(res => {
     })
