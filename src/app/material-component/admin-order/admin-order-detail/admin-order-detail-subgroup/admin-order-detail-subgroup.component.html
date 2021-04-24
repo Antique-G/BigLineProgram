@@ -41,6 +41,9 @@
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms()">发送出团短信通知</button>
                         <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                            <a (click)="export(tab.sub_group_id)" href={{isExport}} target="_blank" class="abtn">导出子团名单</a>
+                        </div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===0">
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="sendClosedGroup()">不成团关团短信通知</button>

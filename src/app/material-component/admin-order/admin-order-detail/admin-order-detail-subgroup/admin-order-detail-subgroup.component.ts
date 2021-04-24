@@ -9,6 +9,7 @@ import { AdminOrderService } from '../../../../../services/admin/admin-order.ser
 import { AODSubgroupMoveorderComponent } from './a-o-d-subgroup-moveorder/a-o-d-subgroup-moveorder.component';
 import { AODSubgroupSendsmsComponent } from './a-o-d-subgroup-sendsms/a-o-d-subgroup-sendsms.component';
 import { AODSubgroupSetguideComponent } from './a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-admin-order-detail-subgroup',
@@ -36,18 +37,25 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   editMemberModel: EditMemberModel;
   editMemberModel1: EditMemberModel;
 
-  amountReceived:any;
-  priceTotal:any;
-  payTime:any;
-  transactionId:any;
-  payLog:any[] = []
-  
-  url:any;
+  amountReceived: any;
+  priceTotal: any;
+  payTime: any;
+  transactionId: any;
+  payLog: any[] = []
+
+  // 跳转到订单详情
+  url: any;
+
+  // 导出子团名单
+  sub_group_id: any;
+  isExport: any;
+  api = environment.baseUrl;
+
 
 
   constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
-    public dialog: MatDialog, public adminOrderService: AdminOrderService,public router: Router,) {
-    
+    public dialog: MatDialog, public adminOrderService: AdminOrderService, public router: Router,) {
+
     this.orderSmsModel = {
       order_ids: []
     };
@@ -63,7 +71,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = '/admin/main/groupTravelOrder/detail?detailId=';
-   }
+  }
 
   edit(data: any) {
     this.router.navigate(['/admin/main/groupTravelOrder/detail'], { queryParams: { detailId: data.id } });
@@ -459,7 +467,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     if (this.editMemberModel.assembling_time === '') {
       this.message.create('warning', `空值不保存`);
     }
-    else{
+    else {
       this.modal.confirm({
         nzTitle: "<h4>提示</h4>",
         nzContent: "<h6>是否修改集合时间</h6>",
@@ -499,7 +507,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
 
 
   // 不成团退款
-  closedGroupRefund(){
+  closedGroupRefund() {
     this.modal.confirm({
       nzTitle: "<h3>确认退款</h3>",
       nzContent: '<h5>如果您确认退款后,将生成退款申请记录,请前往"订单退款处"审核,提交财务退款。</h5>',
@@ -508,5 +516,10 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
   }
 
 
-
+  // 导出子团名单
+  export(data: any) {
+    console.log('data :>> ', data);
+    this.sub_group_id = data;
+    this.isExport = this.api + '/admin/group_export/' + this.sub_group_id;
+  }
 }
