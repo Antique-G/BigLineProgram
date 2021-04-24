@@ -33,7 +33,7 @@ export class StoreQuoteBydateComponent implements OnInit {
   listDataMap: StoreQuoteBydateRsponseListModel | FreeTraveRsponseListModel;
   seletYearMonth: any = format(new Date(), 'yyyy-MM');
   selectedYear = format(new Date(), 'yyyy');
-  yearList = [ '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+  yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
   selectedDateValue = new Date();
   public isSpinning: boolean = true;
   freeTraveQuoteBydateModel: FreeTraveQuoteBydateModel;
@@ -102,7 +102,11 @@ export class StoreQuoteBydateComponent implements OnInit {
     this.getQuoteList();
   }
 
+
+
+
   selectChange(select: Date): void {
+    this.isSpinning = true;
     console.log('选择的', select);
     this.seletYearMonth = format(new Date(select), 'yyyy-MM');
     let newMon = format(new Date(select), 'MM');
@@ -115,11 +119,13 @@ export class StoreQuoteBydateComponent implements OnInit {
     console.log("differenceInCalendarDays(select, this.toDay) < i", differenceInCalendarDays(select, this.toDay) < i)
     if (differenceInCalendarDays(select, this.toDay) < i) {
       this.msg.error('当前日期不能进行报价');
+      this.isSpinning = false;
     }
 
     else {
       this.quoteBydateService.getQuoteDateList(this.productId, this.type, 1, newDay, 42).subscribe(data => {
         console.log('datadatadatadata', data);
+        this.isSpinning = false;
         const modal: NzModalRef = this.modal.create({
           nzTitle: '批量报价',
           nzWidth: 720,
@@ -162,6 +168,7 @@ export class StoreQuoteBydateComponent implements OnInit {
 
         })
         modal.afterClose.subscribe(res => {
+          this.isSpinning = false;
           this.getQuoteList();
         })
       })
