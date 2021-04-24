@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
-import { ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { CreateReundModel } from '../../../../../interfaces/store/storeRefund/storerefund';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -14,12 +14,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class AOGTDPartRefundComponent implements OnInit {
   @Input() data: any;
-  detailId: any;
-  selectedTabIndex = 0;    //选中的tab 默认第一个
   addForm!: FormGroup;
   detailModel: any;
-  isType: any;
-  dataSource: any;
   pro_num_adult: any;
   pro_num_kid: any;
   pro_num_baby: any;
@@ -27,7 +23,7 @@ export class AOGTDPartRefundComponent implements OnInit {
   price_other: any;
   price_total: any;
   price_receive: any;
-  dataMember: any[] = [];
+
   selectMemberData: any[] = [];
   setOfCheckedId = new Set<number>();
   setArr = new Set<any>();
@@ -37,7 +33,7 @@ export class AOGTDPartRefundComponent implements OnInit {
   isStandard: any;
   percentage: any;
   percent: any;
-  reundCheckModel: ReundCheckModel;
+  createReundModel: CreateReundModel
   refund_amount: any;
   bascie_money: any;
   checked = false;
@@ -57,14 +53,6 @@ export class AOGTDPartRefundComponent implements OnInit {
   isKidR: any;
   isBabyR: any;
 
-
-
-  // 套餐
-  packAge: any;
-  isPackRefundBasic: any;
-  isPackbasicRefund: any;
-  isPack_refund_amount: any;
-  selectPack: any;
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -102,8 +90,9 @@ export class AOGTDPartRefundComponent implements OnInit {
       isPackbasicRefund: [''],
       selectPack: [''],
       store_name: [''],
+      reason: ['', [Validators.required,]],
     })
-    this.reundCheckModel = {
+    this.createReundModel = {
       id: '',
       refund_amount: '',
       amount_add: '',
@@ -111,150 +100,112 @@ export class AOGTDPartRefundComponent implements OnInit {
       members: [],
       remark: '',
       type: '',
-      number: ''
+      reason: '',
     }
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.detailId = params.detailId;
-      this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
-        this.detailModel = res.data;
-        console.log('退款2323结果是 :>> ', this.detailModel);
-        this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
-        this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
-        this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
-        this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
-        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
-        this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
-        this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
-        this.price_total = '￥' + this.detailModel.order?.data?.price_total;
-        this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
-        console.log('object :>> ', this.detailModel.price_detail.data,);
-        // 优惠附加收费
-        let priceArr = this.detailModel.price_detail.data;
-        priceArr.forEach((element: any) => {
-          if (element.type === 0) {
-            element.price = '+￥' + element.price;
-          }
-          else {
-            element.price = '-￥' + element.price;
-          }
-        });
-        for (let i = 0; i < priceArr.length; i++) {
-          this.otherArray.push(this.fb.group({
-            name: new FormControl(priceArr[i]?.title),
-            namePrice: new FormControl(priceArr[i]?.price),
-          }))
-        }
-        console.log('otherArray.controls :>> ', this.otherArray.controls);
-        this.dataMember = this.detailModel?.member?.data;
-        this.selectMemberData = this.detailModel?.member?.data;
-        // 筛选出行人未申请过退款的
-        let newMember: any[] = [];
+    this.detailModel = this.data;
+    console.log('性情是 ', this.detailModel);
+    // 成人，儿童，婴儿，儿童总价，婴儿总价，房差
+    this.pro_num_adult = '￥' + this.detailModel?.price_adult + '*' + this.detailModel?.num_adult;
+    this.pro_num_kid = '￥' + this.detailModel?.price_kid + '*' + this.detailModel?.num_kid;
+    this.pro_num_baby = '￥' + this.detailModel?.price_baby + '*' + this.detailModel?.baby_num;
+    this.isKidR = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
+    this.isBabyR = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
+    this.price_diff = '￥' + this.detailModel?.price_diff;
+    this.price_total = '￥' + this.detailModel?.price_total;
+    this.price_receive = '￥' + this.detailModel?.price_receive;
 
 
-        this.selectMemberData.forEach((ele: any) => {
-          if (ele.refund_status === 0) {
-            newMember.push(ele);
-          }
-        })
-        this.selectMemberData = newMember;
-        // 总成人数
-        let adAllArr: any[] = [];
-        let kidAllArr: any[] = [];
-        let baAllArr: any[] = [];
-        this.selectMemberData.forEach((ele: any) => {
-          if (ele.is_kid === 0) {
-            adAllArr.push(ele);
-          }
-          if (ele.is_kid === 1) {
-            kidAllArr.push(ele);
-          }
-          if (ele.is_kid === 2) {
-            baAllArr.push(ele);
-          }
-        })
-        // 应退款的那些人
-        this.allAdultNum = adAllArr;  //成人
-        this.allKidNum = kidAllArr;   //儿童
-        this.allbabyNum = baAllArr;   //婴儿
+    this.selectMemberData = this.detailModel?.member?.data;
+    // 筛选出行人未申请过退款的
+    let newMember: any[] = [];
+    this.selectMemberData.forEach((ele: any) => {
+      if (ele.refund_status === 0) {
+        newMember.push(ele);
+      }
+    })
+    this.selectMemberData = newMember;
+
+    // 总成人数
+    let adAllArr: any[] = [];
+    let kidAllArr: any[] = [];
+    let baAllArr: any[] = [];
+    this.selectMemberData.forEach((ele: any) => {
+      if (ele.is_kid === 0) {
+        adAllArr.push(ele);
+      }
+      if (ele.is_kid === 1) {
+        kidAllArr.push(ele);
+      }
+      if (ele.is_kid === 2) {
+        baAllArr.push(ele);
+      }
+    })
+    // 应退款的那些人
+    this.allAdultNum = adAllArr;  //成人
+    this.allKidNum = kidAllArr;   //儿童
+    this.allbabyNum = baAllArr;   //婴儿
+
+    // 订单出发日期
+    let date1 = new Date(format(new Date(this.detailModel?.start_date), 'yyyy,MM,dd'));
+    // 当前申请时间
+    let date2 = new Date(format(new Date(), 'yyyy,MM,dd'))
+    this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
+    console.log('312312312312312', date1, date2, this.advance);
+    if (this.advance > 7) {
+      this.isStandard = 0;
+      this.percentage = 1;
+      this.percent = 100;
+    }
+    else if (6 <= this.advance && this.advance <= 7) {
+      this.isStandard = 1;
+      this.percentage = 0.8;
+      this.percent = 80;
+    }
+    else if (4 <= this.advance && this.advance <= 5) {
+      this.isStandard = 2;
+      this.percentage = 0.7;
+      this.percent = 70;
+    }
+    else if (1 <= this.advance && this.advance <= 3) {
+      this.isStandard = 3;
+      this.percentage = 0.5;
+      this.percent = 50;
+    }
+    else {
+      this.isStandard = 4;
+      this.percentage = 0;
+      this.percent = 0;
+    }
+  }
 
 
-        console.log('5666565656 ', this.selectMemberData, this.allAdultNum, this.allKidNum, this.allbabyNum);
-        let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
-        let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
-        this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
-        console.log('312312312312312', date1, date2, this.advance, 4 <= this.advance && this.advance <= 5);
-        if (this.advance > 7) {
-          this.isStandard = 0;
-          this.percentage = 1;
-          this.percent = 100;
-        }
-        else if (6 <= this.advance && this.advance <= 7) {
-          this.isStandard = 1;
-          this.percentage = 0.8;
-          this.percent = 80;
-        }
-        else if (4 <= this.advance && this.advance <= 5) {
-          this.isStandard = 2;
-          this.percentage = 0.7;
-          this.percent = 70;
-        }
-        else if (1 <= this.advance && this.advance <= 3) {
-          this.isStandard = 3;
-          this.percentage = 0.5;
-          this.percent = 50;
-        }
-        else {
-          this.isStandard = 4;
-          this.percentage = 0;
-          this.percent = 0;
-        }
-
-        // 退款方案  this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
-        if (this.detailModel.type === 0) {
-          this.selectMemberData.forEach((ele: any) => {
-            ele['disabled'] = true;
-            this.setOfCheckedId.add(ele.id);
-            this.onItemChecked(ele, true)
-          })
-        }
-        console.log('234234234 :>> ', this.selectMemberData, this.detailModel.type === 0);
-
-
-
-
-        // 按套餐
-        this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
-
-        if (this.detailModel.type == 0) {
-          this.addForm.patchValue({
-            ispackNum: this.detailModel?.order?.data?.num_total
-          })
-          this.onEnterPack(this.detailModel?.order?.data?.num_total);
-        }
-      })
+  OnChanges() {
+    // 优惠附加收费
+    let priceArr = this.detailModel?.price_detail?.data;
+    priceArr.forEach((element: any) => {
+      if (element.type === 0) {
+        element.price = '+￥' + element?.price;
+      }
+      else {
+        element.price = '-￥' + element?.price;
+      }
     });
+    for (let i = 0; i < priceArr.length; i++) {
+      this.otherArray.push(this.fb.group({
+        name: new FormControl(priceArr[i]?.title),
+        namePrice: new FormControl(priceArr[i]?.price),
+      }))
+    }
+    console.log('otherArray.controls :>> ', this.otherArray.controls);
   }
 
 
   // 附加
   get otherArray() {
     return this.addForm.get("otherList") as FormArray;
-  }
-
-
-  onTabChange(event: any) {
-    this.selectedTabIndex = event;
-  }
-
-  next1() {
-    this.selectedTabIndex = 1;
-  }
-
-  next2() {
-    this.selectedTabIndex = 2;
   }
 
 
@@ -362,22 +313,16 @@ export class AOGTDPartRefundComponent implements OnInit {
     let babySSSS = Number(this.allbabyNum.length) - Number(this.checkbaNum);
 
     console.log('剩余的人数 :>> ', adultSSSS, kidSSSS, babySSSS);
-    let adultfff = Number(adultSSSS) * Number(this.detailModel.order?.data?.price_adult);
-    let KidFff = Number(kidSSSS) * Number(this.detailModel.order?.data?.price_kid);
-    let babyFff = Number(babySSSS) * Number(this.detailModel.order?.data?.price_baby);
-    console.log('剩余的人付钱 :>> ', adultfff, KidFff, babyFff);
-    if (Number(this.detailModel.order?.data?.service_charge) != 0 || this.detailModel.order?.data?.service_charge != '') {
-      console.log("肤浅的", Number(adultfff), Number(KidFff), Number(babyFff))
-      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.service_charge);
+    let adultfff = Number(adultSSSS) * Number(this.detailModel?.price_adult);
+    let KidFff = Number(kidSSSS) * Number(this.detailModel?.price_kid);
+    let babyFff = Number(babySSSS) * Number(this.detailModel?.price_baby);
+
+    if (Number(this.detailModel?.service_charge) != 0 || this.detailModel?.service_charge != '') {
+      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel?.service_charge);
     }
     else {
       last = Number(adultfff) + Number(KidFff) + Number(babyFff);
     }
-
-
-
-    console.log('最后应付', last);
-
 
     // 剩下的成人数
     let remain = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
@@ -386,14 +331,14 @@ export class AOGTDPartRefundComponent implements OnInit {
     // 剩下的成人是单数，不退房差
     if ((Number(remain)) % 2 != 0) {
       // 应该退的钱=订单-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel?.price_total) - last - Number(this.detailModel?.price_diff)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
       console.log('1121212', this.bascie_money);
-      let i = Number(this.detailModel.order?.data?.price_total);
+      let i = Number(this.detailModel?.price_total);
       let ii = last;
-      let iii = Number(this.detailModel.order?.data?.price_diff);
+      let iii = Number(this.detailModel?.price_diff);
       if (iii === 0) {
         this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
@@ -403,11 +348,11 @@ export class AOGTDPartRefundComponent implements OnInit {
 
     }
     else {
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel?.price_total) - last) * Number(this.percentage);
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
-      let i = Number(this.detailModel.order?.data?.price_total);
+      let i = Number(this.detailModel?.price_total);
       let ii = last;
       this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
@@ -453,90 +398,88 @@ export class AOGTDPartRefundComponent implements OnInit {
 
 
   setValue() {
-    this.reundCheckModel.id = this.detailModel?.id;
-    this.reundCheckModel.members = [...this.setOfCheckedId];
-    this.reundCheckModel.refund_amount = this.refund_amount;
-    this.reundCheckModel.amount_add = this.addForm.value.amount_add;
-    this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
-    this.reundCheckModel.remark = this.addForm.value.remarks;
+    this.createReundModel.id = this.detailModel?.id;
+    this.createReundModel.members = [...this.setOfCheckedId];
+    this.createReundModel.refund_amount = this.refund_amount;
+    this.createReundModel.amount_add = this.addForm.value.amount_add;
+    this.createReundModel.amount_cut = this.addForm.value.amount_cut;
+    this.createReundModel.remark = this.addForm.value.remarks;
+    this.createReundModel.reason = this.addForm.value.reason;
   }
 
-  setPackValue() {
-    this.reundCheckModel.id = this.detailModel?.id;
-    this.reundCheckModel.members = '';
-    this.reundCheckModel.refund_amount = this.isPack_refund_amount;
-    this.reundCheckModel.amount_add = this.addForm.value.amount_add;
-    this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
-    this.reundCheckModel.remark = this.addForm.value.remarks;
-    this.reundCheckModel.number = this.addForm.value.ispackNum;
-  }
 
 
   add() {
-    if (this.refund_amount < 0) {
-      this.message.create('error', `总金额不能小于0`)
+    this.setValue();
+    for (const i in this.addForm.controls) {
+      this.addForm.controls[i].markAsDirty();
+      this.addForm.controls[i].updateValueAndValidity();
     }
-    else {
-      if (Number(this.refund_amount) > Number(this.detailModel.order?.data?.price_total)) {
-        this.message.create('error', `退款总金额不能大于订单付款总金额`)
+    if (this.addForm.valid) {
+      if (this.refund_amount < 0) {
+        this.message.create('error', `总金额不能小于0`)
+      }
+      if (this.createReundModel.members.length == 0) {
+        this.message.create('error', `请选择需退款出行人`)
       }
       else {
-        console.log('Number(this.refund_amount) :>> ', Number(this.refund_amount), Number(this.price_total), Number(this.refund_amount) > Number(this.price_receive));
-        this.setValue();
-        console.log('this.checkAdultNum.length :>> ', this.checkAdultNum, this.allAdultNum.length);
-        if (this.checkAdultNum === this.allAdultNum.length) {
-          if (this.checkkidNum != this.allKidNum.length || this.checkbaNum != this.allbabyNum.length) {
-            this.message.create('error', `所有出行人为成人的已选择退款，儿童和婴儿也必须退款`);
-          }
-          else {
-            if (this.detailModel?.type === 0) {
-              this.reundCheckModel.type = 0;
-              this.modal.confirm({
-                nzTitle: '<h4>确认提交退款</h4>',
-                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-                nzOnOk: () =>
-                  this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                    console.log('res :>> ', res);
-                    if (res === null) {
-                      this.router.navigate(['/admin/main/refund']);
-                    }
-                  })
-              });
-            }
-            else if (this.detailModel?.type === 1) {
-              this.reundCheckModel.type = 0;
-              this.modal.confirm({
-                nzTitle: '<h4>确认提交退款</h4>',
-                nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-                nzOnOk: () =>
-                  this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                    console.log('res :>> ', res);
-                    if (res === null) {
-                      this.router.navigate(['/admin/main/refund']);
-                    }
-                  })
-              });
-            }
-
-          }
+        if (Number(this.refund_amount) > Number(this.detailModel?.price_total)) {
+          this.message.create('error', `退款总金额不能大于订单付款总金额`)
         }
         else {
-          this.reundCheckModel.type = 1;
-          this.modal.confirm({
-            nzTitle: '<h4>确认提交退款</h4>',
-            nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-            nzOnOk: () =>
-              this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                console.log('res :>> ', res);
-                if (res === null) {
-                  this.router.navigate(['/admin/main/refund']);
-                }
-              })
-          });
+          // 所有成人选择退款，则是全额退款
+          if (this.checkAdultNum === this.allAdultNum.length) {
+            if (this.checkkidNum != this.allKidNum.length || this.checkbaNum != this.allbabyNum.length) {
+              this.message.create('error', `所有出行人为成人的已选择退款，儿童和婴儿也必须退款`);
+            }
+            else {
+              this.createReundModel.type = 0;
+              this.modal.confirm({
+                nzTitle: '<h4>确认提交退款</h4>',
+                nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单为全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                nzOnOk: () =>
+                  this.adminRefundService.createRefund(this.createReundModel).subscribe(res => {
+                    console.log('res :>> ', res);
+                    if (res === null) {
+                      // this.router.navigate(['/admin/main/refund']);
+                    }
+                  })
+              });
+            }
+          }
+          if (this.createReundModel.members.length == this.selectMemberData.length) {
+            this.createReundModel.type = 0;
+            this.modal.confirm({
+              nzTitle: '<h4>确认提交退款</h4>',
+              nzContent: '<h5>因所有出行人选择退款，所以此单为全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+              nzOnOk: () =>
+                this.adminRefundService.createRefund(this.createReundModel).subscribe(res => {
+                  console.log('res :>> ', res);
+                  if (res === null) {
+                    // this.router.navigate(['/admin/main/refund']);
+                  }
+                })
+            });
+          }
+          else {
+            this.createReundModel.type = 1;
+            this.modal.confirm({
+              nzTitle: '<h4>确认提交退款</h4>',
+              nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+              nzOnOk: () =>
+                this.adminRefundService.createRefund(this.createReundModel).subscribe(res => {
+                  console.log('res :>> ', res);
+                  if (res === null) {
+                    // this.router.navigate(['/admin/main/refund']);
+                  }
+                })
+            });
+          }
         }
-      }
 
+      }
     }
+
   }
 
 
@@ -550,114 +493,9 @@ export class AOGTDPartRefundComponent implements OnInit {
   }
 
 
-  // 套餐
-  onEnterPack(data: any) {
-    console.log('data :>> ', data);
-    this.selectPack = this.addForm.value.ispackNum+'份';
-    if (Number(this.addForm.value.ispackNum) > Number(this.detailModel?.order?.data?.num_total)) {
-
-      this.message.error('退款套餐数不能大于付款的套餐份数，请重新输入');
-      this.isPackRefundBasic = Number(this.detailModel?.order?.data?.num_total) * Number(this.detailModel?.order?.data?.price_inclusive) * Number(this.percentage);
-      this.isPackbasicRefund = '（' + this.detailModel?.order?.data?.num_total + '*' + this.detailModel?.order?.data?.price_inclusive + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
-      this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
-
-      // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
-      this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-      this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-      if (this.isPack_refund_amount < 0) {
-        this.message.create('error', `总金额不能小于0`)
-      }
-    }
-    else {
-      this.isPackRefundBasic = Number(this.addForm.value.ispackNum) * Number(this.detailModel?.order?.data?.price_inclusive) * Number(this.percentage);
-      this.isPackbasicRefund = '（' + this.addForm.value.ispackNum + '*' + this.detailModel?.order?.data?.price_inclusive + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
-      this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
-      // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
-      this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-      this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-      if (this.isPack_refund_amount < 0) {
-        this.message.create('error', `总金额不能小于0`)
-      }
-    }
-  }
-
-
-// isPackRefundBasic
-  numTestPack(data: any) {
-    console.log('Number(this.isPackbasicRefund)111111 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
-    this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-    if (this.isPack_refund_amount < 0) {
-      this.message.create('error', `总金额不能小于0`)
-    }
-  }
-
-  numTestPack2(data: any) {
-    console.log('Number(this.isP44444444411 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
-      
-    this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-    this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-    if (this.isPack_refund_amount < 0) {
-      this.message.create('error', `总金额不能小于0`)
-    }
-  }
 
 
 
-
-  addPack() {
-    this.setPackValue();
-    // 部分退款
-    if (this.detailModel.type == 1) {
-      if (Number(this.addForm.value.ispackNum) < Number(this.detailModel?.order?.data?.num_total)) {
-        this.reundCheckModel.type = this.detailModel.type;
-        console.log('提交的 :>> ', this.reundCheckModel);
-        this.modal.confirm({
-          nzTitle: '<h4>确认提交退款</h4>',
-          nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-          nzOnOk: () =>
-            this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-              console.log('res :>> ', res);
-              if (res === null) {
-                this.router.navigate(['/admin/main/refund']);
-              }
-            })
-        });
-      }
-      else {
-        this.reundCheckModel.type = 0;
-        console.log('提交的 :>> ', this.reundCheckModel);
-        this.modal.confirm({
-          nzTitle: '<h4>确认提交退款</h4>',
-          nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-          nzOnOk: () =>
-            this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-              console.log('res :>> ', res);
-              if (res === null) {
-                this.router.navigate(['/admin/main/refund']);
-              }
-            })
-        });
-      }
-    }
-    else {
-      this.reundCheckModel.type = 0;
-      console.log('提交的 :>> ', this.reundCheckModel);
-      this.modal.confirm({
-        nzTitle: '<h4>确认提交退款</h4>',
-        nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
-        nzOnOk: () =>
-          this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-            console.log('res :>> ', res);
-            if (res === null) {
-              this.router.navigate(['/admin/main/refund']);
-            }
-          })
-      });
-    }
-
-
-  }
 }
 
 

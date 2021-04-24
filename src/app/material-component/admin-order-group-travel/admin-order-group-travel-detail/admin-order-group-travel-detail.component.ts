@@ -195,7 +195,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
 
-
+  // 订单退款
   orderPartRefund() {
     const editmodal = this.modal.create({
       nzTitle: '订单退款',
@@ -216,6 +216,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
       ]
     })
     editmodal.afterClose.subscribe(res => {
+      this.getgroupTravelDetail();
     })
   }
 
