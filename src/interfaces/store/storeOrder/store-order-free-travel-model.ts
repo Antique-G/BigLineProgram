@@ -61,6 +61,7 @@ export interface StoreOrderFreeTravelList {
   contact_email: string;
   order_sms: number;
   member: Member;
+  quote_type?:any
   independent_product: Independentproduct;
 }
 
@@ -99,6 +100,8 @@ export interface IndependentproductList {
   poster_url: string;
   departure: string;
   destination: string;
+  quote_type?:any
+
 }
 
 export interface Member {
@@ -181,6 +184,7 @@ export interface DetailsModel {
   use_num?:any
   price_inclusive?:any
   price_baby?:any
+  quote_type?:any
 }
 
 

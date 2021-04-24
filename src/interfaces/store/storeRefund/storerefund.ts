@@ -217,7 +217,7 @@ interface MemberModel {
 export interface CreateReundModel {
   id: any;
   type: any;
-  reason: string;
+  reason?: string;
   refund_amount: any;
   members: any;
   amount_add: any;
