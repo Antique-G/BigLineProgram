@@ -25,11 +25,12 @@ export class FreePriceDetailComponent implements OnInit {
   precision = 2;
   cutValue = 0;
 
-  constructor(public fb: FormBuilder,private msg: NzMessageService,  private modal: NzModalService) {
+  constructor(public fb: FormBuilder, private msg: NzMessageService, private modal: NzModalService) {
     this.addForm = this.fb.group({
       money: [0,],
       other_price: [0,],
-
+      discount_tit: [''],
+      other_price_tit: [''],
     })
   }
 
@@ -41,7 +42,7 @@ export class FreePriceDetailComponent implements OnInit {
     this.childAllPrice = Number(this.data?.feeAll?.child_price) * Number(this.childs);
     this.babys = this.data?.babys;
     this.babyAllPrice = Number(this.data?.feeAll?.baby_price) * Number(this.babys);
-    this.basicPrice = Number(this.audltAllPrice) + Number(this.childAllPrice)+ Number(this.babyAllPrice);
+    this.basicPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice);
     this.rooms = this.data?.rooms;
     this.difAllPrice = Number(this.data?.feeAll?.difference_price) * Number(this.rooms);
     this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice);
@@ -50,17 +51,17 @@ export class FreePriceDetailComponent implements OnInit {
 
 
   onEnter(data: any) {
-    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) + Number(this.addForm.value.other_price);
     console.log('Number(data) :>> ', Number(data), Number(data) > Number(this.totalPrice));
     if (Number(data) > Number(this.totalPrice)) {
       this.msg.error('优惠价格不能大于总价格');
       this.addForm.patchValue({
         money: 0
       });
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice)+Number(this.addForm.value.other_price);
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) + Number(this.addForm.value.other_price);
     }
     else {
-      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);
+      this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money) + Number(this.addForm.value.other_price);
       this.totalPrice = this.toDecimal(this.totalPrice);
     }
 
@@ -68,7 +69,7 @@ export class FreePriceDetailComponent implements OnInit {
 
 
   onEnter1(data: any) {
-    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money)+Number(this.addForm.value.other_price);;
+    this.totalPrice = Number(this.basicPrice) + Number(this.difAllPrice) - Number(this.addForm.value.money) + Number(this.addForm.value.other_price);;
     this.totalPrice = this.toDecimal(this.totalPrice);
 
   }
@@ -84,7 +85,11 @@ export class FreePriceDetailComponent implements OnInit {
   }
 
   update() {
-    let a = { totalPrice: this.totalPrice, discount: Number(this.addForm.value.money),other_price: Number(this.addForm.value.other_price) };
+    let a = {
+      totalPrice: this.totalPrice, discount: Number(this.addForm.value.money),
+      other_price: Number(this.addForm.value.other_price),
+      discount_tit: this.addForm.value.discount_tit, other_price_tit: this.addForm.value.other_price_tit
+    };
     return a
   }
 }

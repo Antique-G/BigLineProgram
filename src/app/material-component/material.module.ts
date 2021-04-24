@@ -134,7 +134,6 @@ import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-
 import { AdminInsuredListComponent } from './admin-insurance-history/admin-insured-list/admin-insured-list.component';
 import { AdminPermissionCreateComponent } from './admin-permission/admin-permission-create/admin-permission-create.component';
 import { AdminPermissionDetailComponent } from './admin-permission/admin-permission-detail/admin-permission-detail.component';
-import { AOGTDFullRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-full-refund/a-o-g-t-d-full-refund.component';
 import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOFTDChangePriceComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 import { AdminProductManagementPostComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-post/admin-product-management-post.component';
@@ -152,6 +151,8 @@ import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule
 import { AdminStoreManageSetScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/fee-by-quote/fee-by-quote.component';
+import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
+import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 
 
 
@@ -306,7 +307,6 @@ import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-ad
     AdminInsuredListComponent,
     AdminPermissionCreateComponent,
     AdminPermissionDetailComponent,
-    AOGTDFullRefundComponent,
     AOGTDPartRefundComponent,
     AOFTDChangePriceComponent,
     AOGTDChangePriceComponent,
@@ -324,6 +324,8 @@ import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-ad
     AdminStoreManageSetScheduleComponent,
     AdminFreeAddOrderByQuoteComponent,
     FeeByQuoteComponent,
+    AdminOrderRefundChangStatusComponent,
+    AOFTRefundByquoteComponent,
 
   ]
 })

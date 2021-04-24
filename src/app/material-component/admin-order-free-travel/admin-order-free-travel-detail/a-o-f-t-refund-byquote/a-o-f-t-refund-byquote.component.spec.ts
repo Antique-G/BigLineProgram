@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AOGTDFullRefundComponent } from './a-o-g-t-d-full-refund.component';
+import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote.component';
 
-describe('AOGTDFullRefundComponent', () => {
-  let component: AOGTDFullRefundComponent;
-  let fixture: ComponentFixture<AOGTDFullRefundComponent>;
+describe('AOFTRefundByquoteComponent', () => {
+  let component: AOFTRefundByquoteComponent;
+  let fixture: ComponentFixture<AOFTRefundByquoteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AOGTDFullRefundComponent ]
+      declarations: [ AOFTRefundByquoteComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AOGTDFullRefundComponent);
+    fixture = TestBed.createComponent(AOFTRefundByquoteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

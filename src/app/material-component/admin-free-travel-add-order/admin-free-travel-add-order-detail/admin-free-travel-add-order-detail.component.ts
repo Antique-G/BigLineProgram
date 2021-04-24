@@ -94,6 +94,10 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
   isChangebirthday: any;
 
 
+  discount_tit: any;
+  other_price_tit: any;
+
+
   constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog, public modal: NzModalService,) {
     this.addForm = this.fb.group({
@@ -145,6 +149,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       discount: '',
       other_price: '',
       internal_remarks: '',
+      discount_tit: '',
+      other_price_tit: '',
     }
   }
 
@@ -457,8 +463,11 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
     // 优惠金额
     this.orderGroupProduct.discount = this.discountPrice;
+    this.orderGroupProduct.discount_tit = this.discount_tit;
     // 附加收费
     this.orderGroupProduct.other_price = this.other_price;
+    this.orderGroupProduct.other_price_tit = this.other_price_tit;
+
     // 计调备注
     this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
 
@@ -570,6 +579,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     }
     else if (item.checked === false) {
       this.isShowFeeDetail = false;
+      this.isdate_quotes_id = '';
     }
   }
 
@@ -606,6 +616,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         this.discountPrice = res?.discount;
         this.other_price = res?.other_price;
         this.totalPrice = res?.totalPrice;
+        this.discount_tit = res?.discount_tit;
+        this.other_price_tit = res?.other_price_tit
       }
 
     })

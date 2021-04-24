@@ -215,9 +215,15 @@ interface MemberModel {
 
 // 创建退款单
 export interface CreateReundModel {
-  id: number;
-  type: number;
-  reason: string;
+  id: any;
+  type: any;
+  reason?: string;
+  refund_amount: any;
+  members: any;
+  amount_add: any;
+  amount_cut: any;
+  remark: string;
+  number?: any;
 }
 
 
@@ -316,4 +322,18 @@ interface DatumRefundListModel {
   bank_user: string;
   bank_number: string;
   store_name: string;
+}
+
+
+
+// 流水
+export interface AdminRefundLogEditModel {
+  pay_at: any;
+  pay_type: number;
+  bank_address?: any;
+  bank_user?: any;
+  bank_number?: any;
+  transaction_id: any;
+  refund_no: any;
+  id: any
 }

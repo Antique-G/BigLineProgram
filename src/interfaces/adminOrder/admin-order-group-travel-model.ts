@@ -63,6 +63,8 @@ export interface AdminOrderGroupTravelList {
   order_sms: number;
   member: Member;
   product: Product;
+  discount_tit?: any;
+  other_price_tit?: any;
 }
 
 export interface Product {
@@ -109,6 +111,8 @@ export interface ProductList {
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
+  discount_tit?: any;
+  other_price_tit?: any;
 }
 
 export interface Member {
@@ -181,6 +185,8 @@ export interface DetailsModel {
   sub_group: Subgroup;
   cancel_log: Cancellog;
   pay_log: Paylog;
+  discount_tit?: any;
+  other_price_tit?: any;
 }
 
 export interface Paylog {
@@ -289,6 +295,8 @@ export interface ProductModel {
   destination_city_full_name: string;
   departure_city_name: string;
   destination_city_name: string;
+  discount_tit?: any;
+  other_price_tit?: any;
 }
 
 export interface Members {
@@ -402,6 +410,8 @@ export interface ProListModel {
   departure_city_name: string;
   destination_city_name: string;
   assembling_place: AssemblingplaceList;
+  discount_tit?: any;
+  other_price_tit?: any;
 }
 
 interface AssemblingplaceList {
@@ -460,4 +470,6 @@ export interface OrderGroupProduct {
   discount?: any;
   other_price?: any;
   internal_remarks?: any;
+  discount_tit?: any;
+  other_price_tit?: any;
 }

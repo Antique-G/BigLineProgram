@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
-import { AOFTDChangePriceComponent } from './a-o-f-t-d-change-price/a-o-f-t-d-change-price.component';
 import { format } from 'date-fns';
 import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
+import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 
 
 @Component({
@@ -288,7 +289,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       }
     }
     else {
-      this.editMemberModel.birthday ='';
+      this.editMemberModel.birthday = '';
       this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
         console.log('结果是 :>> ', res);
         this.dataMember.filter(function (item: any, index: any) {
@@ -310,6 +311,60 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
       this.idChangeBir = true;
       this.idChangeBirDate = format(new Date(event), 'yyyy-MM-dd');
     }
+  }
+
+
+
+
+  // 订单退款
+  orderPartRefund() {
+    if (this.detailModel?.quote_type == 2) {
+      const editmodal = this.modal.create({
+        nzTitle: '订单退款',
+        nzWidth: 1000,
+        nzMaskClosable: false,
+        nzContent: AOGTDPartRefundComponent,
+        nzComponentParams: {
+          data: this.detailModel
+        },
+        nzFooter: [
+          {
+            label: '提交退款申请',
+            type: 'primary',
+            onClick: componentInstance => {
+              componentInstance?.add()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+        this.getDetail();
+      })
+    }
+    else{
+      const editmodal = this.modal.create({
+        nzTitle: '订单退款',
+        nzWidth: 1000,
+        nzMaskClosable: false,
+        nzContent: AOFTRefundByquoteComponent,
+        nzComponentParams: {
+          data: this.detailModel
+        },
+        nzFooter: [
+          {
+            label: '提交退款申请',
+            type: 'primary',
+            onClick: componentInstance => {
+              componentInstance?.add()
+            }
+          }
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+        this.getDetail();
+      })
+    }
+
   }
 }
 

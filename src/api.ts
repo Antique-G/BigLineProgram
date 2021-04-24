@@ -196,7 +196,7 @@ export const AdminUrls = {
   PostAdminRefundFinish: api + '/admin/refund_finish', //提交退款流水去向（完成退款）
   GetAdminRefundLog: api + '/admin/refund_log', //退款流水列表
   PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
-
+  PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
 
 
   GetAdminRefundDetail: api + '/admin/refund/',  //退款详情

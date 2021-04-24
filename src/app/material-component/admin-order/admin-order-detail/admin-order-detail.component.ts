@@ -14,7 +14,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./admin-order-detail.component.css']
 })
 export class AdminOrderDetailComponent implements OnInit {
-  public isSpinning = false;
+  public isSpinning = true;
   addForm!: FormGroup;
   detailId: any;
   detailModel!: DataOrderDetail;
@@ -43,10 +43,12 @@ export class AdminOrderDetailComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("params", params)
       this.detailId = params?.detailId;
-
+      this.isSpinning = true;
       // 详情
       this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
         console.log("结果是", res);
+        this.isSpinning = false;
+
         this.detailModel = res.data;
         // 最大成团人数
         if (this.detailModel?.member_max === 0) {

@@ -265,9 +265,10 @@
                                                 <td>
                                                     <span *ngIf="data.pay_type===1">微信</span>
                                                     <span *ngIf="data.pay_type===2">支付宝</span>
-                                                    <span *ngIf="data.pay_type===3">银行转账</span>
-                                                    <span *ngIf="data.pay_type===4">微信二维码收款</span>
-                                                    <span *ngIf="data.pay_type===5">支付宝二维码收款</span>
+                                                    <span *ngIf="data.pay_type===3">现金</span>
+                                                    <span *ngIf="data.pay_type===4">微信二维码</span>
+                                                    <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                                    <span *ngIf="data.pay_type===6">银行卡转账</span>
 
                                                 </td>
                                                 <td>
@@ -318,6 +319,7 @@
                                                 <td>
                                                     <span *ngIf="data.type===0">全额退</span>
                                                     <span *ngIf="data.type===1">部分退款</span>
+                                                    <span *ngIf="data.type===2">多付返还</span>
                                                 </td>
                                                 <td>
                                                     {{data.check_at}}
