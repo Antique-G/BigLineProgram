@@ -223,7 +223,7 @@ export interface CreateReundModel {
   amount_add: any;
   amount_cut: any;
   remark: string;
-
+  number?: any;
 }
 
 
