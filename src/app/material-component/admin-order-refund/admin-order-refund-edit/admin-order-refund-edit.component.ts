@@ -442,15 +442,17 @@ export class AdminOrderRefundEditComponent implements OnInit {
     if (Number(this.difRoom) < 0) {
       this.difRoom = 0;
     }
-    else{
-      this.difRoom =Number(this.difRoom)
+    else {
+      this.difRoom = Number(this.difRoom)
     }
     console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
+alert(Number(this.detailModel.order?.data?.price_other))
+alert(Number(this.detailModel.order?.data?.discount_other))
 
     // 不拼房
     if (this.detailModel?.order.data?.shared_status == 0) {
       //应该退的钱=订单-剩余的人的钱-剩余的房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom) - Number(this.detailModel.order?.data?.price_other) + Number(this.detailModel.order?.data?.discount_other)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
@@ -462,21 +464,21 @@ export class AdminOrderRefundEditComponent implements OnInit {
       // 房差
       let iii = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
       if (iii === 0) {
-        this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+        this.basicRefund = '（' + i + '-' + ii+'+' +Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+  '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
       else {
-        this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+        this.basicRefund = '（' + i + '-（' + ii + '+' + iii+'+' +Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
     }
     // 拼房
     else {
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_other) + Number(this.detailModel.order?.data?.discount_other)) * Number(this.percentage);
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
       let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
-      this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + i + '-' + ii +'+'+Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+  '）*比例' + this.percent + '%=￥' + this.bascie_money;
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
