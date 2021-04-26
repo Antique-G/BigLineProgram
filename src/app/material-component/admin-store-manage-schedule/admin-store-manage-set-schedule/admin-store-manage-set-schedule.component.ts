@@ -75,6 +75,10 @@ export class AdminStoreManageSetScheduleComponent implements OnInit {
       let shopIds = this.data[1].map((item: any) => item.shop_id);
       this.addForm.patchValue({ admin_id: arrId, shop_id: shopIds[0] });
 
+    }else{
+      console.log(this.data[0],'this.data[0]');
+      // 添加
+      this.addForm.patchValue({ shop_id: parseInt(this.data[0]) });
     }
 
 
