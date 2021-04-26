@@ -41,9 +41,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
   bascie_money: any;
   checked = false;
   // 勾选的成人数
-  checkAdultNum: any;
-  checkkidNum: any;
-  checkbaNum: any;
+  checkAdultNum = 0;
+  checkkidNum = 0;
+  checkbaNum = 0;
   // 出行人成人数
   allAdultNum: any;
   // 出行人儿童数
@@ -51,11 +51,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
   // 出行人婴儿数
   allbabyNum: any;
 
-  addMoney: any;
-  deleteMoney: any;
-  isKidR: any;
-  isBabyR: any;
-
+  // 剩余房间数
+  refundRoomNum = 0;
+  // 房差数
+  difRoom = 0;
+  isDia = false;
 
 
   // 套餐
@@ -101,6 +101,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       isPackbasicRefund: [''],
       selectPack: [''],
       store_name: [''],
+      refundRooms: [0],
     })
     this.reundCheckModel = {
       id: '',
@@ -110,7 +111,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
       members: [],
       remark: '',
       type: '',
-      number: ''
+      number: '',
+      num_room: '',
     }
   }
 
@@ -121,38 +123,27 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.detailModel = res.data;
         console.log('退款2323结果是 :>> ', this.detailModel);
         this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
+        // 订单价格显示
         this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
         this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
-        this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
-        this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
-        this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
+        this.price_diff = '￥' + this.detailModel.order?.data?.price_diff + '*' + this.detailModel.order?.data?.num_diff;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
         console.log('object :>> ', this.detailModel.price_detail.data,);
-        // 优惠附加收费
-        let priceArr = this.detailModel.price_detail.data;
-        priceArr.forEach((element: any) => {
-          if (element.type === 0) {
-            element.price = '+￥' + element.price;
-          }
-          else {
-            element.price = '-￥' + element.price;
-          }
-        });
-        for (let i = 0; i < priceArr.length; i++) {
-          this.otherArray.push(this.fb.group({
-            name: new FormControl(priceArr[i]?.title),
-            namePrice: new FormControl(priceArr[i]?.price),
-          }))
-        }
-        console.log('otherArray.controls :>> ', this.otherArray.controls);
         this.dataMember = this.detailModel?.member?.data;
+        //最开始剩余房间数为原始的
+        if (this.detailModel.type == 1) {
+          this.refundRoomNum = this.detailModel.order?.data?.num_room;
+        }
+        else {
+          this.refundRoomNum = 0;
+          this.isDia=true;
+        }
+
         this.selectMemberData = this.detailModel?.member?.data;
         // 筛选出行人未申请过退款的
         let newMember: any[] = [];
-
-
         this.selectMemberData.forEach((ele: any) => {
           if (ele.refund_status === 0) {
             newMember.push(ele);
@@ -178,11 +169,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.allAdultNum = adAllArr;  //成人
         this.allKidNum = kidAllArr;   //儿童
         this.allbabyNum = baAllArr;   //婴儿
-
-
         console.log('5666565656 ', this.selectMemberData, this.allAdultNum, this.allKidNum, this.allbabyNum);
+
+        // 提前天数
         let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
-        let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'))
+        let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'));
         this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
         console.log('312312312312312', date1, date2, this.advance, 4 <= this.advance && this.advance <= 5);
         if (this.advance > 7) {
@@ -211,7 +202,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
           this.percent = 0;
         }
 
-        // 退款方案  this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
+        // 退款方案  this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款"; 全部退款就全选
         if (this.detailModel.type === 0) {
           this.selectMemberData.forEach((ele: any) => {
             ele['disabled'] = true;
@@ -219,14 +210,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
             this.onItemChecked(ele, true)
           })
         }
-        console.log('234234234 :>> ', this.selectMemberData, this.detailModel.type === 0);
-
-
-
 
         // 按套餐
         this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
-
         if (this.detailModel.type == 0) {
           this.addForm.patchValue({
             ispackNum: this.detailModel?.order?.data?.num_total
@@ -237,6 +223,26 @@ export class AdminOrderRefundEditComponent implements OnInit {
     });
   }
 
+
+  OnChanges() {
+    // 优惠附加收费
+    let priceArr = this.detailModel.price_detail.data;
+    priceArr.forEach((element: any) => {
+      if (element.type === 0) {
+        element.price = '+￥' + element.price;
+      }
+      else {
+        element.price = '-￥' + element.price;
+      }
+    });
+    for (let i = 0; i < priceArr.length; i++) {
+      this.otherArray.push(this.fb.group({
+        name: new FormControl(priceArr[i]?.title),
+        namePrice: new FormControl(priceArr[i]?.price),
+      }))
+    }
+    console.log('otherArray.controls :>> ', this.otherArray.controls);
+  }
 
   // 附加
   get otherArray() {
@@ -273,6 +279,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.setArr.delete(data);
     }
   }
+
+
 
 
 
@@ -353,6 +361,52 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.selectHumans = '';
     }
 
+    this.roomChange(this.refundRoomNum);
+    this.priceAll();
+
+  }
+
+
+
+  // 退款房间数
+  numRefundRooms(data: any) {
+    console.log('删除前', this.refundRoomNum, data != '')
+    if (data != '') {
+      console.log('房间数的修改', data);
+      this.refundRoomNum = data;
+      this.roomChange(data);
+      this.priceAll();
+    }
+    else {
+      this.refundRoomNum = this.refundRoomNum;
+      this.roomChange(data);
+    }
+
+  }
+
+
+  // 房间数校验
+  roomChange(a: any) {
+    // 剩余的成人数
+    console.log('11111111123123123', this.refundRoomNum);
+    let reAudlt = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
+    // 剩余的儿童数
+    let reKid = Number(this.allKidNum.length) - Number(this.checkkidNum);
+
+    let min = Math.ceil(Number(reAudlt / 2));
+    let max = Math.ceil((Number(reAudlt) + Number(reKid)) / 2);
+    console.log('11111111 :>> ', min, max, a);
+    if (a >= min && a <= max) {
+      console.log('zhengque :>> ', 'zhengque');
+    }
+    else {
+      this.message.error("剩余房间数不对，请重新输入剩余房间数");
+      this.refundRoomNum = this.refundRoomNum;
+    }
+  }
+
+
+  priceAll() {
     // 基础金额:
     //  应付：（出行总成人数-退款成人数）*单价+（出行总儿童数-退款儿童数）*单价+（出行总婴儿数-退款婴儿数）*单价+手续费
     let last: any;
@@ -360,11 +414,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
     let kidSSSS = Number(this.allKidNum.length) - Number(this.checkkidNum);
     let babySSSS = Number(this.allbabyNum.length) - Number(this.checkbaNum);
 
-    console.log('剩余的人数 :>> ', adultSSSS, kidSSSS, babySSSS);
     let adultfff = Number(adultSSSS) * Number(this.detailModel.order?.data?.price_adult);
     let KidFff = Number(kidSSSS) * Number(this.detailModel.order?.data?.price_kid);
     let babyFff = Number(babySSSS) * Number(this.detailModel.order?.data?.price_baby);
     console.log('剩余的人付钱 :>> ', adultfff, KidFff, babyFff);
+
     if (Number(this.detailModel.order?.data?.service_charge) != 0 || this.detailModel.order?.data?.service_charge != '') {
       console.log("肤浅的", Number(adultfff), Number(KidFff), Number(babyFff))
       last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.service_charge);
@@ -372,9 +426,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
     else {
       last = Number(adultfff) + Number(KidFff) + Number(babyFff);
     }
-
-
-
     console.log('最后应付', last);
 
 
@@ -382,25 +433,32 @@ export class AdminOrderRefundEditComponent implements OnInit {
     let remain = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
     console.log('remain ', remain);
 
-    // 剩下的成人是单数，不退房差
-    if ((Number(remain)) % 2 != 0) {
-      // 应该退的钱=订单-剩余的人的钱-房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff)) * Number(this.percentage);
+    //剩余房差房间数
+    this.difRoom = Number(this.refundRoomNum) * 2 - Number(remain) - Number(this.detailModel?.order.data?.shared_status);
+    console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
+
+    // 不拼房
+    if (this.detailModel?.order.data?.shared_status == 0) {
+      //应该退的钱=订单-剩余的人的钱-剩余的房差  （实付总金额-应付总金额）*比例%
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
       console.log('1121212', this.bascie_money);
+      // 总价
       let i = Number(this.detailModel.order?.data?.price_total);
+      // 剩余的人付钱
       let ii = last;
-      let iii = Number(this.detailModel.order?.data?.price_diff);
+      // 房差
+      let iii = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
       if (iii === 0) {
         this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
       else {
         this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
-
     }
+    // 拼房
     else {
       this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last) * Number(this.percentage);
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
@@ -409,10 +467,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
       this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
-
     }
-
-
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
     this.refund_amount = this.toDecimal(this.refund_amount);
@@ -442,6 +497,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   }
 
 
+
   numStay(data: any) {
     data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
   }
@@ -458,6 +514,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     this.reundCheckModel.amount_add = this.addForm.value.amount_add;
     this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
     this.reundCheckModel.remark = this.addForm.value.remarks;
+    this.reundCheckModel.num_room = this.refundRoomNum;
   }
 
   setPackValue() {
@@ -552,7 +609,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   // 套餐
   onEnterPack(data: any) {
     console.log('data :>> ', data);
-    this.selectPack = this.addForm.value.ispackNum+'份';
+    this.selectPack = this.addForm.value.ispackNum + '份';
     if (Number(this.addForm.value.ispackNum) > Number(this.detailModel?.order?.data?.num_total)) {
 
       this.message.error('退款套餐数不能大于付款的套餐份数，请重新输入');
@@ -581,9 +638,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
   }
 
 
-// isPackRefundBasic
+  // isPackRefundBasic
   numTestPack(data: any) {
-    console.log('Number(this.isPackbasicRefund)111111 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
+    console.log('Number(this.isPackbasicRefund)111111 :>> ', Number(this.isPackRefundBasic), Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
     this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
     this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
     if (this.isPack_refund_amount < 0) {
@@ -592,8 +649,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
   }
 
   numTestPack2(data: any) {
-    console.log('Number(this.isP44444444411 :>> ', Number(this.isPackRefundBasic),Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
-      
+    console.log('Number(this.isP44444444411 :>> ', Number(this.isPackRefundBasic), Number(this.addForm.value.amount_add), Number(this.addForm.value.amount_cut));
+
     this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
     this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
     if (this.isPack_refund_amount < 0) {
