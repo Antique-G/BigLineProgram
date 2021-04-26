@@ -477,7 +477,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.bascie_money = this.toDecimal(this.bascie_money);
       let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
-      this.basicRefund = '（' + i + '-' + '（' + ii + '）'+'）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + i + '-' + '（' + ii + '）' + '）*比例' + this.percent + '%=￥' + this.bascie_money;
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
@@ -536,6 +536,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
     this.reundCheckModel.remark = this.addForm.value.remarks;
     this.reundCheckModel.number = this.addForm.value.ispackNum;
+    this.reundCheckModel.num_room = 0
   }
 
 

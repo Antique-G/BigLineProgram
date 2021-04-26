@@ -102,7 +102,10 @@
                                     <td>{{data.transaction_id}}</td>
                                     <td>{{data.refund_no}}</td>
                                     <td>
-                                        <a (click)="routTo(data)" href={{isUrl}} target="_blank">{{data.order_id}}</a>
+                                        <div *ngIf="data?.product_type == 0"> <a href={{url+data?.order_id}} target="_blank">{{data.order_id}}</a></div>
+                                        <div *ngIf="data?.product_type == 1"> <a href={{isurl+data?.order_id}} target="_blank">{{data.order_id}}</a></div>
+
+
                                     </td>
                                     <td>{{data.store_name}}</td>
                                     <td>￥{{data.refund_amount}}</td>
