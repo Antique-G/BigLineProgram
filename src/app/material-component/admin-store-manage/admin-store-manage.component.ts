@@ -7,7 +7,7 @@ import { AdminStoreManageService } from '../../../services/admin/admin-store-man
 import { AdminStoreManageSetScheduleComponent } from '../admin-store-manage-schedule/admin-store-manage-set-schedule/admin-store-manage-set-schedule.component';
 import { AdminStoreManageAddComponent } from './admin-store-manage-add/admin-store-manage-add.component';
 import { AdminStoreManageDetailComponent } from './admin-store-manage-detail/admin-store-manage-detail.component';
-
+import { AdminStoreManageEmployeeComponent } from './admin-store-manage-employee/admin-store-manage-employee.component';
 
 @Component({
   selector: 'app-admin-store-manage',
@@ -167,4 +167,31 @@ export class AdminStoreManageComponent implements OnInit {
       shop_name: '',
     });
   }
+
+  // 门店员工
+  employeeModel(data: any) {
+    console.log(data);
+    const addmodal = this.modal.create({
+      nzTitle: data.shop_name+'员工列表',
+      nzWidth: 800,
+      nzContent: AdminStoreManageEmployeeComponent,
+      nzMaskClosable: false,
+      nzComponentParams: {
+        data: data
+      },
+      nzFooter: [
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: componentInstance => {
+
+          }
+        }
+      ]
+    })
+    addmodal.afterClose.subscribe(res => {
+      
+    })
+  }
+
 }
