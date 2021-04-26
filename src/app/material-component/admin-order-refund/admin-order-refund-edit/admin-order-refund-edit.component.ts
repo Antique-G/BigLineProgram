@@ -425,10 +425,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     if (Number(this.detailModel.order?.data?.service_charge) != 0 || this.detailModel.order?.data?.service_charge != '') {
       console.log("肤浅的", Number(adultfff), Number(KidFff), Number(babyFff))
-      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.service_charge);
+      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.service_charge) + Number(this.detailModel.order?.data?.price_other) - Number(this.detailModel.order?.data?.discount_other);
     }
     else {
-      last = Number(adultfff) + Number(KidFff) + Number(babyFff);
+      last = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.price_other) - Number(this.detailModel.order?.data?.discount_other);
     }
     console.log('最后应付', last);
 
@@ -451,7 +451,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     // 不拼房
     if (this.detailModel?.order.data?.shared_status == 0) {
       //应该退的钱=订单-剩余的人的钱-剩余的房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom) - Number(this.detailModel.order?.data?.price_other) + Number(this.detailModel.order?.data?.discount_other)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom)) * Number(this.percentage);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
@@ -463,10 +463,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
       // 房差
       let iii = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
       if (iii === 0) {
-        this.basicRefund = '（' + i + '-' + ii+'+' +Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+  '）*比例' + this.percent + '%=￥' + this.bascie_money;
+        this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
       else {
-        this.basicRefund = '（' + i + '-（' + ii + '+' + iii+'+' +Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
+        this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
       }
     }
     // 拼房
@@ -477,7 +477,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.bascie_money = this.toDecimal(this.bascie_money);
       let i = Number(this.detailModel.order?.data?.price_total);
       let ii = last;
-      this.basicRefund = '（' + i + '-' + ii +'+'+Number(this.detailModel.order?.data?.price_other)+'-'+Number(this.detailModel.order?.data?.discount_other)+  '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + i + '-' + '（' + ii + '）'+'）*比例' + this.percent + '%=￥' + this.bascie_money;
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
