@@ -63,6 +63,8 @@ export interface StoreOrderFreeTravelList {
   member: Member;
   quote_type?:any
   independent_product: Independentproduct;
+  total_number?:any
+  refund_number?:any
 }
 
 export interface Independentproduct {
@@ -101,7 +103,8 @@ export interface IndependentproductList {
   departure: string;
   destination: string;
   quote_type?:any
-
+  total_number?:any
+  refund_number?:any
 }
 
 export interface Member {
@@ -185,6 +188,8 @@ export interface DetailsModel {
   price_inclusive?:any
   price_baby?:any
   quote_type?:any
+  total_number?:any
+  refund_number?:any
 }
 
 
@@ -241,6 +246,8 @@ export interface IndependentproductsModel {
   destination: string;
   quote_type?:string;
   use_num?:string;
+  total_number?:any
+  refund_number?:any
 }
 
 interface Members {
@@ -308,6 +315,8 @@ export interface freeProModelList {
   date_quote: DatequoteList[];
   departure: string;
   destination: string;
+  total_number?:any
+  refund_number?:any
 }
 
 export interface DatequoteList {
