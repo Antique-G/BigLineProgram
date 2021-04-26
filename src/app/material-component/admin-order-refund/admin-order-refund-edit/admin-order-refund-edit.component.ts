@@ -446,8 +446,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       this.difRoom = Number(this.difRoom)
     }
     console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
-alert(Number(this.detailModel.order?.data?.price_other))
-alert(Number(this.detailModel.order?.data?.discount_other))
+
 
     // 不拼房
     if (this.detailModel?.order.data?.shared_status == 0) {
