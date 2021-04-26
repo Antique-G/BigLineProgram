@@ -19,12 +19,12 @@ export class AdminOrderRefundChangStatusComponent implements OnInit {
 
   constructor(public adminRefundService: AdminRefundService) {
     this.addForm = new FormGroup({
-      refund_no: new FormControl('', [Validators.required]),
+      refund_no: new FormControl(''),
       pay_type: new FormControl('', [Validators.required]),
       bank_user: new FormControl(''),
       bank_address: new FormControl(''),
       bank_number: new FormControl(''),
-      transaction_id: new FormControl('', [Validators.required]),
+      transaction_id: new FormControl(''),
       pay_at: new FormControl(null, [Validators.required]),
     })
     this.adminRefundLogEditModel = {

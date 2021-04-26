@@ -138,7 +138,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         }
         else {
           this.refundRoomNum = 0;
-          this.isDia=true;
+          this.isDia = true;
         }
 
         this.selectMemberData = this.detailModel?.member?.data;
@@ -364,6 +364,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     this.roomChange(this.refundRoomNum);
     this.priceAll();
 
+
   }
 
 
@@ -371,7 +372,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
   // 退款房间数
   numRefundRooms(data: any) {
     console.log('删除前', this.refundRoomNum, data != '')
-    if (data != '') {
+    console.log('55555 :>> ', data);
+    if (data != '' || data == 0) {
       console.log('房间数的修改', data);
       this.refundRoomNum = data;
       this.roomChange(data);
@@ -388,20 +390,22 @@ export class AdminOrderRefundEditComponent implements OnInit {
   // 房间数校验
   roomChange(a: any) {
     // 剩余的成人数
-    console.log('11111111123123123', this.refundRoomNum);
-    let reAudlt = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
-    // 剩余的儿童数
-    let reKid = Number(this.allKidNum.length) - Number(this.checkkidNum);
+    if (this.detailModel.type != 0) {
+      console.log('11111111123123123', this.refundRoomNum);
+      let reAudlt = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
+      // 剩余的儿童数
+      let reKid = Number(this.allKidNum.length) - Number(this.checkkidNum);
 
-    let min = Math.ceil(Number(reAudlt / 2));
-    let max = Math.ceil((Number(reAudlt) + Number(reKid)) / 2);
-    console.log('11111111 :>> ', min, max, a);
-    if (a >= min && a <= max) {
-      console.log('zhengque :>> ', 'zhengque');
-    }
-    else {
-      this.message.error("剩余房间数不对，请重新输入剩余房间数");
-      this.refundRoomNum = this.refundRoomNum;
+      let min = Math.ceil(Number(reAudlt / 2));
+      let max = Math.ceil((Number(reAudlt) + Number(reKid)) / 2);
+      console.log('11111111 :>> ', min, max, a);
+      if (a >= min && a <= max) {
+        console.log('zhengque :>> ', 'zhengque');
+      }
+      else {
+        this.message.error("剩余房间数不对，请重新输入剩余房间数");
+        this.refundRoomNum = this.refundRoomNum;
+      }
     }
   }
 
@@ -435,6 +439,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     //剩余房差房间数
     this.difRoom = Number(this.refundRoomNum) * 2 - Number(remain) - Number(this.detailModel?.order.data?.shared_status);
+    if (Number(this.difRoom) < 0) {
+      this.difRoom = 0;
+    }
+    else{
+      this.difRoom =Number(this.difRoom)
+    }
     console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
 
     // 不拼房

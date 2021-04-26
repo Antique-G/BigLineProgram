@@ -68,7 +68,8 @@ export interface StoreOrderGroupTravelList {
   discount_tit?: any;
   other_price_tit?: any;
   num_diff?: any;
-
+  refund_member?: any;
+  total_member?: any;
 }
 
 export interface Product {
@@ -119,6 +120,8 @@ export interface ProductList {
   discount_tit?: any;
   other_price_tit?: any;
   num_diff?: any;
+  refund_member?: any;
+  total_member?: any;
 
 }
 
@@ -205,6 +208,8 @@ export interface DetailsModel {
   discount_tit?: any;
   other_price_tit?: any;
   num_diff?: any;
+  refund_member?: any;
+  total_member?: any;
 }
 
 export interface Paylog {

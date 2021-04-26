@@ -95,23 +95,32 @@
                                     </div>
                                     <!-- 退款 -->
                                     <div>
-                                        <span>退款{{detailModel?.num_total}}人： </span>
-                                        <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
-                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}} </span>
+                                        <span>退款{{detailModel?.refund_member[0]}}人： </span>
+                                        <span>成人{{detailModel?.refund_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.refund_member[2]}}</span>
+                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.refund_member[3]}} </span>
                                     </div>
 
                                     <div>
-                                        <span> 共{{detailModel?.num_total}}人： </span>
-                                        <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
-                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}} </span>
+                                        <span> 共{{detailModel?.total_member[0]}}人： </span>
+                                        <span>成人{{detailModel?.total_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.total_member[2]}}</span>
+                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.total_member[3]}} </span>
                                     </div>
                                 </div>
 
-                                <div *ngIf="detailModel?.independent_product?.data?.quote_type==1" style="color: red;font-weight: 800;font-size: 15px;">
-                                    <div>套餐份数：{{detailModel?.num_total}}份</div>
-                                    <div>每份套餐使用人数：{{detailModel?.independent_product?.data?.use_num}}人</div>
-                                </div>
 
+
+                                <div *ngIf="detailModel?.independent_product?.data?.quote_type==1" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px">
+                                    <div>
+                                        <div>当前套餐份数：{{detailModel?.num_total}}份</div>
+                                        <div>每份套餐使用人数：{{detailModel?.independent_product?.data?.use_num}}人</div>
+                                    </div>
+                                    <div>
+                                        <div>退款套餐份数：{{detailModel?.refund_member[0]}}份</div>
+                                    </div>
+                                    <div>
+                                        <div>套餐总份数：{{detailModel?.refund_member[0]+detailModel?.num_total}}份</div>
+                                    </div>
+                                </div>
                                 <div style="margin-top:13px">
                                     <form nz-form [formGroup]="addForm" nz-row>
                                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
