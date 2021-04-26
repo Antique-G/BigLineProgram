@@ -114,7 +114,9 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
 
   aliPayQr() {
-    this.adminOrderGroupTravelService.orderGetAlipayQr(this.data.id).subscribe(res => {
+    this.weChatModel.order_id = this.data.id;
+    this.weChatModel.fee = this.addForm.value.fee;
+    this.adminOrderGroupTravelService.postOrderGetAlipayQr(this.weChatModel).subscribe(res => {
       console.log('二维码 :>> ', res);
       this.isQr = res.url
     })

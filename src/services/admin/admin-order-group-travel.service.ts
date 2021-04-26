@@ -113,12 +113,14 @@ export class AdminOrderGroupTravelService {
 
 
   // 支付宝二维码收款
-  // orderGetAlipayQr(weChatModel: WeChatModel): Observable<any> {
-  //   return this.httpClient.post<any>(this.urls.GetAdminOrderAlipayCode, weChatModel, httpOptions)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
+  postOrderGetAlipayQr(weChatModel: WeChatModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminOrderAlipayCode, weChatModel, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
   orderGetAlipayQr(order_id: any): Observable<any> {
     const params = new HttpParams().set('order_id', order_id)
     const findhttpOptions = {
