@@ -97,15 +97,15 @@
                                             </div>
                                             <!-- 退款 -->
                                             <div>
-                                                <span>退款{{detailModel?.num_total}}人： </span>
-                                                <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
-                                                <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}} </span>
+                                                <span>退款{{detailModel?.refund_member[0]}}人： </span>
+                                                <span>成人{{detailModel?.refund_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.refund_member[2]}}</span>
+                                                <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.refund_member[3]}} </span>
                                             </div>
 
                                             <div>
-                                                <span> 共{{detailModel?.num_total}}人： </span>
-                                                <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
-                                                <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}} </span>
+                                                <span> 共{{detailModel?.total_member[0]}}人： </span>
+                                                <span>成人{{detailModel?.total_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.total_member[2]}}</span>
+                                                <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.total_member[3]}} </span>
                                             </div>
                                         </div>
 

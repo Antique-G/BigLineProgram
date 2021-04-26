@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { environment } from '../../../environments/environment';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRefundService } from '../../../services/admin/admin-refund.service';
 import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-chang-status/admin-order-refund-chang-status.component';
@@ -32,6 +33,8 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   storeList: any[] = [];
   setQuery: any;
   isUrl: any;
+  api = environment.baseUrl;
+
 
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog, private modal: NzModalService,
     public adminRefundService: AdminRefundService, public adminProductManagementService: AdminProductManagementService,) {
@@ -189,7 +192,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.update()
           }
@@ -205,12 +208,12 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   // 跳转到订单详情
   routTo(data: any) {
     // 跟团游
-    if (data?.product_type==0) {
-      this.isUrl = '/admin/main/groupTravelOrder/detail?detailId=' + data.order_id;
+    if (data?.product_type == 0) {
+      this.isUrl = this.api + '/admin/main/groupTravelOrder/detail?detailId=' + data.order_id;
     }
     // 自由行
-    else  if (data?.product_type==1){
-      this.isUrl = '/admin/main/freeTravelOrder/detail?detailId=' + data.order_id;
+    else if (data?.product_type == 1) {
+      this.isUrl = this.api + '/admin/main/freeTravelOrder/detail?detailId=' + data.order_id;
     }
   }
 }

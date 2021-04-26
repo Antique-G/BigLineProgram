@@ -364,7 +364,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refundRooms" nzRequired>剩余房间数</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入房间数">
-                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numRefundRooms($event)" [nzDisabled]="isDia" [ngModel]="refundRoomNum" formControlName="refundRooms" [nzMin]="0"></nz-input-number>
+                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numRefundRooms($event)" [(ngModel)]="refundRoomNum" [nzDisabled]="isDia" formControlName="refundRooms" [nzMin]="0"></nz-input-number>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
