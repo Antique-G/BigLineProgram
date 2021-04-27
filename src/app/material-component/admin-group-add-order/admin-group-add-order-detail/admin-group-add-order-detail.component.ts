@@ -476,6 +476,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         if (element.birthday != '') {
           element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
         }
+        if (element.id_type == ''||element.id_type ==null) {
+          element.id_type = 0;
+        }
       });
     }
 
