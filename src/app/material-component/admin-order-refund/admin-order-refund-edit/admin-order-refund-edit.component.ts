@@ -64,6 +64,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
   isPackbasicRefund: any;
   isPack_refund_amount: any;
   selectPack: any;
+  isRoomTrue = false;
 
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -132,6 +133,23 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
         console.log('object :>> ', this.detailModel.price_detail.data,);
         this.dataMember = this.detailModel?.member?.data;
+        // 优惠附加收费
+        let priceArr = this.detailModel.price_detail.data;
+        priceArr.forEach((element: any) => {
+          if (element.type === 0) {
+            element.price = '+￥' + element.price;
+          }
+          else {
+            element.price = '-￥' + element.price;
+          }
+        });
+        for (let i = 0; i < priceArr.length; i++) {
+          this.otherArray.push(this.fb.group({
+            name: new FormControl(priceArr[i]?.title),
+            namePrice: new FormControl(priceArr[i]?.price),
+          }))
+        }
+        console.log('otherArray.controls :>> ', this.otherArray.controls);
         //最开始剩余房间数为原始的
         if (this.detailModel.type == 1) {
           this.refundRoomNum = this.detailModel.order?.data?.num_room;
@@ -223,26 +241,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
     });
   }
 
-
-  OnChanges() {
-    // 优惠附加收费
-    let priceArr = this.detailModel.price_detail.data;
-    priceArr.forEach((element: any) => {
-      if (element.type === 0) {
-        element.price = '+￥' + element.price;
-      }
-      else {
-        element.price = '-￥' + element.price;
-      }
-    });
-    for (let i = 0; i < priceArr.length; i++) {
-      this.otherArray.push(this.fb.group({
-        name: new FormControl(priceArr[i]?.title),
-        namePrice: new FormControl(priceArr[i]?.price),
-      }))
-    }
-    console.log('otherArray.controls :>> ', this.otherArray.controls);
-  }
 
   // 附加
   get otherArray() {
@@ -401,10 +399,14 @@ export class AdminOrderRefundEditComponent implements OnInit {
       console.log('11111111 :>> ', min, max, a);
       if (a >= min && a <= max) {
         console.log('zhengque :>> ', 'zhengque');
+        this.isRoomTrue = false;
+
       }
       else {
         this.message.error("剩余房间数不对，请重新输入剩余房间数");
         this.refundRoomNum = this.refundRoomNum;
+        this.isRoomTrue = true;
+
       }
     }
   }
@@ -458,7 +460,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       console.log('1121212', this.bascie_money);
       // 总价
       let i = Number(this.detailModel.order?.data?.price_total);
-      // 剩余的人付钱
+      // 剩余的人付钱+附加收费-优惠
       let ii = last;
       // 房差
       let iii = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
