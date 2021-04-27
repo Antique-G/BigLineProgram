@@ -403,7 +403,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
       }
       else {
-        this.message.error("剩余房间数不对，请重新输入剩余房间数");
+        // this.message.error("剩余房间数不对，请重新输入剩余房间数");
         this.refundRoomNum = this.refundRoomNum;
         this.isRoomTrue = true;
 
@@ -459,17 +459,19 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
       console.log('1121212', this.bascie_money);
       // 总价
-      let i = Number(this.detailModel.order?.data?.price_total);
-      // 剩余的人付钱+附加收费-优惠
-      let ii = last;
+      let total = Number(this.detailModel.order?.data?.price_total);
+      // 剩余的人付钱
+      let member = Number(adultfff) + Number(KidFff) + Number(babyFff);
       // 房差
-      let iii = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
-      if (iii === 0) {
-        this.basicRefund = '（' + i + '-' + ii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
-      }
-      else {
-        this.basicRefund = '（' + i + '-（' + ii + '+' + iii + '）*比例' + this.percent + '%=￥' + this.bascie_money;
-      }
+      let price_diff = Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom);
+      // +附加收费
+      let other = Number(this.detailModel.order?.data?.price_other);
+      // -优惠
+      let discount_other = Number(this.detailModel.order?.data?.discount_other);
+
+      this.basicRefund = (total - (member + price_diff + other - discount_other))
+      this.basicRefund ='（'+ total+'-('+member+ '+' + price_diff+ '+' +other+ '-' +discount_other+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
+
     }
     // 拼房
     else {
@@ -477,9 +479,13 @@ export class AdminOrderRefundEditComponent implements OnInit {
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
-      let i = Number(this.detailModel.order?.data?.price_total);
-      let ii = last;
-      this.basicRefund = '（' + i + '-' + '（' + ii + '）' + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+       let total = Number(this.detailModel.order?.data?.price_total);
+       let member = Number(adultfff) + Number(KidFff) + Number(babyFff);
+       let other = Number(this.detailModel.order?.data?.price_other);
+       let discount_other = Number(this.detailModel.order?.data?.discount_other);
+
+       this.basicRefund ='（'+ total+'-('+member+ '+'+other+ '-' +discount_other+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
+
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
     this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
