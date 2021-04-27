@@ -714,8 +714,8 @@
                                                         <div nz-row>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ispackNum">请输入套餐数</nz-form-label>
-                                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ispackNum" nzRequired>请输入套餐数</nz-form-label>
+                                                                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入需退款套餐数">
                                                                         <nz-input-number style="width: 100%;" [nzDisabled]="detailModel.type == 0" (ngModelChange)="onEnterPack($event)" formControlName="ispackNum" [nzMin]="1"></nz-input-number>
                                                                     </nz-form-control>
                                                                 </div>
