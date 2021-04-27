@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
@@ -98,7 +98,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       amount_cut: [0],
       remarks: [''],
       packAge: [''],
-      ispackNum: [''],
+      ispackNum: [1, [Validators.required]],
       isPackbasicRefund: [''],
       selectPack: [''],
       store_name: [''],
@@ -236,6 +236,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
             ispackNum: this.detailModel?.order?.data?.num_total
           })
           this.onEnterPack(this.detailModel?.order?.data?.num_total);
+        }
+        else{
+          this.onEnterPack(this.addForm.value.ispackNum);
         }
       })
     });
@@ -470,7 +473,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       let discount_other = Number(this.detailModel.order?.data?.discount_other);
 
       this.basicRefund = (total - (member + price_diff + other - discount_other))
-      this.basicRefund ='（'+ total+'-('+member+ '+' + price_diff+ '+' +other+ '-' +discount_other+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + total + '-(' + member + '+' + price_diff + '+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
     }
     // 拼房
@@ -479,12 +482,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
-       let total = Number(this.detailModel.order?.data?.price_total);
-       let member = Number(adultfff) + Number(KidFff) + Number(babyFff);
-       let other = Number(this.detailModel.order?.data?.price_other);
-       let discount_other = Number(this.detailModel.order?.data?.discount_other);
+      let total = Number(this.detailModel.order?.data?.price_total);
+      let member = Number(adultfff) + Number(KidFff) + Number(babyFff);
+      let other = Number(this.detailModel.order?.data?.price_other);
+      let discount_other = Number(this.detailModel.order?.data?.discount_other);
 
-       this.basicRefund ='（'+ total+'-('+member+ '+'+other+ '-' +discount_other+ '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + total + '-(' + member + '+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用
