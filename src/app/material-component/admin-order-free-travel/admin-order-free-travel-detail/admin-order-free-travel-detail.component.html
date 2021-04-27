@@ -528,14 +528,11 @@
                                                         <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
                                                     </div>
                                                     <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                    <!-- <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status==2">
-                                                        <div style="width: 50%;">退款中金额</div>
-                                                        <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                                    </div>
-                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status==2"></div> -->
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
                                                         <div style="width: 50%;">已退款金额</div>
-                                                        <div style="width: 50%;">￥{{detailModel?.refund_amount}}</div>
+                                                        <div style="width: 50%;">￥{{detailModel?.refund_amount}}
+                                                            <span style="color: black;" *ngIf="detailModel?.refund_status==2">退款中金额{{refunding_amount}}</span>
+                                                        </div>
                                                     </div>
                                                     <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
@@ -628,14 +625,11 @@
                                                         <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
                                                     </div>
                                                     <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                    <!-- <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status==2">
-                                                        <div style="width: 50%;">退款中金额s</div>
-                                                        <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                                    </div>
-                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status==2"></div> -->
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
                                                         <div style="width: 50%;">已退款金额</div>
-                                                        <div style="width: 50%;">￥{{detailModel?.refund_amount}}</div>
+                                                        <div style="width: 50%;">￥{{detailModel?.refund_amount}}
+                                                            <span style="color: black;" *ngIf="detailModel?.refund_status==2">退款中金额{{refunding_amount}}</span>
+                                                        </div>
                                                     </div>
                                                     <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
