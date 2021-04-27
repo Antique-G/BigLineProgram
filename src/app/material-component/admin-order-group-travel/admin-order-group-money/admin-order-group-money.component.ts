@@ -117,20 +117,58 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   weChatQr() {
     this.weChatModel.order_id = this.data.id;
     this.weChatModel.fee = this.addForm.value.fee;
-    this.adminOrderGroupTravelService.orderGetPayWechatQr(this.weChatModel).subscribe(res => {
-      console.log('二维码 :>> ', res);
-      this.isWeChat = res.url
-    })
+    if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
+      this.modal.confirm({
+        nzTitle: '<h4>提示</h4>',
+        nzContent: '<h6>收款金额大于应收金额，请核对是否准确</h6>',
+        nzOnOk: () =>
+          this.adminOrderGroupTravelService.orderGetPayWechatQr(this.weChatModel).subscribe(res => {
+            console.log('二维码 :>> ', res);
+            this.isWeChat = res.url
+          },
+            err => {
+              console.log('res :>> ',);
+            })
+      })
+    }
+    else{
+      this.adminOrderGroupTravelService.orderGetPayWechatQr(this.weChatModel).subscribe(res => {
+        console.log('二维码 :>> ', res);
+        this.isWeChat = res.url
+      },
+        err => {
+          console.log('res :>> ',);
+        })
+    }
   }
 
 
   aliPayQr() {
     this.weChatModel.order_id = this.data.id;
     this.weChatModel.fee = this.addForm.value.fee;
-    this.adminOrderGroupTravelService.postOrderGetAlipayQr(this.weChatModel).subscribe(res => {
-      console.log('二维码 :>> ', res);
-      this.isQr = res.url
-    })
+    if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
+      this.modal.confirm({
+        nzTitle: '<h4>提示</h4>',
+        nzContent: '<h6>收款金额大于应收金额，请核对是否准确</h6>',
+        nzOnOk: () =>
+          this.adminOrderGroupTravelService.postOrderGetAlipayQr(this.weChatModel).subscribe(res => {
+            console.log('二维码 :>> ', res);
+            this.isQr = res.url
+          },
+            err => {
+              console.log('res :>> ',);
+            })
+      })
+    }
+    else {
+      this.adminOrderGroupTravelService.postOrderGetAlipayQr(this.weChatModel).subscribe(res => {
+        console.log('二维码 :>> ', res);
+        this.isQr = res.url
+      },
+        err => {
+          console.log('res :>> ',);
+        })
+    }
   }
 
 

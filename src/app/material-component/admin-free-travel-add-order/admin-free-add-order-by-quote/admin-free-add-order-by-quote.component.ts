@@ -228,6 +228,9 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
       if (element?.birthday != null) {
         element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
       }
+      if (element.id_type == ''||element.id_type ==null) {
+        element.id_type = 0;
+      }
     });
     this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
     this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
