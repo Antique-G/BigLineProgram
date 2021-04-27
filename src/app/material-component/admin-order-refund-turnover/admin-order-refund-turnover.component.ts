@@ -33,6 +33,11 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   setQuery: any;
   isUrl: any;
 
+  // 跳转到订单详情
+  url: any;
+  isurl: any;
+
+
   constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog, private modal: NzModalService,
     public adminRefundService: AdminRefundService, public adminProductManagementService: AdminProductManagementService,) {
     this.searchForm = fb.group({
@@ -48,6 +53,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.adminProductManagementService.storeList('').subscribe(res => {
       console.log("24234", res);
       this.storeList = res;
@@ -79,6 +85,8 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
       this.dataSource = res.data;
       this.total = res.meta.pagination.total;
       this.loading = false;
+      this.url = '/admin/main/groupTravelOrder/detail?detailId=';
+      this.isurl = '/admin/main/freeTravelOrder/detail?detailId=';
     })
   }
 
@@ -189,7 +197,7 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
       nzFooter: [
         {
           label: '提交',
-          type:'primary',
+          type: 'primary',
           onClick: componentInstance => {
             componentInstance?.update()
           }
@@ -202,15 +210,5 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   }
 
 
-  // 跳转到订单详情
-  routTo(data: any) {
-    // 跟团游
-    if (data?.product_type==0) {
-      this.isUrl = '/admin/main/groupTravelOrder/detail?detailId=' + data.order_id;
-    }
-    // 自由行
-    else  if (data?.product_type==1){
-      this.isUrl = '/admin/main/freeTravelOrder/detail?detailId=' + data.order_id;
-    }
-  }
+
 }

@@ -67,6 +67,9 @@ export interface StoreOrderGroupTravelList {
   baby_num?: number;
   discount_tit?: any;
   other_price_tit?: any;
+  num_diff?: any;
+  refund_member?: any;
+  total_member?: any;
 }
 
 export interface Product {
@@ -116,6 +119,10 @@ export interface ProductList {
   destination_city_name: string;
   discount_tit?: any;
   other_price_tit?: any;
+  num_diff?: any;
+  refund_member?: any;
+  total_member?: any;
+
 }
 
 export interface Member {
@@ -200,6 +207,9 @@ export interface DetailsModel {
   service_charge: any;
   discount_tit?: any;
   other_price_tit?: any;
+  num_diff?: any;
+  refund_member?: any;
+  total_member?: any;
 }
 
 export interface Paylog {
@@ -311,6 +321,8 @@ export interface ProductModel {
   request_id_num?: any;
   discount_tit?: any;
   other_price_tit?: any;
+  num_diff?: any;
+
 }
 
 export interface Members {
@@ -446,6 +458,8 @@ export interface ProListModel {
   date_quote: DatequoteList[];
   discount_tit?: any;
   other_price_tit?: any;
+  num_diff?: any;
+
 }
 
 interface Group2 {

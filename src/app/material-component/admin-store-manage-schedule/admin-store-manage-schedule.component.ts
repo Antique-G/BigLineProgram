@@ -48,6 +48,7 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       this.shop_id = params.id;
       this.shopName = params.shopName;
+      console.log(params)
       this.getList();
     })
 
@@ -216,9 +217,9 @@ export class AdminStoreManageScheduleComponent implements OnInit {
       nzTitle: '门店员工排班设置',
       nzContent: AdminStoreManageSetScheduleComponent,
       nzWidth: 1000,
-      // nzComponentParams: {
-      //   data: [this.shop_id]
-      // },
+      nzComponentParams: {
+        data: [this.shop_id]
+      },
       nzFooter: [
         {
           label: '提交',

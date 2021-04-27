@@ -101,7 +101,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.isBabyR = Number(this.detailModel.order?.data?.price_baby) * Number(this.detailModel.order?.data?.baby_num);
         this.isKidR = Number(this.detailModel.order?.data?.price_kid) * Number(this.detailModel.order?.data?.num_kid);
-        this.price_diff = '￥' + this.detailModel.order?.data?.price_diff;
+        this.price_diff = '￥' + this.detailModel.order?.data?.price_diff+ '*' + this.detailModel.order?.data?.num_diff;;
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
 

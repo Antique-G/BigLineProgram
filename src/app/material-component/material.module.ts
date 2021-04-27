@@ -153,6 +153,7 @@ import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order
 import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/fee-by-quote/fee-by-quote.component';
 import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
+import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-store-manage-employee/admin-store-manage-employee.component';
 
 
 
@@ -326,6 +327,7 @@ import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-orde
     FeeByQuoteComponent,
     AdminOrderRefundChangStatusComponent,
     AOFTRefundByquoteComponent,
+    AdminStoreManageEmployeeComponent,
 
   ]
 })
