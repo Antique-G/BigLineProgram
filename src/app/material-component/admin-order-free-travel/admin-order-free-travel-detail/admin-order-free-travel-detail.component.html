@@ -413,11 +413,15 @@
                                                         </td>
                                                         <td>
                                                             <div fxLayout="column" fxLayoutAlign="center center">
-                                                                <div>
+                                                                <div *ngIf="detailModel?.independent_product?.data?.quote_type==2">
                                                                     退款:
                                                                     <span>成人*{{data.member_detail[0]}}|</span>
                                                                     <span>儿童*{{data.member_detail[1]}}|</span>
                                                                     <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                </div>
+                                                                <div *ngIf="detailModel?.independent_product?.data?.quote_type==1">
+                                                                    退款:
+                                                                    <span>套餐*{{data?.refund_number}}</span>
                                                                 </div>
                                                             </div>
                                                             <div>
