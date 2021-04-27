@@ -4,6 +4,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ComfirmOrderModel, WeChatModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
 
 @Component({
   selector: 'app-admin-order-group-money',
@@ -26,7 +29,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
   cutValue = 0;
   weChatModel: WeChatModel;
 
-  constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
+  constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService, private msg: NzMessageService, public modal: NzModalService,) {
     this.addForm = new FormGroup({
       isMoney: new FormControl(''),
       fee: new FormControl('', [Validators.required]),
@@ -71,13 +74,21 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     console.log("this.addForm.valid", this.addForm.valid);
     console.log("this.addForm.valid", this.addForm);
     if (this.addForm.valid) {
-      this.adminOrderGroupTravelService.comfirmOrder(this.comfirmOrderModel).subscribe(res => {
-        console.log('res :>> ', res);
-      }
-        ,
-        err => {
-          console.log('res :>> ',);
+      if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
+        this.modal.confirm({
+          nzTitle: '<h4>提示</h4>',
+          nzContent: '<h6>收款金额大于应收金额，请核对是否准确</h6>',
+          nzOnOk: () =>
+            this.adminOrderGroupTravelService.comfirmOrder(this.comfirmOrderModel).subscribe(res => {
+              console.log('res :>> ', res);
+            }
+              ,
+              err => {
+                console.log('res :>> ',);
+              })
         })
+      }
+
     }
 
   }
@@ -121,5 +132,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
       this.isQr = res.url
     })
   }
+
+
 
 }
