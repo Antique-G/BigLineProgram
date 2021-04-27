@@ -34,7 +34,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
   sortValue: any;
   sort_field = 'minimum_price';
   sort: any;
- 
+
 
   setQuery: any;
   code: any;
@@ -103,11 +103,13 @@ export class AdminGroupAddOrderComponent implements OnInit {
           //获取后缀
           let ext = filePath.substr(index + 1);
           //输出结果
-          console.log('1212121', ext, ext === 'doc');
+          console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
           if (ext != 'pdf') {
             value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
           }
-
+          else {
+            value.schedule_file_url =  value.schedule_file_url;
+          }
         }
       })
       this.total = res?.total;
@@ -123,7 +125,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
     this.destination_city = this.isDestination_city;
     this.few_days = this.searchForm.value.few_days;
     this.code = this.searchForm.value.code;
-  
+
     // 筛选条件存进cookie
     this.setQuery = {
       title: this.title, start_date: this.start_date, departure_city: this.departure_city,
@@ -172,7 +174,21 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource = res?.data;
       this.dataSource.forEach((value: any, index: any) => {
         value['expand'] = false; //展开属性
-        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+        if (value.schedule_file_url != '') {
+          let filePath = value.schedule_file_url;
+          //获取最后一个.的位置
+          let index = filePath.lastIndexOf(".");
+          //获取后缀
+          let ext = filePath.substr(index + 1);
+          //输出结果
+          console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
+          if (ext != 'pdf') {
+            value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+          }
+          else {
+            value.schedule_file_url =  value.schedule_file_url;
+          }
+        }
       })
       this.total = res?.total;
     })
@@ -211,7 +227,21 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
         value['expand'] = false; //展开属性
-        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+        if (value.schedule_file_url != '') {
+          let filePath = value.schedule_file_url;
+          //获取最后一个.的位置
+          let index = filePath.lastIndexOf(".");
+          //获取后缀
+          let ext = filePath.substr(index + 1);
+          //输出结果
+          console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
+          if (ext != 'pdf') {
+            value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+          }
+          else {
+            value.schedule_file_url =  value.schedule_file_url;
+          }
+        }
       })
       this.total = res?.total;
     })
@@ -229,7 +259,21 @@ export class AdminGroupAddOrderComponent implements OnInit {
       this.dataSource?.forEach((value: any) => {
         value['checked'] = false;
         value['expand'] = false; //展开属性
-        value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+        if (value.schedule_file_url != '') {
+          let filePath = value.schedule_file_url;
+          //获取最后一个.的位置
+          let index = filePath.lastIndexOf(".");
+          //获取后缀
+          let ext = filePath.substr(index + 1);
+          //输出结果
+          console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
+          if (ext != 'pdf') {
+            value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+          }
+          else {
+            value.schedule_file_url =  value.schedule_file_url;
+          }
+        }
       })
       this.total = res?.total;
     })
