@@ -23,12 +23,11 @@ export class AdminOrderGroupTravelService {
   constructor(public httpClient: HttpClient) { }
 
   // 跟团游订单列表
-  groupTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
+  groupTravelList(page: number, per_page: number, status: any,  product_name: any, order_number: any,
     date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<StoreOrderGroupTravelListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('status', status ? status : '')
-      .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')
       .set('order_number', order_number ? order_number : '')
       .set('date_start', date_start ? date_start : '')
@@ -159,10 +158,9 @@ export class AdminOrderGroupTravelService {
 
 
   // 订单统计
-  getOrderTotal(status: any, product_id: any, product_name: any, order_number: any,
+  getOrderTotal(status: any,  product_name: any, order_number: any,
     date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any): Observable<OrderTotalModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
-      .set('product_id', product_id ? product_id : '')
       .set('product_name', product_name ? product_name : '')
       .set('order_number', order_number ? order_number : '')
       .set('date_start', date_start ? date_start : '')
