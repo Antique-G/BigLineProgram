@@ -471,7 +471,7 @@
                                                     <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
                                                 </div>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
                                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                 <div style="width: 50%;">实收金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
@@ -569,7 +569,7 @@
                                                     <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
                                                 </div>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
                                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                 <div style="width: 50%;">实收金额</div>
                                                 <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
