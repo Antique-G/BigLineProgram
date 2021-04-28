@@ -182,7 +182,7 @@ export class StoreProductInfoComponent implements OnInit {
         this.addForm.controls['tag_id'].setValue([]);
         this.addForm.controls['insurance_extra'].setValue([]);
         this.store_id = localStorage.getItem('storeId');
-        this.storeProductService.insuranceList(1, 100, 1).subscribe(res => {
+        this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
             console.log('保险 :>> ', res);
             this.insuranceArr = res?.data;
             this.getCateList();
@@ -192,6 +192,14 @@ export class StoreProductInfoComponent implements OnInit {
 
     ngAfterViewInit(): void {
         this.textChange();
+    }
+
+    // 根据行程天数拿取保险
+    changeDay(day: any) {
+        this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
+            console.log('保险 :>> ', res);
+            this.insuranceArr = res?.data;
+        })
     }
 
     // 标签分类列表
