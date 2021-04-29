@@ -3,13 +3,38 @@
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
             <form nz-form [formGroup]="addForm" nz-row>
 
+                <ng-container *ngIf="type=='management'">
+                    <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="include_insurance_fee">是否包含基础保费</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <input nz-input formControlName="include_insurance_fee"
+                                [ngModel]="include_insurance_fee==0?'不包含':'包含'" nzBorderless readonly />
+                        </nz-form-control>
+                    </nz-form-item>
+
+
+                    <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="include_insurance_fee!=0">
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="insurance_fee">基础保险价格</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <input nz-input formControlName="insurance_fee" [ngModel]="'￥'+insurance_expense+'人'"
+                                nzBorderless readonly />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div style="margin-left: 11%;margin-top: -20px;color: red;">
+                        <p *ngIf="include_insurance_fee!=0">本产品已设置报价包含基础保险费用,输入成人/儿童/婴儿价格时,务必加上保险价格!</p>
+                        <p *ngIf="include_insurance_fee==0">本产品已设置报价不包含基础保险费用,输入的成人/儿童/婴儿价格不含保费!</p>
+                    </div>
+                </ng-container>
+
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="week">周几</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
                         <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="ngCheckBoxChange($event)">
                             <div nz-row>
                                 <div nz-col nzSpan="3" *ngFor="let item of checkWeeks">
-                                    <label nz-checkbox formControlName="week" [nzValue]="item.value" [ngModel]="item.checked">{{item.label}}</label>
+                                    <label nz-checkbox formControlName="week" [nzValue]="item.value"
+                                        [ngModel]="item.checked">{{item.label}}</label>
                                 </div>
                             </div>
                         </nz-checkbox-wrapper>
@@ -19,14 +44,16 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
-                        <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
+                        <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate"
+                            formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
                     </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="adult_price" nzRequired>成人价格</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.adult_price">
-                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" (keyup)="numTest1($event)" formControlName="adult_price" [nzMin]="0"></nz-input-number>
+                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" (keyup)="numTest1($event)"
+                            formControlName="adult_price" [nzMin]="0"></nz-input-number>
 
                     </nz-form-control>
                 </nz-form-item>
@@ -34,7 +61,8 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="childStatus==='1'">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="child_price">儿童价格</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.child_price">
-                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="child_price" (keyup)="numTest2($event)" [nzMin]="0"></nz-input-number>
+                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="child_price"
+                            (keyup)="numTest2($event)" [nzMin]="0"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
 
@@ -42,7 +70,8 @@
                     <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="childStatus==='1'">
                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="baby_price">婴儿价格</nz-form-label>
                         <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.baby_price">
-                            <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="baby_price" (keyup)="numTest3($event)" [nzMin]="0"></nz-input-number>
+                            <nz-input-number style="width: 200px;" [nzPrecision]="precision"
+                                formControlName="baby_price" (keyup)="numTest3($event)" [nzMin]="0"></nz-input-number>
                         </nz-form-control>
 
                     </nz-form-item>
@@ -51,14 +80,16 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="isShowPrice_diff===true">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="difference_price">补 差 价</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.difference_price">
-                        <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="difference_price" [nzMin]="0" (keyup)="numTest4($event)"></nz-input-number>
+                        <nz-input-number style="width: 200px;" [nzPrecision]="precision"
+                            formControlName="difference_price" [nzMin]="0" (keyup)="numTest4($event)"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="set_inventory" nzRequired>设置库存</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.set_inventory">
-                        <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory" (ngModelChange)="ngRadioChange($event)" formControlName="set_inventory">
+                        <nz-radio-group class="nz-form-item" [(ngModel)]="isSetInventory"
+                            (ngModelChange)="ngRadioChange($event)" formControlName="set_inventory">
                             <label nz-radio nzValue='0'>否 </label>
                             <label nz-radio nzValue='1'>是</label>
                         </nz-radio-group>
@@ -69,14 +100,16 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="inventory_num" nzRequired>库存数量</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.inventory_num">
-                        <nz-input-number style="width: 200px;" [nzDisabled]="isSetInventory == '0'" formControlName="inventory_num" [nzMin]="1" [nzStep]="1"></nz-input-number>
+                        <nz-input-number style="width: 200px;" [nzDisabled]="isSetInventory == '0'"
+                            formControlName="inventory_num" [nzMin]="1" [nzStep]="1"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
 
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="allow_over" nzRequired>设置超卖 </nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="formErrors.allow_over">
-                        <nz-radio-group class="nz-form-item" [nzDisabled]="isSetInventory == '0'" [(ngModel)]="isAllowOver" formControlName="allow_over">
+                        <nz-radio-group class="nz-form-item" [nzDisabled]="isSetInventory == '0'"
+                            [(ngModel)]="isAllowOver" formControlName="allow_over">
                             <label nz-radio nzValue='0'>否 </label>
                             <label nz-radio nzValue='1'>是</label>
                         </nz-radio-group>

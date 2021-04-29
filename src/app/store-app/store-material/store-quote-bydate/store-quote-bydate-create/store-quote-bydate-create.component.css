@@ -1,5 +1,5 @@
 [nz-form] {
-    max-width: 700px;
+    max-width: 750px;
 }
 
 .phone-select {
@@ -11,4 +11,12 @@
 }
 .nz-form-item{
     display: flex;
+}
+
+.ant-form-item {
+    margin: 0 0 17px !important;
+}
+
+.ant-message-notice-content {
+    z-index: 10000000000000000000000000000000000 !important;
 }

@@ -23,9 +23,6 @@ export class AdminInsuranceCreateComponent implements OnInit {
       maxlength: "保险名称长度最多为32个字符",
       required: "请输入保险名称！",
     },
-    insurance_amount: {
-      required: "请输入保额！",
-    },
     article: {
       required: "请输入保险条款！",
     }
@@ -34,7 +31,6 @@ export class AdminInsuranceCreateComponent implements OnInit {
   formErrors: any = {
     name: '',
     code: '',
-    insurance_amount: '',
     article: '',
   };
   
@@ -58,7 +54,7 @@ export class AdminInsuranceCreateComponent implements OnInit {
       name: new FormControl(null, [Validators.required, Validators.maxLength(32)]),
       code: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       insured_date: new FormArray([new FormControl(null, [Validators.required, Validators.min(0)])]),
-      insurance_amount: new FormControl(null, [Validators.required]),
+      insurance_amount: new FormControl(0),
       article: new FormControl(null, [Validators.required]),
       status: new FormControl('1'),
     });
