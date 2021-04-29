@@ -23,13 +23,15 @@ export class AdminRoleCreateComponent implements OnInit {
     this.addForm = this.fb.group({
       name: ['',[Validators.required]],
       display_name: ['',[Validators.required]],
-      description: ['',]
+      description: ['',],
+      status: ['', [Validators.required]]
     })
     this.addRoleRequestModel = {
       name: '',
       display_name: '',
       description: '',
       permission: '',
+      status: 1,
     }
   }
 
@@ -105,6 +107,7 @@ export class AdminRoleCreateComponent implements OnInit {
     this.addRoleRequestModel.display_name = this.addForm.value.display_name;
     this.addRoleRequestModel.description = this.addForm.value.description;
     this.addRoleRequestModel.permission = this.permission;
+    this.addRoleRequestModel.status = this.addForm.value.status;
   }
 
   submitForm() {
