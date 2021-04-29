@@ -135,7 +135,7 @@
                                     <td>
                                         <div title="点击查看海报" *ngIf="data.poster_url!=''">
                                             <a href={{data.poster_url}} target="_blank">
-                                                <img [src]="data.poster_url" style="width: 50px;height: 50px;">
+                                                <img [src]="data.poster_url+'?x-oss-process=image/resize,limit_0,m_fill,w_50,h_50'">
                                             </a>
                                         </div>
                                     </td>
