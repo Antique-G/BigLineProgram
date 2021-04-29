@@ -88,6 +88,8 @@ export const AdminUrls = {
     PostAdminProductCheckStatus: api + '/admin/products/set_check', //产品的审核
     GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
     GetAdminProductManagementStoreList: api + '/admin/store/list',// 查询店铺
+    GetAdminInsuranceDayList: api + '/admin/insurance/data',      // 跟团游保险列表天数
+
 
 
     GetAdminProductMiniCode: api + '/admin/product/get_mini_code',// 生成小程序码
@@ -126,7 +128,6 @@ export const AdminUrls = {
     PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
     PostAdminTermsSetStatus: api + '/admin/terms/set_status', // 条款管理开启
 
-
     GetAdminTermTemplateList: api + '/admin/terms_temp',   // 模版条款的列表
     PostAdminTermTemplateCreate: api + '/admin/terms_temp',   // 模版条款的添加
     PutAdminTermTemplateUpdate: api + '/admin/terms_temp/',   // 模版条款的更新
@@ -151,6 +152,10 @@ export const AdminUrls = {
     GetAdminUserinfoDetail: api + '/admin/user/',      // 用户详情
     PutAdminUserinfoUpdate: api + '/admin/user/',      // 用户详情修改
 
+    GetAdminUserinfoList: api + '/admin/user',      // 用户信息列表
+    PostAdminUserinfoStatus: api + '/admin/user/set_status',      // 用户状态修改
+    GetAdminUserinfoDetail: api + '/admin/user/',      // 用户详情
+    PutAdminUserinfoUpdate: api + '/admin/user/',      // 用户详情修改
 
     GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
     GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
@@ -164,10 +169,23 @@ export const AdminUrls = {
     PostAdminOrderGroupCancelSms: api + '/admin/group/sendOrderCancelSms',   // 发送不成团通知短信接口
     PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
 
+    GetAdminOrderGroupList: api + '/admin/group',  //订单团列表
+    GetAdminOrderGroupDetail: api + '/admin/group/',   //订单团详情
+    PostAdminOrderGroupSetGuide: api + '/admin/group/set_guide',   // 派遣导游
+    GetAdminOrderGroupGuideList: api + '/admin/guide/data',   // 获取导游数据
+    PostAdminOrderGroupMoveOrder: api + '/admin/group/move_order',   // 移动订单
+    PostAdminOrderGroupShutoff: api + '/admin/group/shut_off',   // 不成团关团
+    PostAdminOrderGroupOrderSms: api + '/admin/group/sendOrderSms',   // 发送订单预定成功通知短信接口
+    PostAdminOrderGroupGroupSms: api + '/admin/group/sendGroupSms',   // 发送出团通知短信接口
+    DeletetAdminOrderGroupSubGroup: api + '/admin/subGroup/',   // 删除子团
+    PostAdminOrderGroupCancelSms: api + '/admin/group/sendOrderCancelSms',   // 发送不成团通知短信接口
+    PutAdminOrderGroupNum: api + '/admin/group/',   // 设置出团人数限制
 
     PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
     GetAdminOrderExport: api + '/admin/order/export',  //订单导出
 
+    PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
+    GetAdminOrderExport: api + '/admin/order/export',  //订单导出
 
 
 
@@ -175,6 +193,9 @@ export const AdminUrls = {
     GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
     GetAdminOrderfreeIndentSearch: api + '/admin/indent_search',  //自由行下订单搜索产品
 
+    GetAdminOrderfreeTravelList: api + '/admin/order/free_travel',  //自由行订单列表
+    GetAdminOrderfreeTravelDetail: api + '/admin/order/free_travel/',  //自由行订单详情
+    GetAdminOrderfreeIndentSearch: api + '/admin/indent_search',  //自由行下订单搜索产品
 
     GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
     GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
@@ -187,6 +208,15 @@ export const AdminUrls = {
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
 
+    GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
+    GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
+    GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
+    PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
+    PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
+    GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
+    PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
+    PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
+    PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
 
 
 
@@ -200,15 +230,26 @@ export const AdminUrls = {
     PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
     PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
 
+    GetAdminRefund: api + '/admin/refund',  //退款列表
+    PostAdminRefundCheck: api + '/admin/refund_check', // 审核提交
+    PostAdminRefund: api + '/admin/refund', //创建退款单
+    GetAdminRefundPayLog: api + '/admin/refund/pay_log', //支付流水
+    PostAdminRefundFinish: api + '/admin/refund_finish', //提交退款流水去向（完成退款）
+    GetAdminRefundLog: api + '/admin/refund_log', //退款流水列表
+    PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
+    PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
 
     GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
 
+    GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
 
 
 
     GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
     PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
 
+    GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
+    PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
 
     // 小程序
     GetWeChatPageConfigList: api + '/admin/page_config',  // 页面设置列表
@@ -223,12 +264,28 @@ export const AdminUrls = {
     GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
     GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
 
+    GetWeChatPageBlockList: api + '/admin/page_block',  // 页面模块列表
+    PostWeChatPageBlockCreate: api + '/admin/page_block',   // 添加
+    PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
+    GetWeChatPageBlockDeatil: api + '/admin/page_block/',   // 详情
+    GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
+    GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
+
+    GetAdminContractList: api + '/admin/store_contract',  // 合同列表
+    DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
+    PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
 
     GetAdminContractList: api + '/admin/store_contract',  // 合同列表
     DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
     PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
 
 
+    GetAdminGuideList: api + '/admin/guide',  //导游列表
+    PostAdminGuideCreate: api + '/admin/guide',   // 导游添加
+    PutAdminGuideUpdate: api + '/admin/guide/',   // 导游修改
+    GetAdminGuideDetail: api + '/admin/guide/',   // 导游详情
+    DeleteAdminGuide: api + '/admin/guide/',   // 导游删除
+    PostAdminGuideSetStatus: api + '/admin/guide/set_status',   // 导游启用 
 
     GetAdminGuideList: api + '/admin/guide',  //导游列表
     PostAdminGuideCreate: api + '/admin/guide',   // 导游添加
@@ -239,15 +296,19 @@ export const AdminUrls = {
 
 
 
-
     PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
+    PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
     GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
     PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
     DeleteAdminRegionService: api + '/admin/region_service/', //删除
     PutAdminRegion: api + '/admin/region_service/',    //区域更新
 
+    GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
+    PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
+    DeleteAdminRegionService: api + '/admin/region_service/', //删除
+    PutAdminRegion: api + '/admin/region_service/',    //区域更新
 
     GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
     GetAdminOrderIndenOrderTotal: api + '/admin/order/inden_order_total',   //自由行订单统计
@@ -310,6 +371,7 @@ export const StoreUrls = {
     PostStoreFreeReward: api + '/store/inden_product_reward',//佣金的编辑
 
     GetStoreInsuranceList: api + '/store/insurance',      // 跟团游保险列表
+    GetStoreInsuranceDayList: api + '/store/insurance/data',      // 跟团游保险列表天数
     GetStoreInsuranceDetail: api + '/store/insurance/',   // 保险详情
 
 

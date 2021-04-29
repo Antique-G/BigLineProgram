@@ -115,7 +115,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
         public adminProductTagService: AdminProductTagService, private msg: NzMessageService, public adminInsuranceService: AdminInsuranceService,
-        public adminMeetingPlaceService: AdminMeetingPlaceService,private modal: NzModalService, ) {
+        public adminMeetingPlaceService: AdminMeetingPlaceService, private modal: NzModalService,) {
         this.buildForm();
         this.detailUpdateModel = {
             title: '',
@@ -217,10 +217,18 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             this.detailId = params?.detailDataId;
         });
-        this.adminInsuranceService.insuranceList(1, 100, '', 1).subscribe(res => {
+        this.adminInsuranceService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
             console.log('保险 :>> ', res);
             this.insuranceArr = res?.data;
             this.getCateList();
+        })
+    }
+
+    // 根据行程天数拿取保险
+    changeDay(day: any) {
+        this.adminInsuranceService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
+            console.log('保险 :>> ', res);
+            this.insuranceArr = res?.data;
         })
     }
 
@@ -587,8 +595,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
 
 
 
-      // 单选保险
-      changeInsuranceBase(data: any) {
+    // 单选保险
+    changeInsuranceBase(data: any) {
         console.log('data :>> ', data);
         let aArr = this.insuranceArr.filter(item => item?.id === data);
         this.baseInsuranceId = aArr[0]?.id;

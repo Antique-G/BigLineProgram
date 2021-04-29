@@ -31,7 +31,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
                                             <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.few_days">
-                                                <nz-input-number style="width: 90px;" formControlName="few_days" [nzMin]="1" [nzMax]="255" [nzStep]="1"></nz-input-number>
+                                                <nz-input-number style="width: 90px;" formControlName="few_days" [nzMin]="1" [nzMax]="255" [nzStep]="1" (ngModelChange)="changeDay($event)"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">天</span>
                                                 <nz-input-number style="width: 90px;" formControlName="few_nights" [nzMin]="0" [nzMax]="255" [nzStep]="1"></nz-input-number>
                                                 <span style="line-height: 32px;padding: 0 9px;">晚</span>
@@ -123,7 +123,7 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="include_insurance_fee" nzRequired>报价是否包含基础保险费用</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
-                                                <nz-radio-group formControlName="include_insurance_fee">
+                                                <nz-radio-group formControlName="include_insurance_fee" ngModel={{dataProductDetailModel?.include_insurance_fee}}>
                                                     <label nz-radio nzValue='0'>否 </label>
                                                     <label nz-radio nzValue='1'>是</label>
                                                 </nz-radio-group>
@@ -136,7 +136,7 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_base" nzRequired>基础保险</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择启航基础保险！">
                                                 <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="insurance_base"  (ngModelChange)="changeInsuranceBase($event)"  [(ngModel)]="insurance_baseData" >
-                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
+                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
                                                     </nz-option>
                                                 </nz-select>
                                             </nz-form-control>
@@ -149,7 +149,7 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_extra">额外保险</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear [(ngModel)]="insurance_extraData" (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
-                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
+                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
                                                     </nz-option>
                                                 </nz-select>
                                             </nz-form-control>

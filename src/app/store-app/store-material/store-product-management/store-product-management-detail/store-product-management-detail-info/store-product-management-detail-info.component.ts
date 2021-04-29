@@ -216,12 +216,23 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
             this.detailId = params?.detailDataId;
         });
         this.store_id = localStorage.getItem('storeId');
-        this.storeProductService.insuranceList(1, 100, 1).subscribe(res => {
+        this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
             console.log('保险 :>> ', res);
             this.insuranceArr = res?.data;
             this.getCateList();
         })
     }
+
+
+
+    // 根据行程天数拿取保险
+    changeDay(day: any) {
+        this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
+            console.log('保险 :>> ', res);
+            this.insuranceArr = res?.data;
+        })
+    }
+
 
     // 标签分类列表
     getCateList() {
@@ -346,7 +357,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         this.insurance_baseData = this.dataProductDetailModel?.insurance_base;
         // 额外保险
         let extra = this.dataProductDetailModel?.insurance_extra?.data;
-        console.log("234232",extra)
+        console.log("234232", extra)
         let extraNums: any[] = [];
         for (let int of extra) {
             extraNums.push(int.id);
