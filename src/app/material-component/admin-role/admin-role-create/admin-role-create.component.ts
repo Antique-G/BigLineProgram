@@ -12,9 +12,11 @@ import { AdminRoleService } from '../../../../services/admin/admin-role.service'
 })
 export class AdminRoleCreateComponent implements OnInit {
   addForm!: FormGroup;
+  statusValue = '1';
 
   nodes: any[] = [];
   permission: any;
+  statusVal = 1;
 
   addRoleRequestModel: AddRoleRequestModel
 
@@ -24,7 +26,7 @@ export class AdminRoleCreateComponent implements OnInit {
       name: ['',[Validators.required]],
       display_name: ['',[Validators.required]],
       description: ['',],
-      status: ['', [Validators.required]]
+      status: [1, [Validators.required]]
     })
     this.addRoleRequestModel = {
       name: '',
