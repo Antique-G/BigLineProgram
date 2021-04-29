@@ -4,18 +4,6 @@
         <div style="padding: 5px;">
             <form nz-form [formGroup]="validateForm">
                 <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="controller" nzRequired>控制器名称</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入控制器名称">
-                        <input nz-input formControlName="controller" [ngModel]="permissionDetailtModel?.controller"/>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="action" nzRequired>模块名称</nz-form-label>
-                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入模块名称">
-                        <input nz-input formControlName="action" [ngModel]="permissionDetailtModel?.action"/>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="display_name" nzRequired>权限名称</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入权限名称">
                         <input nz-input formControlName="display_name" [ngModel]="permissionDetailtModel?.display_name"/>
@@ -27,6 +15,18 @@
                         <nz-select nzPlaceHolder="请选择父级" formControlName="pid" [ngModel]="permissionDetailtModel?.pid">
                             <nz-option *ngFor="let data of parentData; index as i;" [nzLabel]="data.display_name" [nzValue]="data.id"></nz-option>
                         </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="controller" nzRequired>控制器名称</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入控制器名称">
+                        <input nz-input formControlName="controller" [ngModel]="permissionDetailtModel?.controller"/>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="action" nzRequired>模块名称</nz-form-label>
+                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入模块名称">
+                        <input nz-input formControlName="action" [ngModel]="permissionDetailtModel?.action"/>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>

@@ -34,7 +34,7 @@ export class AdminPermissionService {
 
   //权限父级列表
   permissionParentList(): Observable<PermissionParentListModel> {
-    return this.httpClient.get<PermissionParentListModel>(this.urls.GetAdminPermissionList, httpOptions)
+    return this.httpClient.get<PermissionParentListModel>(this.urls.GetAdminPermissionParent, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

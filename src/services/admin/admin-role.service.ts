@@ -56,20 +56,6 @@ export class AdminRoleService {
       )
   }
 
-  // // 认证资料详情
-  // getDetail(store_id: any): Observable<StoreApplyCertifiDetailModel> {
-  //   const params = new HttpParams().set('store_id', store_id)
-  //   const findhttpOptions = {
-  //     headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-  //     params: params
-  //   };
-
-  //   return this.httpClient.get<StoreApplyCertifiDetailModel>(this.urls.GetAdminApproveDetail, findhttpOptions)
-  //     .pipe(
-  //       catchError(this.handleError)
-  //     )
-  // }
-
   // 角色更新
   updateRole(updateRoleRequestModel: UpdateRoleRequestModel): Observable<any> {
     const id = updateRoleRequestModel.id;

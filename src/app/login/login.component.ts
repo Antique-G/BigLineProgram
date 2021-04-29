@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
     this.setValue();
     console.log("提交的model是什么", this.loginRequestModel);
     this.adminLoginService.login(this.loginRequestModel).subscribe(res => {
-      console.log("res结果", res.permission);
-     
+      console.log("res结果", res);
       if (res.access_token != '') {
         this.adminLoginService.setToken(res.access_token);
         localStorage.setItem('account', res.admin.account);

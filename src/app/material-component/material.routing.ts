@@ -55,6 +55,7 @@ import { AdminStoreManageComponent } from './admin-store-manage/admin-store-mana
 import { AdminRoleComponent } from './admin-role/admin-role.component';
 import { AdminStoreManageScheduleComponent } from './admin-store-manage-schedule/admin-store-manage-schedule.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
+import { AdminNullComponent } from './admin-null/admin-null.component';
 
 export const MaterialRoutes: Routes = [
 
@@ -64,6 +65,13 @@ export const MaterialRoutes: Routes = [
     path: '',
     component: FullComponent,
     children: [
+      {
+        path: 'null',
+        component: AdminNullComponent,
+        data: {
+          breadcrumb: '没有权限'
+        }
+      },
       {
         path: 'adminAccount',
         component: AdminComponent,

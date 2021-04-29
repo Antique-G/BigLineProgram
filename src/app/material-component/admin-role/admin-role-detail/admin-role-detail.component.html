@@ -24,7 +24,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" >权限id</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <nz-tree [nzData]="nodes" nzCheckable nzMultiple (nzCheckBoxChange)="nzEvent($event)">
+                        <nz-tree [nzData]="nodes" nzCheckable nzMultiple (nzCheckBoxChange)="nzEvent($event)" [nzCheckedKeys]="defaultCheckedKeys" [nzExpandedKeys]="defaultExpandedKeys">
                         </nz-tree>
                     </nz-form-control>
                    

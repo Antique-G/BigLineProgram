@@ -40,7 +40,9 @@ export class FullComponent implements OnInit {
   is_approve = 0;
 
   permission: any = [];
-  permissionName: any = [];
+  adminMenus: any = [];
+  isMenus: any = [];
+  permissionAll: any = [];
   isShow = false;
   isShowThing: any;
 
@@ -84,26 +86,56 @@ export class FullComponent implements OnInit {
       });
     }
 
-    // this.ismMenuShow();
+    // this.isMenuShow();
+    
   }
 
-  ismMenuShow() {
+  isMenuShow() {
     this.permission = JSON.parse(localStorage.getItem("permission") || "[]");
-    let arr: any[] = [];
-    this.permission.forEach((element: any) => {
-      arr.push(element.name);
-    });
-    this.permissionName = arr;
-    console.log("this.permissionName", this.permissionName);
-    let newArr: any[] = [];
-    this.menuItems.getMenuitem().forEach((element: any, index: any) => {
-      var a: number = this.permissionName.indexOf(element.display_name);
-      if (a !== -1) {
-        newArr.push(element);
-      } 
-      this.isShowThing = newArr;
-      console.log("a111", a);
-    });
+    if ( this.permission == '') {
+      this.router.navigate(['/admin/main/null'],);
+      this.adminMenus = [];
+      console.log('没有权限')
+    }else{
+      let menus = this.menuItems.getMenuitem()
+      let arr: any[] = [];
+      this.permission.forEach((element: any) => {
+        arr.push(element.name);
+      });
+      this.permissionAll = arr;
+      console.log("this.permissionName", this.permissionAll);
+      let newMenus: any[] = [];
+      for ( let itme of menus) {
+          this.permissionAll.indexOf(itme.permission_name)
+          console.log('indexOf(itme.permission_name)',this.permissionAll.indexOf(itme.permission_name))
+          if (this.permissionAll.indexOf(itme.permission_name) != -1) {
+            newMenus.push(itme)
+            // for (){
+
+            // }
+          }
+        }
+      // for ( let children of newMenus.children) {
+      //   console.log('iiiiii',children)
+      //   for(let o of children){
+      //     console.log('o',o)
+      //   }
+      // }
+        
+        console.log('newMenus',newMenus)
+      this.adminMenus = newMenus
+    }
+    
+    // console.log("this.permissionName", this.permissionName);
+    // let newArr: any[] = [];
+    // this.menus.forEach((element: any, index: any) => {
+    //   var a: number = this.permissionName.indexOf(element.display_name);
+    //   if (a !== -1) {
+    //     newArr.push(element);
+    //   } 
+    //   this.isMenus = newArr;
+    //   console.log("a111", a);
+    // });
   }
 
   logOut() {
