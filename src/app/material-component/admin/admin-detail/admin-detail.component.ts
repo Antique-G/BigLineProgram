@@ -4,6 +4,7 @@ import { AdminRegionService } from '../../../../services/admin/admin-region.serv
 import { AdminDetailModel, UpdateRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
+import { AdminRoleService } from '../../../../services/admin/admin-role.service';
 
 
 
@@ -41,6 +42,11 @@ export class AdminDetailComponent implements OnInit {
   listDataMap: any;
   statussss: any;
 
+  
+  listOfOption: string[] = [];
+  listOfTagOptions: any[] = [];
+
+
 
   // 城市
   nzOptions: any[] | null = null;
@@ -48,7 +54,7 @@ export class AdminDetailComponent implements OnInit {
   isCity: any[] = [];
 
   constructor(public fb: FormBuilder, public adminRegionService: AdminRegionService,
-    public adminAdminService: AdminAdminService, public adminStoreManageService: AdminStoreManageService,) {
+    public adminAdminService: AdminAdminService, public adminStoreManageService: AdminStoreManageService, public adminRoleService:AdminRoleService ) {
     this.adminDetailModel = this.data;
     this.forms();
     this.updateRequestModel = {
@@ -57,6 +63,7 @@ export class AdminDetailComponent implements OnInit {
       status: '',
       staff_type: '',
       region_code: '',
+      role_id: '',
     }
   }
 
@@ -69,6 +76,7 @@ export class AdminDetailComponent implements OnInit {
       status: ['', [Validators.required]],
       staff_type: ['', [Validators.required]],
       region_code: ['', [Validators.required]],
+      role_id: [[], [Validators.required]],
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -111,6 +119,7 @@ export class AdminDetailComponent implements OnInit {
     this.updateRequestModel.status = this.addForm.value.status;
     this.updateRequestModel.staff_type = this.addForm.value.staff_type;
     this.updateRequestModel.region_code = this.isCity;
+    this.updateRequestModel.role_id = this.addForm.value.role_id;
   }
 
 
@@ -133,8 +142,21 @@ export class AdminDetailComponent implements OnInit {
       this.destinationPalce.push(temp);
     }
     this.addForm.get('region_code')?.setValue(this.destinationPalce);   //区域
+
+    this.roleData();
   }
 
+  roleData(){
+    this.adminRoleService.roleList(1, 50,'',).subscribe((result: any) => {  
+      this.listOfOption = result.data   //角色选项
+    })
+    let roleId:any[] = [];
+    for (let i of this.data.role){
+      roleId.push(i.id)
+    }
+    console.log('roleIdroleIdroleId',roleId)
+    this.listOfTagOptions = roleId;
+  }
 
   // 城市
   onDestChange(values: any): void {

@@ -154,6 +154,8 @@ import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-ad
 import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-store-manage-employee/admin-store-manage-employee.component';
+import { AdminNullComponent } from './admin-null/admin-null.component';
+
 
 
 @NgModule({
@@ -327,6 +329,7 @@ import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-st
     AdminOrderRefundChangStatusComponent,
     AOFTRefundByquoteComponent,
     AdminStoreManageEmployeeComponent,
+    AdminNullComponent,
 
   ]
 })

@@ -48,7 +48,15 @@ export class AdminRoleService {
       )
   }
 
-  // 角色修改
+  //保险详情
+  getRoleDetail(id: any) {
+    return this.httpClient.get<any>(this.urls.GetAdminRoleDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // 角色更新
   updateRole(updateRoleRequestModel: UpdateRoleRequestModel): Observable<any> {
     const id = updateRoleRequestModel.id;
     return this.httpClient.put(this.urls.PutAdminRoleUpdate + id, updateRoleRequestModel, httpOptions)
