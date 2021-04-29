@@ -4,14 +4,14 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code">保险产品方案代码</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input formControlName="code" nzBorderless ngModel={{insuranceDetailModel?.code}} />
+                    <input nz-input formControlName="code" nzBorderless ngModel={{insuranceDetailModel?.code}} readonly/>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">保险名称</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input formControlName="name" nzBorderless ngModel={{insuranceDetailModel?.name}}/>
+                    <input nz-input formControlName="name" nzBorderless ngModel={{insuranceDetailModel?.name}} readonly/>
                 </nz-form-control>
             </nz-form-item>
 
@@ -37,14 +37,14 @@
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_amount">保额</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <input nz-input formControlName="insurance_amount" nzBorderless ngModel={{insuranceDetailModel?.insurance_amount}}/>
+                    <input nz-input formControlName="insurance_amount" nzBorderless ngModel={{insuranceDetailModel?.insurance_amount}} readonly/>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="article">保险条款</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
-                    <textarea nz-input formControlName="article" ngModel={{insuranceDetailModel?.article}} [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                    <textarea nz-input formControlName="article" readonly ngModel={{insuranceDetailModel?.article}} [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
 

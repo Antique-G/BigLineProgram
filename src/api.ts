@@ -16,10 +16,11 @@ export const AdminUrls = {
     PostAdminPermissionCreate: api + '/admin/permission',    //权限创建
     PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
-    GetAdminRoleList: api + '/admin/role',    //角色列表
-    GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
-    PostAdminRoleCreate: api + '/admin/role',    //角色创建
-    PutAdminRoleUpdate: api + '/admin/role/', //角色更新
+  GetAdminRoleList: api + '/admin/role',    //角色列表
+  GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
+  PostAdminRoleCreate: api + '/admin/role',    //角色创建
+  GetAdminRoleDetail: api + '/admin/role/',    //角色详情
+  PutAdminRoleUpdate: api + '/admin/role/', //角色更新
 
 
     GetAdminShopList: api + '/admin/shop',    //门店列表
@@ -42,10 +43,10 @@ export const AdminUrls = {
     PostAdminRewardSet: api + '/admin/rewrd_set', // 店铺佣金设置
 
 
-    PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
-    GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
-    PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
-    GetAdminDetail: api + '/admin/account/',///管理后台管理员详情接口
+  PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
+  GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
+  PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
+  GetAdminDetail: api + '/admin/account/',  //管理后台管理员详情接口
 
     PostAdminStoreCreate: api + '/admin/store', //管理后台商户添加接口
     GetAdminStoreDetail: api + '/admin/store/',   //管理后台获取商户信息接口详情

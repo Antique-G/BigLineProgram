@@ -23,7 +23,7 @@ export class Interceptor implements HttpInterceptor {
 
     // 如果有token，就添加
     if (token) {
-      console.log("token是什么", token);
+    //   console.log("token是什么", token);
       let bearToken = token.slice(0, 6);
       if (bearToken === 'Bearer') {
         req = req.clone({
@@ -55,8 +55,8 @@ export class Interceptor implements HttpInterceptor {
           else if (newToken === null) {
             localStorage.getItem('userToken');
           }
-          console.log("返回的结果", event)
-          console.log("event", event.status);
+        //   console.log("返回的结果", event)
+        //   console.log("event", event.status);
           if (event.status === 200 && event.body.message != null) {
             console.log('1111', event.body)
             this.alertMessage = event.body.message;
@@ -77,7 +77,7 @@ export class Interceptor implements HttpInterceptor {
             switch (error.status) {
 
               case 401:
-                console.log("当前页", window.location.pathname)
+                // console.log("当前页", window.location.pathname)
                 if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
                   // alert(error.error.message);
                   this.createFail(error.error.message)

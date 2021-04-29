@@ -39,6 +39,15 @@
             </nz-form-item>
 
             <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="role_id" nzRequired>角色</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择角色"><!--  [(ngModel)]="listOfTagOptions" -->
+                    <nz-select nzMode="tags" nzPlaceHolder="请选择角色" formControlName="role_id" [(ngModel)]="listOfTagOptions">
+                        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.display_name" [nzValue]="option.id"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="staff_type" nzRequired>门店员工</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24">
                     <nz-radio-group ngModel={{data.staff_type}} formControlName="staff_type">

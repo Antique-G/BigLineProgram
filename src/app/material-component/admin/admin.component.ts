@@ -67,26 +67,28 @@ export class AdminComponent implements OnInit {
 
 
   edit(element: any): void {
-    const editmodal = this.modal.create({
-      nzTitle: '修改',
-      nzContent: AdminDetailComponent,
-      nzWidth: 800,
-      nzComponentParams: {
-        data: element
-      },
-      nzFooter: [
-        {
-          label: '提交',
-          type: 'primary',
-          onClick: componentInstance => {
-            componentInstance?.update()
+    this.adminAdminService.accountDetail(element.admin_id).subscribe((result: any) => {
+      const editmodal = this.modal.create({
+        nzTitle: '修改',
+        nzContent: AdminDetailComponent,
+        nzWidth: 800,
+        nzComponentParams: {
+          data: result
+        },
+        nzFooter: [
+          {
+            label: '提交',
+            type: 'primary',
+            onClick: componentInstance => {
+              componentInstance?.update()
+            }
           }
-        }
-      ]
-    })
-    editmodal.afterClose.subscribe(res => {
-      this.getData();
-    })
+        ]
+      })
+      editmodal.afterClose.subscribe(res => {
+        this.getData();
+      })
+    });
   }
 
   add() {
