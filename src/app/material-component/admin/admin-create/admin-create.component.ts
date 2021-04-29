@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
+import { AdminRoleService } from '../../../../services/admin/admin-role.service';
 
 
 @Component({
@@ -18,6 +18,11 @@ export class AdminCreateComponent implements OnInit {
   staffTypeValue = '0'
   registerRequestModel: RegisterRequestModel;
   listDataMap: any[] = [];
+
+  listOfOption: string[] = [];
+  listOfTagOptions: any[] = [];
+  
+  
 
   validationMessage: any = {
     account: {
@@ -50,8 +55,13 @@ export class AdminCreateComponent implements OnInit {
   isDestination_city: any;
 
 
-  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService, public adminRegionService: AdminRegionService,
-    public adminAdminService: AdminAdminService) {
+
+  
+
+
+  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService,
+    public adminAdminService: AdminAdminService, public adminRoleService:AdminRoleService ,public adminRegionService:AdminRegionService) {
+
     this.forms();
     this.registerRequestModel = {
       account: '',
@@ -62,6 +72,7 @@ export class AdminCreateComponent implements OnInit {
       status: 1,
       staff_type: 0,
       region_code: '',
+      role_id: '',
     }
   }
 
@@ -77,7 +88,8 @@ export class AdminCreateComponent implements OnInit {
       phoneNumber: ['', [Validators.required, mobile]],
       status: ['', [Validators.required]],
       staff_type: ['', [Validators.required]],
-      region_code: ['', [Validators.required]]
+      region_code: ['', [Validators.required]],
+      role_id: [[], [Validators.required]]
     });
     // 每次表单数据发生变化的时候更新错误信息
     this.addForm.valueChanges.subscribe(data => {
@@ -138,9 +150,15 @@ export class AdminCreateComponent implements OnInit {
         this.nzOptions = res;
       })
     })
+    this.adminRoleService.roleList(1, 50,'',).subscribe((result: any) => {
+      this.listOfOption = result?.data;   //角色选项
+    });
+
+    
   }
 
   setValue() {
+    console.log('this.addForm.value',this.addForm.value)
     this.registerRequestModel.account = this.addForm.value.account;
     this.registerRequestModel.password = this.addForm.value.password;
     this.registerRequestModel.password_confirmation = this.addForm.value.checkPassword;
@@ -149,7 +167,7 @@ export class AdminCreateComponent implements OnInit {
     this.registerRequestModel.status = this.addForm.value.status;
     this.registerRequestModel.staff_type = this.addForm.value.staff_type;
     this.registerRequestModel.region_code = this.isDestination_city;
-
+    this.registerRequestModel.role_id = this.addForm.value.role_id;
   }
 
 
@@ -161,6 +179,13 @@ export class AdminCreateComponent implements OnInit {
 
     }
   }
+
+  // 城市
+  onChangeRole(data: any): void {
+    console.log("点击的结果是datadatadata", data);
+    
+  }
+
 
 
   add() {
@@ -191,6 +216,13 @@ export class AdminCreateComponent implements OnInit {
 }
 
 
+
+
+
+
+// 手机号码校验
+import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { NzSafeAny } from "ng-zorro-antd/core/types";
 
 
 

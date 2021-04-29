@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
@@ -12,12 +13,7 @@ import { AdminRoleService } from '../../../../services/admin/admin-role.service'
 export class AdminRoleCreateComponent implements OnInit {
   addForm!: FormGroup;
 
-  // defaultCheckedKeys = ['0-0-0'];
-  // defaultSelectedKeys = ['0-0'];
-  // defaultExpandedKeys = ['0-0', '0-0-0'];
-
   nodes: any[] = [];
-  children: any[] = [];
   permission: any;
 
   addRoleRequestModel: AddRoleRequestModel
@@ -38,44 +34,77 @@ export class AdminRoleCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.treeNodes();
+  }
+
+  treeNodes(){
     this.adminRoleService.permissionTreeList().subscribe((result: any) => {
       console.log("权限的树状列表", result);
-      let arrs:any[]=[];
-
-      for (let i of result) {
-        let childrenArr:any[] = [];
-        for (let f of i.son) {
-          let b = {title: f.display_name, key: f.id, isLeaf: true }
-          childrenArr.push(b)
+      this.nodes = result;
+      for (let obj of this.nodes){
+        for(let item of obj.children) {
+          if (item.hasOwnProperty('children') === false) {
+            item.isLeaf = true;
+          }else{
+            for(let i of item.children){
+              if (i.hasOwnProperty('children') === false){
+                i.isLeaf = true;
+              }
+            }
+          }
         }
-        this.children = childrenArr;
-        let a = { title: i.display_name, key: i.id,children:this.children};
-        arrs.push(a);
       }
-
-      this.nodes=arrs
-      console.log('this.nodes',this.nodes)
-      
     }); 
   }
 
   nzEvent(event: NzFormatEmitEvent): void {
-    console.log(event);
-    
-    if (event.eventName =="check") {
-      
-      this.permission=event.keys;
-      console.log(event.keys)
+    console.log('event.checkedKeys',event,event.checkedKeys,);
+    let checkedData:any;
+    checkedData = event.checkedKeys
+    let checkedKeys:any[] = [];
+    for (let item of checkedData){
+      if( item.level === 0 ) {
+        for (let i of item._children){
+          for (let f of i._children) {
+            checkedKeys.push(item.key,i.key,f.key)
+            console.log('一级',item.key,i.key,f.key)
+          }
+        }
+      }
+      else if( item.level === 1 ){
+        for (let i of item._children) {
+            checkedKeys.push(item.parentNode.key,item.key,i.key)
+            console.log('二级',item.parentNode.key,item.key,i.key)
+        }
+      }
+      else if( item.level === 2 ){
+        checkedKeys.push(item.key,item.parentNode.key,item.parentNode.parentNode.key)
+        console.log('三级',item.key,item.parentNode.key,item.parentNode.parentNode.key)
+      }
     }
+    console.log('所以选中的当前和上级和上上级',checkedKeys)
+
+    let newKeys:any[] = [];
+    for (var i = 0; i < checkedKeys.length; i++) {
+      for (var j = i + 1; j < checkedKeys.length; j++) {
+        if (checkedKeys[i] === checkedKeys[j]) {
+          i++
+          j = i
+        }
+      }
+      newKeys.push(checkedKeys[i])
+    }
+    console.log('去重后数组',newKeys) 
+    this.permission = newKeys;
   }
+
+  
 
   setValue(){
     this.addRoleRequestModel.name = this.addForm.value.name;
     this.addRoleRequestModel.display_name = this.addForm.value.display_name;
     this.addRoleRequestModel.description = this.addForm.value.description;
     this.addRoleRequestModel.permission = this.permission;
-    
-
   }
 
   submitForm() {
@@ -87,11 +116,8 @@ export class AdminRoleCreateComponent implements OnInit {
     }
     if (this.addForm.valid) {
       this.adminRoleService.addRole(this.addRoleRequestModel).subscribe(res => {
-        console.log("res结果", res);
-       
+        console.log("添加", res);
       })
-
     }
   }
-
 }

@@ -80,26 +80,27 @@ export class AdminRoleComponent implements OnInit {
   }
 
   edit(element: any) {
-    console.log("当前id", element);
-    const editmodal = this.modal.create({
-      nzTitle: "更新角色",
-      nzContent: AdminRoleDetailComponent,
-      nzWidth:800,
-      nzComponentParams: {
-        data: element,
-      },
-      nzFooter: [
-        {
-          label: "更新",
-          type: "primary",
-          onClick: (componentInstance) => {
-            componentInstance?.update();
-          },
+    this.adminRoleService .getRoleDetail(element.id).subscribe((res) => {
+      const editmodal = this.modal.create({
+        nzTitle: "更新角色",
+        nzContent: AdminRoleDetailComponent,
+        nzWidth:800,
+        nzComponentParams: {
+          data: res,
         },
-      ],
-    });
-    editmodal.afterClose.subscribe((res) => {
-      this.getDataList();
+        nzFooter: [
+          {
+            label: "更新",
+            type: "primary",
+            onClick: (componentInstance) => {
+              componentInstance?.update();
+            },
+          },
+        ],
+      });
+      editmodal.afterClose.subscribe((res) => {
+        this.getDataList();
+      });
     });
   }
 
