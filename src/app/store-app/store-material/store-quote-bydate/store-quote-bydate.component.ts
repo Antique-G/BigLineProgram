@@ -133,7 +133,7 @@ export class StoreQuoteBydateComponent implements OnInit {
                 this.isSpinning = false;
                 const modal: NzModalRef = this.modal.create({
                     nzTitle: '批量报价',
-                    nzWidth: 750,
+                    nzWidth: 850,
                     nzContent: StoreQuoteBydateCreateComponent,
                     nzComponentParams: {
                         data: {
@@ -247,7 +247,7 @@ export class StoreQuoteBydateComponent implements OnInit {
         console.log(123);
         const modal: NzModalRef = this.modal.create({
             nzTitle: '批量报价',
-            nzWidth: 750,
+            nzWidth: 850,
             nzContent: StoreQuoteBydateCreateComponent,
             nzComponentParams: {
                 data: {

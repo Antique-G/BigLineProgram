@@ -122,6 +122,7 @@ export interface ProductList {
   num_diff?: any;
   refund_member?: any;
   total_member?: any;
+  refunding_amount?: any;
 
 }
 
@@ -210,6 +211,7 @@ export interface DetailsModel {
   num_diff?: any;
   refund_member?: any;
   total_member?: any;
+  refunding_amount?: any;
 }
 
 export interface Paylog {
@@ -322,6 +324,7 @@ export interface ProductModel {
   discount_tit?: any;
   other_price_tit?: any;
   num_diff?: any;
+  refunding_amount?: any;
 
 }
 
@@ -459,6 +462,7 @@ export interface ProListModel {
   discount_tit?: any;
   other_price_tit?: any;
   num_diff?: any;
+  refunding_amount?: any;
 
 }
 
