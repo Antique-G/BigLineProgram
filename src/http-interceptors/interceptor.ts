@@ -83,12 +83,20 @@ export class Interceptor implements HttpInterceptor {
                   this.createFail(error.error.message)
                 }
                 else {
-                  alert('token已过期，请重新登陆');
+                  console.log('error.error.message :>> ', error.error.code);
+                  // 没有权限
+                  if(error.error.code==411){
+                    this.createFail(error.error.message)
+                    break;
+                  }
+                  else{
+                    alert('token已过期，请重新登陆');
                   if (pathName === 'admin') {
                     this.router.navigate(['/admin/login']);
                   }
                   else if (pathName === 'store') {
                     this.router.navigate(['/store/login']);
+                  }
                   }
                 }
                 break;
