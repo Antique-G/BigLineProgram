@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
 import { RegisterRequestModel } from '../../../../interfaces/adminAdmin/admin-admin-model';
 import { AdminAdminService } from '../../../../services/admin/admin-admin.service';
 import { AdminStoreManageService } from '../../../../services/admin/admin-store-manage.service';
+import { AdminRoleService } from '../../../../services/admin/admin-role.service';
 
 
 @Component({
@@ -18,6 +18,11 @@ export class AdminCreateComponent implements OnInit {
   staffTypeValue = '0'
   registerRequestModel: RegisterRequestModel;
   listDataMap: any[] = [];
+  listDataRole: any[] = [];
+
+  listOfOption1: Array<{ label: string; value: string }> = [];
+  listOfOption: any[] = [];
+  listOfTagOptions = [];
 
   validationMessage: any = {
     account: {
@@ -50,8 +55,13 @@ export class AdminCreateComponent implements OnInit {
   isDestination_city: any;
 
 
-  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService, public adminRegionService: AdminRegionService,
-    public adminAdminService: AdminAdminService) {
+
+  
+
+
+  constructor(public fb: FormBuilder, public adminStoreManageService: AdminStoreManageService,
+    public adminAdminService: AdminAdminService, public adminRoleService:AdminRoleService ,public adminRegionService:AdminRegionService) {
+
     this.forms();
     this.registerRequestModel = {
       account: '',
@@ -62,6 +72,8 @@ export class AdminCreateComponent implements OnInit {
       status: 1,
       staff_type: 0,
       region_code: '',
+      shop_id: '',
+      role_id: '',
     }
   }
 
@@ -69,7 +81,8 @@ export class AdminCreateComponent implements OnInit {
     // 校验手机
     const { mobile } = MyValidators;
     this.addForm = this.fb.group({
-      // shop_id: ['', [Validators.required]],
+      shop_id: ['', [Validators.required]],
+      role_id: ['', [Validators.required]],
       account: ['', [Validators.required, Validators.maxLength(32)]],
       password: ['', [Validators.required, Validators.maxLength(16)]],
       checkPassword: ['', [Validators.required, this.confirmationValidator]],
@@ -138,9 +151,34 @@ export class AdminCreateComponent implements OnInit {
         this.nzOptions = res;
       })
     })
+    this.adminRoleService.roleList(1, 50,'',).subscribe((result: any) => {
+      this.listDataRole = result?.data;
+      let children:any[]=[];
+      console.log("列表接口返回什么", this.listDataRole);
+
+      
+      for (let i of this.listDataRole) {
+        let a = {label: i.display_name, value: i.id.toString()}
+        children.push(a);
+      }
+      this.listOfOption = children;
+      console.log('children1children1',this.listOfOption)
+
+
+      const children1: Array<{ label: string; value: string }> = [];
+      for (let i = 10; i < 36; i++) {
+        children1.push({ label: i.toString(36) + i, value: i.toString(36) + i });
+      }
+      this.listOfOption1 = children1;
+      console.log('this.listOfOption',this.listOfOption1)
+      
+    });
+
+    
   }
 
   setValue() {
+    console.log('this.addForm.value',this.addForm.value)
     this.registerRequestModel.account = this.addForm.value.account;
     this.registerRequestModel.password = this.addForm.value.password;
     this.registerRequestModel.password_confirmation = this.addForm.value.checkPassword;
@@ -149,7 +187,8 @@ export class AdminCreateComponent implements OnInit {
     this.registerRequestModel.status = this.addForm.value.status;
     this.registerRequestModel.staff_type = this.addForm.value.staff_type;
     this.registerRequestModel.region_code = this.isDestination_city;
-
+    this.registerRequestModel.shop_id = this.addForm.value.shop_id;
+    this.registerRequestModel.role_id = this.addForm.value.role_id;
   }
 
 
@@ -191,6 +230,13 @@ export class AdminCreateComponent implements OnInit {
 }
 
 
+
+
+
+
+// 手机号码校验
+import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { NzSafeAny } from "ng-zorro-antd/core/types";
 
 
 

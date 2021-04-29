@@ -56,6 +56,8 @@ export interface RegisterRequestModel {
   shop_id?: any;
   staff_type: any;
   region_code?: any;
+  role_id: any;
+
 }
 
 export interface RegisterResponseModel {

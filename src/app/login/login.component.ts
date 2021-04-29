@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginRequestModel: LoginRequestModel;
-
+  permission:any = [];
 
   constructor(public fb: FormBuilder, public adminLoginService: AdminLoginService, public router: Router) {
     this.loginForm = fb.group({
@@ -38,12 +38,15 @@ export class LoginComponent implements OnInit {
     this.setValue();
     console.log("提交的model是什么", this.loginRequestModel);
     this.adminLoginService.login(this.loginRequestModel).subscribe(res => {
-      // console.log("res结果", res);
+      console.log("res结果", res.permission);
+     
       if (res.access_token != '') {
         this.adminLoginService.setToken(res.access_token);
         localStorage.setItem('account', res.admin.account);
         localStorage.setItem('adminId', res.admin.admin_id);
+        localStorage.setItem("permission", JSON.stringify(res.permission));
         this.router.navigate(['/admin/main/adminAccount'])
+        
       }
     })
   }

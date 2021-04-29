@@ -48,7 +48,29 @@ export class AdminRoleService {
       )
   }
 
-  // 角色修改
+  //保险详情
+  getRoleDetail(id: any) {
+    return this.httpClient.get<any>(this.urls.GetAdminRoleDetail + id, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  // // 认证资料详情
+  // getDetail(store_id: any): Observable<StoreApplyCertifiDetailModel> {
+  //   const params = new HttpParams().set('store_id', store_id)
+  //   const findhttpOptions = {
+  //     headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+  //     params: params
+  //   };
+
+  //   return this.httpClient.get<StoreApplyCertifiDetailModel>(this.urls.GetAdminApproveDetail, findhttpOptions)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     )
+  // }
+
+  // 角色更新
   updateRole(updateRoleRequestModel: UpdateRoleRequestModel): Observable<any> {
     const id = updateRoleRequestModel.id;
     return this.httpClient.put(this.urls.PutAdminRoleUpdate + id, updateRoleRequestModel, httpOptions)

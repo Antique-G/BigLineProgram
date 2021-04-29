@@ -95,8 +95,7 @@ export interface AddRoleResponseModel {
     message: string;
     code?: string;
   }
-
-  export interface RoleDetailModel {
+export interface RoleDetailModel {
     id: number;
     name: string;
     display_name: string;
@@ -104,8 +103,26 @@ export interface AddRoleResponseModel {
     status: number;
     created_at: object;
     updated_at: object;
+    permission: Permission[];
 }
-
+export interface Permission {
+    id: number;
+    name: string;
+    display_name: string;
+    description: string;
+    controller: string;
+    action: string;
+    pid: number;
+    type: number;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    pivot: Pivot;
+}
+export interface Pivot {
+    role_id: number;
+    permission_id: number;
+}
 export interface UpdateRoleRequestModel {
     id?: number;
     name: string;
@@ -113,3 +130,4 @@ export interface UpdateRoleRequestModel {
     description: string;
     permission: any;
   }
+

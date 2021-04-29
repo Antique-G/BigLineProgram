@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
@@ -11,10 +12,6 @@ import { AdminRoleService } from '../../../../services/admin/admin-role.service'
 })
 export class AdminRoleCreateComponent implements OnInit {
   addForm!: FormGroup;
-
-  // defaultCheckedKeys = ['0-0-0'];
-  // defaultSelectedKeys = ['0-0'];
-  // defaultExpandedKeys = ['0-0', '0-0-0'];
 
   nodes: any[] = [];
   children: any[] = [];
@@ -38,6 +35,10 @@ export class AdminRoleCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.treeNodes();
+  }
+
+  treeNodes(){
     this.adminRoleService.permissionTreeList().subscribe((result: any) => {
       console.log("权限的树状列表", result);
       let arrs:any[]=[];
@@ -51,9 +52,15 @@ export class AdminRoleCreateComponent implements OnInit {
         this.children = childrenArr;
         let a = { title: i.display_name, key: i.id,children:this.children};
         arrs.push(a);
+        
+        // arrs.map(((item, index)=>{
+        //   if (index === 0){
+        //      item.expanded= true;
+        //   }
+        // }))
       }
-
-      this.nodes=arrs
+      
+      this.nodes = arrs
       console.log('this.nodes',this.nodes)
       
     }); 

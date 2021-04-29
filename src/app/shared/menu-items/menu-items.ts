@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface Menu {
   title: string;
   icon: string;
+  display_name: string;
   children: Menus[]
 }
 
@@ -14,22 +15,22 @@ export interface Menus {
 
 const MENUITEMS = [
   {
-    title: '系统设置模块', icon: 'setting',
+    title: '系统设置模块', icon: 'setting',display_name: 'admin_index' ,
     children: [
       { state: 'adminAccount', name: '管理员账号' },
       { state: 'adminStoreManage', name: '门店管理' },
+      { state: 'adminPermission', name: '管理权限' },
+      { state: 'adminRole', name: '角色' }
 
-      // { state: 'adminPermission', name: '管理权限' }
-      // { state: 'adminRole', name: '角色' }
     ]
   },
   {
-    title: '店铺模块', icon: 'appstore',
+    title: '店铺模块', icon: 'appstore',display_name: 'PermissionController_index' ,
     children: [{ state: 'store', name: '店铺管理' },
     ]
   },
   {
-    title: '产品模块', icon: 'project',
+    title: '产品模块', icon: 'project',display_name: 'admin_index211' ,
     children: [
       { state: 'productTag', name: '产品标签' },
       { state: 'productManagement', name: '跟团游管理' },
@@ -37,7 +38,7 @@ const MENUITEMS = [
     ]
   },
   {
-    title: '订单模块', icon: 'ordered-list',
+    title: '订单模块', icon: 'ordered-list',display_name: 'admin22' ,
     children: [
       { state: 'orderList', name: '团列表' },
       { state: 'groupTravelOrder', name: '跟团游订单列表' },
@@ -50,7 +51,7 @@ const MENUITEMS = [
     ]
   },
   {
-    title: '佣金模块', icon: 'pound',
+    title: '佣金模块', icon: 'pound',display_name: 'admin33' ,
     children: [
       { state: 'userCommission', name: '用户分销佣金' },
       // { state: 'commissionWithdraw', name: '提现列表' },
@@ -58,19 +59,19 @@ const MENUITEMS = [
     ]
   },
   {
-    title: '条款管理', icon: 'file',
+    title: '条款管理', icon: 'file',display_name: 'admin44' ,
     children: [
       { state: 'termsManage', name: '条款审核' },
       { state: 'termTemplate', name: '条款模板' }
     ]
   },
   {
-    title: '导游管理模块', icon: 'flag',
+    title: '导游管理模块', icon: 'flag',display_name: 'admin55' ,
     children: [{ state: 'adminTourist', name: '导游列表' }]
   },
 
   {
-    title: '区域模块', icon: 'environment',
+    title: '区域模块', icon: 'environment',display_name: 'admin66' ,
     children: [
       { state: 'settingArea', name: '区域' },
       { state: 'customerService', name: '区域客服' }
@@ -78,14 +79,14 @@ const MENUITEMS = [
   },
 
   {
-    title: '用户管理', icon: 'user',
+    title: '用户管理', icon: 'user',display_name: 'admin77' ,
     children: [
       { state: 'saleTitle', name: '销售头衔' },
       { state: 'user', name: '用户信息' },
     ]
   },
   {
-    title: '保险管理', icon: 'safety-certificate',
+    title: '保险管理', icon: 'safety-certificate',display_name: 'admin88' ,
     children: [
       { state: 'insurance', name: '保险' },
       // { state: 'insuranceHistory', name: '保险购买记录' },
@@ -94,7 +95,7 @@ const MENUITEMS = [
   },
 
   {
-    title: '小程序模块', icon: 'wechat',
+    title: '小程序模块', icon: 'wechat',display_name: 'admin99' ,
     children: [
       { state: 'pageConfig', name: '页面设置' },
     ]

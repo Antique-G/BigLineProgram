@@ -24,10 +24,10 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" >权限id</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                        <!-- [nzExpandedKeys]="defaultExpandedKeys" [nzSelectedKeys]="defaultSelectedKeys" [nzCheckedKeys]="defaultCheckedKeys" -->
-                        <nz-tree [nzData]="nodes" nzCheckable nzMultiple (nzClick)="nzEvent($event)" (nzExpandChange)="nzEvent($event)" (nzCheckBoxChange)="nzEvent($event)" [nzExpandedKeys]="defaultExpandedKeys" [nzSelectedKeys]="defaultSelectedKeys" [nzCheckedKeys]="defaultCheckedKeys">
+                        <nz-tree [nzData]="nodes" nzCheckable nzMultiple (nzCheckBoxChange)="nzEvent($event)">
                         </nz-tree>
                     </nz-form-control>
+                   
                 </nz-form-item>
             </form>
 

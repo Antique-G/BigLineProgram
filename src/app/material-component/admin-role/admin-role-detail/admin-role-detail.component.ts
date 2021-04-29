@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
@@ -12,20 +11,17 @@ import { AdminRoleService } from '../../../../services/admin/admin-role.service'
 })
 export class AdminRoleDetailComponent implements OnInit {
 
-  defaultCheckedKeys = [17, 4];
-  defaultSelectedKeys = [4];
-  defaultExpandedKeys = [17, 4];;
-  
+  checkedKeys:any=[];        //选中
 
   validateForm!: FormGroup;
-  roleDetailModel!:RoleDetailModel
-  updateRoleRequestModel: UpdateRoleRequestModel
 
   nodes: any[] = [];
   children: any[] = [];
   permission: any;
-
+ 
   @Input() data:any;
+  roleDetailModel!:RoleDetailModel
+  updateRoleRequestModel: UpdateRoleRequestModel
 
   constructor(public fb: FormBuilder, public adminRoleService:AdminRoleService) {
     this.validateForm = this.fb.group({
@@ -39,30 +35,55 @@ export class AdminRoleDetailComponent implements OnInit {
       description: '',
       permission: '',
     }
+    
   }
 
   ngOnInit(): void {
     this.roleDetailModel = this.data;
-    console.log('详情',this.roleDetailModel)
+    this.treeNodes();
+   
+     
+  }
+  treeNodes(){
     this.adminRoleService.permissionTreeList().subscribe((result: any) => {
       console.log("权限的树状列表", result);
+      
       let arrs:any[]=[];
       for (let i of result) {
         let childrenArr:any[] = [];
         for (let f of i.son) {
-          let b = {title: f.display_name, key: f.id, isLeaf: true }
+          let b = {title: f.display_name, key: f.id.toString(), isLeaf: true }
           childrenArr.push(b)
         }
         this.children = childrenArr;
-        let a = { title: i.display_name, key: i.id,children:this.children};
+        let a = { title: i.display_name, key: i.id.toString(),children:this.children}; // expanded: false,checked: false
         arrs.push(a);
       }
-
-      this.nodes=arrs
+      this.nodes = arrs  //Tree
       console.log('this.nodes',this.nodes)
+
+      let ids:any = [];
+      for ( let i of this.roleDetailModel.permission){
+        ids.push(i.id)
+      }
+      this.checkedKeys = ids;
+      this.nodes.forEach((ele:any)=>{   
+        if(this.checkedKeys.indexOf(Number(ele.key))!=-1){
+          ele.checked=true;
+          ele.expanded=true; 
+        }
+        ele.children.forEach((item:any)=>{
+          if(this.checkedKeys.indexOf(Number(item.key))!=-1){
+            item.checked=true;     
+            ele.expanded=true; 
+          }
+        })
+      })
       
     }); 
   }
+
+
   
   nzEvent(event: NzFormatEmitEvent): void {
     console.log(event);
