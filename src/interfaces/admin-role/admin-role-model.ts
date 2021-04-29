@@ -89,6 +89,7 @@ export interface AddRoleRequestModel {
     display_name: string;
     description: string;
     permission: any;
+    status: number;
   }
   
 export interface AddRoleResponseModel {
@@ -129,5 +130,6 @@ export interface UpdateRoleRequestModel {
     display_name: string;
     description: string;
     permission: any;
+    status: number;
   }
 
