@@ -4,8 +4,9 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch">
-                        <div><button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/adminStoreManage">返回门店管理</button></div>
-                        <div><button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="setSchedule()">设置排班</button></div>
+                        <div><button nz-button nzType="primary" style="letter-spacing: 2px;" routerLink="/admin/main/adminStoreManage">返回门店管理</button></div>
+                        <div><button nz-button nzType="primary" style="letter-spacing: 2px;" (click)="setSchedule()">设置排班</button></div>
+                        <div> <button nz-button nzType="primary" style="letter-spacing: 2px;" nzDanger (click)="delSchedule()">删除排班</button></div>
                     </div>
                     <div>
                         <div fxLayout="row" fxLayoutGap="100px" fxLayoutAlign="start stretch" style="background: antiquewhite;height: 41px;padding: 9px;">
@@ -28,6 +29,9 @@
                                 <div *nzDateCell="let date" class="events">
                                     <ng-container *ngFor="let item of listDataMap">
                                         <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                            <div style="position: absolute;top: 5px;">
+                                                <label nz-checkbox [(ngModel)]="item.checked" [nzDisabled]="item.date<getDay" (ngModelChange)="changeId(item)"></label>
+                                            </div>
                                             <div class="item itemFree item-bg-success">
                                                 <div><span style="color: red;">{{item.admin_name}}</span></div>
                                             </div>

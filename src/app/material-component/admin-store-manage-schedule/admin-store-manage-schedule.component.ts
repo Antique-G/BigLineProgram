@@ -28,7 +28,8 @@ export class AdminStoreManageScheduleComponent implements OnInit {
   public isSpinning: boolean = true;
   nzPageIndex = new Date().getMonth() + 1;
   ids: any[] = [];
-
+  
+  getDay = format(new Date(), 'yyyy-MM-dd');
 
   listDataMap: any[] = [];
   page = 1;
@@ -59,6 +60,10 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     this.adminStoreManageService.shopScheduleList(this.page, this.per_page, this.admin_id, this.date, this.shop_id).subscribe(res => {
       console.log('111111111', res);
       this.listDataMap = res?.data;
+      this.listDataMap.map((item: any)=>{
+        item['checked'] = false
+      })
+      console.log(this.listDataMap,'this.listDataMap');
     })
   }
 
@@ -147,6 +152,8 @@ export class AdminStoreManageScheduleComponent implements OnInit {
         })
         editmodal.afterClose.subscribe(res => {
           this.getList();
+          this.ids=[]
+
         })
       })
       
@@ -199,15 +206,39 @@ export class AdminStoreManageScheduleComponent implements OnInit {
 
 
 
-  changeId(item: any) {
-    console.log('object :>> ', item);
-    if (item.checked === true) {
-      this.ids.push(item.id);
-    }
-    else if (item.checked === false) {
-      this.ids = this.ids.filter(res => res != item.id);
-      console.log("333333", this.ids);
-    }
+  changeId(obj: any) {
+    console.log('object :>>123123 ', obj);
+    this.listDataMap.map(item=>{
+      if(item.date == obj.date && obj.checked)  this.ids.push(item.id)
+      else{
+        if(item.date == obj.date){
+          var index = this.ids.indexOf(item.id)
+          if(index > -1){
+            this.ids.splice(index, 1);
+          }
+        }
+       
+      }
+    })
+    
+    console.log('ids',this.ids);
+    // if (item.checked === true) {
+    //   this.ids.push(item.id);
+    //   this.ids.forEach((element: any, index: any) => {
+    //     if (element != item.id) {
+    //       this.listDataMap.filter(function (item: any, index: any) {
+    //         if (item.id === element) {
+    //           item.checked = false;
+
+    //         }
+    //       });
+    //     }
+    //   })
+    // }
+    // else if (item.checked === false) {
+    //   this.ids = this.ids.filter(res => res != item.id);
+    //   console.log("333333", this.ids);
+    // }
   }
 
 
@@ -232,9 +263,32 @@ export class AdminStoreManageScheduleComponent implements OnInit {
     })
     editmodal.afterClose.subscribe(res => {
       this.getList();
+      this.ids=[]
     })
   }
+  // 删除排版
+  delSchedule(){
+    if(this.ids.length===0){
+      this.msg.create('error','请勾选删除某天排版')
+      return
+    }
+    this.modal.confirm({
+      nzTitle: '删除当天排版',
+      nzContent: '请确认是否删除当天排班',
+      nzOkText: '确认',
+      nzCancelText: '取消',
+      nzOnOk:()=>{
+        this.adminStoreManageService.DeleteShopScheduleInfo(this.ids).subscribe(res=>{
+          console.log('删除成功');
+          let str = this.modal.success({nzTitle: '删除成功'});
+          this.ids = []
+          this.getList();
+          setTimeout(() => str.close(), 1500);
+        })
+      }
+    });
 
+  }
 
 }
 
