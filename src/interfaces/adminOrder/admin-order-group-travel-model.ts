@@ -472,4 +472,5 @@ export interface OrderGroupProduct {
   internal_remarks?: any;
   discount_tit?: any;
   other_price_tit?: any;
+  insurance_extra_ids:any[]
 }

@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { format } from 'date-fns';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, ValidatorFn } from "@angular/forms";
-import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
-import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
-import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { GroupPriceDetailComponent } from './group-price-detail/group-price-detail.component';
-import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
+import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
 import { AdminInsuranceService } from '../../../../services/admin/admin-insurance.service';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
+import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
 import { APMBIIDComponent } from '../../admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/a-p-m-b-i-i-d/a-p-m-b-i-i-d.component';
+import { GroupPriceDetailComponent } from './group-price-detail/group-price-detail.component';
 
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -84,7 +83,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     difPrice: any;
     difAllPrice: any;
     difRoom: any
-
+    baseInsurancePrice:any = 0//基础保险
+    extraInsurancePrice:any = 0 //额外保险
 
     totalPrice: any;
     feeAll: any;
@@ -163,6 +163,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             internal_remarks: '',
             discount_tit: '',
             other_price_tit: '',
+            insurance_extra_ids:[]
         }
     }
 
@@ -330,7 +331,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         }
     }
 
-
+    getAllPeople(){
+       return Number(this.informationForm.value.num_adult)+Number(this.informationForm.value.num_kid)+Number(this.informationForm.value.baby_num)
+    }
 
     priceAll() {
         this.audltAllPrice = Number(this.informationForm.value.num_adult) * Number(this.audltPrice);
@@ -343,15 +346,36 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             this.childAllPrice = 0;
             this.babyAllPrice = 0
         }
+        // 基础保险
+        
+        if(this.detailModel?.insurance_base_info&&this.detailModel?.include_insurance_fee==0){
+            let insurance_expense = this.detailModel?.insurance_base_info?.data?.insurance_expense
+            let money= (insurance_expense*100 * this.getAllPeople())/100
+            console.log('AAAA',insurance_expense,money);
+            this.baseInsurancePrice = money.toFixed(2)
+        }
 
-
+        let extraMoney = 0
+        this.extraInsurance.map(item=>{
+            extraMoney+=Number(item.insurance_expense)
+        })
+        this.extraInsurancePrice =  ((extraMoney*100 * this.getAllPeople())/100).toFixed(2)
+        console.log(this.insuranceArr,this.extraInsurance,this.extraInsuranceId);
+        console.log('baseInsurancePrice',this.baseInsurancePrice,this.detailModel);
         this.difRoom = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult) - Number(this.isshared_status);
         // 房间数
         console.log('222222222222 :>> ', Number(this.isForRoom), Number(this.isForRoom) * 2, Number(this.informationForm.value.num_adult), Number(this.isshared_status));
         console.log('Number(this.difRoom) :>> ', Number(this.difRoom));
         this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
         console.log('是否拼房 :>> ', Number(this.isshared_status));
-        this.totalPrice = Number(this.audltAllPrice) + Number(this.childAllPrice) + Number(this.babyAllPrice) + Number(this.difAllPrice) - Number(this.discountPrice) + Number(this.other_price);
+        // 包含基础分费用 baseInsurancePrice 设置为0
+        if(this.detailModel?.include_insurance_fee!=0){
+            this.baseInsurancePrice=0
+        }
+        this.totalPrice = (Number(this.audltAllPrice)*100 + Number(this.childAllPrice)*100 + Number(this.babyAllPrice)*100 + Number(this.difAllPrice)*100 - Number(this.discountPrice)*100 + Number(this.other_price)*100+Number(this.extraInsurancePrice)*100)/100;
+       
+        
+
     }
 
 
@@ -457,11 +481,13 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.isChangeData.push(false);
                 this.newImgArr.push([])
 
+                // 获取产品保险
+                this.insuranceArr = this.detailModel?.insurance_extra?.data
                 // 保险
-                this.adminInsuranceService.insuranceDayList(this.detailModel?.few_days).subscribe(res => {
-                    console.log('保险 :>> ', res);
-                    this.insuranceArr = res?.data;
-                })
+                // this.adminInsuranceService.insuranceDayList(this.detailModel?.few_days).subscribe(res => {
+                //     console.log('保险 :>> ', res);
+                //     this.insuranceArr = res?.data;
+                // })
 
             })
         })
@@ -524,7 +550,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         this.orderGroupProduct.other_price_tit = this.other_price_tit;
         // 计调备注
         this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
-
+        // 保险
+        this.orderGroupProduct.insurance_extra_ids =  this.extraInsuranceId
+       
         console.log("提交的", this.orderGroupProduct)
     }
 
@@ -536,6 +564,12 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         let kid = this.orderGroupProduct.num_kid;
         let baby = this.orderGroupProduct.baby_num;
         let allData = Number(adult) + Number(kid) + Number(baby);
+        // if( this.detailModel?.include_insurance_fee==0 && this.extraInsuranceId.length==0){
+        //     this.message.error("至少选择一个保险");
+        //     this.isLoadingAdd = false;
+        //     return
+        // }
+       
         if (this.orderGroupProduct.members.length != allData) {
             this.message.error("请补充出行人信息");
             this.isLoadingAdd = false;
@@ -762,6 +796,10 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
     // 查看基础保险条款
     seeDetail(id: any) {
+        if(!id){
+            this.message.error('暂无保险信息')
+            return
+        }
         this.adminInsuranceService.getAdminInsuranceDetail(id).subscribe(res => {
             console.log('结果是 :>> ', res?.data);
             const editmodal = this.modal.create({
@@ -797,6 +835,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         });
         this.extraInsurance = arr;
         this.extraInsuranceId = a;
+        this.priceAll()
     }
 
     extraInsDetail(event: any) {
