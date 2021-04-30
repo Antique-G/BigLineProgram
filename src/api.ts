@@ -213,6 +213,7 @@ export const AdminUrls = {
 
 
 
+
     GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
     PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
 
@@ -229,6 +230,7 @@ export const AdminUrls = {
     GetWeChatPageBlockDeatil: api + '/admin/page_block/',   // 详情
     GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
     GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
+
 
     GetAdminContractList: api + '/admin/store_contract',  // 合同列表
     DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
