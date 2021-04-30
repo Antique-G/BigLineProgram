@@ -247,13 +247,11 @@ export const AdminUrls = {
 
 
 
-    PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
 
-    GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
-    PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
-    DeleteAdminRegionService: api + '/admin/region_service/', //删除
-    PutAdminRegion: api + '/admin/region_service/',    //区域更新
+
+
+ 
 
  
 
