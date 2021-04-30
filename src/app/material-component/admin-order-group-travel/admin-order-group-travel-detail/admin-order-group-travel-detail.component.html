@@ -500,14 +500,15 @@
                                                         <div style="width: 50%;">补房差</div>
                                                         <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_diff}}</div>
                                                     </div>
-                                                    <ng-container *ngIf="detailModel?.price_other!=0">
+                                                    <!--  *ngIf="detailModel?.price_other!=0" -->
+                                                    <ng-container>
                                                         <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
                                                             <ng-container *ngIf="fee?.type==0">
                                                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                                                     <!-- 附加收费 -->
                                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                                         <div style="width: 50%;">{{fee?.title}}</div>
-                                                                        <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                                        <div style="width: 50%;">￥{{fee?.price}}*{{fee?.num}}</div>
                                                                     </div>
                                                                 </div>
                                                             </ng-container>

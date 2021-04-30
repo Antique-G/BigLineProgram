@@ -1,7 +1,7 @@
-import { format } from 'date-fns';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
 
@@ -105,15 +105,15 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         this.price_total = '￥' + this.detailModel.order?.data?.price_total;
         this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
 
-        console.log('object :>> ', this.detailModel.price_detail.data,);
+        console.log('object :>> AA', this.detailModel.price_detail.data,);
         // this.detailModel.price_detail.
         let priceArr = this.detailModel.price_detail.data;
         priceArr.forEach((element: any) => {
           if (element.type === 0) {
-            element.price = '+￥' + element.price;
+            element.price = '+￥' + element.price+'*'+element.num;
           }
           else {
-            element.price = '-￥' + element.price;
+            element.price = '-￥' + element.price+'*'+element.num;
           }
         });
         for (let i = 0; i < priceArr.length; i++) {
