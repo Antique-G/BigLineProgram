@@ -7,6 +7,7 @@ import { StoreQuoteBydateRequestModel, StoreQuoteBydateModel, FreeTraveQuoteByda
 import { StoreQuoteBydateService } from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { isNumber, isFloat } from '../../../../util/validators';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-store-quote-bydate-create',
@@ -103,6 +104,10 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     // 保险
     include_insurance_fee: any;
     insurance_expense: any;
+    isAdultShow = true;
+    isKidShow = true;
+    isBabyShow = true;
+
 
     constructor(public fb: FormBuilder, public quoteBydateService: StoreQuoteBydateService, private modal: NzModalService,
         private msg: NzMessageService) {
@@ -350,45 +355,35 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
         }
         if (this.addForm.valid) {
             if (this.type === 'management') {
-                // 比较基础保额跟报价的大小,
+                // 包含
                 if (this.include_insurance_fee == 1) {
-                    // 包含
-                    // 儿童可以预定，需要比价三个
+                    // 儿童可预订
                     if (this.childStatus == '1') {
-                        if (Number(this.addForm.value.adult_price) < Number(this.insurance_expense)) {
-                            this.msg.error('成人报价金额不能小于基础保费金额，请重新输入成人报价');
-                            this.isSpinning = false;
-                        };
-                        if (Number(this.addForm.value.child_price) < Number(this.insurance_expense)) {
-                            this.msg.error('儿童报价金额不能小于基础保费金额，请重新输入儿童报价');
-                            this.isSpinning = false;
-                        };
-                        if (Number(this.addForm.value.baby_price) < Number(this.insurance_expense)) {
-                            this.msg.error('婴儿报价金额不能小于基础保费金额，请重新输入婴儿报价');
-                            this.isSpinning = false;
-                        }
-                        // else if(!(Number(this.addForm.value.adult_price) < Number(this.insurance_expense)&&Number(this.addForm.value.child_price) < Number(this.insurance_expense)&&Number(this.addForm.value.baby_price) < Number(this.insurance_expense))){
-                        //     this.setValue();
-                        //     this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel, this.productId).subscribe(res => {
-                        //         this.quoteBydateRequestModel.data = [];
-                        //     })
-                        // }
-                    }
-                    // 儿童不可预定
-                    else {
-                       if (Number(this.addForm.value.adult_price) < Number(this.insurance_expense)) {
-                            this.msg.error('成人报价金额不能小于基础保费金额，请重新输入成人报价');
-                            this.isSpinning = false;
-                        }
-                        else {
+                        console.log("Number(this.addForm.value.child_price) > Number(this.insurance_expense)", Number(this.addForm.value.child_price) > Number(this.insurance_expense))
+                        if (Number(this.addForm.value.adult_price) > Number(this.insurance_expense) && Number(this.addForm.value.child_price) > Number(this.insurance_expense) && Number(this.addForm.value.baby_price) > Number(this.insurance_expense)) {
                             this.setValue();
                             this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel, this.productId).subscribe(res => {
                                 this.quoteBydateRequestModel.data = [];
                             })
                         }
+                        else {
+                            this.isSpinning = false;
+                        }
                     }
-
+                    // 儿童不可预定
+                    else {
+                        if (Number(this.addForm.value.adult_price) > Number(this.insurance_expense)) {
+                            this.setValue();
+                            this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel, this.productId).subscribe(res => {
+                                this.quoteBydateRequestModel.data = [];
+                            })
+                        }
+                        else {
+                            this.isSpinning = false;
+                        }
+                    }
                 }
+                // 不包含
                 else {
                     this.setValue();
                     this.quoteBydateService.createQuoteInfo(this.quoteBydateRequestModel, this.productId).subscribe(res => {
@@ -415,7 +410,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
             }
 
-        } else {
+        }
+        else {
             this.isSpinning = false
         }
     }
@@ -468,5 +464,35 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     numTest4(data: any) {
         console.log('data :>> ', data,)
         data.target.value = data.target.value.replace(/[^\d.]/g, '').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+    }
+
+    changeAudlt(data: any) {
+        console.log("data", data);
+        if (Number(this.addForm.value.adult_price) < Number(this.insurance_expense)) {
+            this.isAdultShow = true;
+        }
+        else {
+            this.isAdultShow = false;
+        }
+    }
+
+    changeKid(data: any) {
+        console.log("data", data);
+        if (Number(this.addForm.value.child_price) < Number(this.insurance_expense)) {
+            this.isKidShow = true;
+        }
+        else {
+            this.isKidShow = false;
+        }
+    }
+
+    changeBaby(data: any) {
+        console.log("data", data);
+        if (Number(this.addForm.value.baby_price) < Number(this.insurance_expense)) {
+            this.isBabyShow = true;
+        }
+        else {
+            this.isBabyShow = false;
+        }
     }
 }

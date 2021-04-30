@@ -184,12 +184,14 @@ export const AdminUrls = {
     GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
     GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
     PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
+    GetAdminProductToBuy: api + '/admin/product/to_buy/',  //跟团游后台下订单获取信息
     PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
     GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
     PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
     PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
+    
 
 
 
@@ -204,9 +206,10 @@ export const AdminUrls = {
     GetAdminRefundLog: api + '/admin/refund_log', //退款流水列表
     PostAdminReRefund: api + '/admin/refund_log/resend', //重新获取退款结果
     PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
-
-
     GetAdminRefundDetail: api + '/admin/refund/',  //退款详情
+
+
+
 
 
 
@@ -229,11 +232,9 @@ export const AdminUrls = {
     GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
 
 
-
     GetAdminContractList: api + '/admin/store_contract',  // 合同列表
     DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
     PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
-
 
 
 
@@ -248,13 +249,9 @@ export const AdminUrls = {
 
 
 
-    PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
 
-    GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
-    PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
-    DeleteAdminRegionService: api + '/admin/region_service/', //删除
-    PutAdminRegion: api + '/admin/region_service/',    //区域更新
+ 
 
  
 

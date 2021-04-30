@@ -562,6 +562,63 @@
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <div>
+                                    <h4 style="padding-left: 10px;padding-top: 10px;">保险信息</h4>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <div>
+                                    <form nz-form nz-row [formGroup]="addForm">
+                                        <p *ngIf="detailModel?.include_insurance_fee!=0" style="color: red;font-weight: 600;">本产品已设置报价包含基础保险费用</p>
+                                        <p *ngIf="detailModel?.include_insurance_fee==0" style="color: red;font-weight: 600;">本产品已设置报价不包含基础保险费用，需计入总价</p>
+
+                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="3" [nzXs]="24" >基础保险</nz-form-label>
+                                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                                    <span>{{detailModel?.insurance_base_info?.data?.name}}</span>
+                                                    <span style="color: red;">￥{{detailModel?.insurance_base_info?.data?.insurance_expense}}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
+                                                    <span>查看 <a (click)="seeDetail(detailModel?.insurance_base_info?.data?.id)">【保险条款】</a></span>
+                                                </div>
+                                            </div>
+                                        </nz-form-item>
+
+                                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="3" [nzXs]="24">购买额外保险</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
+                                                        <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
+                                                        </nz-option>
+                                                    </nz-select>
+                                                </nz-form-control>
+                                            </div>
+                                            <div style="margin-left: 10%;color: #1890FF;margin-top: 3px;">
+                                                <ul>
+                                                    <li *ngFor="let ins of extraInsurance">
+                                                        <span style="color: red;">￥{{ins.insurance_expense}}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
+                                                        &nbsp;&nbsp;<a (click)="extraInsDetail(ins.id)">查看“{{ins.name}}”详情</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </nz-form-item>
+
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </mat-card>
+
+
+                <mat-card>
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div>
                                     <h4 style="padding-left: 10px;padding-top: 10px;">计调信息</h4>
                                 </div>
                             </div>
