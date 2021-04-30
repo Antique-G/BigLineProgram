@@ -90,34 +90,36 @@ export class FullComponent implements OnInit {
   }
 
   isMenuShow() {
-    this.permission = JSON.parse(localStorage.getItem("permission") || "[]");
-    if ( this.permission == '') {
-      this.router.navigate(['/admin/main/null'],);
-      this.adminMenus = [];
-      console.log('没有权限')
-    }else{
-      let menus = this.menuItems.getMenuitem()
-      let arr: any[] = [];
-      this.permission.forEach((element: any) => {
-        arr.push(element.name);
-      });
-      this.permissionAll = arr;
-      console.log("this.permissionName", this.permissionAll);
-      let newMenus: any[] = [];
-      for ( let itme of menus) {
-        if (this.permissionAll.indexOf(itme.permission_name) != -1) {
-          let children:any =[];
-          for( let i of itme.children) {
-            if (this.permissionAll.indexOf(i.permission_name) != -1) {
-              children.push(i)
+    if ( this.pathName === "admin" ) {
+      this.permission = JSON.parse(localStorage.getItem("permission") || "[]");
+      if ( this.permission == '') {
+        this.router.navigate(['/admin/main/null'],);
+        this.adminMenus = [];
+        console.log('没有权限')
+      }else{
+        let menus = this.menuItems.getMenuitem()
+        let arr: any[] = [];
+        this.permission.forEach((element: any) => {
+          arr.push(element.name);
+        });
+        this.permissionAll = arr;
+        console.log("this.permissionName", this.permissionAll);
+        let newMenus: any[] = [];
+        for ( let itme of menus) {
+          if (this.permissionAll.indexOf(itme.permission_name) != -1) {
+            let children:any =[];
+            for( let i of itme.children) {
+              if (this.permissionAll.indexOf(i.permission_name) != -1) {
+                children.push(i)
+              }
             }
+            itme.children = children;
+            newMenus.push(itme)
           }
-          itme.children = children;
-          newMenus.push(itme)
         }
+        console.log('newMenus',newMenus)
+        this.adminMenus = newMenus
       }
-      console.log('newMenus',newMenus)
-      this.adminMenus = newMenus
     }
   }
 
