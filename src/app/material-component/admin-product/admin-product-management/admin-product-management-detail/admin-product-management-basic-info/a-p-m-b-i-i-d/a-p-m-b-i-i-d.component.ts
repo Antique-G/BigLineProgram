@@ -1,5 +1,5 @@
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -30,7 +30,11 @@ export class APMBIIDComponent implements OnInit {
     console.log('detail', this.data);
     this.insuranceDetailModel = this.data;
     let setValue = this.insuranceDetailModel.insured_date;
-    setValue.forEach((value: any) => {
+    console.log('this.insuredDateArray',this.insuredDateArray.value);
+    if(this.insuredDateArray.value[0]==null){
+     this.removeDate(0)
+    }
+    setValue.map((value: any) => {
       this.insuredDateArray.push(new FormControl(value));
     });
     console.log('insuredDateArray', this.insuredDateArray.value)
@@ -41,7 +45,10 @@ export class APMBIIDComponent implements OnInit {
     return this.validateForm.get('insured_date') as FormArray;
   }
 
-
+  removeDate(index:any) {
+    // (this.validateForm.get('phone') as FormArray).removeAt(index);
+    this.insuredDateArray.removeAt(index);
+  }
   update(){
     this.modal.closeAll();
   }

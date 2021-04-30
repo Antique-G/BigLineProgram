@@ -573,11 +573,11 @@
                                         <p *ngIf="detailModel?.include_insurance_fee==0" style="color: red;font-weight: 600;">本产品已设置报价不包含基础保险费用，需计入总价</p>
 
                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                            <div nz-row>
+                                            <div nz-row >
                                                 <nz-form-label [nzSm]="3" [nzXs]="24" >基础保险</nz-form-label>
                                                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                                                     <span>{{detailModel?.insurance_base_info?.data?.name}}</span>
-                                                    <span style="color: red;">￥{{detailModel?.insurance_base_info?.data?.insurance_expense}}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
+                                                    <span style="color: red;">￥{{detailModel?.insurance_base_info?.data?.insurance_expense||0 }}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
                                                     <span>查看 <a (click)="seeDetail(detailModel?.insurance_base_info?.data?.id)">【保险条款】</a></span>
                                                 </div>
                                             </div>
@@ -655,6 +655,8 @@
                                 <span>成人{{audltAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.child_status===1">儿童{{childAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.child_status===1">婴儿{{babyAllPrice}}元| </span>
+                                <span *ngIf="detailModel?.include_insurance_fee==0">基础保险{{baseInsurancePrice}}元 | </span>
+                                <span>额外保险{{extraInsurancePrice}}元 | </span>
                                 <span>房差{{difAllPrice}}元 </span>
                                 <span>优惠{{discountPrice}}元 </span>
                                 <span>附加收费{{other_price}}元 </span>

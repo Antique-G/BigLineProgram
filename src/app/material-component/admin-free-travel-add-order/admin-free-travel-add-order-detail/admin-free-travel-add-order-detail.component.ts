@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { format } from 'date-fns';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, ValidatorFn } from "@angular/forms";
-import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
-import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
+import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { GroupPriceDetailComponent } from '../../admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
+import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
+import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
+import { GroupPriceDetailComponent } from '../../admin-group-add-order/admin-group-add-order-detail/group-price-detail/group-price-detail.component';
 
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -151,6 +150,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
       internal_remarks: '',
       discount_tit: '',
       other_price_tit: '',
+      insurance_extra_ids:[]
     }
   }
 
