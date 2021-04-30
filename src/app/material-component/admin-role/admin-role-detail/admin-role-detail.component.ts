@@ -26,13 +26,15 @@ export class AdminRoleDetailComponent implements OnInit {
     this.validateForm = this.fb.group({
       name: ['', [Validators.required]],
       display_name: ['', [Validators.required]],
-      description: ['',]
+      description: ['',],
+      status: ['', [Validators.required]]
     });
     this.updateRoleRequestModel = {
       name: '',
       display_name: '',
       description: '',
       permission: '',
+      status: 1,
     }
   }
 
@@ -122,6 +124,7 @@ export class AdminRoleDetailComponent implements OnInit {
     this.updateRoleRequestModel.display_name = this.validateForm.value.display_name;
     this.updateRoleRequestModel.description = this.validateForm.value.description;
     this.updateRoleRequestModel.permission = this.permission;
+    this.updateRoleRequestModel.status = this.validateForm.value.status;
     this.updateRoleRequestModel.id = this.roleDetailModel.id;
   }
 

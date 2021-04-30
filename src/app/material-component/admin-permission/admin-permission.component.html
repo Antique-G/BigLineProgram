@@ -27,12 +27,12 @@
                             (nzPageSizeChange)="changePageSize($event)" [nzLoading]="loading">
                             <thead>
                                 <tr>
-                                    <th>权限标识</th>
+                                    <!-- <th>权限标识</th> -->
                                     <th>权限名称</th>
                                     <th>详细描述</th>
                                     <th>控制器</th>
                                     <th>操作方法</th>
-                                    <th>父级id</th>
+                                    <!-- <th>父级id</th> -->
                                     <th>类型</th>
                                     <th>状态</th>
                                     <th>操作</th>
@@ -41,12 +41,12 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data.name}}</td>
+                                    <!-- <td>{{data.name}}</td> -->
                                     <td>{{data.display_name}}</td>
                                     <td>{{data.description}}</td>
                                     <td>{{data.controller}}</td>
                                     <td>{{data.action}}</td>
-                                    <td>{{data.pid}}</td>
+                                    <!-- <td>{{data.pid}}</td> -->
                                     <td>
                                         <div *ngIf="data.type===1">
                                             主目录

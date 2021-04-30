@@ -41,11 +41,10 @@ export class FullComponent implements OnInit {
 
   permission: any = [];
   adminMenus: any = [];
-  isMenus: any = [];
   permissionAll: any = [];
-  isShow = false;
-  isShowThing: any;
 
+
+  
   constructor(
     public menuItems: MenuItems,
     private modal: NzModalService,
@@ -86,7 +85,7 @@ export class FullComponent implements OnInit {
       });
     }
 
-    // this.isMenuShow();
+    this.isMenuShow();
     
   }
 
@@ -106,36 +105,20 @@ export class FullComponent implements OnInit {
       console.log("this.permissionName", this.permissionAll);
       let newMenus: any[] = [];
       for ( let itme of menus) {
-          this.permissionAll.indexOf(itme.permission_name)
-          console.log('indexOf(itme.permission_name)',this.permissionAll.indexOf(itme.permission_name))
-          if (this.permissionAll.indexOf(itme.permission_name) != -1) {
-            newMenus.push(itme)
-            // for (){
-
-            // }
+        if (this.permissionAll.indexOf(itme.permission_name) != -1) {
+          let children:any =[];
+          for( let i of itme.children) {
+            if (this.permissionAll.indexOf(i.permission_name) != -1) {
+              children.push(i)
+            }
           }
+          itme.children = children;
+          newMenus.push(itme)
         }
-      // for ( let children of newMenus.children) {
-      //   console.log('iiiiii',children)
-      //   for(let o of children){
-      //     console.log('o',o)
-      //   }
-      // }
-        
-        console.log('newMenus',newMenus)
+      }
+      console.log('newMenus',newMenus)
       this.adminMenus = newMenus
     }
-    
-    // console.log("this.permissionName", this.permissionName);
-    // let newArr: any[] = [];
-    // this.menus.forEach((element: any, index: any) => {
-    //   var a: number = this.permissionName.indexOf(element.display_name);
-    //   if (a !== -1) {
-    //     newArr.push(element);
-    //   } 
-    //   this.isMenus = newArr;
-    //   console.log("a111", a);
-    // });
   }
 
   logOut() {
