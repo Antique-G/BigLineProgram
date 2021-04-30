@@ -205,7 +205,7 @@ export class Interceptor implements HttpInterceptor {
 
 
   createFail(content: any): void {
-    this.modal['error']({
+    let errorModal = this.modal['error']({
       nzMask: true,
       nzTitle: "<h3>错误提示</h3>",
       nzContent: `<h5>${content}</h5>`,
@@ -213,7 +213,7 @@ export class Interceptor implements HttpInterceptor {
       // ,transform:translate 
     })
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    // setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
+    setTimeout(() => errorModal.close(), 2000);  //1s后消失
   }
 
 
