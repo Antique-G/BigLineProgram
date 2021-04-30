@@ -197,6 +197,7 @@ export const AdminUrls = {
 
 
 
+
     GetAdminRefund: api + '/admin/refund',  //退款列表
     PostAdminRefundCheck: api + '/admin/refund_check', // 审核提交
     PostAdminRefund: api + '/admin/refund', //创建退款单
@@ -210,8 +211,11 @@ export const AdminUrls = {
 
 
 
+
+
     GetAdminProSearchFree: api + '/admin/independent_product/search',  //自由行产品搜索
     PostAdminProductOrderGroupFree: api + '/admin/order/independent_product',  //自由行后台下订单
+
 
     // 小程序
     GetWeChatPageConfigList: api + '/admin/page_config',  // 页面设置列表
@@ -241,13 +245,15 @@ export const AdminUrls = {
 
 
 
-
     PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
+
 
     GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
     PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
     DeleteAdminRegionService: api + '/admin/region_service/', //删除
     PutAdminRegion: api + '/admin/region_service/',    //区域更新
+
+ 
 
     GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
     GetAdminOrderIndenOrderTotal: api + '/admin/order/inden_order_total',   //自由行订单统计
