@@ -1,0 +1,19 @@
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.abtn {
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    background-color: #1e88e5;
+    color: white;
+    height: 36px;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 7px 20px;
+    border-radius: 4px;
+}

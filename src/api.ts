@@ -261,7 +261,9 @@ export const AdminUrls = {
     GetAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码不带参数
     PostAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码带参数
 
-
+    // 财务模块
+    GetAdminFinanceFreeTravelList: api + '/admin/finance/free_travel',  //自由行订单列表
+    GetAdminFinanceGroupTravelList: api + '/admin/finance/group_product',  //跟团游订单列表
 
 
 };
