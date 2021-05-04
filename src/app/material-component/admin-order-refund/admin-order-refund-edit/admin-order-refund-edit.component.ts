@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
-import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
 
 @Component({
   selector: 'app-admin-order-refund-edit',
@@ -50,13 +50,14 @@ export class AdminOrderRefundEditComponent implements OnInit {
   allKidNum: any;
   // 出行人婴儿数
   allbabyNum: any;
-
+  
   // 剩余房间数
   refundRoomNum = 0;
   // 房差数
   difRoom = 0;
   isDia = false;
-
+  // 价格变动
+  priceDetail:any[] = []
 
   // 套餐
   packAge: any;
@@ -134,13 +135,15 @@ export class AdminOrderRefundEditComponent implements OnInit {
         console.log('object :>> ', this.detailModel.price_detail.data,);
         this.dataMember = this.detailModel?.member?.data;
         // 优惠附加收费
+        this.priceDetail = JSON.parse(JSON.stringify(this.detailModel.price_detail.data))
         let priceArr = this.detailModel.price_detail.data;
         priceArr.forEach((element: any) => {
+        
           if (element.type === 0) {
-            element.price = '+￥' + element.price;
+            element.price = '+￥' + element.price+'*'+element.num;
           }
           else {
-            element.price = '-￥' + element.price;
+            element.price = '-￥' + element.price+'*'+element.num;
           }
         });
         for (let i = 0; i < priceArr.length; i++) {
@@ -441,7 +444,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     // 剩下的成人数
     let remain = Number(this.allAdultNum.length) - Number(this.checkAdultNum);
     console.log('remain ', remain);
-
+     
     //剩余房差房间数
     this.difRoom = Number(this.refundRoomNum) * 2 - Number(remain) - Number(this.detailModel?.order.data?.shared_status);
     if (Number(this.difRoom) < 0) {
@@ -452,11 +455,21 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
     console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
 
+    // 剩余保险
+    let insuMoney = 0
+    let totalPeopel = adultSSSS + kidSSSS + babySSSS
+    this.priceDetail.map((item:any)=>{
+      if(item.type==0&&[1,2].indexOf(item.item_type)>-1)
+      {
+        insuMoney +=(item.price*100*totalPeopel)/100
+      }
+    })
+   console.log('insuMoney,totalPeopel', insuMoney,totalPeopel);
 
     // 不拼房
     if (this.detailModel?.order.data?.shared_status == 0) {
       //应该退的钱=订单-剩余的人的钱-剩余的房差  （实付总金额-应付总金额）*比例%
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom)) * Number(this.percentage)- Number(insuMoney);
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
 
@@ -473,12 +486,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
       let discount_other = Number(this.detailModel.order?.data?.discount_other);
 
       this.basicRefund = (total - (member + price_diff + other - discount_other))
-      this.basicRefund = '（' + total + '-(' + member + '+' + price_diff + '+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + total + '-(' + member + '+' + insuMoney +'+' + price_diff + '+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
     }
     // 拼房
     else {
-      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_other) + Number(this.detailModel.order?.data?.discount_other)) * Number(this.percentage);
+      this.bascie_money = (Number(this.detailModel.order?.data?.price_total) - last - Number(this.detailModel.order?.data?.price_other) + Number(this.detailModel.order?.data?.discount_other)) * Number(this.percentage)-Number(insuMoney);
       console.log('object :>> ', this.bascie_money, this.toDecimal(this.bascie_money));
       // 保留两位小数
       this.bascie_money = this.toDecimal(this.bascie_money);
@@ -487,7 +500,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       let other = Number(this.detailModel.order?.data?.price_other);
       let discount_other = Number(this.detailModel.order?.data?.discount_other);
 
-      this.basicRefund = '（' + total + '-(' + member + '+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
+      this.basicRefund = '（' + total + '-(' + member + '+' + insuMoney +'+' + other + '-' + discount_other + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
     }
     // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用

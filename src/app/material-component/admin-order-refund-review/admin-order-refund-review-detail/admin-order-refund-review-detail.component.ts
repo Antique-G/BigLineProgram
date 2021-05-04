@@ -1,10 +1,10 @@
-import { format } from 'date-fns';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-order-refund-review-detail',
@@ -107,10 +107,10 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
         let priceArr = this.detailModel.price_detail.data;
         priceArr.forEach((element: any) => {
           if (element.type === 0) {
-            element.price = '+￥' + element.price;
+            element.price = '+￥' + element.price + '*' + element.num;
           }
           else {
-            element.price = '-￥' + element.price;
+            element.price = '-￥' + element.price + '*' + element.num;
           }
         });
         for (let i = 0; i < priceArr.length; i++) {

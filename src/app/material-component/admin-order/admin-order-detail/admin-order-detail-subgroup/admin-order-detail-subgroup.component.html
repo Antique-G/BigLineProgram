@@ -69,6 +69,7 @@
                                 <th style="text-align: center;">时间</th>
                                 <th style="text-align: center;">流水号</th>
                                 <th style="text-align: center;">详情</th>
+                                <th style="text-align: center;">购买保险</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,6 +152,7 @@
                                                 <a href={{url+data?.id}} target="_blank"> <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="详情"></a>
                                             </div>
                                         </td>
+                                        <td style="text-align: center;">购买</td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
                                     <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">

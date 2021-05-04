@@ -372,7 +372,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         if(this.detailModel?.include_insurance_fee!=0){
             this.baseInsurancePrice=0
         }
-        this.totalPrice = (Number(this.audltAllPrice)*100 + Number(this.childAllPrice)*100 + Number(this.babyAllPrice)*100 + Number(this.difAllPrice)*100 - Number(this.discountPrice)*100 + Number(this.other_price)*100+Number(this.extraInsurancePrice)*100)/100;
+        this.totalPrice = (Number(this.audltAllPrice)*100 + Number(this.childAllPrice)*100 + Number(this.babyAllPrice)*100 + Number(this.difAllPrice)*100 - Number(this.discountPrice)*100 + Number(this.other_price)*100+Number(this.baseInsurancePrice)*100+Number(this.extraInsurancePrice)*100)/100;
        
         
 
