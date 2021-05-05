@@ -2,8 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { environment } from '../../../../environments/environment';
+import { AdminFinaceGroupService } from '../../../../services/admin/admin-finace-group.service';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 
@@ -26,6 +28,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
   order_number: any;
   contact_name: any;
   contact_phone: any;
+  payment_status: any;
   store_id: any;
   date_start: any;
   date_end: any;
@@ -42,7 +45,8 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
 
    constructor(public fb: FormBuilder, public router: Router,
     public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
-    public adminProductManagementService: AdminProductManagementService,) {
+    public adminProductManagementService: AdminProductManagementService,public adminFinaceGroupService: AdminFinaceGroupService,
+    private message: NzMessageService) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -54,6 +58,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       order_start_dates: [''],
       contact_name: [''],
       contact_phone: [''],
+      payment_status: [''],
     });
   }
 
@@ -75,6 +80,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
       this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
       this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+      this.payment_status = getSeatch?.payment_status ? getSeatch?.payment_status : '';
 
 
       this.searchForm.patchValue({
@@ -88,6 +94,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
         contact_name: this.contact_name,
         contact_phone: this.contact_phone,
         store_id: this.store_id,
+        payment_status: this.payment_status,
       })
 
       this.groupTravel();
@@ -96,7 +103,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
   }
 
   groupTravel() {
-    this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+    this.adminFinaceGroupService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone,this.payment_status).subscribe(res => {
       console.log("结果是", res);
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -105,7 +112,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
   }
 
   getTotal() {
-    this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+    this.adminFinaceGroupService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone,this.payment_status).subscribe(res => {
       console.log('统计', res?.data);
       this.totalModel = res?.data;
       console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
@@ -122,7 +129,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
       contact_phone: this.contact_phone, store_id: this.store_id,
       date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-      order_end_date: this.order_end_date, page: this.page
+      order_end_date: this.order_end_date, page: this.page,payment_status:this.payment_status
     }
     localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
 
@@ -147,6 +154,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
     this.contact_phone = this.searchForm.value.contact_phone;
     this.product_code = this.searchForm.value.product_code;
     this.store_id = this.searchForm.value.store_id;
+    this.payment_status = this.searchForm.value.payment_status;
     this.date_start = this.dateArray[0];
     this.date_end = this.dateArray[1];
     this.order_start_date = this.dateArray1[0];
@@ -158,7 +166,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
       contact_phone: this.contact_phone, store_id: this.store_id,
       date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-      order_end_date: this.order_end_date, page: this.page
+      order_end_date: this.order_end_date, page: this.page,payment_status:this.payment_status
     }
     localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
   }
@@ -205,7 +213,18 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
 
 
 
-  money(data: any) {
+  moneyConfirm(data: any) {
+    if(data.status!=2){
+      this.message.error('当前订单状态不可确认');
+      return
+    }
+   this.modal.confirm({
+      nzTitle: '提示',
+      nzContent: '请确认是否该操作',
+      nzOnOk: () => this.adminFinaceGroupService.confrmPayLog(data.id).subscribe(res=>this.groupTravel())
+    });
+    
+    console.log(data);
     // const addmodal = this.modal.create({
     //   nzTitle: '收款',
     //   nzContent: AdminOrderGroupMoneyComponent,
@@ -243,6 +262,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       order_start_dates: '',
       contact_name: '',
       contact_phone: '',
+      payment_status:''
     });
   }
 
@@ -261,6 +281,10 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
       '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone;
     console.log('object :>> ', this.isExport);
+  }
+
+  getNmber(str:any){
+    return Number(str)
   }
 
 }

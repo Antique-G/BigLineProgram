@@ -82,9 +82,9 @@
                                           <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
                                       </div>
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
                                           <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="commitDetail()" *ngIf="isChange">提交修改</button>
-                                          <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button>
+                                          <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button> -->
 
                                       </div>
                                   </div>
@@ -222,7 +222,7 @@
                                                       <th style="width: 7%;text-align: center;">集合时间</th>
                                                       <th style="text-align: center;">出团通知短信</th>
                                                       <th style="text-align: center;">出行人状态</th>
-                                                      <th style="text-align: center;">操作</th>
+                                                      <!-- <th style="text-align: center;">操作</th> -->
                                                   </tr>
                                               </thead>
                                               <tbody>
@@ -262,10 +262,9 @@
                                                               <div *ngIf="data.refund_status===1" style="color: red;">退款</div>
                                                               <div *ngIf="data.refund_status===0">正常</div>
                                                           </td>
-                                                          <td>
+                                                          <!-- <td>
                                                               <div><a (click)="startEdit(data)">修改</a></div>
-                                                              <!-- <div><a (click)="deleteIt(data.id)">删除</a></div> -->
-                                                          </td>
+                                                          </td> -->
                                                       </ng-container>
                                                       <ng-template #editTemplate>
                                                           <td>{{data.id}}</td>
@@ -466,7 +465,7 @@
                                           <h4 style="padding-left: 10px;padding-top: 10px;">订单费用明细</h4>
                                       </div>
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button> -->
                                       </div>
                                   </div>
                                   <nz-divider></nz-divider>

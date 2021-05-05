@@ -44,7 +44,7 @@ export class AdminOrderGroupTravelService {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
             params: params
         };
-        return this.httpClient.get<StoreOrderGroupTravelListRequestModel>(this.urls.GetAdminFinanceGroupTravelList, findhttpOptions)
+        return this.httpClient.get<StoreOrderGroupTravelListRequestModel>(this.urls.GetAdminOrderGroupProductList, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )
