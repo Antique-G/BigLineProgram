@@ -619,3 +619,9 @@ export interface DatumOrderTotalModel {
     is_pay_money?: any;
     refund_money: string;
 }
+
+// 订单统计OrderTotal
+export interface CancelInsModel {
+    order_insurance_id: any
+    refund_amount: any
+}

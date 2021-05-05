@@ -480,7 +480,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         console.log("11111111",Number(adultfff),Number(KidFff),Number(babyFff),Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom),Number(priceDetail))
         this.nowOrderMoney = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom) + Number(priceDetail);
        
-       
+        this.nowOrderMoney= this.toDecimal(this.nowOrderMoney);
        
        
         // 基础退款金额

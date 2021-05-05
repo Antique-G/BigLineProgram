@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { CancelInsModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 
@@ -231,6 +231,32 @@ export class AdminOrderGroupTravelService {
                 catchError(this.handleError)
             )
     }
+
+
+
+    // 电子保单
+    getInsOrderDown(order_insurance_id: any): Observable<any> {
+        const params = new HttpParams().set('order_insurance_id', order_insurance_id)
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminInsOrderDown, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 退保PostAdminInsCancel
+    insCancel(cancelInsModel: CancelInsModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminInsCancel, cancelInsModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
 
     private handleError(error: HttpErrorResponse) {

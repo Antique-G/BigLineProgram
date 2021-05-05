@@ -192,11 +192,10 @@ export const AdminUrls = {
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
     PostAdminEffectIns: api + '/admin/insurance/effect_insurance',  //投保
+    GetAdminInsOrderDown: api + '/admin/insurance/order_down',  //电子保单
+    PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  //退保
 
     
-
-
-
 
 
 

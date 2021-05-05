@@ -52,10 +52,22 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('this.data :>> ', this.data);
-        this.isPrice = Math.ceil((this.data?.price_total - this.data?.amount_received) * 100) / 100;
-
+        console.log("Number(this.data?.price_total)",Number(this.data?.price_total),Number(this.data?.amount_received))
+        this.isPrice = Number(this.data?.price_total) - Number(this.data?.amount_received);
+        this.isPrice = this.toDecimal(this.isPrice);
 
     }
+
+
+    toDecimal(x: any) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return;
+        }
+        f = Math.round(x * 100) / 100;
+        return f;
+    }
+
 
     setValue() {
         this.comfirmOrderModel.order_id = this.data.id;
