@@ -264,7 +264,7 @@ export const AdminUrls = {
     // 财务模块
     GetAdminFinanceFreeTravelList: api + '/admin/finance/free_travel',  //自由行订单列表
     GetAdminFinanceGroupTravelList: api + '/admin/finance/group_product',  //跟团游订单列表
-
+    PostAdminFinanceOrderConfirm:api + '/admin/finance/order_confirm',  //确认支付记录
 
 };
 

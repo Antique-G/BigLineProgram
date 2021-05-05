@@ -20,7 +20,7 @@
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                                           <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="detailModel?.order_status===0">订单修改日期</button> -->
                                           <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button> -->
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button> -->
 
                                       </div>
                                   </div>
@@ -83,9 +83,9 @@
                                           <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
                                       </div>
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
                                           <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="commitDetail()" *ngIf="isChange">提交修改</button>
-                                          <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button>
+                                          <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button> -->
 
                                       </div>
                                   </div>
@@ -458,7 +458,7 @@
                                           <h4 style="padding-left: 10px;padding-top: 10px;">订单费用情况</h4>
                                       </div>
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button> -->
                                       </div>
                                   </div>
                                   <nz-divider></nz-divider>
@@ -570,7 +570,7 @@
                                           <h4 style="padding-left: 10px;padding-top: 10px;">订单费用情况</h4>
                                       </div>
                                       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button> -->
                                       </div>
                                   </div>
                                   <nz-divider></nz-divider>

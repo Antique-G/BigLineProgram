@@ -48,7 +48,7 @@ export class AdminOrderFreeTravelService {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
-    return this.httpClient.get<StoreOrderFreeTravelListRequestModel>(this.urls.GetAdminFinanceFreeTravelList, findhttpOptions)
+    return this.httpClient.get<StoreOrderFreeTravelListRequestModel>(this.urls.GetAdminOrderfreeTravelList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )

@@ -2,8 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { environment } from '../../../../environments/environment';
+import { AdminFinaceFreedomService } from '../../../../services/admin/admin-finace-freedom.service';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 
@@ -27,6 +29,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
   order_number: any;
   contact_name: any;
   contact_phone: any;
+  payment_status:any;
   date_start: any;
   date_end: any;
   order_start_date: any;
@@ -43,7 +46,8 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public router: Router, public modal: NzModalService,
     public adminOrderFreeTravelService: AdminOrderFreeTravelService,
-    public adminProductManagementService: AdminProductManagementService,) {
+    public adminProductManagementService: AdminProductManagementService,public adminFinaceFreedomService:AdminFinaceFreedomService,
+    private message: NzMessageService) {
     this.searchForm = fb.group({
       status: [''],
       product_id: [''],
@@ -55,6 +59,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
       order_start_dates: [''],
       contact_name: [''],
       contact_phone: [''],
+      payment_status:['']
     });
   }
 
@@ -76,6 +81,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
       this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
       this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
       this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+      this.payment_status = getSeatch?.payment_status ? getSeatch?.payment_status : '';
 
 
       this.searchForm.patchValue({
@@ -89,6 +95,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
         contact_name: this.contact_name,
         contact_phone: this.contact_phone,
         store_id: this.store_id,
+        payment_status:this.payment_status
       })
 
       this.getFreeTravel();
@@ -96,7 +103,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
     })
   }
   getFreeTravel() {
-    this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+    this.adminFinaceFreedomService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone,this.payment_status).subscribe(res => {
       console.log("结果是", res)
       this.dataSource = res?.data;
       this.total = res.meta?.pagination?.total;
@@ -106,7 +113,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
 
 
   getTotal() {
-    this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+    this.adminFinaceFreedomService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone,this.payment_status).subscribe(res => {
       console.log('统计', res?.data);
       this.totalModel = res?.data;
     })
@@ -122,7 +129,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
       order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
       contact_phone: this.contact_phone, store_id: this.store_id,
       date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-      order_end_date: this.order_end_date, page: this.page
+      order_end_date: this.order_end_date, page: this.page,payment_status:this.payment_status
     }
     localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
     this.getFreeTravel();
@@ -150,14 +157,14 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
     this.order_end_date = this.dateArray1[1];
     this.loading = true;
     this.page = 1;
-
+    this.payment_status = this.searchForm.value.payment_status
     // 筛选条件存进cookie
     this.setQuery = {
       status: this.status, product_id: this.product_id, product_name: this.product_name,
       order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
       contact_phone: this.contact_phone, store_id: this.store_id,
       date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-      order_end_date: this.order_end_date, page: this.page
+      order_end_date: this.order_end_date, page: this.page,payment_status:this.payment_status
     }
     localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
   }
@@ -201,27 +208,18 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
     this.router.navigate(['/admin/main/freeTravelOrder/order'],);
   }
 
-  money(data: any) {
-    // const addmodal = this.modal.create({
-    //   nzTitle: '收款',
-    //   nzContent: AdminOrderGroupMoneyComponent,
-    //   nzComponentParams: {
-    //     data: data
-    //   },
-    //   nzFooter: [
-    //     {
-    //       label: '提交',
-    //       type: 'primary',
-    //       onClick: componentInstance => {
-    //         componentInstance?.add()
-
-    //       }
-    //     }
-    //   ]
-    // })
-    // addmodal.afterClose.subscribe(res => {
-    //   this.getFreeTravel();
-    // })
+  moneyConfirm(data: any) {
+    if(data.status!=2){
+      this.message.error('当前订单状态不可确认');
+      return
+    }
+   this.modal.confirm({
+      nzTitle: '提示',
+      nzContent: '请确认是否该操作',
+      nzOnOk: () => this.adminFinaceFreedomService.confrmPayLog(data.id).subscribe(res=>this.getFreeTravel())
+    });
+    
+   
   }
 
 
@@ -239,6 +237,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
       order_start_dates: '',
       contact_name: '',
       contact_phone: '',
+      payment_status:''
     });
   }
 
