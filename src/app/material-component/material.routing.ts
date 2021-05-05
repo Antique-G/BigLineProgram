@@ -59,6 +59,7 @@ import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/a
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
 import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock.component';
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
+import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
 
 export const MaterialRoutes: Routes = [
@@ -69,6 +70,13 @@ export const MaterialRoutes: Routes = [
     path: '',
     component: FullComponent,
     children: [
+      {
+        path: 'welcome',
+        component: AdminWelcomeComponent,
+        data: {
+          breadcrumb: 'welcome'
+        }
+      },
       {
         path: 'null',
         component: AdminNullComponent,
