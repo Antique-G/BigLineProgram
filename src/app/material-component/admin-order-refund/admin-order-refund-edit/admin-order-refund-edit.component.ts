@@ -66,7 +66,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
   isPack_refund_amount: any;
   selectPack: any;
   isRoomTrue = false;
-
+  // 还需支付金额
+  playMoney:any = 0
+  nowOrderMoney:any = 0
+  oldPriceArr:any[] = []
+  dueInMoney:any = 0//代收款金额
+  newMoneyArr:any[] = []//改价后的金额
 
   constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
     private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
@@ -115,6 +120,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
       type: '',
       number: '',
       num_room: '',
+      change:[]
     }
   }
 
@@ -130,26 +136,33 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
         this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
         this.price_diff = '￥' + this.detailModel.order?.data?.price_diff + '*' + this.detailModel.order?.data?.num_diff;
-        this.price_total = '￥' + this.detailModel.order?.data?.price_total;
-        this.price_receive = '￥' + this.detailModel.order?.data?.price_receive;
+        this.price_total = this.detailModel.order?.data?.price_total;
+        this.nowOrderMoney = this.detailModel.order?.data?.price_total;
+        this.price_receive = this.detailModel.order?.data?.price_receive;
+        this.playMoney = (Number(this.detailModel.order?.data?.price_total)*100-Number(this.detailModel.order?.data?.amount_received)*100)/100
         console.log('object :>> ', this.detailModel.price_detail.data,);
         this.dataMember = this.detailModel?.member?.data;
         // 优惠附加收费
         this.priceDetail = JSON.parse(JSON.stringify(this.detailModel.price_detail.data))
-        let priceArr = this.detailModel.price_detail.data;
-        priceArr.forEach((element: any) => {
-        
+        let priceArr =JSON.parse(JSON.stringify(this.detailModel.price_detail.data));
+        priceArr.forEach((element: any,index:any) => {
+          this.oldPriceArr[index] = false
           if (element.type === 0) {
-            element.price = '+￥' + element.price+'*'+element.num;
+            element.namePrice = '+￥' + element.price+'*'+element.num;
           }
           else {
-            element.price = '-￥' + element.price+'*'+element.num;
+            element.namePrice = '-￥' + element.price+'*'+element.num;
           }
         });
         for (let i = 0; i < priceArr.length; i++) {
           this.otherArray.push(this.fb.group({
             name: new FormControl(priceArr[i]?.title),
-            namePrice: new FormControl(priceArr[i]?.price),
+            namePrice: new FormControl(priceArr[i]?.namePrice),
+            price:new FormControl(priceArr[i]?.price),
+            num:new FormControl(priceArr[i]?.num),
+            item_type:new FormControl(priceArr[i]?.item_type),
+            type:new FormControl(priceArr[i]?.type),
+            id:new FormControl(priceArr[i]?.id),
           }))
         }
         console.log('otherArray.controls :>> ', this.otherArray.controls);
@@ -750,6 +763,27 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
   }
+
+  priceChange(price:any,i:any){
+    this.oldPriceArr[i]=true
+    let money = Number(this.priceDetail[i].price)-price
+    this.newMoneyArr[i] = money
+  
+    this.amountMoney()
+    // this.reundCheckModel.change.push({id:this.priceDetail[i].id,price})
+    console.log('priceChange',price,i,this.nowOrderMoney);
+  }
+
+  amountMoney(){
+      let total = 0
+      this.newMoneyArr.map(item=>{
+        if(item){
+          total+=item
+        }
+      })
+      this.nowOrderMoney= (this.price_total*100 + total*100)/100
+  }
+  
 }
 
 

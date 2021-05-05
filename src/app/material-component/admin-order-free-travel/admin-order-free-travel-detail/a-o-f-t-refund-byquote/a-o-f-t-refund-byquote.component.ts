@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
-import { CreateReundModel, ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { CreateReundModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 
 @Component({
   selector: 'app-a-o-f-t-refund-byquote',
@@ -66,6 +66,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
       remark: '',
       type: '',
       reason: '',
+      change:[]
     }
   }
 
