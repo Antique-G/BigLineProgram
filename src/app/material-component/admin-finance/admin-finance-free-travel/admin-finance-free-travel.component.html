@@ -166,6 +166,7 @@
                                 <th style="text-align: center;">店铺名称</th>
                                 <th style="text-align: center;width: 10%;">产品名称</th>
                                 <th style="text-align: center;">订单下单日期</th>
+                                <th style="text-align: center;">支付状态</th>
                                 <th style="text-align: center;">订单状态</th>
                                 <th style="text-align: center;">订单总价格</th>
                                 <th style="text-align: center;">订单取消类型</th>
@@ -173,7 +174,7 @@
                                 <th style="text-align: center;">查看详情</th>
                                 <th>支付序号</th>
                                 <th>支付金额</th>
-                                <th>支付状态</th>
+                                <th>流水状态</th>
                                 <th>支付流水号</th>
                                 <th>支付时间</th>
                                 <th style="text-align: center;">确认收款</th>
@@ -188,6 +189,23 @@
                                     <td [attr.rowspan]="data?.pay_logs?.data.length">{{data.store_name}}</td>
                                     <td [attr.rowspan]="data?.pay_logs?.data.length">{{data.product_name}}</td>
                                     <td [attr.rowspan]="data?.pay_logs?.data.length">{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length">
+                                        <span [ngSwitch]="data.payment_status">
+                                            <p *ngSwitchCase="0">
+                                                待支付
+                                            </p>
+                                            <p *ngSwitchCase="1">
+                                                已支付
+                                            </p>
+                                            <p *ngSwitchCase="2">
+                                                支付中
+                                            </p>
+                                            <p *ngSwitchCase="3">
+                                                已确认
+                                            </p>
+                                        </span>
+                                       
+                                    </td>
                                     <td [attr.rowspan]="data?.pay_logs?.data.length">
                                         <span *ngIf="data.order_status===0">
                                             <nz-badge nzColor="yellow"></nz-badge>已取消
@@ -232,7 +250,7 @@
                                       {{item.id}}
                                   </td>
                                   <td>
-                                      {{item.fee}}
+                                      {{item.fee}}元
                                   </td>
                                   <td>
                                       <span [ngSwitch]="item.status">
