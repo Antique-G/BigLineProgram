@@ -523,7 +523,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     base(tab: any, data: any) {
         const editmodal = this.modal.create({
             nzTitle: '购买保险',
-            nzWidth: 800,
+            nzWidth: 1000,
             nzContent: AdminOrderDSInsComponent,
             nzComponentParams: {
                 data: {
@@ -535,7 +535,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
             },
             nzFooter: [
                 {
-                    label: '确定',
+                    label: '确定购买',
                     type: 'primary',
                     onClick: componentInstance => {
                         componentInstance?.update()
@@ -544,12 +544,33 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
             ]
         })
         editmodal.afterClose.subscribe(res => {
-
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.adminOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+                    this.setOfCheckedId.clear();
+                    console.log("结果是", res.data);
+                    this.detailModel = res.data;
+                    this.cursubGroupModelValue = this.detailModel.sub_group.data;
+                    this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                        value['tabs'] = '子团' + (index + 1);
+                        value?.order?.data.forEach((value: any, index: any) => {
+                            value['expand'] = false; //展开属性
+                            value.member?.data.forEach((element: any) => {
+                                if (element.birthday === null) {
+                                    let year = element.id_num.slice(6, 10);
+                                    let month = element.id_num.slice(10, 12);
+                                    let date = element.id_num.slice(12, 14);
+                                    element.birthday = year + '-' + month + '-' + date;
+                                }
+                            });
+                        });
+                        console.log("33435434", this.cursubGroupModelValue);
+                    })
+                })
+            })
         })
     }
 
-    // 额外保险
-    extra() {
-
-    }
 }

@@ -154,12 +154,9 @@
                                         </td>
                                         <td style="text-align: center;">
                                             <ng-container>
-                                                <div><a (click)="base(tab,data)">基础保险</a></div>
-                                                <div><a (click)="extra()">额外保险</a></div>
-                                            </ng-container>
-                                            <ng-container>
-                                                <!-- <div><a>基础保险</a></div>
-                                                <div><a>额外保险</a></div> -->
+                                                <!--  -->
+                                                <div><a (click)="base(tab,data)" *ngIf="data?.insurance_status==0">购买保险</a></div>
+                                                <div><a  *ngIf="data?.insurance_status==1||data?.insurance_status==2">已购买</a></div>
                                             </ng-container>
                                         </td>
                                 </tr>
@@ -178,10 +175,11 @@
                                                 <th>集合时间</th>
                                                 <th>出团通知短信</th>
                                                 <th>出行人状态</th>
+                                                <th>电子保单</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let dataChild of innerTable.data">
+                                            <tr *ngFor="let dataChild of innerTable.data;let i=index">
                                                 <td style="width: 8%;">{{ dataChild.name }}</td>
                                                 <td style="width: 8%;">{{ dataChild.eng_name }}</td>
                                                 <td style="width: 8%;">
@@ -199,21 +197,19 @@
                                                     <p *ngIf="data.shared_status===0">不拼房</p>
                                                     <p *ngIf="data.shared_status===1">同性拼房</p>
                                                 </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
+                                                <td style="width: 10%;">
+                                                    <div fxLayout="column" fxLayoutGap="5px">
                                                         <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="dataChild.assembling_place" />
                                                         <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">修改</button>
                                                     </div>
                                                 </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
-                                                        <!-- <nz-time-picker nzFormat="HH:mm" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time"></nz-time-picker> -->
-
-                                                        <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
+                                                <td style="width: 10%;">
+                                                    <div fxLayout="column" fxLayoutGap="5px">
+                                                       <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
                                                         <button mat-raised-button color="primary" (click)="changeConfirm1(dataChild)">修改</button>
                                                     </div>
                                                 </td>
-                                                <td style="width: 10%;">
+                                                <td style="width: 7%;">
                                                     <p *ngIf="dataChild.sms_status===0">
                                                         <nz-badge nzColor="yellow"></nz-badge>未发</p>
                                                     <p *ngIf="dataChild.sms_status===1">
@@ -221,9 +217,15 @@
                                                     <p *ngIf="dataChild.sms_status===2">
                                                         <nz-badge nzColor="red"></nz-badge>发送失败</p>
                                                 </td>
-                                                <td style="width: 9%;">
+                                                <td style="width: 5%;">
                                                     <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
                                                     <div *ngIf="dataChild.refund_status===0">正常</div>
+                                                </td>
+                                                <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
+                                                    <div fxLayout="column" fxLayoutGap="10px">
+                                                        <div>基础保险:</div>
+                                                        <div>额外保险:</div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>

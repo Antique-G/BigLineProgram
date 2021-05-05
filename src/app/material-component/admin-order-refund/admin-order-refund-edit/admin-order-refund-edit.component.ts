@@ -475,8 +475,14 @@ export class AdminOrderRefundEditComponent implements OnInit {
         console.log('this.difRoom1111', Number(this.refundRoomNum) * 2, Number(this.detailModel?.order.data?.shared_status), this.difRoom);
 
         // 当前订单nowOrderMoney
-        let priceDetail = this.priceChange(1, 1);
+        let priceDetail = this.priceDetailChange();
+
+        console.log("11111111",Number(adultfff),Number(KidFff),Number(babyFff),Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom),Number(priceDetail))
         this.nowOrderMoney = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom) + Number(priceDetail);
+       
+       
+       
+       
         // 基础退款金额
         this.bascie_money = (Number(this.price_total) - Number(this.nowOrderMoney)) * Number(this.percentage);
         // 保留两位小数
@@ -636,7 +642,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         }
         // 订单当前价格 // 当前套套餐
         let packs = Number(this.detailModel?.order?.data?.price_inclusive) * Number(this.newPackage);
-        let priceDetail = this.priceChange(1, 1);
+        let priceDetail = this.priceDetailChange();
         // 当前订单价钱
         this.nowOrderMoneyPack = Number(packs) + Number(priceDetail);
         // 基础退款金额
@@ -727,21 +733,24 @@ export class AdminOrderRefundEditComponent implements OnInit {
     // 计算优惠跟附加
     priceChange(price: any, i: any) {
         this.oldPriceArr[i] = true;
-        console.log("this.otherArray.controls", this.addForm.value.otherList);
-        let other = this.addForm.value.otherList;
-        let otherPrice = 0;
-        other.forEach((element: any) => {
-            if (element?.type == 0) {
-                otherPrice = otherPrice + Number(element?.price) * Number(element.num);
-            }
-            else {
-                otherPrice = otherPrice - Number(element?.price) * Number(element.num);
-            }
-        });
         this.reundCheckModel.change.map((ele: any) => {
             if (ele?.id == i) ele.price = price
             else this.reundCheckModel.change.push({ id: this.priceDetail[i].id, price })
         })
+     
+    }
+
+    priceDetailChange() {
+        let other = this.addForm.value.otherList;
+        let otherPrice = 0;
+        other.forEach((element: any) => {
+            if (element?.type == 0) {
+                otherPrice = otherPrice + Number(element?.price) * Number(this.lastPeople);
+            }
+            else {
+                otherPrice = otherPrice - Number(element?.price) * Number(this.lastPeople);
+            }
+        });
         return otherPrice
     }
 
@@ -759,7 +768,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 element.num = this.lastPeople;
             }
         });
-        this.priceChange(1, 1)
+        this.priceDetailChange();
     }
 }
 
