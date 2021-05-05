@@ -1,0 +1,86 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding:  5px;">
+        <form nz-form [formGroup]="addForm">
+            <h5>当前订单信息</h5>
+            <div nz-row>
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="order_id" nzBorderless readonly ngModel={{detail?.id}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date1">出行日期</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="date1" nzBorderless readonly ngModel={{detail?.start_date}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date2">返回日期</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="date2" nzBorderless readonly ngModel={{endDate}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contract">联系人</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="contract" nzBorderless readonly ngModel={{detail?.contact_name}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contractPhone">联系人电话</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="contractPhone" nzBorderless readonly ngModel={{detail?.contact_phone}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">旅行线路</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="product_name" nzBorderless readonly ngModel={{detail?.product_name}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sub_group">{{tabDetail?.tabs}}</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24">
+                            <input nz-input formControlName="sub_group" nzBorderless readonly ngModel={{tabDetail?.sub_group_code}}/>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_base" nzRequired>基础保险</nz-form-label>
+                        <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择基础保险！">
+                            <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="insurance_base"  (ngModelChange)="changeInsuranceBase($event)"   >
+                                <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
+                                </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </div>
+                    <p style="margin-left: 25%;color: #1890FF;margin-top: 3px;cursor: pointer;" (click)="baseInsDetail()" *ngIf="baseInsuranceName!=null">查看“{{baseInsuranceName}}”详情</p>
+                </nz-form-item>
+
+            </div>
+        </form>
+    </div>
+</div>
