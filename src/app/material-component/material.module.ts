@@ -155,6 +155,10 @@ import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turno
 import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-store-manage-employee/admin-store-manage-employee.component';
 import { AdminNullComponent } from './admin-null/admin-null.component';
+import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel.component';
+import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
+import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
+import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel-detail/admin-finance-free-travel-detail.component';
 
 
 
@@ -330,6 +334,10 @@ import { AdminNullComponent } from './admin-null/admin-null.component';
     AOFTRefundByquoteComponent,
     AdminStoreManageEmployeeComponent,
     AdminNullComponent,
+    AdminFinanceFreeTravelComponent,
+    AdminFinanceGroupTravelComponent,
+    AdminFinanceGroupTravelDetailComponent,
+    AdminFinanceFreeTravelDetailComponent,
 
   ]
 })

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
-import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { format } from 'date-fns';
-import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
-import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
-import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
-import { AdminOrderService } from '../../../../services/admin/admin-order.service';
-import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { AdminOrderService } from '../../../../services/admin/admin-order.service';
+import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
+import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 
 
 @Component({
@@ -31,6 +31,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     priceTotal: any;
     dataPayLog: any[] = [];
     refundLog: any[] = [];
+    insuranceList:any[] = []
 
     // 修改信息
     isChange = false;
@@ -39,7 +40,11 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     idChangeBir = false;
     idChangeBirDate: any;
 
-
+    // 附加/优惠显示
+    distBool:Boolean = false
+    appendBool:Boolean = false
+    // 保险合计
+    insuranceMoney:any = 0
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
@@ -137,6 +142,15 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 }
             });
 
+            // 保险信息
+            // insuranceList
+            let priceDetail =  res.data?.price_detail?.data
+            this.insuranceList = priceDetail.filter((item:any)=> item.type==0&&[1,2].indexOf(item.item_type)>-1)
+            this.distBool = priceDetail.some((item:any)=>item.type==1)
+            this.appendBool =  priceDetail.some((item:any)=>item.type==0 && item.item_type==0)
+            this.insuranceList.map((item:any)=>this.insuranceMoney+=item.price*item.num)
+
+            console.log('insuranceList',this.insuranceList);
             // 费用明细
             this.fee();
         })
@@ -398,6 +412,15 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     
                 })
         });
+    }
+
+    // 退保
+    surrenderHandle(){
+        this.modal.confirm({
+            nzTitle: '退保?',
+            nzContent: '请确认是否退保',
+            nzOnOk: () => console.log('退保')
+          });
     }
 }
 

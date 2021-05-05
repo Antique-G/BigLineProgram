@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
@@ -44,7 +44,7 @@ export class AdminOrderGroupTravelService {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
             params: params
         };
-        return this.httpClient.get<StoreOrderGroupTravelListRequestModel>(this.urls.GetAdminOrderGroupProductList, findhttpOptions)
+        return this.httpClient.get<StoreOrderGroupTravelListRequestModel>(this.urls.GetAdminFinanceGroupTravelList, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )

@@ -225,7 +225,7 @@ export interface CreateReundModel {
   remark: string;
   number?: any;
   num_room?: any;
-
+  change?:any
 }
 
 
@@ -241,6 +241,7 @@ export interface ReundCheckModel {
   type?: any;
   number?: any;
   num_room?: any;
+  change?:any;
 }
 
 // 支付流水

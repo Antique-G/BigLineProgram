@@ -101,10 +101,16 @@ const MENUITEMS = [
       { state: 'pageConfig', name: '页面设置' , permission_name: 'mini_config_page' },
     ]
   },
+  {
+    title: '财务模块', icon: 'account-book', permission_name: 'admin_financial' ,
+    children: [
+      { state: 'financeGroupTravel', name: '跟团游订单列表' , permission_name: 'financial_group_order' },
+      { state: 'financefreeDTravel', name: '自由行订单列表' , permission_name: 'financial_freedom_order' },
+    ]
+  },
 
 
 ];
-
 
 export interface StoreMenu {
   title: string;
