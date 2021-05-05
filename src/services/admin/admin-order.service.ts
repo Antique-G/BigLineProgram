@@ -154,6 +154,15 @@ export class AdminOrderService {
     }
 
 
+    // 投保
+    effectIns(order_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminEffectIns, { order_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
     // 恢复订单
     recoverInfo(order_id: any): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminOrderRecover, { order_id }, httpOptions)

@@ -191,6 +191,8 @@ export const AdminUrls = {
     PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
+    PostAdminEffectIns: api + '/admin/insurance/effect_insurance',  //投保
+
     
 
 

@@ -1,0 +1,141 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding:  5px;">
+        <form nz-form [formGroup]="addForm">
+            <div fxLayout="column" fxLayoutAlign="start stretch"  fxLayoutGap="10px">
+
+                <div>
+                    <h5>当前订单信息</h5>
+                </div>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="order_id" nzBorderless readonly
+                                    ngModel={{detail?.id}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date1">出行日期</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="date1" nzBorderless readonly
+                                    ngModel={{detail?.start_date}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date2">返回日期</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="date2" nzBorderless readonly ngModel={{endDate}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contract">联系人</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="contract" nzBorderless readonly
+                                    ngModel={{detail?.contact_name}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contractPhone">联系人电话</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="contractPhone" nzBorderless readonly
+                                    ngModel={{detail?.contact_phone}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">旅行线路</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="product_name" nzBorderless readonly
+                                    ngModel={{detail?.product_name}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sub_group">{{tabDetail?.tabs}}</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="sub_group" nzBorderless readonly
+                                    ngModel={{tabDetail?.sub_group_code}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+                </div>
+
+                <div>
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="insurance_base">购买保险</nz-form-label>
+                            <nz-form-control [nzSm]="21" [nzXs]="24">
+                                <ng-container *ngFor="let insurance of insuranceArr">
+                                    <div fxLayout="column" fxLayoutAlign="start stretch" style="margin-left: 12px;">
+                                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                            <span style="color: red;">{{insurance?.title}}</span>
+                                            <span>查看 <a (click)="seeDetail(insurance?.item_id)">【保险条款】</a></span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+                </div>
+
+                <div>
+                    <h5>购买保险人列表</h5>
+                </div>
+
+                <div>
+                    <nz-table #innerTable [nzData]="memberData" [nzShowPagination]="false">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">姓名</th>
+                                <th style="text-align: center;">证件类型</th>
+                                <th style="text-align: center;">证件号码</th>
+                                <th style="text-align: center;">出生日期</th>
+                                <th style="text-align: center;">性别</th>
+                                <th style="text-align: center;">出行人状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dataChild of innerTable.data">
+                                <td>{{ dataChild.name }}</td>
+                                <td>
+                                    <span *ngIf="dataChild.id_type===1">身份证</span>
+                                    <span *ngIf="dataChild.id_type===2">护照</span>
+                                    <span *ngIf="dataChild.id_type===3">回乡证</span>
+                                </td>
+                                <td>{{dataChild.id_num}}</td>
+                                <td>{{dataChild.birthday}}</td>
+                                <td>
+                                    <span *ngIf="dataChild.gender===1">男</span>
+                                    <span *ngIf="dataChild.gender===2">女</span>
+                                </td>
+                                <td style="width: 9%;">
+                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
+                                    <div *ngIf="dataChild.refund_status===0">正常</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

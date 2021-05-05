@@ -11,6 +11,9 @@ import { AdminOrderService } from '../../../../services/admin/admin-order.servic
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
+import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
+
+
 
 
 @Component({
@@ -31,7 +34,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     priceTotal: any;
     dataPayLog: any[] = [];
     refundLog: any[] = [];
-    insuranceList:any[] = []
+    insuranceList: any[] = [];
 
     // 修改信息
     isChange = false;
@@ -41,10 +44,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     idChangeBirDate: any;
 
     // 附加/优惠显示
-    distBool:Boolean = false
-    appendBool:Boolean = false
+    distBool: Boolean = false
+    appendBool: Boolean = false
     // 保险合计
-    insuranceMoney:any = 0
+    insuranceMoney: any = 0
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
@@ -143,14 +146,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             });
 
             // 保险信息
-            // insuranceList
-            let priceDetail =  res.data?.price_detail?.data
-            this.insuranceList = priceDetail.filter((item:any)=> item.type==0&&[1,2].indexOf(item.item_type)>-1)
-            this.distBool = priceDetail.some((item:any)=>item.type==1)
-            this.appendBool =  priceDetail.some((item:any)=>item.type==0 && item.item_type==0)
-            this.insuranceList.map((item:any)=>this.insuranceMoney+=item.price*item.num)
-
-            console.log('insuranceList',this.insuranceList);
+            this.insuranceList = this.detailModel?.insurance?.data;
+            console.log('insuranceList', this.insuranceList);
             // 费用明细
             this.fee();
         })
@@ -409,18 +406,46 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 this.adminOrderService.recoverInfo(this.detailModel?.id).subscribe(res => {
                     console.log('res :>> ', res);
                     this.getgroupTravelDetail();
-                    
+
                 })
         });
     }
 
+
+
     // 退保
-    surrenderHandle(){
+    surrenderHandle(data: any) {
         this.modal.confirm({
             nzTitle: '退保?',
             nzContent: '请确认是否退保',
-            nzOnOk: () => console.log('退保')
-          });
+            nzOnOk: () => {
+                const editmodal = this.modal.create({
+                    nzTitle: '订单退保',
+                    nzContent: AdminOrderSurrenderComponent,
+                    nzComponentParams: {
+                        data: data
+                    },
+                    nzFooter: [
+                        {
+                            label: '提交退款申请',
+                            type: 'primary',
+                            onClick: componentInstance => {
+                                componentInstance?.update()
+                            }
+                        }
+                    ]
+                })
+                editmodal.afterClose.subscribe(res => {
+                    this.activatedRoute.queryParams.subscribe(params => {
+                        console.log("params", params)
+                        this.detailId = params?.detailId;
+                        // 详情
+                        this.getgroupTravelDetail();
+
+                    });
+                })
+            }
+        });
     }
 }
 
