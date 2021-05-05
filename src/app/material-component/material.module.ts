@@ -159,6 +159,7 @@ import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-f
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
 import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
 import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel-detail/admin-finance-free-travel-detail.component';
+import { AdminOrderDSInsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-d-s-ins/admin-order-d-s-ins.component';
 
 
 
@@ -338,6 +339,7 @@ import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-fin
     AdminFinanceGroupTravelComponent,
     AdminFinanceGroupTravelDetailComponent,
     AdminFinanceFreeTravelDetailComponent,
+    AdminOrderDSInsComponent,
 
   ]
 })
