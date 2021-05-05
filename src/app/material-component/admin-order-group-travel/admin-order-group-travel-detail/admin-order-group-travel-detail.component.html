@@ -457,7 +457,7 @@
                             </div>
                         </mat-card>
 
-                          <mat-card *ngIf="insuranceList.length>0">
+                          <mat-card *ngIf="insuranceList?.length>0">
                             <div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                     <div fxLayout="row" style="padding: 15px 15px 0;" fxLayoutAlign="start center">
@@ -476,39 +476,49 @@
                                                         <th style="text-align: center;">起&终止保日期</th>
                                                         <th style="text-align: center;">购买日期</th>
                                                         <th style="text-align: center;">电子保单</th>
+                                                        <th style="text-align: center;">参保人列表</th>
+                                                        <th style="text-align: center;">购买状态</th>
                                                         <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let data of rowSelectionTableInsuranceList.data">
-                                                        <td>{{data.title}}</td>
-                                                        <td>暂无</td>
+                                                        <td>{{data.insurance_name}}</td>
+                                                        <td>{{data?.policy_no}}</td>
                                                         <td>{{(data.price*data.num).toFixed(2)}}元</td>
                                                         <td>
-                                                            暂无
+                                                           {{data?.start_date+'~'+data?.end_date}}
                                                         </td>
                                                         <td>
-                                                           <!-- {{ data.created_at|date:'yyyy-MM-dd HH:mm:ss'}} -->
+                                                            <span *ngIf="data?.status==0">暂无</span>
+                                                          <span *ngIf="data?.status!=0"> {{ data.updated_at|date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                                         </td>
                                                         <td>
-                                                            暂无
+                                                            <span *ngIf="data?.status!=2">暂无</span>
+                                                            <!-- href="" target="_blank" -->
+                                                            <a *ngIf="data?.status==2" (click)="seeDetail(data?.id)">{{data.insurance_name}}.pdf</a>
                                                         </td>
-                                                        <td> <a nz-button nzType="link" nzBlock (click)="surrenderHandle(data)">退保</a></td>
+                                                        <td>
+                                                            <a>查看参保人</a>
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="data?.status==0">未投</span>
+                                                            <span *ngIf="data?.status==1">出单中</span>
+                                                            <span *ngIf="data?.status==2">已出单</span>
+                                                            <span *ngIf="data?.status==3">已退</span>
+                                                        </td>
+                                                        <td>
+                                                            <a nz-button nzType="link" nzBlock (click)="surrenderHandle(data)" *ngIf="data?.item_type==2" >退保</a>
+                                                        </td>
 
                                                     </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>合计:</td>
-                                                        <td>{{insuranceMoney.toFixed(2)}}元</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
+                                                   
                                                 </tbody>
                                             </nz-table>
                                         </div>
-                                      
+                                        <!-- <div fxLayout="row" fxLayoutAlign="end center">
+                                            <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.refund_amount}}</span>
+                                        </div> -->
                                     </div>
 
                                 </div>
@@ -558,7 +568,7 @@
                                                         <div style="width: 50%;">补房差</div>
                                                         <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_diff}}</div>
                                                     </div>
-                                                    <h5 class="title" *ngIf="insuranceList.length>0">保险</h5>
+                                                    <h5 class="title" *ngIf="insuranceList?.length>0">保险</h5>
                                                     <ng-container>
                                                         <ng-container *ngFor="let insurance of insuranceList">
                                                             <div fxLayout="column" fxLayoutAlign="start stretch">

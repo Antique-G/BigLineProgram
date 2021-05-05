@@ -47,7 +47,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     distBool: Boolean = false
     appendBool: Boolean = false
     // 保险合计
-    insuranceMoney: any = 0
+    insuranceMoney: any = 0;
+
+    order_insurance_id: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
@@ -422,6 +424,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 const editmodal = this.modal.create({
                     nzTitle: '订单退保',
                     nzContent: AdminOrderSurrenderComponent,
+                    nzWidth: 1000,
                     nzComponentParams: {
                         data: data
                     },
@@ -446,6 +449,17 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 })
             }
         });
+    }
+
+
+
+    // 电子保单
+    seeDetail(id: any) {
+        this.order_insurance_id = id;
+        this.adminOrderGroupTravelService.getInsOrderDown(this.order_insurance_id).subscribe(res => {
+            console.log("res", res)
+            window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+        })
     }
 }
 
