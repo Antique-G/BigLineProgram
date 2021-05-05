@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { APMBIIDComponent } from 'app/material-component/admin-product/admin-product-management/admin-product-management-detail/admin-product-management-basic-info/a-p-m-b-i-i-d/a-p-m-b-i-i-d.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminOrderService } from '../../../../../../services/admin/admin-order.service';
 import { AdminInsuranceService } from '../../../../../../services/admin/admin-insurance.service';
 
 @Component({
@@ -17,10 +18,11 @@ export class AdminOrderDSInsComponent implements OnInit {
     endDate: any;
 
     insuranceArr: any[] = [];
-    baseInsuranceId: any;      //基础保险id
-    baseInsuranceName: any; 
+    memberData: any[] = [];
+    order_id: any;
 
-    constructor(public fb: FormBuilder, public adminInsuranceService: AdminInsuranceService,private modal: NzModalService,) {
+    constructor(public fb: FormBuilder, public adminInsuranceService: AdminInsuranceService,
+        public adminOrderService: AdminOrderService, private modal: NzModalService,) {
         this.addForm = this.fb.group({
             order_id: [''],
             date1: [''],
@@ -38,30 +40,29 @@ export class AdminOrderDSInsComponent implements OnInit {
         this.tabDetail = this.data.tab;
         this.detail = this.data.data;
         this.endDate = this.data.endDate;
-        setTimeout(() => {
-        this.adminInsuranceService.insuranceDayList(this.detail.few_days).subscribe(res => {
-            console.log('保险 :>> ', res);
-            this.insuranceArr = res?.data;
-        })
-    }, 500)
+        this.order_id = this.detail?.id;
+        let ins = this.detail.price_detail.data;
+        let insArr: any[] = [];
+        ins.forEach((element: any) => {
+            if (element?.item_type == 1 || element?.item_type == 2)
+                insArr.push(element)
+        });
+        this.insuranceArr = insArr;
+        console.log("this.insuranceArr", this.insuranceArr);
+
+        let member = this.detail.member?.data;
+        let memberArr: any[] = [];
+        member.forEach((ele: any) => {
+            if (ele?.refund_status == 0) {
+                memberArr.push(ele)
+            }
+        });
+        this.memberData = memberArr;
     }
 
 
-    update() {
-
-    }
-
-
-    // 单选保险
-    changeInsuranceBase(data: any) {
-        console.log('data :>> ', data);
-        let aArr = this.insuranceArr.filter(item => item?.id === data);
-        this.baseInsuranceId = aArr[0]?.id;
-        this.baseInsuranceName = aArr[0]?.name;
-    }
-
-    baseInsDetail() {
-        this.adminInsuranceService.getAdminInsuranceDetail(this.baseInsuranceId).subscribe(res => {
+    seeDetail(id: any) {
+        this.adminInsuranceService.getAdminInsuranceDetail(id).subscribe(res => {
             console.log('结果是 :>> ', res?.data);
             const editmodal = this.modal.create({
                 nzTitle: '保险信息',
@@ -84,6 +85,15 @@ export class AdminOrderDSInsComponent implements OnInit {
 
             })
         })
+    }
+
+
+    update() {
+        
+        this.adminOrderService.effectIns(this.order_id).subscribe(res => {
+            console.log("res",res)
+        })
+        // 
     }
 
 }

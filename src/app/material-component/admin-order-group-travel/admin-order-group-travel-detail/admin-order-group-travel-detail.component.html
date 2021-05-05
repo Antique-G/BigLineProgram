@@ -488,12 +488,12 @@
                                                             暂无
                                                         </td>
                                                         <td>
-                                                           {{ data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}
+                                                           <!-- {{ data.created_at|date:'yyyy-MM-dd HH:mm:ss'}} -->
                                                         </td>
                                                         <td>
                                                             暂无
                                                         </td>
-                                                        <td> <a nz-button nzType="link" nzBlock (click)="surrenderHandle">退保</a></td>
+                                                        <td> <a nz-button nzType="link" nzBlock (click)="surrenderHandle(data)">退保</a></td>
 
                                                     </tr>
                                                     <tr>
