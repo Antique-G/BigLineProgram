@@ -162,6 +162,7 @@ import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-fin
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminOrderDSInsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-d-s-ins/admin-order-d-s-ins.component';
 import { AdminOrderSurrenderComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-surrender/admin-order-surrender.component';
+import { AdminMemberComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
 
 
 
@@ -345,6 +346,7 @@ import { AdminOrderSurrenderComponent } from './admin-order-group-travel/admin-o
     AdminWelcomeComponent,
     AdminOrderDSInsComponent,
     AdminOrderSurrenderComponent,
+    AdminMemberComponent,
 
   ]
 })
