@@ -167,9 +167,11 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <ng-container>
-                                            <div><a (click)="base(tab,data)" *ngIf="data?.insurance_status!=2">购买保险</a>
+                                            <div><a (click)="base(tab,data)" *ngIf="data?.insurance_status==0">购买保险</a>
                                             </div>
-                                            <div><a *ngIf="data?.insurance_status==2">已购买</a>
+                                            <div><a *ngIf="data?.insurance_status==1">出单中</a>
+                                            </div>
+                                            <div><a *ngIf="data?.insurance_status==2">已出单</a>
                                             </div>
                                         </ng-container>
                                     </td>
@@ -243,7 +245,7 @@
                                     <div *ngIf="dataChild.refund_status===0">正常</div>
                                 </td>
                                 <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
-                                    <div fxLayout="column" fxLayoutGap="5px">
+                                    <div fxLayout="column" fxLayoutGap="5px" *ngIf="data?.insurance_status==2">
                                         <div>
                                             <ng-container *ngFor="let ins of data.insurance.data;let i =index">
                                                 <ng-container *ngIf="ins?.item_type==1">
