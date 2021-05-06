@@ -161,7 +161,7 @@ export class StoreProductInfoComponent implements OnInit {
             reserve_num_max: [0],
             earlier1: new FormControl(1, [Validators.required]),
             earlier2: new FormControl(null),
-            request_id_num: ['0', [Validators.required]],
+            request_id_num: ['1', [Validators.required]],
             baby_occupy: ['1', [Validators.required]],
             include_insurance_fee: ['0', [Validators.required]],
             insurance_base: ['', [Validators.required]],
