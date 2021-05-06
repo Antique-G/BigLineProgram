@@ -788,6 +788,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.oldPriceArr[i] = true;
         this.priceDetailChange();
         this.priceAll();
+        this.onEnterPack(1)
     }
 
     priceDetailChange() {
