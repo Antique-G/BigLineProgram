@@ -34,3 +34,14 @@
     border-radius: 5px;
     color: red;
 }
+
+h4{
+    margin: 0;padding: 0;
+}
+
+.text-padding{
+    padding-left: 15px;
+}
+.title{
+    margin: 5px 0;
+}

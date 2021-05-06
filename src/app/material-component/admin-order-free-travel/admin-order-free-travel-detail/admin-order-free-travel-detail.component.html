@@ -42,7 +42,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.id" />
+                                                            <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -51,7 +51,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="start_date">订单出发日期</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="start_date" nzBorderless [ngModel]="detailModel?.start_date" />
+                                                            <input nz-input formControlName="start_date" nzBorderless readonly [ngModel]="detailModel?.start_date" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -60,7 +60,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type">报价方式</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="quote_type" nzBorderless [ngModel]="detailModel?.independent_product?.data?.quote_type==1?'按套餐份数':'按人头'" />
+                                                            <input nz-input formControlName="quote_type" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.quote_type==1?'按套餐份数':'按人头'" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -132,7 +132,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_name" nzRequired>联系人姓名</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="联系人姓名必填">
-                                                            <input nz-input formControlName="contact_name" nzBorderless [ngModel]="detailModel?.contact_name" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.contact_name" *ngIf="!isChange" />
                                                             <input nz-input formControlName="contact_name" [ngModel]="detailModel?.contact_name" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -142,7 +142,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_phone" nzRequired>联系人电话</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="联系人电话必填">
-                                                            <input nz-input formControlName="contact_phone" nzBorderless [ngModel]="detailModel?.contact_phone" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.contact_phone" *ngIf="!isChange" />
                                                             <input nz-input formControlName="contact_phone" [ngModel]="detailModel?.contact_phone" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -152,7 +152,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_wechat">联系人微信</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="contact_wechat" nzBorderless [ngModel]="detailModel?.contact_wechat?detailModel?.contact_wechat:'-'" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="contact_wechat" nzBorderless readonly [ngModel]="detailModel?.contact_wechat?detailModel?.contact_wechat:'-'" *ngIf="!isChange" />
                                                             <input nz-input formControlName="contact_wechat" [ngModel]="detailModel?.contact_wechat?detailModel?.contact_wechat:'-'" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -162,7 +162,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_qq">联系人qq</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="contact_qq" nzBorderless [ngModel]="detailModel?.contact_qq?detailModel?.contact_qq:'-'" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="contact_qq" nzBorderless readonly [ngModel]="detailModel?.contact_qq?detailModel?.contact_qq:'-'" *ngIf="!isChange" />
                                                             <input nz-input formControlName="contact_qq" [ngModel]="detailModel?.contact_qq?detailModel?.contact_qq:'-'" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -172,7 +172,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_email">联系人邮箱</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="contact_email" nzBorderless [ngModel]="detailModel?.contact_email?detailModel?.contact_email:'-'" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="contact_email" nzBorderless readonly [ngModel]="detailModel?.contact_email?detailModel?.contact_email:'-'" *ngIf="!isChange" />
                                                             <input nz-input formControlName="contact_email" [ngModel]="detailModel?.contact_email?detailModel?.contact_email:'-'" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -182,7 +182,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="emergency_contact_person">紧急联系人姓名</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="emergency_contact_person" nzBorderless [ngModel]="detailModel?.emergency_contact_person?detailModel.emergency_contact_person:'-'" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="emergency_contact_person" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_person?detailModel.emergency_contact_person:'-'" *ngIf="!isChange" />
                                                             <input nz-input formControlName="emergency_contact_person" [ngModel]="detailModel?.emergency_contact_person?detailModel.emergency_contact_person:'-'" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -192,7 +192,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="emergency_contact_number">紧急联系人电话</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="emergency_contact_number" nzBorderless [ngModel]="detailModel?.emergency_contact_number?detailModel.emergency_contact_number:'-'" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="emergency_contact_number" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_number?detailModel.emergency_contact_number:'-'" *ngIf="!isChange" />
                                                             <input nz-input formControlName="emergency_contact_number" [ngModel]="detailModel?.emergency_contact_number?detailModel.emergency_contact_number:'-'" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -201,7 +201,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="customer_remarks">客人需求备注</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="customer_remarks" nzBorderless [ngModel]="detailModel?.customer_remarks" *ngIf="!isChange" />
+                                                            <input nz-input formControlName="customer_remarks" nzBorderless readonly [ngModel]="detailModel?.customer_remarks" *ngIf="!isChange" />
                                                             <input nz-input formControlName="customer_remarks" [ngModel]="detailModel?.customer_remarks" *ngIf="isChange" />
                                                         </nz-form-control>
                                                     </div>
@@ -210,7 +210,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="internal_remarks">计调内部备注</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="internal_remarks" *ngIf="!isChange" nzBorderless [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
+                                                            <input nz-input formControlName="internal_remarks" *ngIf="!isChange" nzBorderless readonly [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
                                                             <input nz-input formControlName="internal_remarks" [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" *ngIf="isChange" />
 
                                                         </nz-form-control>
@@ -411,6 +411,8 @@
                                                             <span *ngIf="data.type===0">全额退</span>
                                                             <span *ngIf="data.type===1">部分退款</span>
                                                             <span *ngIf="data.type===2">多付返还</span>
+                                                            <span *ngIf="data.type===3">退保</span>
+
                                                         </td>
                                                         <td>
                                                             <div fxLayout="column" fxLayoutAlign="center center">
@@ -638,12 +640,12 @@
                                                             <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
                                                         </div>
                                                     </div>
-                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                         <div style="width: 50%;">实收金额</div>
                                                         <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
                                                     </div>
-                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                    <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.num_total!=0"></div>
                                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.num_total!=0">
                                                         <div style="width: 50%;">还需收款金额</div>
                                                         <div style="width: 50%;">￥{{priceTotal}}</div>

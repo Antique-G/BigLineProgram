@@ -18,7 +18,7 @@
                 </mat-menu>
             </div>
             <ul nz-menu nzTheme="dark" nzMode="inline">
-                <li nz-submenu [nzOpen]="rla2.isActive" #rla2="routerLinkActive" [routerLinkActive]="['active1']" *ngFor="let menuitemList of menuItems.getMenuitem()" nzTitle={{menuitemList.title}} nzIcon={{menuitemList.icon}}>
+                <li nz-submenu [nzOpen]="rla2.isActive" #rla2="routerLinkActive" [routerLinkActive]="['active1']" *ngFor="let menuitemList of this.menuItems.getMenuitem()" nzTitle={{menuitemList.title}} nzIcon={{menuitemList.icon}}>
                     <ul>
                         <li nz-menu-item *ngFor="let childList of menuitemList.children" routerLinkActive="ant-menu-item-selected" [routerLink]="['/admin/main', childList.state]">{{childList.name}}</li>
                     </ul>

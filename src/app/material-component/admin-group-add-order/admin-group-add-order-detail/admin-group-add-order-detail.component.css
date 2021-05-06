@@ -109,3 +109,7 @@
 .ant-picker-calendar-date-content {
     height: 46px !important;
 }
+
+li{
+    list-style: none;
+}

@@ -154,6 +154,17 @@ import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-ad
 import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 import { AOFTRefundByquoteComponent } from './admin-order-free-travel/admin-order-free-travel-detail/a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-store-manage-employee/admin-store-manage-employee.component';
+import { AdminNullComponent } from './admin-null/admin-null.component';
+import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel.component';
+import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
+import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
+import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel-detail/admin-finance-free-travel-detail.component';
+import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
+import { AdminOrderDSInsComponent } from './admin-order/admin-order-detail/admin-order-detail-subgroup/admin-order-d-s-ins/admin-order-d-s-ins.component';
+import { AdminOrderSurrenderComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-surrender/admin-order-surrender.component';
+import { AdminMemberComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
+import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
+
 
 
 
@@ -328,6 +339,17 @@ import { AdminStoreManageEmployeeComponent } from './admin-store-manage/admin-st
     AdminOrderRefundChangStatusComponent,
     AOFTRefundByquoteComponent,
     AdminStoreManageEmployeeComponent,
+    AdminNullComponent,
+    AdminFinanceFreeTravelComponent,
+    AdminFinanceGroupTravelComponent,
+    AdminFinanceGroupTravelDetailComponent,
+    AdminFinanceFreeTravelDetailComponent,
+    AdminWelcomeComponent,
+    AdminOrderDSInsComponent,
+    AdminOrderSurrenderComponent,
+    AdminMemberComponent,
+    AdminWelcomeComponent,
+    AdminLotteryComponent,
 
   ]
 })

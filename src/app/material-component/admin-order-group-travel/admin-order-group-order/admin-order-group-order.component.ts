@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { NzSafeAny } from "ng-zorro-antd/core/types";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { OrderGroupProduct } from '../../../../interfaces/adminOrder/admin-order-group-travel-model';
-
-import { Router } from '@angular/router';
-
-// 手机号码校验
-import { AbstractControl, ValidatorFn } from "@angular/forms";
-import { NzSafeAny } from "ng-zorro-antd/core/types";
-import { MatDialog } from '@angular/material/dialog';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
+
+
 
 // current locale is key of the MyErrorsOptions
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
@@ -128,6 +126,7 @@ export class AdminOrderGroupOrderComponent implements OnInit {
       shared_status: '',
       emergency_contact_person: '',
       emergency_contact_number: '',
+      insurance_extra_ids:[]
     }
   }
 

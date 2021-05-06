@@ -1,4 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -23,7 +24,7 @@ export class Interceptor implements HttpInterceptor {
 
     // 如果有token，就添加
     if (token) {
-      console.log("token是什么", token);
+    //   console.log("token是什么", token);
       let bearToken = token.slice(0, 6);
       if (bearToken === 'Bearer') {
         req = req.clone({
@@ -55,8 +56,8 @@ export class Interceptor implements HttpInterceptor {
           else if (newToken === null) {
             localStorage.getItem('userToken');
           }
-          console.log("返回的结果", event)
-          console.log("event", event.status);
+        //   console.log("返回的结果", event)
+        //   console.log("event", event.status);
           if (event.status === 200 && event.body.message != null) {
             console.log('1111', event.body)
             this.alertMessage = event.body.message;
@@ -77,18 +78,26 @@ export class Interceptor implements HttpInterceptor {
             switch (error.status) {
 
               case 401:
-                console.log("当前页", window.location.pathname)
+                // console.log("当前页", window.location.pathname)
                 if (window.location.pathname == '/store/login' || window.location.pathname == '/admin/login') {
                   // alert(error.error.message);
                   this.createFail(error.error.message)
                 }
                 else {
-                  alert('token已过期，请重新登陆');
+                  console.log('error.error.message :>> ', error.error.code);
+                  // 没有权限
+                  if(error.error.code==411){
+                    this.createFail(error.error.message)
+                    break;
+                  }
+                  else{
+                    alert('token已过期，请重新登陆');
                   if (pathName === 'admin') {
                     this.router.navigate(['/admin/login']);
                   }
                   else if (pathName === 'store') {
                     this.router.navigate(['/store/login']);
+                  }
                   }
                 }
                 break;
@@ -130,8 +139,23 @@ export class Interceptor implements HttpInterceptor {
                 this.createFail(error.error.message)
                 break;
               case 442:
-                console.log("弹出的错误", error.error.message);
-                this.createFail(error.error.message)
+                    console.log("弹出的错误", error.error.message,typeof(JSON.parse(error.error.message)));
+                    console.log(typeof(JSON.parse(error.error.message)) == 'object')
+                    let str = ''
+                    let message: any = JSON.parse(error.error.message)
+                    console.log(typeof(message) == 'object',message)
+                    
+                    if (typeof(message) == 'object') {
+                        for (let key in message) {
+                            console.log('key',decodeURI(key))
+
+                            str+=decodeURI(message[decodeURI(key)])
+                        }
+                    } else {
+                         str=error.error.message
+                    }
+                   
+                this.createFail(str)
                 break;
               case 405:
                 console.log("弹出的错误", error.error.message);
@@ -197,7 +221,7 @@ export class Interceptor implements HttpInterceptor {
 
 
   createFail(content: any): void {
-    this.modal['error']({
+    let errorModal = this.modal['error']({
       nzMask: true,
       nzTitle: "<h3>错误提示</h3>",
       nzContent: `<h5>${content}</h5>`,
@@ -205,7 +229,7 @@ export class Interceptor implements HttpInterceptor {
       // ,transform:translate 
     })
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    // setTimeout(() => this.modal.closeAll(), 2000);  //1s后消失
+    setTimeout(() => errorModal.close(), 5000);  //1s后消失
   }
 
 

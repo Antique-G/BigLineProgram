@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Details, freeProModel, FreeProSearchModel, StoreOrderFreeTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { OrderGroupProduct, OrderTotalModel } from '../..//interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { OrderGroupProduct, OrderTotalModel, ProModel } from '../..//interfaces/store/storeOrder/store-order-group-travel-model';
+import { Details, freeProModel, FreeProSearchModel, StoreOrderFreeTravelListRequestModel } from '../../interfaces/store/storeOrder/store-order-free-travel-model';
 
 
 

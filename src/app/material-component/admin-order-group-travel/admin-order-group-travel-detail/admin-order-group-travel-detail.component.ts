@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
-import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { format } from 'date-fns';
-import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
-import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
-import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
-import { AdminOrderService } from '../../../../services/admin/admin-order.service';
-import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { AdminOrderService } from '../../../../services/admin/admin-order.service';
+import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
+import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
+import { AdminMemberComponent } from './admin-member/admin-member.component';
+import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
+
+
 
 
 @Component({
@@ -31,6 +35,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     priceTotal: any;
     dataPayLog: any[] = [];
     refundLog: any[] = [];
+    insuranceList: any[] = [];
 
     // 修改信息
     isChange = false;
@@ -39,7 +44,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     idChangeBir = false;
     idChangeBirDate: any;
 
+    // 保险合计
+    insuranceMoney: any = 0;
 
+    order_insurance_id: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
@@ -137,6 +145,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 }
             });
 
+            // 保险信息
+            this.insuranceList = this.detailModel?.insurance?.data;
+            console.log('insuranceList', this.insuranceList);
             // 费用明细
             this.fee();
         })
@@ -395,9 +406,171 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                 this.adminOrderService.recoverInfo(this.detailModel?.id).subscribe(res => {
                     console.log('res :>> ', res);
                     this.getgroupTravelDetail();
-                    
+
                 })
         });
     }
+
+    saveEdit(data: any): void {
+        this.editMemberModel.id = data.id;
+        this.editMemberModel.name = data.name;
+        this.editMemberModel.eng_name = data.eng_name;
+        this.editMemberModel.gender = data.gender;
+        this.editMemberModel.phone = data.phone;
+        this.editMemberModel.id_type = data.id_type;
+        this.editMemberModel.id_num = data.id_num;
+        if (this.idChangeBir === false) {
+            this.editMemberModel.birthday = data.birthday;
+        }
+        else {
+            this.editMemberModel.birthday = this.idChangeBirDate;
+        }
+        this.editMemberModel.assembling_place = data.assembling_place;
+        if (data.assembling_time != null) {
+            this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
+        }
+        console.log('v33333333 ', this.editMemberModel);
+
+        // 证件照必填
+        if (this.detailModel?.product?.data?.request_id_num == 1) {
+            if (this.editMemberModel.birthday == null) {
+                this.msg.error('出生年月日不能为空');
+            }
+            else {
+                this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+                    console.log('结果是 :>> ', res);
+                    this.dataMember.filter(function (item: any, index: any) {
+                        if (item.id === data.id) {
+                            item.edit = false;
+                        }
+                    });
+                    this.getgroupTravelDetail();
+                })
+            }
+        }
+        else {
+            if (this.editMemberModel.birthday == null) {
+                this.editMemberModel.birthday = '';
+            }
+            this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+                console.log('结果是 :>> ', res);
+                this.dataMember.filter(function (item: any, index: any) {
+                    if (item.id === data.id) {
+                        item.edit = false;
+                    }
+                });
+                this.getgroupTravelDetail();
+            })
+        }
+
+
+    }
+
+    // 修改出生日期
+    onChangeBir(event: any) {
+        console.log('event :>> ', event);
+        if (event != null) {
+            this.idChangeBir = true;
+            this.idChangeBirDate = format(new Date(event), 'yyyy-MM-dd');
+        }
+    }
+
+
+    // 退保
+    surrenderHandle(data: any) {
+        this.modal.confirm({
+            nzTitle: '退保?',
+            nzContent: '请确认是否退保',
+            nzOnOk: () => {
+                const editmodal = this.modal.create({
+                    nzTitle: '订单退保',
+                    nzContent: AdminOrderSurrenderComponent,
+                    nzWidth: 1000,
+                    nzComponentParams: {
+                        data: {
+                            data: data,
+                            priceTotal: this.priceTotal
+                        }
+                    },
+                    nzFooter: [
+                        {
+                            label: '提交退款申请',
+                            type: 'primary',
+                            onClick: componentInstance => {
+                                componentInstance?.update()
+                            }
+                        }
+                    ]
+                })
+                editmodal.afterClose.subscribe(res => {
+                    this.activatedRoute.queryParams.subscribe(params => {
+                        console.log("params", params)
+                        this.detailId = params?.detailId;
+                        // 详情
+                        this.getgroupTravelDetail();
+
+                    });
+                })
+            }
+        });
+    }
+
+
+
+  
+    
+    member(data:any) {
+        const editmodal = this.modal.create({
+            nzTitle: '查看参保人',
+            nzContent: AdminMemberComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: {
+                    data:data,
+                    detail:this.detailModel
+                }
+            },
+            nzFooter: [
+                {
+                    label: '知道了',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
+        })
+    }
+
+      // 电子保单
+      seeDetail(obj: any) {
+        this.order_insurance_id = obj.id;
+        const msgId = this.msg.loading('正在下载电子保单', { nzDuration: 0 }).messageId;
+            this.adminOrderGroupTravelService.downloadFile(this.order_insurance_id).subscribe(res => {
+                console.log("res", res)
+                const link = document.createElement('a');
+                const blob = new Blob([res], {type: 'application/pdf'});
+                link.setAttribute('href', window.URL.createObjectURL(blob));
+                link.setAttribute('download', obj.insurance_name+'-'+new Date().getTime() + '.pdf');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                this.msg.remove(msgId);
+                this.msg.success('下载电子保单成功')
+                // window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+            })
+    }
+
+   
 }
 

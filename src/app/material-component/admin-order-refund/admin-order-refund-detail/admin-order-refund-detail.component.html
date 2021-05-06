@@ -27,7 +27,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="product_name" nzBorderless [ngModel]="detailModel?.order?.data?.product_name" />
+                                                            <input nz-input formControlName="product_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_name" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -35,7 +35,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="store_name" nzBorderless [ngModel]="detailModel?.store_name" />
+                                                            <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.store_name" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -43,7 +43,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.order_id" />
+                                                            <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -54,7 +54,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">退款编号</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="id" nzBorderless [ngModel]="detailModel?.id" />
+                                                            <input nz-input formControlName="id" nzBorderless readonly [ngModel]="detailModel?.id" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -63,7 +63,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type">退款方案</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="type" nzBorderless [ngModel]="isType" />
+                                                            <input nz-input formControlName="type" nzBorderless readonly [ngModel]="isType" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -72,7 +72,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refund_reason">退款原因</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="refund_reason" nzBorderless [ngModel]="detailModel?.refund_reason" />
+                                                            <input nz-input formControlName="refund_reason" nzBorderless readonly [ngModel]="detailModel?.refund_reason" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -81,7 +81,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="created_at">申请时间</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="created_at" nzBorderless [ngModel]="detailModel?.created_at|date:'yyyy-MM-dd HH:mm:dd'" />
+                                                            <input nz-input formControlName="created_at" nzBorderless readonly [ngModel]="detailModel?.created_at|date:'yyyy-MM-dd HH:mm:dd'" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -90,7 +90,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_start_date">出发日期</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="product_start_date" nzBorderless [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
+                                                            <input nz-input formControlName="product_start_date" nzBorderless readonly [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -128,7 +128,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_name" nzBorderless [ngModel]="detailModel?.order?.data?.product_name" />
+                                                                        <input nz-input formControlName="product_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -136,7 +136,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_type">产品类型</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_type" nzBorderless [ngModel]="detailModel?.order?.data?.product_type===0?'跟团游':'自由行'" />
+                                                                        <input nz-input formControlName="product_type" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_type===0?'跟团游':'自由行'" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -144,7 +144,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="store_name" nzBorderless [ngModel]="detailModel?.store_name" />
+                                                                        <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.store_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -152,7 +152,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.order_id" />
+                                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -161,7 +161,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_start_date">出发日期</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_start_date" nzBorderless [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
+                                                                        <input nz-input formControlName="product_start_date" nzBorderless readonly [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -170,7 +170,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_num_total">出行人数</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_num_total" nzBorderless [ngModel]="detailModel?.order?.data?.num_total" />
+                                                                        <input nz-input formControlName="product_num_total" nzBorderless readonly [ngModel]="detailModel?.order?.data?.num_total" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -185,7 +185,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_contact_name">姓名</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_contact_name" nzBorderless [ngModel]="detailModel?.order?.data?.contact_name" />
+                                                                        <input nz-input formControlName="product_contact_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -193,7 +193,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_contact_phone">手机号</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_contact_phone" nzBorderless [ngModel]="detailModel?.order?.data?.contact_phone" />
+                                                                        <input nz-input formControlName="product_contact_phone" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_phone" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -208,7 +208,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pro_num_adult">成人</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="pro_num_adult" nzBorderless [ngModel]="pro_num_adult" />
+                                                                        <input nz-input formControlName="pro_num_adult" nzBorderless readonly [ngModel]="pro_num_adult" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -217,7 +217,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pro_num_kid">儿童</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="pro_num_kid" nzBorderless [ngModel]="pro_num_kid" />
+                                                                        <input nz-input formControlName="pro_num_kid" nzBorderless readonly [ngModel]="pro_num_kid" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -225,7 +225,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pro_num_baby">婴儿</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="pro_num_baby" nzBorderless [ngModel]="pro_num_baby" />
+                                                                        <input nz-input formControlName="pro_num_baby" nzBorderless readonly [ngModel]="pro_num_baby" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -234,7 +234,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_diff">房差</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="price_diff" nzBorderless [ngModel]="price_diff" />
+                                                                        <input nz-input formControlName="price_diff" nzBorderless readonly [ngModel]="price_diff" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -246,26 +246,39 @@
                                                                         <div nz-row>
                                                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="namePrice">{{image.value.name}}</nz-form-label>
                                                                             <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                                <input nz-input formControlName="namePrice" nzBorderless />
+                                                                                <input nz-input formControlName="namePrice" nzBorderless readonly />
                                                                             </nz-form-control>
                                                                         </div>
                                                                     </nz-form-item>
                                                                 </ng-container>
                                                             </ng-container>
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">现订单总金额</nz-form-label>
+                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">订单当前金额合计</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" />
+                                                                        <input nz-input formControlName="price_total" nzBorderless readonly [ngModel]="price_total" />
                                                                     </nz-form-control>
                                                                 </div>
-                                                            </nz-form-item>
-
-
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                                                <div nz-row style="margin-left: 122px;">
-                                                                    <span style="font-size: 19px;font-weight: bold;">实付总金额:</span>
-                                                                    <span style="font-size: 19px;font-weight: bold;color: red;margin-left:10px">{{price_receive}}</span>
+                                                                <div nz-row style="margin-left: 136px;">
+                                                                    <div >
+                                                                        <span class="total-title">已收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{price_receive}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">退款金额:</span>
+                                                                        <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
+                                                                    </div>
+    
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">实收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">还需收款金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
+                                                                    </div>
+                                                                   
+                                                                    
                                                                 </div>
                                                             </nz-form-item>
                                                         </div>
@@ -279,7 +292,7 @@
                                                             <div nz-row>
                                                                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">客人备注</nz-form-label>
                                                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                    <input nz-input formControlName="customer_remarks" nzBorderless [ngModel]="detailModel?.order?.data?.customer_remarks" />
+                                                                    <input nz-input formControlName="customer_remarks" nzBorderless readonly [ngModel]="detailModel?.order?.data?.customer_remarks" />
                                                                 </nz-form-control>
                                                             </div>
                                                         </nz-form-item>
@@ -391,7 +404,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="selectHumans">此次选择的退款出行人</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="selectHumans" nzBorderless [ngModel]="selectHumans" />
+                                                                        <input nz-input formControlName="selectHumans" nzBorderless readonly [ngModel]="selectHumans" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -399,7 +412,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="basicRefund">基础退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="basicRefund" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[0]" />
+                                                                        <input nz-input formControlName="basicRefund" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[0]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -408,7 +421,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add">额外退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_add" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[1]" />
+                                                                        <input nz-input formControlName="amount_add" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[1]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -416,7 +429,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut">其他扣除费用</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_cut" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[2]" />
+                                                                        <input nz-input formControlName="amount_cut" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[2]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -443,7 +456,8 @@
                                                                 <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="RefundLogData">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th style="text-align: center;">流水号</th>
+                                                                            <th style="text-align: center;">退款流水号</th>
+                                                                            <th style="text-align: center;">退款单号</th>
                                                                             <th style="text-align: center;">返回方式</th>
                                                                             <th style="text-align: center;">退款金额</th>
                                                                             <th style="text-align: center;">退款时间</th>
@@ -452,6 +466,7 @@
                                                                     <tbody>
                                                                         <tr *ngFor="let data of rowSelectionTable.data">
                                                                             <td>{{data.transaction_id}}</td>
+                                                                            <td>{{data.refund_no}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>
                                                                                 <span *ngIf="data.pay_type===2">支付宝</span>
@@ -472,7 +487,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_user" nzRequired>开户名</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_user" nzBorderless [ngModel]="RefundLogData[0]?.bank_user" />
+                                                                            <input nz-input formControlName="bank_user" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_user" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -480,7 +495,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_address" nzRequired>开户行</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_address" nzBorderless [ngModel]="RefundLogData[0]?.bank_address" />
+                                                                            <input nz-input formControlName="bank_address" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_address" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -488,7 +503,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_number" nzRequired>账户</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_number" nzBorderless [ngModel]="RefundLogData[0]?.bank_number" />
+                                                                            <input nz-input formControlName="bank_number" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_number" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -496,7 +511,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" nzRequired>退款金额</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <nz-input-number class="input" style="width: 100%;" nzBorderless [ngModel]="RefundLogData[0]?.refund_amount" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                            <nz-input-number class="input" style="width: 100%;" nzBorderless readonly [ngModel]="RefundLogData[0]?.refund_amount" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -504,7 +519,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="pay_at" nzRequired>退款时间</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzBorderless [ngModel]="RefundLogData[0]?.pay_at" style="width: 100%;" formControlName="pay_at"></nz-date-picker>
+                                                                            <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzBorderless readonly [ngModel]="RefundLogData[0]?.pay_at" style="width: 100%;" formControlName="pay_at"></nz-date-picker>
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -512,7 +527,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id" nzRequired>银行流水号</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="transaction_id" nzBorderless [ngModel]="RefundLogData[0]?.transaction_id" />
+                                                                            <input nz-input formControlName="transaction_id" nzBorderless readonly [ngModel]="RefundLogData[0]?.transaction_id" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -554,7 +569,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_name" nzBorderless [ngModel]="detailModel?.order?.data?.product_name" />
+                                                                        <input nz-input formControlName="product_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -562,7 +577,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_type">产品类型</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_type" nzBorderless [ngModel]="detailModel?.order?.data?.product_type===0?'跟团游':'自由行'" />
+                                                                        <input nz-input formControlName="product_type" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_type===0?'跟团游':'自由行'" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -570,7 +585,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="store_name" nzBorderless [ngModel]="detailModel?.store_name" />
+                                                                        <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.store_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -578,7 +593,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.order_id" />
+                                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -587,7 +602,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_start_date">出发日期</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_start_date" nzBorderless [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
+                                                                        <input nz-input formControlName="product_start_date" nzBorderless readonly [ngModel]="detailModel?.order?.data?.start_date|date:'yyyy-MM-dd'" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -602,7 +617,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_contact_name">姓名</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_contact_name" nzBorderless [ngModel]="detailModel?.order?.data?.contact_name" />
+                                                                        <input nz-input formControlName="product_contact_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_name" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -610,7 +625,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_contact_phone">手机号</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="product_contact_phone" nzBorderless [ngModel]="detailModel?.order?.data?.contact_phone" />
+                                                                        <input nz-input formControlName="product_contact_phone" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_phone" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -625,7 +640,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="packAge">套餐</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="packAge" nzBorderless [ngModel]="packAge" />
+                                                                        <input nz-input formControlName="packAge" nzBorderless readonly [ngModel]="packAge" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -636,26 +651,39 @@
                                                                         <div nz-row>
                                                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="namePrice">{{image.value.name}}</nz-form-label>
                                                                             <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                                <input nz-input formControlName="namePrice" nzBorderless />
+                                                                                <input nz-input formControlName="namePrice" nzBorderless readonly />
                                                                             </nz-form-control>
                                                                         </div>
                                                                     </nz-form-item>
                                                                 </ng-container>
                                                             </ng-container>
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">现订单总金额</nz-form-label>
+                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">订单当前金额合计</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" />
+                                                                        <input nz-input formControlName="price_total" nzBorderless readonly [ngModel]="price_total" />
                                                                     </nz-form-control>
                                                                 </div>
-                                                            </nz-form-item>
-
-
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                                                <div nz-row style="margin-left: 122px;">
-                                                                    <span style="font-size: 19px;font-weight: bold;">实付总金额:</span>
-                                                                    <span style="font-size: 19px;font-weight: bold;color: red;margin-left:10px">{{price_receive}}</span>
+                                                                <div nz-row style="margin-left: 136px;">
+                                                                    <div >
+                                                                        <span class="total-title">已收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{price_receive}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">退款金额:</span>
+                                                                        <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
+                                                                    </div>
+    
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">实收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">还需收款金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
+                                                                    </div>
+                                                                   
+                                                                    
                                                                 </div>
                                                             </nz-form-item>
 
@@ -734,7 +762,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="selectPack">已选择退款套餐数</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="selectPack" nzBorderless ngModel={{detailModel?.refund_number}} />
+                                                                        <input nz-input formControlName="selectPack" nzBorderless readonly ngModel={{detailModel?.refund_number}} />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -744,7 +772,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="basicRefund">基础退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="basicRefund" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[0]" />
+                                                                        <input nz-input formControlName="basicRefund" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[0]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -753,7 +781,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add">额外退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_add" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[1]" />
+                                                                        <input nz-input formControlName="amount_add" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[1]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -761,7 +789,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut">其他扣除费用</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_cut" nzBorderless [ngModel]="'￥'+detailModel?.amount_detail[2]" />
+                                                                        <input nz-input formControlName="amount_cut" nzBorderless readonly [ngModel]="'￥'+detailModel?.amount_detail[2]" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -788,7 +816,8 @@
                                                                 <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="RefundLogData">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th style="text-align: center;">流水号</th>
+                                                                            <th style="text-align: center;">退款流水号</th>
+                                                                            <th style="text-align: center;">退款单号</th>
                                                                             <th style="text-align: center;">返回方式</th>
                                                                             <th style="text-align: center;">退款金额</th>
                                                                             <th style="text-align: center;">退款时间</th>
@@ -797,6 +826,7 @@
                                                                     <tbody>
                                                                         <tr *ngFor="let data of rowSelectionTable.data">
                                                                             <td>{{data.transaction_id}}</td>
+                                                                            <td>{{data.refund_no}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>
                                                                                 <span *ngIf="data.pay_type===2">支付宝</span>
@@ -817,7 +847,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_user" nzRequired>开户名</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_user" nzBorderless [ngModel]="RefundLogData[0]?.bank_user" />
+                                                                            <input nz-input formControlName="bank_user" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_user" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -825,7 +855,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_address" nzRequired>开户行</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_address" nzBorderless [ngModel]="RefundLogData[0]?.bank_address" />
+                                                                            <input nz-input formControlName="bank_address" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_address" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -833,7 +863,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_number" nzRequired>账户</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="bank_number" nzBorderless [ngModel]="RefundLogData[0]?.bank_number" />
+                                                                            <input nz-input formControlName="bank_number" nzBorderless readonly [ngModel]="RefundLogData[0]?.bank_number" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -841,7 +871,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" nzRequired>退款金额</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <nz-input-number class="input" style="width: 100%;" nzBorderless [ngModel]="RefundLogData[0]?.refund_amount" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                            <nz-input-number class="input" style="width: 100%;" nzBorderless readonly [ngModel]="RefundLogData[0]?.refund_amount" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -849,7 +879,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="pay_at" nzRequired>退款时间</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzBorderless [ngModel]="RefundLogData[0]?.pay_at" style="width: 100%;" formControlName="pay_at"></nz-date-picker>
+                                                                            <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzBorderless readonly [ngModel]="RefundLogData[0]?.pay_at" style="width: 100%;" formControlName="pay_at"></nz-date-picker>
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>
@@ -857,7 +887,7 @@
                                                                     <div nz-row>
                                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id" nzRequired>银行流水号</nz-form-label>
                                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                            <input nz-input formControlName="transaction_id" nzBorderless [ngModel]="RefundLogData[0]?.transaction_id" />
+                                                                            <input nz-input formControlName="transaction_id" nzBorderless readonly [ngModel]="RefundLogData[0]?.transaction_id" />
                                                                         </nz-form-control>
                                                                     </div>
                                                                 </nz-form-item>

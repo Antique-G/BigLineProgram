@@ -37,16 +37,26 @@
                         </div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed!=0">
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="setGuide(tab.sub_group_id)">派遣导游</button>
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendSms()">发送出团短信通知</button>
-                        <button mat-raised-button color="basic" style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;" (click)="sendOrderSms()">发送订单短信通知</button>
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)" (click)="moveOrder(tab)">移动订单</button>
+                        <button mat-raised-button color="basic"
+                            style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;"
+                            (click)="setGuide(tab.sub_group_id)">派遣导游</button>
+                        <button mat-raised-button color="basic"
+                            style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;"
+                            (click)="sendSms()">发送出团短信通知</button>
+                        <button mat-raised-button color="basic"
+                            style="letter-spacing: 2px;color: #1e88e5;border: 1px solid #1e88e5;"
+                            (click)="sendOrderSms()">发送订单短信通知</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;"
+                            [disabled]="!(tab.sub_group_status===1||tab.sub_group_status===2)"
+                            (click)="moveOrder(tab)">移动订单</button>
                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                            <a (click)="export(tab.sub_group_id)" href={{isExport}} target="_blank" class="abtn">导出子团名单</a>
+                            <a (click)="export(tab.sub_group_id)" href={{isExport}} target="_blank"
+                                class="abtn">导出子团名单</a>
                         </div>
                     </div>
                     <div fxLayout="row" fxLayoutGap="10px" *ngIf="isClosed===0">
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="sendClosedGroup()">不成团关团短信通知</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;"
+                            (click)="sendClosedGroup()">不成团关团短信通知</button>
                         <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="closedGroupRefund()">不成团退款</button> -->
                     </div>
                 </div>
@@ -69,88 +79,102 @@
                                 <th style="text-align: center;">时间</th>
                                 <th style="text-align: center;">流水号</th>
                                 <th style="text-align: center;">详情</th>
+                                <th style="text-align: center;">购买保险</th>
                             </tr>
                         </thead>
                         <tbody>
                             <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                 <tr>
-                                    <td [nzChecked]="setOfCheckedId.has(data)"  (nzCheckedChange)="onItemChecked(data, $event)"></td>
-                                        <td [(nzExpand)]="data.expand">
-                                            <div fxLayout="row" fxLayoutGap="5px">
-                                                <div> {{ data.id }}</div>
-                                                <div>
-                                                    <span *ngIf="data.order_status===0">
-                                                <nz-badge nzColor="yellow"></nz-badge>已取消
-                                            </span>
-                                                    <span *ngIf="data.order_status===1">
-                                                <nz-badge nzColor="red"></nz-badge>待支付
-                                            </span>
-                                                    <span *ngIf="data.order_status===2">
-                                                <nz-badge nzColor="pink"></nz-badge>待出行
-                                            </span>
-                                                    <span *ngIf="data.order_status===3">
-                                                <nz-badge nzColor="green"></nz-badge>已完成
-                                            </span>
-                                                </div>
-                                                <div>
-                                                    <span *ngIf="data.order_sms===0">
-                                                <nz-badge nzColor="pink"></nz-badge>未发送订单短信
-                                            </span>
-                                                    <span *ngIf="data.order_sms===1">
-                                                <nz-badge nzColor="green"></nz-badge>成功发送订单短信
-                                            </span>
-                                                    <span *ngIf="data.order_sms===2">
-                                                <nz-badge nzColor="red"></nz-badge>订单短信发送失败
-                                            </span>
-                                                </div>
-                                                <div *ngIf="isClosed===0">
-                                                    <span *ngIf="data.cancel_sms===0">
-                                                <nz-badge nzColor="pink"></nz-badge>未发送不成团短信
-                                            </span>
-                                                    <span *ngIf="data.cancel_sms===1">
-                                                <nz-badge nzColor="green"></nz-badge>成功发送不成团短信
-                                            </span>
-                                                    <span *ngIf="data.cancel_sms===2">
-                                                <nz-badge nzColor="red"></nz-badge>不成团短信发送失败
-                                            </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <div>{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                    <td [nzChecked]="setOfCheckedId.has(data)"
+                                         (nzCheckedChange)="onItemChecked(data, $event)"></td>
+                                    <td [(nzExpand)]="data.expand">
+                                        <div fxLayout="row" fxLayoutGap="5px">
+                                            <div> {{ data.id }}</div>
                                             <div>
-                                                <span>成人{{data?.num_adult}}|</span>
-                                                <span>儿童{{data?.num_kid}}|</span>
-                                                <span>婴儿{{data?.baby_num}}</span>
+                                                <span *ngIf="data.order_status===0">
+                                                    <nz-badge nzColor="yellow"></nz-badge>已取消
+                                                </span>
+                                                <span *ngIf="data.order_status===1">
+                                                    <nz-badge nzColor="red"></nz-badge>待支付
+                                                </span>
+                                                <span *ngIf="data.order_status===2">
+                                                    <nz-badge nzColor="pink"></nz-badge>待出行
+                                                </span>
+                                                <span *ngIf="data.order_status===3">
+                                                    <nz-badge nzColor="green"></nz-badge>已完成
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td style="text-align: center;">￥{{data?.price_total}}</td>
-                                        <td style="text-align: center;">￥{{data?.amount_received}}</td>
-                                        <td style="text-align: center;">
-                                            <div *ngIf="data?.refund_status!=0">￥{{data?.refund_amount}}</div>
-                                            <div *ngIf="data?.refund_status===0">否</div>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <div *ngFor="let aa of data?.pay_log?.data">
-                                                <span *ngIf="aa.pay_type===1">微信</span>
-                                                <span *ngIf="aa.pay_type===2">支付宝</span>
-                                                <span *ngIf="aa.pay_type===3">现金</span>
-                                                <span *ngIf="aa.pay_type===4">微信二维码</span>
-                                                <span *ngIf="aa.pay_type===5">支付宝二维码</span>
-                                                <span *ngIf="aa.pay_type===6">银行卡转账</span>
+                                            <div>
+                                                <span *ngIf="data.order_sms===0">
+                                                    <nz-badge nzColor="pink"></nz-badge>未发送订单短信
+                                                </span>
+                                                <span *ngIf="data.order_sms===1">
+                                                    <nz-badge nzColor="green"></nz-badge>成功发送订单短信
+                                                </span>
+                                                <span *ngIf="data.order_sms===2">
+                                                    <nz-badge nzColor="red"></nz-badge>订单短信发送失败
+                                                </span>
                                             </div>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <div *ngFor="let aa of data?.pay_log?.data">{{aa.pay_time}}</div>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <div *ngFor="let aa of data?.pay_log?.data">{{aa.transaction_id}}</div>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <div style="cursor: pointer;">
-                                                <a href={{url+data?.id}} target="_blank"> <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="详情"></a>
+                                            <div *ngIf="isClosed===0">
+                                                <span *ngIf="data.cancel_sms===0">
+                                                    <nz-badge nzColor="pink"></nz-badge>未发送不成团短信
+                                                </span>
+                                                <span *ngIf="data.cancel_sms===1">
+                                                    <nz-badge nzColor="green"></nz-badge>成功发送不成团短信
+                                                </span>
+                                                <span *ngIf="data.cancel_sms===2">
+                                                    <nz-badge nzColor="red"></nz-badge>不成团短信发送失败
+                                                </span>
                                             </div>
-                                        </td>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div>{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                        <div>
+                                            <span>成人{{data?.num_adult}}|</span>
+                                            <span>儿童{{data?.num_kid}}|</span>
+                                            <span>婴儿{{data?.baby_num}}</span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">￥{{data?.price_total}}</td>
+                                    <td style="text-align: center;">￥{{data?.amount_received}}</td>
+                                    <td style="text-align: center;">
+                                        <div *ngIf="data?.refund_status!=0">￥{{data?.refund_amount}}</div>
+                                        <div *ngIf="data?.refund_status===0">否</div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div *ngFor="let aa of data?.pay_log?.data">
+                                            <span *ngIf="aa.pay_type===1">微信</span>
+                                            <span *ngIf="aa.pay_type===2">支付宝</span>
+                                            <span *ngIf="aa.pay_type===3">现金</span>
+                                            <span *ngIf="aa.pay_type===4">微信二维码</span>
+                                            <span *ngIf="aa.pay_type===5">支付宝二维码</span>
+                                            <span *ngIf="aa.pay_type===6">银行卡转账</span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div *ngFor="let aa of data?.pay_log?.data">{{aa.pay_time}}</div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div *ngFor="let aa of data?.pay_log?.data">{{aa.transaction_id}}</div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <div style="cursor: pointer;">
+                                            <a href={{url+data?.id}} target="_blank"> <img
+                                                    src="http://cdn.bigline.com.cn/static/images/edit.png"
+                                                    title="详情"></a>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <ng-container>
+                                            <div><a (click)="base(tab,data)"  *ngIf="data?.insurance_status==0&&data.order_status==2">购买保险</a>
+                                            </div>
+                                            <div><a *ngIf="data?.insurance_status==1&&data.order_status!=0&&data.order_status==2" (click)="base(tab,data)" title="是否所有保险已买，若不是，请点击">出单中（核对）</a>
+                                            </div>
+                                            <div><a *ngIf="data?.insurance_status==2&&data.order_status==2">已出单</a>
+                                            </div>
+                                        </ng-container>
+                                    </td>
                                 </tr>
                                 <tr [nzExpand]="data.expand">
                                     <nz-table #innerTable [nzData]="data?.member?.data" [nzShowPagination]="false">
@@ -167,59 +191,86 @@
                                                 <th>集合时间</th>
                                                 <th>出团通知短信</th>
                                                 <th>出行人状态</th>
+                                                <th>电子保单</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr *ngFor="let dataChild of innerTable.data">
-                                                <td style="width: 8%;">{{ dataChild.name }}</td>
-                                                <td style="width: 8%;">{{ dataChild.eng_name }}</td>
-                                                <td style="width: 8%;">
-                                                    <span *ngIf="dataChild.is_kid===0">成人</span>
-                                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
-                                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
-                                                </td>
-                                                <td style="width: 8%;">
-                                                    <span *ngIf="dataChild.gender===1">男</span>
-                                                    <span *ngIf="dataChild.gender===2">女</span>
-                                                </td>
-                                                <td style="width: 9%;">{{dataChild.birthday}}</td>
-                                                <td style="width: 10%;">{{dataChild.phone}}</td>
-                                                <td style="width: 7%;">
-                                                    <p *ngIf="data.shared_status===0">不拼房</p>
-                                                    <p *ngIf="data.shared_status===1">同性拼房</p>
-                                                </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
-                                                        <input nz-input placeholder="请输入新的集合地点" [(ngModel)]="dataChild.assembling_place" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm(dataChild)">修改</button>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 15%;">
-                                                    <div fxLayout="row" fxLayoutGap="5px">
-                                                        <!-- <nz-time-picker nzFormat="HH:mm" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time"></nz-time-picker> -->
+                        <tbody>
+                            <tr *ngFor="let dataChild of innerTable.data;let i=index">
+                                <td style="width: 8%;">{{ dataChild.name }}</td>
+                                <td style="width: 8%;">{{ dataChild.eng_name }}</td>
+                                <td style="width: 8%;">
+                                    <span *ngIf="dataChild.is_kid===0">成人</span>
+                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
+                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
+                                </td>
+                                <td style="width: 8%;">
+                                    <span *ngIf="dataChild.gender===1">男</span>
+                                    <span *ngIf="dataChild.gender===2">女</span>
+                                </td>
+                                <td style="width: 9%;">{{dataChild.birthday}}</td>
+                                <td style="width: 10%;">{{dataChild.phone}}</td>
+                                <td style="width: 7%;">
+                                    <p *ngIf="data.shared_status===0">不拼房</p>
+                                    <p *ngIf="data.shared_status===1">同性拼房</p>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div fxLayout="column" fxLayoutGap="5px">
+                                        <input nz-input placeholder="请输入新的集合地点"
+                                            [(ngModel)]="dataChild.assembling_place" />
+                                        <button mat-raised-button color="primary"
+                                            (click)="changeConfirm(dataChild)">修改</button>
+                                    </div>
+                                </td>
+                                <td style="width: 10%;">
+                                    <div fxLayout="column" fxLayoutGap="5px">
+                                        <input nz-input placeholder="请输入新的集合时间"
+                                            [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
+                                        <button mat-raised-button color="primary"
+                                            (click)="changeConfirm1(dataChild)">修改</button>
+                                    </div>
+                                </td>
+                                <td style="width: 7%;">
+                                    <p *ngIf="dataChild.sms_status===0">
+                                        <nz-badge nzColor="yellow"></nz-badge>未发
+                                    </p>
+                                    <p *ngIf="dataChild.sms_status===1">
+                                        <nz-badge nzColor="green"></nz-badge>已发
+                                    </p>
+                                    <p *ngIf="dataChild.sms_status===2">
+                                        <nz-badge nzColor="red"></nz-badge>发送失败
+                                    </p>
+                                </td>
+                                <td style="width: 5%;">
+                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
+                                    <div *ngIf="dataChild.refund_status===0">正常</div>
+                                </td>
+                                <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
+                                    <div fxLayout="column" fxLayoutGap="5px">
+                                        <div>
+                                            <ng-container *ngFor="let ins of data.insurance.data;let i =index">
+                                                <ng-container *ngIf="ins?.item_type==1&&ins?.status==2">
+                                                    <span *ngIf="i==0">基础保险:</span>
+                                                    <div><a (click)="seeDetail(ins)">{{ins.insurance_name}}</a></div>
+                                                </ng-container>
+                                            </ng-container>
+                                        </div>
+                                        <div>
+                                            <ng-container *ngFor="let insExtra of data.insurance.data;let j =index">
+                                                <ng-container *ngIf="insExtra?.item_type==2&&insExtra?.status==2">
+                                                    <span *ngIf="j==1">额外保险:</span>
+                                                    <div><a (click)="seeDetail(insExtra)">{{insExtra.insurance_name}}</a></div>
+                                                </ng-container>
+                                            </ng-container>
 
-                                                        <input nz-input placeholder="请输入新的集合时间" [(ngModel)]="dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time" />
-                                                        <button mat-raised-button color="primary" (click)="changeConfirm1(dataChild)">修改</button>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 10%;">
-                                                    <p *ngIf="dataChild.sms_status===0">
-                                                        <nz-badge nzColor="yellow"></nz-badge>未发</p>
-                                                    <p *ngIf="dataChild.sms_status===1">
-                                                        <nz-badge nzColor="green"></nz-badge>已发</p>
-                                                    <p *ngIf="dataChild.sms_status===2">
-                                                        <nz-badge nzColor="red"></nz-badge>发送失败</p>
-                                                </td>
-                                                <td style="width: 9%;">
-                                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
-                                                    <div *ngIf="dataChild.refund_status===0">正常</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </tr>
-                            </ng-template>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
+                    </nz-table>
+                    </tr>
+                    </ng-template>
+                    </tbody>
                     </nz-table>
                 </div>
 

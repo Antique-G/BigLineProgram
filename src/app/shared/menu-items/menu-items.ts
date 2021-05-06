@@ -3,106 +3,120 @@ import { Injectable } from '@angular/core';
 export interface Menu {
   title: string;
   icon: string;
+  permission_name: string;
   children: Menus[]
 }
 
 export interface Menus {
   state: string;
   name: string;
+  permission_name: string;
 }
 
 
 const MENUITEMS = [
   {
-    title: '系统设置模块', icon: 'setting',
+    title: '系统设置模块', icon: 'setting',permission_name: 'system_admin' ,
     children: [
-      { state: 'adminAccount', name: '管理员账号' },
-      { state: 'adminStoreManage', name: '门店管理' },
+      { state: 'adminAccount', name: '管理员账号',permission_name: 'system_account' },
+      { state: 'adminStoreManage', name: '门店管理' ,permission_name: 'system_store_mangement'},
+      { state: 'adminPermission', name: '权限管理' , permission_name: 'system_permission'},
+      { state: 'adminRole', name: '角色管理' , permission_name: 'system_role' }
 
-      // { state: 'adminPermission', name: '管理权限' }
-      // { state: 'adminRole', name: '角色' }
     ]
   },
   {
-    title: '店铺模块', icon: 'appstore',
-    children: [{ state: 'store', name: '店铺管理' },
+    title: '店铺模块', icon: 'appstore',permission_name: 'shop_admin',
+    children: [{ state: 'store', name: '店铺管理',permission_name: 'store_mangement_admin'},
     ]
   },
   {
-    title: '产品模块', icon: 'project',
+    title: '产品模块', icon: 'project',permission_name: 'admin_product' ,
     children: [
-      { state: 'productTag', name: '产品标签' },
-      { state: 'productManagement', name: '跟团游管理' },
-      { state: 'freeTravel', name: "自由行管理" }
+      { state: 'productTag', name: '产品标签',permission_name: 'product_tag' },
+      { state: 'productManagement', name: '跟团游管理',permission_name: 'product_group_mange' },
+      { state: 'freeTravel', name: "自由行管理",permission_name: 'product_independent' }
     ]
   },
   {
-    title: '订单模块', icon: 'ordered-list',
+    title: '订单模块', icon: 'ordered-list',permission_name: 'admin_order' ,
     children: [
-      { state: 'orderList', name: '团列表' },
-      { state: 'groupTravelOrder', name: '跟团游订单列表' },
-      { state: 'freeTravelOrder', name: '自由行订单列表' },
-      { state: 'addGroupOrder', name: '跟团游添加订单' },
-      { state: 'addFreeOrder', name: '自由行添加订单' },
-      { state: 'refund', name: '订单退款处理' },
-      { state: 'refundReview', name: '订单审核退款' },
-      { state: 'refundTurnOver', name: '订单退款流水列表' },
+      { state: 'orderList', name: '团列表',permission_name: 'order_group_list' },
+      { state: 'groupTravelOrder', name: '跟团游订单列表',permission_name: 'order_group_product' },
+      { state: 'freeTravelOrder', name: '自由行订单列表',permission_name: 'order_indent_product' },
+      { state: 'addGroupOrder', name: '跟团游添加订单',permission_name: 'order_add_group_order' },
+      { state: 'addFreeOrder', name: '自由行添加订单',permission_name: 'order_add_indent_order' },
+      { state: 'refund', name: '订单退款处理' ,permission_name: 'order_refund'},
+      { state: 'refundReview', name: '订单审核退款',permission_name: 'order_refund_check'},
+      { state: 'refundTurnOver', name: '订单退款流水列表' , permission_name: 'order_refund_log'},
     ]
   },
   {
-    title: '佣金模块', icon: 'pound',
+    title: '佣金模块', icon: 'pound' , permission_name: 'admin_dist',
     children: [
-      { state: 'userCommission', name: '用户分销佣金' },
+      { state: 'userCommission', name: '用户分销佣金' , permission_name: 'dist_user_dist' },
       // { state: 'commissionWithdraw', name: '提现列表' },
-      { state: 'userMoneyLog', name: '金额变动记录' }
+      { state: 'userMoneyLog', name: '金额变动记录' , permission_name: 'dist_money_log' }
     ]
   },
   {
-    title: '条款管理', icon: 'file',
+    title: '条款管理', icon: 'file' , permission_name: 'admin_terms',
     children: [
-      { state: 'termsManage', name: '条款审核' },
-      { state: 'termTemplate', name: '条款模板' }
+      { state: 'termsManage', name: '条款审核' , permission_name: 'terms_check' },
+      { state: 'termTemplate', name: '条款模板' , permission_name: 'terms_template' }
     ]
   },
   {
-    title: '导游管理模块', icon: 'flag',
-    children: [{ state: 'adminTourist', name: '导游列表' }]
+    title: '导游管理模块', icon: 'flag', permission_name: 'admin_guide' ,
+    children: [{ state: 'adminTourist', name: '导游列表' , permission_name: 'guide_list' }]
   },
 
   {
-    title: '区域模块', icon: 'environment',
+    title: '区域模块', icon: 'environment' , permission_name: 'admin_product_region',
     children: [
-      { state: 'settingArea', name: '区域' },
-      { state: 'customerService', name: '区域客服' }
+      { state: 'settingArea', name: '区域',permission_name: 'system_region' },
+      { state: 'customerService', name: '区域客服' , permission_name: 'region_region_service' }
     ]
   },
 
   {
-    title: '用户管理', icon: 'user',
+    title: '用户管理', icon: 'user', permission_name: 'admin_user_mangement' ,
     children: [
-      { state: 'saleTitle', name: '销售头衔' },
-      { state: 'user', name: '用户信息' },
+      { state: 'saleTitle', name: '销售头衔', permission_name: 'user_sale_title'},
+      { state: 'user', name: '用户信息' , permission_name: 'user_user_list'},
     ]
   },
   {
-    title: '保险管理', icon: 'safety-certificate',
+    title: '保险管理', icon: 'safety-certificate',permission_name: 'admin_insurance' ,
     children: [
-      { state: 'insurance', name: '保险' },
+      { state: 'insurance', name: '保险' , permission_name: 'insurance_list' },
       // { state: 'insuranceHistory', name: '保险购买记录' },
 
     ]
   },
 
   {
-    title: '小程序模块', icon: 'wechat',
+    title: '小程序模块', icon: 'wechat', permission_name: 'admin_mini_config' ,
     children: [
-      { state: 'pageConfig', name: '页面设置' },
+      { state: 'pageConfig', name: '页面设置' , permission_name: 'mini_config_page' },
     ]
   },
+  {
+    title: '财务模块', icon: 'account-book', permission_name: 'admin_financial' ,
+    children: [
+      { state: 'financeGroupTravel', name: '跟团游订单列表' , permission_name: 'financial_group_order' },
+      { state: 'financefreeDTravel', name: '自由行订单列表' , permission_name: 'financial_freedom_order' },
+    ]
+  },
+  // {
+  //   title: '其他', icon: 'compass', permission_name: 'admin_financial' ,
+  //   children: [
+  //     { state: 'lottery', name: '抽奖活动' , permission_name: 'financial_group_order' },
+  //   ]
+  // },
 
 
 ];
-
 
 export interface StoreMenu {
   title: string;
