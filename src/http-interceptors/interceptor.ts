@@ -1,4 +1,5 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -138,8 +139,23 @@ export class Interceptor implements HttpInterceptor {
                 this.createFail(error.error.message)
                 break;
               case 442:
-                console.log("弹出的错误", error.error.message);
-                this.createFail(error.error.message)
+                    console.log("弹出的错误", error.error.message,typeof(JSON.parse(error.error.message)));
+                    console.log(typeof(JSON.parse(error.error.message)) == 'object')
+                    let str = ''
+                    let message: any = JSON.parse(error.error.message)
+                    console.log(typeof(message) == 'object',message)
+                    
+                    if (typeof(message) == 'object') {
+                        for (let key in message) {
+                            console.log('key',decodeURI(key))
+
+                            str+=decodeURI(message[decodeURI(key)])
+                        }
+                    } else {
+                         str=error.error.message
+                    }
+                   
+                this.createFail(str)
                 break;
               case 405:
                 console.log("弹出的错误", error.error.message);
@@ -213,7 +229,7 @@ export class Interceptor implements HttpInterceptor {
       // ,transform:translate 
     })
     this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-    setTimeout(() => errorModal.close(), 2000);  //1s后消失
+    setTimeout(() => errorModal.close(), 5000);  //1s后消失
   }
 
 
