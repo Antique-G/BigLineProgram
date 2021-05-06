@@ -103,6 +103,7 @@ import { StoreCertifiChangeComponent } from './store-certication/store-certifi-b
 import { StoreInsuranceDetailComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-insurance-detail/store-insurance-detail.component';
 import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store-free-quote/store-free-quote-create/store-free-quote-create.component';
+import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-member/store-order-member.component';
 
 @NgModule({
   imports: [
@@ -222,6 +223,7 @@ import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store
     StoreInsuranceDetailComponent,
     StoreFreeQuoteComponent,
     StoreFreeQuoteCreateComponent,
+    StoreOrderMemberComponent,
     
     
   ]
