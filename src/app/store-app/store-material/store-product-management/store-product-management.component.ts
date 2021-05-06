@@ -205,7 +205,7 @@ export class StoreProductManagementComponent implements OnInit {
         console.log('data', data);
         this.storeProductService.getProductDetail(data.id).subscribe(res => {
             console.log("结果是", res.data.id, res.data.earlier)
-            console.log('res,2132323 :>> ', res.data.child_status,res.data?.insurance_base_info?.data[0]?.insurance_expense);
+            console.log('res,2132323 :>> ', res.data.child_status,res.data?.insurance_base_info?.data?.insurance_expense);
             let child_status = Number(res.data.child_status)
             // 处理时间，预计多久报名
             let minutes = res.data.earlier;
@@ -225,7 +225,7 @@ export class StoreProductManagementComponent implements OnInit {
             else {
                 this.isEar = Math.floor(minutes / 60 / 24);
             }
-            this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, include_insurance_fee:  res.data?.include_insurance_fee, insurance_expense:  res.data?.insurance_base_info?.data[0]?.insurance_expense } });
+            this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, include_insurance_fee:  res.data?.include_insurance_fee, insurance_expense:  res.data?.insurance_base_info?.data?.insurance_expense } });
         })
     }
 
