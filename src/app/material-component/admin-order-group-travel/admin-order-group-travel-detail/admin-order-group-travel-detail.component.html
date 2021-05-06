@@ -498,7 +498,8 @@
                                                         </td>
                                                         <td>
                                                             <span *ngIf="data?.status!=2">暂无</span>
-                                                            <a *ngIf="data?.status==2" (click)="seeDetail(data?.id)">{{data.insurance_name}}.pdf</a>
+                                                            <!-- href="" target="_blank" -->
+                                                            <a *ngIf="data?.status==2" (click)="seeDetail(data)">{{data.insurance_name}}.pdf</a>
                                                         </td>
                                                         <td>
                                                             <a (click)="member(data)">查看参保人</a>
