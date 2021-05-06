@@ -172,17 +172,54 @@ export class AdminOrderRefundEditComponent implements OnInit {
                         element.namePrice = '-￥' + element.price + '*' + element.num;
                     }
                 });
-                for (let i = 0; i < priceArr.length; i++) {
-                    this.otherArray.push(this.fb.group({
-                        name: new FormControl(priceArr[i]?.title),
-                        namePrice: new FormControl(priceArr[i]?.namePrice),
-                        price: new FormControl(priceArr[i]?.price),
-                        num: new FormControl(priceArr[i]?.num),
-                        item_type: new FormControl(priceArr[i]?.item_type),
-                        type: new FormControl(priceArr[i]?.type),
-                        id: new FormControl(priceArr[i]?.id),
-                    }))
+                // 全额退值直接设为0
+                if (this.detailModel.type == 0) {
+                    for (let i = 0; i < priceArr.length; i++) {
+                        this.otherArray.push(this.fb.group({
+                            name: new FormControl(priceArr[i]?.title),
+                            namePrice: new FormControl(priceArr[i]?.namePrice),
+                            price: new FormControl(0),
+                            num: new FormControl(priceArr[i]?.num),
+                            item_type: new FormControl(priceArr[i]?.item_type),
+                            type: new FormControl(priceArr[i]?.type),
+                            id: new FormControl(priceArr[i]?.id),
+                        }))
+                    }
+                    let changeModel: any[] = [];
+                    let otherModel = this.addForm.value.otherList;
+                    otherModel.forEach((element: any) => {
+                        console.log("element,", element)
+                        if (element?.item_type == 0) {
+                            let i = { id: element?.id, price: element?.price }
+                            changeModel.push(i)
+                        }
+                    });
+                    this.reundCheckModel.change = changeModel;
                 }
+                else {
+                    for (let i = 0; i < priceArr.length; i++) {
+                        this.otherArray.push(this.fb.group({
+                            name: new FormControl(priceArr[i]?.title),
+                            namePrice: new FormControl(priceArr[i]?.namePrice),
+                            price: new FormControl(priceArr[i]?.price),
+                            num: new FormControl(priceArr[i]?.num),
+                            item_type: new FormControl(priceArr[i]?.item_type),
+                            type: new FormControl(priceArr[i]?.type),
+                            id: new FormControl(priceArr[i]?.id),
+                        }))
+                    }
+                    let changeModel: any[] = [];
+                    let otherModel = this.addForm.value.otherList;
+                    otherModel.forEach((element: any) => {
+                        console.log("element,", element)
+                        if (element?.item_type == 0) {
+                            let i = { id: element?.id, price: element?.price }
+                            changeModel.push(i)
+                        }
+                    });
+                    this.reundCheckModel.change = changeModel;
+                }
+
                 console.log('otherArray.controls :>> ', this.otherArray.controls);
                 //最开始剩余房间数为原始的
                 if (this.detailModel.type == 1) {
@@ -738,15 +775,23 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     // 计算优惠跟附加
     priceChange(price: any, i: any) {
+        let changeModel: any[] = [];
+        let otherModel = this.addForm.value.otherList;
+        otherModel.forEach((element: any) => {
+            console.log("element,", element)
+            if (element?.item_type == 0) {
+                let i = { id: element?.id, price: element?.price }
+                changeModel.push(i)
+            }
+        });
+        this.reundCheckModel.change = changeModel;
         this.oldPriceArr[i] = true;
-        this.reundCheckModel.change.map((ele: any) => {
-            if (ele?.id == i) ele.price = price
-            else this.reundCheckModel.change.push({ id: this.priceDetail[i].id, price })
-        })
-
+        this.priceDetailChange();
+        this.priceAll();
     }
 
     priceDetailChange() {
+
         let other = this.addForm.value.otherList;
         console.log("111111", other)
         let otherPrice = 0;
