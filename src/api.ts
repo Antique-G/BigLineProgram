@@ -266,7 +266,8 @@ export const AdminUrls = {
     GetAdminFinanceFreeTravelList: api + '/admin/finance/free_travel',  //自由行订单列表
     GetAdminFinanceGroupTravelList: api + '/admin/finance/group_product',  //跟团游订单列表
     PostAdminFinanceOrderConfirm:api + '/admin/finance/order_confirm',  //确认支付记录
-
+    GetAdminFinanceGroupTravelToatl:api+'/admin/finance/productorder_total',// 跟团游统计  
+    GetAdminFinanceFreeTravelToatl:api+'/admin/finance/indentorder_total',// 自由行统计  
 };
 
 
