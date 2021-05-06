@@ -245,10 +245,10 @@
                                     <div *ngIf="dataChild.refund_status===0">正常</div>
                                 </td>
                                 <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
-                                    <div fxLayout="column" fxLayoutGap="5px" *ngIf="data?.insurance_status==2">
+                                    <div fxLayout="column" fxLayoutGap="5px">
                                         <div>
                                             <ng-container *ngFor="let ins of data.insurance.data;let i =index">
-                                                <ng-container *ngIf="ins?.item_type==1">
+                                                <ng-container *ngIf="ins?.item_type==1&&ins?.status==2">
                                                     <span *ngIf="i==0">基础保险:</span>
                                                     <div><a (click)="seeDetail(ins)">{{ins.insurance_name}}</a></div>
                                                 </ng-container>
@@ -256,7 +256,7 @@
                                         </div>
                                         <div>
                                             <ng-container *ngFor="let insExtra of data.insurance.data;let j =index">
-                                                <ng-container *ngIf="insExtra?.item_type==2">
+                                                <ng-container *ngIf="insExtra?.item_type==2&&insExtra?.status==2">
                                                     <span *ngIf="j==1">额外保险:</span>
                                                     <div><a (click)="seeDetail(insExtra)">{{insExtra.insurance_name}}</a></div>
                                                 </ng-container>
