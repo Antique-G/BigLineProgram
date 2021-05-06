@@ -347,6 +347,7 @@ import { AdminMemberComponent } from './admin-order-group-travel/admin-order-gro
     AdminOrderDSInsComponent,
     AdminOrderSurrenderComponent,
     AdminMemberComponent,
+    AdminWelcomeComponent,
 
   ]
 })
