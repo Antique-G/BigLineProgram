@@ -685,7 +685,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                     audlts: Number(this.informationForm.value.num_adult),
                     childs: Number(this.informationForm.value.num_kid),
                     babys: Number(this.informationForm.value.baby_num),
-                    rooms: Number(this.difRoom)
+                    rooms: Number(this.difRoom),
+                    baseInsurancePrice: Number(this.baseInsurancePrice),
+                    extraInsurancePrice: Number(this.extraInsurancePrice)
                 }
             },
             nzFooter: [
@@ -706,7 +708,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.other_price = res?.other_price;
                 this.totalPrice = res?.totalPrice;
                 this.discount_tit = res?.discount_tit;
-                this.other_price_tit = res?.other_price_tit
+                this.other_price_tit = res?.other_price_tit;
+                this.baseInsurancePrice = res?.baseInsurancePrice;
+                this.extraInsurancePrice= res?.extraInsurancePrice;
             }
 
         })
