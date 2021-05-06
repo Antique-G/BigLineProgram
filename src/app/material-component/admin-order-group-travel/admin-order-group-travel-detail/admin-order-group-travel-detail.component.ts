@@ -11,8 +11,8 @@ import { AdminOrderService } from '../../../../services/admin/admin-order.servic
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
-import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminMemberComponent } from './admin-member/admin-member.component';
+import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 
 
 
@@ -457,16 +457,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
 
-    // 电子保单
-    seeDetail(id: any) {
-        this.order_insurance_id = id;
-        this.adminOrderGroupTravelService.getInsOrderDown(this.order_insurance_id).subscribe(res => {
-            console.log("res", res)
-            window.open('/bbbb/static/pdf/web/viewer.html?file=' + encodeURIComponent(res));
-        })
-    }
-
-
+  
+    
     member(data:any) {
         const editmodal = this.modal.create({
             nzTitle: '查看参保人',
@@ -498,5 +490,27 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             });
         })
     }
+
+      // 电子保单
+      seeDetail(obj: any) {
+        this.order_insurance_id = obj.id;
+        const msgId = this.msg.loading('正在下载电子保单', { nzDuration: 0 }).messageId;
+            this.adminOrderGroupTravelService.downloadFile(this.order_insurance_id).subscribe(res => {
+                console.log("res", res)
+                const link = document.createElement('a');
+                const blob = new Blob([res], {type: 'application/pdf'});
+                link.setAttribute('href', window.URL.createObjectURL(blob));
+                link.setAttribute('download', obj.insurance_name+'-'+new Date().getTime() + '.pdf');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                this.msg.remove(msgId);
+                this.msg.success('下载电子保单成功')
+                // window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+            })
+    }
+
+   
 }
 

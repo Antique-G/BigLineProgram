@@ -7,7 +7,6 @@ import { EncodeComponent } from '../../app/store-app/store-material/EncodeCompon
 import { CancelInsModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
-
 const httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json')
 }
@@ -239,16 +238,19 @@ export class AdminOrderGroupTravelService {
         const params = new HttpParams().set('order_insurance_id', order_insurance_id)
 
         const findhttpOptions = {
-            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-            params: params
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+            params: params,
         };
-        return this.httpClient.get<any>(this.urls.GetAdminInsOrderDown, findhttpOptions)
+        return this.httpClient.get(this.urls.GetAdminInsOrderDown, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )
     }
 
-
+    downloadFile(order_insurance_id: any): Observable<Blob> {
+        const params = new HttpParams().set('order_insurance_id', order_insurance_id)
+        return this.httpClient.get(this.urls.GetAdminInsOrderDown , { responseType: "blob",params });
+    }
     // 退保PostAdminInsCancel
     insCancel(cancelInsModel: CancelInsModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminInsCancel, cancelInsModel, httpOptions)
