@@ -15,6 +15,7 @@ import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
 import { AdminInsuranceComponent } from './admin-insurance/admin-insurance.component';
+import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
 import { AdminNullComponent } from './admin-null/admin-null.component';
 import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
 import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
@@ -513,6 +514,13 @@ export const MaterialRoutes: Routes = [
         component: AdminFinanceFreeTravelDetailComponent,
         data: {
           breadcrumb: '自由行详情'
+        }
+      },
+      {
+        path: 'lottery',
+        component: AdminLotteryComponent,
+        data: {
+          breadcrumb: '抽奖活动'
         }
       },
     ]

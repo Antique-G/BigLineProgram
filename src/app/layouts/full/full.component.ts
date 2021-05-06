@@ -85,7 +85,7 @@ export class FullComponent implements OnInit {
       });
     }
 
-    this.isMenuShow();
+    // this.isMenuShow();
     
   }
 

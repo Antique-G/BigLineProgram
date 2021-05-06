@@ -1,0 +1,86 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <form [formGroup]="searchForm">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                            <div fxFlex=10>
+                                <mat-form-field>
+                                    <mat-select placeholder="选择状态" formControlName="status">
+                                        <mat-option value=''>全部</mat-option>
+                                        <mat-option value=0>暂停</mat-option>
+                                        <mat-option value=1>正常</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex=50>
+                                <mat-form-field>
+                                    <mat-label>姓名/账号/手机号:</mat-label>
+                                    <input matInput value="" formControlName="name" placeholder="请输入关键字">
+                                </mat-form-field>
+
+                            </div>
+                            <div fxFlex=5>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">账号</th>
+                                    <th style="text-align: center;">真实姓名</th>
+                                    <th style="text-align: center;">手机号</th>
+                                    <th style="text-align: center;">门店员工</th>
+                                    <th style="text-align: center;">区域</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.account}}</td>
+                                    <td>{{data.real_name}}</td>
+                                    <td>{{data.mobile}}</td>
+                                    <td>
+                                        <div *ngIf="data.staff_type===0">
+                                            否
+                                        </div>
+                                        <div *ngIf="data.staff_type===1">
+                                            是
+                                        </div>
+                                    </td>
+                                    <td>{{data.region_name}}</td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            暂停
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            正常
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="edit(data)">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>
