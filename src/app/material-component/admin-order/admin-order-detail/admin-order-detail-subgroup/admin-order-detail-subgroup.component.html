@@ -167,9 +167,9 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <ng-container>
-                                            <div><a (click)="base(tab,data)" *ngIf="data?.insurance_status==0">购买保险</a>
+                                            <div><a (click)="base(tab,data)" *ngIf="data?.insurance_status!=2">购买保险</a>
                                             </div>
-                                            <div><a *ngIf="data?.insurance_status==1||data?.insurance_status==2">已购买</a>
+                                            <div><a *ngIf="data?.insurance_status==2">已购买</a>
                                             </div>
                                         </ng-container>
                                     </td>
