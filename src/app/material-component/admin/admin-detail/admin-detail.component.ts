@@ -149,6 +149,7 @@ export class AdminDetailComponent implements OnInit {
   roleData(){
     this.adminRoleService.roleList(1, 50,'',).subscribe((result: any) => {  
       this.listOfOption = result.data   //角色选项
+      this.listOfOption =this.listOfOption .filter((item:any) => item.status == 1);
     })
     let roleId:any[] = [];
     for (let i of this.data.role){
