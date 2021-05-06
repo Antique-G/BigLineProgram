@@ -27,6 +27,7 @@ export interface AddStoreProductModel {
     baby_occupy?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    sales_note?: any;
 
 }
 
@@ -113,6 +114,7 @@ export interface DataModel {
     baby_occupy?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    sales_note?: any;
 
 }
 
@@ -222,6 +224,7 @@ export interface DatumListModel {
     baby_occupy?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    sales_note?: any;
 
 }
 
@@ -269,6 +272,7 @@ export interface DetailModel {
     insurance_extra?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    sales_note?: any;
 
 }
 

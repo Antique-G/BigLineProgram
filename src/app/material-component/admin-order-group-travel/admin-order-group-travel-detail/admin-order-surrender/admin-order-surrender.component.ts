@@ -23,6 +23,7 @@ export class AdminOrderSurrenderComponent implements OnInit {
     basicRefund: any;
     refund_amount: any;
     cancelInsModel: CancelInsModel;
+    priceTotal: any;
 
     constructor(public fb: FormBuilder, public message: NzMessageService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
         this.addForm = this.fb.group({
@@ -45,7 +46,8 @@ export class AdminOrderSurrenderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.detail = this.data;
+        this.detail = this.data?.data;
+        this.priceTotal = this.data?.priceTotal;
         // 订单出发日期
         let date1 = new Date(format(new Date(this.detail?.start_date), 'yyyy,MM,dd'));
         // 当前申请时间
@@ -88,7 +90,7 @@ export class AdminOrderSurrenderComponent implements OnInit {
     update() {
         this.setValue();
         this.adminOrderGroupTravelService.insCancel(this.cancelInsModel).subscribe(res => {
-            console.log("aaa",res)
+            console.log("aaa", res)
         })
     }
 
@@ -96,11 +98,17 @@ export class AdminOrderSurrenderComponent implements OnInit {
         this.bascie_money = Number(this.detail?.price) * Number(this.detail?.num) * Number(this.percentage);
         this.bascie_money = this.toDecimal(this.bascie_money);
         this.basicRefund = this.toDecimal(this.bascie_money);
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut);
-        this.refund_amount = this.toDecimal(this.refund_amount);
-        if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)- Number(this.priceTotal);
+        if (Number(this.refund_amount) < 0) {
+            this.refund_amount = 0;
         }
+        else {
+            this.refund_amount = this.toDecimal(this.refund_amount);
+            if (this.refund_amount < 0) {
+                this.message.create('error', `总金额不能小于0`)
+            }
+        }
+       
     }
 
     numTest(data: any) {

@@ -12,6 +12,7 @@ import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-ch
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
+import { AdminMemberComponent } from './admin-member/admin-member.component';
 
 
 
@@ -426,7 +427,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     nzContent: AdminOrderSurrenderComponent,
                     nzWidth: 1000,
                     nzComponentParams: {
-                        data: data
+                        data: {
+                            data: data,
+                            priceTotal: this.priceTotal
+                        }
                     },
                     nzFooter: [
                         {
@@ -458,7 +462,40 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         this.order_insurance_id = id;
         this.adminOrderGroupTravelService.getInsOrderDown(this.order_insurance_id).subscribe(res => {
             console.log("res", res)
-            window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+            window.open('/bbbb/static/pdf/web/viewer.html?file=' + encodeURIComponent(res));
+        })
+    }
+
+
+    member(data:any) {
+        const editmodal = this.modal.create({
+            nzTitle: '查看参保人',
+            nzContent: AdminMemberComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: {
+                    data:data,
+                    detail:this.detailModel
+                }
+            },
+            nzFooter: [
+                {
+                    label: '知道了',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
         })
     }
 }

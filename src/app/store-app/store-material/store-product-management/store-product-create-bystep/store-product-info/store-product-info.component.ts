@@ -136,6 +136,7 @@ export class StoreProductInfoComponent implements OnInit {
             include_insurance_fee: 0,
             insurance_base: '',
             insurance_extra: [],
+            sales_note: '',
         }
     }
 
@@ -165,6 +166,7 @@ export class StoreProductInfoComponent implements OnInit {
             include_insurance_fee: ['0', [Validators.required]],
             insurance_base: ['', [Validators.required]],
             insurance_extra: [''],
+            sales_note: [''],
         });
         // 每次表单数据发生变化的时候更新错误信息
         this.addForm.valueChanges.subscribe(data => {
@@ -337,7 +339,7 @@ export class StoreProductInfoComponent implements OnInit {
         this.addStoreProductModel.insurance_base = this.baseInsuranceId;
         this.addStoreProductModel.insurance_extra = this.extraInsuranceId;
         this.addStoreProductModel.include_insurance_fee = this.addForm.value.include_insurance_fee;
-
+        this.addStoreProductModel.sales_note = this.addForm.value.sales_note;
     }
 
 

@@ -485,7 +485,10 @@
                                                     <tr *ngFor="let data of rowSelectionTableInsuranceList.data">
                                                         <td>{{data.insurance_name}}</td>
                                                         <td>{{data?.policy_no}}</td>
-                                                        <td>{{(data.price*data.num).toFixed(2)}}元</td>
+                                                        <td>
+                                                            <span *ngIf="data?.status!=3">{{(data.price*data.num).toFixed(2)}}元</span>
+                                                            <span *ngIf="data?.status==3">0元</span>
+                                                        </td>
                                                         <td>
                                                            {{data?.start_date+'~'+data?.end_date}}
                                                         </td>
@@ -495,11 +498,10 @@
                                                         </td>
                                                         <td>
                                                             <span *ngIf="data?.status!=2">暂无</span>
-                                                            <!-- href="" target="_blank" -->
                                                             <a *ngIf="data?.status==2" (click)="seeDetail(data?.id)">{{data.insurance_name}}.pdf</a>
                                                         </td>
                                                         <td>
-                                                            <a>查看参保人</a>
+                                                            <a (click)="member(data)">查看参保人</a>
                                                         </td>
                                                         <td>
                                                             <span *ngIf="data?.status==0">未投</span>
