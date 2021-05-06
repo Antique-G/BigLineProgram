@@ -108,6 +108,12 @@ const MENUITEMS = [
       { state: 'financefreeDTravel', name: '自由行订单列表' , permission_name: 'financial_freedom_order' },
     ]
   },
+  // {
+  //   title: '其他', icon: 'compass', permission_name: 'admin_financial' ,
+  //   children: [
+  //     { state: 'lottery', name: '抽奖活动' , permission_name: 'financial_group_order' },
+  //   ]
+  // },
 
 
 ];
