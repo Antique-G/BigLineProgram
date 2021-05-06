@@ -245,17 +245,19 @@
                                 </td>
                                 <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
                                     <div fxLayout="column" fxLayoutGap="5px">
-                                        <div>基础保险:
-                                            <ng-container *ngFor="let ins of data.price_detail.data">
+                                        <div>
+                                            <ng-container *ngFor="let ins of data.insurance.data;let i =index">
                                                 <ng-container *ngIf="ins?.item_type==1">
-                                                    <div><a>{{ins.title}}</a></div>
+                                                    <span *ngIf="i==0">基础保险:</span>
+                                                    <div><a (click)="seeDetail(ins)">{{ins.insurance_name}}</a></div>
                                                 </ng-container>
                                             </ng-container>
                                         </div>
-                                        <div>额外保险:
-                                            <ng-container *ngFor="let ins of data.price_detail.data">
-                                                <ng-container *ngIf="ins?.item_type==2">
-                                                    <div><a>{{ins.title}}</a></div>
+                                        <div>
+                                            <ng-container *ngFor="let insExtra of data.insurance.data;let j =index">
+                                                <ng-container *ngIf="insExtra?.item_type==2">
+                                                    <span *ngIf="j==1">额外保险:</span>
+                                                    <div><a (click)="seeDetail(insExtra)">{{insExtra.insurance_name}}</a></div>
                                                 </ng-container>
                                             </ng-container>
 

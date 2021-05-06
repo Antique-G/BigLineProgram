@@ -253,20 +253,33 @@
                                                                     </nz-form-item>
                                                                 </ng-container>
                                                             </ng-container>
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">现订单总金额</nz-form-label>
+                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">订单当前金额合计</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" />
+                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" readonly/>
                                                                     </nz-form-control>
                                                                 </div>
-                                                            </nz-form-item>
-
-
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                                                <div nz-row style="margin-left: 122px;">
-                                                                    <span style="font-size: 19px;font-weight: bold;">实付总金额:</span>
-                                                                    <span style="font-size: 19px;font-weight: bold;color: red;margin-left:10px">{{price_receive}}</span>
+                                                                <div nz-row style="margin-left: 136px;">
+                                                                    <div >
+                                                                        <span class="total-title">已收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{price_receive}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">退款金额:</span>
+                                                                        <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
+                                                                    </div>
+            
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">实收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">还需收款金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
+                                                                    </div>
+                                                                   
+                                                                    
                                                                 </div>
                                                             </nz-form-item>
                                                         </div>
@@ -442,23 +455,35 @@
                                                                     </nz-form-item>
                                                                 </ng-container>
                                                             </ng-container>
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">现订单总金额</nz-form-label>
+                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">订单当前金额合计</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" />
+                                                                        <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" readonly/>
                                                                     </nz-form-control>
                                                                 </div>
-                                                            </nz-form-item>
-
-
-                                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                                                <div nz-row style="margin-left: 122px;">
-                                                                    <span style="font-size: 19px;font-weight: bold;">实付总金额:</span>
-                                                                    <span style="font-size: 19px;font-weight: bold;color: red;margin-left:10px">{{price_receive}}</span>
+                                                                <div nz-row style="margin-left: 136px;">
+                                                                    <div >
+                                                                        <span class="total-title">已收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{price_receive}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">退款金额:</span>
+                                                                        <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
+                                                                    </div>
+            
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">实收金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
+                                                                    </div>
+                                                                    <div  class="marginLeft-50">
+                                                                        <span class="total-title">还需收款金额:</span>
+                                                                        <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
+                                                                    </div>
+                                                                   
+                                                                    
                                                                 </div>
                                                             </nz-form-item>
-
                                                         </div>
 
                                                     </div>

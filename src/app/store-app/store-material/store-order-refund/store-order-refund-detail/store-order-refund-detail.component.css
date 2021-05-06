@@ -109,3 +109,28 @@
 .ant-picker-calendar-date-content {
     height: 46px !important;
 }
+
+
+
+.total-title{
+    font-size: 14px;font-weight: 600;
+}
+.red{
+    color: red
+}
+.marginLeft-10{
+    margin-left:10px
+}
+.marginLeft-5{
+    margin-left:5px
+}
+.marginLeft-50{
+    margin-left:50px
+
+}
+.retruning{
+    color: #ccc;
+}
+.sub-title{
+    font-size: 14px;
+}
