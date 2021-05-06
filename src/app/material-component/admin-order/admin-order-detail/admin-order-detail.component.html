@@ -48,7 +48,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="group_id" nzBorderless [ngModel]="detailModel?.group_id" />
+                                                        <input nz-input formControlName="group_id" nzBorderless readonly  [ngModel]="detailModel?.group_id" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -57,7 +57,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_member">团队总人数</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="group_member" nzBorderless [ngModel]="detailModel?.member_total" />
+                                                        <input nz-input formControlName="group_member" nzBorderless readonly [ngModel]="detailModel?.member_total" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -66,7 +66,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="member_min" nzBorderless [ngModel]="detailModel?.member_min" />
+                                                        <input nz-input formControlName="member_min" nzBorderless readonly [ngModel]="detailModel?.member_min" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -75,7 +75,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_max">最大成团人数</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="member_max" nzBorderless [ngModel]="isMemberMax" />
+                                                        <input nz-input formControlName="member_max" nzBorderless readonly [ngModel]="isMemberMax" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -84,7 +84,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="active_date">成团日期</nz-form-label>
                                                     <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="active_date" nzBorderless [ngModel]="isActiveDate" />
+                                                        <input nz-input formControlName="active_date" nzBorderless readonly [ngModel]="isActiveDate" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -93,7 +93,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="returnDate" nzBorderless [ngModel]="isReturnDate" />
+                                                        <input nz-input formControlName="returnDate" nzBorderless readonly [ngModel]="isReturnDate" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>

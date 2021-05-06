@@ -32,9 +32,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
     refundLog: any[] = [];
 
     insuranceList: any[] = [];
-      // 附加/优惠显示
-      distBool: Boolean = false
-      appendBool: Boolean = false
+
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
@@ -223,15 +221,15 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
 
 
 
-    member(data:any) {
+    member(data: any) {
         const editmodal = this.modal.create({
             nzTitle: '查看参保人',
             nzContent: StoreOrderMemberComponent,
             nzWidth: 1000,
             nzComponentParams: {
                 data: {
-                    data:data,
-                    detail:this.detailModel
+                    data: data,
+                    detail: this.detailModel
                 }
             },
             nzFooter: [
