@@ -169,7 +169,7 @@
                                         <ng-container>
                                             <div><a (click)="base(tab,data)"  *ngIf="data?.insurance_status==0">购买保险</a>
                                             </div>
-                                            <div><a *ngIf="data?.insurance_status==1">出单中</a>
+                                            <div><a *ngIf="data?.insurance_status==1" (click)="base(tab,data)">出单中</a>
                                             </div>
                                             <div><a *ngIf="data?.insurance_status==2">已出单</a>
                                             </div>
