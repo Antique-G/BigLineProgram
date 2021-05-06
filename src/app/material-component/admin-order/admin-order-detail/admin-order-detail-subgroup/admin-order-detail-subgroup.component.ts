@@ -11,6 +11,7 @@ import { AODSubgroupSendsmsComponent } from './a-o-d-subgroup-sendsms/a-o-d-subg
 import { AODSubgroupSetguideComponent } from './a-o-d-subgroup-setguide/a-o-d-subgroup-setguide.component';
 import { environment } from '../../../../../environments/environment';
 import { AdminOrderDSInsComponent } from './admin-order-d-s-ins/admin-order-d-s-ins.component';
+import { AdminOrderGroupTravelService } from '../../../../../services/admin/admin-order-group-travel.service';
 
 
 @Component({
@@ -56,8 +57,12 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
     endDate: any;
 
 
+    // 保单
+    order_insurance_id: any;
+
     constructor(public message: NzMessageService, public modal: NzModalService, public activatedRoute: ActivatedRoute,
-        public dialog: MatDialog, public adminOrderService: AdminOrderService, public router: Router,) {
+        public dialog: MatDialog, public adminOrderService: AdminOrderService, public router: Router, private msg: NzMessageService,
+        public adminOrderGroupTravelService: AdminOrderGroupTravelService, ) {
 
         this.orderSmsModel = {
             order_ids: []
@@ -571,6 +576,27 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
                 })
             })
         })
+    }
+
+
+    // 下载保单
+    seeDetail(data: any) {
+        this.order_insurance_id = data.id;
+        const msgId = this.msg.loading('正在下载电子保单', { nzDuration: 0 }).messageId;
+            this.adminOrderGroupTravelService.downloadFile(this.order_insurance_id).subscribe(res => {
+                console.log("res", res)
+                const link = document.createElement('a');
+                const blob = new Blob([res], {type: 'application/pdf'});
+                link.setAttribute('href', window.URL.createObjectURL(blob));
+                link.setAttribute('download', data.insurance_name+'-'+new Date().getTime() + '.pdf');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                this.msg.remove(msgId);
+                this.msg.success('下载电子保单成功')
+                // window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+            })
     }
 
 }
