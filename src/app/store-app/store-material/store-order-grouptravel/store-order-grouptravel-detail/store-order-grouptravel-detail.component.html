@@ -378,6 +378,74 @@
                     </div>
                 </mat-card>
 
+                <mat-card *ngIf="insuranceList?.length>0">
+                    <div>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="row" style="padding: 15px 15px 0;" fxLayoutAlign="start center">
+                                <h4 style="margin-right: 20px;">购买保险记录</h4>
+                                <button nz-button nzSize="small" nzType="primary" *ngIf="false" >添加保险</button>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                <div class="mat-elevation-z8">
+                                    <nz-table #rowSelectionTableInsuranceList [nzData]="insuranceList">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center;">保险名称</th>
+                                                <th style="text-align: center;">保险单号</th>
+                                                <th style="text-align: center;">保费</th>
+                                                <th style="text-align: center;">起&终止保日期</th>
+                                                <th style="text-align: center;">购买日期</th>
+                                                <!-- <th style="text-align: center;">电子保单</th> -->
+                                                <th style="text-align: center;">参保人列表</th>
+                                                <th style="text-align: center;">购买状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of rowSelectionTableInsuranceList.data">
+                                                <td>{{data.insurance_name}}</td>
+                                                <td>{{data?.policy_no}}</td>
+                                                <td>
+                                                    <span *ngIf="data?.status!=3">{{(data.price*data.num).toFixed(2)}}元</span>
+                                                    <span *ngIf="data?.status==3">0元</span>
+                                                </td>
+                                                <td>
+                                                   {{data?.start_date+'~'+data?.end_date}}
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="data?.status==0">暂无</span>
+                                                  <span *ngIf="data?.status!=0"> {{ data.updated_at|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                                                </td>
+                                                <!-- <td>
+                                                    <span *ngIf="data?.status!=2">暂无</span>
+                                                    href="" target="_blank"
+                                                    <a *ngIf="data?.status==2" (click)="seeDetail(data)">{{data.insurance_name}}.pdf</a>
+                                                </td> -->
+                                                <td>
+                                                    <a (click)="member(data)">查看参保人</a>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="data?.status==0">未投</span>
+                                                    <span *ngIf="data?.status==1">出单中</span>
+                                                    <span *ngIf="data?.status==2">已出单</span>
+                                                    <span *ngIf="data?.status==3">已退</span>
+                                                </td>
+                                              
+
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </nz-table>
+                                </div>
+                                <!-- <div fxLayout="row" fxLayoutAlign="end center">
+                                    <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.refund_amount}}</span>
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                </mat-card>
 
 
                 <mat-card>
@@ -423,24 +491,38 @@
                                                 <div style="width: 50%;">补房差</div>
                                                 <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_diff}}</div>
                                             </div>
-                                            <ng-container *ngIf="detailModel?.price_other!=0">
+                                            <h5 class="title" *ngIf="insuranceList?.length>0">保险</h5>
+                                            <ng-container>
+                                                <ng-container *ngFor="let insurance of insuranceList">
+                                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                        <!-- 附加收费 -->
+                                                        <div class="text-padding" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                            <div style="width: 50%;">{{insurance?.title}}</div>
+                                                            <div style="width: 50%;">￥{{insurance?.price}}*{{insurance?.num}}</div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </ng-container>
+                                            <!--  *ngIf="detailModel?.price_other!=0" -->
+                                            <h5 class="title" *ngIf="appendBool">附加</h5>
+                                            <ng-container>
                                                 <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                    <ng-container *ngIf="fee?.type==0">
+                                                    <ng-container *ngIf="fee?.type==0&&[1,2].indexOf(fee?.item_type)==-1">
                                                         <div fxLayout="column" fxLayoutAlign="start stretch">
                                                             <!-- 附加收费 -->
-                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                            <div class="text-padding" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                                 <div style="width: 50%;">{{fee?.title}}</div>
-                                                                <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                                <div style="width: 50%;">￥{{fee?.price}}*{{fee?.num}}</div>
                                                             </div>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
                                             </ng-container>
-
-                                            <ng-container *ngIf="detailModel?.discount_other!=0">
+                                            <h5 class="title" *ngIf="distBool">优惠</h5>
+                                            <ng-container  *ngIf="detailModel?.discount_other!=0">
                                                 <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
                                                     <ng-container *ngIf="fee?.type==1">
-                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                        <div class="text-padding" fxLayout="column" fxLayoutAlign="start stretch">
                                                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                                 <!-- 优惠 -->
                                                                 <div style="width: 50%;">{{fee?.title}}</div>
