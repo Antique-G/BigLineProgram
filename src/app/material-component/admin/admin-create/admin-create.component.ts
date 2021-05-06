@@ -152,8 +152,10 @@ export class AdminCreateComponent implements OnInit {
     })
     this.adminRoleService.roleList(1, 50,'',).subscribe((result: any) => {
       this.listOfOption = result?.data;   //角色选项
+      this.listOfOption =this.listOfOption .filter((item:any) => item.status == 1);
+      console.log('过滤掉禁用的',this.listOfOption)
+     
     });
-
     
   }
 
