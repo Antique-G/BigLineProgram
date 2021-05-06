@@ -116,6 +116,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             isDay: ['',],
             insurance_base: ['',],
             insurance_extra: ['',],
+            sales_note: ['',],
         });
         this.planForm = this.fb.group({
             internal_remarks: ['',],
