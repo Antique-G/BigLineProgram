@@ -97,7 +97,8 @@ export class AdminOrderRefundDetailComponent implements OnInit {
             this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
                 this.detailModel = res.data;
                 console.log('结果是 :>> ', this.detailModel);
-                this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
+                this.isType = this.detailModel.type == 0 ? "全部退款" : this.detailModel.type == 1 ? "部分退款" : this.detailModel.type == 2 ? '多付返还' : '退保';
+
                 this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
                 this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
                 this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;

@@ -140,7 +140,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
             this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
                 this.detailModel = res.data;
                 console.log('退款2323结果是 :>> ', this.detailModel);
-                this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款";
+                this.isType = this.detailModel.type == 0 ? "全部退款" : this.detailModel.type == 1 ? "部分退款" : this.detailModel.type == 2 ? '多付返还' : '退保';
+
+
                 // 订单价格显示
                 this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
                 this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
@@ -494,7 +496,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.basicRefund = '（' + Number(this.price_total) + '-' + Number(this.nowOrderMoney) + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = this.toDecimal(this.refund_amount);
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -504,7 +506,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     numTest(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = this.toDecimal(this.refund_amount);
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -513,7 +515,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     numTest1(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = this.toDecimal(this.refund_amount);
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -654,7 +656,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
         this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -663,7 +665,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
     numTestPack(data: any) {
-        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -671,7 +673,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     }
 
     numTestPack2(data: any) {
-        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut)-Number(this.pendingPay);
+        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
@@ -746,15 +748,24 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
     priceDetailChange() {
         let other = this.addForm.value.otherList;
+        console.log("111111", other)
         let otherPrice = 0;
         other.forEach((element: any) => {
             if (element?.type == 0) {
-                otherPrice = otherPrice + Number(element?.price) * Number(this.lastPeople);
+                // 保险归为0：，1:,2
+                if (element?.item_type == 1 || element?.item_type == 2) {
+                    otherPrice = otherPrice + Number(element?.price) * Number(this.lastPeople);
+                }
+                else {
+                    otherPrice = otherPrice + Number(element?.price) * Number(element?.num);
+                }
+
             }
             else {
-                otherPrice = otherPrice - Number(element?.price) * Number(this.lastPeople);
+                otherPrice = otherPrice - Number(element?.price) * Number(element?.num);
             }
         });
+        console.log("otherPriceasdasd", otherPrice)
         return otherPrice
     }
 
