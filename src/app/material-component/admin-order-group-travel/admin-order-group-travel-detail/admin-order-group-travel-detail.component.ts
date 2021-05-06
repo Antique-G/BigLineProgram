@@ -411,6 +411,69 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         });
     }
 
+    saveEdit(data: any): void {
+        this.editMemberModel.id = data.id;
+        this.editMemberModel.name = data.name;
+        this.editMemberModel.eng_name = data.eng_name;
+        this.editMemberModel.gender = data.gender;
+        this.editMemberModel.phone = data.phone;
+        this.editMemberModel.id_type = data.id_type;
+        this.editMemberModel.id_num = data.id_num;
+        if (this.idChangeBir === false) {
+            this.editMemberModel.birthday = data.birthday;
+        }
+        else {
+            this.editMemberModel.birthday = this.idChangeBirDate;
+        }
+        this.editMemberModel.assembling_place = data.assembling_place;
+        if (data.assembling_time != null) {
+            this.editMemberModel.assembling_time = format(new Date(data.assembling_time), 'HH:mm');
+        }
+        console.log('v33333333 ', this.editMemberModel);
+
+        // 证件照必填
+        if (this.detailModel?.product?.data?.request_id_num == 1) {
+            if (this.editMemberModel.birthday == null) {
+                this.msg.error('出生年月日不能为空');
+            }
+            else {
+                this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+                    console.log('结果是 :>> ', res);
+                    this.dataMember.filter(function (item: any, index: any) {
+                        if (item.id === data.id) {
+                            item.edit = false;
+                        }
+                    });
+                    this.getgroupTravelDetail();
+                })
+            }
+        }
+        else {
+            if (this.editMemberModel.birthday == null) {
+                this.editMemberModel.birthday = '';
+            }
+            this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+                console.log('结果是 :>> ', res);
+                this.dataMember.filter(function (item: any, index: any) {
+                    if (item.id === data.id) {
+                        item.edit = false;
+                    }
+                });
+                this.getgroupTravelDetail();
+            })
+        }
+
+
+    }
+
+    // 修改出生日期
+    onChangeBir(event: any) {
+        console.log('event :>> ', event);
+        if (event != null) {
+            this.idChangeBir = true;
+            this.idChangeBirDate = format(new Date(event), 'yyyy-MM-dd');
+        }
+    }
 
 
     // 退保
