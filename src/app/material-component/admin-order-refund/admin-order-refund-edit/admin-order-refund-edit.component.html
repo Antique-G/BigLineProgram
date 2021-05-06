@@ -411,7 +411,7 @@
                                                             <span class="marginLeft-50 total-title">已收金额:<span class="marginLeft-5">￥{{price_receive}}</span></span>
                                                             <span class="marginLeft-50 total-title">退款金额:<span class="marginLeft-5">￥{{detailModel?.order?.data?.refund_amount}}</span></span>
                                                             <span class="marginLeft-50 total-title">实收金额:<span class="marginLeft-5">￥{{detailModel?.order?.data?.amount_received}}</span></span>
-                                                            <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{price_total-detailModel?.order?.data?.amount_received}}</span></span>
+                                                            <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{pendingPay}}</span></span>
                                                             <nz-divider nzDashed ></nz-divider>
                                                         </div>
                                                         <div nz-row>
@@ -802,7 +802,7 @@
                                                             <span class="marginLeft-50 total-title">已收金额:<span class="marginLeft-5">￥{{price_receive}}</span></span>
                                                             <span class="marginLeft-50 total-title">退款金额:<span class="marginLeft-5">￥{{detailModel?.order?.data?.refund_amount}}</span></span>
                                                             <span class="marginLeft-50 total-title">实收金额:<span class="marginLeft-5">￥{{detailModel?.order?.data?.amount_received}}</span></span>
-                                                            <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{price_total-detailModel?.order?.data?.amount_received}}</span></span>
+                                                            <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{pendingPay}}</span></span>
                                                             <nz-divider nzDashed ></nz-divider>
                                                         </div>
 

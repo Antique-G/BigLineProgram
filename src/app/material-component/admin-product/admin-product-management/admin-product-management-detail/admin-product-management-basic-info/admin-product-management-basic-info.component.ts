@@ -143,6 +143,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             include_insurance_fee: 0,
             insurance_base: '',
             insurance_extra: [],
+            sales_note: [],
         }
 
     }
@@ -174,6 +175,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             include_insurance_fee: new FormControl(0, [Validators.required]),
             insurance_base: new FormControl('', [Validators.required]),
             insurance_extra: [''],
+            sales_note: [''],
         });
         // 每次表单数据发生变化的时候更新错误信息
         this.addForm.valueChanges.subscribe(data => {
@@ -339,6 +341,8 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.detailUpdateModel.include_insurance_fee = this.addForm.value.include_insurance_fee;
         this.detailUpdateModel.insurance_base = this.baseInsuranceId;
         this.detailUpdateModel.insurance_extra = this.extraInsuranceId;
+        this.detailUpdateModel.sales_note = this.addForm.value.sales_note;
+
     }
 
 
@@ -365,6 +369,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.addForm.get('child_height_max')?.setValue(this.dataProductDetailModel.child_height_max);
         this.addForm.get('reserve_num_min')?.setValue(this.dataProductDetailModel.reserve_num_min);
         this.addForm.get('reserve_num_max')?.setValue(this.dataProductDetailModel.reserve_num_max);
+        this.addForm.get('sales_note')?.setValue(this.dataProductDetailModel.sales_note);
+
+
         let a = this.dataProductDetailModel.assembling_place.data;
         let aNums: any[] = []
         for (let int of a) {
