@@ -527,9 +527,14 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
         // 基础退款金额
-        this.bascie_money = (Number(this.price_total) - Number(this.nowOrderMoney)) * Number(this.percentage);
+        console.log("99999999", Number(this.price_total) * 100, Number(this.nowOrderMoney) * 100, (Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100),);
+        console.log("0000000000",((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage)*100),((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage)*100)/100)
+        this.bascie_money = ((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage))/100;
+        
+        this.bascie_money = ((Number(this.bascie_money)*100)/100).toFixed(2);
+      
         // 保留两位小数
-        this.bascie_money = this.toDecimal(this.bascie_money);
+        // this.bascie_money = this.toDecimal(this.bascie_money);
         this.basicRefund = '（' + Number(this.price_total) + '-' + Number(this.nowOrderMoney) + '）*比例' + this.percent + '%=￥' + this.bascie_money;
 
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
@@ -689,9 +694,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
         // 当前订单价钱
         this.nowOrderMoneyPack = Number(packs) + Number(priceDetail);
         // 基础退款金额
-        this.isPackRefundBasic = (Number(this.price_total) - Number(this.nowOrderMoneyPack)) * Number(this.percentage);
-        this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
+        this.isPackRefundBasic = ((Number(this.price_total)*100 - Number(this.nowOrderMoneyPack)*100) * Number(this.percentage))/100;
+        // this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
+        this.isPackRefundBasic = ((Number(this.isPackRefundBasic) * 100) / 100).toFixed(2);
         
+
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
         this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
