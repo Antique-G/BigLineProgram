@@ -44,9 +44,6 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     idChangeBir = false;
     idChangeBirDate: any;
 
-    // 附加/优惠显示
-    distBool: Boolean = false
-    appendBool: Boolean = false
     // 保险合计
     insuranceMoney: any = 0;
 
