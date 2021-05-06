@@ -178,7 +178,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                         this.otherArray.push(this.fb.group({
                             name: new FormControl(priceArr[i]?.title),
                             namePrice: new FormControl(priceArr[i]?.namePrice),
-                            price: new FormControl(0),
+                            price: new FormControl(priceArr[i].item_type==3?priceArr[i].price:0),
                             num: new FormControl(priceArr[i]?.num),
                             item_type: new FormControl(priceArr[i]?.item_type),
                             type: new FormControl(priceArr[i]?.type),
