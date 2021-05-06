@@ -495,9 +495,8 @@
                                             <ng-container>
                                                 <ng-container *ngFor="let insurance of insuranceList">
                                                     <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                        <!-- 附加收费 -->
                                                         <div class="text-padding" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                            <div style="width: 50%;">{{insurance?.title}}</div>
+                                                            <div style="width: 50%;">{{insurance?.insurance_name}}</div>
                                                             <div style="width: 50%;">￥{{insurance?.price}}*{{insurance?.num}}</div>
                                                         </div>
                                                     </div>

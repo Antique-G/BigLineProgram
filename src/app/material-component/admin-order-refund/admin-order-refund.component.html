@@ -94,7 +94,12 @@
                                                         <td>{{data.product_name}}</td>
                                                         <td>{{data.store_name}}</td>
                                                         <td>{{data.refund_reason}}</td>
-                                                        <td>{{data.type=='0'?'全额退款':'部分退款'}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.type==0">全额退款</span>
+                                                            <span *ngIf="data.type==1">部分退款</span>
+                                                            <span *ngIf="data.type==2">多付返还</span>
+                                                            <span *ngIf="data.type==3">退保</span>
+                                                        </td>
                                                         <td>
                                                             <span *ngIf="data.status===0">已取消</span>
                                                             <span *ngIf="data.status===1">待审核</span>
@@ -220,7 +225,12 @@
                                                         <td>{{data.product_name}}</td>
                                                         <td>{{data.store_name}}</td>
                                                         <td>{{data.refund_reason}}</td>
-                                                        <td>{{data.type=='0'?'全额退款':'部分退款'}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.type==0">全额退款</span>
+                                                            <span *ngIf="data.type==1">部分退款</span>
+                                                            <span *ngIf="data.type==2">多付返还</span>
+                                                            <span *ngIf="data.type==3">退保</span>
+                                                        </td>
                                                         <td>
                                                             <span *ngIf="data.status===0">已取消</span>
                                                             <span *ngIf="data.status===1">待审核</span>

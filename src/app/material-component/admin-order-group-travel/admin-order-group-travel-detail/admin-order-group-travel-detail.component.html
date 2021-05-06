@@ -511,7 +511,7 @@
                                                             <span *ngIf="data?.status==3">已退</span>
                                                         </td>
                                                         <td>
-                                                            <a nz-button nzType="link" nzBlock (click)="surrenderHandle(data)" *ngIf="data?.item_type==2" >退保</a>
+                                                            <a nz-button nzType="link" nzBlock (click)="surrenderHandle(data)" *ngIf="data?.item_type==2&&detailModel?.order_status==2" >退保</a>
                                                         </td>
 
                                                     </tr>
@@ -575,15 +575,14 @@
                                                     <ng-container>
                                                         <ng-container *ngFor="let insurance of insuranceList">
                                                             <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                                <!-- 附加收费 -->
                                                                 <div class="text-padding" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                                    <div style="width: 50%;">{{insurance?.title}}</div>
+                                                                    <div style="width: 50%;">{{insurance?.insurance_name}}</div>
                                                                     <div style="width: 50%;">￥{{insurance?.price}}*{{insurance?.num}}</div>
                                                                 </div>
                                                             </div>
                                                         </ng-container>
                                                     </ng-container>
-                                                    <!--  *ngIf="detailModel?.price_other!=0" -->
+                                                  
                                                     <h5 class="title" *ngIf="appendBool">附加</h5>
                                                     <ng-container>
                                                         <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
