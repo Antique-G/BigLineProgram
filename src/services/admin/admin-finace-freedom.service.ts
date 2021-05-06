@@ -84,7 +84,7 @@ export class AdminFinaceFreedomService {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
       params: params
     };
-    return this.httpClient.get<OrderTotalModel>(this.urls.GetAdminOrderIndenOrderTotal, findhttpOptions)
+    return this.httpClient.get<OrderTotalModel>(this.urls.GetAdminFinanceFreeTravelToatl, findhttpOptions)
       .pipe(
         catchError(this.handleError)
       )
