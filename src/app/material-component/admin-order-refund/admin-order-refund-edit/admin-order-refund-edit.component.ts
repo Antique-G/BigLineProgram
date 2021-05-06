@@ -690,6 +690,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.nowOrderMoneyPack = Number(packs) + Number(priceDetail);
         // 基础退款金额
         this.isPackRefundBasic = (Number(this.price_total) - Number(this.nowOrderMoneyPack)) * Number(this.percentage);
+        this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
+        
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
         this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
