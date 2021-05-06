@@ -101,10 +101,7 @@ export const AdminUrls = {
     PostAdminProductTripDel: api + '/admin/product_trip_del',
     PostAdminFreeTraveDel: api + '/admin/inden_trip_del',
 
-    PostAdminProductTrip: api + '/admin/product_trip', //行程
-    PostAdminProductIndenTrip: api + '/admin/inden_product_trip', //行程
-    PostAdminProductTripDel: api + '/admin/product_trip_del',
-    PostAdminFreeTraveDel: api + '/admin/inden_trip_del',
+
 
 
     GetAdminUserCommissionList: api + '/admin/dist_record',  //用户分销的佣金列表
@@ -113,11 +110,7 @@ export const AdminUrls = {
     GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
     GetAdminUserMoneyLogList: api + '/admin/user_money_log',  //金额变动记录
 
-    GetAdminUserCommissionList: api + '/admin/dist_record',  //用户分销的佣金列表
-    PostAdminUserCommissionAudit: api + '/admin/dist/check',   //佣金通过/拒绝审核
-    PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   //佣金通过/拒绝审核
-    GetAdminUserWithdrawList: api + '/admin/user_withdraw',  //提现列表
-    GetAdminUserMoneyLogList: api + '/admin/user_money_log',  //金额变动记录
+
 
 
 
@@ -136,9 +129,7 @@ export const AdminUrls = {
     PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
     PostAdminTermsSetStatus: api + '/admin/terms/set_status', // 条款管理开启
 
-    GetAdminTermsManageList: api + '/admin/terms',   // 条款管理列表
-    PostAdminTermsCheckStatus: api + '/admin/terms/set_check',  // 条款管理审核
-    PostAdminTermsSetStatus: api + '/admin/terms/set_status', // 条款管理开启
+
 
     GetAdminTermTemplateList: api + '/admin/terms_temp',   // 模版条款的列表
     PostAdminTermTemplateCreate: api + '/admin/terms_temp',   // 模版条款的添加
@@ -181,8 +172,7 @@ export const AdminUrls = {
     PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
     GetAdminOrderExport: api + '/admin/order/export',  //订单导出
 
-    PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  //订单改价（附加收费、优惠）
-    GetAdminOrderExport: api + '/admin/order/export',  //订单导出
+
 
 
 
@@ -201,20 +191,7 @@ export const AdminUrls = {
     PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
-
-
-
-    GetAdminOrderGroupProductList: api + '/admin/order/group_product',  //跟团游订单列表
-    GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  //跟团游订单详情
-    GetAdminProSearch: api + '/admin/product/search',  //跟团游产品搜索
-    PostAdminProductOrderGroup: api + '/admin/order/group_product',  //跟团游后台下订单
     GetAdminProductToBuy: api + '/admin/product/to_buy/',  //跟团游后台下订单获取信息
-    PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  //确认收款
-    GetAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交前展示）
-    PostAdminOrderChangeDate: api + '/admin/order/change_date',  //订单改日期（提交）
-    PostAdminEditMember: api + '/admin/order/edit_member',  //修改出行人信息
-    PostAdminOrderEditInfo: api + '/admin/order/edit_info',  //修改订单信息
-    PostAdminOrderRecover: api + '/admin/order/recover',  //恢复订单
     PostAdminEffectIns: api + '/admin/insurance/effect_insurance',  //投保
     GetAdminInsOrderDown: api + '/admin/insurance/order_down',  //电子保单
     PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  //退保
@@ -258,12 +235,6 @@ export const AdminUrls = {
     DeleteAdminContract: api + '/admin/store_contract/',  // 删除合同
     PostAdminContractCreate: api + '/admin/store_contract',   // 合同添加
 
-    GetWeChatPageBlockList: api + '/admin/page_block',  // 页面模块列表
-    PostWeChatPageBlockCreate: api + '/admin/page_block',   // 添加
-    PutWeChatPageBlockUpdate: api + '/admin/page_block/',   // 修改
-    GetWeChatPageBlockDeatil: api + '/admin/page_block/',   // 详情
-    GetWeChatBlockTypePageList: api + '/admin/page_type',  // 可配置类型
-    GetWeChatBlockProList: api + '/admin/product_search',  // 产品搜索
 
 
     GetAdminGuideList: api + '/admin/guide',  //导游列表
@@ -275,12 +246,7 @@ export const AdminUrls = {
 
 
 
-    GetAdminGuideList: api + '/admin/guide',  //导游列表
-    PostAdminGuideCreate: api + '/admin/guide',   // 导游添加
-    PutAdminGuideUpdate: api + '/admin/guide/',   // 导游修改
-    GetAdminGuideDetail: api + '/admin/guide/',   // 导游详情
-    DeleteAdminGuide: api + '/admin/guide/',   // 导游删除
-    PostAdminGuideSetStatus: api + '/admin/guide/set_status',   // 导游启用 
+
 
     PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
 
@@ -297,18 +263,6 @@ export const AdminUrls = {
     GetAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码不带参数
     PostAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码带参数
 
-    PostAdminUploadImg: api + '/admin/upload_image', // 图片上传
-
-    GetAdminRegionService: api + '/admin/region_service',   // 区域客服列表
-    PostAdminRegionServiceCreate: api + '/admin/region_service', //区域客服创建
-    DeleteAdminRegionService: api + '/admin/region_service/', //删除
-    PutAdminRegion: api + '/admin/region_service/',    //区域更新
-
-    GetAdminOrderOrderTotal: api + '/admin/order/order_total',   //跟团游订单统计
-    GetAdminOrderIndenOrderTotal: api + '/admin/order/inden_order_total',   //自由行订单统计
-    PostAdminOrderGetWeChatPayQr: api + '/admin/order/get_wechat_pay_qr',   //生成微信收款码
-    GetAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码不带参数
-    PostAdminOrderAlipayCode: api + '/admin/order/get_alipay_code',   //生成支付宝收款码带参数
 
     // 财务模块
     GetAdminFinanceFreeTravelList: api + '/admin/finance/free_travel',  //自由行订单列表
