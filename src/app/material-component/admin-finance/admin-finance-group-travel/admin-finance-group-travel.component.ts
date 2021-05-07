@@ -219,8 +219,8 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
       return
     }
    this.modal.confirm({
-      nzTitle: '提示',
-      nzContent: '请确认是否该操作',
+      nzTitle: '财务确认收款',
+      nzContent: '请确认是否该操作,确认后不可撤销',
       nzOnOk: () => this.adminFinaceGroupService.confrmPayLog(data.id).subscribe(res=>this.groupTravel())
     });
     
