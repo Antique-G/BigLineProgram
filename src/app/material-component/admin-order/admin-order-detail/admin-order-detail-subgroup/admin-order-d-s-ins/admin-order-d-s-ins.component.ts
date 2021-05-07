@@ -21,6 +21,9 @@ export class AdminOrderDSInsComponent implements OnInit {
     memberData: any[] = [];
     order_id: any;
 
+    isLoadingBtn = false;
+
+
     constructor(public fb: FormBuilder, public adminInsuranceService: AdminInsuranceService,
         public adminOrderService: AdminOrderService, private modal: NzModalService,) {
         this.addForm = this.fb.group({
@@ -71,15 +74,7 @@ export class AdminOrderDSInsComponent implements OnInit {
                 nzComponentParams: {
                     data: res.data
                 },
-                nzFooter: [
-                    {
-                        label: '知道了',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.update()
-                        }
-                    }
-                ]
+                nzFooter: null
             })
             editmodal.afterClose.subscribe(res => {
 
@@ -89,11 +84,16 @@ export class AdminOrderDSInsComponent implements OnInit {
 
 
     update() {
-        
+        this.isLoadingBtn = true;
         this.adminOrderService.effectIns(this.order_id).subscribe(res => {
             console.log("res",res)
-        })
-        // 
+            this.isLoadingBtn = false;
+        },
+          error => {
+            this.isLoadingBtn = false;
+          }
+        )
+     
     }
 
 }

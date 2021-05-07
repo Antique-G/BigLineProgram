@@ -468,15 +468,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     detail:this.detailModel
                 }
             },
-            nzFooter: [
-                {
-                    label: '知道了',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.update()
-                    }
-                }
-            ]
+            nzFooter: null
         })
         editmodal.afterClose.subscribe(res => {
             this.activatedRoute.queryParams.subscribe(params => {
