@@ -524,6 +524,18 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
         this.isExport = this.api + '/admin/group_export/' + this.sub_group_id;
     }
 
+
+
+// // [
+//     {
+//         label: '确定购买',
+//         type: 'primary',
+//         onClick: componentInstance => {
+//             componentInstance?.update()
+//         }
+//     }
+// ]
+
     // 基础保险
     base(tab: any, data: any) {
         const editmodal = this.modal.create({
@@ -538,15 +550,7 @@ export class AdminOrderDetailSubgroupComponent implements OnInit {
 
                 }
             },
-            nzFooter: [
-                {
-                    label: '确定购买',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.update()
-                    }
-                }
-            ]
+            nzFooter: null
         })
         editmodal.afterClose.subscribe(res => {
             this.activatedRoute.queryParams.subscribe(params => {

@@ -62,10 +62,16 @@
                 </div>
 
                 <div class="mat-elevation-z8">
-                    <div>
-                        <div>{{proCode}}</div>
-                        <div>{{tabTitle}}</div>
-                    </div>
+                   <div fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div>
+                            <div>{{proCode}}</div>
+                            <div>{{tabTitle}}</div>
+                        </div>
+                        <div>
+                            <div style="color: red;">若购买的保险为出单中状态，请再次点击，核对购买</div>
+                           
+                        </div>
+                   </div>
                     <nz-table #rowSelectionTable [nzData]="tab?.order?.data" [nzPageSize]="10">
                         <thead>
                             <tr>

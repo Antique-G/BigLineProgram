@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
     selector: 'app-admin-member',
@@ -12,7 +13,7 @@ export class AdminMemberComponent implements OnInit {
     addForm: FormGroup;
     detail: any;
 
-    constructor(public fb: FormBuilder,) {
+    constructor(public fb: FormBuilder,private modal: NzModalService, ) {
         this.addForm = this.fb.group({
             insurance_name: [''],
             policy_no: [''],
@@ -32,8 +33,8 @@ export class AdminMemberComponent implements OnInit {
         this.memberData = memArr;
     }
 
-    update() {
-
-    }
+    update(){
+        this.modal.closeAll();
+      }
 
 }
