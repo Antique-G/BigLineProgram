@@ -7,6 +7,7 @@ import { AdminProductManagementService } from '../../../services/admin/admin-pro
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
 import { environment } from '../../../environments/environment';
+import { AdminRegionService } from '../../../services/admin/admin-region.service';
 
 
 @Component({
@@ -42,7 +43,14 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     product_id = '';
 
 
-    constructor(public fb: FormBuilder, public router: Router,
+    // 城市
+    nzOptions: any[] | null = null;
+    departure_city: any;
+    destination_city: any;
+    isDeparture: any;
+    isDestination: any;
+
+    constructor(public fb: FormBuilder, public router: Router,  public adminRegionService: AdminRegionService,
         public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         public adminProductManagementService: AdminProductManagementService,) {
         this.searchForm = fb.group({
@@ -55,6 +63,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             order_start_dates: [''],
             contact_name: [''],
             contact_phone: [''],
+            departure_city: [''],
+            destination_city: [''],
         });
     }
 
@@ -62,6 +72,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.adminProductManagementService.storeList('').subscribe(res => {
             console.log("24234", res);
             this.storeList = res;
+              // 城市
+              this.adminRegionService.getAllRegionList().subscribe(res => {
+                this.nzOptions = res;
+              })
+            
             // 将上次查询的筛选条件赋值
             let getSeatch = JSON.parse(localStorage.getItem("adminOrderGroupSearch")!);
             this.status = getSeatch?.status ? getSeatch.status : '';
@@ -75,7 +90,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
             this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
-
+            this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
+            this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
 
             this.searchForm.patchValue({
                 status: this.status,
@@ -87,6 +103,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
                 contact_name: this.contact_name,
                 contact_phone: this.contact_phone,
                 store_id: this.store_id,
+                departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
+                destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
             })
 
             this.groupTravel();
@@ -96,7 +114,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     }
 
     groupTravel() {
-        this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+        this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city).subscribe(res => {
             console.log("结果是", res);
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
@@ -105,7 +123,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     }
 
     getTotal() {
-        this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone).subscribe(res => {
+        this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city).subscribe(res => {
             console.log('统计', res?.data);
             this.totalModel = res?.data;
             console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
@@ -122,7 +140,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-            order_end_date: this.order_end_date, page: this.page
+            order_end_date: this.order_end_date, page: this.page,
+            departure_city: this.departure_city, destination_city: this.destination_city
         }
         localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
 
@@ -137,6 +156,30 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.groupTravel();
     }
 
+    onChanges(data: any): void {
+        console.log("点击的结果是", data);
+        if (data !== null) {
+            this.isDeparture = data[data.length - 1];
+        }
+    }
+
+    onChangesDest(data: any): void {
+        console.log("点击的结果是", data);
+        if (data !== null) {
+            this.isDestination = data[data.length - 1];
+        }
+    }
+
+
+    //区域解析
+    cityChange(data: any) {
+        let arr: any[] = []
+        for (let i = 0; i < data.length / 4; i++) {
+            let temp = arr[i] || '' + data.substr(0, 4 * (i + 1))
+            arr.push(temp);
+        }
+        return arr
+    }
 
     setValue() {
         this.status = this.searchForm.value.status;
@@ -150,14 +193,18 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.date_end = this.dateArray[1];
         this.order_start_date = this.dateArray1[0];
         this.order_end_date = this.dateArray1[1];
+        this.departure_city = this.isDeparture;
+        this.destination_city = this.isDestination;
         this.page = 1;
+
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, product_name: this.product_name,
             order_number: this.order_number, product_code: this.product_code, contact_name: this.contact_name,
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
-            order_end_date: this.order_end_date, page: this.page
+            order_end_date: this.order_end_date, page: this.page,
+            departure_city: this.departure_city, destination_city: this.destination_city
         }
         localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
     }
@@ -241,6 +288,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             order_start_dates: '',
             contact_name: '',
             contact_phone: '',
+            departure_city: '',
+            destination_city: '',
         });
     }
 
@@ -252,12 +301,15 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.date_end = this.date_end == null ? '' : this.date_end;
         this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
         this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
+        this.departure_city= this.isDeparture ? this.isDeparture : '',
+        this.destination_city= this.isDestination ? this.isDestination : '',
 
         this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
             '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
             '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
             '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
-            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone;
+            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
+            '&departure_city=' + this.departure_city+ '&destination_city=' + this.destination_city;
         console.log('object :>> ', this.isExport);
     }
 }

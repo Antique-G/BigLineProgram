@@ -7,77 +7,119 @@
                         <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addStep()">添加产品</button>
                     </div>
 
-                    <form [formGroup]="searchForm">
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=10>
-                                <mat-form-field>
-                                    <mat-select placeholder="选择状态" formControlName="status">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option value=0>下架</mat-option>
-                                        <mat-option value=1>上架</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=10>
-                                <mat-form-field>
-                                    <mat-select placeholder="审核状态" formControlName="checkStatus">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option value=0> 未提交审核</mat-option>
-                                        <mat-option value=1>审核中</mat-option>
-                                        <mat-option value=2>已通过</mat-option>
-                                        <mat-option value=3>未通过</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
+                        </nz-form-item>
 
-                            <div fxFlex=10>
-                                <mat-form-field>
-                                    <mat-select placeholder="店铺账号" formControlName="operation_id" [(ngModel)]="operation_id">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option *ngFor="let account of accountList" [value]="account.account_id"> {{account.name}}</mat-option>
-                                    </mat-select>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="checkStatus">审核状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未提交审核'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'审核中'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已通过'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'未通过'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                                </mat-form-field>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="operation_id">店铺账号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择店铺账号" formControlName="operation_id" nzAllowClear [(ngModel)]="operation_id">
+                                        <nz-option *ngFor="let account of accountList" [nzLabel]="account.name" [nzValue]="account.account_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=10>
-                                <mat-form-field>
-                                    <mat-select placeholder="产品标签" formControlName="tag">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option *ngFor="let sort of tagList" [value]="sort.name">
-                                            {{sort.name}}
-                                        </mat-option>
-                                    </mat-select>
+                        </nz-form-item>
 
-                                </mat-form-field>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="tag">产品标签</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear>
+                                        <nz-option *ngFor="let sort of tagList" [nzLabel]="sort.name" [nzValue]="sort.name"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=15>
-                                <mat-form-field>
-                                    <mat-label>产品编码</mat-label>
-                                    <input matInput value="" formControlName="code" placeholder="请输入产品编码">
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex=15>
-                                <mat-form-field>
-                                    <mat-label>产品标题</mat-label>
-                                    <input matInput value="" formControlName="title" placeholder="请输入产品标题">
-                                </mat-form-field>
-                            </div>
-                            <div fxFlex=15>
-                                <mat-form-field>
-                                    <mat-label>几天</mat-label>
-                                    <input matInput value="" formControlName="few_days" placeholder="请输入几天">
-                                </mat-form-field>
-                            </div>
+                        </nz-form-item>
 
-                            <div fxFlex=5>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="code">产品编码/id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="code" placeholder="请输入产品编码/id" />
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=5>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title">产品标题</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="title" placeholder="请输入产品标题" />
+                                </nz-form-control>
                             </div>
-                        </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="departure_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChangesDest($event)" formControlName="destination_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="few_days">几天</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="few_days" placeholder="请输入几天" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                       
                     </form>
 
+
+                   
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
