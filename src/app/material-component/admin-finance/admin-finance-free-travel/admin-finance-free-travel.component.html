@@ -180,18 +180,19 @@
                                 <th>支付流水号/退款流水号</th>
                                 <th>支付时间/退款时间</th>
                                 <th style="text-align: center;">确认收款</th>
+                                <th style="text-align: center;">修改流水</th>
                               </tr>
                           </thead>
                           <tbody>
                             <ng-container *ngFor="let data of rowSelectionTable.data;">
                                 <tr *ngFor="let item of data?.pay_logs?.data;let i=index">
                                   <ng-container *ngIf="i==0">
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data.id}}</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data?.bind_account_name}}</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data.store_name}}</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data.product_name}}</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.id}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data?.bind_account_name}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.store_name}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.product_name}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                         <span [ngSwitch]="data.payment_status">
                                             <p *ngSwitchCase="0">
                                                 待支付
@@ -208,7 +209,7 @@
                                         </span>
                                        
                                     </td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                         <span *ngIf="data.order_status===0">
                                             <nz-badge nzColor="yellow"></nz-badge>已取消
                                         </span>
@@ -222,8 +223,8 @@
                                             <nz-badge nzColor="green"></nz-badge>已完成
                                         </span>
                                     </td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">{{data.price_total}}元</td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.price_total}}元</td>
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                         <span *ngIf="data.cancel_type===0">-</span>
                                         <span *ngIf="data.cancel_type===1">超时未支付</span>
                                         <span *ngIf="data.cancel_type===2">到期未成团自动取消</span>
@@ -231,7 +232,7 @@
                                         <span *ngIf="data.cancel_type===4">用户主动申请退款</span>
                                         <span *ngIf="data.cancel_type===5">平台取消成团</span>
                                     </td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                         <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">-</div>
                                         <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
                                             <span *ngIf="data.refund_status===0">未退款</span>
@@ -242,7 +243,7 @@
   
                                         </div>
                                     </td>
-                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refund?.data.length">
+                                    <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                         <div style="cursor: pointer;">
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                         </div>
@@ -290,9 +291,15 @@
                                             <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="moneyConfirm(item)">
                                         </div>
                                     </td>
+                                    <td>
+                                        <!-- 待确认和后台手动填写收款的才可以修改 "-->
+                                      <div style="cursor: pointer;" *ngIf="item.status==2&&item.pay_way==1">
+                                          <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
+                                      </div>
+                                  </td>
                                 </tr>
-                                <tr *ngFor="let item of data?.refund?.data;let i=index">
-                                    <td [attr.rowspan]="data?.refund?.data.length" *ngIf="i==0">退款</td>
+                                <tr *ngFor="let item of data?.refunds?.data;let i=index">
+                                    <td [attr.rowspan]="data?.refunds?.data.length" *ngIf="i==0">退款</td>
                                     <td>{{item.id}}</td>
                                     <td>{{item.refund_amount}}元</td>
                                     <td>

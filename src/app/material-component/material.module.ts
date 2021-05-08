@@ -164,6 +164,7 @@ import { AdminOrderDSInsComponent } from './admin-order/admin-order-detail/admin
 import { AdminOrderSurrenderComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-surrender/admin-order-surrender.component';
 import { AdminMemberComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
 import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
+import { AdminFinanceChangeTransComponent } from './admin-finance/admin-finance-group-travel/admin-finance-change-trans/admin-finance-change-trans.component';
 
 
 
@@ -350,6 +351,7 @@ import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
     AdminMemberComponent,
     AdminWelcomeComponent,
     AdminLotteryComponent,
+    AdminFinanceChangeTransComponent,
 
   ]
 })
