@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminInsuranceService } from '../../../../../../services/admin/admin-insurance.service';
 import wangEditor from 'wangeditor';
+import { AdminInsuranceService } from '../../../../../../services/admin/admin-insurance.service';
 import { AdminMeetingPlaceService } from '../../../../../../services/admin/admin-meeting-place.service';
 import { AdminProductManagementService } from '../../../../../../services/admin/admin-product-management.service';
 import { AdminProductTagService } from '../../../../../../services/admin/admin-product-tag.service';
@@ -110,7 +110,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     extraInsuranceId: any[] = [];
     insurance_baseData: any;
     insurance_extraData: any;
-
+    extraInsuranceData:any[]=[]
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
@@ -608,6 +608,10 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         let aArr = this.insuranceArr.filter(item => item?.id === data);
         this.baseInsuranceId = aArr[0]?.id;
         this.baseInsuranceName = aArr[0]?.name;
+        this.extraInsuranceData = this.insuranceArr.filter(item => item?.id !== data);
+        this.insurance_extraData = this.insurance_extraData?.filter((item:any)=>item!==data)
+        this.extraInsurance = this.extraInsurance?.filter((item:any)=>item.id!=data)
+        console.log(this.insurance_extraData,this.extraInsurance);
     }
 
     baseInsDetail() {

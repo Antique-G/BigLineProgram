@@ -149,7 +149,7 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_extra">额外保险</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear [(ngModel)]="insurance_extraData" (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
-                                                    <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
+                                                    <nz-option *ngFor="let insurance of extraInsuranceData" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
                                                     </nz-option>
                                                 </nz-select>
                                             </nz-form-control>
