@@ -269,7 +269,12 @@ export const AdminUrls = {
     GetAdminFinanceGroupTravelList: api + '/admin/finance/group_product',  //跟团游订单列表
     PostAdminFinanceOrderConfirm:api + '/admin/finance/order_confirm',  //确认支付记录
     GetAdminFinanceGroupTravelToatl:api+'/admin/finance/productorder_total',// 跟团游统计  
-    GetAdminFinanceFreeTravelToatl:api+'/admin/finance/indentorder_total',// 自由行统计  
+    GetAdminFinanceFreeTravelToatl: api + '/admin/finance/indentorder_total',// 自由行统计  
+    PostAdminOrderEditReceipt:api + '/admin/order/edit_receipt',  //流水信息修改
+    
+
+
+    
 };
 
 

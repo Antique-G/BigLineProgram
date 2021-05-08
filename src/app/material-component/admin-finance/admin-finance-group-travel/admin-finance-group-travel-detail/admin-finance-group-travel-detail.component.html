@@ -4,7 +4,7 @@
       <div class="example-container">
           <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
               <div fxLayout="row" fxLayoutGap="20px">
-                  <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/financeGroupTravel">返回跟团游订单列表</button>
+                  <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/financeGroupTravel">返回财务跟团游订单列表</button>
               </div>
 
               <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
@@ -15,12 +15,6 @@
                                   <div fxLayout="row" fxLayoutAlign="space-between center">
                                       <div>
                                           <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
-                                      </div>
-                                      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="detailModel?.order_status===0">订单修改日期</button> -->
-                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button> -->
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
-
                                       </div>
                                   </div>
                                   <nz-divider></nz-divider>
@@ -80,12 +74,6 @@
                                   <div fxLayout="row" fxLayoutAlign="space-between center">
                                       <div>
                                           <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
-                                      </div>
-                                      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
-                                          <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="commitDetail()" *ngIf="isChange">提交修改</button>
-                                          <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button> -->
-
                                       </div>
                                   </div>
                                   <nz-divider></nz-divider>
@@ -222,7 +210,6 @@
                                                       <th style="width: 7%;text-align: center;">集合时间</th>
                                                       <th style="text-align: center;">出团通知短信</th>
                                                       <th style="text-align: center;">出行人状态</th>
-                                                      <!-- <th style="text-align: center;">操作</th> -->
                                                   </tr>
                                               </thead>
                                               <tbody>
@@ -262,9 +249,7 @@
                                                               <div *ngIf="data.refund_status===1" style="color: red;">退款</div>
                                                               <div *ngIf="data.refund_status===0">正常</div>
                                                           </td>
-                                                          <!-- <td>
-                                                              <div><a (click)="startEdit(data)">修改</a></div>
-                                                          </td> -->
+                                                        
                                                       </ng-container>
                                                       <ng-template #editTemplate>
                                                           <td>{{data.id}}</td>
@@ -466,9 +451,7 @@
                                       <div>
                                           <h4 style="padding-left: 10px;padding-top: 10px;">订单费用明细</h4>
                                       </div>
-                                      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                          <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button> -->
-                                      </div>
+                                     
                                   </div>
                                   <nz-divider></nz-divider>
                                   <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
