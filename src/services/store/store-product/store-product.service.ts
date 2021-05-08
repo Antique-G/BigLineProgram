@@ -22,7 +22,8 @@ export class StoreProductService {
     constructor(public httpClient: HttpClient) { }
 
     // 获取产品列表
-    getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any, status: any, tag?: any, operation_id?: any): Observable<ProductResponseListResponseModel> {
+    getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any,
+        status: any, tag?: any, operation_id?: any,departure_city?: any, destination_city?: any): Observable<ProductResponseListResponseModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('check_status', check_status ? check_status : '')
@@ -31,9 +32,9 @@ export class StoreProductService {
             .set('code', code ? code : '')
             .set('status', status ? status : '')
             .set('tag', tag ? tag : '')
-            .set('operation_id', operation_id ? operation_id : '');
-
-
+            .set('operation_id', operation_id ? operation_id : '')
+            .set('departure_city', departure_city ? departure_city : '')
+            .set('destination_city', destination_city ? destination_city : '');
 
 
         const findhttpOptions = {
