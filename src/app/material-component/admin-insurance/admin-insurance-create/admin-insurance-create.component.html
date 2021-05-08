@@ -21,7 +21,7 @@
                     <nz-row formArrayName="insured_date" *ngFor="let insured_date of insuredDateArray.controls;let dateIndex = index">
                         <nz-form-control [nzSm]="24" [nzXs]="24" style="height:42px ;" nzErrorTip="请输入大于0且最多两位小数的数字！">
                             <ng-template #prefix>
-                                <span>第{{dateIndex+1}}天</span>
+                                <span>{{dateIndex+1}}天游</span>
                             </ng-template>
                             <nz-input-group [nzAddOnBefore]="prefix" nzPrefix="￥" [nzAddOnAfter]="suffixIconButton">
                                 <input nz-input placeholder="请输入保险价格！" onkeyup="value=value.replace(/[^\d.]/g,'').replace(/\.{2,}/g, '.').replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3')" [formControlName]="dateIndex" />
