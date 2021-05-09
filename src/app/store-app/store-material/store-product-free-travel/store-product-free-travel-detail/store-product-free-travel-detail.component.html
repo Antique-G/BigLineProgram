@@ -4,7 +4,8 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
+                    <button mat-raised-button *ngIf="is_presell!=1" color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
+                    <button mat-raised-button *ngIf="is_presell==1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFree">返回自由行预售列表</button>
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center">
@@ -15,7 +16,8 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-travel-detail-proinfo></app-store-travel-detail-proinfo>
+                            <app-store-travel-detail-proinfo *ngIf="is_presell!=1"></app-store-travel-detail-proinfo>
+                            <app-store-pre-travel-detail *ngIf="is_presell==1"></app-store-pre-travel-detail>
                         </div>
                     </mat-tab>
                     <mat-tab label="产品特色">

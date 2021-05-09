@@ -120,4 +120,40 @@ export class StoreProductTreeTravelService {
             )
     }
 
+
+
+
+    // 预售产品列表
+    GetPreFreeTravelList(page: number, per_page: number,status: any,  check_status: any, title: any,
+        few_days: any, id: any, tag?: any,departure_city?: any, destination_city?: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('check_status', check_status ? check_status : '')
+            .set('title', title ? title : '')
+            .set('few_days', few_days ? few_days : '')
+            .set('id', id ? id : '')
+            .set('status', status ? status : '')
+            .set('tag', tag ? tag : '')
+            .set('departure_city', departure_city ? departure_city : '')
+            .set('destination_city', destination_city ? destination_city : '');
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetStorePreFreeTravelList, findhttpOptions)
+            .pipe(
+
+            )
+    }
+
+
+    // 添加预售产品
+    addPreFree(freeTravelModel: StoreFreeTravelModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStorePreFreeTravelAdd, freeTravelModel, httpOptions)
+            .pipe(
+
+            )
+    }
 }
