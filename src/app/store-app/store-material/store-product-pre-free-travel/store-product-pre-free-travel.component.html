@@ -123,6 +123,7 @@
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">预售价格/市场价格</th>
                                     <th style="text-align: center;">预售有效时间</th>
+                                    <th style="text-align: center;">库存</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th>
                                     <th style="text-align: center;">操作</th>
@@ -143,6 +144,9 @@
                                     </td>
                                     <td>
                                         {{data.product_ticket[0]?.start_date}}&nbsp;~ {{data.product_ticket[0]?.end_date}}
+                                    </td>
+                                    <td>
+                                        {{data?.product_ticket[0]?.inventory}}
                                     </td>
                                     <td>
                                         <div *ngIf="data.check_status===0">

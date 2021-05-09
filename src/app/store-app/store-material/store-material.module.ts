@@ -108,6 +108,7 @@ import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-tra
 import { StorePreFreeInfoComponent } from './store-product-free-travel/store-free-create-bystep/store-pre-free-info/store-pre-free-info.component';
 import { StorePreTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-pre-travel-detail/store-pre-travel-detail.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
