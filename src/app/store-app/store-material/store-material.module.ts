@@ -104,6 +104,9 @@ import { StoreInsuranceDetailComponent } from './store-product-management/store-
 import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store-free-quote/store-free-quote-create/store-free-quote-create.component';
 import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-member/store-order-member.component';
+import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
+import { StorePreFreeInfoComponent } from './store-product-free-travel/store-free-create-bystep/store-pre-free-info/store-pre-free-info.component';
+import { StorePreTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-pre-travel-detail/store-pre-travel-detail.component';
 
 @NgModule({
   imports: [
@@ -224,6 +227,9 @@ import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order
     StoreFreeQuoteComponent,
     StoreFreeQuoteCreateComponent,
     StoreOrderMemberComponent,
+    StoreProductPreFreeTravelComponent,
+    StorePreFreeInfoComponent,
+    StorePreTravelDetailComponent,
     
     
   ]

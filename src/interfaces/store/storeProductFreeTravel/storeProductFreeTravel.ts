@@ -29,6 +29,12 @@ export interface StoreFreeTravelModel {
     request_id_num?: any;
     baby_occupy?: any;
     sales_note?: any;
+    is_presell?: any;
+    ticket_price?: any;
+    show_price?: any;
+    inventory?: any;
+    start_date?: any;
+    end_date?: any;
 }
 
 export interface ProductTabListModel {
@@ -116,7 +122,12 @@ export interface Datum {
     request_id_num?: any;
     baby_occupy?: any;
     sales_note?: any;
-
+    is_presell?: any;
+    ticket_price?: any;
+    show_price?: any;
+    inventory?: any;
+    start_date?: any;
+    end_date?: any;
 }
 
 export interface LogModel {
