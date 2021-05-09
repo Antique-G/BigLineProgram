@@ -1,0 +1,223 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="checkStatus">审核状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'审核中'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已通过'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'未通过'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="tag">产品标签</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear>
+                                        <nz-option *ngFor="let sort of tagList" [nzLabel]="sort.name" [nzValue]="sort.name"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="store_name" placeholder="请输入店铺名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id">产品编码/id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="id" placeholder="请输入产品编码/id" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title">产品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="title" placeholder="请输入产品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChanges($event)" formControlName="departure_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onChangesDest($event)" formControlName="destination_city"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="few_days">几天</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="few_days" placeholder="请输入几天" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                       
+                    </form>
+                 
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">id</th>
+                                    <th style="text-align: center; width: 15%;">产品名称</th>
+                                    <!-- <th style="text-align: center;">产品编码</th> -->
+                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;">创建人</th>
+                                    <th style="text-align: center;">行程天数</th>
+                                    <th style="text-align: center;">出发城市</th>
+                                    <th style="text-align: center;">目的城市</th>
+                                    <th style="text-align: center;">预售价格/市场价格</th>
+                                    <th style="text-align: center;">预售有效时间</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">审核状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.title}}</td>
+                                    <!-- <td>{{data.code}}</td> -->
+                                    <td>{{data?.store?.name}}</td>
+                                    <td>{{data.operation_name}}</td>
+                                    <td>{{data.few_days}}天{{data.few_nights}}晚</td>
+                                    <td>{{data.departure}}</td>
+                                    <td>{{data.destination}}</td>
+                                    <td>
+                                        <!-- {{data?.product_ticket[0]?.ticket_price}}&nbsp;元
+                                        <span style="font-weight: 600;">/</span>
+                                        {{data?.product_ticket[0]?.show_price}}&nbsp;元 -->
+                                    </td>
+                                    <td>
+                                        <!-- {{data?.product_ticket[0]?.start_date}}&nbsp;~ {{data?.product_ticket[0]?.end_date}} -->
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.status===0">
+                                            下架
+                                        </div>
+                                        <div *ngIf="data.status===1">
+                                            上架
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.check_status===0">
+                                            未提交审核
+                                        </div>
+                                        <div *ngIf="data.check_status===1">
+                                            审核中
+                                        </div>
+                                        <div *ngIf="data.check_status===2">
+                                            已通过
+                                        </div>
+                                        <div *ngIf="data.check_status===3">
+                                            <div>
+                                                <span>未通过</span>
+                                                <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{data?.check_log[0]?.reason}}>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.check_status!=0" (click)="review(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="审核">审核
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
+                                                    <div *ngIf="data.status===0">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架"> 上架
+                                                    </div>
+                                                    <div *ngIf="data.status===1">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架"> 下架
+                                                    </div>
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.quote_status===1" (click)="quteDateClick(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" title="日期报价">日期报价
+                                                </li>
+                                                <li nz-menu-item *ngIf="data.quote_status===0" (click)="quteDateClick(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_finished.png" title="无需审核的报价">无需审核的报价
+                                                </li>
+                                                <li nz-menu-item (click)="getCode(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

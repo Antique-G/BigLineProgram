@@ -62,467 +62,483 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-w
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
+
 
 export const MaterialRoutes: Routes = [
 
 
 
-  {
-    path: '',
-    component: FullComponent,
-    children: [
-      {
-        path: 'welcome',
-        component: AdminWelcomeComponent,
-        data: {
-          breadcrumb: 'welcome'
-        }
-      },
-      {
-        path: 'null',
-        component: AdminNullComponent,
-        data: {
-          breadcrumb: '没有权限'
-        }
-      },
-      {
-        path: 'adminAccount',
-        component: AdminComponent,
-        data: {
-          breadcrumb: '管理员账号列表'
-        }
-      },
-      {
-        path: 'adminPermission',
-        component: AdminPermissionComponent,
-        data: {
-          breadcrumb: '管理权限列表'
-        }
-      },
-      {
-        path: 'adminRole',
-        component: AdminRoleComponent,
-        data: {
-          breadcrumb: '角色列表'
-        }
-      },
-      {
-        path: 'settingArea',
-        component: AdminSystemAreaComponent,
-        data: {
-          breadcrumb: '区域列表'
-        }
-      },
-      {
-        path: 'store',
-        component: AdminStoreComponent,
-        data: {
-          breadcrumb: '店铺列表'
-        }
-      },
-      {
-        path: 'store/certifi',
-        component: AdminStoreCertifiComponent,
-        data: {
-          breadcrumb: '店铺审核认证'
-        }
-      },
-      {
-        path: 'store/storeAccount',
-        component: AdminStoreAccountComponent,
-        data: {
-          breadcrumb: '店铺账号列表'
-        }
-      },
-      {
-        path: 'store/storeBankAccount',
-        component: AdminStoreBankAccountComponent,
-        data: {
-          breadcrumb: '店铺银行账号列表'
-        }
-      },
-      {
-        path: 'productTag',
-        component: AdminProductTagComponent,
-        data: {
-          breadcrumb: '产品标签列表'
-        }
-      },
-      {
-        path: 'productManagement',
-        component: AdminProductManagementComponent,
-        data: {
-          breadcrumb: '产品列表'
-        }
-      },
-      {
-        path: 'productManagement/detail',
-        component: AdminProductManagementDetailComponent,
-        data: {
-          breadcrumb: '产品详情'
-        }
-      },
-      {
-        path: 'productManagement/qutedate',
-        component: AdminProductQutedateComponent,
-        data: {
-          breadcrumb: '跟团游报价'
-        }
-      },
-      {
-        path: 'freeTravel',
-        component: AdminProducFreeTravelComponent,
-        data: {
-          breadcrumb: '自由行列表'
-        }
-      },
-      {
-        path: 'freeTravel/detail',
-        component: AdminProductFreeTravelDetailComponent,
-        data: {
-          breadcrumb: '自由行详情'
-        }
-      },
-      {
-        path: 'freeTravel/qutedate',
-        component: AdminProductFreeTravelQutedateComponent,
-        data: {
-          breadcrumb: '自由行报价'
-        }
-      },
-      {
-        path: 'termsManage',
-        component: AdminTermsManageComponent,
-        data: {
-          breadcrumb: '条款列表'
-        }
-      },
-      {
-        path: 'termTemplate',
-        component: AdminTermTemplateComponent,
-        data: {
-          breadcrumb: '条款模板列表'
-        }
-      },
-      {
-        path: 'termTemplate/create',
-        component: AdminTermTemplateCreateComponent,
-        data: {
-          breadcrumb: '条款模板添加'
-        }
-      },
-      {
-        path: 'termTemplate/detail',
-        component: AdminTermTemplateEditComponent,
-        data: {
-          breadcrumb: '条款模板详情'
-        }
-      },
-      {
-        path: 'orderList',
-        component: AdminOrderComponent,
-        data: {
-          breadcrumb: '团订单列表'
-        }
-      },
-      {
-        path: 'orderList/detail',
-        component: AdminOrderDetailComponent,
-        data: {
-          breadcrumb: '团订单详情'
-        }
-      },
-      {
-        path: 'groupTravelOrder',
-        component: AdminOrderGroupTravelComponent,
-        data: {
-          breadcrumb: '跟团游订单列表'
-        }
-      },
-      // 注销
-      {
-        path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
-        component: AdminOrderGroupOrderComponent,
-        data: {
-          breadcrumb: '添加订单内容'
-        }
-      },
+    {
+        path: '',
+        component: FullComponent,
+        children: [
+            {
+                path: 'welcome',
+                component: AdminWelcomeComponent,
+                data: {
+                    breadcrumb: 'welcome'
+                }
+            },
+            {
+                path: 'null',
+                component: AdminNullComponent,
+                data: {
+                    breadcrumb: '没有权限'
+                }
+            },
+            {
+                path: 'adminAccount',
+                component: AdminComponent,
+                data: {
+                    breadcrumb: '管理员账号列表'
+                }
+            },
+            {
+                path: 'adminPermission',
+                component: AdminPermissionComponent,
+                data: {
+                    breadcrumb: '管理权限列表'
+                }
+            },
+            {
+                path: 'adminRole',
+                component: AdminRoleComponent,
+                data: {
+                    breadcrumb: '角色列表'
+                }
+            },
+            {
+                path: 'settingArea',
+                component: AdminSystemAreaComponent,
+                data: {
+                    breadcrumb: '区域列表'
+                }
+            },
+            {
+                path: 'store',
+                component: AdminStoreComponent,
+                data: {
+                    breadcrumb: '店铺列表'
+                }
+            },
+            {
+                path: 'store/certifi',
+                component: AdminStoreCertifiComponent,
+                data: {
+                    breadcrumb: '店铺审核认证'
+                }
+            },
+            {
+                path: 'store/storeAccount',
+                component: AdminStoreAccountComponent,
+                data: {
+                    breadcrumb: '店铺账号列表'
+                }
+            },
+            {
+                path: 'store/storeBankAccount',
+                component: AdminStoreBankAccountComponent,
+                data: {
+                    breadcrumb: '店铺银行账号列表'
+                }
+            },
+            {
+                path: 'productTag',
+                component: AdminProductTagComponent,
+                data: {
+                    breadcrumb: '产品标签列表'
+                }
+            },
+            {
+                path: 'productManagement',
+                component: AdminProductManagementComponent,
+                data: {
+                    breadcrumb: '产品列表'
+                }
+            },
+            {
+                path: 'productManagement/detail',
+                component: AdminProductManagementDetailComponent,
+                data: {
+                    breadcrumb: '产品详情'
+                }
+            },
+            {
+                path: 'productManagement/qutedate',
+                component: AdminProductQutedateComponent,
+                data: {
+                    breadcrumb: '跟团游报价'
+                }
+            },
+            {
+                path: 'freeTravel',
+                component: AdminProducFreeTravelComponent,
+                data: {
+                    breadcrumb: '自由行列表'
+                }
+            },
+            {
+                path: 'freeTravel/detail',
+                component: AdminProductFreeTravelDetailComponent,
+                data: {
+                    breadcrumb: '自由行详情'
+                }
+            },
+            {
+                path: 'freeTravel/qutedate',
+                component: AdminProductFreeTravelQutedateComponent,
+                data: {
+                    breadcrumb: '自由行报价'
+                }
+            },
+            {
+                path: 'termsManage',
+                component: AdminTermsManageComponent,
+                data: {
+                    breadcrumb: '条款列表'
+                }
+            },
+            {
+                path: 'termTemplate',
+                component: AdminTermTemplateComponent,
+                data: {
+                    breadcrumb: '条款模板列表'
+                }
+            },
+            {
+                path: 'termTemplate/create',
+                component: AdminTermTemplateCreateComponent,
+                data: {
+                    breadcrumb: '条款模板添加'
+                }
+            },
+            {
+                path: 'termTemplate/detail',
+                component: AdminTermTemplateEditComponent,
+                data: {
+                    breadcrumb: '条款模板详情'
+                }
+            },
+            {
+                path: 'orderList',
+                component: AdminOrderComponent,
+                data: {
+                    breadcrumb: '团订单列表'
+                }
+            },
+            {
+                path: 'orderList/detail',
+                component: AdminOrderDetailComponent,
+                data: {
+                    breadcrumb: '团订单详情'
+                }
+            },
+            {
+                path: 'groupTravelOrder',
+                component: AdminOrderGroupTravelComponent,
+                data: {
+                    breadcrumb: '跟团游订单列表'
+                }
+            },
+            // 注销
+            {
+                path: 'groupTravelOrder/adminOrdergroupTravelAddOrder',
+                component: AdminOrderGroupOrderComponent,
+                data: {
+                    breadcrumb: '添加订单内容'
+                }
+            },
 
 
-      {
-        path: 'groupTravelOrder/detail',
-        component: AdminOrderGroupTravelDetailComponent,
-        data: {
-          breadcrumb: '跟团游订单详情'
-        }
-      },
+            {
+                path: 'groupTravelOrder/detail',
+                component: AdminOrderGroupTravelDetailComponent,
+                data: {
+                    breadcrumb: '跟团游订单详情'
+                }
+            },
 
-      {
-        path: 'addGroupOrder',
-        component: AdminGroupAddOrderComponent,
-        data: {
-          breadcrumb: '添加跟团游订单'
-        }
-      },
-      {
-        path: 'addGroupOrder/add',
-        component: AdminGroupAddOrderDetailComponent,
-        data: {
-          breadcrumb: '添加订单'
-        }
-      },
-
-
-
-      {
-        path: 'freeTravelOrder',
-        component: AdminOrderFreeTravelComponent,
-        data: {
-          breadcrumb: '自由行订单列表'
-        }
-      },
-      {
-        path: 'freeTravelOrder/detail',
-        component: AdminOrderFreeTravelDetailComponent,
-        data: {
-          breadcrumb: '自由行订单详情'
-        }
-      },
-      // 注销
-      {
-        path: 'freeTravelOrder/order',
-        component: AOFreetravelOrderComponent,
-        data: {
-          breadcrumb: '添加订单内容'
-        }
-      },
+            {
+                path: 'addGroupOrder',
+                component: AdminGroupAddOrderComponent,
+                data: {
+                    breadcrumb: '添加跟团游订单'
+                }
+            },
+            {
+                path: 'addGroupOrder/add',
+                component: AdminGroupAddOrderDetailComponent,
+                data: {
+                    breadcrumb: '添加订单'
+                }
+            },
 
 
-      {
-        path: 'addFreeOrder',
-        component: AdminFreeTravelAddOrderComponent,
-        data: {
-          breadcrumb: '添加自由行订单'
-        }
-      },
-      {
-        path: 'addFreeOrder/add',
-        component: AdminFreeTravelAddOrderDetailComponent,
-        data: {
-          breadcrumb: '添加订单'
-        }
-      },
-      {
-        path: 'addFreeOrder/add/byQuote',
-        component: AdminFreeAddOrderByQuoteComponent,
-        data: {
-          breadcrumb: '添加订单'
-        }
-      },
-      
 
-      {
-        path: 'refund',
-        component: AdminOrderRefundComponent,
-        data: {
-          breadcrumb: '订单申请退款列表'
-        }
-      },
-      {
-        path: 'refund/edit',
-        component: AdminOrderRefundEditComponent,
-        data: {
-          breadcrumb: '订单退款申请页面'
-        }
-      },
-      {
-        path: 'refund/detail',
-        component: AdminOrderRefundDetailComponent,
-        data: {
-          breadcrumb: '订单退款详情页面'
-        }
-      },
-      {
-        path: 'refundReview',
-        component: AdminOrderRefundReviewComponent,
-        data: {
-          breadcrumb: '订单退款审核列表'
-        }
-      },
-      {
-        path: 'refundReview/edit',
-        component: AdminOrderRefundReviewEditComponent,
-        data: {
-          breadcrumb: '审核订单退款'
-        }
-      },
-      {
-        path: 'refundReview/detail',
-        component: AdminOrderRefundReviewDetailComponent,
-        data: {
-          breadcrumb: '订单退款审核已完成'
-        }
-      },
-      {
-        path: 'refundTurnOver',
-        component: AdminOrderRefundTurnoverComponent,
-        data: {
-          breadcrumb: '订单退款流水列表'
-        }
-      },
-
-      {
-        path: 'adminTourist',
-        component: AdminTouristComponent,
-        data: {
-          breadcrumb: '导游列表'
-        }
-      },
+            {
+                path: 'freeTravelOrder',
+                component: AdminOrderFreeTravelComponent,
+                data: {
+                    breadcrumb: '自由行订单列表'
+                }
+            },
+            {
+                path: 'freeTravelOrder/detail',
+                component: AdminOrderFreeTravelDetailComponent,
+                data: {
+                    breadcrumb: '自由行订单详情'
+                }
+            },
+            // 注销
+            {
+                path: 'freeTravelOrder/order',
+                component: AOFreetravelOrderComponent,
+                data: {
+                    breadcrumb: '添加订单内容'
+                }
+            },
 
 
-      {
-        path: 'saleTitle',
-        component: AdminSaleTitleComponent,
-        data: {
-          breadcrumb: '销售头衔列表'
-        }
-      },
-      {
-        path: 'insurance',
-        component: AdminInsuranceComponent,
-        data: {
-          breadcrumb: '保险管理列表'
-        }
-      },
-      {
-        path: 'insuranceHistory',
-        component: AdminInsuranceHistoryComponent,
-        data: {
-          breadcrumb: '保险购买记录'
-        }
-      },
-
-      {
-        path: 'user',
-        component: AdminUserinfoComponent,
-        data: {
-          breadcrumb: '用户信息列表'
-        }
-      },
-      {
-        path: 'customerService',
-        component: AdminServicerComponent,
-        data: {
-          breadcrumb: '区域客服设置列表'
-        }
-      },
+            {
+                path: 'addFreeOrder',
+                component: AdminFreeTravelAddOrderComponent,
+                data: {
+                    breadcrumb: '添加自由行订单'
+                }
+            },
+            {
+                path: 'addFreeOrder/add',
+                component: AdminFreeTravelAddOrderDetailComponent,
+                data: {
+                    breadcrumb: '添加订单'
+                }
+            },
+            {
+                path: 'addFreeOrder/add/byQuote',
+                component: AdminFreeAddOrderByQuoteComponent,
+                data: {
+                    breadcrumb: '添加订单'
+                }
+            },
 
 
-      {
-        path: 'pageConfig',
-        component: AdminWechatPageconfigComponent,
-        data: {
-          breadcrumb: '小程序页面设置列表'
-        }
-      },
-      {
-        path: 'pageBlock',
-        component: AdminWechatPageblockComponent,
-        data: {
-          breadcrumb: '小程序页面模块设置列表'
-        }
-      },
-      {
-        path: 'pageBlock/create',
-        component: AdminWechatPageblockCreateComponent,
-        data: {
-          breadcrumb: '小程序页面模块设置添加'
-        }
-      },
-      {
-        path: 'pageBlock/detail',
-        component: AdminWechatPageblockDetailComponent,
-        data: {
-          breadcrumb: '小程序页面模块设置修改'
-        }
-      },
-      {
-        path: 'contract',
-        component: AdminContractComponent,
-        data: {
-          breadcrumb: '合同列表'
-        }
-      },
-      {
-        path: 'userCommission',
-        component: UserCommissionListComponent,
-        data: {
-          breadcrumb: '用户分销佣金列表'
-        }
-      },
-      {
-        path: 'commissionWithdraw',
-        component: AdminCommissionWithdrawComponent,
-        data: {
-          breadcrumb: '提现列表'
-        }
-      },
-      {
-        path: 'userMoneyLog',
-        component: UserMoneyLogListComponent,
-        data: {
-          breadcrumb: '金额变动记录'
-        }
-      },
-      {
-        path: 'adminStoreManage',
-        component: AdminStoreManageComponent,
-        data: {
-          breadcrumb: '门店管理列表'
-        }
-      },
-      {
-        path: 'adminStoreManage/schedule',
-        component: AdminStoreManageScheduleComponent,
-        data: {
-          breadcrumb: '排班管理'
-        }
-      },
-      {
-        path: 'financeGroupTravel',
-        component: AdminFinanceGroupTravelComponent,
-        data: {
-          breadcrumb: '跟团游'
-        }
-      },
-      {
-        path: 'financeGroupTravel/detail',
-        component: AdminFinanceGroupTravelDetailComponent,
-        data: {
-          breadcrumb: '跟团游详情'
-        }
-      },
-      {
-        path: 'financefreeDTravel',
-        component: AdminFinanceFreeTravelComponent,
-        data: {
-          breadcrumb: '自由行'
-        }
-      },
-      {
-        path: 'financefreeDTravel/detail',
-        component: AdminFinanceFreeTravelDetailComponent,
-        data: {
-          breadcrumb: '自由行详情'
-        }
-      },
-      {
-        path: 'lottery',
-        component: AdminLotteryComponent,
-        data: {
-          breadcrumb: '抽奖活动'
-        }
-      },
-    ]
-  }
+            {
+                path: 'refund',
+                component: AdminOrderRefundComponent,
+                data: {
+                    breadcrumb: '订单申请退款列表'
+                }
+            },
+            {
+                path: 'refund/edit',
+                component: AdminOrderRefundEditComponent,
+                data: {
+                    breadcrumb: '订单退款申请页面'
+                }
+            },
+            {
+                path: 'refund/detail',
+                component: AdminOrderRefundDetailComponent,
+                data: {
+                    breadcrumb: '订单退款详情页面'
+                }
+            },
+            {
+                path: 'refundReview',
+                component: AdminOrderRefundReviewComponent,
+                data: {
+                    breadcrumb: '订单退款审核列表'
+                }
+            },
+            {
+                path: 'refundReview/edit',
+                component: AdminOrderRefundReviewEditComponent,
+                data: {
+                    breadcrumb: '审核订单退款'
+                }
+            },
+            {
+                path: 'refundReview/detail',
+                component: AdminOrderRefundReviewDetailComponent,
+                data: {
+                    breadcrumb: '订单退款审核已完成'
+                }
+            },
+            {
+                path: 'refundTurnOver',
+                component: AdminOrderRefundTurnoverComponent,
+                data: {
+                    breadcrumb: '订单退款流水列表'
+                }
+            },
+
+            {
+                path: 'adminTourist',
+                component: AdminTouristComponent,
+                data: {
+                    breadcrumb: '导游列表'
+                }
+            },
+
+
+            {
+                path: 'saleTitle',
+                component: AdminSaleTitleComponent,
+                data: {
+                    breadcrumb: '销售头衔列表'
+                }
+            },
+            {
+                path: 'insurance',
+                component: AdminInsuranceComponent,
+                data: {
+                    breadcrumb: '保险管理列表'
+                }
+            },
+            {
+                path: 'insuranceHistory',
+                component: AdminInsuranceHistoryComponent,
+                data: {
+                    breadcrumb: '保险购买记录'
+                }
+            },
+
+            {
+                path: 'user',
+                component: AdminUserinfoComponent,
+                data: {
+                    breadcrumb: '用户信息列表'
+                }
+            },
+            {
+                path: 'customerService',
+                component: AdminServicerComponent,
+                data: {
+                    breadcrumb: '区域客服设置列表'
+                }
+            },
+
+
+            {
+                path: 'pageConfig',
+                component: AdminWechatPageconfigComponent,
+                data: {
+                    breadcrumb: '小程序页面设置列表'
+                }
+            },
+            {
+                path: 'pageBlock',
+                component: AdminWechatPageblockComponent,
+                data: {
+                    breadcrumb: '小程序页面模块设置列表'
+                }
+            },
+            {
+                path: 'pageBlock/create',
+                component: AdminWechatPageblockCreateComponent,
+                data: {
+                    breadcrumb: '小程序页面模块设置添加'
+                }
+            },
+            {
+                path: 'pageBlock/detail',
+                component: AdminWechatPageblockDetailComponent,
+                data: {
+                    breadcrumb: '小程序页面模块设置修改'
+                }
+            },
+            {
+                path: 'contract',
+                component: AdminContractComponent,
+                data: {
+                    breadcrumb: '合同列表'
+                }
+            },
+            {
+                path: 'userCommission',
+                component: UserCommissionListComponent,
+                data: {
+                    breadcrumb: '用户分销佣金列表'
+                }
+            },
+            {
+                path: 'commissionWithdraw',
+                component: AdminCommissionWithdrawComponent,
+                data: {
+                    breadcrumb: '提现列表'
+                }
+            },
+            {
+                path: 'userMoneyLog',
+                component: UserMoneyLogListComponent,
+                data: {
+                    breadcrumb: '金额变动记录'
+                }
+            },
+            {
+                path: 'adminStoreManage',
+                component: AdminStoreManageComponent,
+                data: {
+                    breadcrumb: '门店管理列表'
+                }
+            },
+            {
+                path: 'adminStoreManage/schedule',
+                component: AdminStoreManageScheduleComponent,
+                data: {
+                    breadcrumb: '排班管理'
+                }
+            },
+            {
+                path: 'financeGroupTravel',
+                component: AdminFinanceGroupTravelComponent,
+                data: {
+                    breadcrumb: '跟团游'
+                }
+            },
+            {
+                path: 'financeGroupTravel/detail',
+                component: AdminFinanceGroupTravelDetailComponent,
+                data: {
+                    breadcrumb: '跟团游详情'
+                }
+            },
+            {
+                path: 'financefreeDTravel',
+                component: AdminFinanceFreeTravelComponent,
+                data: {
+                    breadcrumb: '自由行'
+                }
+            },
+            {
+                path: 'financefreeDTravel/detail',
+                component: AdminFinanceFreeTravelDetailComponent,
+                data: {
+                    breadcrumb: '自由行详情'
+                }
+            },
+            {
+                path: 'lottery',
+                component: AdminLotteryComponent,
+                data: {
+                    breadcrumb: '抽奖活动'
+                }
+            },
+            {
+                path: 'preFree',
+                component: AdminProductPreFreeComponent,
+                data: {
+                    breadcrumb: '自由行预售产品列表'
+                }
+            },
+            {
+                path: 'preFree/detail',
+                component: AdminProductFreeTravelDetailComponent,
+                data: {
+                    breadcrumb: '自由行预售产品详情'
+                }
+            },
+        ]
+    }
 ];

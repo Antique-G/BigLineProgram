@@ -112,8 +112,6 @@ export const AdminUrls = {
 
 
 
-
-
     GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
     GetAdminFreeTravelDetail: api + '/admin/independent_product/', //自由行产品详情
     PutAdminFreeTravelUpdate: api + '/admin/independent_product/', //自由行产品更新
@@ -122,6 +120,13 @@ export const AdminUrls = {
     // 自由行日期报价
     GetAddminFreeTravelQuteDateList: api + '/admin/independent_date_quotes',
     GetAddminFreeTravelQuteDateCheck: api + '/admin/indent_date_quotes/set_check',
+
+
+    // 自由行预售产品
+    GetAdminPreFreeTravelList: api + '/admin/indent_ticket_list',   //列表
+   
+
+
 
     GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
 

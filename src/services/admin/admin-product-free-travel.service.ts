@@ -122,6 +122,35 @@ export class AdminProductFreeTravelService {
             )
     }
 
+
+    
+    // 自由行预售产品列表
+    preFreeTravelList(page: number, per_page: number, status: any, check_status: any,
+        title: string, store_name: string, id: any, few_days: any,
+        tag?: any, departure_city?: any, destination_city?: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('status', status ? status : '')
+            .set('check_status', check_status ? check_status : '')
+            .set('title', title ? title : '')
+            .set('store_name', store_name ? store_name : '')
+            .set('id', id ? id : '')
+            .set('few_days', few_days ? few_days : '')
+            .set('tag', tag ? tag : '')
+            .set('departure_city', departure_city ? departure_city : '')
+            .set('destination_city', destination_city ? destination_city : '');
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminPreFreeTravelList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
