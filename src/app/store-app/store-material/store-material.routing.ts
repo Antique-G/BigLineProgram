@@ -28,6 +28,7 @@ import { StoreCerticationComponent } from './store-certication/store-certication
 import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
 
+
 export const StoreMaterialRoutes: Routes = [
 
     {
@@ -247,6 +248,14 @@ export const StoreMaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品详情'
                 }
             },
+            {
+                path: 'storePreFree/quote',
+                component: StoreFreeQuoteComponent,
+                data: {
+                    breadcrumb: '自由行预售产品报价'
+                }
+            },
+            
         ]
     }
 ];
