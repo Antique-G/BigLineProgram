@@ -42,6 +42,9 @@ export class StoreFreeQuoteComponent implements OnInit {
     is_use_num: any;
     //预售产品
     is_presell: any;
+    start_date: any;
+    end_date: any;
+
 
     constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
         private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -60,6 +63,8 @@ export class StoreFreeQuoteComponent implements OnInit {
             this.childStatus = params.childStatus;
             this.is_use_num = params.use_num;
             this.is_presell = params.is_presell;
+            this.start_date = params.start_date;
+            this.end_date = params.end_date;
             this.isShowPrice_diff = params.few_nights === '0' ? false : true;
             console.log('儿童是否可以预定 0否 :>> ', this.childStatus, this.childStatus === '0');
             console.log(this.seletYearMonth, 'ngOnInit');
@@ -118,8 +123,10 @@ export class StoreFreeQuoteComponent implements OnInit {
                             earlier: this.isEarlier,
                             childStatus: this.childStatus,
                             isShowPrice_diff: this.isShowPrice_diff,
-                            is_use_num: this.is_use_num
-
+                            is_use_num: this.is_use_num,
+                            is_presell: this.is_presell,
+                            start_date: this.start_date,
+                            end_date: this.end_date
 
                         }
                     },
@@ -227,7 +234,10 @@ export class StoreFreeQuoteComponent implements OnInit {
                     earlier: this.isEarlier,
                     childStatus: this.childStatus,
                     isShowPrice_diff: this.isShowPrice_diff,
-                    is_use_num: this.is_use_num
+                    is_use_num: this.is_use_num,
+                    is_presell: this.is_presell,
+                    start_date: this.start_date,
+                    end_date: this.end_date
                 }
             },
             nzFooter: [

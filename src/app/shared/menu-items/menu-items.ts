@@ -36,7 +36,7 @@ const MENUITEMS = [
             { state: 'productTag', name: '产品标签', permission_name: 'product_tag' },
             { state: 'productManagement', name: '跟团游管理', permission_name: 'product_group_mange' },
             { state: 'freeTravel', name: "自由行管理", permission_name: 'product_independent' },
-            { state: 'preFree', name: '自由行预售', permission_name: 'product_independent' }
+            { state: 'preFree', name: '自由行预售', permission_name: 'indent_product_presell' }
         ]
     },
     {
