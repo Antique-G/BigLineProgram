@@ -253,7 +253,9 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         else {
             this.isEar = Math.floor(minutes / 60 / 24);
         }
-        this.router.navigate(['/store/main/storePreFree/quote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, use_num: data?.use_num,is_presell: 1  } });
+        let start_date = data?.product_ticket[0].start_date;
+        let end_date = data?.product_ticket[0].end_date;
+        this.router.navigate(['/store/main/storePreFree/quote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, use_num: data?.use_num,is_presell: 1,start_date:start_date, end_date:end_date } });
     }
 
 
