@@ -2,26 +2,23 @@
 
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
-
-
-            
-
-            <nz-form-item>
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="account" nzRequired>用户名</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.account">
+                <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.account">
                     <input nz-input formControlName="account" placeholder="用户名只能由字母、数字、'-'、'_'组成" />
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item>
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.password">
+                <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.password">
                     <input nz-input type="password" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
                 </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
+
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+                <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="errorTpl">
                     <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
                     <ng-template #errorTpl let-control>
                         <ng-container *ngIf="control.hasError('required')">
@@ -33,21 +30,23 @@
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
+
+            <nz-form-item  nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>真实姓名</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
+                <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.name">
                     <input nz-input formControlName="name" />
                 </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
+
+            <nz-form-item  nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>手机号</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.phoneNumber">
+                <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="formErrors.phoneNumber">
                     <input nz-input formControlName="phoneNumber" />
                 </nz-form-control>
             </nz-form-item>
-            <nz-form-item>
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-form-control [nzSm]="18" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="statusValue" formControlName="status">
                         <label nz-radio nzValue='0'>暂停 </label>
                         <label nz-radio nzValue='1'>正常</label>
@@ -55,25 +54,26 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item>
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="region_code" nzRequired>区域</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择区域">
+                <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请选择区域">
                     <nz-cascader nzChangeOnSelect style="width: 100%;" placeholder="请选择目的城市" [nzOptions]="nzOptions" (ngModelChange)="onChangesdestinationCity($event)" formControlName="region_code"></nz-cascader>
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item>
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="role_id" nzRequired>角色</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择角色"><!--  [(ngModel)]="listOfTagOptions" -->
+                <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请选择角色"><!--  [(ngModel)]="listOfTagOptions" -->
                     <nz-select nzMode="tags" nzPlaceHolder="请选择角色" formControlName="role_id">
                         <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.display_name" [nzValue]="option.id"></nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item>
+            <nz-form-item nz-row >
+                
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="staff_type" nzRequired>门店员工</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-form-control [nzSm]="18" [nzXs]="24">
                     <nz-radio-group [(ngModel)]="staffTypeValue" formControlName="staff_type">
                         <label nz-radio nzValue='0'>否</label>
                         <label nz-radio nzValue='1'>是</label>

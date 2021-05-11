@@ -43,7 +43,7 @@ export class AdminDetailComponent implements OnInit {
   statussss: any;
 
   
-  listOfOption: string[] = [];
+  listOfOption: any[] = [];
   listOfTagOptions: any[] = [];
 
 
