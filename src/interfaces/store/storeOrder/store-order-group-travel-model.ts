@@ -596,6 +596,7 @@ export interface ComfirmOrderModel {
     pay_type: any;
     pay_time: any;
     transaction_id: any;
+    money?: any;
 }
 
 // 二维码收款
