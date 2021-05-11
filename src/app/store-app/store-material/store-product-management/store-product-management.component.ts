@@ -35,7 +35,7 @@ export class StoreProductManagementComponent implements OnInit {
     newDay: any
     newHour: any;
     newMin: any;
-    operation_id = Number(localStorage.getItem("storeAccountId"));
+    operation_id: any;
 
     isEar: any;
     tagList: any[] = [];
@@ -54,7 +54,7 @@ export class StoreProductManagementComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
         private modal: NzModalService, private nzContextMenuService: NzContextMenuService,
-        public storeRegionService: StoreRegionService,public quoteBydateService: StoreQuoteBydateService) {
+        public storeRegionService: StoreRegionService, public quoteBydateService: StoreQuoteBydateService) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -62,7 +62,7 @@ export class StoreProductManagementComponent implements OnInit {
             code: [''],
             status: [''],
             tag: [''],
-            operation_id: [Number(this.operation_id)],
+            operation_id: [''],
             departure_city: [''],
             destination_city: [''],
         })
@@ -70,11 +70,12 @@ export class StoreProductManagementComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.operation_id = Number(localStorage.getItem("storeAccountId"));
         this.storeRegionService.getAllRegionList().subscribe(res => {
             this.nzOptions = res;
             this.getTagList();
         })
-       
+
         // 将上次查询的筛选条件赋值
         let getSeatch = JSON.parse(localStorage.getItem("storeGroupSearch")!);
         this.status = getSeatch?.status ? getSeatch?.status : '';
@@ -84,9 +85,10 @@ export class StoreProductManagementComponent implements OnInit {
         this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
         this.tag = getSeatch?.tag ? getSeatch?.tag : '';
         this.page = getSeatch?.page ? getSeatch?.page : 1;
-        this.operation_id = getSeatch?.operation_id;
+        this.operation_id = getSeatch?.operation_id == undefined ? this.operation_id : getSeatch?.operation_id;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        
 
         this.searchForm.patchValue({
             status: this.status,
@@ -98,7 +100,8 @@ export class StoreProductManagementComponent implements OnInit {
             operation_id: Number(this.operation_id),
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
-        })
+        });
+
         this.accountListData();
 
 
@@ -108,7 +111,6 @@ export class StoreProductManagementComponent implements OnInit {
     accountListData() {
         this.storeProductService.accountList().subscribe(res => {
             this.accountList = res?.data;
-            this.operation_id = Number(localStorage.getItem("storeAccountId"));
             this.getProductList();
         })
     }
@@ -198,7 +200,6 @@ export class StoreProductManagementComponent implements OnInit {
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
-
 
         // 筛选条件存进cookie
         this.setQuery = {
