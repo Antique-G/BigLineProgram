@@ -64,9 +64,9 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
         console.log("Number(this.data?.price_total)", Number(this.data?.price_total), Number(this.data?.amount_received))
         this.isPrice = Number(this.data?.price_total) - Number(this.data?.amount_received);
         this.isPrice = this.toDecimal(this.isPrice);
-        this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
-            this.isMoney = res?.money;
-        })
+        // this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
+        //     this.isMoney = res?.money;
+        // })
     }
 
 
