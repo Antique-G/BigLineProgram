@@ -43,7 +43,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
             pay_type: new FormControl('', [Validators.required]),
             pay_time: new FormControl(null, [Validators.required]),
             transaction_id: new FormControl('', [Validators.maxLength(35)]),
-            money: new FormControl('', [Validators.required]),
+            // money: new FormControl('', [Validators.required]),
         })
         this.comfirmOrderModel = {
             order_id: '',
