@@ -1,0 +1,48 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div class="banner">
+            <div class="container">
+                <div style="padding-top: 10px;">
+                    <div fxLayoutAlign="space-between center" fxlayout="row">
+                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                            <div>
+                                <img style="width: 80px;height: 74px;" src="http://cdn.bigline.com.cn/static/images/login_logo.jpg">
+                            </div>
+                            <div style="width: 2px;height: 42px;border: 2px solid #666666;"></div>
+                            <div style="font-size: 24px;font-family: Noto Sans S Chinese;font-weight: 400;color: #000000;">启航旅游管理后台</div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+                                <div><img style="width: 24px;height: 24px;" src="http://cdn.bigline.com.cn/static/images/phone.png"></div>
+                                <div class="text">0755-83204626</div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+                                <div>
+                                    <img style="width: 50px;height: 50px;cursor: pointer;" src="http://cdn.bigline.com.cn/static/images/public_account.jpg" nz-dropdown [nzDropdownMenu]="menu1">
+                                    <nz-dropdown-menu #menu1="nzDropdownMenu">
+                                        <ul nz-menu nzSelectable>
+                                            <li nz-menu-item> <img src="http://cdn.bigline.com.cn/static/images/public_account.jpg"></li>
+                                        </ul>
+                                    </nz-dropdown-menu>
+                                </div>
+                                <div class="text">官方公众号</div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+                                <div>
+                                    <img style="width: 50px;height: 50px;cursor: pointer;" src="http://cdn.bigline.com.cn/static/images/miniimg.jpg" nz-dropdown [nzDropdownMenu]="menu">
+                                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                                        <ul nz-menu nzSelectable>
+                                            <li nz-menu-item> <img src="http://cdn.bigline.com.cn/static/images/miniimg.jpg"></li>
+                                        </ul>
+                                    </nz-dropdown-menu>
+                                </div>
+                                <div class="text">启航旅游小程序</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

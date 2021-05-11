@@ -5,6 +5,8 @@ const api = environment.baseUrl;
 // 管理后台api
 export const AdminUrls = {
     PostAdminPassword: api + '/admin/update_password', // 修改密码
+    GetAdminForgetPassword: api + '/admin/find_password', // 找回密码（第一步）
+    PostAdminResetPasswordModel: api + '/admin/reset_password', // 重置密码
 
 
     AdminLogin: api + '/admin/login', // 管理后台登陆接口
