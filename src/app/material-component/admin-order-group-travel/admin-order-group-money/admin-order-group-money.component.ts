@@ -6,6 +6,7 @@ import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-o
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminUserinfoService } from '../../../../services/admin/admin-userinfo.service';
 
 
 @Component({
@@ -29,13 +30,20 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     cutValue = 0;
     weChatModel: WeChatModel;
 
-    constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService, private msg: NzMessageService, public modal: NzModalService,) {
+    // 余额支付
+    user_id: any;
+    isMoney = 0;
+
+    constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService,
+        private msg: NzMessageService, public modal: NzModalService,
+        public adminUserinfoService: AdminUserinfoService) {
         this.addForm = new FormGroup({
             isMoney: new FormControl(''),
             fee: new FormControl('', [Validators.required]),
             pay_type: new FormControl('', [Validators.required]),
             pay_time: new FormControl(null, [Validators.required]),
             transaction_id: new FormControl('', [Validators.maxLength(35)]),
+            money: new FormControl('', [Validators.required]),
         })
         this.comfirmOrderModel = {
             order_id: '',
@@ -43,6 +51,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
             pay_type: '',
             pay_time: '',
             transaction_id: '',
+            money: '',
         };
         this.weChatModel = {
             order_id: '',
@@ -52,10 +61,12 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
     ngOnInit(): void {
         console.log('this.data :>> ', this.data);
-        console.log("Number(this.data?.price_total)",Number(this.data?.price_total),Number(this.data?.amount_received))
+        console.log("Number(this.data?.price_total)", Number(this.data?.price_total), Number(this.data?.amount_received))
         this.isPrice = Number(this.data?.price_total) - Number(this.data?.amount_received);
         this.isPrice = this.toDecimal(this.isPrice);
-
+        this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
+            this.isMoney = res?.money;
+        })
     }
 
 
