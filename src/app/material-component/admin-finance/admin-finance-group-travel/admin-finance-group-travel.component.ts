@@ -68,7 +68,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             console.log("24234", res);
             this.storeList = res;
             // 将上次查询的筛选条件赋值
-            let getSeatch = JSON.parse(localStorage.getItem("adminOrderGroupSearch")!);
+            let getSeatch = JSON.parse(localStorage.getItem("adminOrderFanGroupSearch")!);
             this.status = getSeatch?.status ? getSeatch.status : '';
             this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
             this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
@@ -132,7 +132,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page, payment_status: this.payment_status
         }
-        localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
+        localStorage.setItem('adminOrderFanGroupSearch', JSON.stringify(this.setQuery));
 
         this.loading = true;
         this.groupTravel();
@@ -169,7 +169,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page, payment_status: this.payment_status
         }
-        localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
+        localStorage.setItem('adminOrderFanGroupSearch', JSON.stringify(this.setQuery));
     }
 
 
