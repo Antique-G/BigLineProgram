@@ -179,6 +179,12 @@
                                             </div>
                                             <div><a *ngIf="data?.insurance_status==2&&data.order_status==2">已出单</a>
                                             </div>
+                                            <div><a *ngIf="data?.insurance_status==5">无</a>
+                                            </div>
+                                            <div><a *ngIf="data?.insurance_status==4">失败</a>
+                                            </div>
+                                            <div><a *ngIf="data?.insurance_status==3">已退保</a>
+                                            </div>
                                         </ng-container>
                                     </td>
                                 </tr>
