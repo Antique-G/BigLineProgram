@@ -5,6 +5,8 @@ const api = environment.baseUrl;
 // 管理后台api
 export const AdminUrls = {
     PostAdminPassword: api + '/admin/update_password', // 修改密码
+    GetAdminForgetPassword: api + '/admin/find_password', // 找回密码（第一步）
+    PostAdminResetPasswordModel: api + '/admin/reset_password', // 重置密码
 
 
     AdminLogin: api + '/admin/login', // 管理后台登陆接口
@@ -16,11 +18,11 @@ export const AdminUrls = {
     PostAdminPermissionCreate: api + '/admin/permission',    //权限创建
     PutAdminPermissionUpdate: api + '/admin/permission/', //权限更新
 
-  GetAdminRoleList: api + '/admin/role',    //角色列表
-  GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
-  PostAdminRoleCreate: api + '/admin/role',    //角色创建
-  GetAdminRoleDetail: api + '/admin/role/',    //角色详情
-  PutAdminRoleUpdate: api + '/admin/role/', //角色更新
+    GetAdminRoleList: api + '/admin/role',    //角色列表
+    GetPermissionTree: api + '/admin/get_permission',    //权限的树状列表
+    PostAdminRoleCreate: api + '/admin/role',    //角色创建
+    GetAdminRoleDetail: api + '/admin/role/',    //角色详情
+    PutAdminRoleUpdate: api + '/admin/role/', //角色更新
 
 
     GetAdminShopList: api + '/admin/shop',    //门店列表
@@ -43,10 +45,10 @@ export const AdminUrls = {
     PostAdminRewardSet: api + '/admin/rewrd_set', // 店铺佣金设置
 
 
-  PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
-  GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
-  PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
-  GetAdminDetail: api + '/admin/account/',  //管理后台管理员详情接口
+    PostAdminAccountCreate: api + '/admin/account', //管理后台管理员账号注册
+    GetAdminAccount: api + '/admin/account', //管理后台管理员列表接口详情
+    PutAdminAccountUpdate: api + '/admin/account/', //管理后台管理员更新接口
+    GetAdminDetail: api + '/admin/account/',  //管理后台管理员详情接口
 
     PostAdminStoreCreate: api + '/admin/store', //管理后台商户添加接口
     GetAdminStoreDetail: api + '/admin/store/',   //管理后台获取商户信息接口详情
@@ -112,8 +114,6 @@ export const AdminUrls = {
 
 
 
-
-
     GetAdminFreeTravelList: api + '/admin/independent_product',  //自由行产品列表
     GetAdminFreeTravelDetail: api + '/admin/independent_product/', //自由行产品详情
     PutAdminFreeTravelUpdate: api + '/admin/independent_product/', //自由行产品更新
@@ -122,6 +122,13 @@ export const AdminUrls = {
     // 自由行日期报价
     GetAddminFreeTravelQuteDateList: api + '/admin/independent_date_quotes',
     GetAddminFreeTravelQuteDateCheck: api + '/admin/indent_date_quotes/set_check',
+
+
+    // 自由行预售产品
+    GetAdminPreFreeTravelList: api + '/admin/indent_ticket_list',   //列表
+   
+
+
 
     GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
 
@@ -196,7 +203,7 @@ export const AdminUrls = {
     GetAdminInsOrderDown: api + '/admin/insurance/order_down',  //电子保单
     PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  //退保
 
-    
+
 
     GetAdminRefund: api + '/admin/refund',  //退款列表
     PostAdminRefundCheck: api + '/admin/refund_check', // 审核提交
@@ -267,9 +274,14 @@ export const AdminUrls = {
     // 财务模块
     GetAdminFinanceFreeTravelList: api + '/admin/finance/free_travel',  //自由行订单列表
     GetAdminFinanceGroupTravelList: api + '/admin/finance/group_product',  //跟团游订单列表
-    PostAdminFinanceOrderConfirm:api + '/admin/finance/order_confirm',  //确认支付记录
-    GetAdminFinanceGroupTravelToatl:api+'/admin/finance/productorder_total',// 跟团游统计  
-    GetAdminFinanceFreeTravelToatl:api+'/admin/finance/indentorder_total',// 自由行统计  
+    PostAdminFinanceOrderConfirm: api + '/admin/finance/order_confirm',  //确认支付记录
+    GetAdminFinanceGroupTravelToatl: api + '/admin/finance/productorder_total',// 跟团游统计  
+    GetAdminFinanceFreeTravelToatl: api + '/admin/finance/indentorder_total',// 自由行统计  
+    PostAdminOrderEditReceipt: api + '/admin/order/edit_receipt',  //流水信息修改
+
+
+
+
 };
 
 
@@ -436,6 +448,12 @@ export const StoreUrls = {
 
 
     GetStoreAllRegions: api + '/store/regions_all_json',   // 店铺后台获取区域三级联动数据
-    GetStoreCode: api + '/store/sendVerifySms'// 发送手机验证码
+    GetStoreCode: api + '/store/sendVerifySms',// 发送手机验证码
+
+
+
+    // 自由行预售产品
+    GetStorePreFreeTravelList: api + '/store/indent_ticket_list',   //列表
+    PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  //添加
 
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
@@ -34,7 +35,7 @@ export class StoreProductManagementComponent implements OnInit {
     newDay: any
     newHour: any;
     newMin: any;
-    operation_id = Number(localStorage.getItem("storeAccountId"));
+    operation_id: any;
 
     isEar: any;
     tagList: any[] = [];
@@ -43,8 +44,17 @@ export class StoreProductManagementComponent implements OnInit {
     product_id: any;
     accountList: any;
 
+    // 城市
+    nzOptions: any[] | null = null;
+    departure_city: any;
+    destination_city: any;
+    isDeparture: any;
+    isDestination: any;
+
+
     constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-        private modal: NzModalService, private nzContextMenuService: NzContextMenuService, public quoteBydateService: StoreQuoteBydateService) {
+        private modal: NzModalService, private nzContextMenuService: NzContextMenuService,
+        public storeRegionService: StoreRegionService, public quoteBydateService: StoreQuoteBydateService) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -52,13 +62,20 @@ export class StoreProductManagementComponent implements OnInit {
             code: [''],
             status: [''],
             tag: [''],
-            operation_id: [Number(this.operation_id)],
+            operation_id: [''],
+            departure_city: [''],
+            destination_city: [''],
         })
     }
 
 
     ngOnInit(): void {
-        this.getTagList();
+        this.operation_id = Number(localStorage.getItem("storeAccountId"));
+        this.storeRegionService.getAllRegionList().subscribe(res => {
+            this.nzOptions = res;
+            this.getTagList();
+        })
+
         // 将上次查询的筛选条件赋值
         let getSeatch = JSON.parse(localStorage.getItem("storeGroupSearch")!);
         this.status = getSeatch?.status ? getSeatch?.status : '';
@@ -68,7 +85,11 @@ export class StoreProductManagementComponent implements OnInit {
         this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
         this.tag = getSeatch?.tag ? getSeatch?.tag : '';
         this.page = getSeatch?.page ? getSeatch?.page : 1;
-        this.operation_id = getSeatch?.operation_id;
+        this.operation_id = getSeatch?.operation_id == undefined ? this.operation_id : getSeatch?.operation_id;
+        this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
+        this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        
+
         this.searchForm.patchValue({
             status: this.status,
             checkStatus: this.checkStatus,
@@ -76,8 +97,11 @@ export class StoreProductManagementComponent implements OnInit {
             code: this.code,
             tag: this.tag,
             few_days: this.few_days,
-            operation_id: Number(this.operation_id)
-        })
+            operation_id: Number(this.operation_id),
+            departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
+            destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+        });
+
         this.accountListData();
 
 
@@ -87,7 +111,6 @@ export class StoreProductManagementComponent implements OnInit {
     accountListData() {
         this.storeProductService.accountList().subscribe(res => {
             this.accountList = res?.data;
-            this.operation_id = Number(localStorage.getItem("storeAccountId"));
             this.getProductList();
         })
     }
@@ -109,7 +132,7 @@ export class StoreProductManagementComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag, this.operation_id).subscribe(res => {
+        this.storeProductService.getProduct(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.code, this.status, this.tag, this.operation_id, this.departure_city, this.destination_city).subscribe(res => {
             this.loading = false;
             console.log("11111", res);
             this.total = res.meta.pagination.total;   //总页数
@@ -129,10 +152,42 @@ export class StoreProductManagementComponent implements OnInit {
         console.log("当前页", page);
         this.page = page;
         // 筛选条件存进cookie
-        this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page, operation_id: this.operation_id }
+        this.setQuery = {
+            status: this.status, check_status: this.checkStatus, title: this.title,
+            code: this.code, few_days: this.few_days, tag: this.tag,
+            page: this.page, operation_id: this.operation_id,
+            departure_city: this.departure_city, destination_city: this.destination_city
+        }
         localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));
         this.getProductList();
     }
+
+    onChanges(data: any): void {
+        console.log("点击的结果是", data);
+        if (data !== null) {
+            this.isDeparture = data[data.length - 1];
+        }
+    }
+
+    onChangesDest(data: any): void {
+        console.log("点击的结果是", data);
+        if (data !== null) {
+            this.isDestination = data[data.length - 1];
+        }
+    }
+
+
+    //区域解析
+    cityChange(data: any) {
+        let arr: any[] = []
+        for (let i = 0; i < data.length / 4; i++) {
+            let temp = arr[i] || '' + data.substr(0, 4 * (i + 1))
+            arr.push(temp);
+        }
+        return arr
+    }
+
+
 
     search() {
         this.checkStatus = this.searchForm.value.checkStatus;
@@ -143,8 +198,16 @@ export class StoreProductManagementComponent implements OnInit {
         this.tag = this.searchForm.value.tag;
         this.operation_id = this.searchForm.value.operation_id;
         this.page = 1;
+        this.departure_city = this.isDeparture;
+        this.destination_city = this.isDestination;
+
         // 筛选条件存进cookie
-        this.setQuery = { status: this.status, check_status: this.checkStatus, title: this.title, code: this.code, few_days: this.few_days, tag: this.tag, page: this.page, operation_id: this.operation_id }
+        this.setQuery = {
+            status: this.status, check_status: this.checkStatus,
+            title: this.title, code: this.code, few_days: this.few_days,
+            tag: this.tag, page: this.page, operation_id: this.operation_id,
+            departure_city: this.departure_city, destination_city: this.destination_city
+        }
         localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));
         this.getProductList();
 
@@ -205,7 +268,7 @@ export class StoreProductManagementComponent implements OnInit {
         console.log('data', data);
         this.storeProductService.getProductDetail(data.id).subscribe(res => {
             console.log("结果是", res.data.id, res.data.earlier)
-            console.log('res,2132323 :>> ', res.data.child_status,res.data?.insurance_base_info?.data?.insurance_expense);
+            console.log('res,2132323 :>> ', res.data.child_status, res.data?.insurance_base_info?.data?.insurance_expense);
             let child_status = Number(res.data.child_status)
             // 处理时间，预计多久报名
             let minutes = res.data.earlier;
@@ -225,7 +288,7 @@ export class StoreProductManagementComponent implements OnInit {
             else {
                 this.isEar = Math.floor(minutes / 60 / 24);
             }
-            this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, include_insurance_fee:  res.data?.include_insurance_fee, insurance_expense:  res.data?.insurance_base_info?.data?.insurance_expense } });
+            this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, include_insurance_fee: res.data?.include_insurance_fee, insurance_expense: res.data?.insurance_base_info?.data?.insurance_expense } });
         })
     }
 
@@ -334,7 +397,9 @@ export class StoreProductManagementComponent implements OnInit {
             code: '',
             status: '',
             tag: '',
-            operation_id: ''
+            operation_id: '',
+            departure_city: '',
+            destination_city: '',
         })
     }
 }

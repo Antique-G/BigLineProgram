@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { MobilCodeModel } from '../../../interfaces/store/storeForgetPassword/storeForgetPassword.model';
 import { PhoneCodeService } from '../../../services/common/phone-code.service';
-import { StoreForgetPasswordService } from '../../../services/store/store-forget-password/store-forget-password.service';
+import { AdminLoginService } from '../../../services/admin-login/admin-login.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class AdminForgotPasswordComponent implements OnInit {
   paracont = '发送验证码';
   mobilCodeModel:MobilCodeModel;
 
-  constructor(public fb: FormBuilder, public router: Router,public phoneCodeService: PhoneCodeService,public storeForgetPasswordService:StoreForgetPasswordService) {
+  constructor(public fb: FormBuilder, public router: Router,public phoneCodeService: PhoneCodeService,public adminLoginService:AdminLoginService) {
     this.forms();
     this.mobilCodeModel={
       mobile: '',
@@ -74,10 +74,10 @@ export class AdminForgotPasswordComponent implements OnInit {
     }
     console.log("ddddd",this.addForm.value)
     if (this.addForm.valid) {
-      this.storeForgetPasswordService.storeForgetPassword(this.mobilCodeModel.mobile,this.mobilCodeModel.code).subscribe((res:any)=>{
+      this.adminLoginService.adminForgetPassword(this.mobilCodeModel.mobile,this.mobilCodeModel.code).subscribe((res:any)=>{
         console.log("res",res.token)
         if (res?.token) {
-          this.router.navigate(['/store/forgetPassword/setNewPassword'], { queryParams: { token:res.token , mobile:this.mobilCodeModel.mobile} });
+          this.router.navigate(['/admin/forgotPassword/setNew'], { queryParams: { token:res.token , mobile:this.mobilCodeModel.mobile} });
         }
       })
 

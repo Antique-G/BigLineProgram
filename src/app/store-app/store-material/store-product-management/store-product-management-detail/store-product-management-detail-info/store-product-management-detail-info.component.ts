@@ -111,6 +111,7 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
     extraInsuranceId: any[] = [];
     insurance_baseData: any;
     insurance_extraData: any;
+    extraInsuranceData:any[]=[]
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public storeProductService: StoreProductService, public dialog: MatDialog, private msg: NzMessageService,
@@ -647,6 +648,10 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
         let aArr = this.insuranceArr.filter(item => item?.id === data);
         this.baseInsuranceId = aArr[0]?.id;
         this.baseInsuranceName = aArr[0]?.name;
+        this.extraInsuranceData = this.insuranceArr.filter(item => item?.id !== data);
+        this.insurance_extraData = this.insurance_extraData?.filter((item:any)=>item!==data)
+        this.extraInsurance = this.extraInsurance?.filter((item:any)=>item.id!=data)
+        console.log(this.insurance_extraData,this.extraInsurance);
     }
 
     baseInsDetail() {

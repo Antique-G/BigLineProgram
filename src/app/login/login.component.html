@@ -23,14 +23,14 @@
 
                 </form>
                 <div class="text-center" style="margin-top: 30px;">
-                    <button mat-raised-button color="primary" style="width: 250px;letter-spacing: 2px;" (click)="login()">登陆</button>
+                    <button  nz-button nzType="primary" [nzLoading]="isLoadingBtn" style="width: 250px;letter-spacing: 2px;" (click)="login()">登陆</button>
                 </div>
                 <p style="text-align: center;margin-top: 4px;font-size: 14px;">建议使用<a style="color: red;" href="https://www.google.cn/chrome/">谷歌浏览器</a></p>
 
 
-                <!-- <div fxLayout="row" fxLayoutAlign="space-between end" class="login-bottom">
+                <div fxLayout="row" fxLayoutAlign="space-between end" class="login-bottom">
                     <a [routerLink]="[ '/admin/forgotPassword']">忘记密码</a>
-                </div> -->
+                </div>
             </mat-card-content>
         </mat-card>
 

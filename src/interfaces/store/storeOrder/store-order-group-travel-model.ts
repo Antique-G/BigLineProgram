@@ -246,6 +246,7 @@ export interface PaylogModel {
     pay_type: number;
     created_at: string;
     updated_at: string;
+    pay_way?: string
 }
 
 export interface Cancellog {
@@ -595,6 +596,7 @@ export interface ComfirmOrderModel {
     pay_type: any;
     pay_time: any;
     transaction_id: any;
+    money?: any;
 }
 
 // 二维码收款
@@ -624,4 +626,16 @@ export interface DatumOrderTotalModel {
 export interface CancelInsModel {
     order_insurance_id: any
     refund_amount: any
+}
+
+
+
+
+// 财务模块的流水信息修改
+export interface TransChangeModel {
+    order_pay_id: any
+    fee: any;
+    pay_type: any
+    pay_time: any
+    transaction_id: any
 }

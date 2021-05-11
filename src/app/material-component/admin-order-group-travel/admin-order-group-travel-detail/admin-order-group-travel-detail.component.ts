@@ -112,7 +112,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             // 支付流水
             let pagLogArr: any[] = [];
             res.data?.pay_log?.data.forEach((element: any) => {
-                if (element.status == 2) {
+                if (element.status == 2||element.status == 3) {
                     pagLogArr.push(element)
                 }
             });
@@ -468,15 +468,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     detail:this.detailModel
                 }
             },
-            nzFooter: [
-                {
-                    label: '知道了',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.update()
-                    }
-                }
-            ]
+            nzFooter: null
         })
         editmodal.afterClose.subscribe(res => {
             this.activatedRoute.queryParams.subscribe(params => {

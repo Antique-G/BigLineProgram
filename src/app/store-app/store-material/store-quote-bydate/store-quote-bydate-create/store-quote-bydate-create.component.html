@@ -55,7 +55,7 @@
                         <nz-input-number style="width: 200px;" [nzPrecision]="precision" (keyup)="numTest1($event)"
                             formControlName="adult_price" [nzMin]="0" (ngModelChange)="changeAudlt($event)"></nz-input-number>
                     </nz-form-control>
-                   <ng-container *ngIf="type=='management'&&include_insurance_fee==1"> <p *ngIf="isAdultShow" style="margin-left: 33%;color:red;height: 2px;">！成人价格不能小于基础保险金额</p></ng-container>
+                   <ng-container *ngIf="type=='management'&&include_insurance_fee==1"> <p *ngIf="isAdultShow" style="margin-left: 33%;color:red;height: 2px;">！成人价格需大于基础保险金额</p></ng-container>
                 </nz-form-item>
 
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24" *ngIf="childStatus==='1'">
@@ -64,7 +64,7 @@
                         <nz-input-number style="width: 200px;" [nzPrecision]="precision" formControlName="child_price"
                             (keyup)="numTest2($event)" [nzMin]="0"   (ngModelChange)="changeKid($event)"></nz-input-number>
                     </nz-form-control>
-                    <ng-container *ngIf="type=='management'&&include_insurance_fee==1&&childStatus==='1'"><p  *ngIf="isKidShow"  style="margin-left: 33%;color:red;height: 2px;">！儿童价格不能小于基础保险金额</p> </ng-container>
+                    <ng-container *ngIf="type=='management'&&include_insurance_fee==1&&childStatus==='1'"><p  *ngIf="isKidShow"  style="margin-left: 33%;color:red;height: 2px;">！儿童价格需大于基础保险金额</p> </ng-container>
                 </nz-form-item>
 
                 <ng-container>
@@ -74,7 +74,7 @@
                             <nz-input-number style="width: 200px;" [nzPrecision]="precision"
                                 formControlName="baby_price" (keyup)="numTest3($event)" [nzMin]="0" (ngModelChange)="changeBaby($event)"></nz-input-number>
                         </nz-form-control>
-                        <ng-container *ngIf="type=='management'&&include_insurance_fee==1&&childStatus==='1'"><p  *ngIf="isBabyShow" style="margin-left: 33%;color:red;height: 2px;">！婴儿价格不能小于基础保险金额</p> </ng-container>
+                        <ng-container *ngIf="type=='management'&&include_insurance_fee==1&&childStatus==='1'"><p  *ngIf="isBabyShow" style="margin-left: 33%;color:red;height: 2px;">！婴儿价格需大于基础保险金额</p> </ng-container>
 
                     </nz-form-item>
                 </ng-container>

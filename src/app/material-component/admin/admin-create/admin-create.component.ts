@@ -19,7 +19,7 @@ export class AdminCreateComponent implements OnInit {
   registerRequestModel: RegisterRequestModel;
   listDataMap: any[] = [];
 
-  listOfOption: string[] = [];
+  listOfOption: any[] = [];
   listOfTagOptions: any[] = [];
   
   

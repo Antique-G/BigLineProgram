@@ -104,6 +104,8 @@ export class StoreProductInfoComponent implements OnInit {
     baseInsuranceName: any;      //基础保险名称
     extraInsurance: any[] = [];          //额外保险名称
     extraInsuranceId: any[] = [];
+    insurance_extraData: any;
+    extraInsuranceData:any[]=[]
 
 
     constructor(public fb: FormBuilder, public router: Router, public dialog: MatDialog,
@@ -187,6 +189,7 @@ export class StoreProductInfoComponent implements OnInit {
         this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
             console.log('保险 :>> ', res);
             this.insuranceArr = res?.data;
+            this.extraInsuranceData = res?.data;
             this.getCateList();
         })
 
@@ -591,6 +594,10 @@ export class StoreProductInfoComponent implements OnInit {
         let aArr = this.insuranceArr.filter(item => item.id === data);
         this.baseInsuranceId = aArr[0].id;
         this.baseInsuranceName = aArr[0].name;
+        this.extraInsuranceData = this.insuranceArr.filter(item => item?.id !== data);
+        this.insurance_extraData = this.insurance_extraData?.filter((item:any)=>item!==data)
+        this.extraInsurance = this.extraInsurance?.filter((item:any)=>item.id!=data)
+        console.log(this.insurance_extraData,this.extraInsurance);
     }
 
     baseInsDetail() {
@@ -624,7 +631,7 @@ export class StoreProductInfoComponent implements OnInit {
     // 多选保险
     changeIns(a: any) {
         let arr: any[] = [];
-        a.forEach((element: any) => {
+        a?.forEach((element: any) => {
             let aArr = this.insuranceArr.filter(item => item.id == element);
             arr = arr.concat(aArr);
         });

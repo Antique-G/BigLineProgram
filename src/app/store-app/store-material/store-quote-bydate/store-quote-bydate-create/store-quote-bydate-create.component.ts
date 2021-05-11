@@ -468,31 +468,31 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
 
     changeAudlt(data: any) {
         console.log("data", data);
-        if (Number(this.addForm.value.adult_price) < Number(this.insurance_expense)) {
-            this.isAdultShow = true;
+        if (Number(this.addForm.value.adult_price) > Number(this.insurance_expense)) {
+            this.isAdultShow = false;
         }
         else {
-            this.isAdultShow = false;
+            this.isAdultShow = true;
         }
     }
 
     changeKid(data: any) {
         console.log("data", data);
-        if (Number(this.addForm.value.child_price) < Number(this.insurance_expense)) {
-            this.isKidShow = true;
+        if (Number(this.addForm.value.child_price) > Number(this.insurance_expense)) {
+            this.isKidShow = false;
         }
         else {
-            this.isKidShow = false;
+            this.isKidShow = true;
         }
     }
 
     changeBaby(data: any) {
         console.log("data", data);
-        if (Number(this.addForm.value.baby_price) < Number(this.insurance_expense)) {
-            this.isBabyShow = true;
+        if (Number(this.addForm.value.baby_price) > Number(this.insurance_expense)) {
+            this.isBabyShow = false;
         }
         else {
-            this.isBabyShow = false;
+            this.isBabyShow = true;
         }
     }
 }
