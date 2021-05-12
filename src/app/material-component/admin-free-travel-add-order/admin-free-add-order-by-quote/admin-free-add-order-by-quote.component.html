@@ -467,7 +467,7 @@
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
                             <div *ngIf="isShowFeeDetail===true">
-                                共<span style="color: red;">￥{{totalPrice}}元</span>：
+                                共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
                                 <span>套餐{{isPackAll}}元| </span>
                                 <span>优惠{{discountPrice}}元 </span>
                                 <span>附加收费{{other_price}}元 </span>
