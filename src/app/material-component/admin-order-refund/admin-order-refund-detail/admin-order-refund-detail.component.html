@@ -474,6 +474,9 @@
                                                                                 <span *ngIf="data.pay_type===4">微信二维码</span>
                                                                                 <span *ngIf="data.pay_type===5">支付宝二维码</span>
                                                                                 <span *ngIf="data.pay_type===6">银行卡转账</span>
+                                                                                <span *ngIf="data.pay_type===7">余额支付</span>
+                                                                                <span *ngIf="data.pay_type===8">飞猪</span>
+                                                                                <span *ngIf="data.pay_type===9">携程</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
@@ -834,6 +837,9 @@
                                                                                 <span *ngIf="data.pay_type===4">微信二维码</span>
                                                                                 <span *ngIf="data.pay_type===5">支付宝二维码</span>
                                                                                 <span *ngIf="data.pay_type===6">银行卡转账</span>
+                                                                                <span *ngIf="data.pay_type===7">余额支付</span>
+                                                                                <span *ngIf="data.pay_type===8">飞猪</span>
+                                                                                <span *ngIf="data.pay_type===9">携程</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
