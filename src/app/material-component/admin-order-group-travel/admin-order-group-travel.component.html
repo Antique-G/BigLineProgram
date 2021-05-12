@@ -251,6 +251,12 @@
                                             </div>
                                             <div>
                                                 <img src="http://cdn.bigline.com.cn/static/images/insImg.png" title="保险状态">
+                                                <span *ngIf="data.insurance_status===0" > <nz-badge nzColor="yellow"></nz-badge>未投保</span>
+                                                <span *ngIf="data.insurance_status===1" ><nz-badge nzColor="yellow"></nz-badge>出单中</span>
+                                                <span *ngIf="data.insurance_status===2" ><nz-badge nzColor="green"></nz-badge>已出单</span>
+                                                <span *ngIf="data.insurance_status===3" > <nz-badge nzColor="pink"></nz-badge>已退保</span>
+                                                <span *ngIf="data.insurance_status===4" ><nz-badge nzColor="red"></nz-badge>失败</span>
+                                                <span *ngIf="data.insurance_status===5" >无</span>
                                             </div>
                                         </div>
                                     </td>

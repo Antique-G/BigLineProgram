@@ -11,6 +11,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
+import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -39,7 +41,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
 
 
-    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
+    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, public dialog: MatDialog,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService, private msg: NzMessageService,
         public adminOrderService: AdminOrderService) {
         this.addForm = this.fb.group({
@@ -100,7 +102,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             // 支付流水
             let pagLogArr: any[] = [];
             res.data?.pay_log?.data.forEach((element: any) => {
-                if (element.status == 2||element.status == 3) {
+                if (element.status == 2 || element.status == 3) {
                     pagLogArr.push(element)
                 }
             });
@@ -318,52 +320,68 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
     // 订单退款
     orderPartRefund() {
-        if (this.detailModel?.quote_type == 2) {
-            const editmodal = this.modal.create({
-                nzTitle: '订单退款',
-                nzWidth: 1000,
-                nzMaskClosable: false,
-                nzContent: AOGTDPartRefundComponent,
-                nzComponentParams: {
-                    data: this.detailModel
-                },
-                nzFooter: [
-                    {
-                        label: '提交退款申请',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.add()
-                        }
-                    }
-                ]
-            })
-            editmodal.afterClose.subscribe(res => {
-                this.getDetail();
-            })
+        // 按人头的自由行和跟团游退款一样 detailModel?.independent_product?.data?.quote_type==1?'按套餐份数':'按人头'
+        let quoteType = this.detailModel?.independent_product?.data?.quote_type;
+        if (quoteType == '2') {
+            const dialogRef = this.dialog.open(AdminSelectRefundComponent, {
+                width: '550px',
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                console.log("关闭", result)
+                if (result != undefined) {
+                    let type = result;
+                    const editmodal = this.modal.create({
+                        nzTitle: '订单退款',
+                        nzWidth: 1000,
+                        nzMaskClosable: false,
+                        nzContent: AOGTDPartRefundComponent,
+                        nzComponentParams: {
+                            data: {
+                                data: this.detailModel,
+                                type: type
+                            }
+                        },
+                        nzFooter: null
+                    })
+                    editmodal.afterClose.subscribe(res => {
+                        this.getDetail();
+                    })
+                }
+
+            });
         }
         else {
-            const editmodal = this.modal.create({
-                nzTitle: '订单退款',
-                nzWidth: 1000,
-                nzMaskClosable: false,
-                nzContent: AOFTRefundByquoteComponent,
-                nzComponentParams: {
-                    data: this.detailModel
-                },
-                nzFooter: [
-                    {
-                        label: '提交退款申请',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.add()
-                        }
-                    }
-                ]
+            const dialogRef = this.dialog.open(AdminSelectRefundComponent, {
+                width: '550px',
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                console.log("关闭", result)
+                if (result != undefined) {
+                    let type = result;
+                    const editmodal = this.modal.create({
+                        nzTitle: '订单退款',
+                        nzWidth: 1000,
+                        nzMaskClosable: false,
+                        nzContent: AOFTRefundByquoteComponent,
+                        nzComponentParams: {
+                            data: {
+                                data: this.detailModel,
+                                type: type
+                            }
+                        },
+                        nzFooter: null
+                    })
+                    editmodal.afterClose.subscribe(res => {
+                        this.getDetail();
+                    })
+                }
             })
-            editmodal.afterClose.subscribe(res => {
-                this.getDetail();
-            })
+
         }
+
+
+
+
 
     }
 
