@@ -121,6 +121,7 @@
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;width: 15%;">产品名称</th>
                                     <th style="text-align: center;">产品编码</th>
+                                    <th style="text-align: center;">是否包团</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">创建人</th>
                                     <th style="text-align: center;">行程天数</th>
@@ -142,6 +143,7 @@
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
                                     <td>{{data.code}}</td>
+                                    <td>{{data?.is_group==0?'否':'是'}}</td>
                                     <td>{{data.store_name}}</td>
                                     <td>{{data.operation_name}}</td>
                                     <td>{{data.few_days}}天{{data.few_nights}}晚</td>
