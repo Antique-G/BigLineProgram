@@ -28,6 +28,7 @@ export interface AddStoreProductModel {
     include_insurance_fee?: any;
     insurance_base_info?: any;
     sales_note?: any;
+    is_group?: any;
 
 }
 
@@ -115,6 +116,7 @@ export interface DataModel {
     include_insurance_fee?: any;
     insurance_base_info?: any;
     sales_note?: any;
+    is_group?: any;
 
 }
 
@@ -225,6 +227,7 @@ export interface DatumListModel {
     include_insurance_fee?: any;
     insurance_base_info?: any;
     sales_note?: any;
+    is_group?: any;
 
 }
 
@@ -273,6 +276,7 @@ export interface DetailModel {
     include_insurance_fee?: any;
     insurance_base_info?: any;
     sales_note?: any;
+    is_group?: any;
 
 }
 
