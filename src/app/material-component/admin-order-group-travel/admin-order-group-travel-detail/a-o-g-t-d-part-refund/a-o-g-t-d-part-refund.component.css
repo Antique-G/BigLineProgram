@@ -1,3 +1,13 @@
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    padding: 0;
+}
+.h_title{
+    font-weight: bold;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
 .content {
     padding: 7px;
     border-radius: 8px;
@@ -76,7 +86,9 @@
     flex-direction: column;
     flex: 1 !important;
 }
-
+.ant-form-item-label>label{
+    font-weight: 400 !important;
+}
 .item {
     flex: 1 !important;
 }
@@ -108,4 +120,26 @@
 
 .ant-picker-calendar-date-content {
     height: 46px !important;
+}
+.total-title{
+    font-size: 14px;font-weight: 600;
+}
+.red{
+    color: red
+}
+.marginLeft-10{
+    margin-left:10px
+}
+.marginLeft-5{
+    margin-left:5px
+}
+.marginLeft-50{
+    margin-left:50px
+
+}
+.retruning{
+    color: #ccc;
+}
+.sub-title{
+    font-size: 14px;
 }

@@ -176,7 +176,7 @@
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-
+                                            
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
@@ -187,17 +187,19 @@
                                                 <p title="成人数/2<=房间数<=(成人数+儿童数)/2,最大房间数不能大于成人数和儿童数总和的一半" style="color: red;margin-left: 30%;cursor: pointer;"><img style="width: 5%;" src="http://cdn.bigline.com.cn/static/images/help.png">房间数规则</p>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
-                                                <div nz-row *ngIf="showRoom===true">
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="shared_status" nzRequired>拼房</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
-                                                        <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status" (ngModelChange)="isChangeRoom($event)">
-                                                            <label nz-radio nzValue='0'>不拼房 </label>
-                                                            <label nz-radio nzValue='1'>拼房</label>
-                                                        </nz-radio-group>
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
+                                            <ng-container *ngIf="detailModel?.few_nights!=0">
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="showRoom===true">
+                                                    <div nz-row >
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="shared_status" nzRequired>拼房</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status" (ngModelChange)="isChangeRoom($event)">
+                                                                <label nz-radio nzValue='0'>不拼房 </label>
+                                                                <label nz-radio nzValue='1'>拼房</label>
+                                                            </nz-radio-group>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </ng-container>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.child_status===1">
                                                 <div nz-row>
@@ -260,12 +262,9 @@
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
-                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender">
-                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
-                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
-                                                                </nz-select>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
                                                             </nz-form-control>
                                                             <button nz-button nzType="dashed" class="add-button" (click)="removeIcon(i)">
                                                                 <i nz-icon nzType="minus"></i>
@@ -273,18 +272,6 @@
                                                             </button>
                                                         </div>
                                                     </nz-form-item>
-
-
-
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                        <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                                                <input nz-input formControlName="phone" />
-                                                            </nz-form-control>
-                                                        </div>
-                                                    </nz-form-item>
-
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
@@ -305,7 +292,7 @@
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" nzRequired *ngIf="isRequestIdNum">证件号码</nz-form-label>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" *ngIf="!isRequestIdNum">证件号码</nz-form-label>
                                                             <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入证件号码">
-                                                                <input nz-input formControlName="id_num" />
+                                                                <input nz-input formControlName="id_num" (blur)="idCardEnter($event,i)"/>
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
@@ -321,9 +308,22 @@
 
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender" [(ngModel)]="idType[i]">
+                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                        <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
                                                             <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
-                                                                <nz-select nzPlaceHolder="请选择" formControlName="assembling_place_id">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="assembling_place_id" [(ngModel)]="selectAssembling[i]" (ngModelChange)="changeAssembling($event,i)">
                                                                     <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+place.time" [nzValue]="place.value">
                                                                     </nz-option>
                                                                 </nz-select>
@@ -335,7 +335,7 @@
                                                     <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
-                                                            <div *ngIf="newImgArr[i].length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                            <div *ngIf="newImgArr[i]?.length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                                 <div *ngFor="let img of newImgArr[i],let index=index" style="position: relative;">
                                                                     <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
                                                                     <span (click)="deleteImg(i,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
@@ -384,15 +384,11 @@
                                                         </div>
                                                     </nz-form-item>
 
-
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
-                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender">
-                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
-                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
-                                                                </nz-select>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
                                                             </nz-form-control>
                                                             <button nz-button nzType="dashed" class="add-button" (click)="removeBaby(t)">
                                                                 <i nz-icon nzType="minus"></i>
@@ -400,17 +396,8 @@
                                                             </button>
                                                         </div>
                                                     </nz-form-item>
-
-
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                        <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                                                <input nz-input formControlName="phone" />
-                                                            </nz-form-control>
-                                                        </div>
-                                                    </nz-form-item>
-
+                                                    
+                                                   
                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type">证件类型</nz-form-label>
@@ -442,6 +429,20 @@
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender">
+                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                          
+                                                        </div>
+                                                    </nz-form-item>
+
 
 
                                                     <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
@@ -660,7 +661,7 @@
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
                             <div *ngIf="isShowFeeDetail===true">
-                                共<span style="color: red;">￥{{totalPrice}}元</span>：
+                                共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
                                 <span>成人{{audltAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.child_status===1">儿童{{childAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.child_status===1">婴儿{{babyAllPrice}}元| </span>

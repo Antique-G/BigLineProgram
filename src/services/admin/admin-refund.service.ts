@@ -53,8 +53,8 @@ export class AdminRefundService {
   }
 
   // 创建退款单
-  createRefund(createReundModel: CreateReundModel): Observable<any> {
-    return this.httpClient.post<any>(this.urls.PostAdminRefund, createReundModel, httpOptions)
+  createRefund(reundCheckModel: ReundCheckModel): Observable<any> {
+    return this.httpClient.post<any>(this.urls.PostAdminRefund, reundCheckModel, httpOptions)
       .pipe(
         catchError(this.handleError)
       )

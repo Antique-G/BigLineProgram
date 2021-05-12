@@ -110,7 +110,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
     extraInsuranceId: any[] = [];
     insurance_baseData: any;
     insurance_extraData: any;
-    extraInsuranceData:any[]=[]
+    extraInsuranceData: any[] = []
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminProductManagementService: AdminProductManagementService, public adminRegionService: AdminRegionService,
@@ -144,6 +144,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             insurance_base: '',
             insurance_extra: [],
             sales_note: [],
+            is_group: [],
         }
 
     }
@@ -176,6 +177,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             insurance_base: new FormControl('', [Validators.required]),
             insurance_extra: [''],
             sales_note: [''],
+            is_group: new FormControl(0, [Validators.required]),
         });
         // 每次表单数据发生变化的时候更新错误信息
         this.addForm.valueChanges.subscribe(data => {
@@ -342,7 +344,7 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.detailUpdateModel.insurance_base = this.baseInsuranceId;
         this.detailUpdateModel.insurance_extra = this.extraInsuranceId;
         this.detailUpdateModel.sales_note = this.addForm.value.sales_note;
-
+        this.detailUpdateModel.is_group = this.addForm.value.is_group;
     }
 
 
@@ -609,9 +611,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
         this.baseInsuranceId = aArr[0]?.id;
         this.baseInsuranceName = aArr[0]?.name;
         this.extraInsuranceData = this.insuranceArr.filter(item => item?.id !== data);
-        this.insurance_extraData = this.insurance_extraData?.filter((item:any)=>item!==data)
-        this.extraInsurance = this.extraInsurance?.filter((item:any)=>item.id!=data)
-        console.log(this.insurance_extraData,this.extraInsurance);
+        this.insurance_extraData = this.insurance_extraData?.filter((item: any) => item !== data)
+        this.extraInsurance = this.extraInsurance?.filter((item: any) => item.id != data)
+        console.log(this.insurance_extraData, this.extraInsurance);
     }
 
     baseInsDetail() {

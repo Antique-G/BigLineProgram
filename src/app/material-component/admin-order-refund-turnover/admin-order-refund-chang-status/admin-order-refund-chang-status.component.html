@@ -18,10 +18,13 @@
                         <nz-select nzPlaceHolder="请选择" formControlName="pay_type" (ngModelChange)="changeType($event)">
                             <nz-option [nzLabel]="'微信'" [nzValue]="'1'"></nz-option>
                             <nz-option [nzLabel]="'支付宝'" [nzValue]="'2'"></nz-option>
-                            <nz-option [nzLabel]="'银行卡转账'" [nzValue]="'3'"></nz-option>
+                            <nz-option [nzLabel]="'现金'" [nzValue]="'3'"></nz-option>
                             <nz-option [nzLabel]="'微信二维码'" [nzValue]="'4'"></nz-option>
                             <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="'5'"></nz-option>
-                            <nz-option [nzLabel]="'现金'" [nzValue]="'6'"></nz-option>
+                            <nz-option [nzLabel]="'银行卡转账'" [nzValue]="'6'"></nz-option>
+                            <!-- <nz-option [nzLabel]="'余额支付'" [nzValue]="'7'"></nz-option> -->
+                            <nz-option [nzLabel]="'飞猪'" [nzValue]="'8'"></nz-option>
+                            <nz-option [nzLabel]="'携程'" [nzValue]="'9'"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </div>

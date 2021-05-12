@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -13,6 +14,7 @@ import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminMemberComponent } from './admin-member/admin-member.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
+import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
 
 
 
@@ -50,7 +52,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     order_insurance_id: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
-        public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService,
+        public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, public dialog: MatDialog,
         public adminOrderService: AdminOrderService) {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
@@ -112,7 +114,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             // 支付流水
             let pagLogArr: any[] = [];
             res.data?.pay_log?.data.forEach((element: any) => {
-                if (element.status == 2||element.status == 3) {
+                if (element.status == 2 || element.status == 3) {
                     pagLogArr.push(element)
                 }
             });
@@ -208,27 +210,39 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
     // 订单退款
     orderPartRefund() {
-        const editmodal = this.modal.create({
-            nzTitle: '订单退款',
-            nzWidth: 1000,
-            nzMaskClosable: false,
-            nzContent: AOGTDPartRefundComponent,
-            nzComponentParams: {
-                data: this.detailModel
-            },
-            nzFooter: [
-                {
-                    label: '提交退款申请',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.add()
-                    }
-                }
-            ]
-        })
-        editmodal.afterClose.subscribe(res => {
-            this.getgroupTravelDetail();
-        })
+        const dialogRef = this.dialog.open(AdminSelectRefundComponent, {
+            width: '550px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            console.log("关闭", result)
+            if (result != undefined) {
+                let type = result;
+                const editmodal = this.modal.create({
+                    nzTitle: '订单退款',
+                    nzWidth: 1000,
+                    nzMaskClosable: false,
+                    nzContent: AOGTDPartRefundComponent,
+                    nzComponentParams: {
+                        data: {
+                            data: this.detailModel,
+                            type: type
+                        }
+                    },
+                    nzFooter: null
+                })
+                editmodal.afterClose.subscribe(res => {
+                    this.getgroupTravelDetail();
+                })
+            }
+
+        });
+
+
+
+
+
+
+
     }
 
 
@@ -332,7 +346,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         });
     }
 
-    
+
 
 
     // 恢复订单
@@ -455,17 +469,17 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
 
-  
-    
-    member(data:any) {
+
+
+    member(data: any) {
         const editmodal = this.modal.create({
             nzTitle: '查看参保人',
             nzContent: AdminMemberComponent,
             nzWidth: 1000,
             nzComponentParams: {
                 data: {
-                    data:data,
-                    detail:this.detailModel
+                    data: data,
+                    detail: this.detailModel
                 }
             },
             nzFooter: null
@@ -481,26 +495,26 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         })
     }
 
-      // 电子保单
-      seeDetail(obj: any) {
+    // 电子保单
+    seeDetail(obj: any) {
         this.order_insurance_id = obj.id;
         const msgId = this.msg.loading('正在下载电子保单', { nzDuration: 0 }).messageId;
-            this.adminOrderGroupTravelService.downloadFile(this.order_insurance_id).subscribe(res => {
-                console.log("res", res)
-                const link = document.createElement('a');
-                const blob = new Blob([res], {type: 'application/pdf'});
-                link.setAttribute('href', window.URL.createObjectURL(blob));
-                link.setAttribute('download', obj.insurance_name+'-'+new Date().getTime() + '.pdf');
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                this.msg.remove(msgId);
-                this.msg.success('下载电子保单成功')
-                // window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
-            })
+        this.adminOrderGroupTravelService.downloadFile(this.order_insurance_id).subscribe(res => {
+            console.log("res", res)
+            const link = document.createElement('a');
+            const blob = new Blob([res], { type: 'application/pdf' });
+            link.setAttribute('href', window.URL.createObjectURL(blob));
+            link.setAttribute('download', obj.insurance_name + '-' + new Date().getTime() + '.pdf');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            this.msg.remove(msgId);
+            this.msg.success('下载电子保单成功')
+            // window.open('/bbbb/static/pdf/web/viewer.html?file=' +encodeURIComponent(res));
+        })
     }
 
-   
+
 }
 
