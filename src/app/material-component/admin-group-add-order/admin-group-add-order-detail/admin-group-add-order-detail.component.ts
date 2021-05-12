@@ -65,7 +65,11 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     isName: any;
     isPhone: any;
     isChangeData: any[] = [];
-    newImgArr: any[] = []
+    newImgArr: any[] = [];
+    // 性别数组
+    idType: any[] = [];
+    // 集合地点数组
+    selectAssembling: any[] = [];
 
 
     isBabyShow = false;
@@ -83,8 +87,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     difPrice: any;
     difAllPrice: any;
     difRoom: any
-    baseInsurancePrice:any = 0//基础保险
-    extraInsurancePrice:any = 0 //额外保险
+    baseInsurancePrice: any = 0//基础保险
+    extraInsurancePrice: any = 0 //额外保险
 
     totalPrice: any;
     feeAll: any;
@@ -105,6 +109,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     insuranceArr: any[] = [];
     extraInsurance: any[] = [];          //额外保险名称
     extraInsuranceId: any[] = [];
+
+
 
     constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, public adminInsuranceService: AdminInsuranceService,
@@ -164,10 +170,91 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             internal_remarks: '',
             discount_tit: '',
             other_price_tit: '',
-            insurance_extra_ids:[]
+            insurance_extra_ids: []
         }
     }
 
+
+    ngOnInit(): void {
+        this.addForm.controls['insurance_extra'].setValue([]);
+        this.assemblingPlaceList = [];
+        this.activatedRoute.queryParams.subscribe(params => {
+            //   调用产品详情接口拿到保险内容
+            this.adminOrderGroupTravelService.productToBuy(params?.id).subscribe(res => {
+                console.log("res1111111", res)
+                this.detailModel = res?.data;
+                this.isRequestIdNum = this.detailModel?.request_id_num == 1 ? true : false;
+                this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
+                // 集合时间
+                if (this.detailModel?.assembling_place?.data.length === 0) {
+                    this.assemblingPlaceList = [];
+                }
+                else {
+                    for (let i of this.detailModel?.assembling_place?.data) {
+                        console.log("集合地点ii", i, i.time_state === 0);
+                        if (i.time_state === 0) {
+                            let a = { value: i.id, label: i.name, time: i.time };
+                            this.assemblingPlaceList.push(a);
+                        }
+                        else if (i.time_state === 1) {
+                            let a = { value: i.id, label: i.name, time: '' };
+                            this.assemblingPlaceList.push(a);
+                        }
+                    }
+                    this.isShowRoom()
+                }
+
+
+                console.log('结婚', this.assemblingPlaceList)
+                this.listDataMap = this.detailModel?.date_quote?.data;
+                console.log('this.listDataMap :>> ', this.listDataMap);
+                this.listDataMap?.forEach((value: any) => {
+                    value['checked'] = false;
+                })
+
+                // 初始化出行人信息
+                let control = <FormArray>this.informationForm.controls['humanList'];
+                // 校验手机
+                const { mobile } = MyValidators;
+                if (this.isRequestIdNum) {
+                    control.push(new FormGroup({
+                        name: new FormControl('', [Validators.required]),
+                        phone: new FormControl('', [mobile]),
+                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                        id_type: new FormControl(1, [Validators.required]),
+                        id_num: new FormControl('', [Validators.required]),
+                        birthday: new FormControl(null, [Validators.required]),
+                        assembling_place_id: new FormControl('', [Validators.required]),
+                        id_photo: new FormControl('', [Validators.required]),
+                        gender: new FormControl(1, [Validators.required]),
+                        eng_name: new FormControl(''),
+                    }));
+                }
+                else {
+                    control.push(new FormGroup({
+                        name: new FormControl('', [Validators.required]),
+                        phone: new FormControl('', [mobile]),
+                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                        id_type: new FormControl(1),
+                        id_num: new FormControl(''),
+                        birthday: new FormControl('', [Validators.required]),
+                        assembling_place_id: new FormControl('', [Validators.required]),
+                        id_photo: new FormControl('', [Validators.required]),
+                        gender: new FormControl(1, [Validators.required]),
+                        eng_name: new FormControl(''),
+                    }));
+                }
+                this.isChangeData.push(false);
+                this.newImgArr.push([]);
+                this.idType.push(1);
+                this.selectAssembling.push(this.assemblingPlaceList[0].value);
+                // 获取产品保险
+                this.insuranceArr = this.detailModel?.insurance_extra?.data;
+            })
+        })
+
+
+    }
 
     // 出行人
     get humanArray() {
@@ -182,39 +269,53 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
     //添加
     addHuman() {
+        let totalMember: number = Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid);
+        let oldLength: number = this.informationForm.value.humanList.length;
+        let needAdd: number = totalMember - oldLength;
+        console.log("this.humanArray", this.informationForm.value.humanList);
+        console.log("totalMember", totalMember);
         // 校验手机
         const { mobile } = MyValidators;
-        if (this.isRequestIdNum) {
-            this.humanArray.push(this.fb.group({
-                name: new FormControl('', [Validators.required]),
-                phone: new FormControl('', [mobile]),
-                is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-                id_type: new FormControl(1, [Validators.required]),
-                id_num: new FormControl('', [Validators.required]),
-                birthday: new FormControl(null, [Validators.required]),
-                assembling_place_id: ['',],
-                id_photo: new FormControl('', [Validators.required]),
-                gender: new FormControl(1, [Validators.required]),
-                eng_name: new FormControl(''),
-            }))
+        for (let i = 0; i < needAdd; i++) {
+            // 信息必填
+            if (this.isRequestIdNum) {
+                this.humanArray.push(this.fb.group({
+                    name: new FormControl('', [Validators.required]),
+                    phone: new FormControl('', [mobile]),
+                    is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                    id_type: new FormControl(1, [Validators.required]),
+                    id_num: new FormControl('', [Validators.required]),
+                    birthday: new FormControl(null, [Validators.required]),
+                    assembling_place_id: ['',],
+                    id_photo: new FormControl('', [Validators.required]),
+                    gender: new FormControl(1, [Validators.required]),
+                    eng_name: new FormControl(''),
+                }))
+            }
+            else {
+                this.humanArray.push(this.fb.group({
+                    name: new FormControl('', [Validators.required]),
+                    phone: new FormControl('', [mobile]),
+                    is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                    id_type: new FormControl(1),
+                    id_num: new FormControl(''),
+                    birthday: new FormControl('', [Validators.required]),
+                    assembling_place_id: ['',],
+                    id_photo: new FormControl('', [Validators.required]),
+                    gender: new FormControl(1, [Validators.required]),
+                    eng_name: new FormControl(''),
+                }))
+            }
+            this.isChangeData.push(false);
+            this.newImgArr.push([]);
+            this.idType.push(1);
+            this.selectAssembling.push(this.assemblingPlaceList[0].value);
         }
-        else {
-            this.humanArray.push(this.fb.group({
-                name: new FormControl('', [Validators.required]),
-                phone: new FormControl('', [mobile]),
-                is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-                id_type: new FormControl(1),
-                id_num: new FormControl(''),
-                birthday: new FormControl('', [Validators.required]),
-                assembling_place_id: ['',],
-                id_photo: new FormControl('', [Validators.required]),
-                gender: new FormControl(1, [Validators.required]),
-                eng_name: new FormControl(''),
-            }))
-        }
-        this.isChangeData.push(false);
-        this.newImgArr.push([])
+
         this.isNum();
+
+
+        console.log("点击添加", this.isChangeData, this.newImgArr, this.idType, this.selectAssembling)
     }
 
     // 添加婴儿
@@ -240,7 +341,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     removeIcon(index: number) {
         if (this.humanArray.length > 1) {
             this.humanArray.removeAt(index);
-            this.isChangeData.splice(index, 1)
+            this.isChangeData.splice(index, 1);
+            this.idType.splice(index, 1);
+            this.selectAssembling.splice(index, 1);
             this.isNum();
         }
         else {
@@ -254,6 +357,42 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     }
 
 
+    // 输入证件号码
+    idCardEnter(event: any, i: any) {
+        console.log("this.informationForm.value.humanList.length", this.informationForm.value.humanList)
+        console.log("11111", event, i)
+        let newbir = this.informationForm.value.humanList[i].id_num;
+        let sex = this.getSex(newbir);
+        // 性别数组
+        this.idType[i] = sex;
+        console.log("newbir", newbir, sex);
+        console.log("this.idType", this.idType);
+    }
+
+    // 根据输入的身份证信息获取性别
+    getSex(idCardany: any) {
+        let sexStr: number = 1;
+        if (parseInt(idCardany.slice(-2, -1)) % 2 == 1) {
+            sexStr = 1;
+        }
+        else {
+            sexStr = 2;
+        }
+        return sexStr;
+
+    }
+
+    // 选择集合地点
+    changeAssembling(event: any, i: any) {
+        console.log("点击的集合地点", event, i, this.selectAssembling);
+        let iArr: any[] = [];
+        this.selectAssembling?.forEach((ele: any) => {
+            console.log("iiiiiiii", ele);
+            iArr.push(event)
+        });
+        this.selectAssembling = iArr
+        console.log("重新复制后的", this.selectAssembling)
+    }
 
     // 验证类型与输入的成人儿童数是否一致
     onEnter(data: any) {
@@ -332,8 +471,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         }
     }
 
-    getAllPeople(){
-       return Number(this.informationForm.value.num_adult)+Number(this.informationForm.value.num_kid)+Number(this.informationForm.value.baby_num)
+    getAllPeople() {
+        return Number(this.informationForm.value.num_adult) + Number(this.informationForm.value.num_kid) + Number(this.informationForm.value.baby_num)
     }
 
     priceAll() {
@@ -348,21 +487,21 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             this.babyAllPrice = 0
         }
         // 基础保险
-        
-        if(this.detailModel?.insurance_base_info&&this.detailModel?.include_insurance_fee==0){
+
+        if (this.detailModel?.insurance_base_info && this.detailModel?.include_insurance_fee == 0) {
             let insurance_expense = this.detailModel?.insurance_base_info?.data?.insurance_expense
-            let money= (insurance_expense*100 * this.getAllPeople())/100
-            console.log('AAAA',insurance_expense,money);
+            let money = (insurance_expense * 100 * this.getAllPeople()) / 100
+            console.log('AAAA', insurance_expense, money);
             this.baseInsurancePrice = money.toFixed(2)
         }
 
         let extraMoney = 0
-        this.extraInsurance.map(item=>{
-            extraMoney+=Number(item.insurance_expense)
+        this.extraInsurance.map(item => {
+            extraMoney += Number(item.insurance_expense)
         })
-        this.extraInsurancePrice =  ((extraMoney*100 * this.getAllPeople())/100).toFixed(2)
-        console.log(this.insuranceArr,this.extraInsurance,this.extraInsuranceId);
-        console.log('baseInsurancePrice',this.baseInsurancePrice,this.detailModel);
+        this.extraInsurancePrice = ((extraMoney * 100 * this.getAllPeople()) / 100).toFixed(2)
+        console.log(this.insuranceArr, this.extraInsurance, this.extraInsuranceId);
+        console.log('baseInsurancePrice', this.baseInsurancePrice, this.detailModel);
         this.difRoom = Number(this.isForRoom) * 2 - Number(this.informationForm.value.num_adult) - Number(this.isshared_status);
         // 房间数
         console.log('222222222222 :>> ', Number(this.isForRoom), Number(this.isForRoom) * 2, Number(this.informationForm.value.num_adult), Number(this.isshared_status));
@@ -370,12 +509,12 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         this.difAllPrice = Number(this.difRoom) * Number(this.difPrice);
         console.log('是否拼房 :>> ', Number(this.isshared_status));
         // 包含基础分费用 baseInsurancePrice 设置为0
-        if(this.detailModel?.include_insurance_fee!=0){
-            this.baseInsurancePrice=0
+        if (this.detailModel?.include_insurance_fee != 0) {
+            this.baseInsurancePrice = 0
         }
-        this.totalPrice = (Number(this.audltAllPrice)*100 + Number(this.childAllPrice)*100 + Number(this.babyAllPrice)*100 + Number(this.difAllPrice)*100 - Number(this.discountPrice)*100 + Number(this.other_price)*100+Number(this.baseInsurancePrice)*100+Number(this.extraInsurancePrice)*100)/100;
-       
-        
+        this.totalPrice = (Number(this.audltAllPrice) * 100 + Number(this.childAllPrice) * 100 + Number(this.babyAllPrice) * 100 + Number(this.difAllPrice) * 100 - Number(this.discountPrice) * 100 + Number(this.other_price) * 100 + Number(this.baseInsurancePrice) * 100 + Number(this.extraInsurancePrice) * 100) / 100;
+
+
 
     }
 
@@ -408,95 +547,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         else {
             this.numIsShow = false;
         }
+        return nums;
     }
-
-
-
-    ngOnInit(): void {
-        this.addForm.controls['insurance_extra'].setValue([]);
-        this.assemblingPlaceList = [];
-        this.activatedRoute.queryParams.subscribe(params => {
-            //   调用产品详情接口拿到保险内容
-            this.adminOrderGroupTravelService.productToBuy(params?.id).subscribe(res => {
-                console.log("res1111111", res)
-                this.detailModel = res?.data;
-                this.isRequestIdNum = this.detailModel?.request_id_num == 1 ? true : false;
-                this.isDay = this.detailModel?.few_days + '天' + this.detailModel?.few_nights + '晚';
-                // 集合时间
-                if (this.detailModel?.assembling_place?.data.length === 0) {
-                    this.assemblingPlaceList = [];
-                }
-                else {
-                    for (let i of this.detailModel?.assembling_place?.data) {
-                        console.log("集合地点ii", i, i.time_state === 0);
-                        if (i.time_state === 0) {
-                            let a = { value: i.id, label: i.name, time: i.time };
-                            this.assemblingPlaceList.push(a);
-                        }
-                        else if (i.time_state === 1) {
-                            let a = { value: i.id, label: i.name, time: '' };
-                            this.assemblingPlaceList.push(a);
-                        }
-                    }
-                    this.isShowRoom()
-                }
-
-
-                console.log('结婚', this.assemblingPlaceList)
-                this.listDataMap = this.detailModel?.date_quote?.data;
-                console.log('this.listDataMap :>> ', this.listDataMap);
-                this.listDataMap?.forEach((value: any) => {
-                    value['checked'] = false;
-                })
-                let control = <FormArray>this.informationForm.controls['humanList'];
-                // 校验手机
-                const { mobile } = MyValidators;
-                if (this.isRequestIdNum) {
-                    control.push(new FormGroup({
-                        name: new FormControl('', [Validators.required]),
-                        phone: new FormControl('', [mobile]),
-                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-                        id_type: new FormControl(1, [Validators.required]),
-                        id_num: new FormControl('', [Validators.required]),
-                        birthday: new FormControl(null, [Validators.required]),
-                        assembling_place_id: new FormControl('', [Validators.required]),
-                        id_photo: new FormControl('', [Validators.required]),
-                        gender: new FormControl(1, [Validators.required]),
-                        eng_name: new FormControl(''),
-                    }));
-                }
-                else {
-                    control.push(new FormGroup({
-                        name: new FormControl('', [Validators.required]),
-                        phone: new FormControl('', [mobile]),
-                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
-                        id_type: new FormControl(1),
-                        id_num: new FormControl(''),
-                        birthday: new FormControl('', [Validators.required]),
-                        assembling_place_id: new FormControl('', [Validators.required]),
-                        id_photo: new FormControl('', [Validators.required]),
-                        gender: new FormControl(1, [Validators.required]),
-                        eng_name: new FormControl(''),
-                    }));
-                }
-                this.isChangeData.push(false);
-                this.newImgArr.push([])
-
-                // 获取产品保险
-                this.insuranceArr = this.detailModel?.insurance_extra?.data
-                // 保险
-                // this.adminInsuranceService.insuranceDayList(this.detailModel?.few_days).subscribe(res => {
-                //     console.log('保险 :>> ', res);
-                //     this.insuranceArr = res?.data;
-                // })
-
-            })
-        })
-
-
-    }
-
-
 
 
 
@@ -552,8 +604,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         // 计调备注
         this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
         // 保险
-        this.orderGroupProduct.insurance_extra_ids =  this.extraInsuranceId
-       
+        this.orderGroupProduct.insurance_extra_ids = this.extraInsuranceId
+
         console.log("提交的", this.orderGroupProduct)
     }
 
@@ -565,12 +617,6 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         let kid = this.orderGroupProduct.num_kid;
         let baby = this.orderGroupProduct.baby_num;
         let allData = Number(adult) + Number(kid) + Number(baby);
-        // if( this.detailModel?.include_insurance_fee==0 && this.extraInsuranceId.length==0){
-        //     this.message.error("至少选择一个保险");
-        //     this.isLoadingAdd = false;
-        //     return
-        // }
-       
         if (this.orderGroupProduct.members.length != allData) {
             this.message.error("请补充出行人信息");
             this.isLoadingAdd = false;
@@ -710,7 +756,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.discount_tit = res?.discount_tit;
                 this.other_price_tit = res?.other_price_tit;
                 this.baseInsurancePrice = res?.baseInsurancePrice;
-                this.extraInsurancePrice= res?.extraInsurancePrice;
+                this.extraInsurancePrice = res?.extraInsurancePrice;
             }
 
         })
@@ -801,7 +847,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
 
     // 查看基础保险条款
     seeDetail(id: any) {
-        if(!id){
+        if (!id) {
             this.message.error('暂无保险信息')
             return
         }
