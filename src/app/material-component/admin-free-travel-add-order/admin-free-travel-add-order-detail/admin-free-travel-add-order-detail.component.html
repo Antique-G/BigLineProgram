@@ -590,7 +590,7 @@
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
                             <div *ngIf="isShowFeeDetail===true">
-                                共<span style="color: red;">￥{{totalPrice}}元</span>：
+                                共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
                                 <span>成人{{audltAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.reserve_children===1">儿童{{childAllPrice}}元| </span>
                                 <span *ngIf="detailModel?.reserve_children===1">婴儿{{babyAllPrice}}元| </span>
