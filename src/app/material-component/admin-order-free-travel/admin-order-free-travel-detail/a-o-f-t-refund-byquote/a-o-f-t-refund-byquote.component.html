@@ -1,175 +1,214 @@
-<!-- <div class="content">
-    <div class="example-container" style="margin-bottom: 50px;">
-        <div fxLayout="column" fxLayoutAlign="start stretch">
-            <form nz-form [formGroup]="addForm" nz-row>
-                <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
-                    <div>
-                        <h4 style="padding-left: 10px;padding-top: 10px;color: red;">*选择退款套餐份数</h4>
-                    </div>
-                    <nz-divider></nz-divider>
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch" >
+        <div>
+            <form nz-form [formGroup]="resultForm" nz-row>
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                     <div nz-row>
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ispackNum">请输入套餐数</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-input-number style="width: 100%;" [nzDisabled]="detailModel.type == 0" (ngModelChange)="onEnterPack($event)" formControlName="ispackNum" [nzMin]="1"></nz-input-number>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
+                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="reason" nzRequired>退款原因</nz-form-label>
+                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入退款原因">
+                            <input nz-input formControlName="reason" />
+                        </nz-form-control>
                     </div>
-                    <div>
-                        <h4 style="padding-left: 10px;padding-top: 10px;">订单信息</h4>
-                    </div>
-                    <nz-divider></nz-divider>
-                    <div nz-row>
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.id" />
-                                </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <div class="content">
+            <div class="example-container" style="margin-bottom: 50px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <form nz-form [formGroup]="addForm" nz-row>
+                        <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
+                            <div>
+                                <h4 style="padding-left: 10px;padding-top: 10px;color: red;">*选择退款套餐份数</h4>
+                                <h5 style="padding-left: 10px;padding-top: 10px;color: red;">原套餐份数：{{detailModel?.num_total}}份</h5>
                             </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <nz-divider></nz-divider>
                             <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_start_date">出发日期</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="product_start_date" nzBorderless [ngModel]="detailModel?.start_date|date:'yyyy-MM-dd '" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <ng-container formArrayName="otherList" *ngFor="let image of otherArray.controls as FormArray;let i = index" nz-row>
-                            <ng-container [formGroupName]="i" nz-row>
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
-                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="namePrice">{{image.value.name}}</nz-form-label>
-                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                            <input nz-input formControlName="namePrice" nzBorderless />
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="ispackNum" nzRequired>请输入套餐数</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入需退款套餐数">
+                                            <nz-input-number style="width: 100%;" [nzDisabled]="isType == 0" (ngModelChange)="onEnterPack($event)" formControlName="ispackNum" [nzMin]="1"></nz-input-number>
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
-                            </ng-container>
-                        </ng-container>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="packAge">套餐</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="packAge" nzBorderless [ngModel]="packAge" />
-                                </nz-form-control>
                             </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">现订单总金额</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="price_total" nzBorderless [ngModel]="price_total" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row style="margin-left: 122px;">
-                                <span style="font-size: 19px;font-weight: bold;">实付总金额:</span>
-                                <span style="font-size: 19px;font-weight: bold;color: red;margin-left:10px">{{price_receive}}</span>
-                            </div>
-                        </nz-form-item>
-                    </div>
-
-
-
-                    <div>
-                        <h4 style="padding-left: 10px;padding-top: 10px;">退款</h4>
-                    </div>
-                    <nz-divider></nz-divider>
-
-                    <div nz-row>
-                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                            <div nz-row>
-                                <h5 style="margin-left: 78px;letter-spacing: 2px;">本申请为提前<span style="font-size: 16px;color: red;font-weight: bold;">{{advance}}</span> 天申请退款（不含出发当日）</h5>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="standard" style="font-weight: bold;">选择适合退款标准</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select formControlName="standard" [(ngModel)]="isStandard" nzDisabled>
-                                        <nz-option [nzLabel]="'出发前7日以上'"  [nzValue]="0"></nz-option>
-                                            <nz-option [nzLabel]="'出发前7日以内，按旅游费用总额80%'"  [nzValue]="1"></nz-option>
-                                                <nz-option [nzLabel]="'出发前5日以内，按旅游费用总额70%'"  [nzValue]="2"></nz-option>
-                                                    <nz-option [nzLabel]="'出发前3日以内，按旅游费用总额50%'"  [nzValue]="3"></nz-option>
-                                                        <nz-option [nzLabel]="'出发当日，不予退款'"  [nzValue]="4"></nz-option>
-                                                            </nz-select>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                            <div nz-row>
-                                <h5 style="margin-left: 78px;">本申请可退款项</h5>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="selectPack">已选择退款套餐数</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="selectPack" nzBorderless [ngModel]="selectPack" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isPackbasicRefund">基础退款金额</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="isPackbasicRefund" nzBorderless [ngModel]="isPackbasicRefund" />
-                                </nz-form-control>
-                            </div>
-                            <p style="font-size: 12px;color: red;margin-left: 108px;margin-top: -8px;">！基础退款金额=（退款套餐份数*单价）*比例%</p>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add" nzRequired>额外退款金额</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack($event)" (keyup)="numStay($event)" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut" nzRequired>其他扣除费用</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack2($event)" (keyup)="numStay1($event)" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="remarks" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                             <div>
-                                <h4 style="margin-left: 78px;letter-spacing: 1px;">本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{isPack_refund_amount}}</span></h4>
-                                <p style="margin-left: 70px;font-size: 12px;">（可退款总金额=基础退款金额+额外退款金额-其他扣除费用）</p>
+                                <h5 class="h_title">订单信息</h5>
                             </div>
-                        </nz-form-item>
+                            <nz-divider></nz-divider>
+                            <div nz-row>
+                                <span class="total-title" style="margin-left: 124px;">原订单金额:<span class="marginLeft-5">￥{{price_total}}</span></span>
+                                <span class="marginLeft-50 total-title">已收金额:<span class="marginLeft-5">￥{{price_receive}}</span></span>
+                                <span class="marginLeft-50 total-title">退款金额:<span class="marginLeft-5">￥{{detailModel?.refund_amount}}</span></span>
+                                <span class="marginLeft-50 total-title">实收金额:<span class="marginLeft-5">￥{{detailModel?.amount_received}}</span></span>
+                                <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{pendingPay.toFixed(2)}}</span></span>
+                                <nz-divider nzDashed ></nz-divider>
+                            </div>
 
+                            <div nz-row>
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_start_date">出发日期</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="product_start_date" nzBorderless readonly [ngModel]="detailModel?.start_date|date:'yyyy-MM-dd '" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                               
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="packAge">套餐</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <span>￥{{detailModel?.price_inclusive}}*{{newPackage}}</span>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+
+                                <ng-container formArrayName="otherList" *ngFor="let image of otherArray.controls as FormArray;let i = index" nz-row>
+                                    <ng-container [formGroupName]="i" nz-row>
+                                        <nz-form-item nz-col [nzSm]="7" [nzXs]="24">
+                                            <div nz-row *ngIf="[1,2,3].indexOf(image.value.item_type)>-1&&image.value.type==0">
+                                                <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="namePrice">{{image.value.name}}</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <input nz-input formControlName="namePrice" nzBorderless readonly readonly/>
+                                                </nz-form-control>
+                                            </div>
+                                            <div nz-row *ngIf="image.value.type==1||(image.value.type==0 && image.value.item_type==0)">
+                                                <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="namePrice">{{image.value.name}}</nz-form-label>
+                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                    <span *ngIf="image.value.type==1; else elseTemplate">
+                                                        -
+                                                    </span>
+                                                    <ng-template #elseTemplate>
+                                                        +
+                                                    </ng-template>
+                                                        ￥<nz-input-number style="width: 100px;" formControlName="price" [nzMin]='0' [nzPrecision]="2" nzPrecisionMode="cut" (ngModelChange)="priceChange($event,i)"></nz-input-number>
+                                                        <span class="red" *ngIf="oldPriceArr[i] && priceDetail[i].price!=image.value.price">原优惠金额:￥{{priceDetail[i].price}}</span>
+                                                </nz-form-control>
+                                            </div>
+                                        </nz-form-item>
+                                    </ng-container>
+                                </ng-container>
+                                <nz-divider nzDashed ></nz-divider>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="price_total" style="font-size: 16px;font-weight: 800;">订单当前金额合计</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="price_total" nzBorderless readonly [ngModel]="nowOrderMoneyPack.toFixed(2)" readonly/>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                                <nz-divider nzDashed ></nz-divider>
+                            </div>
+
+
+
+                            <div>
+                                <h5 class="h_title">退款</h5>
+                            </div>
+                            <nz-divider></nz-divider>
+
+                            <div nz-row>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <h5 style="margin-left: 78px;letter-spacing: 2px;">本申请为提前<span style="font-size: 16px;color: red;font-weight: bold;">{{advance}}</span> 天申请退款（不含出发当日）</h5>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="standard" style="font-weight: bold;">适合退款标准</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <nz-select formControlName="standard" [(ngModel)]="isStandard" nzDisabled>
+                                                <nz-option [nzLabel]="'出发前7日以上'"  [nzValue]="0"></nz-option>
+                                                    <nz-option [nzLabel]="'出发前7日以内，按旅游费用总额80%'"  [nzValue]="1"></nz-option>
+                                                        <nz-option [nzLabel]="'出发前5日以内，按旅游费用总额70%'"  [nzValue]="2"></nz-option>
+                                                            <nz-option [nzLabel]="'出发前3日以内，按旅游费用总额50%'"  [nzValue]="3"></nz-option>
+                                                                <nz-option [nzLabel]="'出发当日，不予退款'"  [nzValue]="4"></nz-option>
+                                                                    </nz-select>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
+                                        <h5 style="margin-left: 78px;">本申请可退款项</h5>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="selectPack">已选择退款套餐数</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="selectPack" nzBorderless readonly [ngModel]="selectPack" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="isPackbasicRefund">基础退款金额</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="isPackbasicRefund" nzBorderless readonly [ngModel]="isPackbasicRefund" />
+                                        </nz-form-control>
+                                    </div>
+                                    <p style="font-size: 12px;color: red;margin-left: 108px;margin-top: -8px;">！基础退款金额=（原订单金额-订单当前金额合计）*比例%</p>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="amount_add" nzRequired>额外退款金额</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack($event)" (keyup)="numStay($event)" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="amount_cut" nzRequired>其他扣除费用</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack2($event)" (keyup)="numStay1($event)" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                    <div nz-row>
+                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
+                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                            <input nz-input formControlName="remarks" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div>
+                                        <h4 style="margin-left: 78px;letter-spacing: 1px;">本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{isPack_refund_amount}}</span></h4>
+                                        <p style="margin-left: 70px;font-size: 12px;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                    </div>
+                                </nz-form-item>
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 20px;">
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addPack()">提交退款处理</button>
                     </div>
-
                 </div>
-            </form>
-
+            </div>
         </div>
+
+
     </div>
-</div> -->
+
+</div>

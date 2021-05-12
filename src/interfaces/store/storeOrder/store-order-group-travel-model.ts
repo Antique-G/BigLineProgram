@@ -70,6 +70,8 @@ export interface StoreOrderGroupTravelList {
     num_diff?: any;
     refund_member?: any;
     total_member?: any;
+    insurance_statusr?: any;
+    insurance_status_infor?: any;
 }
 
 export interface Product {
