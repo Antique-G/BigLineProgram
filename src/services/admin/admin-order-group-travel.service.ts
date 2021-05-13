@@ -282,8 +282,8 @@ export class AdminOrderGroupTravelService {
     }
 
     // 签署合同
-    signContract(order_id: any) {
-        return this.httpClient.get<any>(this.urls.GetAdminSignContract + order_id, httpOptions)
+    signContract(order_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminSignContract, {order_id}, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

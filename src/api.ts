@@ -203,7 +203,7 @@ export const AdminUrls = {
     GetAdminInsOrderDown: api + '/admin/insurance/order_down',  //电子保单
     PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  //退保
     GetAdminContractView: api + '/admin/contract_view/',  //电子合同
-    GetAdminSignContract: api + '/admin/contract/',  //签署电子合同
+    PostAdminSignContract: api + '/admin/contract',  //签署电子合同
 
 
 
