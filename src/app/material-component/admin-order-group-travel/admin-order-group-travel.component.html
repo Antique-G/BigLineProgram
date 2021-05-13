@@ -250,15 +250,11 @@
                                                 <div><img src="http://cdn.bigline.com.cn/static/images/conImg.png" title="电子合同"></div>
                                                 <!-- 合同状态：0，未生成1.已生成， 2已签署 3已作废 4签署中 5作废中-->
                                                 <div>
-                                                    <span > <nz-badge nzColor="green"></nz-badge>已生成
-                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" (click)="signCon(data)" title="发送签署请求">
-                                                    </span>
-
                                                     <span *ngIf="data.contract_status==0"> <nz-badge nzColor="yellow"></nz-badge>未生成
-                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" (click)="signCon(data)"  title="发送签署请求">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" *ngIf="data.order_status==2" (click)="signCon(data)"  title="发送签署请求">
                                                     </span>
                                                     <span *ngIf="data.contract_status==1"> <nz-badge nzColor="green"></nz-badge>已生成
-                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" (click)="signCon(data)"  title="发送签署请求">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" *ngIf="data.order_status==2"  (click)="signCon(data)"  title="发送签署请求">
                                                     </span>
                                                     <span *ngIf="data.contract_status==2"> <nz-badge nzColor="lime"></nz-badge>已签署</span>
                                                     <span *ngIf="data.contract_status==3"> <nz-badge nzColor="red"></nz-badge>已作废</span>

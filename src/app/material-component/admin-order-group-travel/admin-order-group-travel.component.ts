@@ -50,6 +50,9 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
 
+    // 签署合同
+    order_id: any;
+
     constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
         public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         public adminProductManagementService: AdminProductManagementService,) {
@@ -316,14 +319,15 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
 
     // 电子合同
-    signCon(data:any) {
+    signCon(data: any) {
+        this.order_id = data.id;
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",
             nzContent: "<h6>是否发送签署合同请求？</h6>",
             nzOnOk: () =>
-              this.adminOrderGroupTravelService.signContract(data.id).subscribe((res) => {
-                this.groupTravel();
-              }),
+                this.adminOrderGroupTravelService.signContract(this.order_id).subscribe((res) => {
+                    this.groupTravel();
+                }),
         });
     }
 
