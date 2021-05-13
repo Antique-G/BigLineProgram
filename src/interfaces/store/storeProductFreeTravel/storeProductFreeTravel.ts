@@ -35,6 +35,8 @@ export interface StoreFreeTravelModel {
     inventory?: any;
     start_date?: any;
     end_date?: any;
+    use_start_date?: any;
+    use_end_date?: any;
 }
 
 export interface ProductTabListModel {
@@ -128,6 +130,8 @@ export interface Datum {
     inventory?: any;
     start_date?: any;
     end_date?: any;
+    use_start_date?: any;
+    use_end_date?: any;
 }
 
 export interface LogModel {

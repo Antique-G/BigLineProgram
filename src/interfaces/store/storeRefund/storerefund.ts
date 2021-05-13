@@ -243,6 +243,7 @@ export interface ReundCheckModel {
     num_room?: any;
     change?: any;
     reason?: string;
+    to_account?: any;
 }
 
 // 支付流水

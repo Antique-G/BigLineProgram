@@ -72,6 +72,7 @@ export interface StoreOrderGroupTravelList {
     total_member?: any;
     insurance_statusr?: any;
     insurance_status_infor?: any;
+    contract_status?: any;
 }
 
 export interface Product {
@@ -125,6 +126,8 @@ export interface ProductList {
     refund_member?: any;
     total_member?: any;
     refunding_amount?: any;
+    contract_status?: any;
+
 
 }
 
@@ -215,6 +218,8 @@ export interface DetailsModel {
     total_member?: any;
     refunding_amount?: any;
     insurance?: any;
+    contract_status?: any;
+
 }
 
 export interface insModel {
@@ -347,6 +352,7 @@ export interface ProductModel {
     other_price_tit?: any;
     num_diff?: any;
     refunding_amount?: any;
+    contract_status?: any;
 
 }
 

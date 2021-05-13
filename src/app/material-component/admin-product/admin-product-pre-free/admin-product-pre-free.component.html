@@ -127,7 +127,8 @@
                                     <th style="text-align: center;">出发城市</th>
                                     <th style="text-align: center;">目的城市</th>
                                     <th style="text-align: center;">预售价格/市场价格</th>
-                                    <th style="text-align: center;">预售有效时间</th>
+                                    <th style="text-align: center;">预售有效时间范围</th>
+                                    <th style="text-align: center;">使用有效时间范围</th>
                                     <th style="text-align: center;">库存</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">审核状态</th>
@@ -151,6 +152,9 @@
                                     </td>
                                     <td>
                                         {{data?.product_ticket[0]?.start_date}}&nbsp;~ {{data?.product_ticket[0]?.end_date}}
+                                    </td>
+                                    <td>
+                                        {{data.product_ticket[0]?.use_start_date}}&nbsp;~ {{data.product_ticket[0]?.use_end_date}}
                                     </td>
                                     <td>
                                         {{data?.product_ticket[0]?.inventory}}

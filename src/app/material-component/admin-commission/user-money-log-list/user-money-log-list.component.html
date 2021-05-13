@@ -12,9 +12,10 @@
                                         <mat-option value=''>全部</mat-option>
                                         <mat-option value=1> 平台返佣</mat-option>
                                         <mat-option value=2>提现</mat-option>
+                                        <mat-option value=3>退款</mat-option>
+                                        <mat-option value=4>支付</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-
                             </div>
                             <div fxFlex=20>
                                 <mat-form-field>
@@ -38,7 +39,7 @@
                             <thead>
                                 <tr>
                                     <th>用户id</th>
-                                    <th>提现金额</th>
+                                    <th>用户余额</th>
                                     <th>变动金额</th>
                                     <th>类型</th>
                                     <th>变动时间</th>
@@ -50,13 +51,24 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data?.user?.user_id}}</td>
                                     <td>{{data?.money}}元</td>
-                                    <td>{{data?.change_money}}元</td>
+                                    <td>
+                                        <span *ngIf="data?.type==1">+</span>
+                                        <span *ngIf="data?.type==3">+</span>
+                                        <span *ngIf="data?.type==2">-</span>
+                                        <span *ngIf="data?.type==4">-</span>
+                                        {{data?.change_money}}元</td>
                                     <td>
                                         <div *ngIf="data?.type===1">
                                             平台返佣
                                         </div>
                                         <div *ngIf="data?.type===2">
                                             提现
+                                        </div>
+                                        <div *ngIf="data?.type===3">
+                                            退款
+                                        </div>
+                                        <div *ngIf="data?.type===4">
+                                            支付
                                         </div>
                                     </td>
                                     <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>

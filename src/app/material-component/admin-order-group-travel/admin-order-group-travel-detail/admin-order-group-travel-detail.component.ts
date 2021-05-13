@@ -57,6 +57,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
             start_date: ['', [Validators.required]],
+            departure_city_name: [''],
+            destination_city_name: [''],
             contact_name: ['', [Validators.required]],
             contact_phone: ['', [Validators.required]],
             contact_wechat: [''],

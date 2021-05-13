@@ -55,7 +55,7 @@ export class StorePreFreeInfoComponent implements OnInit {
 
     // 日期有效期
     dateArray: any[] = [];
-
+    dateUseArray: any[] = [];
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public storeProductService: StoreProductService,
@@ -86,6 +86,7 @@ export class StorePreFreeInfoComponent implements OnInit {
             request_id_num: new FormControl('0', [Validators.required]),
             sales_note: new FormControl(''),
             dateValid: new FormControl(null, [Validators.required]),
+            useDateValid: new FormControl(null, [Validators.required]),
             ticket_price: new FormControl('', [Validators.required]),
             inventory: new FormControl('', [Validators.required]),
             show_price: new FormControl('', [Validators.required]),
@@ -123,6 +124,8 @@ export class StorePreFreeInfoComponent implements OnInit {
             inventory: '',
             start_date: '',
             end_date: '',
+            use_start_date: '',
+            use_end_date: '',
         }
 
     }
@@ -196,8 +199,19 @@ export class StorePreFreeInfoComponent implements OnInit {
         const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
         this.dateArray.push(myFormattedDate1);
         console.log("event", this.dateArray);
-
     }
+    
+    onChangeUseDate(event: any) {
+        this.dateUseArray = [];
+        const datePipe = new DatePipe('en-US');
+        console.log('object :>> ', event);
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateUseArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateUseArray.push(myFormattedDate1);
+        console.log("event", this.dateUseArray);
+    }
+
 
     // 添加
     nextTab() {
@@ -273,10 +287,12 @@ export class StorePreFreeInfoComponent implements OnInit {
         this.freeTravelModel.quote_type = 1;
         this.freeTravelModel.request_id_num = this.addForm.value.request_id_num;
         this.freeTravelModel.sales_note = this.addForm.value.sales_note;
-        this.freeTravelModel.start_date=this.dateArray[0];
+        this.freeTravelModel.start_date = this.dateArray[0];
         this.freeTravelModel.end_date = this.dateArray[1];
         this.freeTravelModel.is_presell = 1;
         this.freeTravelModel.ticket_price = this.addForm.value.ticket_price;
+        this.freeTravelModel.use_start_date = this.dateUseArray[0];
+        this.freeTravelModel.use_end_date = this.dateUseArray[1];
         this.freeTravelModel.inventory = this.addForm.value.inventory;
         this.freeTravelModel.show_price = this.addForm.value.show_price;
         this.freeTravelModel.copies_max = this.addForm.value.copies_max == '' ? 0 : this.addForm.value.copies_max;

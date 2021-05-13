@@ -45,6 +45,7 @@
                                     <th style="text-align: center;">账号</th>
                                     <th style="text-align: center;">真实姓名</th>
                                     <th style="text-align: center;">手机号</th>
+                                    <th style="text-align: center;">角色</th>
                                     <th style="text-align: center;">门店员工</th>
                                     <th style="text-align: center;">区域</th>
                                     <th style="text-align: center;">状态</th>
@@ -56,6 +57,11 @@
                                     <td>{{data.account}}</td>
                                     <td>{{data.real_name}}</td>
                                     <td>{{data.mobile}}</td>
+                                    <td>
+                                        <ng-container *ngFor="let role of data?.role">
+                                            <div>{{role?.display_name}}</div>
+                                        </ng-container>
+                                    </td>
                                     <td>
                                         <div *ngIf="data.staff_type===0">
                                             否

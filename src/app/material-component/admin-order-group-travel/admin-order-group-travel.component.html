@@ -151,9 +151,9 @@
                             <div>
                                 <img src="http://cdn.bigline.com.cn/static/images/sms.png">订单短信通知书
                             </div>
-                            <!-- <div>
-                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png">电子合同
-                            </div> -->
+                            <div>
+                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png">电子合同（<img src="http://cdn.bigline.com.cn/static/images/sendcontract.png">发送签署合同请求，<img src="http://cdn.bigline.com.cn/static/images/seecontract.png">查看合同）
+                            </div>
                             <div>
                                 <img src="http://cdn.bigline.com.cn/static/images/insImg.png">保险状态
                             </div>
@@ -175,7 +175,7 @@
                                     <th style="text-align: center;">订单总价格</th>
                                     <th style="text-align: center;width: 5%;">订单取消类型</th>
                                     <th style="text-align: center;width: 5%;">订单退款状态</th>
-                                    <th style="width: 8%;">附属操作</th>
+                                    <th style="width: 10%;">附属操作</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">确认收款</th>
                                 </tr>
@@ -246,10 +246,25 @@
                                                     <span *ngIf="data.order_sms===2" ><nz-badge nzColor="red"></nz-badge>发送失败</span>
                                                 </div>
                                             </div>
-                                            <!-- <div>
-                                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png" title="电子合同">
-                                            </div> -->
-                                            <div>
+                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                                                <div><img src="http://cdn.bigline.com.cn/static/images/conImg.png" title="电子合同"></div>
+                                                <!-- 合同状态：0，未生成1.已生成， 2已签署 3已作废 4签署中 5作废中-->
+                                                <div>
+                                                    <span *ngIf="data.contract_status==0"> <nz-badge nzColor="yellow"></nz-badge>未生成
+                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" *ngIf="data.order_status==2" (click)="signCon(data)"  title="发送签署请求">
+                                                    </span>
+                                                    <span *ngIf="data.contract_status==1"> <nz-badge nzColor="green"></nz-badge>已生成
+                                                        <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" *ngIf="data.order_status==2"  (click)="signCon(data)"  title="发送签署请求">
+                                                    </span>
+                                                    <span *ngIf="data.contract_status==2"> <nz-badge nzColor="lime"></nz-badge>已签署</span>
+                                                    <span *ngIf="data.contract_status==3"> <nz-badge nzColor="red"></nz-badge>已作废</span>
+                                                    <span *ngIf="data.contract_status==4"> <nz-badge nzColor="blue"></nz-badge>签署中</span>
+                                                    <span *ngIf="data.contract_status==5"> <nz-badge nzColor="pink"></nz-badge>作废中</span>
+                                                </div>
+                                                <div title="查看合同" style="cursor: pointer;" (click)="contractView(data)" *ngIf="data.contract_status!=0"><img src="http://cdn.bigline.com.cn/static/images/seecontract.png"></div>
+                                            </div>
+                                            
+                                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
                                                 <img src="http://cdn.bigline.com.cn/static/images/insImg.png" title="保险状态">
                                                 <span *ngIf="data.insurance_status===0" > <nz-badge nzColor="yellow"></nz-badge>未投保</span>
                                                 <span *ngIf="data.insurance_status===1" ><nz-badge nzColor="yellow"></nz-badge>出单中</span>
