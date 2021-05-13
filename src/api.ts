@@ -126,7 +126,7 @@ export const AdminUrls = {
 
     // 自由行预售产品
     GetAdminPreFreeTravelList: api + '/admin/indent_ticket_list',   //列表
-   
+
 
 
 
@@ -202,6 +202,11 @@ export const AdminUrls = {
     PostAdminEffectIns: api + '/admin/insurance/effect_insurance',  //投保
     GetAdminInsOrderDown: api + '/admin/insurance/order_down',  //电子保单
     PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  //退保
+    GetAdminContractView: api + '/admin/contract_view/',  //电子合同
+    GetAdminSignContract: api + '/admin/contract/',  //签署电子合同
+
+
+
 
 
 

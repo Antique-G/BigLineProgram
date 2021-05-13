@@ -50,6 +50,8 @@ export class AdminFinanceGroupTravelDetailComponent implements OnInit {
             start_date: ['', [Validators.required]],
             contact_name: ['', [Validators.required]],
             contact_phone: ['', [Validators.required]],
+            departure_city_name: [''],
+            destination_city_name: [''],
             contact_wechat: [''],
             contact_qq: [''],
             contact_email: [''],

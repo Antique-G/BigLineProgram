@@ -47,6 +47,7 @@ const MENUITEMS = [
             { state: 'freeTravelOrder', name: '自由行订单列表', permission_name: 'order_indent_product' },
             { state: 'addGroupOrder', name: '跟团游添加订单', permission_name: 'order_add_group_order' },
             { state: 'addFreeOrder', name: '自由行添加订单', permission_name: 'order_add_indent_order' },
+            // { state: 'preFreeSaleList', name: '自由行预售抢购列表' , permission_name: 'order_add_indent_order'},
             { state: 'refund', name: '订单退款处理', permission_name: 'order_refund' },
             { state: 'refundReview', name: '订单审核退款', permission_name: 'order_refund_check' },
             { state: 'refundTurnOver', name: '订单退款流水列表', permission_name: 'order_refund_log' },
@@ -56,7 +57,7 @@ const MENUITEMS = [
         title: '佣金模块', icon: 'pound', permission_name: 'admin_dist',
         children: [
             { state: 'userCommission', name: '用户分销佣金', permission_name: 'dist_user_dist' },
-            // { state: 'commissionWithdraw', name: '提现列表' },
+            { state: 'commissionWithdraw', name: '提现列表', permission_name: 'dist_user_dist' },
             { state: 'userMoneyLog', name: '金额变动记录', permission_name: 'dist_money_log' }
         ]
     },

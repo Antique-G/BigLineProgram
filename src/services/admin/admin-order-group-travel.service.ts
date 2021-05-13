@@ -41,7 +41,7 @@ export class AdminOrderGroupTravelService {
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '');
-        
+
 
 
         const findhttpOptions = {
@@ -188,7 +188,7 @@ export class AdminOrderGroupTravelService {
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '');
-        
+
 
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -259,8 +259,10 @@ export class AdminOrderGroupTravelService {
 
     downloadFile(order_insurance_id: any): Observable<Blob> {
         const params = new HttpParams().set('order_insurance_id', order_insurance_id)
-        return this.httpClient.get(this.urls.GetAdminInsOrderDown , { responseType: "blob",params });
+        return this.httpClient.get(this.urls.GetAdminInsOrderDown, { responseType: "blob", params });
     }
+
+
     // 退保PostAdminInsCancel
     insCancel(cancelInsModel: CancelInsModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminInsCancel, cancelInsModel, httpOptions)
@@ -270,6 +272,22 @@ export class AdminOrderGroupTravelService {
     }
 
 
+
+    // 查看合同
+    seeContract(order_id: any) {
+        return this.httpClient.get<any>(this.urls.GetAdminContractView + order_id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    // 签署合同
+    signContract(order_id: any) {
+        return this.httpClient.get<any>(this.urls.GetAdminSignContract + order_id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);

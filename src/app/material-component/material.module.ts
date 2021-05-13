@@ -168,6 +168,7 @@ import { AdminFinanceChangeTransComponent } from './admin-finance/admin-finance-
 import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-pre-free-detail/admin-product-pre-free-detail.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
+import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
 
 
 
@@ -358,6 +359,7 @@ import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-ord
     AdminProductPreFreeDetailComponent,
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
+    AdminPreTravelSaleRecordComponent,
 
   ]
 })

@@ -118,6 +118,16 @@
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                         <div nz-row>
+                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="dateValid" nzRequired>
+                                               使用有效日期范围</nz-form-label>
+                                            <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeUseDate($event)" formControlName="useDateValid"></nz-range-picker>
+                                            </nz-form-control>
+                                        </div>
+                                    </nz-form-item>
+
+                                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                        <div nz-row>
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ticket_price" nzRequired>预售价格
                                             </nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入预售价格">
