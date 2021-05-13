@@ -50,7 +50,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
 
-    constructor(public fb: FormBuilder, public router: Router,  public adminRegionService: AdminRegionService,
+    constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
         public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         public adminProductManagementService: AdminProductManagementService,) {
         this.searchForm = fb.group({
@@ -72,11 +72,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.adminProductManagementService.storeList('').subscribe(res => {
             console.log("24234", res);
             this.storeList = res;
-              // 城市
-              this.adminRegionService.getAllRegionList().subscribe(res => {
+            // 城市
+            this.adminRegionService.getAllRegionList().subscribe(res => {
                 this.nzOptions = res;
-              })
-            
+            })
+
             // 将上次查询的筛选条件赋值
             let getSeatch = JSON.parse(localStorage.getItem("adminOrderGroupSearch")!);
             this.status = getSeatch?.status ? getSeatch.status : '';
@@ -301,16 +301,41 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.date_end = this.date_end == null ? '' : this.date_end;
         this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
         this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
-        this.departure_city= this.isDeparture ? this.isDeparture : '',
-        this.destination_city= this.isDestination ? this.isDestination : '',
+        this.departure_city = this.isDeparture ? this.isDeparture : '',
+            this.destination_city = this.isDestination ? this.isDestination : '',
 
-        this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+            this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
             '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
             '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
             '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
             '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
-            '&departure_city=' + this.departure_city+ '&destination_city=' + this.destination_city;
+            '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city;
         console.log('object :>> ', this.isExport);
+    }
+
+
+
+    // 电子合同
+    signCon(data:any) {
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>是否发送签署合同请求？</h6>",
+            nzOnOk: () =>
+              this.adminOrderGroupTravelService.signContract(data.id).subscribe((res) => {
+                this.groupTravel();
+              }),
+        });
+    }
+
+
+    // 查看合同
+    contractView(data: any) {
+        console.log("data", data);
+        this.adminOrderGroupTravelService.seeContract(data?.id).subscribe(res => {
+            console.log("res", res);
+            let contractUrl = res?.contract_view_url;
+            window.open(contractUrl);
+        })
     }
 }
 

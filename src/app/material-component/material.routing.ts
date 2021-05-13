@@ -63,6 +63,7 @@ import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
+import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -544,6 +545,13 @@ export const MaterialRoutes: Routes = [
                 component: AdminProductFreeTravelQutedateComponent,
                 data: {
                     breadcrumb: '自由行预售产品报价'
+                }
+            },
+            {
+                path: 'preFreeSaleList',
+                component: AdminPreTravelSaleRecordComponent,
+                data: {
+                    breadcrumb: '自由行预售产品抢购记录列表'
                 }
             },
         ]

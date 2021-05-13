@@ -164,9 +164,6 @@
                             <div>
                                 <img src="http://cdn.bigline.com.cn/static/images/sms.png">订单短信通知书
                             </div>
-                            <!-- <div>
-                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png">电子合同
-                            </div> -->
                         </div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
@@ -242,9 +239,6 @@
                                                     <span *ngIf="data.order_sms===2" ><nz-badge nzColor="red"></nz-badge>发送失败</span>
                                                 </div>
                                             </div>
-                                            <!-- <div>
-                                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png" title="电子合同">
-                                            </div> -->
                                         </div>
                                     </td>
                                     <td>
