@@ -539,6 +539,13 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品详情'
                 }
             },
+            {
+                path: 'preFree/qutedate',
+                component: AdminProductFreeTravelQutedateComponent,
+                data: {
+                    breadcrumb: '自由行预售产品报价'
+                }
+            },
         ]
     }
 ];

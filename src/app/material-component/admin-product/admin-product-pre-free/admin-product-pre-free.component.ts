@@ -12,9 +12,9 @@ import { AdminProductFreeReviewComponent } from '../admin-produc-free-travel/adm
 
 
 @Component({
-  selector: 'app-admin-product-pre-free',
-  templateUrl: './admin-product-pre-free.component.html',
-  styleUrls: ['./admin-product-pre-free.component.css']
+    selector: 'app-admin-product-pre-free',
+    templateUrl: './admin-product-pre-free.component.html',
+    styleUrls: ['./admin-product-pre-free.component.css']
 })
 export class AdminProductPreFreeComponent implements OnInit {
     searchForm!: FormGroup;
@@ -182,7 +182,7 @@ export class AdminProductPreFreeComponent implements OnInit {
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/admin/main/preFree/detail'], { queryParams: { detailId: data.id ,is_presell: 1 } });
+        this.router.navigate(['/admin/main/preFree/detail'], { queryParams: { detailId: data.id, is_presell: 1 } });
     }
 
 
@@ -218,7 +218,7 @@ export class AdminProductPreFreeComponent implements OnInit {
 
     quteDateClick(data: any) {
         console.log('data :>> ', data);
-        this.router.navigate(['/admin/main/freeTravel/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights, quote_type: data?.quote_type } });
+        this.router.navigate(['/admin/main/preFree/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights, quote_type: data?.quote_type, is_presell: 1,prePrice: data?.product_ticket[0]?.ticket_price} });
     }
 
 

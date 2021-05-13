@@ -49,6 +49,8 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
 
     // 日期有效期
     dateArray: any[] = [];
+    dateUseArray: any[] = [];
+
 
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute, public dialog: MatDialog,
@@ -81,6 +83,7 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
             request_id_num: new FormControl('1', [Validators.required]),
             sales_note: new FormControl(),
             dateValid: new FormControl(null, [Validators.required]),
+            useDateValid: new FormControl(null, [Validators.required]),
             ticket_price: new FormControl('', [Validators.required]),
             inventory: new FormControl('', [Validators.required]),
             show_price: new FormControl('', [Validators.required]),
@@ -118,6 +121,8 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
             inventory: '',
             start_date: '',
             end_date: '',
+            use_start_date: '',
+            use_end_date: '',
         }
     }
 
@@ -205,6 +210,7 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
         this.addForm.get('inventory')?.setValue(this.dataDetailModel?.product_ticket?.data[0]?.inventory);
         this.addForm.get('show_price')?.setValue(this.dataDetailModel?.product_ticket?.data[0]?.show_price);
         this.addForm.get('dateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.start_date, this.dataDetailModel?.product_ticket?.data[0]?.end_date]);
+        this.addForm.get('useDateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.use_start_date, this.dataDetailModel?.product_ticket?.data[0]?.use_end_date]);
 
 
         console.log(this.dataDetailModel, 'this.dataDetailModel');
@@ -289,8 +295,19 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
         const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
         this.dateArray.push(myFormattedDate1);
         console.log("event", this.dateArray);
-
     }
+
+    onChangeUseDate(event: any) {
+        this.dateUseArray = [];
+        const datePipe = new DatePipe('en-US');
+        console.log('object :>> ', event);
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateUseArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateUseArray.push(myFormattedDate1);
+        console.log("event", this.dateUseArray);
+    }
+
 
     setValue() {
         this.freeTravelUpdateModel.id = this.dataDetailModel.id;
@@ -336,6 +353,8 @@ export class AdminProductPreFreeDetailComponent implements OnInit {
         this.freeTravelUpdateModel.buy_num_max = 0;
         this.freeTravelUpdateModel.start_date = this.dateArray[0];
         this.freeTravelUpdateModel.end_date = this.dateArray[1];
+        this.freeTravelUpdateModel.use_start_date = this.dateUseArray[0];
+        this.freeTravelUpdateModel.use_end_date = this.dateUseArray[1];
         this.freeTravelUpdateModel.is_presell = 1;
         this.freeTravelUpdateModel.ticket_price = this.addForm.value.ticket_price;
         this.freeTravelUpdateModel.inventory = this.addForm.value.inventory;

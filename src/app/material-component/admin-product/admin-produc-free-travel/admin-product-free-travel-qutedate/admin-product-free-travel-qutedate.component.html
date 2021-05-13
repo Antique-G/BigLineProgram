@@ -7,7 +7,8 @@
                         <h4 style="padding-left: 10px;padding-top: 10px;">{{proName}}</h4>
                     </div>
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
+                        <button mat-raised-button color="primary" *ngIf="is_presell!=1" style="letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
+                        <button mat-raised-button color="primary" *ngIf="is_presell==1" style="letter-spacing: 2px;" routerLink="/admin/main/preFree">返回自由行预售列表</button>
                     </div>
 
 
@@ -39,6 +40,9 @@
                                                                         <th style="text-align: center;">婴儿价格</th>
                                                                         <th style="text-align: center;">差价</th>
                                                                     </ng-container>
+                                                                    <ng-container *ngIf="is_presell==1">
+                                                                        <th style="text-align: center;">预售价格</th>
+                                                                    </ng-container>
                                                                     <ng-container *ngIf="quote_type==1">
                                                                         <th style="text-align: center;">套餐价格</th>
                                                                     </ng-container>
@@ -67,7 +71,11 @@
                                                                             <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                             <span *ngIf="isShowPrice_diff===false">-</span>
                                                                         </td>
-
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="is_presell==1">
+                                                                        <td>
+                                                                           <div>{{prePrice}}</div>
+                                                                        </td>
                                                                     </ng-container>
                                                                     <ng-container *ngIf="quote_type==1">
                                                                         <td>
@@ -112,6 +120,9 @@
                                                                             <th style="text-align: center;">婴儿价格</th>
                                                                             <th style="text-align: center;">差价</th>
                                                                         </ng-container>
+                                                                        <ng-container *ngIf="is_presell==1">
+                                                                            <th style="text-align: center;">预售价格</th>
+                                                                        </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <th style="text-align: center;">套餐价格</th>
                                                                         </ng-container>
@@ -139,7 +150,11 @@
                                                                                 <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                                 <span *ngIf="isShowPrice_diff===false">-</span>
                                                                             </td>
-
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="is_presell==1">
+                                                                            <td>
+                                                                               <div>{{prePrice}}</div>
+                                                                            </td>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
@@ -186,6 +201,9 @@
                                                                             <th style="text-align: center;">婴儿价格</th>
                                                                             <th style="text-align: center;">差价</th>
                                                                         </ng-container>
+                                                                        <ng-container *ngIf="is_presell==1">
+                                                                            <th style="text-align: center;">预售价格</th>
+                                                                        </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <th style="text-align: center;">套餐价格</th>
                                                                         </ng-container>
@@ -213,7 +231,11 @@
                                                                                 <span *ngIf="isShowPrice_diff===true">¥{{data.difference_price}}</span>
                                                                                 <span *ngIf="isShowPrice_diff===false">-</span>
                                                                             </td>
-
+                                                                        </ng-container>
+                                                                        <ng-container *ngIf="is_presell==1">
+                                                                            <td>
+                                                                               <div>{{prePrice}}</div>
+                                                                            </td>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
