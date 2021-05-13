@@ -40,6 +40,8 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
             start_date: ['', [Validators.required]],
+            departure_city_name: [''],
+            destination_city_name: [''],
             assembling_place: ['', [Validators.required]],
             assembling_time: ['', [Validators.required]],
             contact_name: ['', [Validators.required]],
