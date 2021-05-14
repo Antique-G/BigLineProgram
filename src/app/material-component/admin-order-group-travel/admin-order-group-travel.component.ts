@@ -341,6 +341,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             window.open(contractUrl);
         })
     }
+
+    // 修改合同
+    contractChange(data: any) {
+        this.router.navigate(['/admin/main/groupTravelOrder/editContract'], { queryParams: { orderId: data.id } });
+    }
 }
 
 
