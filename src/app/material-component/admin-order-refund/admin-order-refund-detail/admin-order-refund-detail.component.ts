@@ -84,6 +84,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
             transaction_id: [''],
             packAge: [''],
             selectPack: [''],
+            refund_to_account: [''],
         })
 
     }

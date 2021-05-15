@@ -18,19 +18,19 @@
                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_type" nzRequired>收款途径</nz-form-label>
                 <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                     <nz-select nzPlaceHolder="请选择" formControlName="pay_type" (ngModelChange)="changeType($event)">
-                        <nz-option [nzLabel]="'微信'" [nzValue]="'1'"></nz-option>
-                        <nz-option [nzLabel]="'支付宝'" [nzValue]="'2'"></nz-option>
-                        <nz-option [nzLabel]="'现金'" [nzValue]="'3'"></nz-option>
-                        <nz-option [nzLabel]="'微信二维码'" [nzValue]="'4'"></nz-option>
-                        <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="'5'"></nz-option>
-                        <nz-option [nzLabel]="'银行卡转账'" [nzValue]="'6'"></nz-option>
-                        <!-- <nz-option [nzLabel]="'余额支付'" [nzValue]="'7'"></nz-option> -->
-                        <nz-option [nzLabel]="'飞猪'" [nzValue]="'8'"></nz-option>
-                        <nz-option [nzLabel]="'携程'" [nzValue]="'9'"></nz-option>
+                        <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                        <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                        <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                        <nz-option [nzLabel]="'微信二维码'" [nzValue]="4"></nz-option>
+                        <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="5"></nz-option>
+                        <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                        <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
+                        <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
+                        <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
-            <div nz-row [style.display]="isTypeShow=='4'||isTypeShow=='5' ? 'none' : 'block'">
+            <div nz-row [style.display]="isTypeShow==4||isTypeShow==5||isTypeShow==7 ? 'none' : 'block'">
                 <nz-form-item class="nz-form-item" nz-row>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_time" nzRequired>收款时间</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
@@ -44,7 +44,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div nz-row [style.display]="isTypeShow!='4' ? 'none' : 'block'">
+            <div nz-row [style.display]="isTypeShow!=4 ? 'none' : 'block'">
                 <div fxLayout="row">
                     <button mat-raised-button color="primary" style="letter-spacing: 2px;margin-left: 26px;" (click)="weChatQr()">生成微信二维码</button>
                 </div>
@@ -55,7 +55,7 @@
 
             </div>
 
-            <div nz-row [style.display]="isTypeShow!='5' ? 'none' : 'block'">
+            <div nz-row [style.display]="isTypeShow!=5 ? 'none' : 'block'">
                 <div fxLayout="row">
                     <button mat-raised-button color="primary" style="letter-spacing: 2px;margin-left: 26px;" (click)="aliPayQr()">生成支付宝二维码</button>
                 </div>
@@ -66,8 +66,8 @@
 
             </div>
 
-            <!-- 余额支付 -->
-            <!-- <div nz-row [style.display]="isTypeShow=='7' ? 'block' : 'none'">
+            <!-- 余额支付  -->
+           <div nz-row [style.display]="isTypeShow==7 ? 'block' : 'none'">
                 <nz-form-item class="nz-form-item" nz-row>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="money" nzRequired>用户余额</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入用户余额">
@@ -75,7 +75,7 @@
                     </nz-form-control>
                 </nz-form-item>
 
-            </div> -->
+            </div>
         </form>
 
     </div>

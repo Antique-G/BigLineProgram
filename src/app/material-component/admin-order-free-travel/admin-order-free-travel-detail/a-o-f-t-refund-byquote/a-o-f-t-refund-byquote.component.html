@@ -10,6 +10,17 @@
                         </nz-form-control>
                     </div>
                 </nz-form-item>
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" nzRequired>退款方式</nz-form-label>
+                        <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                            <nz-select  nzPlaceHolder="请选择退款方式" formControlName="to_account">
+                                <nz-option [nzLabel]="'正常退'" [nzValue]="0"> </nz-option>
+                                <nz-option [nzLabel]="'退至用户账户余额'" [nzValue]="1"> </nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
             </form>
         </div>
         <div class="content">
