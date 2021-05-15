@@ -260,7 +260,24 @@ export class StoreProductFreeTravelComponent implements OnInit {
         }
         // 按套餐
         if (data?.quote_type == 1) {
-            this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, use_num: data?.use_num } });
+            let start_date = data?.product_ticket[0]?.start_date;
+            let end_date = data?.product_ticket[0]?.end_date;
+            let use_start_date = data?.product_ticket[0]?.use_start_date;
+            let use_end_date = data?.product_ticket[0]?.use_end_date;
+            let ticket_price = data?.product_ticket[0]?.ticket_price;
+            let subsidy_price = data?.product_ticket[0]?.subsidy_price;
+            this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], {
+                queryParams: {
+                    productId: data.id,
+                    type: 'freeTravel', earlier: this.isEar, proName: data.title,
+                    childStatus: child_status, few_nights: data?.few_nights,
+                    use_num: data?.use_num, is_presell: data?.is_presell,
+                    start_date: start_date, end_date: end_date,
+                    use_start_date: use_start_date, use_end_date: use_end_date,
+                    ticket_price: ticket_price, subsidy_price: subsidy_price
+                }
+            });
+
         }
         // 按人头
         else {

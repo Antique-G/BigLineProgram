@@ -647,3 +647,10 @@ export interface TransChangeModel {
     pay_time: any
     transaction_id: any
 }
+
+
+// 取消订单
+export interface CancelOrderModel {
+    id: any
+    reason: any
+}

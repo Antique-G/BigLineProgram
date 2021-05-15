@@ -63,11 +63,17 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
     precision = 2;
     is_use_num: any;
 
-    //预售产品
+    //预售产品信息
     is_presell: any;
     start_date: any;
     end_date: any;
-    dateDisable = false;
+    use_start_date: any;
+    use_end_date: any;
+    ticket_price: any;
+    subsidy_price: any;
+    is_start_date: any;
+    is_use_start_date: any;
+
 
     constructor(public fb: FormBuilder, public quoteBydateService: StoreQuoteBydateService, private modal: NzModalService,
         private msg: NzMessageService) {
@@ -92,11 +98,17 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
         this.is_presell = this.data.is_presell;
         this.start_date = this.data.start_date;
         this.end_date = this.data.end_date;
-
+        this.use_start_date = this.data.use_start_date;
+        this.use_end_date = this.data.use_end_date;
+        this.ticket_price = this.data.ticket_price;
+        this.subsidy_price = this.data.subsidy_price;
         console.log('object :>> ', this.isEarlier);
         this.selectItem = this.data.date ? this.data.date[0] : ''; //当前点击项
         this.GetDetail();
+        this.is_start_date = this.start_date + '~' + this.end_date;
+        this.is_use_start_date = this.use_start_date + '~' + this.use_end_date;
         console.log(this.selectItem, 'this.selectItem');
+
     }
 
     updateLoading() {
@@ -113,13 +125,16 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
             inventory_num: [1, [Validators.required, isNumber]],
             set_inventory: [0, [Validators.required]],
             allow_over: [0, [Validators.required]],
+            start_date: [''],
+            use_start_date: [''],
+            ticket_price: [''],
+            subsidy_price: [''],
         });
     }
 
     // 获取详情
     GetDetail() {
         if (this.selectItem) {
-            alert(1)
             console.log('GetDetail');
             console.log(this.productId, 'this.productId');
             this.quoteBydateService.getFreeTravelQuoteDateDetail(this.selectItem.id).subscribe(res => {
@@ -132,28 +147,12 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
             })
         } else {
             this.isSpinning = false;
-            if (this.is_presell == 1) {
-                this.selectDate = [new Date(this.start_date), new Date(this.end_date)];
-                this.dateDisable = true;
-
-            }
-            else {
-                this.dateDisable = false;
-
-            }
-
         }
 
     }
 
 
     setfreeTravelFormValue() {
-        if (this.is_presell == 1) {
-            this.dateDisable = true;
-        }
-        else {
-            this.dateDisable = false;
-        }
         this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
         this.addForm.controls["inclusive_price"].setValue(this.freeTravelModel.inclusive_price);
         this.addForm.controls["inventory_num"].setValue(this.freeTravelModel.inventory_num || 0);

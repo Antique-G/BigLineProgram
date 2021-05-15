@@ -3,9 +3,38 @@
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
             <form nz-form [formGroup]="addForm" nz-row>
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24">预售有效日期范围</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="start_date" ngModel={{is_start_date}} nzBorderless readonly/>
+                    </nz-form-control>
+                </nz-form-item>
+               
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24">使用有效日期范围</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="use_start_date" ngModel={{is_use_start_date}}  nzBorderless readonly/>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24">预售价格</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="ticket_price" [ngModel]="'￥'+ticket_price"  nzBorderless readonly/>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24">补贴金额</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="subsidy_price" [ngModel]="'￥'+subsidy_price"  nzBorderless readonly/>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24">套餐使用人数</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24">
-                        <input nz-input formControlName="is_use_num" ngModel={{is_use_num}} nzBorderless/>
+                        <input nz-input formControlName="is_use_num"  [ngModel]="is_use_num+'人/份'"  nzBorderless readonly/>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="24" [nzXs]="24">
@@ -24,7 +53,7 @@
                 <nz-form-item class="nz-form-item" nz-col [nzSm]="12" [nzXs]="24">
                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date" nzRequired>日期范围</nz-form-label>
                     <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入日期范围">
-                        <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [nzDisabled]="dateDisable" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
+                        <nz-range-picker [nzDisabledDate]="disabledDate" nzFormat="yyyy-MM-dd" [(ngModel)]="selectDate" formControlName="date" (ngModelChange)="onDateChange($event)"></nz-range-picker>
                     </nz-form-control>
                 </nz-form-item>
 
