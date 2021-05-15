@@ -90,6 +90,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
             id: [''],
             type: [''],
             refund_reason: [''],
+            refund_to_account: [''],
             remark: [''],
             created_at: [''],
             product_name: [''],

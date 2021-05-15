@@ -81,7 +81,8 @@
                                                         <th style="text-align: center;width:20%">产品名称</th>
                                                         <th style="text-align: center;">店铺名称</th>
                                                         <th style="text-align: center;">退款原因</th>
-                                                        <th style="text-align: center;">退款方案</th>
+                                                        <th style="text-align: center;">退款类型</th>
+                                                        <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
                                                         <th style="text-align: center;">操作</th>
@@ -99,6 +100,9 @@
                                                             <span *ngIf="data.type==1">部分退款</span>
                                                             <span *ngIf="data.type==2">多付返还</span>
                                                             <span *ngIf="data.type==3">退保</span>
+                                                        </td>
+                                                        <td>
+                                                            {{data?.to_account==1?'退至用户账户余额':'正常退'}}
                                                         </td>
                                                         <td>
                                                             <span *ngIf="data.status===0">已取消</span>
@@ -212,7 +216,8 @@
                                                         <th style="text-align: center;width:20%">产品名称</th>
                                                         <th style="text-align: center;">店铺名称</th>
                                                         <th style="text-align: center;">退款原因</th>
-                                                        <th style="text-align: center;">退款方案</th>
+                                                        <th style="text-align: center;">退款类型</th>
+                                                        <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
                                                         <th style="text-align: center;">查看详情</th>
@@ -230,6 +235,9 @@
                                                             <span *ngIf="data.type==1">部分退款</span>
                                                             <span *ngIf="data.type==2">多付返还</span>
                                                             <span *ngIf="data.type==3">退保</span>
+                                                        </td>
+                                                        <td>
+                                                            {{data?.to_account==1?'退至用户账户余额':'正常退'}}
                                                         </td>
                                                         <td>
                                                             <span *ngIf="data.status===0">已取消</span>

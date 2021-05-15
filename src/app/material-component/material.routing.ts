@@ -22,6 +22,7 @@ import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/a
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
+import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
 import { AdminOrderGroupTravelComponent } from './admin-order-group-travel/admin-order-group-travel.component';
 import { AdminOrderRefundReviewDetailComponent } from './admin-order-refund-review/admin-order-refund-review-detail/admin-order-refund-review-detail.component';
 import { AdminOrderRefundReviewEditComponent } from './admin-order-refund-review/admin-order-refund-review-edit/admin-order-refund-review-edit.component';
@@ -240,6 +241,13 @@ export const MaterialRoutes: Routes = [
                 component: AdminOrderGroupTravelComponent,
                 data: {
                     breadcrumb: '跟团游订单列表'
+                }
+            },
+            {
+                path: 'groupTravelOrder/editContract',
+                component: AdminEditContractComponent,
+                data: {
+                    breadcrumb: '跟团游订单修改合同'
                 }
             },
             // 注销
@@ -554,6 +562,7 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品抢购记录列表'
                 }
             },
+            
         ]
     }
 ];

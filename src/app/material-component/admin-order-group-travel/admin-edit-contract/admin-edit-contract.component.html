@@ -1,0 +1,660 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/groupTravelOrder">返回跟团游订单列表</button>
+                </div>
+
+                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                  
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                        <mat-card>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px"  style="padding-left: 120px;padding-right: 120px;">
+                                <div fxLayout="row" fxLayoutAlign="center center">
+                                    <h2 style="padding-top: 10px;">全国版境内旅游合同</h2>
+                                </div>
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">合同主体</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="travel_name" nzRequired>旅行社名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="travel_name" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="travel_address" nzRequired>旅行社地址</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="travel_address" nzBorderless readonly [ngModel]="detailModel?.product?.data?.departure_city_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="businsess_number" nzRequired>经营许可证号</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="businsess_number" nzBorderless readonly [ngModel]="detailModel?.product?.data?.destination_city_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="travel_manager" nzRequired>旅行社经办人</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="travel_manager" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="manager_phone" nzRequired>经办人电话</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="manager_phone" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="business_address" nzRequired>签订地址</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="business_address" nzBorderless readonly [ngModel]="detailModel?.product?.data" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">线路行程时间</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="product_name" nzRequired>旅游产品名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_name" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date_start" nzRequired>出发时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="date_start" nzBorderless readonly [ngModel]="detailModel?.product?.data?.departure_city_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date_end" nzRequired>结束时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="date_end" nzBorderless readonly [ngModel]="detailModel?.product?.data?.destination_city_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="few_days" nzRequired>行程天数</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="few_days" nzBorderless readonly [ngModel]="'共'+detailModel?.product+'天，饭店住宿'+detailModel?.product+'夜'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id" nzRequired>团号</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="group_id" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">行程信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                            <form nz-form [formGroup]="addForm" nz-row>
+                                                <!-- <nz-form-item nz-col [nzSm]="24" [nzXs]="24" formArrayName="dayList" *ngFor="let image of dayArray.controls as FormArray;let i = index">                                   
+                                                    <div nz-row [formGroupName]="i">
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第{{i+1}} 天</nz-form-label>
+                                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                                            <input nz-input formControlName="name" />
+                                                            <br>
+                                                            <br>
+                                                            <ng-container>
+                                                                <div class="wangeditor-feature">
+                                                                    <div id="newEditor{{i+1}}" style="background-color: ghostwhite;z-index: 10001;"></div>
+                                                                    <div id="newEditorContent{{i+1}}" class="w-e-text" style="border: 1px solid #c9d8dc;resize: both !important;height: 500px;max-height: 650px;overflow: auto !important;">
+                                                                        <div id='detailBox{{i+1}}'></div>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-container>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item> -->
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">                                   
+                                                    <div nz-row >
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired>第1天</nz-form-label>
+                                                        <nz-form-control [nzSm]="21" [nzXs]="24">
+                                                            <textarea nz-input formControlName="additionalTerms" [nzAutosize]="{ minRows: 5, maxRows: 6 }"></textarea>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">旅游费用及支付</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="audlt" nzRequired>成人</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="audlt" nzBorderless readonly [ngModel]="detailModel?.start_date+'元/人'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="child" nzRequired>儿童</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="child" nzBorderless readonly [ngModel]="detailModel?.start_date+'元/人'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tour_fee" nzRequired>导游服务费</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="tour_fee" nzBorderless readonly [ngModel]="detailModel?.start_date+'元/人'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_diff" nzRequired>单房差</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="price_diff" nzBorderless readonly [ngModel]="detailModel?.start_date+'元/人'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pay_time" nzRequired>旅游费用支付时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="pay_time" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pay_type" nzRequired>旅游费用支付方式</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="pay_type" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" nzRequired>合计</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="price_total" nzBorderless readonly [ngModel]="detailModel?.start_date+'元'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee_remark" nzRequired>费用支付说明</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="fee_remark" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">游客信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px;border:1px solid #ccc;" >
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div>
+                                                    <h5 style="padding-left: 10px;padding-top: 10px;">联系人/游客代表信息</h5>
+                                                </div>
+                                            </div>
+                                            <nz-divider></nz-divider>
+                                            <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_name" nzRequired>联系人</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_phone" nzRequired>手机</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id_type" nzRequired>证件号码</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="id_type" style="width: 50%;" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                            <input nz-input formControlName="id_num"  style="width: 50%;" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tourist_category" >游客类别</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="tourist_category" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tourist_company" >单位</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="tourist_company" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="unified_credit_code" >统一信用代码</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="unified_credit_code" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                                
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tourist_address" >地址</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="tourist_address" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tourist_email" >邮箱</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="tourist_email" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_group" >联系人参团</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_group" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_sex" >性别</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_sex" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_nation" >民族</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_nation" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_health" >个人健康信息</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="contact_health" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </form>
+                                        </div>
+                                        <div class="mat-elevation-z8">
+                                            <nz-table #rowSelectionTable [nzData]="dataMember">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;">姓名</th>
+                                                        <th style="text-align: center;">性别</th>
+                                                        <th style="text-align: center;">类型</th>
+                                                        <th style="text-align: center;">证件类型</th>
+                                                        <th style="text-align: center;">证件号码</th>
+                                                        <th style="text-align: center;">联系电话</th>
+                                                        <th style="text-align: center;">个人健康信息</th>
+                                                        <th style="text-align: center;">签署</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of rowSelectionTable.data">
+                                                        <td>{{data.name}}</td>
+                                                        <td>
+                                                            <span *ngIf="data?.gender===1">男</span>
+                                                            <span *ngIf="data?.gender===2">女</span>
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="data?.is_kid===0">成人</span>
+                                                            <span *ngIf="data?.is_kid===1">儿童</span>
+                                                            <span *ngIf="data?.is_kid===2">婴儿</span>
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="data?.id_type===1">身份证</span>
+                                                            <span *ngIf="data?.id_type===2">护照</span>
+                                                            <span *ngIf="data?.id_type===3">回乡证</span>
+                                                        </td>
+                                                        <td>{{data.id_num}}</td>
+                                                        <td>{{data.phone}}</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </nz-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">人身意外伤害险</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tourist">旅游者</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="tourist" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="insurance_name" nzRequired>保险产品名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="insurance_name" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">组团人数和不成团的约定</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <span><span style="color: #ff4d4f;font-size: 14px; font-family: SimSun,sans-serif;">*</span>最低成团人数</span>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="group_min" style="width: 115px;margin-top: -7px;" nzBorderless readonly [ngModel]="detailModel?.start_date+'人'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <span><span style="color: #ff4d4f;font-size: 14px; font-family: SimSun,sans-serif;">*</span> 如不能成团，旅游者是否同意按下列第</span>
+                                                       <nz-form-control [nzSm]="2" [nzXs]="24">
+                                                            <nz-input-number   style="width: 115px;margin-top: -7px;" formControlName="group_ways" [nzMin]="1"></nz-input-number>
+                                                        </nz-form-control>
+                                                        种方式解决
+                                                    </div>
+                                                </nz-form-item>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div>
+                                                        <ol>
+                                                            <li>
+                                                                <div nz-row>
+                                                                    <span>旅行社委托具备境内游合法旅游资质的第三方</span>
+                                                                    <nz-form-control [nzSm]="5" [nzXs]="24">
+                                                                        <input nz-input formControlName="third_party_travel" style="margin-top: -7px;"/>
+                                                                    </nz-form-control>
+                                                                    旅行社履行合同；
+                                                                </div>
+                                                            </li>
+                                                            <li>延期出团</li>
+                                                            <li>改签其他线路出团</li> 
+                                                            <li>解决合同</li>
+                                                        </ol>
+                                                    </div>
+                                                </nz-form-item>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">拼团约定</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <span>旅行者</span>
+                                                        <nz-form-control [nzSm]="2" [nzXs]="24">
+                                                            <nz-select  nzAllowClear  formControlName="agree_group" style="width: 115px;margin-top: -7px;">
+                                                                <nz-option  [nzLabel]="'同意'" [nzValue]="1"></nz-option>
+                                                                <nz-option  [nzLabel]="'不同意'" [nzValue]="2"></nz-option>
+                                                            </nz-select>
+                                                        </nz-form-control>
+                                                        <span>采用拼团方式拼至</span>
+                                                        <nz-form-control  [nzSm]="5" [nzXs]="24">
+                                                            <input nz-input formControlName="agree_group_travel" style="margin-top: -7px;"/>
+                                                        </nz-form-control>
+                                                        <span>旅行社成团</span>
+                                                        
+                                                    </div>
+                                                </nz-form-item>
+                                               
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">争议的解决方式</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                <div nz-row>
+                                                    <span><span style="color: #ff4d4f;font-size: 14px; font-family: SimSun,sans-serif;">*</span>发生争议不能解决的，按下列第</span>
+                                                   <nz-form-control [nzSm]="2" [nzXs]="24">
+                                                        <nz-input-number style="width: 115px;margin-top: -7px;" formControlName="dispute_ways" [nzMin]="1"></nz-input-number>
+                                                    </nz-form-control>
+                                                    种方式解决
+                                                </div>
+                                            </nz-form-item>    
+                                               
+                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                <div>
+                                                    <ol>
+                                                        <li>
+                                                            <div nz-row>
+                                                                <span>提交</span>
+                                                                <nz-form-control [nzSm]="5" [nzXs]="24">
+                                                                    <input nz-input formControlName="dispute_arbitration_commission" style="margin-top: -7px;"/>
+                                                                </nz-form-control>
+                                                               仲裁委员会仲裁
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div nz-row>
+                                                                <span>依法向</span>
+                                                                <nz-form-control [nzSm]="5" [nzXs]="24">
+                                                                    <input nz-input formControlName="dispute_law" style="margin-top: -7px;"/>
+                                                                </nz-form-control>
+                                                               人民法院起诉
+                                                            </div>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </nz-form-item>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">其他约定事项</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div style="margin-top:13px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                                    <span>未尽事宜，经旅游者与旅行社双方协商一致，可以列入补充条款</span>
+                                                    <div nz-row>
+                                                        <nz-form-control [nzSm]="24" [nzXs]="24">
+                                                            <textarea nz-input formControlName="additionalTerms" [nzAutosize]="{ minRows: 5, maxRows: 6 }"></textarea>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                               
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-card>
+                    </div>
+                    
+                </nz-spin>
+            </div>
+
+        </div>
+
+    </div>
+</div>
