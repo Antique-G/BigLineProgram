@@ -24,8 +24,8 @@ export class StoreFreePostComponent implements OnInit {
     detailUpdateModel: any;  //更新
     detailId: any;  //更新
 
-    // 预售产品
-    is_presell: any;
+    isLoadingBtn = false;
+
 
 
     constructor(public dialog: MatDialog, private msg: NzMessageService, private modal: NzModalService,
@@ -38,11 +38,6 @@ export class StoreFreePostComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.activatedRoute.queryParams.subscribe(params => {
-            this.is_presell = params.is_presell;
-            console.log('预售', this.is_presell);
-        });
-
         if (this.dataDetailModel.poster_url != "") {
             this.imgSrc = this.dataDetailModel.poster_url;
             this.isShow = true;
@@ -94,17 +89,18 @@ export class StoreFreePostComponent implements OnInit {
 
 
     nextTab() {
+        this.isLoadingBtn = true;
         this.detailUpdateModel.id = this.dataDetailModel.id;
         this.detailUpdateModel.poster_url = this.imgSrc;
         console.log("更新", this.detailUpdateModel);
         this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-            if (this.is_presell == 1) {
-                this.router.navigate(['/store/main/storePreFree']); 
-            }
-            else {
-                this.router.navigate(['/store/main/storeFreeTravel']); 
-            }
-        })
+            this.isLoadingBtn = false;
+            this.tabIndex.emit({ id: this.detailUpdateModel.id, tabIndex: 6 })
+        }
+            ,
+            error => {
+                this.isLoadingBtn = false;
+            })
     }
 
 

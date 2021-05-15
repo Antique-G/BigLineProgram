@@ -24,7 +24,7 @@ export class AdminProductFreeTravelService {
     // 自由行产品列表
     freeTravelList(page: number, per_page: number, status: any, check_status: any,
         title: string, store_name: string, id: any, few_days: any,
-        tag?: any, departure_city?: any, destination_city?: any): Observable<AdminFreeTravelListResponseModel> {
+        tag?: any, departure_city?: any, destination_city?: any, is_presell?: any): Observable<AdminFreeTravelListResponseModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -35,7 +35,8 @@ export class AdminProductFreeTravelService {
             .set('few_days', few_days ? few_days : '')
             .set('tag', tag ? tag : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('is_presell', is_presell ? is_presell : '');
 
 
         const findhttpOptions = {
@@ -123,7 +124,7 @@ export class AdminProductFreeTravelService {
     }
 
 
-    
+
     // 自由行预售产品列表
     preFreeTravelList(page: number, per_page: number, status: any, check_status: any,
         title: string, store_name: string, id: any, few_days: any,
