@@ -8,7 +8,8 @@
                     </div>
 
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button  color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行管理</button>
+                        <button mat-raised-button *ngIf="isPrePro!=1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
+                        <button mat-raised-button *ngIf="isPrePro==1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFree">返回自由行预售产品列表</button>
                        
                         <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
 

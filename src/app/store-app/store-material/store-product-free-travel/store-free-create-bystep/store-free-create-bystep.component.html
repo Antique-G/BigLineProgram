@@ -4,8 +4,10 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button *ngIf="is_presell!=1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
-                    <button mat-raised-button *ngIf="is_presell==1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFree">返回自由行预售列表</button>
+                    <button mat-raised-button *ngIf="is_presell!=1" color="primary" style="letter-spacing: 2px;"
+                        routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
+                    <button mat-raised-button *ngIf="is_presell==1" color="primary" style="letter-spacing: 2px;"
+                        routerLink="/store/main/storePreFree">返回自由行预售列表</button>
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center">
@@ -16,15 +18,16 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-free-info *ngIf="is_presell!=1" (tabIndex)="getTabIndex($event)" [isId]="isId" [isShowId]="isShowId" [getOneTab]="getOneTab"></app-store-free-info>
-                            <!-- <app-store-pre-free-info  *ngIf="is_presell==1" (tabIndex)="getTabIndex($event)" [isId]="isId" [isShowId]="isShowId" [getOneTab]="getOneTab"></app-store-pre-free-info> -->
+                            <app-store-free-info (tabIndex)="getTabIndex($event)" [isId]="isId" [isShowId]="isShowId"
+                                [getOneTab]="getOneTab"></app-store-free-info>
                         </div>
                     </mat-tab>
 
                     <mat-tab label="产品特色" [disabled]="isIndex<1">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-free-feature (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-feature>
+                                <app-store-free-feature (tabIndex)="getTabIndex($event)"
+                                    [dataDetailModel]='dataDetailModel'></app-store-free-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -33,7 +36,8 @@
                         <ng-template matTabContent>
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                                    <app-store-free-desc (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-desc>
+                                    <app-store-free-desc (tabIndex)="getTabIndex($event)"
+                                        [dataDetailModel]='dataDetailModel'></app-store-free-desc>
                                 </nz-spin>
                             </div>
                         </ng-template>
@@ -44,23 +48,26 @@
                     <mat-tab label="预约须知" [disabled]="isIndex<3">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-free-notice (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-notice>
+                                <app-store-free-notice (tabIndex)="getTabIndex($event)"
+                                    [dataDetailModel]='dataDetailModel'></app-store-free-notice>
                             </div>
                         </ng-template>
                     </mat-tab>
-                   
+
                     <mat-tab label="图片与视频" [disabled]="isIndex<4">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-free-image (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-image>
+                                <app-store-free-image (tabIndex)="getTabIndex($event)"
+                                    [dataDetailModel]='dataDetailModel'></app-store-free-image>
                             </div>
                         </ng-template>
                     </mat-tab>
-                    
+
                     <mat-tab label="海报" [disabled]="isIndex<5">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-free-post (tabIndex)="getTabIndex($event)" [dataDetailModel]='dataDetailModel'></app-store-free-post>
+                                <app-store-free-post (tabIndex)="getTabIndex($event)"
+                                    [dataDetailModel]='dataDetailModel'></app-store-free-post>
                             </div>
                         </ng-template>
                     </mat-tab>

@@ -3,12 +3,8 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addProduct()">添加产品</button>
-                    </div>
-
                     <form [formGroup]="searchForm" nz-row nz-form>
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -21,7 +17,7 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="checkStatus">审核状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -38,7 +34,7 @@
 
                        
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="tag">产品标签</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -50,7 +46,7 @@
                         </nz-form-item>
 
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id">产品编码/id</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -59,7 +55,7 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title">产品标题</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -68,7 +64,7 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="departure_city">出发城市</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -77,7 +73,7 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="destination_city">目的城市</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -86,7 +82,26 @@
                             </div>
                         </nz-form-item>
 
-                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="preDate">预售日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangePreDate($event)" formControlName="preDate"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="useDate">使用日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeUseDate($event)" formControlName="useDate"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="few_days">几天</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
@@ -181,28 +196,11 @@
                                         <nz-dropdown-menu #menu="nzDropdownMenu">
                                             <ul nz-menu nzSelectable class="menu">
                                                 <li nz-menu-item (click)="edit(data)">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="查看详情"> 查看详情
                                                 </li>
                                                 <li nz-menu-item (click)="goToQuoteClick(data)">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" title="报价"> 报价
+                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" title="查看报价"> 查看报价
                                                 </li>
-                                                <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
-                                                    <div *ngIf="data.status===0">
-                                                        <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架"> 上架
-                                                    </div>
-                                                    <div *ngIf="data.status===1">
-                                                        <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架"> 下架
-                                                    </div>
-                                                </li>
-                                                <li nz-menu-item *ngIf="data.check_status==0" (click)="checkStatusClick(data)">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="提交审核"> 提交审核
-                                                </li>
-                                                <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核"> 撤销审核
-                                                </li>
-                                                <!-- <li nz-menu-item (click)="setCommission(data)">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
-                                                </li> -->
                                             </ul>
                                         </nz-dropdown-menu>
                                     </td>
