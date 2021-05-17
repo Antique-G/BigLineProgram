@@ -194,6 +194,8 @@ export interface DetailsModel {
     refunding_amount?: any;
     refund_member?: any;
     total_member?: any;
+    detailModel?: any;
+    store_name?: any;
 }
 
 

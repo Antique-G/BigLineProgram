@@ -10,33 +10,28 @@ import { AdminOrderService } from '../../../../services/admin/admin-order.servic
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
-import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 
 
 @Component({
-    selector: 'app-admin-order-free-travel-detail',
-    templateUrl: './admin-order-free-travel-detail.component.html',
-    styleUrls: ['./admin-order-free-travel-detail.component.css']
+    selector: 'app-admin-order-pre-free-travel-detail',
+    templateUrl: './admin-order-pre-free-travel-detail.component.html',
+    styleUrls: ['./admin-order-pre-free-travel-detail.component.css']
 })
-export class AdminOrderFreeTravelDetailComponent implements OnInit {
+export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
     public isSpinning = false;
     addForm!: FormGroup;
     detailId: any;
     detailModel!: DetailsModel;
     dataMember: any;
-    audltPrice: any;
-    childPrice: any;
     priceTotal: any;
     dataPayLog: any[] = [];
-    refundLog: any[] = [];
     // 修改信息
     isChange = false;
     editInfoModel: EditInfoModel;
     editMemberModel: EditMemberModel;
-
     idChangeBirDate: any;
     idChangeBir = false;
 
@@ -58,6 +53,10 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             customer_remarks: ['',],
             internal_remarks: ['',],
             quote_type: [''],
+            num_total: [''],
+            use_num: [''],
+            code: [''],
+            is_presell: [''],
             store_name: [''],
         });
         this.editInfoModel = {
@@ -109,15 +108,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
                 }
             });
             this.dataPayLog = pagLogArr;
-            // 退款流水
-            let reFundLogArr: any[] = [];
-            res.data?.refund?.data.forEach((element: any) => {
-                if (element.status == 2 || element.status == 3) {
-                    reFundLogArr.push(element)
-                }
-            });
-            this.refundLog = reFundLogArr;
-
+     
             this.dataMember = res.data?.member?.data;
             this.dataMember.forEach((element: any) => {
                 if (element.birthday == null) {
@@ -140,9 +131,6 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
     fee() {
         // 费用明细
-        this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
-        this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
-        // this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
         this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
         this.priceTotal = this.toDecimal(this.priceTotal);
     }
@@ -319,76 +307,6 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
 
 
-
-    // 订单退款
-    orderPartRefund() {
-        // 按人头的自由行和跟团游退款一样 detailModel?.independent_product?.data?.quote_type==1?'按套餐份数':'按人头'
-        let quoteType = this.detailModel?.independent_product?.data?.quote_type;
-        if (quoteType == '2') {
-            const dialogRef = this.dialog.open(AdminSelectRefundComponent, {
-                width: '550px',
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                console.log("关闭", result)
-                if (result != undefined) {
-                    let type = result;
-                    const editmodal = this.modal.create({
-                        nzTitle: '订单退款',
-                        nzWidth: 1000,
-                        nzMaskClosable: false,
-                        nzContent: AOGTDPartRefundComponent,
-                        nzComponentParams: {
-                            data: {
-                                data: this.detailModel,
-                                type: type
-                            }
-                        },
-                        nzFooter: null
-                    })
-                    editmodal.afterClose.subscribe(res => {
-                        this.getDetail();
-                    })
-                }
-
-            });
-        }
-        else {
-            const dialogRef = this.dialog.open(AdminSelectRefundComponent, {
-                width: '550px',
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                console.log("关闭", result)
-                if (result != undefined) {
-                    let type = result;
-                    const editmodal = this.modal.create({
-                        nzTitle: '订单退款',
-                        nzWidth: 1000,
-                        nzMaskClosable: false,
-                        nzContent: AOFTRefundByquoteComponent,
-                        nzComponentParams: {
-                            data: {
-                                data: this.detailModel,
-                                type: type
-                            }
-                        },
-                        nzFooter: null
-                    })
-                    editmodal.afterClose.subscribe(res => {
-                        this.getDetail();
-                    })
-                }
-            })
-
-        }
-
-
-
-
-
-    }
-
-
-
     // 恢复订单
     restore() {
         this.modal.confirm({
@@ -404,35 +322,35 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     }
 
 
-        // 取消订单
-        cancelOrder() {
-            const editmodal = this.modal.create({
-                nzTitle: '取消订单',
-                nzContent: AdminOrderCancelComponent,
-                nzWidth: 700,
-                nzComponentParams: {
-                    data:this.detailModel?.id
-                },
-                nzFooter: [
-                    {
-                        label: '提交',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.add()
-                        }
+    // 取消订单
+    cancelOrder() {
+        const editmodal = this.modal.create({
+            nzTitle: '取消订单',
+            nzContent: AdminOrderCancelComponent,
+            nzWidth: 700,
+            nzComponentParams: {
+                data: this.detailModel?.id
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add()
                     }
-                ]
-            })
-            editmodal.afterClose.subscribe(res => {
-                this.activatedRoute.queryParams.subscribe(params => {
-                    console.log("params", params)
-                    this.detailId = params?.detailId;
-                    // 详情
-                    this.getDetail();
-    
-                });
-            })
-        }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
+    }
 }
 
 

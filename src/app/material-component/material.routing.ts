@@ -19,6 +19,7 @@ import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
 import { AdminNullComponent } from './admin-null/admin-null.component';
 import { AOFreetravelOrderComponent } from './admin-order-free-travel/a-o-freetravel-order/a-o-freetravel-order.component';
 import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-free-travel-detail/admin-order-free-travel-detail.component';
+import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AdminOrderGroupTravelDetailComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-travel-detail.component';
@@ -299,6 +300,14 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行订单详情'
                 }
             },
+            {
+                path: 'freeTravelOrder/pre/detail',
+                component: AdminOrderPreFreeTravelDetailComponent,
+                data: {
+                    breadcrumb: '自由行预售订单详情'
+                }
+            },
+
             // 注销
             {
                 path: 'freeTravelOrder/order',

@@ -70,6 +70,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             customer_remarks: [''],
             internal_remarks: [''],
             days: [''],
+            store_name: [''],
         });
         this.editMemberModel = {
             id: '',
