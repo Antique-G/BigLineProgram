@@ -1,7 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, } from '@angular/material/dialog';
-import { AdminProductTagComponent } from '../admin-product-tag.component';
 import { AdminProductTagService } from '../../../../../services/admin/admin-product-tag.service';
 import { AddAdminProductTagRequestModel } from '../../../../../interfaces/adminProduct/ProductTagModel';
 
@@ -33,7 +31,7 @@ export class AdminProductTagCreateComponent implements OnInit {
   };
 
 
-  constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<AdminProductTagComponent>,
+  constructor(public fb: FormBuilder, 
     public adminProductTagService: AdminProductTagService) {
     this.forms();
     this.addAdminProductTagRequestModel = {
@@ -111,7 +109,7 @@ export class AdminProductTagCreateComponent implements OnInit {
         }
         else {
           // alert("添加成功");
-          this.dialogRef.close(1);
+        
         }
       })
     }
@@ -130,11 +128,6 @@ export class AdminProductTagCreateComponent implements OnInit {
       this.optionList.push(b);
       console.log("this.optionList", this.optionList);
     })
-  }
-
-
-  close() {
-    this.dialogRef.close();
   }
 
 
