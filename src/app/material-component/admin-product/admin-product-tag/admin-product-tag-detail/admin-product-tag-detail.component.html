@@ -1,19 +1,16 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayoutAlign="end start">
-        <div style="font-size: 18px;cursor: pointer;" (click)="close()">X</div>
-    </div>
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm">
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>产品标签</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.name">
-                    <input nz-input formControlName="name" />
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入产品标签">
+                    <input nz-input formControlName="name" ngModel={{detailModel.name}} />
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cate_id" nzRequired>分类</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="formErrors.cate_id">
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
                     <nz-select formControlName="cate_id" [(ngModel)]="selectedValue" (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="请选择分类！">
                         <nz-option *ngFor="let option of optionList" [nzValue]="option.id" [nzLabel]="option.label"></nz-option>
                     </nz-select>
@@ -23,7 +20,7 @@
 
             <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
                     <nz-radio-group ngModel={{detailModel.status}} formControlName="status">
                         <label nz-radio nzValue=0>禁用</label>
                         <label nz-radio nzValue=1>开启</label>
@@ -31,11 +28,7 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <nz-form-item nz-row class="register-area">
-                <nz-form-control [nzSpan]="14" [nzOffset]="11">
-                    <button nz-button nzType="primary" (click)="update()">更新</button>
-                </nz-form-control>
-            </nz-form-item>
+         
         </form>
     </div>
 </div>
