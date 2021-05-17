@@ -266,7 +266,7 @@
                                                     <nz-dropdown-menu #menu="nzDropdownMenu">
                                                         <ul nz-menu nzSelectable class="menu">
                                                             <ng-container *ngIf="data.contract_status==0||data.contract_status==1">
-                                                                <li nz-menu-item (click)="signCon(data)"  *ngIf="data.order_status==2" >
+                                                                <li nz-menu-item (click)="signCon(data)"  *ngIf="data.order_status==2||data.order_status==1" >
                                                                     <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" title="发送签署请求">发送签署请求
                                                                 </li>
                                                             </ng-container>

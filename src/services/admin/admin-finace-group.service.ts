@@ -21,7 +21,8 @@ export class AdminFinaceGroupService {
 
     // 跟团游订单列表
     groupTravelList(page: number, per_page: number, status: any, product_name: any, order_number: any,
-        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any, payment_status: any): Observable<StoreOrderGroupTravelListRequestModel> {
+        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,transaction_id?:any): Observable<StoreOrderGroupTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -35,7 +36,8 @@ export class AdminFinaceGroupService {
             .set('order_end_date', order_end_date ? order_end_date : '')
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
-            .set('payment_status', payment_status ? payment_status : '');
+            .set('payment_status', payment_status ? payment_status : '')
+            .set('transaction_id', transaction_id ? transaction_id : '');
 
 
         const findhttpOptions = {
@@ -58,7 +60,8 @@ export class AdminFinaceGroupService {
 
     // 订单统计
     getOrderTotal(status: any, product_name: any, order_number: any,
-        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any, order_end_date: any, contact_name: any, contact_phone: any, payment_status: any): Observable<OrderTotalModel> {
+        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,transaction_id?:any): Observable<OrderTotalModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
             .set('product_name', product_name ? product_name : '')
             .set('order_number', order_number ? order_number : '')
@@ -70,7 +73,8 @@ export class AdminFinaceGroupService {
             .set('order_end_date', order_end_date ? order_end_date : '')
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
-            .set('payment_status', payment_status ? payment_status : '');
+            .set('payment_status', payment_status ? payment_status : '')
+            .set('transaction_id', transaction_id ? transaction_id : '');
 
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
