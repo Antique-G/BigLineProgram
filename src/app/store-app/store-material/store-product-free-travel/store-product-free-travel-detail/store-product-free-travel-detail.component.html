@@ -16,8 +16,7 @@
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
                         <div class="content">
-                            <app-store-travel-detail-proinfo *ngIf="is_presell!=1"></app-store-travel-detail-proinfo>
-                            <app-store-pre-travel-detail *ngIf="is_presell==1"></app-store-pre-travel-detail>
+                            <app-store-travel-detail-proinfo ></app-store-travel-detail-proinfo>
                         </div>
                     </mat-tab>
                     <mat-tab label="产品特色">

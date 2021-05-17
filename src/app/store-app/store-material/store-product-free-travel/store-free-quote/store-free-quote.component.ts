@@ -48,6 +48,8 @@ export class StoreFreeQuoteComponent implements OnInit {
     use_end_date: any;
     ticket_price: any;
     subsidy_price: any;
+    // 是否从预售产品列表跳过来
+    isPrePro: any;
 
     constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
         private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -72,7 +74,7 @@ export class StoreFreeQuoteComponent implements OnInit {
             this.use_end_date = params.use_end_date;
             this.ticket_price = params.ticket_price;
             this.subsidy_price = params.subsidy_price;
-
+            this.isPrePro = params.isPrePro;
 
             this.isShowPrice_diff = params.few_nights === '0' ? false : true;
             console.log('儿童是否可以预定 0否 :>> ', this.childStatus, this.childStatus === '0');
