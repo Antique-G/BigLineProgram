@@ -293,10 +293,12 @@
                                       </div>
                                   </td>
                                   <td>
-                                      <!-- 待确认和后台手动填写收款的才可以修改 "-->
-                                    <div style="cursor: pointer;" *ngIf="item.status==2&&item.pay_way==1">
-                                        <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
-                                    </div>
+                                      <!-- 未确认的和后台手动填写收款的才可以修改 "-->
+                                      <ng-container *ngIf="item.pay_way==1">
+                                        <div style="cursor: pointer;" *ngIf="item.status!=2">
+                                            <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
+                                        </div>
+                                      </ng-container>
                                 </td>
                               </tr>
                               <tr *ngFor="let item of data?.refunds?.data;let i=index">
