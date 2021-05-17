@@ -219,7 +219,7 @@ export interface DetailsModel {
     refunding_amount?: any;
     insurance?: any;
     contract_status?: any;
-
+    store_name?: any;
 }
 
 export interface insModel {
