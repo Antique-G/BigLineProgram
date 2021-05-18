@@ -64,11 +64,11 @@ import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
+import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
+import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
 
 
 export const MaterialRoutes: Routes = [
-
-
 
     {
         path: '',
@@ -554,6 +554,23 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品抢购记录列表'
                 }
             },
+            {
+                path: 'costType',
+                component: AdminCostTypeComponent,
+                data: {
+                    breadcrumb: '成本类型列表'
+                }
+            },
+
+
+            {
+                path: 'proSupply',
+                component: AdminProSupplyComponent,
+                data: {
+                    breadcrumb: '供应商管理列表'
+                }
+            },
+            // 
         ]
     }
 ];
