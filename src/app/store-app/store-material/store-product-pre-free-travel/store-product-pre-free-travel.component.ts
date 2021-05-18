@@ -53,6 +53,10 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
     // 预售
     dateArray: any[] = [];
     dateArray1: any[] = [];
+    start_date: any;  //预售开始时间
+    end_date: any;  //  预售结束时间
+    use_start_date: any;  //  可使用开始时间
+    use_end_date: any;  //  可使用结束时间
 
 
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
@@ -89,6 +93,10 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        this.start_date = getSeatch?.start_date ? getSeatch?.start_date : null;
+        this.end_date = getSeatch?.end_date ? getSeatch?.end_date : null;
+        this.use_start_date = getSeatch?.use_start_date ? getSeatch?.use_start_date : null;
+        this.use_end_date = getSeatch?.use_end_date ? getSeatch?.use_end_date : null;
 
         this.searchForm.patchValue({
             status: this.status,
@@ -99,6 +107,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+            preDate: this.start_date == null ? [] : [this.start_date, this.end_date],
+            useDate: this.use_start_date == null ? [] : [this.use_start_date, this.use_end_date],
         })
         this.getProductList();
     }
@@ -120,7 +130,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city).subscribe(res => {
+        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city,this.start_date,this.end_date,this.use_start_date,this.use_end_date).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -141,7 +151,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title,
             id: this.id, few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -207,12 +218,17 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
-
+        this.start_date = this.dateArray[0];
+        this.end_date = this.dateArray[1];
+        this.use_start_date = this.dateArray1[0];
+        this.use_end_date = this.dateArray1[1];
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title, id: this.id,
             few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
+
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -283,6 +299,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             tag: '',
             departure_city: '',
             destination_city: '',
+            preDate: '',
+            useDate: '',
         })
     }
 }
