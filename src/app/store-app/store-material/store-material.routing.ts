@@ -28,6 +28,8 @@ import { StoreCerticationComponent } from './store-certication/store-certication
 import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
+import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
+
 
 
 export const StoreMaterialRoutes: Routes = [
@@ -261,6 +263,13 @@ export const StoreMaterialRoutes: Routes = [
                 component: StoreCostTypeComponent,
                 data: {
                     breadcrumb: '成本类型列表'
+                }
+            },
+            {
+                path: 'storeReqMoney',
+                component: StoreRequestMoneyComponent,
+                data: {
+                    breadcrumb: '请款记录列表'
                 }
             },
         ]

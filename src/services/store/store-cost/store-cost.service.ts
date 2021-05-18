@@ -4,7 +4,7 @@ import { EncodeComponent } from '../../../app/store-app/store-material/EncodeCom
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { AddTypeRequestModel } from '../../../interfaces/admin-cost-manage/admin-cost-model';
+import { AddTypeRequestModel, RequestMoneyModel } from '../../../interfaces/admin-cost-manage/admin-cost-model';
 
 
 
@@ -67,7 +67,30 @@ export class StoreCostService {
     }
 
 
+    // 供应商列表
+    getCashList(page: number, per_page: number, status: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('status', status ? status : '');
 
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetStoreCashList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    // 请款
+    addCash(requestMoneyModel: RequestMoneyModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreCash, requestMoneyModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
 
     private handleError(error: HttpErrorResponse) {

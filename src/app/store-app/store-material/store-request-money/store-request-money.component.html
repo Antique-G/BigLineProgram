@@ -1,0 +1,168 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">订单状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'已请款'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已付款'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'已收发票'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_id">团队编号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="group_id" placeholder="请输入团队编号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="5" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="supply_name">供应商名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="supply_name" placeholder="请输入供应商名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                       
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="date_starts">请款日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-date-picker style="width: 100%;" nzFormat="yyyy-MM-dd" placeholder="请选择请款日期" formControlName="date_starts"></nz-date-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        
+
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
+                            <div nz-row>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+
+                    </form>
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">请款编号</th>
+                                    <th style="text-align: center;">团队编号</th>
+                                    <th style="text-align: center;">供应商名称</th>
+                                    <th style="text-align: center;">成本类型</th>
+                                    <th style="text-align: center;">付款金额</th>
+                                    <th style="text-align: center;">供应商账户</th>
+                                    <th style="text-align: center;">开户名</th>
+                                    <th style="text-align: center;">开户行</th>
+                                    <th style="text-align: center;">请款说明</th>
+                                    <th style="text-align: center;">请款时间</th>
+                                    <th style="text-align: center;">请款人</th>
+                                    <th style="text-align: center;">审核时间</th>
+                                    <th style="text-align: center;">审核人</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data?.bind_account_name}}</td>
+                                    <td>{{data.product_code}}</td>
+                                    <td>{{data.product_name}}</td>
+                                    <td>
+                                        <div>{{data.contact_name}}</div>
+                                        <div>{{data.contact_phone}}</div>
+                                    </td>
+                                    <td>
+                                        <div>总人数{{data?.num_adult+data?.num_kid+data?.baby_num}}</div>
+                                        <div>
+                                            <span>成人{{data?.num_adult}}|</span>
+                                            <span>儿童{{data?.num_kid}}|</span>
+                                            <span>婴儿{{data?.baby_num}}</span>
+
+                                        </div>
+                                    </td>
+                                    <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>
+                                        <span *ngIf="data.order_status===0">
+                                            <nz-badge nzColor="yellow"></nz-badge>已取消
+                                        </span>
+                                        <span *ngIf="data.order_status===1">
+                                            <nz-badge nzColor="red"></nz-badge>待支付
+                                        </span>
+                                        <span *ngIf="data.order_status===2">
+                                            <nz-badge nzColor="pink"></nz-badge>待出行
+                                        </span>
+                                        <span *ngIf="data.order_status===3">
+                                            <nz-badge nzColor="green"></nz-badge>已完成
+                                        </span>
+                                    </td>
+                                    <td>{{data.price_total}}元</td>
+                                    <td>
+                                        <span *ngIf="data.order_sms===0">
+                                            <nz-badge nzColor="yellow"></nz-badge>未发</span>
+                                        <span *ngIf="data.order_sms===1">
+                                            <nz-badge nzColor="green"></nz-badge>已发</span>
+                                        <span *ngIf="data.order_sms===2">
+                                            <nz-badge nzColor="red"></nz-badge>发送失败</span>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="data.cancel_type===0">-</span>
+                                        <span *ngIf="data.cancel_type===1">超时未支付</span>
+                                        <span *ngIf="data.cancel_type===2">到期未成团自动取消</span>
+                                        <span *ngIf="data.cancel_type===3">未支付主动取消</span>
+                                        <span *ngIf="data.cancel_type===4">用户主动申请退款</span>
+                                        <span *ngIf="data.cancel_type===5">平台取消成团</span>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">-</div>
+                                        <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
+                                            <span *ngIf="data.refund_status===0">未退款</span>
+                                            <span *ngIf="data.refund_status===1">待审核</span>
+                                            <span *ngIf="data.refund_status===2">已审核待退款</span>
+                                            <span *ngIf="data.refund_status===3">已退款</span>
+                                            <span *ngIf="data.refund_status===4">已取消</span>
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                        </div>
+                                    </td>
+                                 
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>

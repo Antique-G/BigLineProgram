@@ -29,3 +29,14 @@ export interface AddTypeRequestModel {
     status: any;
     id?: any;
 }
+
+
+export interface RequestMoneyModel {
+    group_id: any;
+    cost_type: any;
+    price?: any;
+    num: any;
+    content: any;
+    suppiler_id: any;
+}
+

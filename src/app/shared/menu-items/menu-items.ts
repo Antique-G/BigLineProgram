@@ -183,9 +183,10 @@ const StoreMENUITEMS = [
         ]
     },
     {
-        title: '成本管理模块', icon: 'pound-circle', permission_name: 'admin_financial',
+        title: '请款管理模块', icon: 'pound-circle',
         children: [
-            { state: 'storeCostType', name: '成本类型管理', permission_name: 'financial_group_order' },
+            { state: 'storeCostType', name: '成本类型管理' },
+            { state: 'storeReqMoney', name: '请款记录模块' },
         ]
     },
 

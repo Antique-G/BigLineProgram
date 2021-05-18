@@ -110,6 +110,8 @@ import { StorePreTravelDetailComponent } from './store-product-free-travel/store
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
 import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-create/store-cost-type-create.component';
 import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
+import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
+import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
 
 
 @NgModule({
@@ -237,6 +239,8 @@ import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-
     StoreCostTypeComponent,
     StoreCostTypeCreateComponent,
     StoreCostTypeDetailComponent,
+    StoreOrderRequestMoneyComponent,
+    StoreRequestMoneyComponent,
     
     
   ]
