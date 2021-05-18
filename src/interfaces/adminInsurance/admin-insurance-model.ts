@@ -36,7 +36,8 @@ export interface Datum {
     article?: any;
     created_at: string;
     updated_at: string;
-    show?: boolean
+    show?: boolean;
+    is_base?: any;
 }
 
 export interface InsuranceDetailModel {
@@ -47,6 +48,8 @@ export interface InsuranceDetailModel {
     code: string;
     insurance_amount: string;
     article: string;
+    is_base?: any;
+
 }
 export interface AdminInsuranceStatusResponseModel {
     id: number;
@@ -60,6 +63,8 @@ export interface AdminInsuranceCreateRequestModel {
     code: string;
     insurance_amount: string;
     article: string;
+    is_base?: any;
+
 }
 
 
@@ -74,4 +79,6 @@ export interface AdminInsuranceUpdateRequestModel {
     code: string;
     insurance_amount: string;
     article: string;
+    is_base?: any;
+
 }

@@ -53,6 +53,7 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
             id: [''],
             type: [''],
             refund_reason: [''],
+            refund_to_account: [''],
             remark: [''],
             created_at: [''],
             product_name: [''],

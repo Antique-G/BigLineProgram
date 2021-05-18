@@ -107,6 +107,10 @@ import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order
 import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
 import { StorePreFreeInfoComponent } from './store-product-free-travel/store-free-create-bystep/store-pre-free-info/store-pre-free-info.component';
 import { StorePreTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-pre-travel-detail/store-pre-travel-detail.component';
+import { StoreFreePresellComponent } from './store-product-free-travel/store-free-create-bystep/store-free-presell/store-free-presell.component';
+import { StoreTravelDetailPresellComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-presell/store-travel-detail-presell.component';
+import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-pre-free-sale-list.component';
+import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
 
 
 @NgModule({
@@ -231,6 +235,10 @@ import { StorePreTravelDetailComponent } from './store-product-free-travel/store
     StoreProductPreFreeTravelComponent,
     StorePreFreeInfoComponent,
     StorePreTravelDetailComponent,
+    StoreFreePresellComponent,
+    StoreTravelDetailPresellComponent,
+    StorePreFreeSaleListComponent,
+    StorePreFreeSaleListDetailComponent,
     
     
   ]

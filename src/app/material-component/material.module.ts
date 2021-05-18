@@ -169,6 +169,10 @@ import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
+import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
+import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
+import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 
 
 
@@ -360,6 +364,10 @@ import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-recor
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
     AdminPreTravelSaleRecordComponent,
+    AdminEditContractComponent,
+    AdminTravelDetailPresellComponent,
+    AdminOrderCancelComponent,
+    AdminOrderPreFreeTravelDetailComponent,
 
   ]
 })

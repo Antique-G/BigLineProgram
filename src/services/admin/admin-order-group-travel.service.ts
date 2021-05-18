@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { CancelInsModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -283,7 +283,15 @@ export class AdminOrderGroupTravelService {
 
     // 签署合同
     signContract(order_id: any): Observable<any> {
-        return this.httpClient.post<any>(this.urls.PostAdminSignContract, {order_id}, httpOptions)
+        return this.httpClient.post<any>(this.urls.PostAdminSignContract, { order_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    // 取消订单
+    cancelOrder(cancelOrderModel: CancelOrderModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminOrderCancel, cancelOrderModel, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

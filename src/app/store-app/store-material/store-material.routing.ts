@@ -27,6 +27,8 @@ import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover
 import { StoreCerticationComponent } from './store-certication/store-certication.component';
 import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
+import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-pre-free-sale-list.component';
+import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
 
 
 export const StoreMaterialRoutes: Routes = [
@@ -255,7 +257,20 @@ export const StoreMaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品报价'
                 }
             },
-            
+            {
+                path: 'storePreFreeSaleList',
+                component: StorePreFreeSaleListComponent,
+                data: {
+                    breadcrumb: '自由行预售抢购记录列表'
+                }
+            },
+            {
+                path: 'storePreFreeSaleList/detail',
+                component: StorePreFreeSaleListDetailComponent,
+                data: {
+                    breadcrumb: '自由行预售抢购记录详情'
+                }
+            },
         ]
     }
 ];

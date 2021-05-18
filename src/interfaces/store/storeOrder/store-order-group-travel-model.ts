@@ -219,7 +219,7 @@ export interface DetailsModel {
     refunding_amount?: any;
     insurance?: any;
     contract_status?: any;
-
+    store_name?: any;
 }
 
 export interface insModel {
@@ -646,4 +646,11 @@ export interface TransChangeModel {
     pay_type: any
     pay_time: any
     transaction_id: any
+}
+
+
+// 取消订单
+export interface CancelOrderModel {
+    id: any
+    reason: any
 }

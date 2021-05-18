@@ -40,11 +40,16 @@ export class StoreFreeQuoteComponent implements OnInit {
     childStatus: any;
     isShowPrice_diff = true;
     is_use_num: any;
-    //预售产品
+    //预售产品信息
     is_presell: any;
     start_date: any;
     end_date: any;
-
+    use_start_date: any;
+    use_end_date: any;
+    ticket_price: any;
+    subsidy_price: any;
+    // 是否从预售产品列表跳过来
+    isPrePro: any;
 
     constructor(private modal: NzModalService, public dialog: MatDialog, public activatedRoute: ActivatedRoute,
         private msg: NzMessageService, public quoteBydateService: StoreQuoteBydateService, private el: ElementRef) {
@@ -65,6 +70,12 @@ export class StoreFreeQuoteComponent implements OnInit {
             this.is_presell = params.is_presell;
             this.start_date = params.start_date;
             this.end_date = params.end_date;
+            this.use_start_date = params.use_start_date;
+            this.use_end_date = params.use_end_date;
+            this.ticket_price = params.ticket_price;
+            this.subsidy_price = params.subsidy_price;
+            this.isPrePro = params.isPrePro;
+
             this.isShowPrice_diff = params.few_nights === '0' ? false : true;
             console.log('儿童是否可以预定 0否 :>> ', this.childStatus, this.childStatus === '0');
             console.log(this.seletYearMonth, 'ngOnInit');
@@ -126,7 +137,11 @@ export class StoreFreeQuoteComponent implements OnInit {
                             is_use_num: this.is_use_num,
                             is_presell: this.is_presell,
                             start_date: this.start_date,
-                            end_date: this.end_date
+                            end_date: this.end_date,
+                            use_start_date: this.use_start_date,
+                            use_end_date: this.use_end_date,
+                            ticket_price: this.ticket_price,
+                            subsidy_price: this.subsidy_price,
 
                         }
                     },
@@ -224,7 +239,7 @@ export class StoreFreeQuoteComponent implements OnInit {
         console.log(123);
         const modal: NzModalRef = this.modal.create({
             nzTitle: '批量报价',
-            nzWidth: 720,
+            nzWidth: 820,
             nzContent: StoreFreeQuoteCreateComponent,
             nzComponentParams: {
                 data: {
@@ -237,7 +252,11 @@ export class StoreFreeQuoteComponent implements OnInit {
                     is_use_num: this.is_use_num,
                     is_presell: this.is_presell,
                     start_date: this.start_date,
-                    end_date: this.end_date
+                    end_date: this.end_date,
+                    use_start_date: this.use_start_date,
+                    use_end_date: this.use_end_date,
+                    ticket_price: this.ticket_price,
+                    subsidy_price: this.subsidy_price,
                 }
             },
             nzFooter: [

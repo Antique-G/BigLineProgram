@@ -49,11 +49,11 @@ export class StoreProductFreeTravelComponent implements OnInit {
     destination_city: any;
     isDeparture: any;
     isDestination: any;
-
+    is_presell: any;
 
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
-        private nzContextMenuService: NzContextMenuService,public storeRegionService: StoreRegionService,) {
+        private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -63,6 +63,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
             tag: [''],
             departure_city: [''],
             destination_city: [''],
+            is_presell: [''],
         })
     }
 
@@ -83,7 +84,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
-
+        this.is_presell = getSeatch?.is_presell ? getSeatch?.is_presell : '';
         this.searchForm.patchValue({
             status: this.status,
             checkStatus: this.checkStatus,
@@ -93,6 +94,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+            is_presell: this.is_presell
         })
         this.getProductList();
     }
@@ -114,7 +116,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.id, this.status, this.tag, this.departure_city, this.destination_city).subscribe(res => {
+        this.freeTrvelService.GetFreeTravelList(this.page, this.per_page, this.checkStatus, this.title, this.few_days, this.id, this.status, this.tag, this.departure_city, this.destination_city, this.is_presell).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -135,7 +137,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title,
             id: this.id, few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            is_presell: this.is_presell
         }
         localStorage.setItem('storeFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -179,12 +182,13 @@ export class StoreProductFreeTravelComponent implements OnInit {
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
-
+        this.is_presell = this.searchForm.value.is_presell;
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title, id: this.id,
             few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            is_presell: this.is_presell
         }
         localStorage.setItem('storeFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -256,7 +260,24 @@ export class StoreProductFreeTravelComponent implements OnInit {
         }
         // 按套餐
         if (data?.quote_type == 1) {
-            this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, use_num: data?.use_num } });
+            let start_date = data?.product_ticket[0]?.start_date;
+            let end_date = data?.product_ticket[0]?.end_date;
+            let use_start_date = data?.product_ticket[0]?.use_start_date;
+            let use_end_date = data?.product_ticket[0]?.use_end_date;
+            let ticket_price = data?.product_ticket[0]?.ticket_price;
+            let subsidy_price = data?.product_ticket[0]?.subsidy_price;
+            this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], {
+                queryParams: {
+                    productId: data.id,
+                    type: 'freeTravel', earlier: this.isEar, proName: data.title,
+                    childStatus: child_status, few_nights: data?.few_nights,
+                    use_num: data?.use_num, is_presell: data?.is_presell,
+                    start_date: start_date, end_date: end_date,
+                    use_start_date: use_start_date, use_end_date: use_end_date,
+                    ticket_price: ticket_price, subsidy_price: subsidy_price
+                }
+            });
+
         }
         // 按人头
         else {
@@ -328,6 +349,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
             tag: '',
             departure_city: '',
             destination_city: '',
+            is_presell: ''
         })
     }
 }
