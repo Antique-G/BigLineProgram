@@ -122,7 +122,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.nowOrderMoney = this.detailModel.price_total;
         this.price_receive = this.detailModel.price_receive;
         // 待收款
-        this.pendingPay = Number(this.price_total) - Number(this.detailModel?.amount_received);
+        this.pendingPay = (Number(this.price_total)*100 - Number(this.detailModel?.amount_received)*100)/100;
 
 
         this.playMoney = (Number(this.detailModel.price_total) * 100 - Number(this.detailModel.amount_received) * 100) / 100

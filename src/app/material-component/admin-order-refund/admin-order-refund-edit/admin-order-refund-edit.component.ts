@@ -154,7 +154,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 this.nowOrderMoney = this.detailModel.order?.data?.price_total;
                 this.price_receive = this.detailModel.order?.data?.price_receive;
                 // 待收款
-                this.pendingPay = Number(this.price_total) - Number(this.detailModel?.order?.data?.amount_received);
+                this.pendingPay = (Number(this.price_total)*100 - Number(this.detailModel?.order?.data?.amount_received)*100)/100;
 
 
                 this.playMoney = (Number(this.detailModel.order?.data?.price_total) * 100 - Number(this.detailModel.order?.data?.amount_received) * 100) / 100
