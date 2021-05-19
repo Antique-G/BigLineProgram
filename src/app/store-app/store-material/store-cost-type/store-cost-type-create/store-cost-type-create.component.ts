@@ -17,7 +17,7 @@ export class StoreCostTypeCreateComponent implements OnInit {
     constructor(public fb: FormBuilder, public storeCostService: StoreCostService ) {
         this.addForm = this.fb.group({
             title: ['', [Validators.required, Validators.maxLength(16)]],
-            status: [1, [Validators.required]]
+            status: ['1', [Validators.required]]
         });
         this.addTypeRequestModel = {
             title: '',
