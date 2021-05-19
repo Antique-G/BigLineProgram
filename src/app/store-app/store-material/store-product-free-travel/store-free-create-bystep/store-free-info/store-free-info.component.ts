@@ -173,7 +173,7 @@ export class StoreFreeInfoComponent implements OnInit {
             copies_max: new FormControl(0),
             use_num: new FormControl(1),
             inclusive: new FormControl(''),
-            request_id_num: new FormControl('0', [Validators.required]),
+            request_id_num: new FormControl('1', [Validators.required]),
             sales_note: new FormControl(''),
         });
         // 每次表单数据发生变化的时候更新错误信息

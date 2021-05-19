@@ -191,6 +191,9 @@ export class StoreProductInfoComponent implements OnInit {
         this.storeProductService.insuranceDayList(this.addForm.value.few_days).subscribe(res => {
             console.log('保险 :>> ', res);
             this.insuranceArr = res?.data;
+            let baseId = this.insuranceArr.filter((ele: any) => ele.is_base == 1);
+            this.addForm.get('insurance_base')?.setValue(baseId[0]?.id);
+            console.log("333333333", baseId, this.addForm.value.insurance_base);
             this.extraInsuranceData = res?.data;
             this.getCateList();
         })

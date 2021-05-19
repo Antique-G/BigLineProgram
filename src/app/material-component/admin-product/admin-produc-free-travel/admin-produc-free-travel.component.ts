@@ -39,6 +39,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
     destination_city: any;
     isDeparture: any;
     isDestination: any;
+    is_presell: any;
 
 
     constructor(public fb: FormBuilder, public dialog: MatDialog, private modal: NzModalService,
@@ -55,6 +56,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
             few_days: [''],
             departure_city: [''],
             destination_city: [''],
+            is_presell: [''],
         })
 
     }
@@ -82,6 +84,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        this.is_presell = getSeatch?.is_presell ? getSeatch?.is_presell : '';
 
         this.searchForm.patchValue({
             status: this.status,
@@ -93,6 +96,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+            is_presell: this.is_presell
         })
         this.getFeeTravelList();
     }
@@ -100,7 +104,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
     getFeeTravelList() {
         this.loading = true;
-        this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.id, this.few_days, this.tag, this.departure_city, this.destination_city).subscribe(res => {
+        this.adminProductFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.id, this.few_days, this.tag, this.departure_city, this.destination_city,this.is_presell).subscribe(res => {
             console.log("结果是", res)
             this.loading = false;
             this.total = res.total;   //总页数
@@ -121,7 +125,9 @@ export class AdminProducFreeTravelComponent implements OnInit {
         this.setQuery = {
             status: this.status, check_status: this.check_status, title: this.title,
             store_name: this.store_name, id: this.id, few_days: this.few_days,
-            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city
+            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city,
+            is_presell: this.is_presell
+
         }
         localStorage.setItem('adminFreeSearch', JSON.stringify(this.setQuery));
         this.getFeeTravelList();
@@ -165,13 +171,16 @@ export class AdminProducFreeTravelComponent implements OnInit {
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
+        this.is_presell = this.searchForm.value.is_presell;
 
 
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, check_status: this.check_status, title: this.title,
             store_name: this.store_name, id: this.id, few_days: this.few_days,
-            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city
+            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city,
+            is_presell: this.is_presell
+
         }
         localStorage.setItem('adminFreeSearch', JSON.stringify(this.setQuery));
         this.getFeeTravelList();
@@ -255,6 +264,7 @@ export class AdminProducFreeTravelComponent implements OnInit {
             few_days: '',
             departure_city: '',
             destination_city: '',
+            is_presell: ''
         });
         this.page = 1;
     }

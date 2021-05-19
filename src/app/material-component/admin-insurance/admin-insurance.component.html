@@ -42,6 +42,7 @@
                                     <th>保险名称</th>
                                     <th>保险产品方案代码</th>
                                     <th>保额</th>
+                                    <th>是否为基础保险</th>
                                     <th>状态</th>
                                     <th>操作</th>
                                     <th>修改状态</th>
@@ -53,6 +54,7 @@
                                     <td>{{data.name}}</td>
                                     <td>{{data.code}}</td>
                                     <td>{{data.insurance_amount}}</td>
+                                    <td>{{data?.is_base==1?'是':'否'}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             禁用

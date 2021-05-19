@@ -21,7 +21,7 @@ export class StoreProductTreeTravelService {
     constructor(public httpClient: HttpClient) { }
 
     GetFreeTravelList(page: number, per_page: number, check_status: any, title: any,
-        few_days: any, id: any, status: any, tag?: any,departure_city?: any, destination_city?: any): Observable<FreeTravelListModel> {
+        few_days: any, id: any, status: any, tag?: any, departure_city?: any, destination_city?: any, is_presell?: any): Observable<FreeTravelListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('check_status', check_status ? check_status : '')
@@ -31,7 +31,9 @@ export class StoreProductTreeTravelService {
             .set('status', status ? status : '')
             .set('tag', tag ? tag : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('is_presell', is_presell ? is_presell : '');
+
 
 
         const findhttpOptions = {
@@ -124,8 +126,9 @@ export class StoreProductTreeTravelService {
 
 
     // 预售产品列表
-    GetPreFreeTravelList(page: number, per_page: number,status: any,  check_status: any, title: any,
-        few_days: any, id: any, tag?: any,departure_city?: any, destination_city?: any): Observable<any> {
+    GetPreFreeTravelList(page: number, per_page: number, status: any, check_status: any, title: any,
+        few_days: any, id: any, tag?: any, departure_city?: any, destination_city?: any,
+        start_date?:any,end_date?:any,use_start_date?:any,use_end_date?:any): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('check_status', check_status ? check_status : '')
@@ -135,7 +138,12 @@ export class StoreProductTreeTravelService {
             .set('status', status ? status : '')
             .set('tag', tag ? tag : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('start_date', start_date ? start_date : '')
+            .set('end_date', end_date ? end_date : '')
+            .set('use_start_date', use_start_date ? use_start_date : '')
+            .set('use_end_date', use_end_date ? use_end_date : '');
+        
 
 
         const findhttpOptions = {

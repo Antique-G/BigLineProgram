@@ -176,6 +176,10 @@ import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/ad
 import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-create/admin-pro-supply-create.component';
 import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
 
+import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
+import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
+import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 
 
 
@@ -373,6 +377,10 @@ import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-sup
     AdminProSupplyComponent,
     AdminProSupplyCreateComponent,
     AdminProSupplyDetailComponent,
+    AdminEditContractComponent,
+    AdminTravelDetailPresellComponent,
+    AdminOrderCancelComponent,
+    AdminOrderPreFreeTravelDetailComponent,
 
   ]
 })

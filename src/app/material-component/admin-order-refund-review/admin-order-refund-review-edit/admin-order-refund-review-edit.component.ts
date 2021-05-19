@@ -51,6 +51,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
             id: [''],
             type: [''],
             refund_reason: [''],
+            refund_to_account: [''],
             remark: [''],
             created_at: [''],
             product_name: [''],
@@ -197,20 +198,6 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
 
 
 
-    // confirm() {
-    //   const dialogRef = this.dialog.open(AdminOrderRefundWaysComponent, {
-    //     width: '1000px',
-    //     data: this.detailModel
-    //   });
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     if (result !== undefined) {
-    //       this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
-    //     }
-
-    //   });
-    // }
-
-
     confirm() {
         const editmodal = this.modal.create({
             nzTitle: '退款去向',
@@ -222,6 +209,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
             nzFooter: [
                 {
                     label: '提交',
+                    type: "primary",
                     onClick: componentInstance => {
                         componentInstance?.add()
                     }
