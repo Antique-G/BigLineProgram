@@ -16,6 +16,9 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
     selected: any;
     allPrice = 1;
     requestMoneyModel: any;
+    precision = 2;
+    cutValue = 0;
+    cutNums = 0;
 
     constructor(public fb: FormBuilder, private message: NzMessageService, public storeCostService: StoreCostService) {
         this.addForm = this.fb.group({
@@ -28,7 +31,7 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
             bank_account: new FormControl('', [Validators.required]),
             bank_name: new FormControl('', [Validators.required]),
             bank_open: new FormControl('', [Validators.required]),
-            remarks: new FormControl('', [Validators.required]),
+            remarks: new FormControl(''),
         });
         this.requestMoneyModel = {
             group_id: '',
