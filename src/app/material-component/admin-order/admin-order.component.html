@@ -82,9 +82,15 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_code">团编号</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="group_code" placeholder="请输入团编号" />
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已收款 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已给发票 '" [nzValue]="3"></nz-option>
+                                    </nz-select>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
