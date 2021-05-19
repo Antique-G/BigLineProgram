@@ -283,6 +283,8 @@ export const AdminUrls = {
     GetAdminFinanceGroupTravelToatl: api + '/admin/finance/productorder_total', // 跟团游统计
     GetAdminFinanceFreeTravelToatl: api + '/admin/finance/indentorder_total', // 自由行统计
     PostAdminOrderEditReceipt: api + '/admin/order/edit_receipt',  // 流水信息修改
+    GetAdminFinanceGroupCashList: api + '/admin/group_cash_require',  // 团请款列表
+    PostAdminFinanceOrderCheckoutCash: api + '/admin/check_cash_require',  // 团请款审核
 
 
 
@@ -475,5 +477,7 @@ export const StoreUrls = {
 
     GetStoreCashList: api + '/store/cash_requirement_list',   // 供应商列表
     PostStoreCash: api + '/store/cash_requirement',   // 请款
+    PutStoreCashUpdate: api + '/store/cash_requirement/',   // 更新
+    DeleteStoreCashType: api + '/store/cash_requirement/',   // 删除
 
 };

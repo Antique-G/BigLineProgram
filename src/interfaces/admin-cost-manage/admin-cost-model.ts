@@ -38,5 +38,6 @@ export interface RequestMoneyModel {
     num: any;
     content: any;
     suppiler_id: any;
+    id?: any;
 }
 

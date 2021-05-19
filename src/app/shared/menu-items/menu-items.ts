@@ -108,6 +108,7 @@ const MENUITEMS = [
         children: [
             { state: 'financeGroupTravel', name: '跟团游订单列表', permission_name: 'financial_group_order' },
             { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
+            { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
         ]
     },
     {
@@ -186,7 +187,7 @@ const StoreMENUITEMS = [
         title: '请款管理模块', icon: 'pound-circle',
         children: [
             { state: 'storeCostType', name: '成本类型管理' },
-            { state: 'storeReqMoney', name: '请款记录模块' },
+            // { state: 'storeReqMoney', name: '请款记录模块' },
         ]
     },
 

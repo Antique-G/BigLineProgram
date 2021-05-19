@@ -93,6 +93,7 @@
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">出团通知书/导游</th>
                                     <th style="text-align: center;">团队状态</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                 </tr>
                             </thead>
@@ -129,6 +130,13 @@
                                         <span *ngIf="data.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
                                         <span *ngIf="data.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
                                         <span *ngIf="data.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
+                                    </td>
+                                    <td>
+                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                        <span *ngIf="data.payout_status===2">已付款</span>
+                                        <span *ngIf="data.payout_status===3">已收发票</span>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">
