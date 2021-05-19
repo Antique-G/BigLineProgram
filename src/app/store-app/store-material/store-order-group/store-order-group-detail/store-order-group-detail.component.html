@@ -161,8 +161,8 @@
                                                         </td>
                                                         <td>{{data?.payed_money}}元</td>
                                                         <td>
-                                                            <div *ngIf="data?.pay_status==0||data?.pay_status==1"><a (click)="startEdit(data)">修改</a></div>
-                                                            <div *ngIf="data?.pay_status==0||data?.pay_status==1"><a (click)="deleteIt(data.id)">删除</a></div>
+                                                            <div *ngIf="data?.pay_status==0"><a (click)="startEdit(data)">修改</a></div>
+                                                            <div *ngIf="data?.pay_status==0"><a (click)="deleteIt(data.id)">删除</a></div>
                                                         </td>
                                                     </ng-container>
                                                     <ng-template #editTemplate>
