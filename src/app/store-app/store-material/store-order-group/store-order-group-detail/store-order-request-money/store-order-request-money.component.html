@@ -2,12 +2,13 @@
     <div style="padding: 5px;">
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
             <div fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="20px">
-               <div><i nz-icon nzType="form" nzTheme="outline" style="cursor: pointer;"></i></div>
+               <!-- <div><i nz-icon nzType="form" nzTheme="outline" style="cursor: pointer;"></i></div> -->
                <!-- <div><i nz-icon nzType="delete" nzTheme="outline" style="cursor: pointer;" (click)="removeBase()"></i></div> -->
             </div>
        
             <form nz-form [formGroup]="addForm">
-                <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
+                <!-- style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;" -->
+                <div >
                     <!-- <div formArrayName="baseList" *ngFor="let human of baseArray.controls as FormArray;let i = index"
                         style="margin-bottom:10px;margin-top: 10px;">
                         <div [formGroupName]="i" nz-row> -->
@@ -78,7 +79,7 @@
 
                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                 <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_name" nzRequired>开户名</nz-form-label>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_name" nzRequired>银行名称</nz-form-label>
                                     <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
                                         <input nz-input formControlName="bank_name" readonly ngModel={{selected?.bank_name}}/>
                                     </nz-form-control>
@@ -87,7 +88,7 @@
 
                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                 <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_open" nzRequired>开户行</nz-form-label>
+                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_open" nzRequired>开户行地址</nz-form-label>
                                     <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
                                         <input nz-input formControlName="bank_open" readonly ngModel={{selected?.bank_open}}/>
                                     </nz-form-control>

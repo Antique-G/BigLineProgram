@@ -175,6 +175,8 @@ import { AdminCostTypeDetailComponent } from './admin-cost-manage/admin-cost-typ
 import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
 import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-create/admin-pro-supply-create.component';
 import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
+import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
+import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
 
 import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
 import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
@@ -381,6 +383,8 @@ import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-trave
     AdminTravelDetailPresellComponent,
     AdminOrderCancelComponent,
     AdminOrderPreFreeTravelDetailComponent,
+    AdminFinanceGroupReqMoneyComponent,
+    AdminFinanceGroupReqReviewComponent,
 
   ]
 })

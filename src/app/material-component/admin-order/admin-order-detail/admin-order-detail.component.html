@@ -4,129 +4,194 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/orderList">返回团订单列表</button>
+                    <button mat-raised-button *ngIf="isGroupReq!=1" color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/orderList">返回团订单列表</button>
+                    <button mat-raised-button *ngIf="isGroupReq==1" color="primary" style="width: 150px;letter-spacing: 2px;" routerLink="/admin/main/financeGroupCashReq">返回团请款列表</button>
                 </div>
 
                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                    <mat-card>
-                        <div>
-                            <div fxLayout="column" fxLayoutAlign="start stretch">
-                                <div fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>
-                                        <h4 style="padding-left: 10px;padding-top: 10px;">团队基本信息</h4>
-                                    </div>
-                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">团队基本信息</h4>
+                                        </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                            <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出团名单</a>
+                                            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                                <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出团名单</a>
+                                            </div>
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="detailModel?.group_status===0" (click)="changeNums(detailModel.group_id)">设置出团人数限制</button>
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="detailModel?.group_status===0" (click)="shutoff(detailModel.group_id)">不成团关团</button>
                                         </div>
-                                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="detailModel?.group_status===0" (click)="changeNums(detailModel.group_id)">设置出团人数限制</button>
-                                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" [disabled]="detailModel?.group_status===0" (click)="shutoff(detailModel.group_id)">不成团关团</button>
                                     </div>
-                                </div>
-                                <nz-divider></nz-divider>
-                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
-                                    <div>
-                                        <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
-                                        <div *ngIf="detailModel?.group_status===0">
-                                            <button class="btn">已取消，不成团</button>
+                                        <div>
+                                            <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                            <div *ngIf="detailModel?.group_status===0">
+                                                <button class="btn">已取消，不成团</button>
+                                            </div>
+                                            <div *ngIf="detailModel?.group_status===1">
+                                                <button class="btn">未成团</button>
+                                            </div>
+                                            <div *ngIf="detailModel?.group_status===2">
+                                                <button class="btn">已成团</button>
+                                            </div>
+                                            <div *ngIf="detailModel?.group_status===3">
+                                                <button class="btn">已出团，完成</button>
+                                            </div>
+
                                         </div>
-                                        <div *ngIf="detailModel?.group_status===1">
-                                            <button class="btn">未成团</button>
+                                        <div style="margin-top:13px">
+                                            <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
+                                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                            <input nz-input formControlName="group_id" nzBorderless readonly  [ngModel]="detailModel?.group_id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_member">团队总人数</nz-form-label>
+                                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                            <input nz-input formControlName="group_member" nzBorderless readonly [ngModel]="detailModel?.member_total" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
+                                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                            <input nz-input formControlName="member_min" nzBorderless readonly [ngModel]="detailModel?.member_min" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_max">最大成团人数</nz-form-label>
+                                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                            <input nz-input formControlName="member_max" nzBorderless readonly [ngModel]="isMemberMax" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="active_date">成团日期</nz-form-label>
+                                                        <nz-form-control [nzSm]="8" [nzXs]="24">
+                                                            <input nz-input formControlName="active_date" nzBorderless readonly [ngModel]="isActiveDate" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="returnDate" nzBorderless readonly [ngModel]="isReturnDate" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                            </form>
                                         </div>
-                                        <div *ngIf="detailModel?.group_status===2">
-                                            <button class="btn">已成团</button>
-                                        </div>
-                                        <div *ngIf="detailModel?.group_status===3">
-                                            <button class="btn">已出团，完成</button>
-                                        </div>
 
-                                    </div>
-                                    <div style="margin-top:13px">
-                                        <form nz-form [formGroup]="addForm" nz-row>
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="group_id" nzBorderless readonly  [ngModel]="detailModel?.group_id" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_member">团队总人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="group_member" nzBorderless readonly [ngModel]="detailModel?.member_total" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_min">最小成团人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="member_min" nzBorderless readonly [ngModel]="detailModel?.member_min" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member_max">最大成团人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="member_max" nzBorderless readonly [ngModel]="isMemberMax" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="active_date">成团日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="8" [nzXs]="24">
-                                                        <input nz-input formControlName="active_date" nzBorderless readonly [ngModel]="isActiveDate" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="returnDate">往返日期</nz-form-label>
-                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="returnDate" nzBorderless readonly [ngModel]="isReturnDate" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                        </form>
                                     </div>
 
                                 </div>
 
                             </div>
-
-                        </div>
-                    </mat-card>
+                        </mat-card>
 
 
-                    <mat-card>
-                        <div>
-                            <div fxLayout="column" fxLayoutAlign="start stretch">
-                                <div fxLayout="row" fxLayoutAlign="space-between center">
-                                    <div>
-                                        <h4 style="padding-left: 10px;padding-top: 10px;">团队信息</h4>
+                        <mat-card *ngIf="cashList.length>0">
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">请款信息</h4>
+                                        </div>
                                     </div>
-
-
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch"
+                                        fxLayoutGap="20px">
+                                        <div class="mat-elevation-z8">
+                                            <nz-table #rowSelectionTable [nzData]="cashList">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;">请款id</th>
+                                                        <th style="text-align: center;">请款单价</th>
+                                                        <th style="text-align: center;">请款数量</th>
+                                                        <th style="text-align: center;">请款总金额</th>
+                                                        <th style="text-align: center;">成本类型</th>
+                                                        <th style="text-align: center;">供应商</th>
+                                                        <th style="text-align: center;">供应商收款账户</th>
+                                                        <th style="text-align: center;">银行名称</th>
+                                                        <th style="text-align: center;">开户行地址</th>
+                                                        <th style="text-align: center;">请款说明</th>
+                                                        <th style="text-align: center;">支付状态</th>
+                                                        <th style="text-align: center;">已批金额</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let data of rowSelectionTable.data">
+                                                        <td>{{data.id}}</td>
+                                                        <td>{{data.price}}</td>
+                                                        <td>{{data.num}}</td>
+                                                        <td>{{data.total}}元</td>
+                                                        <td>{{data.group_cost_type?.data[0]?.title}}</td>
+                                                        <td>{{data.supplier?.data[0]?.supplier_name}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_account}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_name}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_open}}</td>
+                                                        <td>{{data?.content}}</td>
+                                                        <td>
+                                                            <!-- 0未付款 1,部分付款 2,已付款 3,已收发票 -->
+                                                            <span *ngIf="data?.pay_status==0">未付款</span>
+                                                            <span *ngIf="data?.pay_status==1">部分付款</span>
+                                                            <span *ngIf="data?.pay_status==2">已付款</span>
+                                                            <span *ngIf="data?.pay_status==3">已收发票</span>
+                                                        </td>
+                                                        <td>{{data?.payed_money}}元</td>
+                                                    </tr>
+                                                </tbody>
+                                            </nz-table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <nz-divider></nz-divider>
-                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                    <app-admin-order-detail-subgroup [subGroupModel]='subGroupModel'></app-admin-order-detail-subgroup>
-                                </div>
+        
                             </div>
+                        </mat-card>
+        
 
-                        </div>
-                    </mat-card>
+
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">团队信息</h4>
+                                        </div>
+
+
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <app-admin-order-detail-subgroup [subGroupModel]='subGroupModel'></app-admin-order-detail-subgroup>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-card>
+                    </div>
                 </nz-spin>
 
             </div>

@@ -72,6 +72,7 @@ export interface DataOrderDetail {
     departure_city_name: string;
     destination_city_name: string;
     sub_group: SubgroupModel;
+    cash_requirement?: any;
 }
 
 export interface SubgroupModel {
@@ -164,7 +165,7 @@ export interface MemberDetailModel {
     id_num: string;
     sms_status: number;
     eng_name: string;
-    gender: any
+    gender: any;
     // member.sms_status:number;
 }
 
@@ -193,7 +194,7 @@ export interface ShuffOrderModel {
 
 // 发送出团通知短信
 export interface OrderSmsModel {
-    order_ids: any
+    order_ids: any;
 }
 
 // 发送出团通知短信
@@ -201,11 +202,11 @@ export interface GroupSmsModel {
     sub_group_id: string;
     contact_name?: string;
     contact_phone?: string;
-    orders: any[]
+    orders: any[];
 }
 
 export interface DeleteSubGroup {
-    sub_group_id: any
+    sub_group_id: any;
 }
 
 
@@ -213,7 +214,7 @@ export interface DeleteSubGroup {
 export interface OrderGroupNum {
     member_min: any;
     member_max: any;
-    id?: any
+    id?: any;
 }
 
 // 修改出行人信息
@@ -245,5 +246,5 @@ export interface EditInfoModel {
     emergency_contact_person?: string;
     emergency_contact_number?: string;
     customer_remarks?: string;
-    internal_remarks: '',
+    internal_remarks: '';
 }

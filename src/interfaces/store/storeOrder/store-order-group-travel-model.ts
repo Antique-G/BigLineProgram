@@ -223,21 +223,21 @@ export interface DetailsModel {
 }
 
 export interface insModel {
-    data: insDetailModel[]
+    data: insDetailModel[];
 }
 
 export interface insDetailModel {
-    created_at: any
-    deleted_at: any
-    end_date: any
-    id: any
-    insurance_id: any
-    insurance_order_no: any
-    order_id: any
-    policy_no: any
-    start_date: any
-    trade_no: any
-    updated_at: any
+    created_at: any;
+    deleted_at: any;
+    end_date: any;
+    id: any;
+    insurance_id: any;
+    insurance_order_no: any;
+    order_id: any;
+    policy_no: any;
+    start_date: any;
+    trade_no: any;
+    updated_at: any;
 }
 
 export interface Paylog {
@@ -253,7 +253,7 @@ export interface PaylogModel {
     pay_type: number;
     created_at: string;
     updated_at: string;
-    pay_way?: string
+    pay_way?: string;
 }
 
 export interface Cancellog {
@@ -372,7 +372,7 @@ export interface MemberModel {
     sms_status: number;
     remarks: string;
     eng_name: string;
-    gender: any
+    gender: any;
 }
 
 
@@ -389,7 +389,7 @@ export interface ChangePriceModel {
 // 订单修改日期
 export interface ChangeDateRequestModel {
     order_id: string;
-    new_date: any
+    new_date: any;
 }
 
 export interface ChangeDateResponModel {
@@ -575,7 +575,7 @@ export interface OrderGroupProduct {
     num_adult?: any;
     num_kid?: any;
     num_room?: any;
-    members: any[],
+    members: any[];
     contact_name: string;
     contact_phone: string;
     baby_num?: string;
@@ -590,8 +590,8 @@ export interface OrderGroupProduct {
     emergency_contact_number?: any;
     discount?: any;
     other_price?: any;
-    num_total?: any
-    internal_remarks?: any
+    num_total?: any;
+    internal_remarks?: any;
     discount_tit?: any;
     other_price_tit?: any;
 }
@@ -632,8 +632,8 @@ export interface DatumOrderTotalModel {
 
 // 订单统计OrderTotal
 export interface CancelInsModel {
-    order_insurance_id: any
-    refund_amount: any
+    order_insurance_id: any;
+    refund_amount: any;
 }
 
 
@@ -641,16 +641,26 @@ export interface CancelInsModel {
 
 // 财务模块的流水信息修改
 export interface TransChangeModel {
-    order_pay_id: any
+    order_pay_id: any;
     fee: any;
-    pay_type: any
-    pay_time: any
-    transaction_id: any
+    pay_type: any;
+    pay_time: any;
+    transaction_id: any;
 }
 
 
 // 取消订单
 export interface CancelOrderModel {
-    id: any
-    reason: any
+    id: any;
+    reason: any;
+    pay_type: any;
+    pay_time: any;
+    transaction_id: any;
+}
+
+
+// 团请款
+export interface CashReqReviwqModel {
+    id: any;
+    money: any;
 }

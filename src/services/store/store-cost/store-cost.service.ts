@@ -92,6 +92,22 @@ export class StoreCostService {
             );
     }
 
+    // 更新
+    updateCash(requestMoneyModel: RequestMoneyModel): Observable<any> {
+        const id = requestMoneyModel.id;
+        return this.httpClient.put(this.urls.PutStoreCashUpdate + id, requestMoneyModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    // 删除
+    deleteCash(id: any): Observable<any> {
+        return this.httpClient.delete<any>(this.urls.DeleteStoreCashType + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);
