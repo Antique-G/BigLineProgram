@@ -14,8 +14,8 @@
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                        <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
-                                        <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'禁用'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'开启'" [nzValue]="'1'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -52,7 +52,7 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
-                                    <td>{{data.status==0?'下架':' 上架'}}</td>
+                                    <td>{{data.status==0?'禁用':' 开启'}}</td>
                                     <td>
                                         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
                                             <div style="cursor: pointer;" (click)="edit(data)" title="详情">
