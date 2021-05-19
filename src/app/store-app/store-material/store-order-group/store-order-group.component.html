@@ -13,14 +13,22 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
+                       
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_code">团队id/编号</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="group_code" placeholder="请输入团队id/编号" />
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已收款 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已给发票 '" [nzValue]="3"></nz-option>
+                                    </nz-select>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
+
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
@@ -31,9 +39,9 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_id">团队id</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_id">团队id/编号</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="group_id" placeholder="请输入团队id" />
+                                    <input nz-input formControlName="group_id" placeholder="请输入团队id/编号" />
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -93,6 +101,7 @@
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">出团通知书/导游</th>
                                     <th style="text-align: center;">团队状态</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                 </tr>
                             </thead>
@@ -129,6 +138,13 @@
                                         <span *ngIf="data.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
                                         <span *ngIf="data.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
                                         <span *ngIf="data.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
+                                    </td>
+                                    <td>
+                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                        <span *ngIf="data.payout_status===2">已收款</span>
+                                        <span *ngIf="data.payout_status===3">已收发票</span>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">

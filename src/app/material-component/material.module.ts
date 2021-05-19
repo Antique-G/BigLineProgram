@@ -169,6 +169,15 @@ import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
+import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
+import { AdminCostTypeCreateComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-create/admin-cost-type-create.component';
+import { AdminCostTypeDetailComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-detail/admin-cost-type-detail.component';
+import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
+import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-create/admin-pro-supply-create.component';
+import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
+import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
+import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
+
 
 
 
@@ -360,6 +369,14 @@ import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-recor
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
     AdminPreTravelSaleRecordComponent,
+    AdminCostTypeComponent,
+    AdminCostTypeCreateComponent,
+    AdminCostTypeDetailComponent,
+    AdminProSupplyComponent,
+    AdminProSupplyCreateComponent,
+    AdminProSupplyDetailComponent,
+    AdminFinanceGroupReqMoneyComponent,
+    AdminFinanceGroupReqReviewComponent,
 
   ]
 })
