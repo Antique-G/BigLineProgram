@@ -21,7 +21,8 @@ const MENUITEMS = [
             { state: 'adminAccount', name: '管理员账号', permission_name: 'system_account' },
             { state: 'adminStoreManage', name: '门店管理', permission_name: 'system_store_mangement' },
             { state: 'adminPermission', name: '权限管理', permission_name: 'system_permission' },
-            { state: 'adminRole', name: '角色管理', permission_name: 'system_role' }
+            { state: 'adminRole', name: '角色管理', permission_name: 'system_role' },
+            { state: 'proSupply', name: '供应商管理', permission_name: 'system_supplier' },
 
         ]
     },
@@ -111,13 +112,7 @@ const MENUITEMS = [
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
         ]
     },
-    {
-        title: '供应商管理模块', icon: 'pound-circle', permission_name: 'admin_financial',
-        children: [
-            // { state: 'costType', name: '成本类型管理', permission_name: 'financial_group_order' },
-            { state: 'proSupply', name: '供应商管理', permission_name: 'financial_group_order' },
-        ]
-    },
+
 
 
     // {
