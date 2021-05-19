@@ -31,7 +31,11 @@ export class StoreOrderGroupDetailComponent implements OnInit {
     bank_name: any;
     bank_open: any;
     requestMoneyModel: any;
+    precision = 2;
+    cutValue = 0;
+    cutNums = 0;
 
+    
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
                 public modal: NzModalService, public storeOrderService: StoreOrderService,
                 public storeCostService: StoreCostService) {

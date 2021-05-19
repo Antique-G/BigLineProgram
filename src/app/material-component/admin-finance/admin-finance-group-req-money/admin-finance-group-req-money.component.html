@@ -22,14 +22,13 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">团请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                        <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
-                                        <nz-option [nzLabel]="'已付款 '" [nzValue]="2"></nz-option>
-                                        <nz-option [nzLabel]="'已收发票 '" [nzValue]="3"></nz-option>
+                                        <nz-option [nzLabel]="'已收款 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已给发票 '" [nzValue]="3"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -90,7 +89,7 @@
                             </div>
                         </nz-form-item>
                     </form>
-                  
+
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource"
@@ -101,6 +100,7 @@
                                 <tr>
                                     <th style="text-align: center;">团队id</th>
                                     <th style="text-align: center;width: 10%;">团队编号</th>
+                                    <th style="text-align: center;">团请款状态</th>
                                     <th style="text-align: center;width: 12%;">产品名称</th>
                                     <th style="text-align: center;width: 10%;">店铺名称</th>
                                     <th style="text-align: center;">团队状态</th>
@@ -124,6 +124,12 @@
                                             </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
                                                 {{data?.group_code}}</td>
+                                            <td [attr.rowspan]="data?.cash_requirement?.data.length">
+                                                <span *ngIf="data?.payout_status==0">未请款</span>
+                                                <span *ngIf="data?.payout_status==1">已请款</span>
+                                                <span *ngIf="data?.payout_status==2">已收款</span>
+                                                <span *ngIf="data?.payout_status==3">已给发票</span>
+                                            </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
                                                 {{data.product_name}}</td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">{{data.store_name}}
@@ -149,7 +155,8 @@
                                                 </div>
                                             </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
-                                                <span style="color: red;font-weight: 600;">{{data.cash_money_total}}元</span>
+                                                <span
+                                                    style="color: red;font-weight: 600;">{{data.cash_money_total}}元</span>
                                             </td>
                                         </ng-container>
                                         <td> {{item.group_cost_type?.data[0].title}}</td>
@@ -169,8 +176,10 @@
                                             <span style="color: red;font-weight: 600;">{{item.payed_money}}元</span>
                                         </td>
                                         <td>
-                                            <div style="cursor: pointer;" *ngIf="item?.pay_status==0||item?.pay_status==1"> 
-                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png"  title="审核" (click)="review(item,data)">
+                                            <div style="cursor: pointer;"
+                                                *ngIf="item?.pay_status==0||item?.pay_status==1">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png"
+                                                    title="审核" (click)="review(item,data)">
                                             </div>
                                         </td>
                                     </tr>
