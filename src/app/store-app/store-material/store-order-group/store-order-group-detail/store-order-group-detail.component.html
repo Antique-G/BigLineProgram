@@ -18,7 +18,7 @@
                                     </div>
                                     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                                         <button mat-raised-button color="primary" style="letter-spacing: 2px;"
-                                            (click)="groupRequest(detailModel.group_id)">团队请款</button>
+                                            (click)="groupRequest(detailModel.group_id)" *ngIf="detailModel?.group_status==2||detailModel?.group_status==3">团队请款</button>
                                     </div>
                                 </div>
                                 <nz-divider></nz-divider>
@@ -167,8 +167,8 @@
                                                     </ng-container>
                                                     <ng-template #editTemplate>
                                                         <td>{{data.id}}</td>
-                                                        <td><nz-input-number [nzMin]="0" [(ngModel)]="data.price" > </nz-input-number> </td>
-                                                        <td> <nz-input-number [nzMin]="0" [(ngModel)]="data.num" > </nz-input-number></td>
+                                                        <td><nz-input-number [nzMin]="0" [(ngModel)]="data.price"  [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number> </td>
+                                                        <td> <nz-input-number [nzMin]="0" [(ngModel)]="data.num"  [nzPrecision]="cutNums" nzPrecisionMode="cut" > </nz-input-number></td>
                                                         <td>{{data.total}}元</td>
                                                         <td>
                                                             <nz-select  [(ngModel)]="data.cost_type"> 
