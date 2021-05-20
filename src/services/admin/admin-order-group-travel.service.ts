@@ -63,12 +63,13 @@ export class AdminOrderGroupTravelService {
     }
 
     // 产品搜索
-    getPro(page: number, per_page: number, title: any, start_date: any, departure_city: any,
+    getPro(page: number, per_page: number, title: any, departure_start: any,departure_end:any, departure_city: any,
         destination_city: any, few_days: any, code?: any, sort_field?: any, sort?: any): Observable<ProModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('title', title ? title : '')
-            .set('start_date', start_date ? start_date : '')
+            .set('departure_start', departure_start ? departure_start : '')
+            .set('departure_end', departure_end ? departure_end : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '')
             .set('few_days', few_days ? few_days : '')
