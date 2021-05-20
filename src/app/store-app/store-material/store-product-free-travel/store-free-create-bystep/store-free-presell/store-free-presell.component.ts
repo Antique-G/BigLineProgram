@@ -25,12 +25,12 @@ export class StoreFreePresellComponent implements OnInit {
         public router: Router, ) {
         this.addForm = new FormGroup({
             is_presell: new FormControl('0', [Validators.required]),
-            dateValid: new FormControl(null, [Validators.required]),
-            useDateValid: new FormControl(null, [Validators.required]),
-            ticket_price: new FormControl('', [Validators.required]),
-            inventory: new FormControl('', [Validators.required]),
-            subsidy_price: new FormControl('', [Validators.required]),
-            ticket_rules: new FormControl('', [Validators.required]),
+            dateValid: new FormControl(null, ),
+            useDateValid: new FormControl(null,),
+            ticket_price: new FormControl('', ),
+            inventory: new FormControl('', ),
+            subsidy_price: new FormControl('', ),
+            ticket_rules: new FormControl('', ),
         });
         this.detailUpdateModel = {
             step: 7,
@@ -84,8 +84,7 @@ export class StoreFreePresellComponent implements OnInit {
         this.detailUpdateModel.ticket_price = this.addForm.value.ticket_price;
         this.detailUpdateModel.inventory = this.addForm.value.inventory;
         this.detailUpdateModel.subsidy_price = this.addForm.value.subsidy_price;
-        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules;
-
+        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules==null?'':this.addForm.value.ticket_rules;
     }
 
     nextTab() {
@@ -96,7 +95,7 @@ export class StoreFreePresellComponent implements OnInit {
             this.addForm.controls[i].markAsDirty();
             this.addForm.controls[i].updateValueAndValidity();
         }
-        console.log(this.addForm.valid);
+        console.log(this.addForm);
         if (this.addForm.valid) {
             this.detailUpdateModel.id = this.dataDetailModel.id;
             this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
@@ -107,6 +106,9 @@ export class StoreFreePresellComponent implements OnInit {
                 error => {
                     this.isLoadingBtn = false;
                 })
+        }
+        else {
+            this.isLoadingBtn = false;
         }
         //   
     }

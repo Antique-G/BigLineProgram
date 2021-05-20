@@ -207,6 +207,9 @@ export const AdminUrls = {
     PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
 
 
+    GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
+
+
 
 
 

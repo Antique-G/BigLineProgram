@@ -8,117 +8,121 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss']
 })
 
 export class AdminComponent implements OnInit {
-  searchForm: FormGroup;
-  dataSource = [];
-  page = 1;
-  per_page = 10;
-  total = 1;
-  loading = true;
-  keyword: any;
-  status: any;
+    searchForm: FormGroup;
+    dataSource = [];
+    page = 1;
+    per_page = 10;
+    total = 1;
+    loading = true;
+    keyword: any;
+    status: any;
+    staff_type: any;
 
-  constructor(public fb: FormBuilder, public adminAdminService: AdminAdminService, private modal: NzModalService, public dialog: MatDialog) {
-    this.searchForm = fb.group({
-      status: [''],
-      name: ['']
-    });
-  }
+    constructor(public fb: FormBuilder, public adminAdminService: AdminAdminService, private modal: NzModalService, public dialog: MatDialog) {
+        this.searchForm = fb.group({
+            status: [''],
+            name: [''],
+            staff_type: [''],
+        });
+    }
 
-  ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(): void {
-    this.loading = true;
-    this.adminAdminService.adminList(this.page, this.per_page, this.keyword, this.status).subscribe((result: any) => {
-      this.loading = false;
-      this.total = result.total;   //总页数
-      this.dataSource = result.data;
-    });
-  };
-
-  changePageIndex(page: number) {
-    console.log("当前页", page);
-    this.page = page;
-    this.getData();
-  }
-  changePageSize(per_page: number) {
-    console.log("一页显示多少", per_page);
-    this.per_page = per_page;
-    this.getData();
-  }
-
-
-  search() {
-    this.keyword = this.searchForm.value.name;
-    this.status = this.searchForm.value.status;
-    this.page = 1;
-    this.getData();
-    console.log("this.keyword", this.keyword);
-
-  }
-
-
-
-  edit(element: any): void {
-    this.adminAdminService.accountDetail(element.admin_id).subscribe((result: any) => {
-      const editmodal = this.modal.create({
-        nzTitle: '修改',
-        nzContent: AdminDetailComponent,
-        nzWidth: 800,
-        nzComponentParams: {
-          data: result
-        },
-        nzFooter: [
-          {
-            label: '提交',
-            type: 'primary',
-            onClick: componentInstance => {
-              componentInstance?.update()
-            }
-          }
-        ]
-      })
-      editmodal.afterClose.subscribe(res => {
+    ngOnInit(): void {
         this.getData();
-      })
-    });
-  }
+    }
 
-  add() {
-    const editmodal = this.modal.create({
-      nzTitle: '添加',
-      nzContent: AdminCreateComponent,
-      nzWidth: 800,
-      nzFooter: [
-        {
-          label: '提交',
-          type: 'primary',
-          onClick: componentInstance => {
-            componentInstance?.add()
-          }
-        }
-      ]
-    })
-    editmodal.afterClose.subscribe(res => {
-      this.getData();
-    })
-  }
+    getData(): void {
+        this.loading = true;
+        this.adminAdminService.adminList(this.page, this.per_page, this.keyword, this.status, this.staff_type).subscribe((result: any) => {
+            this.loading = false;
+            this.total = result.total;   //总页数
+            this.dataSource = result.data;
+        });
+    };
+
+    changePageIndex(page: number) {
+        console.log("当前页", page);
+        this.page = page;
+        this.getData();
+    }
+    changePageSize(per_page: number) {
+        console.log("一页显示多少", per_page);
+        this.per_page = per_page;
+        this.getData();
+    }
 
 
-  // 重置
-  reset() {
-    this.searchForm.patchValue({
-      status: '',
-      name: ''
-    });
-  }
+    search() {
+        this.keyword = this.searchForm.value.name;
+        this.status = this.searchForm.value.status;
+        this.staff_type = this.searchForm.value.staff_type;
+        this.page = 1;
+        this.getData();
+        console.log("this.keyword", this.keyword);
+
+    }
+
+
+
+    edit(element: any): void {
+        this.adminAdminService.accountDetail(element.admin_id).subscribe((result: any) => {
+            const editmodal = this.modal.create({
+                nzTitle: '修改',
+                nzContent: AdminDetailComponent,
+                nzWidth: 800,
+                nzComponentParams: {
+                    data: result
+                },
+                nzFooter: [
+                    {
+                        label: '提交',
+                        type: 'primary',
+                        onClick: componentInstance => {
+                            componentInstance?.update()
+                        }
+                    }
+                ]
+            })
+            editmodal.afterClose.subscribe(res => {
+                this.getData();
+            })
+        });
+    }
+
+    add() {
+        const editmodal = this.modal.create({
+            nzTitle: '添加',
+            nzContent: AdminCreateComponent,
+            nzWidth: 800,
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.getData();
+        })
+    }
+
+
+    // 重置
+    reset() {
+        this.searchForm.patchValue({
+            status: '',
+            name: '',
+            staff_type: '',
+        });
+    }
 }
 
 

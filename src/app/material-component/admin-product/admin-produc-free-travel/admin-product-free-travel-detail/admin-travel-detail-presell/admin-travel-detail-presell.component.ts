@@ -31,7 +31,7 @@ export class AdminTravelDetailPresellComponent implements OnInit {
             ticket_price: new FormControl('', [Validators.required]),
             inventory: new FormControl('', [Validators.required]),
             subsidy_price: new FormControl('', [Validators.required]),
-            ticket_rules: new FormControl('', [Validators.required]),
+            ticket_rules: new FormControl(' ', [Validators.required]),
         });
         this.detailUpdateModel = {
             step: 7,
@@ -97,7 +97,7 @@ export class AdminTravelDetailPresellComponent implements OnInit {
         this.detailUpdateModel.ticket_price = this.addForm.value.ticket_price;
         this.detailUpdateModel.inventory = this.addForm.value.inventory;
         this.detailUpdateModel.subsidy_price = this.addForm.value.subsidy_price;
-        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules;
+        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules==null?'':this.addForm.value.ticket_rules;
         console.log("this.dateArray[0]", this.detailUpdateModel)
     }
 

@@ -26,13 +26,13 @@ export class StoreTravelDetailPresellComponent implements OnInit {
     constructor(public fb: FormBuilder, private freeTravelService: StoreProductTreeTravelService,
         public router: Router,) {
         this.addForm = new FormGroup({
-            is_presell: new FormControl(0, [Validators.required]),
-            dateValid: new FormControl(null, [Validators.required]),
-            useDateValid: new FormControl(null, [Validators.required]),
-            ticket_price: new FormControl('', [Validators.required]),
-            inventory: new FormControl('', [Validators.required]),
-            subsidy_price: new FormControl('', [Validators.required]),
-            ticket_rules: new FormControl('', [Validators.required]),
+            is_presell: new FormControl('0', [Validators.required]),
+            dateValid: new FormControl(null, ),
+            useDateValid: new FormControl(null,),
+            ticket_price: new FormControl('', ),
+            inventory: new FormControl('', ),
+            subsidy_price: new FormControl('', ),
+            ticket_rules: new FormControl('', ),
         });
         this.detailUpdateModel = {
             step: 7,

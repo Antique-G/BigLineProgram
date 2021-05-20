@@ -10,8 +10,9 @@ import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-or
 import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { FreePriceDetailComponent } from '../admin-free-travel-add-order-detail/free-price-detail/free-price-detail.component';
 import { FeeByQuoteComponent } from './fee-by-quote/fee-by-quote.component';
+
+
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
 export class MyValidators extends Validators {
@@ -143,8 +144,8 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
         this.humanArray.push(this.fb.group({
             name: new FormControl(''),
             phone: new FormControl('', [mobile]),
-            is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0),
-            id_type: new FormControl('',),
+            is_kid: new FormControl( 0),
+            id_type: new FormControl(1),
             id_num: new FormControl('',),
             birthday: new FormControl(null,),
             id_photo: new FormControl('',),
@@ -159,13 +160,6 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
 
 
     removeIcon(index: number) {
-        // if (this.humanArray.length > 1) {
-        //   this.humanArray.removeAt(index);
-        //   this.isNum();
-        // }
-        // else {
-        //   this.message.create('warning', '无法删除，至少存在一组');
-        // }
         this.humanArray.removeAt(index);
         this.isNum();
     }
@@ -198,20 +192,6 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
         this.listDataMap?.forEach((value: any) => {
             value['checked'] = false;
         })
-        let control = <FormArray>this.informationForm.controls['humanList'];
-        // 校验手机
-        const { mobile } = MyValidators;
-        // control.push(new FormGroup({
-        //   name: new FormControl(''),
-        //   phone: new FormControl('',),
-        //   is_kid: new FormControl(this.detailModel.reserve_children === 1 ? '' : 0),
-        //   id_type: new FormControl(''),
-        //   id_num: new FormControl(''),
-        //   birthday: new FormControl(null),
-        //   id_photo: new FormControl(''),
-        //   gender: new FormControl(1),
-        //   eng_name: new FormControl(''),
-        // }));
         this.isChangeData.push(false);
         this.isNum();
         this.newImgArr.push([])
