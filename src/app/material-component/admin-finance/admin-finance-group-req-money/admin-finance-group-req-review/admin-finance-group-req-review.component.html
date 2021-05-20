@@ -1,0 +1,123 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <form nz-form [formGroup]="addForm">
+
+                <div nz-row>
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="group_id">团队编号</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="group_id" nzBorderless readonly
+                                    ngModel={{dataModel.group_id}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="product_name" nzBorderless readonly
+                                    ngModel={{dataModel.product_name}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cost_type">请款成本类型</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="cost_type" nzBorderless readonly
+                                    ngModel={{detail.group_cost_type?.data[0].title}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="supplier_name">供应商名称</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="supplier_name" nzBorderless readonly
+                                    ngModel={{detail.supplier?.data[0].supplier_name}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_account">供应商收款账户
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="16 " [nzXs]="24">
+                                <input nz-input formControlName="bank_account" nzBorderless readonly
+                                ngModel={{detail.supplier?.data[0].bank_account}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_name">银行名称</nz-form-label>
+                            <nz-form-control [nzSm]="16 " [nzXs]="24">
+                                <input nz-input formControlName="bank_name" nzBorderless readonly ngModel={{detail.supplier?.data[0].bank_name}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_open">开户行地址</nz-form-label>
+                            <nz-form-control [nzSm]="16 " [nzXs]="24">
+                                <input nz-input formControlName="bank_open" nzBorderless readonly ngModel={{detail.supplier?.data[0].bank_open}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">请款说明</nz-form-label>
+                            <nz-form-control [nzSm]="16 " [nzXs]="24">
+                                <input nz-input formControlName="remarks" nzBorderless readonly ngModel={{detail.content}}/>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price">请款总额</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="price" nzBorderless readonly [ngModel]="detail.total+'元'"/>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="payed_money">已批核</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="payed_money" nzBorderless readonly [ngModel]="detail.payed_money+'元'"/>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="money" nzRequired>待批金额</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入待批金额">
+                                <nz-input-number style="width: 100%;" formControlName="money" [nzMin]="0"
+                                ngModel={{detail.total-detail.payed_money}}>
+                                </nz-input-number>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

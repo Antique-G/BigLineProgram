@@ -68,6 +68,7 @@ import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-
 import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
 import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
 import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
+import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -588,7 +589,14 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '供应商管理列表'
                 }
             },
-            //
+            {
+                path: 'financeGroupCashReq',
+                component: AdminFinanceGroupReqMoneyComponent,
+                data: {
+                    breadcrumb: '团请款列表'
+                }
+            },
+
         ]
     }
 ];

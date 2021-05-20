@@ -5,9 +5,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataOrderDetail, OrderSmsModel } from '../../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreOrderService } from '../../../../../../services/store/store-order/store-order.service';
-import { StoreOrderGroupDetailSubgroupMoveorderComponent } from './store-order-group-detail-subgroup-moveorder/store-order-group-detail-subgroup-moveorder.component';
-import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-group-detail-subgroup-sentsms/store-order-group-detail-subgroup-sentsms.component';
-import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
+
+
 
 @Component({
     selector: 'app-store-order-group-detail-subgroup',
@@ -65,15 +64,15 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
             }
             else if (this.cursubGroupModelValue?.length != 0) {
                 this.isSubgroup = true;
-                this.cursubGroupModelValue.forEach((value: any, index: any) => {
-                    value.tabs = '子团' + (index + 1);
+                this.cursubGroupModelValue?.forEach((value: any, index: any) => {
+                    value.tabs  = '子团' + (index + 1);
                     value?.order?.data.forEach((value: any, index: any) => {
                         value.expand = false; // 展开属性
                         value.member?.data.forEach((element: any) => {
-                            if (element.birthday === null) {
-                                const year = element.id_num.slice(6, 10);
-                                const month = element.id_num.slice(10, 12);
-                                const date = element.id_num.slice(12, 14);
+                            if (element?.birthday == null) {
+                                const year = element?.id_num?.slice(6, 10);
+                                const month = element?.id_num?.slice(10, 12);
+                                const date = element?.id_num?.slice(12, 14);
                                 element.birthday = year + '-' + month + '-' + date;
                             }
                         });
@@ -105,15 +104,15 @@ export class StoreOrderGroupDetailSubgroupComponent implements OnInit {
                                 console.log('结果是', res.data);
                                 this.detailModel = res.data;
                                 this.cursubGroupModelValue = this.detailModel.sub_group.data;
-                                this.cursubGroupModelValue.forEach((value: any, index: any) => {
+                                this.cursubGroupModelValue?.forEach((value: any, index: any) => {
                                     value.tabs = '子团' + (index + 1);
                                     value?.order?.data.forEach((value: any, index: any) => {
                                         value.expand = false; // 展开属性
                                         value.member?.data.forEach((element: any) => {
-                                            if (element.birthday === null) {
-                                                const year = element.id_num.slice(6, 10);
-                                                const month = element.id_num.slice(10, 12);
-                                                const date = element.id_num.slice(12, 14);
+                                            if (element.birthday == null) {
+                                                const year = element?.id_num?.slice(6, 10);
+                                                const month = element?.id_num?.slice(10, 12);
+                                                const date = element?.id_num?.slice(12, 14);
                                                 element.birthday = year + '-' + month + '-' + date;
                                             }
                                         });
