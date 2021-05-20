@@ -4,7 +4,7 @@ export interface Menu {
     title: string;
     icon: string;
     permission_name: string;
-    children: Menus[]
+    children: Menus[];
 }
 
 export interface Menus {
@@ -35,7 +35,7 @@ const MENUITEMS = [
         children: [
             { state: 'productTag', name: '产品标签', permission_name: 'product_tag' },
             { state: 'productManagement', name: '跟团游管理', permission_name: 'product_group_mange' },
-            { state: 'freeTravel', name: "自由行管理", permission_name: 'product_independent' },
+            { state: 'freeTravel', name: '自由行管理', permission_name: 'product_independent' },
             // { state: 'preFree', name: '自由行预售', permission_name: 'indent_product_presell' }
         ]
     },
@@ -110,6 +110,15 @@ const MENUITEMS = [
             { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
         ]
     },
+    {
+        title: '供应商管理模块', icon: 'pound-circle', permission_name: 'admin_financial',
+        children: [
+            // { state: 'costType', name: '成本类型管理', permission_name: 'financial_group_order' },
+            { state: 'proSupply', name: '供应商管理', permission_name: 'financial_group_order' },
+        ]
+    },
+
+
     // {
     //   title: '其他', icon: 'compass', permission_name: 'admin_financial' ,
     //   children: [
@@ -123,7 +132,7 @@ const MENUITEMS = [
 export interface StoreMenu {
     title: string;
     icon: string;
-    children: StoreMenus[]
+    children: StoreMenus[];
 }
 
 export interface StoreMenus {
@@ -180,6 +189,13 @@ const StoreMENUITEMS = [
             { state: 'storeCertification', name: '账户信息' },
         ]
     },
+    {
+        title: '成本管理模块', icon: 'pound-circle', permission_name: 'admin_financial',
+        children: [
+            { state: 'storeCostType', name: '成本类型管理', permission_name: 'financial_group_order' },
+        ]
+    },
+
 
 ];
 
@@ -192,7 +208,7 @@ const DisStoreMenu = [
             { state: 'storeCertification', name: '账户信息' },
         ]
     },
-]
+];
 
 @Injectable()
 export class MenuItems {

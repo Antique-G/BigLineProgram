@@ -173,6 +173,13 @@ import { AdminEditContractComponent } from './admin-order-group-travel/admin-edi
 import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
 import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
+import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
+import { AdminCostTypeCreateComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-create/admin-cost-type-create.component';
+import { AdminCostTypeDetailComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-detail/admin-cost-type-detail.component';
+import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
+import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-create/admin-pro-supply-create.component';
+import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
+
 
 
 
@@ -368,6 +375,12 @@ import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-trave
     AdminTravelDetailPresellComponent,
     AdminOrderCancelComponent,
     AdminOrderPreFreeTravelDetailComponent,
+    AdminCostTypeComponent,
+    AdminCostTypeCreateComponent,
+    AdminCostTypeDetailComponent,
+    AdminProSupplyComponent,
+    AdminProSupplyCreateComponent,
+    AdminProSupplyDetailComponent,
 
   ]
 })
