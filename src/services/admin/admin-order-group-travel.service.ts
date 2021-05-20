@@ -298,6 +298,15 @@ export class AdminOrderGroupTravelService {
             )
     }
 
+
+    // 下单人
+    getAdminOptData() {
+        return this.httpClient.get<any>(this.urls.GetAdminOptData, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
