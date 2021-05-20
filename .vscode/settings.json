@@ -3,5 +3,6 @@
         "activityBar.background": "#112573",
         "titleBar.activeBackground": "#1734A1",
         "titleBar.activeForeground": "#FBFCFE"
-    }
+    },
+    "angular.enable-strict-mode-prompt": false
 }
