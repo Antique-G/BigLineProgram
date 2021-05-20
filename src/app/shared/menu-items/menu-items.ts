@@ -142,9 +142,16 @@ const StoreMENUITEMS = [
         children: [
             { state: 'storeProduct', name: '跟团游' },
             { state: 'storeFreeTravel', name: '自由行' },
-            // { state: 'storePreFree', name: '自由行预售' }
         ]
     },
+    // {
+    //     title: '预售管理', icon: 'clock-circle',
+    //     children: [
+    //         { state: 'storePreFree', name: '自由行预售产品列表' },
+    //         { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
+
+    //     ]
+    // },
     {
         title: '订单管理模块', icon: 'ordered-list',
         children: [

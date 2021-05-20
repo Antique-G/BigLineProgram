@@ -32,7 +32,8 @@ interface DatumRefundModel {
     updated_at: string;
     handler_id: number;
     amount_detail?: any;
-    product_name: any;
+    product_name?: any;
+    to_account?: any;
 }
 
 // 详情
@@ -60,6 +61,8 @@ export interface DetailDataModel {
     refund_log: Pricedetail;
     member_detail: any;
     order: OrderModel;
+    to_account?: any;
+
 }
 
 
@@ -142,6 +145,8 @@ export interface Datum {
     product_id: number;
     check_at?: any;
     member_detail?: any;
+    to_account?: any;
+
 }
 
 
@@ -266,6 +271,8 @@ export interface RefundPayLogList {
     proof_url: string;
     refund_fee: number;
     refund_limit: string;
+    to_account?: any;
+
 }
 
 
@@ -284,6 +291,8 @@ export interface RefundlogModel {
     bank_address?: string;
     bank_user?: string;
     bank_number?: string;
+    to_account?: any;
+
 }
 
 
@@ -328,6 +337,8 @@ interface DatumRefundListModel {
     bank_user: string;
     bank_number: string;
     store_name: string;
+    to_account?: any;
+
 }
 
 
@@ -341,5 +352,7 @@ export interface AdminRefundLogEditModel {
     bank_number?: any;
     transaction_id: any;
     refund_no: any;
-    id: any
+    id: any;
+    to_account?: any;
+
 }

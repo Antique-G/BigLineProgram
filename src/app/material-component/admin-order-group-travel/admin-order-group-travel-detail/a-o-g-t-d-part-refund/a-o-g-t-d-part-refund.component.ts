@@ -72,10 +72,15 @@ export class AOGTDPartRefundComponent implements OnInit {
     lastPeople = 0;
     pendingPay = 0;
 
+
+    // 退款信息
+    content: any;
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
         this.resultForm = this.fb.group({
             reason: ['', [Validators.required]],
+            to_account: [0, [Validators.required]],
         })
         this.addForm = this.fb.group({
             order_id: [''],
@@ -107,7 +112,7 @@ export class AOGTDPartRefundComponent implements OnInit {
             remarks: [''],
             store_name: [''],
             refundRooms: [0],
-          
+
         })
         this.reundCheckModel = {
             id: '',
@@ -120,7 +125,8 @@ export class AOGTDPartRefundComponent implements OnInit {
             number: '',
             num_room: '',
             change: [],
-            reason: ''
+            reason: '',
+            to_account: ''
         }
     }
 
@@ -543,6 +549,7 @@ export class AOGTDPartRefundComponent implements OnInit {
         this.reundCheckModel.remark = this.addForm.value.remarks;
         this.reundCheckModel.num_room = this.refundRoomNum;
         this.reundCheckModel.reason = this.resultForm.value.reason;
+        this.reundCheckModel.to_account = this.resultForm.value.to_account;
     }
 
 
@@ -557,10 +564,17 @@ export class AOGTDPartRefundComponent implements OnInit {
             else {
                 console.log('Number(this.refund_amount) :>> ', Number(this.refund_amount), Number(this.price_total), Number(this.refund_amount) > Number(this.price_receive));
                 this.setValue();
+                if (this.reundCheckModel.to_account == 1) {
+                    this.content = '<h5>如果您确认提交退款处理信息无误，提交后退款金额将退至您的小程序账户余额里，请注意查收。'
+                }
+                else {
+                    this.content = '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。'
+                }
+
                 for (const i in this.resultForm.controls) {
                     this.resultForm.controls[i].markAsDirty();
                     this.resultForm.controls[i].updateValueAndValidity();
-                  }
+                }
                 if (this.resultForm.valid) {
                     console.log('this.checkAdultNum.length :>> ', this.checkAdultNum, this.allAdultNum.length);
                     if (this.checkAdultNum === this.allAdultNum.length) {
@@ -572,7 +586,7 @@ export class AOGTDPartRefundComponent implements OnInit {
                                 this.reundCheckModel.type = 0;
                                 this.modal.confirm({
                                     nzTitle: '<h4>确认提交退款</h4>',
-                                    nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                                    nzContent: this.content,
                                     nzOnOk: () =>
                                         this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                                             console.log('res :>> ', res);
@@ -586,7 +600,7 @@ export class AOGTDPartRefundComponent implements OnInit {
                                 this.reundCheckModel.type = 0;
                                 this.modal.confirm({
                                     nzTitle: '<h4>确认提交退款</h4>',
-                                    nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                                    nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5>'+this.content,
                                     nzOnOk: () =>
                                         this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                                             console.log('res :>> ', res);
@@ -596,14 +610,14 @@ export class AOGTDPartRefundComponent implements OnInit {
                                         })
                                 });
                             }
-    
+
                         }
                     }
                     else {
                         this.reundCheckModel.type = 1;
                         this.modal.confirm({
                             nzTitle: '<h4>确认提交退款</h4>',
-                            nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                            nzContent: this.content,
                             nzOnOk: () =>
                                 this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                                     console.log('res :>> ', res);
@@ -614,7 +628,7 @@ export class AOGTDPartRefundComponent implements OnInit {
                         });
                     }
                 }
-              
+
             }
 
         }

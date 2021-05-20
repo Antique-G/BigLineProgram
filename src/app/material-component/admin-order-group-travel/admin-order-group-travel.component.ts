@@ -78,6 +78,9 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             // 城市
             this.adminRegionService.getAllRegionList().subscribe(res => {
                 this.nzOptions = res;
+                // this.adminOrderGroupTravelService.getAdminOptData().subscribe(res => {
+                //     console.log("333333",res)
+                // })
             })
 
             // 将上次查询的筛选条件赋值
@@ -340,6 +343,11 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             let contractUrl = res?.contract_view_url;
             window.open(contractUrl);
         })
+    }
+
+    // 修改合同
+    contractChange(data: any) {
+        this.router.navigate(['/admin/main/groupTravelOrder/editContract'], { queryParams: { orderId: data.id } });
     }
 }
 

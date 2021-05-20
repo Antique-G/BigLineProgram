@@ -9,11 +9,12 @@ import { StoreRegionService } from '../../../../services/store/store-region/stor
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-store-product-pre-free-travel',
-  templateUrl: './store-product-pre-free-travel.component.html',
-  styleUrls: ['./store-product-pre-free-travel.component.css']
+    selector: 'app-store-product-pre-free-travel',
+    templateUrl: './store-product-pre-free-travel.component.html',
+    styleUrls: ['./store-product-pre-free-travel.component.css']
 })
 export class StoreProductPreFreeTravelComponent implements OnInit {
     searchForm: FormGroup;
@@ -49,10 +50,18 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
 
+    // 预售
+    dateArray: any[] = [];
+    dateArray1: any[] = [];
+    start_date: any;  //预售开始时间
+    end_date: any;  //  预售结束时间
+    use_start_date: any;  //  可使用开始时间
+    use_end_date: any;  //  可使用结束时间
+
 
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
-        private nzContextMenuService: NzContextMenuService,public storeRegionService: StoreRegionService,) {
+        private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -62,6 +71,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             tag: [''],
             departure_city: [''],
             destination_city: [''],
+            preDate: [''],
+            useDate: [''],
         })
     }
 
@@ -82,6 +93,10 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        this.start_date = getSeatch?.start_date ? getSeatch?.start_date : null;
+        this.end_date = getSeatch?.end_date ? getSeatch?.end_date : null;
+        this.use_start_date = getSeatch?.use_start_date ? getSeatch?.use_start_date : null;
+        this.use_end_date = getSeatch?.use_end_date ? getSeatch?.use_end_date : null;
 
         this.searchForm.patchValue({
             status: this.status,
@@ -92,6 +107,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+            preDate: this.start_date == null ? [] : [this.start_date, this.end_date],
+            useDate: this.use_start_date == null ? [] : [this.use_start_date, this.use_end_date],
         })
         this.getProductList();
     }
@@ -113,7 +130,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city).subscribe(res => {
+        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city,this.start_date,this.end_date,this.use_start_date,this.use_end_date).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -134,7 +151,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title,
             id: this.id, few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -166,6 +184,28 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
     }
 
 
+    // 预售日期
+    onChangePreDate(event: any) {
+        this.dateArray = [];
+        const datePipe = new DatePipe('en-US');
+        console.log('object :>> ', event);
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate1);
+        console.log("event", this.dateArray);
+    }
+
+    onChangeUseDate(event: any) {
+        this.dateArray1 = [];
+        const datePipe = new DatePipe('en-US');
+        console.log('object :>> ', event);
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateArray1.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateArray1.push(myFormattedDate1);
+        console.log("event", this.dateArray1);
+    }
 
 
     search() {
@@ -178,56 +218,28 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
-
+        this.start_date = this.dateArray[0];
+        this.end_date = this.dateArray[1];
+        this.use_start_date = this.dateArray1[0];
+        this.use_end_date = this.dateArray1[1];
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, check_status: this.checkStatus, title: this.title, id: this.id,
             few_days: this.few_days, tag: this.tag, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
+
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
 
     }
 
-    // 审核
-    checkStatusClick(data: any) {
-        this.modal.confirm({
-            nzTitle: '<h5>请确认操作?</h5>',
-            nzContent: '提交审核',
-            nzOnOk: () => {
-                this.freeTrvelService.checkStatusFreeTravel(data.id, 1).subscribe(res => {
-                    console.log(res);
-                    this.getProductList();
-                })
-            }
-        });
-    }
-
-    // 撤销审核
-    revokeStatus(data: any) {
-        this.modal.confirm({
-            nzTitle: '<h5>请确认操作?</h5>',
-            nzContent: '撤销审核',
-            nzOnOk: () => {
-                this.freeTrvelService.checkStatusFreeTravel(data.id, 0).subscribe(res => {
-                    console.log(res);
-                    this.getProductList();
-                })
-            }
-        });
-    }
-
-
-    // 添加
-    addProduct() {
-        this.router.navigate(['/store/main/storePreFree/create'], { queryParams: { is_presell: 1 } });
-    }
 
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFree/detail'], { queryParams: { detailId: data.id,is_presell: 1 } });
+        this.router.navigate(['/store/main/storePreFree/detail'], { queryParams: { detailId: data.id, is_presell: 1 } });
     }
 
 
@@ -253,63 +265,28 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         else {
             this.isEar = Math.floor(minutes / 60 / 24);
         }
-        let start_date = data?.product_ticket[0].start_date;
-        let end_date = data?.product_ticket[0].end_date;
-        this.router.navigate(['/store/main/storePreFree/quote'], { queryParams: { productId: data.id, type: 'freeTravel', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, use_num: data?.use_num,is_presell: 1,start_date:start_date, end_date:end_date } });
-    }
-
-
-    // 上下架操作
-    up(data: any) {
-        console.log("nadao", data);
-        this.modal.confirm({
-            nzTitle: '<h4>提示</h4>',
-            nzContent: '<h6>请确认操作</h6>',
-            nzOnOk: () =>
-                this.freeTrvelService.UpDownFreeTravel(data.id).subscribe(res => {
-                    this.getProductList();
-                })
+        let start_date = data?.product_ticket[0]?.start_date;
+        let end_date = data?.product_ticket[0]?.end_date;
+        let use_start_date = data?.product_ticket[0]?.use_start_date;
+        let use_end_date = data?.product_ticket[0]?.use_end_date;
+        let ticket_price = data?.product_ticket[0]?.ticket_price;
+        let subsidy_price = data?.product_ticket[0]?.subsidy_price;
+        this.router.navigate(['/store/main/storePreFree/quote'], {
+            queryParams: {
+                productId: data.id,
+                type: 'freeTravel', earlier: this.isEar, proName: data.title,
+                childStatus: child_status, few_nights: data?.few_nights,
+                use_num: data?.use_num, is_presell: data?.is_presell,
+                start_date: start_date, end_date: end_date,
+                use_start_date: use_start_date, use_end_date: use_end_date,
+                ticket_price: ticket_price, subsidy_price: subsidy_price,
+                isPrePro: 1
+            }
         });
     }
 
-    // 设置佣金
-    setCommission(obj: any) {
-        console.log(obj, '设置佣金');
-        const addmodal = this.modal.create({
-            nzTitle: '设置佣金',
-            nzContent: SetCommissionComponent,
-            nzComponentParams: {
-                data: {
-                    id: obj.id,
-                    title: obj.title,
-                    day: obj.few_days
 
-                }
-            },
-            nzFooter: [
-                {
-                    label: '添加',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        let flag = componentInstance?.Add()
-                        if (flag) {
-                            let obj = componentInstance?.getValue()
-                            this.setRewardModel = obj;
-                            this.freeTrvelService.setReward(this.setRewardModel).subscribe(res => {
-                                console.log('res :>> ', res);
-                                if (res === null) {
-                                    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-                                }
-                            })
-                        }
-                    }
-                }
-            ]
-        })
-        addmodal.afterClose.subscribe(res => {
-            this.getProductList();
-        })
-    }
+
 
     // 重置
     reset() {
@@ -322,6 +299,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             tag: '',
             departure_city: '',
             destination_city: '',
+            preDate: '',
+            useDate: '',
         })
     }
 }

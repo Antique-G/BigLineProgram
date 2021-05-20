@@ -13,6 +13,7 @@ import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-o
 import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 
 
 @Component({
@@ -57,6 +58,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             customer_remarks: ['',],
             internal_remarks: ['',],
             quote_type: [''],
+            store_name: [''],
         });
         this.editInfoModel = {
             id: '',
@@ -400,6 +402,37 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
                 })
         });
     }
+
+
+        // 取消订单
+        cancelOrder() {
+            const editmodal = this.modal.create({
+                nzTitle: '取消订单',
+                nzContent: AdminOrderCancelComponent,
+                nzWidth: 700,
+                nzComponentParams: {
+                    data:this.detailModel?.id
+                },
+                nzFooter: [
+                    {
+                        label: '提交',
+                        type: 'primary',
+                        onClick: componentInstance => {
+                            componentInstance?.add()
+                        }
+                    }
+                ]
+            })
+            editmodal.afterClose.subscribe(res => {
+                this.activatedRoute.queryParams.subscribe(params => {
+                    console.log("params", params)
+                    this.detailId = params?.detailId;
+                    // 详情
+                    this.getDetail();
+    
+                });
+            })
+        }
 }
 
 

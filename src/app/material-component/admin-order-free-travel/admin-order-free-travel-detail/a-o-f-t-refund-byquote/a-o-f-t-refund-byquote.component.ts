@@ -52,11 +52,14 @@ export class AOFTRefundByquoteComponent implements OnInit {
     newPackage: any;
     nowOrderMoneyPack: any;
 
+    // 退款信息
+    content: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
         this.resultForm = this.fb.group({
             reason: ['', [Validators.required]],
+            to_account: [0, [Validators.required]],
         })
         this.addForm = this.fb.group({
             order_id: [''],
@@ -104,7 +107,8 @@ export class AOFTRefundByquoteComponent implements OnInit {
             number: '',
             num_room: '',
             change: [],
-            reason: ''
+            reason: '',
+            to_account: ''
         }
     }
 
@@ -113,17 +117,17 @@ export class AOFTRefundByquoteComponent implements OnInit {
         console.log('性情是 ', this.detailModel);
         console.log('退款2323结果是 :>> ', this.detailModel);
         this.isType = this.data.type;
-       
+
         this.price_total = this.detailModel.price_total;
         this.nowOrderMoney = this.detailModel.price_total;
         this.price_receive = this.detailModel.price_receive;
         // 待收款
-        this.pendingPay = Number(this.price_total) - Number(this.detailModel?.amount_received);
+        this.pendingPay = (Number(this.price_total)*100 - Number(this.detailModel?.amount_received)*100)/100;
 
 
         this.playMoney = (Number(this.detailModel.price_total) * 100 - Number(this.detailModel.amount_received) * 100) / 100
         console.log('object :>> ', this.detailModel.price_detail.data,);
-       
+
         // 优惠附加收费
         this.priceDetail = JSON.parse(JSON.stringify(this.detailModel.price_detail.data))
         let priceArr = JSON.parse(JSON.stringify(this.detailModel.price_detail.data));
@@ -185,7 +189,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
         }
 
         console.log('otherArray.controls :>> ', this.otherArray.controls);
-       
+
         // 提前天数
         let date1 = new Date(format(new Date(this.detailModel?.start_date), 'yyyy,MM,dd'));
         let date2 = new Date(format(new Date(), 'yyyy,MM,dd'));
@@ -270,11 +274,12 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.reundCheckModel.number = this.addForm.value.ispackNum;
         this.reundCheckModel.num_room = 0;
         this.reundCheckModel.reason = this.resultForm.value.reason;
+        this.reundCheckModel.to_account = this.resultForm.value.to_account;
     }
 
 
-     // 套餐
-     onEnterPack(data: any) {
+    // 套餐
+    onEnterPack(data: any) {
         console.log('data :>> ', data);
         // 选择退款的套餐份数
         this.selectPack = this.addForm.value.ispackNum + '份';
@@ -292,10 +297,10 @@ export class AOFTRefundByquoteComponent implements OnInit {
         // 当前订单价钱
         this.nowOrderMoneyPack = Number(packs) + Number(priceDetail);
         // 基础退款金额
-        this.isPackRefundBasic = ((Number(this.price_total)*100 - Number(this.nowOrderMoneyPack)*100) * Number(this.percentage))/100;
+        this.isPackRefundBasic = ((Number(this.price_total) * 100 - Number(this.nowOrderMoneyPack) * 100) * Number(this.percentage)) / 100;
         // this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         this.isPackRefundBasic = ((Number(this.isPackRefundBasic) * 100) / 100).toFixed(2);
-        
+
 
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
         this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
@@ -328,6 +333,12 @@ export class AOFTRefundByquoteComponent implements OnInit {
 
     addPack() {
         this.setPackValue();
+        if (this.reundCheckModel.to_account == 1) {
+            this.content = '<h5>如果您确认提交退款处理信息无误，提交后退款金额将退至您的小程序账户余额里，请注意查收。'
+        }
+        else {
+            this.content = '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。'
+        }
         // 部分退款
         if (this.isType == 1) {
             if (Number(this.addForm.value.ispackNum) < Number(this.detailModel?.num_total)) {
@@ -335,12 +346,12 @@ export class AOFTRefundByquoteComponent implements OnInit {
                 console.log('提交的 :>> ', this.reundCheckModel);
                 this.modal.confirm({
                     nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                    nzContent: this.content,
                     nzOnOk: () =>
                         this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                             console.log('res :>> ', res);
                             if (res === null) {
-                           
+
                             }
                         })
                 });
@@ -350,12 +361,12 @@ export class AOFTRefundByquoteComponent implements OnInit {
                 console.log('提交的 :>> ', this.reundCheckModel);
                 this.modal.confirm({
                     nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                    nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5>'+this.content,
                     nzOnOk: () =>
                         this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                             console.log('res :>> ', res);
                             if (res === null) {
-                           
+
                             }
                         })
                 });
@@ -366,12 +377,12 @@ export class AOFTRefundByquoteComponent implements OnInit {
             console.log('提交的 :>> ', this.reundCheckModel);
             this.modal.confirm({
                 nzTitle: '<h4>确认提交退款</h4>',
-                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                nzContent: this.content,
                 nzOnOk: () =>
                     this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                         console.log('res :>> ', res);
                         if (res === null) {
-                       
+
                         }
                     })
             });
@@ -381,8 +392,8 @@ export class AOFTRefundByquoteComponent implements OnInit {
     }
 
 
-     // 计算优惠跟附加
-     priceChange(price: any, i: any) {
+    // 计算优惠跟附加
+    priceChange(price: any, i: any) {
         let changeModel: any[] = [];
         let otherModel = this.addForm.value.otherList;
         otherModel.forEach((element: any) => {

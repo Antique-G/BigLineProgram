@@ -204,8 +204,10 @@ export const AdminUrls = {
     PostAdminInsCancel: api + '/admin/insurance/policy_cancel',  // 退保
     GetAdminContractView: api + '/admin/contract_view/',  // 电子合同
     PostAdminSignContract: api + '/admin/contract',  // 签署电子合同
+    PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
 
 
+    GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
 
 
