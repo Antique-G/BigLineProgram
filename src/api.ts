@@ -473,6 +473,7 @@ export const StoreUrls = {
     DeleteStoreCostType: api + '/store/cost_type/',   // 删除
 
 
-
+    GetStoreCashList: api + '/store/cash_requirement_list',   // 供应商列表
+    PostStoreCash: api + '/store/cash_requirement',   // 请款
 
 };
