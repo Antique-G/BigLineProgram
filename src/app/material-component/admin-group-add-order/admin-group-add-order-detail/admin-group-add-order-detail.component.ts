@@ -220,7 +220,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                     control.push(new FormGroup({
                         name: new FormControl('', [Validators.required]),
                         phone: new FormControl('', [mobile]),
-                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                        is_kid: new FormControl(0, [Validators.required]),
                         id_type: new FormControl(1, [Validators.required]),
                         id_num: new FormControl('', [Validators.required]),
                         birthday: new FormControl(null, [Validators.required]),
@@ -234,7 +234,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                     control.push(new FormGroup({
                         name: new FormControl('', [Validators.required]),
                         phone: new FormControl('', [mobile]),
-                        is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                        is_kid: new FormControl(0, [Validators.required]),
                         id_type: new FormControl(1),
                         id_num: new FormControl(''),
                         birthday: new FormControl('', [Validators.required]),
@@ -247,7 +247,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.isChangeData.push(false);
                 this.newImgArr.push([]);
                 this.idType.push(1);
-                this.selectAssembling.push(this.assemblingPlaceList[0].value);
+                this.selectAssembling.push(0);
                 // 获取产品保险
                 this.insuranceArr = this.detailModel?.insurance_extra?.data;
             })
@@ -282,7 +282,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.humanArray.push(this.fb.group({
                     name: new FormControl('', [Validators.required]),
                     phone: new FormControl('', [mobile]),
-                    is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                    is_kid: new FormControl(0, [Validators.required]),
                     id_type: new FormControl(1, [Validators.required]),
                     id_num: new FormControl('', [Validators.required]),
                     birthday: new FormControl(null, [Validators.required]),
@@ -296,7 +296,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 this.humanArray.push(this.fb.group({
                     name: new FormControl('', [Validators.required]),
                     phone: new FormControl('', [mobile]),
-                    is_kid: new FormControl(this.detailModel.child_status === 1 ? '' : 0, [Validators.required]),
+                    is_kid: new FormControl(0, [Validators.required]),
                     id_type: new FormControl(1),
                     id_num: new FormControl(''),
                     birthday: new FormControl('', [Validators.required]),
@@ -309,7 +309,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             this.isChangeData.push(false);
             this.newImgArr.push([]);
             this.idType.push(1);
-            this.selectAssembling.push(this.assemblingPlaceList[0].value);
+            this.selectAssembling.push(0);
         }
 
         this.isNum();
@@ -326,7 +326,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             name: new FormControl('',),
             phone: new FormControl('', [mobile]),
             is_kid: new FormControl(2, [Validators.required]),
-            id_type: new FormControl(''),
+            id_type: new FormControl(1),
             id_num: new FormControl(''),
             birthday: new FormControl(null),
             id_photo: new FormControl(''),
@@ -385,14 +385,25 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     // 选择集合地点
     changeAssembling(event: any, i: any) {
         console.log("点击的集合地点", event, i, this.selectAssembling);
-        let iArr: any[] = [];
-        this.selectAssembling?.forEach((ele: any) => {
-            console.log("iiiiiiii", ele);
-            iArr.push(event)
-        });
-        this.selectAssembling = iArr
-        console.log("重新复制后的", this.selectAssembling)
     }
+
+    // 集合地点应用到全部
+    applyAll(index: any) {
+        console.log("index", index, this.selectAssembling);
+        let allEle: any;
+        let newArr = this.selectAssembling;
+        newArr?.forEach((ele: any, i: any) => {
+            if (i == index) {
+                console.log("iiiiiiii", ele);
+                allEle = ele;
+            }
+        });
+        this.selectAssembling = this.selectAssembling.map(function(num) {
+            return allEle;
+          });
+        console.log("修改后的", allEle, this.selectAssembling);
+    }
+
 
     // 验证类型与输入的成人儿童数是否一致
     onEnter(data: any) {

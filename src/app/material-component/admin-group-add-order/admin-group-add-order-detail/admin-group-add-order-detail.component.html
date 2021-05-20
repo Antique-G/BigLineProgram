@@ -159,28 +159,28 @@
                                 <div>
                                     <form nz-form [formGroup]="informationForm">
                                         <div nz-row style="margin-top: 10px;">
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_adult" nzRequired>成人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入成人数">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入成人数">
                                                         <nz-input-number style=" width: 100%;" formControlName="num_adult" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.child_status===1">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="detailModel?.child_status===1">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_kid">儿童数</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
                                                         <nz-input-number style=" width: 100%;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-                                            
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
+
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="detailModel?.few_nights!=0">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_room" nzRequired>房间数</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入房间数">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入房间数">
                                                         <nz-input-number style=" width: 100%;" formControlName="num_room" (ngModelChange)="onEnterRoom($event)" [(ngModel)]="isForRoom" [nzMin]="minNumber" [nzMax]="maxNumber" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
@@ -188,8 +188,8 @@
                                             </nz-form-item>
 
                                             <ng-container *ngIf="detailModel?.few_nights!=0">
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="showRoom===true">
-                                                    <div nz-row >
+                                                <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="showRoom===true">
+                                                    <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="shared_status" nzRequired>拼房</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
                                                             <nz-radio-group formControlName="shared_status" [(ngModel)]="isshared_status" (ngModelChange)="isChangeRoom($event)">
@@ -201,10 +201,10 @@
                                                 </nz-form-item>
                                             </ng-container>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="detailModel?.child_status===1">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="detailModel?.child_status===1">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="baby_num">婴儿数</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
                                                         <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter2($event)" formControlName="baby_num" [nzMin]="0" [nzMax]="45" [nzStep]="1"></nz-input-number>
                                                     </nz-form-control>
                                                 </div>
@@ -229,42 +229,32 @@
                                         <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
                                             <div formArrayName="humanList" *ngFor="let human of humanArray.controls as FormArray;let i = index" style="margin-bottom:10px;margin-top: 10px;">
                                                 <div [formGroupName]="i" nz-row>
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>姓名</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入姓名">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入姓名">
                                                                 <input nz-input formControlName="name" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="eng_name">英文名</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <input nz-input formControlName="eng_name" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_kid" nzRequired>类型</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="is_kid">
                                                                     <nz-option [nzLabel]="'成人'" [nzValue]="0"></nz-option>
                                                                     <nz-option [nzLabel]="'儿童'" [nzValue]="1"></nz-option>
                                                                 </nz-select>
-                                                            </nz-form-control>
-                                                        </div>
-                                                    </nz-form-item>
-
-
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                        <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                                                <input nz-input formControlName="phone" />
                                                             </nz-form-control>
                                                             <button nz-button nzType="dashed" class="add-button" (click)="removeIcon(i)">
                                                                 <i nz-icon nzType="minus"></i>
@@ -273,11 +263,21 @@
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" nzRequired *ngIf="isRequestIdNum">证件类型</nz-form-label>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" *ngIf="!isRequestIdNum">证件类型</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="id_type" (ngModelChange)="changeType($event,i)">
                                                                     <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
@@ -287,29 +287,30 @@
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" nzRequired *ngIf="isRequestIdNum">证件号码</nz-form-label>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" *ngIf="!isRequestIdNum">证件号码</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请输入证件号码">
-                                                                <input nz-input formControlName="id_num" (blur)="idCardEnter($event,i)"/>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入证件号码">
+                                                                <input nz-input formControlName="id_num" (blur)="idCardEnter($event,i)" />
                                                             </nz-form-control>
+                                                            <button nz-button nzType="primary" (click)="setContract(human)">设为联系人</button>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="isChangeData[i] === true">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="isChangeData[i] === true">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="birthday" nzRequired>出生年月日</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-date-picker style="width: 100%;" formControlName="birthday"></nz-date-picker>
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="gender" [(ngModel)]="idType[i]">
                                                                     <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
@@ -319,22 +320,22 @@
                                                     </nz-form-item>
 
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="assembling_place_id" [(ngModel)]="selectAssembling[i]" (ngModelChange)="changeAssembling($event,i)">
                                                                     <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+place.time" [nzValue]="place.value">
                                                                     </nz-option>
                                                                 </nz-select>
                                                             </nz-form-control>
-                                                            <button nz-button nzType="primary" (click)="setContract(human)">设为联系人</button>
+                                                            <button nz-button nzType="primary" (click)="applyAll(i)">应用到全部</button>
                                                         </div>
                                                     </nz-form-item>
 
                                                     <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
+                                                            <nz-form-label [nzSm]="4" [nzXs]="24">上传证件照</nz-form-label>
                                                             <div *ngIf="newImgArr[i]?.length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                                 <div *ngFor="let img of newImgArr[i],let index=index" style="position: relative;">
                                                                     <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
@@ -354,41 +355,32 @@
                                             <!-- 婴儿 -->
                                             <div formArrayName="babyList" *ngFor="let baby of babyArray.controls as FormArray;let t = index" style="margin-bottom:10px;margin-top: 10px;">
                                                 <div [formGroupName]="t" nz-row>
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name">姓名</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <input nz-input formControlName="name" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="eng_name">英文名</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <input nz-input formControlName="eng_name" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_kid">类型</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="is_kid">
                                                                     <nz-option [nzLabel]="'婴儿'" [nzValue]="2"></nz-option>
                                                                 </nz-select>
-                                                            </nz-form-control>
-                                                        </div>
-                                                    </nz-form-item>
-
-                                                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                        <div nz-row>
-                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
-                                                                <input nz-input formControlName="phone" />
                                                             </nz-form-control>
                                                             <button nz-button nzType="dashed" class="add-button" (click)="removeBaby(t)">
                                                                 <i nz-icon nzType="minus"></i>
@@ -396,12 +388,21 @@
                                                             </button>
                                                         </div>
                                                     </nz-form-item>
-                                                    
-                                                   
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type">证件类型</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="id_type" (ngModelChange)="changeBabyType($event,t)">
                                                                     <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
@@ -412,34 +413,34 @@
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num">证件号码</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
                                                                 <input nz-input formControlName="id_num" />
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="isChangeBabyData[t] === true">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="isChangeBabyData[t] === true">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="birthday" nzRequired>出生年月日</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-date-picker style="width: 100%;" formControlName="birthday"></nz-date-picker>
                                                             </nz-form-control>
                                                         </div>
                                                     </nz-form-item>
 
-                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
-                                                            <nz-form-control [nzSm]="12 " [nzXs]="24" nzErrorTip="请选择">
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                                 <nz-select nzPlaceHolder="请选择" formControlName="gender">
                                                                     <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
                                                                 </nz-select>
                                                             </nz-form-control>
-                                                          
+
                                                         </div>
                                                     </nz-form-item>
 
@@ -447,7 +448,7 @@
 
                                                     <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
                                                         <div nz-row>
-                                                            <nz-form-label [nzSm]="3" [nzXs]="24">上传证件照</nz-form-label>
+                                                            <nz-form-label [nzSm]="4" [nzXs]="24">上传证件照</nz-form-label>
                                                             <div *ngIf="newBabyArr[t].length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                                                 <div *ngFor="let img of newBabyArr[t],let index=index" style="position: relative;">
                                                                     <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
@@ -466,26 +467,26 @@
 
 
                                         <div nz-row style="margin-top: 10px;">
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="emergency_contact_person">紧急联系人姓名</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
                                                         <input nz-input formControlName="emergency_contact_person" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="emergency_contact_number">紧急联系人电话</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
                                                         <input nz-input formControlName="emergency_contact_number" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="customer_remarks">客人需求备注</nz-form-label>
-                                                    <nz-form-control [nzSm]="12 " [nzXs]="24">
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
                                                         <input nz-input formControlName="customer_remarks" />
                                                     </nz-form-control>
                                                 </div>
@@ -513,46 +514,46 @@
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                 <div>
                                     <form nz-form nz-row [formGroup]="contactForm">
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>联系人姓名</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="contact_name" [ngModel]="isName" />
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
 
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzRequired>联系人电话</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="contact_phone" [ngModel]="isPhone" />
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
 
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24">联系人微信</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="contact_wechat" />
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
 
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24">联系人qq</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="contact_qq" />
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
 
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24">联系人邮箱</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="contact_email" />
                                                 </nz-form-control>
                                             </div>
@@ -583,8 +584,8 @@
                                         <p *ngIf="detailModel?.include_insurance_fee==0" style="color: red;font-weight: 600;">本产品已设置报价不包含基础保险费用，需计入总价</p>
 
                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                            <div nz-row >
-                                                <nz-form-label [nzSm]="3" [nzXs]="24" >基础保险</nz-form-label>
+                                            <div nz-row>
+                                                <nz-form-label [nzSm]="2" [nzXs]="24">基础保险</nz-form-label>
                                                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                                                     <span>{{detailModel?.insurance_base_info?.data?.name}}</span>
                                                     <span style="color: red;">￥{{detailModel?.insurance_base_info?.data?.insurance_expense||0 }}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
@@ -595,8 +596,8 @@
 
                                         <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                             <div nz-row>
-                                                <nz-form-label [nzSm]="3" [nzXs]="24">购买额外保险</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-label [nzSm]="2" [nzXs]="24">购买额外保险</nz-form-label>
+                                                <nz-form-control [nzSm]="6" [nzXs]="24">
                                                     <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
                                                         <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
                                                         </nz-option>
@@ -606,8 +607,8 @@
                                             <div style="margin-left: 10%;color: #1890FF;margin-top: 3px;">
                                                 <ul>
                                                     <li *ngFor="let ins of extraInsurance">
-                                                        <span style="color: red;">￥{{ins.insurance_expense}}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span>
-                                                        &nbsp;&nbsp;<a (click)="extraInsDetail(ins.id)">查看“{{ins.name}}”详情</a>
+                                                        <span style="color: red;">￥{{ins.insurance_expense}}/人*{{informationForm.value.num_adult+informationForm.value.num_kid+informationForm.value.baby_num}}</span> &nbsp;&nbsp;
+                                                        <a (click)="extraInsDetail(ins.id)">查看“{{ins.name}}”详情</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -636,10 +637,10 @@
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                 <div>
                                     <form nz-form nz-row [formGroup]="planForm">
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="7" [nzXs]="24">内部备注</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                <nz-form-control [nzSm]="16" [nzXs]="24">
                                                     <input nz-input formControlName="internal_remarks" />
                                                 </nz-form-control>
                                             </div>
@@ -660,7 +661,7 @@
                 <mat-card>
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
-                           <ng-container  *ngIf="isShowFeeDetail===true">
+                            <ng-container *ngIf="isShowFeeDetail===true">
                                 <div>
                                     共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
                                     <span>成人{{audltAllPrice}}元| </span>
@@ -672,7 +673,7 @@
                                     <span>优惠{{discountPrice}}元 </span>
                                     <span>附加收费{{other_price}}元 </span>
                                 </div>
-                                <div><a (click)="feeDetail()" >费用明细</a></div>
+                                <div><a (click)="feeDetail()">费用明细</a></div>
                                 <div *ngIf="detailModel?.sales_note!=''">
                                     <a nz-tooltip [nzTooltipTitle]="detailModel?.sales_note" nzTooltipPlacement="bottomRight" style="color: red;">特别说明<img src="http://cdn.bigline.com.cn/static/images/help_Outline.png"></a>
                                 </div>
