@@ -240,17 +240,11 @@ import { StoreRequestMoneyComponent } from './store-request-money/store-request-
     StoreProductPreFreeTravelComponent,
     StorePreFreeInfoComponent,
     StorePreTravelDetailComponent,
-    StoreFreePresellComponent,
-    StoreTravelDetailPresellComponent,
-    StorePreFreeSaleListComponent,
-    StorePreFreeSaleListDetailComponent,
     StoreCostTypeComponent,
     StoreCostTypeCreateComponent,
     StoreCostTypeDetailComponent,
     StoreOrderRequestMoneyComponent,
     StoreRequestMoneyComponent,
-
-
   ]
 })
 export class StoreMaterialComponentsModule { }

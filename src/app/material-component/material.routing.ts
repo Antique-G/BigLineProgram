@@ -572,7 +572,6 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品抢购记录列表'
                 }
             },
-
             {
                 path: 'costType',
                 component: AdminCostTypeComponent,
