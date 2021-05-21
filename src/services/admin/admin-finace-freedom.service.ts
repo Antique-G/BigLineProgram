@@ -26,7 +26,8 @@ export class AdminFinaceFreedomService {
     // 自由行订单列表
     freeTravelList(page: number, per_page: number, status: any, product_id: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
-        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any, transaction_id?: any): Observable<StoreOrderFreeTravelListRequestModel> {
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,
+        transaction_id?: any, pay_type?: any): Observable<StoreOrderFreeTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -42,7 +43,9 @@ export class AdminFinaceFreedomService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('payment_status', payment_status ? payment_status : '')
-            .set('transaction_id', transaction_id ? transaction_id : '');
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('pay_type', pay_type ? pay_type : '');
+
 
 
         const findhttpOptions = {
@@ -66,7 +69,8 @@ export class AdminFinaceFreedomService {
     // 订单统计
     getIndenOrderTotal(status: any, product_id: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
-        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any, transaction_id?: any): Observable<OrderTotalModel> {
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,
+        transaction_id?: any, pay_type?: any): Observable<OrderTotalModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
             .set('product_id', product_id ? product_id : '')
             .set('product_name', product_name ? product_name : '')
@@ -80,7 +84,9 @@ export class AdminFinaceFreedomService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('payment_status', payment_status ? payment_status : '')
-            .set('transaction_id', transaction_id ? transaction_id : '');
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('pay_type', pay_type ? pay_type : '');
+
 
 
         const findhttpOptions = {
