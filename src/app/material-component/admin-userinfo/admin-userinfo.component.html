@@ -39,6 +39,8 @@
                                     <th>真实姓名</th>
                                     <th>性别</th>
                                     <th>电话</th>
+                                    <th>账户余额</th>
+                                    <th>头像</th>
                                     <th>状态</th>
                                     <th>修改状态</th>
                                     <th>操作</th>
@@ -50,6 +52,10 @@
                                     <td>{{data.real_name}}</td>
                                     <td>{{data.gender}}</td>
                                     <td>{{data.phone}}</td>
+                                    <td>{{data.money}}元</td>
+                                    <td>
+                                        <img [src]="data?.avatar_url" alt="" style="width: 50px;">
+                                    </td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             禁用
@@ -66,16 +72,18 @@
 
                                             </div>
                                             <div *ngIf="data.status===1">
-
                                                 <img src="http://cdn.bigline.com.cn/static/images/down.png" title="禁用">
-
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
-
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                                            <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                            </div>
+                                            <div style="cursor: pointer;" (click)="routeIt(data)" title="跳转到用户记录">
+                                                <i nz-icon nzType="right-circle" nzTheme="outline"></i>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
