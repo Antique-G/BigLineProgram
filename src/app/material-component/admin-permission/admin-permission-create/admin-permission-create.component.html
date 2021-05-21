@@ -12,7 +12,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pid">父级id</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择父级">
-                        <nz-select nzPlaceHolder="请选择父级" formControlName="pid" >
+                        <nz-select nzPlaceHolder="请选择父级" formControlName="pid" nzAllowClear nzShowSearch>
                             <nz-option *ngFor="let data of parentData; index as i;" [nzLabel]="data.display_name" [nzValue]="data.id"></nz-option>
                         </nz-select>
                     </nz-form-control>
