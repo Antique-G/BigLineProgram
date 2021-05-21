@@ -43,6 +43,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
     totalModel: any;
     setQuery: any
     isExport: any;
+    pay_type: any;
     api = environment.baseUrl;
 
     constructor(public fb: FormBuilder, public router: Router,
@@ -62,6 +63,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             contact_phone: [''],
             payment_status: [''],
             transaction_id: [''],
+            pay_type: [''],
         });
     }
 
@@ -86,7 +88,8 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             this.payment_status = getSeatch?.payment_status ? getSeatch?.payment_status : '';
             this.transaction_id = getSeatch?.transaction_id ? getSeatch?.transaction_id : '';
             this.page = getSeatch?.page ? getSeatch?.page : '';
-            
+            this.pay_type = getSeatch?.pay_type ? getSeatch?.pay_type : '';
+
             this.searchForm.patchValue({
                 status: this.status,
                 product_id: this.product_id,
@@ -99,7 +102,8 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
                 contact_phone: this.contact_phone,
                 store_id: this.store_id,
                 payment_status: this.payment_status,
-                transaction_id: this.transaction_id
+                transaction_id: this.transaction_id,
+                pay_type: this.pay_type
             })
 
             this.groupTravel();
@@ -108,7 +112,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
     }
 
     groupTravel() {
-        this.adminFinaceGroupService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id).subscribe(res => {
+        this.adminFinaceGroupService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
             console.log("结果是", res);
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
@@ -117,7 +121,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
     }
 
     getTotal() {
-        this.adminFinaceGroupService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id).subscribe(res => {
+        this.adminFinaceGroupService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
             console.log('统计', res?.data);
             this.totalModel = res?.data;
             console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
@@ -135,7 +139,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page, payment_status: this.payment_status,
-            transaction_id: this.transaction_id
+            transaction_id: this.transaction_id, pay_type: this.pay_type
         }
         localStorage.setItem('adminOrderFanGroupSearch', JSON.stringify(this.setQuery));
 
@@ -162,6 +166,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
         this.store_id = this.searchForm.value.store_id;
         this.payment_status = this.searchForm.value.payment_status;
         this.transaction_id = this.searchForm.value.transaction_id;
+        this.pay_type = this.searchForm.value.pay_type;
         this.date_start = this.dateArray[0];
         this.date_end = this.dateArray[1];
         this.order_start_date = this.dateArray1[0];
@@ -173,7 +178,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page, payment_status: this.payment_status,
-            transaction_id: this.transaction_id
+            transaction_id: this.transaction_id, pay_type: this.pay_type
         }
         localStorage.setItem('adminOrderFanGroupSearch', JSON.stringify(this.setQuery));
     }
@@ -250,7 +255,8 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
             contact_name: '',
             contact_phone: '',
             payment_status: '',
-            transaction_id: ''
+            transaction_id: '',
+            pay_type: '',
         });
     }
 
