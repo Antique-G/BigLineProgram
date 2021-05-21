@@ -9,7 +9,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_status">团状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已取消，不成团'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'未成团'" [nzValue]="1"></nz-option>
@@ -24,7 +24,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">团请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
                                         <nz-option [nzLabel]="'已收款 '" [nzValue]="2"></nz-option>
@@ -66,9 +66,8 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
-                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name"
-                                            [nzValue]="data.store_id"> </nz-option>
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -78,24 +77,20 @@
 
                         <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                             <div nz-row>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;"
-                                    (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                             </div>
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                             <div nz-row>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;"
-                                    (click)="reset()">重置</button>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
                             </div>
                         </nz-form-item>
                     </form>
 
 
                     <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource"
-                            [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page"
-                            [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
-                            (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">团队id</th>
@@ -150,13 +145,11 @@
                                             </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
                                                 <div style="cursor: pointer;">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png"
-                                                        title="编辑" (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                                 </div>
                                             </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
-                                                <span
-                                                    style="color: red;font-weight: 600;">{{data.cash_money_total}}元</span>
+                                                <span style="color: red;font-weight: 600;">{{data.cash_money_total}}元</span>
                                             </td>
                                         </ng-container>
                                         <td> {{item.group_cost_type?.data[0].title}}</td>
@@ -176,10 +169,8 @@
                                             <span style="color: red;font-weight: 600;">{{item.payed_money}}元</span>
                                         </td>
                                         <td>
-                                            <div style="cursor: pointer;"
-                                                *ngIf="item?.pay_status==0||item?.pay_status==1">
-                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png"
-                                                    title="审核" (click)="review(item,data)">
+                                            <div style="cursor: pointer;" *ngIf="item?.pay_status==0||item?.pay_status==1">
+                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="审核" (click)="review(item,data)">
                                             </div>
                                         </td>
                                     </tr>

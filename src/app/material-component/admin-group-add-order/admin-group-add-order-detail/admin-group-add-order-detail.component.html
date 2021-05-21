@@ -278,7 +278,7 @@
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" nzRequired *ngIf="isRequestIdNum">证件类型</nz-form-label>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" *ngIf="!isRequestIdNum">证件类型</nz-form-label>
                                                             <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
-                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="id_type" (ngModelChange)="changeType($event,i)">
+                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch formControlName="id_type" (ngModelChange)="changeType($event,i)">
                                                                     <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
                                                                     <nz-option [nzLabel]="'回乡证'" [nzValue]="3"></nz-option>
@@ -403,7 +403,7 @@
                                                         <div nz-row>
                                                             <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type">证件类型</nz-form-label>
                                                             <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear formControlName="id_type" (ngModelChange)="changeBabyType($event,t)">
+                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch formControlName="id_type" (ngModelChange)="changeBabyType($event,t)">
                                                                     <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
                                                                     <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
                                                                     <nz-option [nzLabel]="'回乡证'" [nzValue]="3"></nz-option>
@@ -598,7 +598,7 @@
                                             <div nz-row>
                                                 <nz-form-label [nzSm]="2" [nzXs]="24">购买额外保险</nz-form-label>
                                                 <nz-form-control [nzSm]="6" [nzXs]="24">
-                                                    <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
+                                                    <nz-select nzMode="multiple" nzPlaceHolder="请选择额外保险（可多选）" nzAllowClear nzShowSearch (ngModelChange)="changeIns($event)" formControlName="insurance_extra">
                                                         <nz-option *ngFor="let insurance of insuranceArr" [nzDisabled]="insurance.show==false" [nzLabel]="insurance?.name" [nzValue]="insurance.id">
                                                         </nz-option>
                                                     </nz-select>
