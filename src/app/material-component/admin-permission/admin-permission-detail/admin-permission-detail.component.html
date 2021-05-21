@@ -6,13 +6,13 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="display_name" nzRequired>权限名称</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入权限名称">
-                        <input nz-input formControlName="display_name" [ngModel]="permissionDetailtModel?.display_name"/>
+                        <input nz-input formControlName="display_name" [ngModel]="permissionDetailtModel?.display_name" />
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pid">父级id</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择父级">
-                        <nz-select nzPlaceHolder="请选择父级" formControlName="pid" [ngModel]="permissionDetailtModel?.pid">
+                        <nz-select nzPlaceHolder="请选择父级" formControlName="pid" nzAllowClear nzShowSearch [ngModel]="permissionDetailtModel?.pid">
                             <nz-option *ngFor="let data of parentData; index as i;" [nzLabel]="data.display_name" [nzValue]="data.id"></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -20,14 +20,14 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="controller" nzRequired>控制器名称</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入控制器名称">
-                        <input nz-input formControlName="controller" [ngModel]="permissionDetailtModel?.controller"/>
+                        <input nz-input formControlName="controller" [ngModel]="permissionDetailtModel?.controller" />
                     </nz-form-control>
                     <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">不可含有空格和中文</p>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="action" nzRequired>操作方法</nz-form-label>
                     <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入操作方法">
-                        <input nz-input formControlName="action" [ngModel]="permissionDetailtModel?.action"/>
+                        <input nz-input formControlName="action" [ngModel]="permissionDetailtModel?.action" />
                     </nz-form-control>
                     <p style="font-size: 12px;color: red;letter-spacing: 1px;margin-top: 5px;margin-left: 5px;">不可含有空格和中文</p>
                 </nz-form-item>
