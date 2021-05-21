@@ -88,7 +88,29 @@ export class AdminOrderFreeTravelComponent implements OnInit {
                 })
             })
 
-            // 将上次查询的筛选条件赋值
+            if (JSON.parse(localStorage.getItem("adminOrderFreeSearch")!) == null) {
+                // 第一次进来页面
+                // // 从缓存拿到登陆的账号是否为员工accountIsStaff，若是，则默认展示该员工accountAdminId的下单内容
+                let accountIsStaff = Number(localStorage.getItem("accountIsStaff"));
+                let accountAdminId = Number(localStorage.getItem("adminId"));
+                if (accountIsStaff == 1) {
+                    this.admin_id = accountAdminId;
+                    this.searchForm.patchValue({
+                        admin_id: accountAdminId,
+                    })
+                    console.log("22222222", this.admin_id);
+                }
+                else {
+                    this.admin_id = '';
+                    this.searchForm.patchValue({
+                        admin_id: '',
+                    })
+                }
+                this.getFreeTravel();
+                this.getTotal();
+            }
+            else {
+                // 将上次查询的筛选条件赋值
             let getSeatch = JSON.parse(localStorage.getItem("adminOrderFreeSearch")!);
             this.status = getSeatch?.status ? getSeatch.status : '';
             this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
@@ -105,8 +127,6 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
             this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
             this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
-
-
             this.searchForm.patchValue({
                 status: this.status,
                 product_id: this.product_id,
@@ -123,9 +143,10 @@ export class AdminOrderFreeTravelComponent implements OnInit {
                 admin_id: this.admin_id,
 
             })
-
             this.getFreeTravel();
             this.getTotal();
+            }
+            
         })
 
     }

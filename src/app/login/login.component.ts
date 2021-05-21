@@ -47,8 +47,10 @@ export class LoginComponent implements OnInit {
                 this.adminLoginService.setToken(res.access_token);
                 localStorage.setItem('account', res.admin.account);
                 localStorage.setItem('adminId', res.admin.admin_id);
+                localStorage.setItem('accountIsStaff', res.admin?.staff_type);
                 localStorage.setItem("permission", JSON.stringify(res.permission));
-                this.router.navigate(['/admin/main/welcome'])
+                localStorage.setItem("roleModel", JSON.stringify(res.admin));
+                this.router.navigate(['/admin/main/welcome']);
 
             }
         },
