@@ -8,7 +8,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
@@ -21,7 +21,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="checkStatus">审核状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'未提交审核'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'审核中'" [nzValue]="'1'"></nz-option>
@@ -32,13 +32,13 @@
                             </div>
                         </nz-form-item>
 
-                       
+
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="tag">产品标签</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let sort of tagList" [nzLabel]="sort.name" [nzValue]="sort.name"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -121,9 +121,9 @@
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
                             </div>
                         </nz-form-item>
-                       
+
                     </form>
-                  
+
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
@@ -155,8 +155,7 @@
                                     <td>{{data.destination}} </td>
                                     <td>
                                         {{data.product_ticket[0]?.ticket_price}}&nbsp;元
-                                        <span style="font-weight: 600;">/</span>
-                                        {{data.product_ticket[0]?.show_price}}&nbsp;元
+                                        <span style="font-weight: 600;">/</span> {{data.product_ticket[0]?.show_price}}&nbsp;元
                                     </td>
                                     <td>
                                         {{data.product_ticket[0]?.start_date}}&nbsp;~ {{data.product_ticket[0]?.end_date}}
@@ -204,7 +203,7 @@
                                             </ul>
                                         </nz-dropdown-menu>
                                     </td>
-                                   
+
                                 </tr>
                             </tbody>
                         </nz-table>

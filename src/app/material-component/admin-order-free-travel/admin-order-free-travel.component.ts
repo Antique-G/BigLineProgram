@@ -8,6 +8,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupMoneyComponent } from '../admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
 import { environment } from '../../../environments/environment';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
+import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
 
 
 @Component({
@@ -50,10 +51,13 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
 
+    // 下单人
+    admin_id: any;
+    adminList: any[] = [];
 
     constructor(public fb: FormBuilder, public router: Router, public modal: NzModalService,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService, public adminRegionService: AdminRegionService,
-        public adminProductManagementService: AdminProductManagementService,) {
+        public adminProductManagementService: AdminProductManagementService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
         this.searchForm = fb.group({
             status: [''],
             product_id: [''],
@@ -67,6 +71,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             contact_phone: [''],
             departure_city: [''],
             destination_city: [''],
+            admin_id: [''],
         });
     }
 
@@ -77,6 +82,10 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             // 城市
             this.adminRegionService.getAllRegionList().subscribe(res => {
                 this.nzOptions = res;
+                this.adminOrderGroupTravelService.getAdminOptData().subscribe(res => {
+                    console.log("333333", res);
+                    this.adminList = res.data;
+                })
             })
 
             // 将上次查询的筛选条件赋值
@@ -95,6 +104,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
             this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
             this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+            this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
 
 
             this.searchForm.patchValue({
@@ -110,6 +120,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
                 store_id: this.store_id,
                 departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
                 destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+                admin_id: this.admin_id,
+
             })
 
             this.getFreeTravel();
@@ -119,7 +131,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     }
 
     getFreeTravel() {
-        this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city).subscribe(res => {
+        this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id).subscribe(res => {
             console.log("结果是", res)
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
@@ -129,7 +141,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
 
 
     getTotal() {
-        this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city).subscribe(res => {
+        this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id).subscribe(res => {
             console.log('统计', res?.data);
             this.totalModel = res?.data;
         })
@@ -146,7 +158,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            admin_id: this.admin_id
         }
         localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
         this.getFreeTravel();
@@ -200,6 +213,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
         this.order_end_date = this.dateArray1[1];
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
+        this.admin_id = this.searchForm.value.admin_id;
         this.loading = true;
         this.page = 1;
 
@@ -210,7 +224,8 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             contact_phone: this.contact_phone, store_id: this.store_id,
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
-            departure_city: this.departure_city, destination_city: this.destination_city
+            departure_city: this.departure_city, destination_city: this.destination_city,
+            admin_id: this.admin_id
         }
         localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
     }
@@ -249,7 +264,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
 
         // 自由行预售
         // this.router.navigate(['/admin/main/freeTravelOrder/pre/detail'], { queryParams: { detailId: data.id } });
-        
+
     }
 
 
@@ -298,6 +313,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             contact_phone: '',
             departure_city: '',
             destination_city: '',
+            admin_id: ''
         });
     }
 
@@ -310,16 +326,17 @@ export class AdminOrderFreeTravelComponent implements OnInit {
         this.date_end = this.date_end == null ? '' : this.date_end;
         this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
         this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
-        this.departure_city = this.isDeparture ? this.isDeparture : '',
-        this.destination_city = this.isDestination ? this.isDestination : '',
+        this.departure_city = this.isDeparture ? this.isDeparture : '';
+        this.destination_city = this.isDestination ? this.isDestination : '';
+        this.admin_id = this.admin_id ? this.admin_id : '';
 
 
         this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
             '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
             '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
             '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
-            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone+
-            '&departure_city=' + this.departure_city+ '&destination_city=' + this.destination_city;
+            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
+            '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city + '&admin_id=' + this.admin_id;
         console.log('object :>> ', this.isExport);
     }
 }

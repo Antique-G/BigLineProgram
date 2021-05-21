@@ -9,7 +9,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">订单状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
@@ -69,8 +69,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="date_start">预售时间</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)"
-                                        formControlName="date_starts"></nz-range-picker>
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="date_starts"></nz-range-picker>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -79,8 +78,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_start_date">使用时间</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDateOrder($event)"
-                                        formControlName="order_start_dates"></nz-range-picker>
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDateOrder($event)" formControlName="order_start_dates"></nz-range-picker>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -88,13 +86,10 @@
 
                         <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px">
-                                <button mat-raised-button color="primary" style="letter-spacing: 2px;"
-                                    (click)="search()">搜索</button>
-                                <button mat-raised-button color="primary" style="letter-spacing: 2px;"
-                                    (click)="reset()">重置</button>
-                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;"
-                                    (click)="edit(1)">编辑</button>
-                               
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="edit(1)">编辑</button>
+
                             </div>
                         </nz-form-item>
 
@@ -103,10 +98,8 @@
 
 
                     <div class="mat-elevation-z8">
-                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource"
-                            [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page"
-                            [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
-                            (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">预售订单号</th>
@@ -142,8 +135,7 @@
 
                                     <td>
                                         <div style="cursor: pointer;">
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"
-                                                (click)="edit(data)">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                         </div>
                                     </td>
                                     <td>

@@ -58,7 +58,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="group_status">团状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="group_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已取消，不成团'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'未成团'" [nzValue]="1"></nz-option>
@@ -73,7 +73,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -84,7 +84,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
