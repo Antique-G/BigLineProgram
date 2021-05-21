@@ -18,7 +18,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -54,7 +54,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""> </nz-option>
                                         <nz-option [nzLabel]="'失败'" [nzValue]="'0'"> </nz-option>
                                         <nz-option [nzLabel]="'未发送'" [nzValue]="'1'"> </nz-option>

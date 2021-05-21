@@ -292,6 +292,7 @@ export interface RefundlogModel {
     bank_user?: string;
     bank_number?: string;
     to_account?: any;
+    transaction_id?: any;
 
 }
 

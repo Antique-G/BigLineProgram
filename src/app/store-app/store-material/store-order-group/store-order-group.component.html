@@ -13,12 +13,12 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                       
+
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'未请款'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>

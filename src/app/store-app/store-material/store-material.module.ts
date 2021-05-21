@@ -249,7 +249,6 @@ import { StoreRequestMoneyComponent } from './store-request-money/store-request-
         StoreCostTypeDetailComponent,
         StoreOrderRequestMoneyComponent,
         StoreRequestMoneyComponent,
-       
     ]
 })
 export class StoreMaterialComponentsModule { }

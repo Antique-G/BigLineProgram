@@ -9,7 +9,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">订单状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
@@ -40,12 +40,24 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="admin_id">下单人</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择下单人" formControlName="admin_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of adminList" [nzLabel]="data.real_name" [nzValue]="data.admin_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_number">订单号</nz-form-label>
@@ -110,7 +122,7 @@
                         </nz-form-item>
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
                                 <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出excel</a>

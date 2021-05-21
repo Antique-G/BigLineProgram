@@ -44,7 +44,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch >
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""> </nz-option>
                                         <nz-option [nzLabel]="'失败'" [nzValue]="0"> </nz-option>
                                         <nz-option [nzLabel]="'未发送'" [nzValue]="1"> </nz-option>

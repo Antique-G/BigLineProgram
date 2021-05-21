@@ -4,7 +4,7 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div style="border: 1px solid 	#D3D3D3;">
-                    <nz-table  [nzData]="dataSource" [nzTitle]="'支付流水列表'">
+                    <nz-table [nzData]="dataSource" [nzTitle]="'支付流水列表'">
                         <thead>
                             <tr>
                                 <th style=" text-align: center;">订单id</th>
@@ -43,21 +43,22 @@
                                 <ng-template #editTemplate>
                                     <td>{{data.order_id}}</td>
                                     <td>{{data.id}}</td>
-                                    <td><nz-input-number [(ngModel)]="data.fee"  [nzMin]="0"  [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
-                                    <td><input type="text" nz-input [(ngModel)]="data.transaction_id" /></td>
                                     <td>
-                                        <nz-select [(ngModel)]="data.pay_type">
-                                            <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
-                                            <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
-                                            <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
-                                            <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
-                                        </nz-select>
-                                    </td>
-                                    <td>{{data.pay_time}}</td>
-                                    <td>
-                                        <div><a (click)="saveEdit(data)">保存</a></div>
-                                        <div><a (click)="cancelEdit(data.id)">取消</a></div>
-                                    </td>
+                                        <nz-input-number [(ngModel)]="data.fee" [nzMin]="0" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                                        <td><input type="text" nz-input [(ngModel)]="data.transaction_id" /></td>
+                                        <td>
+                                            <nz-select [(ngModel)]="data.pay_type" nzAllowClear nzShowSearch>
+                                                <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                                                <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                                                <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                                                <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                                            </nz-select>
+                                        </td>
+                                        <td>{{data.pay_time}}</td>
+                                        <td>
+                                            <div><a (click)="saveEdit(data)">保存</a></div>
+                                            <div><a (click)="cancelEdit(data.id)">取消</a></div>
+                                        </td>
                                 </ng-template>
                             </tr>
                         </tbody>

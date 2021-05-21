@@ -40,7 +40,7 @@
             <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="role_id" nzRequired>角色</nz-form-label>
                 <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="请选择角色">
-                    <nz-select nzMode="tags" nzPlaceHolder="请选择角色" formControlName="role_id" [(ngModel)]="listOfTagOptions">
+                    <nz-select nzMode="tags" nzPlaceHolder="请选择角色" nzAllowClear nzShowSearch formControlName="role_id" [(ngModel)]="listOfTagOptions">
                         <nz-option *ngFor="let option of listOfOption" [nzLabel]="option?.display_name" [nzValue]="option?.id"></nz-option>
                     </nz-select>
                 </nz-form-control>
