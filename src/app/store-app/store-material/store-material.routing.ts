@@ -31,6 +31,8 @@ import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-
 import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
+import { StorePreFreeAppointComponent } from './store-pre-free-appoint/store-pre-free-appoint.component';
+
 
 
 
@@ -264,14 +266,21 @@ export const StoreMaterialRoutes: Routes = [
                 path: 'storePreFreeSaleList',
                 component: StorePreFreeSaleListComponent,
                 data: {
-                    breadcrumb: '自由行预售抢购记录列表'
+                    breadcrumb: '自由行预售订单抢购记录列表'
                 }
             },
             {
                 path: 'storePreFreeSaleList/detail',
                 component: StorePreFreeSaleListDetailComponent,
                 data: {
-                    breadcrumb: '自由行预售抢购记录详情'
+                    breadcrumb: '自由行预售订单抢购记录详情'
+                }
+            },
+            {
+                path: 'storePreFreeAppointList',
+                component: StorePreFreeAppointComponent,
+                data: {
+                    breadcrumb: '自由行预约记录'
                 }
             },
             {

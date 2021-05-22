@@ -127,7 +127,9 @@ export const AdminUrls = {
     // 自由行预售产品
     GetAdminPreFreeTravelList: api + '/admin/indent_ticket_list',   // 列表
 
-
+    // 预售管理
+    GetAdminOrderTicket: api + '/admin/order/ticket',   // 预售订单列表
+    GetAdminOrderTicketDetail: api + '/admin/order/ticket/',   // 预售订单详情
 
 
     GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
@@ -481,5 +483,12 @@ export const StoreUrls = {
     PostStoreCash: api + '/store/cash_requirement',   // 请款
     PutStoreCashUpdate: api + '/store/cash_requirement/',   // 更新
     DeleteStoreCashType: api + '/store/cash_requirement/',   // 删除
+
+
+
+    // 预售管理
+    GetStoreOrderTicket: api + '/store/order/ticket',   // 预售订单列表
+    GetStoreOrderTicketDetail: api + '/store/order/ticket/',   // 预售订单详情
+
 
 };

@@ -2,15 +2,15 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StorePreSaleService } from '../../../../services/store/store-pre-sale/store-pre-sale.service';
+import { AdminSaleService } from '../../../../services/admin/admin-sale.service';
 
 
 @Component({
-    selector: 'app-store-pre-free-sale-list',
-    templateUrl: './store-pre-free-sale-list.component.html',
-    styleUrls: ['./store-pre-free-sale-list.component.css']
+    selector: 'app-admin-pre-sale-list',
+    templateUrl: './admin-pre-sale-list.component.html',
+    styleUrls: ['./admin-pre-sale-list.component.css']
 })
-export class StorePreFreeSaleListComponent implements OnInit {
+export class AdminPreSaleListComponent implements OnInit {
     searchForm: FormGroup;
     dateArray: any[] = [];
     dateArray1: any[] = [];
@@ -33,7 +33,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
     phone: any;
     setQuery: any;
 
-    constructor(public fb: FormBuilder, public router: Router, public storePreSaleService: StorePreSaleService) {
+    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService) {
         this.searchForm = fb.group({
             order_status: [''],
             product_name: [''],
@@ -78,7 +78,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
 
     getOrderList() {
         this.loading = true;
-        this.storePreSaleService.groupPreFreeSaleList(this.page, this.per_page, this.order_status, this.product_name, this.order_id,
+        this.adminSaleService.groupPreFreeSaleList(this.page, this.per_page, this.order_status, this.product_name, this.order_id,
             this.date_start, this.date_end, this.code, this.use_date_start, this.use_date_end, this.name, this.phone).subscribe(res => {
                 this.loading = false;
                 console.log("结果是", res);

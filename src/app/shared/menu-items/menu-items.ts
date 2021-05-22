@@ -55,6 +55,12 @@ const MENUITEMS = [
         ]
     },
     {
+        title: '预售管理', icon: 'clock-circle', permission_name: 'admin_order',
+        children: [
+            { state: 'preSaleList', name: '自由行预售订单', permission_name: 'order_group_list' },
+        ]
+    },
+    {
         title: '佣金模块', icon: 'pound', permission_name: 'admin_dist',
         children: [
             { state: 'userCommission', name: '用户分销佣金', permission_name: 'dist_user_dist' },
@@ -144,14 +150,14 @@ const StoreMENUITEMS = [
             { state: 'storeFreeTravel', name: '自由行' },
         ]
     },
-    // {
-    //     title: '预售管理', icon: 'clock-circle',
-    //     children: [
-    //         { state: 'storePreFree', name: '自由行预售产品列表' },
-    //         { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
-
-    //     ]
-    // },
+    {
+        title: '预售管理', icon: 'clock-circle',
+        children: [
+            { state: 'storePreFree', name: '自由行预售产品列表' },
+            { state: 'storePreFreeSaleList', name: '自由行预售订单' },
+            { state: 'storePreFreeAppointList', name: '自由行预约记录' },
+        ]
+    },
     {
         title: '订单管理模块', icon: 'ordered-list',
         children: [

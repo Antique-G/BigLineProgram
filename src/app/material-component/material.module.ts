@@ -181,6 +181,7 @@ import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-sup
 import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
+import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-list.component';
 
 
 
@@ -385,6 +386,7 @@ import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finan
     AdminProSupplyDetailComponent,
     AdminFinanceGroupReqMoneyComponent,
     AdminFinanceGroupReqReviewComponent,
+    AdminPreSaleListComponent,
 
   ]
 })
