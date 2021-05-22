@@ -318,6 +318,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         console.log("点击添加", this.isChangeData, this.newImgArr, this.idType, this.selectAssembling)
     }
 
+
     // 添加婴儿
     addBaby() {
         // 校验手机
@@ -398,9 +399,9 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
                 allEle = ele;
             }
         });
-        this.selectAssembling = this.selectAssembling.map(function(num) {
+        this.selectAssembling = this.selectAssembling.map(function (num) {
             return allEle;
-          });
+        });
         console.log("修改后的", allEle, this.selectAssembling);
     }
 
@@ -649,8 +650,18 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             })
             console.log('123123123', adultArr, kidArr);
             if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
-                this.message.error("请正确填写出行人信息");
+                // this.message.error("请正确填写出行人信息");
                 this.isLoadingAdd = false;
+                if (adultArr.length != Number(adult)) {
+                    this.message.error("成人数与成人类型数量不匹配");
+                    return
+                }
+                 if (kidArr.length != Number(kid)) {
+                    this.message.error("儿童数与儿童类型数量不匹配");
+                }
+                else if (babyArr.length != Number(baby)) {
+                    this.message.error("婴儿数与婴儿类型数量不匹配");
+                }
             }
             else {
                 this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {

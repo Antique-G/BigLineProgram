@@ -69,9 +69,9 @@
             <!-- 余额支付  -->
             <div nz-row [style.display]="isTypeShow==7 ? 'block' : 'none'">
                 <nz-form-item class="nz-form-item" nz-row>
-                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="money" nzRequired>用户余额</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入用户余额">
-                        <nz-input-number class="input" [nzPrecision]="precision" nzPrecisionMode="cut" style="width: 94%;" formControlName="money" [nzMin]="0" [nzMax]="isMoney" [ngModel]="isMoney"></nz-input-number>元
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="money">当前用户余额</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <input nz-input formControlName="money" style="width: 100%; " readonly="true" nzBorderless [ngModel]="isAccountMoney+'元'" />
                     </nz-form-control>
                 </nz-form-item>
 
