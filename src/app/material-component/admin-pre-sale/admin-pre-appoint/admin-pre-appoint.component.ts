@@ -1,16 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-admin-pre-travel-sale-record',
-    templateUrl: './admin-pre-travel-sale-record.component.html',
-    styleUrls: ['./admin-pre-travel-sale-record.component.css']
+  selector: 'app-admin-pre-appoint',
+  templateUrl: './admin-pre-appoint.component.html',
+  styleUrls: ['./admin-pre-appoint.component.css']
 })
-export class AdminPreTravelSaleRecordComponent implements OnInit {
+export class AdminPreAppointComponent implements OnInit {
     searchForm: FormGroup;
-    storeList: any[] = [];
     dateArray: any[] = [];
     dateArray1: any[] = [];
     dataSource: any;
@@ -19,28 +18,24 @@ export class AdminPreTravelSaleRecordComponent implements OnInit {
     total = 1;
     loading = true;
 
-    constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,) {
+
+    constructor(public fb: FormBuilder,public router: Router,) {
         this.searchForm = fb.group({
             product_name: [''],
-            store_id: [''],
+            order_number: [''],
             contact_name: [''],
             contact_phone: [''],
-            order_number: [''],
-            order_code: [''],
-            date_starts: [''],
-            user_start_date: [''],
+            appoint_id: [''],
+            appoint_code: [''],
+            appoint_trans: [''],
+            date_starts: ['']
         });
     }
 
     ngOnInit(): void {
-        this.adminProductManagementService.storeList('').subscribe(res => {
-            console.log("24234", res);
-            this.storeList = res;
-        })
     }
 
 
-    
     changePageIndex(page: number) {
         console.log("当前页", page);
         this.page = page;
@@ -75,8 +70,8 @@ export class AdminPreTravelSaleRecordComponent implements OnInit {
         
     }
 
-    edit(data:any) {
-        
+    edit(data: any) {
+        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id} });
     }
 
     onChangeDate(event: any) {
@@ -99,6 +94,5 @@ export class AdminPreTravelSaleRecordComponent implements OnInit {
         this.dateArray1.push(myFormattedDate1);
         console.log("event", this.dateArray);
     }
-
 
 }

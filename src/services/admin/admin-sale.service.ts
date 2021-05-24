@@ -24,7 +24,7 @@ export class AdminSaleService {
     // 自由行预售订单列表
     groupPreFreeSaleList(page: number, per_page: number, order_status: any, product_name: any, order_id: any,
         date_start: any, date_end: any, code: any, use_date_start: any, use_date_end: any,
-        name: any, phone: any): Observable<FreeSaleListModel> {
+        name: any, phone: any, store_id?: any): Observable<FreeSaleListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_status', order_status ? order_status : '')
@@ -37,6 +37,8 @@ export class AdminSaleService {
             .set('use_date_end', use_date_end ? use_date_end : '')
             .set('name', name ? name : '')
             .set('phone', phone ? phone : '')
+            .set('store_id', store_id ? store_id : '');
+
 
 
         const findhttpOptions = {

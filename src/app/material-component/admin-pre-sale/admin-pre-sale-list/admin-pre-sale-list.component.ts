@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminSaleService } from '../../../../services/admin/admin-sale.service';
 
 
@@ -20,6 +21,7 @@ export class AdminPreSaleListComponent implements OnInit {
     total = 1;
     loading = true;
 
+    storeList: any[] = [];
 
     order_status: any;
     product_name: any;
@@ -31,9 +33,11 @@ export class AdminPreSaleListComponent implements OnInit {
     use_date_end: any;
     name: any;
     phone: any;
+    store_id: any;
     setQuery: any;
 
-    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService) {
+    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService,
+        public adminProductManagementService: AdminProductManagementService,) {
         this.searchForm = fb.group({
             order_status: [''],
             product_name: [''],
@@ -43,12 +47,17 @@ export class AdminPreSaleListComponent implements OnInit {
             code: [''],
             date_starts: [''],
             user_start_date: [''],
+            store_id: [''],
         });
     }
 
     ngOnInit(): void {
+        this.adminProductManagementService.storeList('').subscribe(res => {
+            console.log("24234", res);
+            this.storeList = res;
+        })
         // 将上次查询的筛选条件赋值
-        let getSeatch = JSON.parse(localStorage.getItem("storePreFreeSaleList")!)
+        let getSeatch = JSON.parse(localStorage.getItem("adminPreFreeSaleList")!)
         this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
         this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
         this.name = getSeatch?.name ? getSeatch?.name : '';
@@ -60,6 +69,7 @@ export class AdminPreSaleListComponent implements OnInit {
         this.use_date_start = getSeatch?.use_date_start ? getSeatch?.use_date_start : null;
         this.use_date_end = getSeatch?.use_date_end ? getSeatch?.use_date_end : null;
         this.page = getSeatch?.page ? getSeatch?.page : '';
+        this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
 
         this.searchForm.patchValue({
             order_status: this.order_status,
@@ -70,6 +80,7 @@ export class AdminPreSaleListComponent implements OnInit {
             code: this.code,
             date_starts: this.date_start == null ? [] : [this.date_start, this.date_end],
             user_start_date: this.use_date_start == null ? [] : [this.use_date_start, this.use_date_end],
+            store_id: this.store_id
         })
         this.getOrderList();
     }
@@ -79,7 +90,7 @@ export class AdminPreSaleListComponent implements OnInit {
     getOrderList() {
         this.loading = true;
         this.adminSaleService.groupPreFreeSaleList(this.page, this.per_page, this.order_status, this.product_name, this.order_id,
-            this.date_start, this.date_end, this.code, this.use_date_start, this.use_date_end, this.name, this.phone).subscribe(res => {
+            this.date_start, this.date_end, this.code, this.use_date_start, this.use_date_end, this.name, this.phone, this.store_id).subscribe(res => {
                 this.loading = false;
                 console.log("结果是", res);
                 this.total = res?.meta?.pagination?.total;   //总页数
@@ -102,14 +113,16 @@ export class AdminPreSaleListComponent implements OnInit {
         this.use_date_end = this.dateArray1[1];
         this.name = this.searchForm.value.name;
         this.phone = this.searchForm.value.phone;
+        this.store_id = this.searchForm.value.store_id;
+
         // 筛选条件存进cookie
         this.setQuery = {
             order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
-            name: this.name, phone: this.phone
+            name: this.name, phone: this.phone, store_id: this.store_id
         }
-        localStorage.setItem('storePreFreeSaleList', JSON.stringify(this.setQuery));
+        localStorage.setItem('adminPreFreeSaleList', JSON.stringify(this.setQuery));
         this.getOrderList();
     }
 
@@ -122,9 +135,9 @@ export class AdminPreSaleListComponent implements OnInit {
             order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
-            name: this.name, phone: this.phone
+            name: this.name, phone: this.phone, store_id: this.store_id
         }
-        localStorage.setItem('storePreFreeSaleList', JSON.stringify(this.setQuery));
+        localStorage.setItem('adminPreFreeSaleList', JSON.stringify(this.setQuery));
         this.getOrderList();
     }
 
@@ -147,11 +160,12 @@ export class AdminPreSaleListComponent implements OnInit {
             code: '',
             date_starts: '',
             user_start_date: '',
+            store_id: '',
         })
     }
 
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/admin/main/preSaleList/detail'], { queryParams: { detailId: data.id } });
     }
 
     onChangeDate(event: any) {

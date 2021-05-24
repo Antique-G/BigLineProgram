@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StorePreSaleService } from '../../../../../services/store/store-pre-sale/store-pre-sale.service';
+import { AdminSaleService } from '../../../../../services/admin/admin-sale.service';
 
 @Component({
-    selector: 'app-store-pre-free-sale-list-detail',
-    templateUrl: './store-pre-free-sale-list-detail.component.html',
-    styleUrls: ['./store-pre-free-sale-list-detail.component.css']
+  selector: 'app-admin-pre-sale-detail',
+  templateUrl: './admin-pre-sale-detail.component.html',
+  styleUrls: ['./admin-pre-sale-detail.component.css']
 })
-export class StorePreFreeSaleListDetailComponent implements OnInit {
+export class AdminPreSaleDetailComponent implements OnInit {
     isSpinning = false;
     detailModel: any;
     addForm!: FormGroup;
@@ -17,7 +17,7 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
     detailId: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-        public storePreSaleService: StorePreSaleService) {
+        public adminSaleService: AdminSaleService,) {
         this.addForm = this.fb.group({
             order_id: ['',],
             date_pay: ['',],
@@ -25,7 +25,7 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
             date_use: ['',],
             contact_name: ['',],
             contact_phone: ['',],
-          
+            store_id: ['',],
         });
     }
 
@@ -33,7 +33,7 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.detailId;
-            this.storePreSaleService.getStoreOrderTicketDetail(this.detailId).subscribe(res => {
+            this.adminSaleService.getStoreOrderTicketDetail(this.detailId).subscribe(res => {
                 console.log("11", res);
                 this.detailModel = res.data;
                 this.dataPayLog = this.detailModel?.pay_log?.data;

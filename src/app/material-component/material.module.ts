@@ -168,7 +168,6 @@ import { AdminFinanceChangeTransComponent } from './admin-finance/admin-finance-
 import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-pre-free-detail/admin-product-pre-free-detail.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
-import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
 import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
 import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
 import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
@@ -182,6 +181,8 @@ import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-sup
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
 import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-list.component';
+import { AdminPreSaleDetailComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-detail/admin-pre-sale-detail.component';
+import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint.component';
 
 
 
@@ -373,7 +374,6 @@ import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/
     AdminProductPreFreeDetailComponent,
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
-    AdminPreTravelSaleRecordComponent,
     AdminEditContractComponent,
     AdminTravelDetailPresellComponent,
     AdminOrderCancelComponent,
@@ -387,6 +387,8 @@ import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/
     AdminFinanceGroupReqMoneyComponent,
     AdminFinanceGroupReqReviewComponent,
     AdminPreSaleListComponent,
+    AdminPreSaleDetailComponent,
+    AdminPreAppointComponent,
 
   ]
 })
