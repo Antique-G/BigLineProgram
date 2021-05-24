@@ -32,7 +32,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
     // 余额支付
     user_id: any;
-    isMoney = 0;
+    isAccountMoney = 0;
 
     constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         private msg: NzMessageService, public modal: NzModalService,
@@ -43,7 +43,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
             pay_type: new FormControl('', [Validators.required]),
             pay_time: new FormControl(null, [Validators.required]),
             transaction_id: new FormControl('', [Validators.maxLength(35)]),
-            money: new FormControl('', [Validators.required]),
+            money: new FormControl(''),
         })
         this.comfirmOrderModel = {
             order_id: '',
@@ -65,7 +65,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
         this.isPrice = Number(this.data?.price_total) - Number(this.data?.amount_received);
         this.isPrice = this.toDecimal(this.isPrice);
         this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
-            this.isMoney = res?.money;
+            this.isAccountMoney = res?.money;
         })
     }
 

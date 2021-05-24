@@ -33,16 +33,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pre_order_id">预售订单号</nz-form-label>
-                                                    <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                        <input nz-input formControlName="pre_order_id" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -51,7 +42,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="date_pay">抢购日期</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="date_pay" nzBorderless readonly [ngModel]="detailModel?.product?.data?.departure_city_name" />
+                                                        <input nz-input formControlName="date_pay" nzBorderless readonly [ngModel]="detailModel?.created_at" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -60,25 +51,18 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_nums">购买份数</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="pay_nums" nzBorderless readonly [ngModel]="detailModel?.product?.data?.destination_city_name" />
+                                                        <input nz-input formControlName="pay_nums" nzBorderless readonly [ngModel]="detailModel?.number" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="nums">每份套餐可使用人数</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="nums" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
+
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="date_use">可使用有效日期</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="date_use" nzBorderless readonly [ngModel]="detailModel?.product?.data?.destination_city_name" />
+                                                        <input nz-input formControlName="date_use" nzBorderless readonly [ngModel]="detailModel?.use_start_date+'~'+detailModel?.use_end_date" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -87,7 +71,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_name">购买人</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
+                                                        <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.name" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -96,37 +80,11 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_phone">购买手机号</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
+                                                        <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.phone" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_email">邮箱</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="contact_email" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_qq">联系人QQ</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="contact_qq" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="contact_wechat">联系人微信</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="contact_wechat" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
 
 
                                         </form>
@@ -258,8 +216,8 @@
                 </mat-card>
 
 
-            
-            
+
+
 
                 <mat-card>
                     <div>

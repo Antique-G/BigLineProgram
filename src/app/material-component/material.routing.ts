@@ -69,6 +69,7 @@ import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-recor
 import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
 import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
+import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-list.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -595,7 +596,14 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '团请款列表'
                 }
             },
-
+            {
+                path: 'preSaleList',
+                component: AdminPreSaleListComponent,
+                data: {
+                    breadcrumb: '自由行预售订单列表'
+                }
+            },
+            
         ]
     }
 ];
