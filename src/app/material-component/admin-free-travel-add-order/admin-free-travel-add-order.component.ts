@@ -5,6 +5,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
 import { DatePipe } from '@angular/common';
+import { format } from 'date-fns';
 
 
 @Component({
@@ -41,6 +42,13 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     departure_start: any;
     departure_end: any;
     dateArray: any[] = [];
+
+    // 报价
+    seletYearMonth: any = format(new Date(), 'yyyy-MM');
+    selectedYear = format(new Date(), 'yyyy');
+    yearList = ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031'];
+    nzPageIndex = new Date().getMonth() + 1;
+    selectedDateValue = new Date();
 
     constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService, public modal: NzModalService,) {
@@ -106,6 +114,9 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.total;
+            this.dataSource?.forEach((value: any) => {
+                value['expand'] = false; //展开属性
+            })
         })
     }
 
@@ -151,6 +162,9 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.total;
+            this.dataSource?.forEach((value: any) => {
+                value['expand'] = false; //展开属性
+            })
         })
     }
 
@@ -183,6 +197,9 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.total;
+            this.dataSource?.forEach((value: any) => {
+                value['expand'] = false; //展开属性
+            })
         })
     }
 
@@ -196,6 +213,9 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.total;
+            this.dataSource?.forEach((value: any) => {
+                value['expand'] = false; //展开属性
+            })
         })
     }
 
@@ -241,5 +261,36 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             quote_type: '',
             id: ''
         });
+    }
+
+    onExpandChange(id: number, checked: boolean): void {
+        console.log("点击的是", id, checked);
+    }
+
+    // 选择年
+    ngYearChange(year: any) {
+        let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
+        this.seletYearMonth = this.selectedYear + '-' + month;
+        let str = this.seletYearMonth + '-' + new Date().getDate()
+        this.selectedDateValue = new Date(str)
+        console.log('objec12111111t :>> ', str);
+    }
+
+    nzPageIndexChange(index: any) {
+        console.log(index);
+        let month = index < 10 ? '0' + index : index;
+        let year = new Date().getFullYear();
+        let day = new Date().getDate();
+        this.selectedDateValue = new Date(year + '-' + month + '-' + day);
+        this.seletYearMonth = this.selectedYear + '-' + month;
+        this.nzPageIndex = index;
+    }
+
+    selectChange(select: Date): void {
+        console.log('选择的', select);
+        this.seletYearMonth = format(new Date(select), 'yyyy-MM');
+        let newMon = format(new Date(select), 'MM');
+        newMon = newMon.replace(/\b(0+)/gi, "");
+        this.nzPageIndex = Number(newMon);
     }
 }
