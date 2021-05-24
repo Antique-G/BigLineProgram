@@ -65,11 +65,12 @@ import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
-import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
 import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
 import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-list.component';
+import { AdminPreSaleDetailComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-detail/admin-pre-sale-detail.component';
+import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -566,22 +567,13 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品报价'
                 }
             },
-            {
-                path: 'preFreeSaleList',
-                component: AdminPreTravelSaleRecordComponent,
-                data: {
-                    breadcrumb: '自由行预售产品抢购记录列表'
-                }
-            },
-            {
-                path: 'costType',
-                component: AdminCostTypeComponent,
-                data: {
-                    breadcrumb: '成本类型列表'
-                }
-            },
-
-
+            // {
+            //     path: 'costType',
+            //     component: AdminCostTypeComponent,
+            //     data: {
+            //         breadcrumb: '成本类型列表'
+            //     }
+            // },
             {
                 path: 'proSupply',
                 component: AdminProSupplyComponent,
@@ -603,7 +595,20 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预售订单列表'
                 }
             },
-            
+            {
+                path: 'preSaleList/detail',
+                component: AdminPreSaleDetailComponent,
+                data: {
+                    breadcrumb: '自由行预售订单详情'
+                }
+            },
+            {
+                path: 'preSaleRecord',
+                component: AdminPreAppointComponent,
+                data: {
+                    breadcrumb: '自由行预售流水'
+                }
+            },
         ]
     }
 ];
