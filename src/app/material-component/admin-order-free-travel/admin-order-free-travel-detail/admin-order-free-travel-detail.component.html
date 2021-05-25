@@ -64,7 +64,7 @@
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
-                                                
+
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
@@ -429,7 +429,17 @@
                                                             <span *ngIf="data.type===3">退保</span>
                                                         </td>
                                                         <td>
-                                                            {{data?.to_account==1?'退至用户账户余额':'原路返回'}}
+                                                            <ng-container *ngFor="let refund of data?.refund_log?.data">
+                                                                <span *ngIf="refund.pay_type===1">微信</span>
+                                                                <span *ngIf="refund.pay_type===2">支付宝</span>
+                                                                <span *ngIf="refund.pay_type===3">现金</span>
+                                                                <span *ngIf="refund.pay_type===4">微信</span>
+                                                                <span *ngIf="refund.pay_type===5">支付宝</span>
+                                                                <span *ngIf="refund.pay_type===6">银行卡转账</span>
+                                                                <span *ngIf="refund.pay_type===7">余额</span>
+                                                                <span *ngIf="refund.pay_type===8">飞猪</span>
+                                                                <span *ngIf="refund.pay_type===9">携程</span>
+                                                            </ng-container>
                                                         </td>
                                                         <td>
                                                             <div fxLayout="column" fxLayoutAlign="center center">
