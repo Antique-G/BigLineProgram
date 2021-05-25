@@ -9,6 +9,8 @@ import { StoreRegionService } from '../../../../services/store/store-region/stor
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { StoreProductMiniCodeComponent } from '../store-product-management/store-product-mini-code/store-product-mini-code.component';
 
 
 @Component({
@@ -53,7 +55,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
 
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
-        private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,) {
+        private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,
+        private message: NzMessageService, ) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -337,6 +340,30 @@ export class StoreProductFreeTravelComponent implements OnInit {
             this.getProductList();
         })
     }
+
+
+    // 生成小程序码
+    getCode(data: any) {
+        console.log('data :>> ', data, data?.status === 0);
+        if (data?.status === 0) {
+            this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+        }
+        else {
+            const addmodal = this.modal.create({
+                nzTitle: '生成小程序码',
+                nzContent: StoreProductMiniCodeComponent,
+                nzWidth: 800,
+                nzComponentParams: {
+                    data: [data, 1]
+                },
+                nzFooter: null
+            })
+            addmodal.afterClose.subscribe((res: any) => {
+            })
+        }
+
+    }
+
 
     // 重置
     reset() {

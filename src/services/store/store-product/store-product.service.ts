@@ -23,7 +23,7 @@ export class StoreProductService {
 
     // 获取产品列表
     getProduct(page: number, per_page: number, check_status: any, title: any, few_days: any, code: any,
-        status: any, tag?: any, operation_id?: any,departure_city?: any, destination_city?: any): Observable<ProductResponseListResponseModel> {
+        status: any, tag?: any, operation_id?: any, departure_city?: any, destination_city?: any): Observable<ProductResponseListResponseModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('check_status', check_status ? check_status : '')
@@ -259,6 +259,23 @@ export class StoreProductService {
                 catchError(this.handleError)
             )
     }
+
+
+    // 产品生成二维码
+    getStoreProductMiniCode(product_id: any, product_type: any) {
+        const params = new HttpParams().set('product_id', product_id)
+            .set('product_type', product_type)
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetStoreProductMiniCode, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
 
     private handleError(error: HttpErrorResponse) {
