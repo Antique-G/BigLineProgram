@@ -90,7 +90,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
             this.transaction_id = getSeatch?.transaction_id ? getSeatch?.transaction_id : '';
             this.page = getSeatch?.page ? getSeatch?.page : '';
             this.pay_type = getSeatch?.pay_type ? getSeatch?.pay_type : '';
-            
+
 
             this.searchForm.patchValue({
                 status: this.status,
@@ -114,7 +114,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
         })
     }
     getFreeTravel() {
-        this.adminFinaceFreedomService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status,this.transaction_id,this.pay_type).subscribe(res => {
+        this.adminFinaceFreedomService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
             console.log("结果是", res)
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
@@ -124,7 +124,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
 
 
     getTotal() {
-        this.adminFinaceFreedomService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status,this.transaction_id,this.pay_type).subscribe(res => {
+        this.adminFinaceFreedomService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
             console.log('统计', res?.data);
             this.totalModel = res?.data;
         })
@@ -184,6 +184,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
     }
 
     search() {
+        this.page = 1;
         this.setValue();
         this.getFreeTravel();
         this.getTotal();

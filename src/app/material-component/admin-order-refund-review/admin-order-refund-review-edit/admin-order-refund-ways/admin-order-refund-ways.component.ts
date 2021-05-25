@@ -20,6 +20,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     isShow = true;
     refundFinished!: RefundFinished;
     refund1Model2: RefundlogModel;
+    refundModel3: RefundlogModel;
     isDisabled = true;
 
     @Input() data: any;
@@ -51,6 +52,10 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             bank_user: '',
             bank_number: '',
         }
+        this.refundModel3 = {
+            pay_type: '',
+            refund_amount: '',
+        }
     }
 
     ngOnInit(): void {
@@ -70,6 +75,9 @@ export class AdminOrderRefundWaysComponent implements OnInit {
                 })
             }
         })
+        this.addForm.patchValue({
+            refund_amount:this.detailModel?.refund_amount
+        })
     }
 
 
@@ -85,14 +93,15 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             }
         })
         console.log('newArr :>> ', newArr);
-        if (this.isShow === true) {
+        if (this.isWay == 1) {
             this.refundFinished.refund_id = this.detailModel?.id;
             this.refundFinished.refund_log = newArr;
+            return
         }
-        else {
+        if (this.isWay == 2) {
             // 银行转账
             this.refund1Model2.pay_type = 6;
-            this.refund1Model2.pay_at = this.addForm.value.pay_at!=''?format(new Date(this.addForm.value.pay_at), 'yyyy-MM-dd HH:mm:ss') : '';
+            this.refund1Model2.pay_at = this.addForm.value.pay_at != '' ? format(new Date(this.addForm.value.pay_at), 'yyyy-MM-dd HH:mm:ss') : '';
             this.refund1Model2.bank_address = this.addForm.value.bank_address;
             this.refund1Model2.bank_user = this.addForm.value.bank_user;
             this.refund1Model2.bank_number = this.addForm.value.bank_number;
@@ -100,8 +109,16 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this.refund1Model2.transaction_id = this.addForm.value.transaction_id;
             this.refundFinished.refund_id = this.detailModel?.id;
             this.refundFinished.refund_log.push(this.refund1Model2);
+            return
         }
-        console.log('提交的 :>> ', this.refundFinished.refund_log);
+        else if (this.isWay == 7) {
+            this.refundModel3.pay_type = 7;
+            this.refundModel3.refund_amount = this.addForm.value.refund_amount;
+            this.refundFinished.refund_id = this.detailModel?.id;
+            this.refundFinished.refund_log.push(this.refundModel3);
+            return
+        }
+        console.log('提交的 :>> ', this.refundFinished.refund_log, this.refundFinished);
 
     }
 
@@ -123,22 +140,22 @@ export class AdminOrderRefundWaysComponent implements OnInit {
                         this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
                     },
                         error => {
-    
+
                             return;
-    
+
                         })
                 }
-    
+
             })
         }
-  
+
     }
 
 
 
     changeWay(event: any) {
         if (event == 1) {
-            this.isShow = true;
+            this.isWay = 1;
             this?.addForm?.controls['bank_user'].setValidators(null);
             this?.addForm?.controls['bank_user'].updateValueAndValidity();
             this?.addForm?.controls['bank_address'].setValidators(null);
@@ -153,8 +170,8 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
             return
         }
-        else if (event ==2) {
-            this.isShow = false;
+        if (event == 2) {
+            this.isWay = 2;
             this?.addForm?.controls['bank_user'].setValidators([Validators.required]);
             this?.addForm?.controls['bank_user'].updateValueAndValidity();
             this?.addForm?.controls['bank_address'].setValidators([Validators.required]);
@@ -169,6 +186,23 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
             return
         }
+        else if (event == 7) {
+            this.isWay = 7;
+            this?.addForm?.controls['refund_amount'].setValidators([Validators.required]);
+            this?.addForm?.controls['refund_amount'].updateValueAndValidity();
+            this?.addForm?.controls['bank_user'].setValidators(null);
+            this?.addForm?.controls['bank_user'].updateValueAndValidity();
+            this?.addForm?.controls['bank_address'].setValidators(null);
+            this?.addForm?.controls['bank_address'].updateValueAndValidity();
+            this?.addForm?.controls['bank_number'].setValidators(null);
+            this?.addForm?.controls['bank_number'].updateValueAndValidity();
+            this?.addForm?.controls['pay_at'].setValidators(null);
+            this?.addForm?.controls['pay_at'].updateValueAndValidity();
+            this?.addForm?.controls['transaction_id'].setValidators(null);
+            this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            return
+        }
+
     }
 
 
