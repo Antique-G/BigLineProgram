@@ -124,7 +124,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
                 this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
                 this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
                 this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
-
+                this.page = getSeatch?.page ? getSeatch?.page : '';
                 this.searchForm.patchValue({
                     status: this.status,
                     product_name: this.product_name,
@@ -231,8 +231,6 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
         this.admin_id = this.searchForm.value.admin_id;
-        this.page = 1;
-
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, product_name: this.product_name,
@@ -248,6 +246,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
 
 
     search() {
+        this.page = 1;
         this.setValue();
         this.loading = true;
         this.groupTravel();

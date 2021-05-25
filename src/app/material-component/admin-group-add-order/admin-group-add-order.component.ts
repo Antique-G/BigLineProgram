@@ -67,6 +67,8 @@ export class AdminGroupAddOrderComponent implements OnInit {
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
         this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
         this.code = getSeatch?.code ? getSeatch?.code : '';
+        this.page = getSeatch?.page ? getSeatch?.page : '';
+
         this.searchForm.patchValue({
             title: this.title,
             dateStart: this.departure_start == null ? [] : [this.departure_start, this.departure_end],
@@ -131,7 +133,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             title: this.title, departure_start: this.departure_start, departure_end: this.departure_end, departure_city: this.departure_city,
-            destination_city: this.destination_city, few_days: this.few_days, code: this.code
+            destination_city: this.destination_city, few_days: this.few_days, code: this.code, page: this.page
         }
         localStorage.setItem('adminAddGroupOrderSearch', JSON.stringify(this.setQuery));
 
@@ -144,7 +146,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             title: this.title, departure_start: this.departure_start, departure_end: this.departure_end, departure_city: this.departure_city,
-            destination_city: this.destination_city, few_days: this.few_days, code: this.code
+            destination_city: this.destination_city, few_days: this.few_days, code: this.code, page: this.page
         }
         localStorage.setItem('adminAddGroupOrderSearch', JSON.stringify(this.setQuery));
         this.getPro();

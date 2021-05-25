@@ -111,42 +111,44 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             }
             else {
                 // 将上次查询的筛选条件赋值
-            let getSeatch = JSON.parse(localStorage.getItem("adminOrderFreeSearch")!);
-            this.status = getSeatch?.status ? getSeatch.status : '';
-            this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
-            this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
-            this.order_number = getSeatch?.order_number ? getSeatch?.order_number : '';
-            this.product_code = getSeatch?.product_code ? getSeatch?.product_code : '';
-            this.contact_name = getSeatch?.contact_name ? getSeatch?.contact_name : '';
-            this.contact_phone = getSeatch?.contact_phone ? getSeatch?.contact_phone : '';
-            this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
-            this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
-            this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
-            this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
-            this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
-            this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
-            this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
-            this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
-            this.searchForm.patchValue({
-                status: this.status,
-                product_id: this.product_id,
-                product_name: this.product_name,
-                order_number: this.order_number,
-                date_starts: this.date_start == null ? [] : [this.date_start, this.date_end],
-                product_code: this.product_code,
-                order_start_dates: this.order_start_date == null ? [] : [this.order_start_date, this.order_end_date],
-                contact_name: this.contact_name,
-                contact_phone: this.contact_phone,
-                store_id: this.store_id,
-                departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
-                destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
-                admin_id: this.admin_id,
+                let getSeatch = JSON.parse(localStorage.getItem("adminOrderFreeSearch")!);
+                this.status = getSeatch?.status ? getSeatch.status : '';
+                this.product_id = getSeatch?.product_id ? getSeatch?.product_id : '';
+                this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
+                this.order_number = getSeatch?.order_number ? getSeatch?.order_number : '';
+                this.product_code = getSeatch?.product_code ? getSeatch?.product_code : '';
+                this.contact_name = getSeatch?.contact_name ? getSeatch?.contact_name : '';
+                this.contact_phone = getSeatch?.contact_phone ? getSeatch?.contact_phone : '';
+                this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
+                this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
+                this.order_start_date = getSeatch?.order_start_date ? getSeatch?.order_start_date : null;
+                this.order_end_date = getSeatch?.order_end_date ? getSeatch?.order_end_date : null;
+                this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+                this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
+                this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+                this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
+                this.page = getSeatch?.page ? getSeatch?.page : '';
 
-            })
-            this.getFreeTravel();
-            this.getTotal();
+                this.searchForm.patchValue({
+                    status: this.status,
+                    product_id: this.product_id,
+                    product_name: this.product_name,
+                    order_number: this.order_number,
+                    date_starts: this.date_start == null ? [] : [this.date_start, this.date_end],
+                    product_code: this.product_code,
+                    order_start_dates: this.order_start_date == null ? [] : [this.order_start_date, this.order_end_date],
+                    contact_name: this.contact_name,
+                    contact_phone: this.contact_phone,
+                    store_id: this.store_id,
+                    departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
+                    destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+                    admin_id: this.admin_id,
+
+                })
+                this.getFreeTravel();
+                this.getTotal();
             }
-            
+
         })
 
     }
@@ -236,8 +238,6 @@ export class AdminOrderFreeTravelComponent implements OnInit {
         this.destination_city = this.isDestination;
         this.admin_id = this.searchForm.value.admin_id;
         this.loading = true;
-        this.page = 1;
-
         // 筛选条件存进cookie
         this.setQuery = {
             status: this.status, product_id: this.product_id, product_name: this.product_name,
@@ -252,6 +252,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     }
 
     search() {
+        this.page = 1;
         this.setValue();
         this.getFreeTravel();
         this.getTotal();
