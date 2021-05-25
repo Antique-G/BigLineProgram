@@ -100,6 +100,7 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
 
 
     search() {
+        this.page = 1;
         this.setValue();
         this.getList();
 
