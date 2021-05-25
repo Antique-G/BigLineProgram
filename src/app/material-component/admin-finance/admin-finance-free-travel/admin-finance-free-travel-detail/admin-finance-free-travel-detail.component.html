@@ -52,6 +52,44 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="days">行程天数</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="days" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.few_days+'天'+detailModel?.independent_product?.data?.few_nights+'晚'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city_name">出发城市</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="departure_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.departure" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city_name">目的城市</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="destination_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.destination" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.store_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type">报价方式</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="quote_type" nzBorderless [ngModel]="detailModel?.independent_product?.data?.quote_type==1?'按套餐份数':'按人头'" />

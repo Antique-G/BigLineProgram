@@ -8,6 +8,8 @@ import { StoreRegionService } from '../../../../services/store/store-region/stor
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { StoreProductMiniCodeComponent } from './store-product-mini-code/store-product-mini-code.component';
 
 @Component({
     selector: 'app-store-product-management',
@@ -53,7 +55,7 @@ export class StoreProductManagementComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-        private modal: NzModalService, private nzContextMenuService: NzContextMenuService,
+        private modal: NzModalService, private nzContextMenuService: NzContextMenuService, private message: NzMessageService, 
         public storeRegionService: StoreRegionService, public quoteBydateService: StoreQuoteBydateService) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
@@ -88,7 +90,7 @@ export class StoreProductManagementComponent implements OnInit {
         this.operation_id = getSeatch?.operation_id == undefined ? this.operation_id : getSeatch?.operation_id;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
-        
+
 
         this.searchForm.patchValue({
             status: this.status,
@@ -384,6 +386,28 @@ export class StoreProductManagementComponent implements OnInit {
             })
 
         })
+
+    }
+
+    // 生成小程序码
+    getCode(data: any) {
+        console.log('data :>> ', data, data?.status === 0);
+        if (data?.status === 0) {
+            this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+        }
+        else {
+            const addmodal = this.modal.create({
+                nzTitle: '生成小程序码',
+                nzContent: StoreProductMiniCodeComponent,
+                nzWidth: 800,
+                nzComponentParams: {
+                    data: [data, 0]
+                },
+                nzFooter: null
+            })
+            addmodal.afterClose.subscribe((res: any) => {
+            })
+        }
 
     }
 

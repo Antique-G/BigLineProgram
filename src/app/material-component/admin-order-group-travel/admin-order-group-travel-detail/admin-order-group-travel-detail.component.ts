@@ -52,6 +52,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
     order_insurance_id: any;
 
+    url: any;
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, public dialog: MatDialog,
         public adminOrderService: AdminOrderService) {
@@ -71,6 +73,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             internal_remarks: [''],
             days: [''],
             store_name: [''],
+            end_date: [''],
+            group_code: [''],
         });
         this.editMemberModel = {
             id: '',
@@ -105,6 +109,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             // 详情
             this.isSpinning = true;
             this.getgroupTravelDetail();
+            this.url = '/admin/main/orderList/detail?detailId=';
         });
     }
 
@@ -549,5 +554,6 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             });
         })
     }
+
 }
 

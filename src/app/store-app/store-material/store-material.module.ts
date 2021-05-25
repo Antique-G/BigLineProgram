@@ -116,6 +116,7 @@ import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-
 import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
 import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
+import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
 
 
 @NgModule({
@@ -249,6 +250,7 @@ import { StoreRequestMoneyComponent } from './store-request-money/store-request-
         StoreCostTypeDetailComponent,
         StoreOrderRequestMoneyComponent,
         StoreRequestMoneyComponent,
+        StoreProductMiniCodeComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }
