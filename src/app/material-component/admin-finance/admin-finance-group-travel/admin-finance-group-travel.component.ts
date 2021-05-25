@@ -185,6 +185,7 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
 
 
     search() {
+        this.page = 1;
         this.setValue();
         this.loading = true;
         this.groupTravel();
