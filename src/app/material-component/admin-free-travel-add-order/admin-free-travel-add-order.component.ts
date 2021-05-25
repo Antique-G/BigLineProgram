@@ -69,6 +69,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
             this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
             this.quote_type = getSeatch?.quote_type ? getSeatch?.quote_type : '';
             this.id = getSeatch?.id ? getSeatch?.id : '';
+            this.page = getSeatch?.page ? getSeatch?.page : '';
 
             console.log('this.quote_type', this.quote_type);
             this.searchForm.patchValue({
@@ -123,7 +124,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             title: this.title, departure_start: this.departure_start, departure_end: this.departure_end, departure_city: this.departure_city,
-            destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type, id: this.id
+            destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type, id: this.id, page: this.page
         }
         localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
     }
@@ -210,7 +211,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             title: this.title, departure_start: this.departure_start, departure_end: this.departure_end, departure_city: this.departure_city,
-            destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type, id: this.id
+            destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type, id: this.id, page: this.page
         }
         localStorage.setItem('adminAddFreeOrderSearch', JSON.stringify(this.setQuery));
         this.getFeeTravelList();
