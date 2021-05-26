@@ -130,7 +130,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city,this.start_date,this.end_date,this.use_start_date,this.use_end_date).subscribe(res => {
+        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city, this.start_date, this.end_date, this.use_start_date, this.use_end_date).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -152,7 +152,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             status: this.status, check_status: this.checkStatus, title: this.title,
             id: this.id, few_days: this.few_days, tag: this.tag, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
+            start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
         this.getProductList();
@@ -227,7 +227,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
             status: this.status, check_status: this.checkStatus, title: this.title, id: this.id,
             few_days: this.few_days, tag: this.tag, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            start_date:this.start_date,end_date:this.end_date,use_start_date:this.use_start_date,use_end_date:this.use_end_date
+            start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
 
         }
         localStorage.setItem('storePreFreeSearch', JSON.stringify(this.setQuery));
@@ -239,16 +239,15 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFree/detail'], { queryParams: { detailId: data.id, is_presell: 1 } });
+        this.router.navigate(['/store/main/storeFreeTravel/detail'], { queryParams: { detailId: data.id } });
     }
-
 
     // 报价
     goToQuoteClick(data: any) {
         console.log('data', data);
-        let child_status = Number(data.reserve_children)
+        let child_status = Number(data.product?.reserve_children)
         // 处理时间，预计多久报名
-        let minutes = data.earlier;
+        let minutes = data.product?.fearlier;
         this.newMin = Math.floor(minutes % 60);
         if (this.newMin === 0) {
             this.newHour = Math.floor(24 - minutes / 60 % 24);
@@ -265,18 +264,20 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         else {
             this.isEar = Math.floor(minutes / 60 / 24);
         }
-        let start_date = data?.product_ticket[0]?.start_date;
-        let end_date = data?.product_ticket[0]?.end_date;
-        let use_start_date = data?.product_ticket[0]?.use_start_date;
-        let use_end_date = data?.product_ticket[0]?.use_end_date;
-        let ticket_price = data?.product_ticket[0]?.ticket_price;
-        let subsidy_price = data?.product_ticket[0]?.subsidy_price;
+        let start_date = data?.start_date;
+        let end_date = data?.end_date;
+        let use_start_date = data?.use_start_date;
+        let use_end_date = data?.use_end_date;
+        let ticket_price = data?.ticket_price;
+        let subsidy_price = data?.subsidy_price;
         this.router.navigate(['/store/main/storePreFree/quote'], {
+
+        // this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], {
             queryParams: {
-                productId: data.id,
-                type: 'freeTravel', earlier: this.isEar, proName: data.title,
-                childStatus: child_status, few_nights: data?.few_nights,
-                use_num: data?.use_num, is_presell: data?.is_presell,
+                productId: data.product_id,
+                type: 'freeTravel', earlier: this.isEar, proName: data.product?.title,
+                childStatus: child_status, few_nights: data?.product?.few_nights,
+                use_num: data?.product?.use_num, is_presell: data?.product?.is_presell,
                 start_date: start_date, end_date: end_date,
                 use_start_date: use_start_date, use_end_date: use_end_date,
                 ticket_price: ticket_price, subsidy_price: subsidy_price,

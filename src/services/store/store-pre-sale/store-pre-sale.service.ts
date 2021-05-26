@@ -59,6 +59,36 @@ export class StorePreSaleService {
     }
 
 
+    getCodeList(page: any, per_page: any, order_id: any, user_id: any, ticket_order_id: any, status: any, transaction_id: any,
+        code: any, product_name: any, name: any,
+        phone: any, use_date_start: any, user_date_end: any, date_start: any, date_end: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_id', order_id ? order_id : '')
+            .set('user_id', user_id ? user_id : '')
+            .set('ticket_order_id', ticket_order_id ? ticket_order_id : '')
+            .set('status', status ? status : '')
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('code', code ? code : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('name', name ? name : '')
+            .set('phone', phone ? phone : '')
+            .set('use_date_start', use_date_start ? use_date_start : '')
+            .set('user_date_end', user_date_end ? user_date_end : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '');
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetStoreOrderTicketCode, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {

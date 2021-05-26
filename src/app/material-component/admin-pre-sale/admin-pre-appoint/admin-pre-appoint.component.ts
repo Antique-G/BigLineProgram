@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AdminSaleService } from 'services/admin/admin-sale.service';
 @Component({
   selector: 'app-admin-pre-appoint',
   templateUrl: './admin-pre-appoint.component.html',
@@ -17,22 +17,41 @@ export class AdminPreAppointComponent implements OnInit {
     per_page = 20;
     total = 1;
     loading = true;
+    order_id: any;
+    user_id: any;
+    ticket_order_id: any;
+    status: any;
+    transaction_id: any;
+    code: any;
+    product_name: any;
+    name: any;
+    phone: any;
+    use_date_start: any;
+    user_date_end: any;
+    date_start: any;
+    date_end: any;
 
 
-    constructor(public fb: FormBuilder,public router: Router,) {
+    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService) {
         this.searchForm = fb.group({
+            status: [''],
             product_name: [''],
-            order_number: [''],
-            contact_name: [''],
-            contact_phone: [''],
-            appoint_id: [''],
-            appoint_code: [''],
-            appoint_trans: [''],
+            ticket_order_id: [''],
+            name: [''],
+            phone: [''],
+            order_id: [''],
+            code: [''],
+            transaction_id: [''],
+            use_date_start: [''],
             date_starts: ['']
         });
     }
 
     ngOnInit(): void {
+        this.adminSaleService.getCodeList(this.page, this.per_page, this.order_id, this.user_id, this.ticket_order_id, this.status,
+            this.transaction_id, this.code, this.product_name, this.name, this.phone, this.use_date_start, this.user_date_end, this.date_start, this.date_end).subscribe(res => {
+            console.log("res",res)
+        })
     }
 
 
@@ -63,15 +82,15 @@ export class AdminPreAppointComponent implements OnInit {
 
 
     search() {
-        
+
     }
 
     reset() {
-        
+
     }
 
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id} });
+        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id } });
     }
 
     onChangeDate(event: any) {

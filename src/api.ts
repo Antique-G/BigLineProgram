@@ -130,6 +130,9 @@ export const AdminUrls = {
     // 预售管理
     GetAdminOrderTicket: api + '/admin/order/ticket',   // 预售订单列表
     GetAdminOrderTicketDetail: api + '/admin/order/ticket/',   // 预售订单详情
+    GetAdminOrderTicketCode: api + '/admin/order/ticket_code',   // 预约码列表
+
+    
 
 
     GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
@@ -489,6 +492,8 @@ export const StoreUrls = {
     // 预售管理
     GetStoreOrderTicket: api + '/store/order/ticket',   // 预售订单列表
     GetStoreOrderTicketDetail: api + '/store/order/ticket/',   // 预售订单详情
+    GetStoreOrderTicketCode: api + '/store/order/ticket_code',   // 预约码列表
+
 
 
 };
