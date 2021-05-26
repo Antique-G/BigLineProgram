@@ -486,7 +486,7 @@ export interface ProListModel {
     schedule_file_url: string;
     assembling_place: AssemblingplaceList[];
     group: (Group1 | Group2)[];
-    date_quote: DatequoteList[];
+    date_quote: any;
     discount_tit?: any;
     other_price_tit?: any;
     num_diff?: any;

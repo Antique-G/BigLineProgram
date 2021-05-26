@@ -79,7 +79,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="width: 3%;"></th>
+                                    <th style="width: 4%;">日期</th>
                                     <th style="text-align: center;">产品id</th>
                                     <th style="text-align: center;">产品编码</th>
                                     <th style="text-align: center;width: 15%;">产品名称</th>
@@ -105,7 +105,7 @@
                             <tbody>
                                 <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                     <tr>
-                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看团信息"></td>
+                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看可下单日期"></td>
                                         <td>{{data.id}}</td>
                                         <td>{{data.code}}</td>
                                         <td>{{data.title}}</td>
@@ -138,40 +138,56 @@
                                     </tr>
 
                                     <tr [nzExpand]="data.expand">
-                                        <nz-table #innerTable [nzData]="data?.group" [nzShowPagination]="false" *ngIf="data?.group?.length!=0">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-align: center;">团队id</th>
-                                                    <th style="text-align: center;">团队编号</th>
-                                                    <th style="text-align: center;">最小成团人数</th>
-                                                    <th style="text-align: center;">最大成团人数</th>
-                                                    <th style="text-align: center;">当前团人数</th>
-                                                    <th style="text-align: center;">成团日期</th>
-                                                    <th style="text-align: center;">出发日期</th>
-                                                    <th style="text-align: center;">团状态</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let dataChild of innerTable.data">
-                                                    <td style="width: 10%;">{{ dataChild.group_id }}</td>
-                                                    <td style="width: 10%;">{{dataChild.group_code}}</td>
-                                                    <td style="width: 10%;">{{dataChild.member_min}}</td>
-                                                    <td style="width: 10%;">{{dataChild.member_max}}</td>
-                                                    <td style="width: 10%;">{{dataChild.member_total}}</td>
-                                                    <td style="width: 10%;">{{dataChild.active_date}}</td>
-                                                    <td style="width: 10%;">{{dataChild.start_date}}</td>
-                                                    <td style="width: 10%;">
-                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消，不成团</span>
-                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
-                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
-                                                        <span *ngIf="dataChild.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </nz-table>
+                                        <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                            <div>
+                                                <div style="display: flex; align-items: center;">
+                                                    年
+                                                    <nz-select [(ngModel)]="selectedYear" nzPlaceHolder="Choose" (ngModelChange)="ngYearChange($event)" style="margin: 0 5px;width: 100px;">
+                                                        <nz-option *ngFor="let option of yearList" [nzValue]="option" [nzLabel]="option"></nz-option>
+                                                    </nz-select>
+                                                    <span style="margin-right: 5px;">月</span>
+                                                    <nz-pagination [nzPageIndex]="nzPageIndex" [nzPageSize]="1" [nzTotal]="12" (nzPageIndexChange)="nzPageIndexChange($event)"></nz-pagination>
+                                                </div>
+                                                <div class="mat-elevation-z8" style="margin-top: 10px;">
+                                                    <nz-calendar [(ngModel)]="selectedDateValue" (nzSelectChange)="selectChange($event)">
+                                                        <div *nzDateCell="let date" class="events">
+                                                            <ng-container *ngFor="let item of data?.date_quote">
+                                                                <ng-container *ngIf="(date | date:'yyyy-MM-dd')==item.date">
+                                                                    <div class="item itemFree" [class]="item.check_status==2?'item-bg-success': item.check_status==3?'item-bg-error':''">
+                                                                        <div>成人: <span style="color: red;">¥{{item.adult_price}}</span></div>
+                                                                        <div>儿童:
+                                                                            <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.child_price}}</span>
+                                                                            <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
+                                                                        </div>
+                                                                        <div>婴儿:
+                                                                            <span style="color: red;" *ngIf="detailModel?.child_status===1">¥{{item.baby_price}}</span>
+                                                                            <span style="color: red;" *ngIf="detailModel?.child_status===0">-</span>
+                                                                        </div>
+                                                                        <div>差价: <span style="color: red;">¥{{item.difference_price}}</span></div>
+                                                                        <div>库存: <span style="color: red;">
+                                                                        <span *ngIf="item.set_inventory==0">-</span>
+                                                                            <span *ngIf="item.set_inventory==1">{{item.inventory_num}}</span>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div>剩余库存: <span style="color: red;">
+                                                                            <span *ngIf="item.set_inventory==0">-</span>
+                                                                            <span *ngIf="item.set_inventory==1">
+                                                                                <span *ngIf="item.allow_over==0">{{item.inventory_num-item.sold_num<0?'0':item.inventory_num-item.sold_num}}</span>
+                                                                            <span *ngIf="item.allow_over==1">{{item.inventory_num-item.sold_num}}</span>
+                                                                            </span>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div *ngIf="item.set_inventory==1" style="color: red;">！{{item.allow_over==1?'可超卖':'不能超卖'}}</div>
 
+                                                                    </div>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                        </div>
+                                                    </nz-calendar>
 
-                                        <p *ngIf="data?.group?.length===0">无团信息</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
 
 
