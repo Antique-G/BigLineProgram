@@ -59,6 +59,9 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             internal_remarks: ['',],
             quote_type: [''],
             store_name: [''],
+            days: [''],
+            departure_city_name: [''],
+            destination_city_name: [''],
         });
         this.editInfoModel = {
             id: '',

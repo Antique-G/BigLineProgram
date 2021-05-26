@@ -362,7 +362,7 @@ export const StoreUrls = {
 
 
     PostStoreUploadStroke: api + '/store/product/schedule_upload',  // 上传行程
-
+    GetStoreProductMiniCode: api + '/store/get_mini_code', // 生成店铺产品小程序码
 
 
 

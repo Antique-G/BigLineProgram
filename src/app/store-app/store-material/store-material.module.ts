@@ -117,6 +117,7 @@ import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-
 import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
 import { StorePreFreeAppointComponent } from './store-pre-free-appoint/store-pre-free-appoint.component';
+import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
 
 
 @NgModule({
@@ -251,6 +252,7 @@ import { StorePreFreeAppointComponent } from './store-pre-free-appoint/store-pre
         StoreOrderRequestMoneyComponent,
         StoreRequestMoneyComponent,
         StorePreFreeAppointComponent,
+        StoreProductMiniCodeComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }
