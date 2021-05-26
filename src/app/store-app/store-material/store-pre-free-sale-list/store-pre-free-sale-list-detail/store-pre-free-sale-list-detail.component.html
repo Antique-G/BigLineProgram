@@ -125,15 +125,11 @@
                                             <tr *ngFor="let data of rowSelectionTableCode.data">
                                                 <td>{{data.code}}</td>
                                                 <td>{{data.ticket_price}}</td>
-                                                <td>{{data.status_info}}</td>
-                                                <td>{{data?.order_id}} </td>
-                                                <td>
-
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td></td>
+                                                <td>{{data?.status_info}}</td>
+                                                <td>{{data?.ticket_order_id}} </td>
+                                                <td>{{data?.use_date}}</td>
+                                                <td>{{data?.extra_charge}}</td>
+                                                <td>{{data?.source}}</td>
                                             </tr>
                                         </tbody>
                                     </nz-table>
