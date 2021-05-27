@@ -1,0 +1,16 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm" nz-row>
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="reason">审核失败原因</nz-form-label>
+                    <nz-form-control [nzSm]="19" [nzXs]="24">
+                        <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+        </form>
+    </div>
+</div>

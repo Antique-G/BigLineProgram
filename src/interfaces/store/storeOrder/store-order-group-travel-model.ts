@@ -628,6 +628,7 @@ export interface DatumOrderTotalModel {
     receive: string;
     is_pay_money?: any;
     refund_money: string;
+    price_total?: any;
 }
 
 // 订单统计OrderTotal

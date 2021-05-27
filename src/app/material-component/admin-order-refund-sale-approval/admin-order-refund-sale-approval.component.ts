@@ -6,11 +6,11 @@ import { AdminRefundService } from '../../../services/admin/admin-refund.service
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 
 @Component({
-    selector: 'app-admin-order-refund-review',
-    templateUrl: './admin-order-refund-review.component.html',
-    styleUrls: ['./admin-order-refund-review.component.css']
+    selector: 'app-admin-order-refund-sale-approval',
+    templateUrl: './admin-order-refund-sale-approval.component.html',
+    styleUrls: ['./admin-order-refund-sale-approval.component.css']
 })
-export class AdminOrderRefundReviewComponent implements OnInit {
+export class AdminOrderRefundSaleApprovalComponent implements OnInit {
     dateArray1: any[] = [];
     dateArray2: any[] = [];
     searchForm1: FormGroup;
@@ -37,9 +37,11 @@ export class AdminOrderRefundReviewComponent implements OnInit {
     date_start: any;
     date_end: any;
     id: any;
-    refund_id: any
-    setQuery2: any
-    setQuery1: any
+    refund_id: any;
+    status: any;
+
+    setQuery2: any;
+    setQuery1: any;
     selectedTabIndex = 0;    //选中的tab 默认第一个
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
@@ -77,7 +79,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             this.storeList = res;
         })
         // 将上次查询的筛选条件赋值
-        let getSeatch1 = JSON.parse(localStorage.getItem("adminRefundReview1Search")!);
+        let getSeatch1 = JSON.parse(localStorage.getItem("adminRefundSale1Search")!);
         this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
         this.store_id = getSeatch1?.store_id ? getSeatch1?.store_id : '';
         this.product_name = getSeatch1?.product_name ? getSeatch1?.product_name : '';
@@ -93,7 +95,8 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             id: this.id,
         });
         this.getList();
-        let getSeatch2 = JSON.parse(localStorage.getItem("adminRefundReview2Search")!);
+
+        let getSeatch2 = JSON.parse(localStorage.getItem("adminRefundSale2Search")!);
         this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
         this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
         this.product_name = getSeatch2?.product_name ? getSeatch2?.product_name : '';
@@ -111,9 +114,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.getList1();
     }
 
-    // 未退款
+    // 未审核
     getList() {
-        this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 2).subscribe(res => {
+        this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 1, 1).subscribe(res => {
             console.log('res :>> ', res);
             this.dataSource1 = res.data;
             this.loading = false;
@@ -136,14 +139,13 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end,
             id: this.id, page: this.page
         }
-        localStorage.setItem('adminRefundReview1Search', JSON.stringify(this.setQuery1));
+        localStorage.setItem('adminRefundSale1Search', JSON.stringify(this.setQuery1));
         this.getList();
     }
 
 
-    // 已退款
     getList1() {
-        this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3).subscribe(res => {
+        this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, this.status).subscribe(res => {
             console.log('res :>> ', res);
             this.dataSource2 = res.data;
             this.loading1 = false;
@@ -165,7 +167,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end,
             refund_id: this.refund_id, page: this.page
         }
-        localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
+        localStorage.setItem('adminRefundSale2Search', JSON.stringify(this.setQuery2));
         this.getList1();
     }
 
@@ -188,7 +190,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end,
             refund_id: this.refund_id, page: this.page
         }
-        localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
+        localStorage.setItem('adminRefundSale2Search', JSON.stringify(this.setQuery2));
         this.getList1();
     }
 
@@ -219,11 +221,11 @@ export class AdminOrderRefundReviewComponent implements OnInit {
 
 
     handle(data: any) {
-        this.router.navigate(['/admin/main/refundReview/edit'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/admin/main/salesApproval/edit'], { queryParams: { detailId: data.id, isFinished: 2 } });
     }
 
     edit(data: any) {
-        this.router.navigate(['/admin/main/refundReview/detail'], { queryParams: { detailId: data.id, isFinished: 2 } });
+        this.router.navigate(['/admin/main/salesApproval/detail'], { queryParams: { detailId: data.id, isTab: 2, isFinished: data.status,sale:1 } });
     }
 
 
@@ -248,3 +250,4 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         })
     }
 }
+

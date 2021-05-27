@@ -4,7 +4,7 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <mat-tab-group [selectedIndex]="selectedTabIndex">
-                        <mat-tab label="未处理">
+                        <mat-tab label="未审核">
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
                                     <div fxLayout="column" fxLayoutAlign="start stretch">
@@ -85,6 +85,9 @@
                                                         <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
+                                                        <th style="text-align: center;">操作人</th>
+                                                        <th style="text-align: center;">审核人</th>
+                                                        <th style="text-align: center;">财务</th>
                                                         <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
@@ -111,6 +114,9 @@
                                                             <span *ngIf="data.status===3">已退款</span>
                                                         </td>
                                                         <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{data?.handler_name}}</td>
+                                                        <td>{{data?.checker_name}}</td>
+                                                        <td>{{data?.finance_name}}</td>
                                                         <td>
                                                             <a (click)="handle(data)">去处理</a>
                                                         </td>
@@ -176,27 +182,11 @@
                                                     </div>
                                                 </nz-form-item>
 
-                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                    <div nz-row>
-                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="status">退款状态</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
-                                                                <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                                                <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
-                                                                <nz-option [nzLabel]="'待审核'" [nzValue]="'1'"></nz-option>
-                                                                <nz-option [nzLabel]="'待退款'" [nzValue]="'2'"></nz-option>
-                                                                <nz-option [nzLabel]="'已退款'" [nzValue]="'3'"></nz-option>
-                                                            </nz-select>
-                                                        </nz-form-control>
-                                                    </div>
-                                                </nz-form-item>
-
                                                 <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                                                     <div nz-row>
                                                         <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search2()">搜索</button>
                                                     </div>
                                                 </nz-form-item>
-
                                                 <nz-form-item nz-col [nzSm]="2" [nzXs]="24">
                                                     <div nz-row>
                                                         <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset2()">重置</button>

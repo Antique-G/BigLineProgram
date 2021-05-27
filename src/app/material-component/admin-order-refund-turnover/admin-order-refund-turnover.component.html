@@ -91,6 +91,9 @@
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">退款金额</th>
                                     <th style="text-align: center;">退款去向</th>
+                                    <th style="text-align: center;">操作人</th>
+                                    <th style="text-align: center;">审核人</th>
+                                    <th style="text-align: center;">财务</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">退款时间</th>
                                     <th style="text-align: center;">修改状态</th>
@@ -120,6 +123,9 @@
                                         <span *ngIf="data.pay_type===8">飞猪</span>
                                         <span *ngIf="data.pay_type===9">携程</span>
                                     </td>
+                                    <td>{{data?.handler_name}}</td>
+                                    <td>{{data?.checker_name}}</td>
+                                    <td>{{data?.finance_name}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             <a title="重新发送退款请求" (click)="send(data)">退款失败</a>

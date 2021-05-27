@@ -158,15 +158,19 @@
                             <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
                         </div>
-                        <div>总收款：
+                        <div>订单总额：
+                            <span style="color: red;" *ngIf="totalModel?.price_total!=0&&totalModel?.price_total!=null">{{totalModel?.price_total}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.price_total===0||totalModel?.price_total===null">-</span>
+                        </div>
+                        <div>入账总额：
                             <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
                         </div>
-                        <div>待支付：
+                        <div>待收款总额：
                             <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
                         </div>
-                        <div>已退款：
+                        <div>退款总额：
                             <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
                         </div>

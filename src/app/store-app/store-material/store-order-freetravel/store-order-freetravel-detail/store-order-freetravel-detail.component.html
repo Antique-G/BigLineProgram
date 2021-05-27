@@ -79,7 +79,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type">报价方式</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="quote_type" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.quote_type==1?'按套餐':'按人头'" />
+                                                        <input nz-input formControlName="quote_type" nzBorderless readonly [ngModel]="detailModel?.quote_type==1?'按套餐':'按人头'" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -115,7 +115,7 @@
                             </div>
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px" *ngIf="detailModel?.independent_product?.data?.quote_type==2">
+                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px" *ngIf="detailModel?.quote_type!=1">
                                     <div>
                                         <span> 当前出行人{{detailModel?.num_total}}人： </span>
                                         <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
@@ -137,7 +137,7 @@
 
 
 
-                                <div *ngIf="detailModel?.independent_product?.data?.quote_type==1" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px">
+                                <div *ngIf="detailModel?.quote_type==1" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px">
                                     <div>
                                         <div>当前套餐份数：{{detailModel?.num_total}}份</div>
                                         <div>每份套餐使用人数：{{detailModel?.independent_product?.data?.use_num}}人</div>
@@ -363,6 +363,9 @@
                                                 <th style="text-align: center;">退款方式</th>
                                                 <th style="text-align: center;">退款明细</th>
                                                 <th style="text-align: center;">退款审核时间</th>
+                                                <th style="text-align: center;">操作人</th>
+                                                <th style="text-align: center;">审核人</th>
+                                                <th style="text-align: center;">财务</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -395,13 +398,13 @@
                                                 </td>
                                                 <td>
                                                     <div fxLayout="column" fxLayoutAlign="center center">
-                                                        <div *ngIf="detailModel?.independent_product?.data?.quote_type==2">
+                                                        <div *ngIf="detailModel?.quote_type!=1">
                                                             退款:
                                                             <span>成人*{{data.member_detail[0]}}|</span>
                                                             <span>儿童*{{data.member_detail[1]}}|</span>
                                                             <span>婴儿*{{data.member_detail[2]}}</span>
                                                         </div>
-                                                        <div *ngIf="detailModel?.independent_product?.data?.quote_type==1">
+                                                        <div *ngIf="detailModel?.quote_type==1">
                                                             退款:
                                                             <span>套餐*{{data?.refund_number}}</span>
                                                         </div>
@@ -414,6 +417,15 @@
                                                 </td>
                                                 <td>
                                                     {{data.check_at}}
+                                                </td>
+                                                <td>
+                                                    {{data?.handler_name}}
+                                                </td>
+                                                <td>
+                                                    {{data?.checker_name}}
+                                                </td>
+                                                <td>
+                                                    {{data?.finance_name}}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -431,7 +443,7 @@
 
 
 
-                <mat-card *ngIf="detailModel?.independent_product?.data?.quote_type==2">
+                <mat-card *ngIf="detailModel?.quote_type!=1">
                     <div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -540,7 +552,7 @@
 
 
 
-                <mat-card *ngIf="detailModel?.independent_product?.data?.quote_type==1">
+                <mat-card *ngIf="detailModel?.quote_type==1">
                     <div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="row" fxLayoutAlign="space-between center">

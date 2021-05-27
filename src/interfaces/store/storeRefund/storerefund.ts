@@ -357,3 +357,10 @@ export interface AdminRefundLogEditModel {
     to_account?: any;
 
 }
+
+// 主管审核退款
+export interface AdminRefundCheckDataModel {
+    id: any;//退款单id
+    check: any;  //1拒绝，2通过
+    remark?: any; //备注
+}

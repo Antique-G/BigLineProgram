@@ -181,6 +181,9 @@ import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-sup
 import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
+import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
+import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
+import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
 
 
 
@@ -385,6 +388,9 @@ import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finan
     AdminProSupplyDetailComponent,
     AdminFinanceGroupReqMoneyComponent,
     AdminFinanceGroupReqReviewComponent,
+    AdminOrderRefundSaleApprovalComponent,
+    AdminOrderRefundSaleApprovalDetailComponent,
+    AdminOrderRefundSaleApprovalRejectComponent,
 
   ]
 })
