@@ -50,7 +50,7 @@ const MENUITEMS = [
             { state: 'addFreeOrder', name: '自由行添加订单', permission_name: 'order_add_indent_order' },
             // { state: 'preFreeSaleList', name: '自由行预售抢购列表' , permission_name: 'order_add_indent_order'},
             { state: 'refund', name: '订单退款处理', permission_name: 'order_refund' },
-            { state: 'salesApproval', name: '订单退款审核', permission_name: 'order_refund_check' },
+            { state: 'salesApproval', name: '订单退款审核', permission_name: 'order_refund_sale' },
             { state: 'refundReview', name: '财务退款', permission_name: 'order_refund_check' },
             { state: 'refundTurnOver', name: '订单退款流水列表', permission_name: 'order_refund_log' },
         ]
