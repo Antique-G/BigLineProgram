@@ -45,7 +45,8 @@ export class AdminOrderRefundDetailComponent implements OnInit {
     packAge: any;
     selectPack: any;
     // 还需支付金额
-    playMoney: any = 0
+    playMoney: any = 0;
+    sale: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         private modal: NzModalService, public adminRefundService: AdminRefundService) {
@@ -93,6 +94,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             this.detailId = params.detailId;
             this.isFinished = params.isFinished;
+            this.sale = params.sale;
             console.log('this.isFinished ', this.isFinished, this.isFinished === '3');
             this.isTab = params.isTab;
             this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
@@ -233,6 +235,10 @@ export class AdminOrderRefundDetailComponent implements OnInit {
 
     return() {
         this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
+    }
+
+    return1() {
+        this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
     }
 }
 

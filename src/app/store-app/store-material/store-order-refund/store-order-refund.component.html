@@ -81,6 +81,9 @@
                                             <th style="text-align: center;">退款方式</th>
                                             <th style="text-align: center;">退款状态</th>
                                             <th style="text-align: center;">申请时间</th>
+                                            <th style="text-align: center;">操作人</th>
+                                            <th style="text-align: center;">审核人</th>
+                                            <th style="text-align: center;">财务</th>
                                             <th style="text-align: center;">操作</th>
                                         </tr>
                                     </thead>
@@ -107,6 +110,9 @@
                                                 <span *ngIf="data.status===3">已退款</span>
                                             </td>
                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td>{{data?.handler_name}}</td>
+                                            <td>{{data?.checker_name}}</td>
+                                            <td>{{data?.finance_name}}</td>
                                             <td>
                                                 <div style="cursor: pointer;">
                                                     <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="查看详情" (click)="edit(data)">
