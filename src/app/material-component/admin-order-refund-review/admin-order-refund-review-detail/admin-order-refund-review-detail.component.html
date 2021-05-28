@@ -67,7 +67,7 @@
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
-    
+
                                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refund_to_account">退款方式</nz-form-label>
@@ -270,25 +270,25 @@
                                                                     </nz-form-control>
                                                                 </div>
                                                                 <div nz-row style="margin-left: 136px;">
-                                                                    <div >
+                                                                    <div>
                                                                         <span class="total-title">已收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{price_receive}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">退款金额:</span>
                                                                         <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
                                                                     </div>
-            
-                                                                    <div  class="marginLeft-50">
+
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">实收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">还需收款金额:</span>
                                                                         <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
                                                                     </div>
-                                                                   
-                                                                    
+
+
                                                                 </div>
                                                             </nz-form-item>
                                                         </div>
@@ -472,25 +472,25 @@
                                                                     </nz-form-control>
                                                                 </div>
                                                                 <div nz-row style="margin-left: 136px;">
-                                                                    <div >
+                                                                    <div>
                                                                         <span class="total-title">已收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{price_receive}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">退款金额:</span>
                                                                         <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
                                                                     </div>
-            
-                                                                    <div  class="marginLeft-50">
+
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">实收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">还需收款金额:</span>
                                                                         <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
                                                                     </div>
-                                                                   
-                                                                    
+
+
                                                                 </div>
                                                             </nz-form-item>
                                                         </div>
@@ -519,7 +519,7 @@
                                             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="height: 100%;">
                                                 <div style="font-weight: bold;font-size: 18px;"><span>退款成功！</span></div>
                                                 <div style="font-weight: bold;font-size: 18px;"><span>退款金额：</span><span style="color: red;">{{'￥'+detailModel?.refund_amount}}</span></div>
-                                                <div>处理退款时间：<span>{{detailModel?.check_at}}</span></div>
+                                                <div>销售主管审核时间：<span>{{detailModel?.check_at}}</span></div>
                                             </div>
                                         </div>
                                     </mat-card>
@@ -632,7 +632,8 @@
                                                                     <th style="text-align: center;">流水号</th>
                                                                     <th style="text-align: center;">返回方式</th>
                                                                     <th style="text-align: center;">退款金额</th>
-                                                                    <th style="text-align: center;">退款时间</th>
+                                                                    <th style="text-align: center;">处理时间</th>
+                                                                    <th style="text-align: center;">最后处理时间</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -642,15 +643,16 @@
                                                                         <span *ngIf="data.pay_type===1">微信</span>
                                                                         <span *ngIf="data.pay_type===2">支付宝</span>
                                                                         <span *ngIf="data.pay_type===3">现金</span>
-                                                                        <span *ngIf="data.pay_type===4">微信二维码</span>
-                                                                        <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                                                        <span *ngIf="data.pay_type===4">微信</span>
+                                                                        <span *ngIf="data.pay_type===5">支付宝</span>
                                                                         <span *ngIf="data.pay_type===6">银行卡转账</span>
-                                                                        <span *ngIf="data.pay_type===7">余额支付</span>
+                                                                        <span *ngIf="data.pay_type===7">余额</span>
                                                                         <span *ngIf="data.pay_type===8">飞猪</span>
                                                                         <span *ngIf="data.pay_type===9">携程</span>
                                                                     </td>
                                                                     <td>{{data.refund_amount}}</td>
                                                                     <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                                                                    <td>{{data?.updated_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </nz-table>
