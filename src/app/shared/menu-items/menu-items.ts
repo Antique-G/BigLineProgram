@@ -21,7 +21,8 @@ const MENUITEMS = [
             { state: 'adminAccount', name: '管理员账号', permission_name: 'system_account' },
             { state: 'adminStoreManage', name: '门店管理', permission_name: 'system_store_mangement' },
             { state: 'adminPermission', name: '权限管理', permission_name: 'system_permission' },
-            { state: 'adminRole', name: '角色管理', permission_name: 'system_role' }
+            { state: 'adminRole', name: '角色管理', permission_name: 'system_role' },
+            { state: 'proSupply', name: '供应商管理', permission_name: 'system_supplier' },
 
         ]
     },
@@ -49,7 +50,8 @@ const MENUITEMS = [
             { state: 'addFreeOrder', name: '自由行添加订单', permission_name: 'order_add_indent_order' },
             // { state: 'preFreeSaleList', name: '自由行预售抢购列表' , permission_name: 'order_add_indent_order'},
             { state: 'refund', name: '订单退款处理', permission_name: 'order_refund' },
-            { state: 'refundReview', name: '订单审核退款', permission_name: 'order_refund_check' },
+            { state: 'salesApproval', name: '订单退款审核', permission_name: 'order_refund_sale' },
+            { state: 'refundReview', name: '财务退款', permission_name: 'order_refund_check' },
             { state: 'refundTurnOver', name: '订单退款流水列表', permission_name: 'order_refund_log' },
         ]
     },
@@ -111,13 +113,7 @@ const MENUITEMS = [
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
         ]
     },
-    {
-        title: '供应商管理模块', icon: 'pound-circle', permission_name: 'admin_financial',
-        children: [
-            // { state: 'costType', name: '成本类型管理', permission_name: 'financial_group_order' },
-            { state: 'proSupply', name: '供应商管理', permission_name: 'financial_group_order' },
-        ]
-    },
+
 
 
     // {
@@ -149,14 +145,14 @@ const StoreMENUITEMS = [
             { state: 'storeFreeTravel', name: '自由行' },
         ]
     },
-    {
-        title: '预售管理', icon: 'clock-circle',
-        children: [
-            { state: 'storePreFree', name: '自由行预售产品列表' },
-            { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
+    // {
+    //     title: '预售管理', icon: 'clock-circle',
+    //     children: [
+    //         { state: 'storePreFree', name: '自由行预售产品列表' },
+    //         { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
 
-        ]
-    },
+    //     ]
+    // },
     {
         title: '订单管理模块', icon: 'ordered-list',
         children: [

@@ -22,8 +22,9 @@ export class AdminFinaceGroupService {
 
     // 跟团游订单列表
     groupTravelList(page: number, per_page: number, status: any, product_name: any, order_number: any,
-                    date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
-                    order_end_date: any, contact_name: any, contact_phone: any, payment_status: any, transaction_id?: any): Observable<StoreOrderGroupTravelListRequestModel> {
+        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,
+        transaction_id?: any,pay_type?: any): Observable<StoreOrderGroupTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -38,7 +39,9 @@ export class AdminFinaceGroupService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('payment_status', payment_status ? payment_status : '')
-            .set('transaction_id', transaction_id ? transaction_id : '');
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('pay_type', pay_type ? pay_type : '');
+        
 
 
         const findhttpOptions = {
@@ -61,8 +64,9 @@ export class AdminFinaceGroupService {
 
     // 订单统计
     getOrderTotal(status: any, product_name: any, order_number: any,
-                  date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
-                  order_end_date: any, contact_name: any, contact_phone: any, payment_status: any, transaction_id?: any): Observable<OrderTotalModel> {
+        date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
+        order_end_date: any, contact_name: any, contact_phone: any, payment_status: any, transaction_id?: any,
+        pay_type?: any): Observable<OrderTotalModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
             .set('product_name', product_name ? product_name : '')
             .set('order_number', order_number ? order_number : '')
@@ -75,7 +79,9 @@ export class AdminFinaceGroupService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('payment_status', payment_status ? payment_status : '')
-            .set('transaction_id', transaction_id ? transaction_id : '');
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('pay_type', pay_type ? pay_type : '');
+
 
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -100,7 +106,7 @@ export class AdminFinaceGroupService {
 
     // 团请款
     groupCashList(page: number, per_page: number, group_status: any, payout_status: any, group_id: any, order_number: any,
-                  product_name: any, store_id: any, ): Observable<GroupCashReqModel> {
+        product_name: any, store_id: any,): Observable<GroupCashReqModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('group_status', group_status ? group_status : '')

@@ -12,7 +12,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
@@ -25,7 +25,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="checkStatus">审核状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="checkStatus" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'未提交审核'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'审核中'" [nzValue]="'1'"></nz-option>
@@ -40,7 +40,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_presell">是否预售</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="is_presell" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="is_presell" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'否'" [nzValue]="0"></nz-option>
                                         <nz-option [nzLabel]="'是'" [nzValue]="'1'"></nz-option>
@@ -53,7 +53,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="tag">产品标签</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择产品标签" formControlName="tag" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let sort of tagList" [nzLabel]="sort.name" [nzValue]="sort.name"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -117,9 +117,9 @@
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
                             </div>
                         </nz-form-item>
-                       
+
                     </form>
-                  
+
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
@@ -167,7 +167,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                      {{data?.is_presell==1?'是':'否'}}
+                                        {{data?.is_presell==1?'是':'否'}}
                                     </td>
                                     <td>
                                         <div *ngIf="data.check_status===0">
@@ -246,6 +246,9 @@
                                                 </li>
                                                 <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核"> 撤销审核
+                                                </li>
+                                                <li nz-menu-item (click)="getCode(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
                                                 </li>
                                                 <!-- <li nz-menu-item (click)="setCommission(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金

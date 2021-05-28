@@ -60,7 +60,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="type" nzRequired>产品</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择产品 ">
-                                                            <nz-select nzMode="multiple" nzShowSearch nzServerSearch nzPlaceHolder="请输入id/产品名称" formControlName="product_id" [(ngModel)]="selectedValue" nzAllowClear (nzOnSearch)="search($event)">
+                                                            <nz-select nzMode="multiple" nzShowSearch nzServerSearch nzPlaceHolder="请输入id/产品名称" formControlName="product_id" [(ngModel)]="selectedValue" nzAllowClear nzShowSearch (nzOnSearch)="search($event)">
                                                                 <nz-option *ngFor="let pro of optionList" [nzLabel]="pro.label" [nzValue]="pro.value"> </nz-option>
                                                             </nz-select>
                                                         </nz-form-control>

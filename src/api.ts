@@ -206,6 +206,7 @@ export const AdminUrls = {
     PostAdminSignContract: api + '/admin/contract',  // 签署电子合同
     PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
 
+    GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
 
 
@@ -218,6 +219,7 @@ export const AdminUrls = {
     GetAdminRefundLog: api + '/admin/refund_log', // 退款流水列表
     PostAdminReRefund: api + '/admin/refund_log/resend', // 重新获取退款结果
     PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
+    PostAdminRefundDataCheck: api + '/admin/refund_data_check', // 主管审核退款
 
 
     GetAdminRefundDetail: api + '/admin/refund/',  // 退款详情
@@ -358,7 +360,7 @@ export const StoreUrls = {
 
 
     PostStoreUploadStroke: api + '/store/product/schedule_upload',  // 上传行程
-
+    GetStoreProductMiniCode: api + '/store/get_mini_code', // 生成店铺产品小程序码
 
 
 

@@ -3,6 +3,10 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div *ngIf="userList_id != undefined">
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/user">返回用户信息</button>
+                    </div>
+
                     <form [formGroup]="searchForm">
                         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                             <div fxFlex=10>
@@ -55,8 +59,8 @@
                                         <span *ngIf="data?.type==1">+</span>
                                         <span *ngIf="data?.type==3">+</span>
                                         <span *ngIf="data?.type==2">-</span>
-                                        <span *ngIf="data?.type==4">-</span>
-                                        {{data?.change_money}}元</td>
+                                        <span *ngIf="data?.type==4">-</span> {{data?.change_money}}元
+                                    </td>
                                     <td>
                                         <div *ngIf="data?.type===1">
                                             平台返佣

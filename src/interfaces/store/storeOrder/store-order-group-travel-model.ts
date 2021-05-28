@@ -628,6 +628,7 @@ export interface DatumOrderTotalModel {
     receive: string;
     is_pay_money?: any;
     refund_money: string;
+    price_total?: any;
 }
 
 // 订单统计OrderTotal
@@ -642,20 +643,20 @@ export interface CancelInsModel {
 // 财务模块的流水信息修改
 export interface TransChangeModel {
     order_pay_id: any;
-    fee: any;
-    pay_type: any;
-    pay_time: any;
-    transaction_id: any;
+    fee?: any;
+    pay_type?: any;
+    pay_time?: any;
+    transaction_id?: any;
 }
 
 
 // 取消订单
 export interface CancelOrderModel {
-    id: any;
-    reason: any;
-    pay_type: any;
-    pay_time: any;
-    transaction_id: any;
+    id?: any;
+    reason?: any;
+    pay_type?: any;
+    pay_time?: any;
+    transaction_id?: any;
 }
 
 

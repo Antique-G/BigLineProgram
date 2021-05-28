@@ -28,7 +28,7 @@ export class AdminOrderFreeTravelService {
     freeTravelList(page: number, per_page: number, status: any, product_id: any,
         product_name: any, order_number: any, date_start: any, date_end: any, product_code: any,
         store_id: any, order_start_date: any, order_end_date: any,
-        contact_name: any, contact_phone: any, departure_city?: any, destination_city?: any): Observable<StoreOrderFreeTravelListRequestModel> {
+        contact_name: any, contact_phone: any, departure_city?: any, destination_city?: any, admin_id?: any): Observable<StoreOrderFreeTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -44,7 +44,9 @@ export class AdminOrderFreeTravelService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('admin_id', admin_id ? admin_id : '');
+
 
 
 
@@ -92,12 +94,13 @@ export class AdminOrderFreeTravelService {
 
 
     // 搜索可下订单的产品
-    getFreePro(page: number, per_page: number, title: any, start_date: any, departure_city: any,
+    getFreePro(page: number, per_page: number, title: any, departure_start: any, departure_end: any, departure_city: any,
         destination_city: any, few_days: any, quote_type?: any, id?: any, sort_field?: any, sort?: any): Observable<FreeProSearchModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('title', title ? title : '')
-            .set('start_date', start_date ? start_date : '')
+            .set('departure_start', departure_start ? departure_start : '')
+            .set('departure_end', departure_end ? departure_end : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '')
             .set('few_days', few_days ? few_days : '')
@@ -121,7 +124,7 @@ export class AdminOrderFreeTravelService {
     getIndenOrderTotal(status: any, product_id: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any,
         order_start_date: any, order_end_date: any, contact_name: any,
-        contact_phone: any, departure_city?: any, destination_city?: any): Observable<OrderTotalModel> {
+        contact_phone: any, departure_city?: any, destination_city?: any, admin_id?: any): Observable<OrderTotalModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
             .set('product_id', product_id ? product_id : '')
             .set('product_name', product_name ? product_name : '')
@@ -135,7 +138,9 @@ export class AdminOrderFreeTravelService {
             .set('contact_name', contact_name ? contact_name : '')
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('admin_id', admin_id ? admin_id : '');
+
 
 
         const findhttpOptions = {

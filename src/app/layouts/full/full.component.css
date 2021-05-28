@@ -54,3 +54,12 @@ nz-breadcrumb {
 .top-banner {
     background-color: white;
 }
+
+.backColor {
+    color: #ffffff !important;
+    width: 100%;
+    padding: 6px 30px;
+    background: rgba(0, 0, 0, 0.6);
+    display: block;
+    white-space: nowrap;
+}

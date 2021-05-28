@@ -44,7 +44,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="status">状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch >
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""> </nz-option>
                                         <nz-option [nzLabel]="'失败'" [nzValue]="0"> </nz-option>
                                         <nz-option [nzLabel]="'未发送'" [nzValue]="1"> </nz-option>
@@ -80,6 +80,9 @@
                                     <th style="text-align: center;">订单编号</th>
                                     <th style="text-align: center;">退款金额</th>
                                     <th style="text-align: center;">退款去向</th>
+                                    <th style="text-align: center;">操作人</th>
+                                    <th style="text-align: center;">审核人</th>
+                                    <th style="text-align: center;">财务</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">退款时间</th>
                                 </tr>
@@ -102,6 +105,9 @@
                                         <span *ngIf="data.pay_type===8">飞猪</span>
                                         <span *ngIf="data.pay_type===9">携程</span>
                                     </td>
+                                    <td>{{data?.handler_name}}</td>
+                                    <td>{{data?.checker_name}}</td>
+                                    <td>{{data?.finance_name}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">退款失败</div>
                                         <div *ngIf="data.status===1">未发送</div>

@@ -33,7 +33,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
 
     insuranceList: any[] = [];
 
-
+    url: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public storeOrderGroupTravelService: StoreOrderGroupTravelService, private modal: NzModalService) {
@@ -54,6 +54,8 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
             customer_remarks: ['', [Validators.required]],
             internal_remarks: ['', [Validators.required]],
             days: ['', [Validators.required]],
+            end_date: [''],
+            group_code: [''],
         });
 
     }
@@ -75,7 +77,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
                 // 支付流水
                 let pagLogArr: any[] = [];
                 res.data?.pay_log?.data.forEach((element: any) => {
-                    if (element.status == 2||element.status == 3) {
+                    if (element.status == 2 || element.status == 3) {
                         pagLogArr.push(element)
                     }
                 });
@@ -110,6 +112,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
 
                 }
                 this.fee();
+                this.url = '/store/main/storeOrderGroup/detail?detailId=';
             })
         });
     }

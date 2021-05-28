@@ -619,7 +619,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                             this.reundCheckModel.type = 0;
                             this.modal.confirm({
                                 nzTitle: '<h4>确认提交退款</h4>',
-                                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                                 nzOnOk: () =>
                                     this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                                         console.log('res :>> ', res);
@@ -633,7 +633,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                             this.reundCheckModel.type = 0;
                             this.modal.confirm({
                                 nzTitle: '<h4>确认提交退款</h4>',
-                                nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                                nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                                 nzOnOk: () =>
                                     this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                                         console.log('res :>> ', res);
@@ -650,7 +650,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                     this.reundCheckModel.type = 1;
                     this.modal.confirm({
                         nzTitle: '<h4>确认提交退款</h4>',
-                        nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                        nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                         nzOnOk: () =>
                             this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                                 console.log('res :>> ', res);
@@ -738,7 +738,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 console.log('提交的 :>> ', this.reundCheckModel);
                 this.modal.confirm({
                     nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                    nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                     nzOnOk: () =>
                         this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                             console.log('res :>> ', res);
@@ -753,7 +753,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 console.log('提交的 :>> ', this.reundCheckModel);
                 this.modal.confirm({
                     nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                    nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                     nzOnOk: () =>
                         this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                             console.log('res :>> ', res);
@@ -769,7 +769,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
             console.log('提交的 :>> ', this.reundCheckModel);
             this.modal.confirm({
                 nzTitle: '<h4>确认提交退款</h4>',
-                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。</h5>',
+                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
                 nzOnOk: () =>
                     this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                         console.log('res :>> ', res);

@@ -292,6 +292,7 @@ export interface RefundlogModel {
     bank_user?: string;
     bank_number?: string;
     to_account?: any;
+    transaction_id?: any;
 
 }
 
@@ -355,4 +356,11 @@ export interface AdminRefundLogEditModel {
     id: any;
     to_account?: any;
 
+}
+
+// 主管审核退款
+export interface AdminRefundCheckDataModel {
+    id: any;//退款单id
+    check: any;  //1拒绝，2通过
+    remark?: any; //备注
 }

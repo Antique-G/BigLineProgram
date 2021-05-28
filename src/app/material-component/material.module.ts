@@ -169,6 +169,10 @@ import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AdminPreTravelSaleRecordComponent } from './admin-pre-travel-sale-record/admin-pre-travel-sale-record.component';
+import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
+import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
+import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
 import { AdminCostTypeCreateComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-create/admin-cost-type-create.component';
 import { AdminCostTypeDetailComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type-detail/admin-cost-type-detail.component';
@@ -177,11 +181,10 @@ import { AdminProSupplyCreateComponent } from './admin-cost-manage/admin-pro-sup
 import { AdminProSupplyDetailComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply-detail/admin-pro-supply-detail.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-review/admin-finance-group-req-review.component';
+import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
+import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
+import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
 
-import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
-import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
-import { AdminOrderCancelComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
-import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 
 
 
@@ -373,6 +376,10 @@ import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-trave
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
     AdminPreTravelSaleRecordComponent,
+    AdminEditContractComponent,
+    AdminTravelDetailPresellComponent,
+    AdminOrderCancelComponent,
+    AdminOrderPreFreeTravelDetailComponent,
     AdminCostTypeComponent,
     AdminCostTypeCreateComponent,
     AdminCostTypeDetailComponent,
@@ -385,6 +392,9 @@ import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-trave
     AdminOrderPreFreeTravelDetailComponent,
     AdminFinanceGroupReqMoneyComponent,
     AdminFinanceGroupReqReviewComponent,
+    AdminOrderRefundSaleApprovalComponent,
+    AdminOrderRefundSaleApprovalDetailComponent,
+    AdminOrderRefundSaleApprovalRejectComponent,
 
   ]
 })

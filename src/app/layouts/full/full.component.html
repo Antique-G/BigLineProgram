@@ -5,7 +5,17 @@
                 <div class="profile-img">
                     <img src="http://cdn.bigline.com.cn/static/images/profile.png" alt="user">
                 </div>
-                <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+                <!-- <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div> -->
+                <div class="profile-text">
+                    <div [matMenuTriggerFor]="sdprofile" class="backColor">
+                        <div><span style="font-weight: 700;">{{userName}}</span><i nz-icon nzType="down" nzTheme="outline" style="font-size: 10px;"></i></div>
+                        <div *ngFor="let role of roleModel" style="font-size: 10px;">
+                            <span>{{role?.display_name}}</span>
+                        </div>
+                    </div>
+                </div>
+
+
                 <mat-menu #sdprofile="matMenu" class="mymegamenu">
                     <button mat-menu-item (click)="accountDetail()">
                         <span> <img src="http://cdn.bigline.com.cn/static/images/profile.png"></span>

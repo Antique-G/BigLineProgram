@@ -120,7 +120,7 @@ export class AdminOrderRefundComponent implements OnInit {
 
   // 未处理
   getList() {
-    this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 1).subscribe(res => {
+    this.adminRefundService.getRefundList(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 1,'0').subscribe(res => {
       console.log('res :>> ', res);
       this.dataSource1 = res.data;
       this.loading = false;

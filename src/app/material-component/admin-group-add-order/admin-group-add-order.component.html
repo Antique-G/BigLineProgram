@@ -25,9 +25,9 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="start_date">出发日期</nz-form-label>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="dateStart">出发日期</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-date-picker style="width: 100%;" placeholder="请选择出发日期" formControlName="start_date"></nz-date-picker>
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" style="width: 100%;" placeholder="请选择出发日期" (ngModelChange)="onChangeDateOrder($event)" formControlName="dateStart"></nz-range-picker>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -120,7 +120,7 @@
                                         <td>
                                             <div title="点击查看海报" *ngIf="data.poster_url!=''">
                                                 <a href={{data.poster_url}} target="_blank">
-                                                    <img [src]="data.poster_url+'?x-oss-process=image/resize,limit_0,m_fill,w_50,h_50'" >
+                                                    <img [src]="data.poster_url+'?x-oss-process=image/resize,limit_0,m_fill,w_50,h_50'">
                                                 </a>
                                             </div>
                                         </td>

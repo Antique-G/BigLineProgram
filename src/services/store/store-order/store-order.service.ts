@@ -9,7 +9,7 @@ import { EncodeComponent } from '../../../app/store-app/store-material/EncodeCom
 
 const httpOptions = {
   headers: new HttpHeaders().set('Content-Type', 'application/json')
-}
+};
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class StoreOrderService {
 
   // 订单团列表
   getStoreOrderGroup(page: number, per_page: number, product_id: any, product_name: any, group_id: any, order_number: any,
-    destination_city: any, date_start: any, date_end: any, group_code: any): Observable<StoreOrderListRequestModel> {
+                     destination_city: any, date_start: any, date_end: any, payout_status: any): Observable<StoreOrderListRequestModel> {
     const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
       .set('per_page', per_page.toString())
       .set('product_id', product_id ? product_id : '')
@@ -31,17 +31,17 @@ export class StoreOrderService {
       .set('destination_city', destination_city ? destination_city : '')
       .set('date_start', date_start ? date_start : '')
       .set('date_end', date_end ? date_end : '')
-      .set('group_code', group_code ? group_code : '');
+      .set('payout_status', payout_status ? payout_status : '');
 
 
     const findhttpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' }),
-      params: params
+      params
     };
     return this.httpClient.get<StoreOrderListRequestModel>(this.urls.GetStoreOrderGroupList, findhttpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
@@ -50,7 +50,7 @@ export class StoreOrderService {
     return this.httpClient.get<StoreOrderDetailRequestModel>(this.urls.GetStoreOrderGroupDetail + id, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
@@ -59,10 +59,10 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupSetGuide, setGuideModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
-  //获取导游数据 
+  // 获取导游数据
   getGuide(): Observable<GetGuideListModel> {
     return this.httpClient.get<GetGuideListModel>(this.urls.GetStoreOrderGroupGuideList, httpOptions)
       .pipe(
@@ -75,7 +75,7 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupMoveOrder, moveOrderModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
@@ -84,7 +84,7 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupShutoff, shuffOrderModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
@@ -93,7 +93,7 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupOrderSms, orderSmsModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
@@ -102,7 +102,7 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupGroupSms, groupSmsModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
   // 删除子团
@@ -110,7 +110,7 @@ export class StoreOrderService {
     return this.httpClient.delete<any>(this.urls.DeletetStoreOrderGroupSubGroup + sub_group_id, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
   // 发送不成团通知短信
@@ -118,24 +118,24 @@ export class StoreOrderService {
     return this.httpClient.post<any>(this.urls.PostStoreOrderGroupCancelSms, orderSmsModel, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
 
-  //设置出团人数限制
+  // 设置出团人数限制
   groupNum(orderGroupNum: OrderGroupNum): Observable<any> {
     const id = orderGroupNum.id;
     return this.httpClient.put<any>(this.urls.PutStoreOrderGroupNum + id, orderGroupNum, httpOptions)
       .pipe(
         catchError(this.handleError)
-      )
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.log("1212", error);
+    console.log('1212', error);
     switch (error.status) {
       case 401:
-        break
+        break;
 
     }
     return throwError('');

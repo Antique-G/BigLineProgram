@@ -9,7 +9,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">订单状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
@@ -19,7 +19,7 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                       
+
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_code">产品编码/id</nz-form-label>
@@ -40,12 +40,24 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear>
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="admin_id">下单人</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择下单人" formControlName="admin_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of adminList" [nzLabel]="data.real_name" [nzValue]="data.admin_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_number">订单号</nz-form-label>
@@ -80,7 +92,7 @@
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
-                        
+
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
@@ -110,7 +122,7 @@
                         </nz-form-item>
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
                                 <a (click)="export()" href={{isExport}} target="_blank" class="abtn">导出excel</a>
@@ -132,22 +144,26 @@
                             <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
                         </div>
-                        <div>总收款：
+                        <div>订单总额：
+                            <span style="color: red;" *ngIf="totalModel?.price_total!=0&&totalModel?.price_total!=null">{{totalModel?.price_total}}元</span>
+                            <span style="color: red;" *ngIf="totalModel?.price_total===0||totalModel?.price_total===null">-</span>
+                        </div>
+                        <div>入账总额：
                             <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
                         </div>
-                        <div>待支付：
+                        <div>待收款总额：
                             <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
                         </div>
-                        <div>已退款：
+                        <div>退款总额：
                             <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
                             <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
                         </div>
                     </div>
 
                     <div class="mat-elevation-z8">
-                        <div  fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px" style="height: 28px;">
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px" style="height: 28px;">
                             <div>
                                 <img src="http://cdn.bigline.com.cn/static/images/sms.png">订单短信通知书
                             </div>
@@ -242,9 +258,9 @@
                                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
                                                 <div><img src="http://cdn.bigline.com.cn/static/images/sms.png" title="订单短信通知书"></div>
                                                 <div>
-                                                    <span *ngIf="data.order_sms===0" > <nz-badge nzColor="yellow"></nz-badge>未发</span>
-                                                    <span *ngIf="data.order_sms===1" ><nz-badge nzColor="green"></nz-badge>已发</span>
-                                                    <span *ngIf="data.order_sms===2" ><nz-badge nzColor="red"></nz-badge>发送失败</span>
+                                                    <span *ngIf="data.order_sms===0"> <nz-badge nzColor="yellow"></nz-badge>未发</span>
+                                                    <span *ngIf="data.order_sms===1"><nz-badge nzColor="green"></nz-badge>已发</span>
+                                                    <span *ngIf="data.order_sms===2"><nz-badge nzColor="red"></nz-badge>发送失败</span>
                                                 </div>
                                             </div>
                                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
@@ -262,11 +278,11 @@
                                                     <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
                                                         操作
                                                         <i nz-icon nzType="down"></i>
-                                                      </a>
+                                                    </a>
                                                     <nz-dropdown-menu #menu="nzDropdownMenu">
                                                         <ul nz-menu nzSelectable class="menu">
                                                             <ng-container *ngIf="data.contract_status==0||data.contract_status==1">
-                                                                <li nz-menu-item (click)="signCon(data)"  *ngIf="data.order_status==2||data.order_status==1" >
+                                                                <li nz-menu-item (click)="signCon(data)" *ngIf="data.order_status==2||data.order_status==1">
                                                                     <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" title="发送签署请求">发送签署请求
                                                                 </li>
                                                             </ng-container>
@@ -276,20 +292,23 @@
                                                             <!-- <li nz-menu-item *ngIf="data.contract_status!=0" (click)="contractChange(data)">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/editcontract.png" style="cursor: pointer;" title="修改合同">修改合同
                                                             </li> -->
+                                                            <ng-container *ngIf="data.order_status==0&&data.contract_status==0">
+                                                                <li nz-menu-item>无任何操作</li>
+                                                            </ng-container>
                                                         </ul>
                                                     </nz-dropdown-menu>
                                                 </div>
-                                            
+
                                             </div>
-                                            
+
                                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
                                                 <img src="http://cdn.bigline.com.cn/static/images/insImg.png" title="保险状态">
-                                                <span *ngIf="data.insurance_status===0" > <nz-badge nzColor="yellow"></nz-badge>未投保</span>
-                                                <span *ngIf="data.insurance_status===1" ><nz-badge nzColor="yellow"></nz-badge>出单中</span>
-                                                <span *ngIf="data.insurance_status===2" ><nz-badge nzColor="green"></nz-badge>已出单</span>
-                                                <span *ngIf="data.insurance_status===3" > <nz-badge nzColor="pink"></nz-badge>已退保</span>
-                                                <span *ngIf="data.insurance_status===4" ><nz-badge nzColor="red"></nz-badge>失败</span>
-                                                <span *ngIf="data.insurance_status===5" >无</span>
+                                                <span *ngIf="data.insurance_status===0"> <nz-badge nzColor="yellow"></nz-badge>未投保</span>
+                                                <span *ngIf="data.insurance_status===1"><nz-badge nzColor="yellow"></nz-badge>出单中</span>
+                                                <span *ngIf="data.insurance_status===2"><nz-badge nzColor="green"></nz-badge>已出单</span>
+                                                <span *ngIf="data.insurance_status===3"> <nz-badge nzColor="pink"></nz-badge>已退保</span>
+                                                <span *ngIf="data.insurance_status===4"><nz-badge nzColor="red"></nz-badge>失败</span>
+                                                <span *ngIf="data.insurance_status===5">无</span>
                                             </div>
                                         </div>
                                     </td>
