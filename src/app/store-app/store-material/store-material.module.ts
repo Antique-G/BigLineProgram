@@ -112,6 +112,10 @@ import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-
 import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
 import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
+import { StoreFreePresellComponent } from './store-product-free-travel/store-free-create-bystep/store-free-presell/store-free-presell.component';
+import { StoreTravelDetailPresellComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-presell/store-travel-detail-presell.component';
+import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-pre-free-sale-list.component';
+import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
 
 
 @NgModule({
@@ -241,8 +245,12 @@ import { StoreRequestMoneyComponent } from './store-request-money/store-request-
     StoreCostTypeDetailComponent,
     StoreOrderRequestMoneyComponent,
     StoreRequestMoneyComponent,
-    
-    
+    StoreFreePresellComponent,
+    StoreTravelDetailPresellComponent,
+    StorePreFreeSaleListComponent,
+    StorePreFreeSaleListDetailComponent,
+
+
   ]
 })
 export class StoreMaterialComponentsModule { }

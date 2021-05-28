@@ -466,13 +466,18 @@
                 <mat-card>
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px" style="padding:10px 10px">
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="font-size: 16px;font-weight: bold;letter-spacing: 1px;">
-                            <div *ngIf="isShowFeeDetail===true">
-                                共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
-                                <span>套餐{{isPackAll}}元| </span>
-                                <span>优惠{{discountPrice}}元 </span>
-                                <span>附加收费{{other_price}}元 </span>
-                            </div>
-                            <div><a (click)="feeDetail()" *ngIf="isShowFeeDetail===true">费用明细</a></div>
+                            <ng-container>
+                                <div *ngIf="isShowFeeDetail===true">
+                                    共<span style="color: red;">￥{{totalPrice.toFixed(2)}}元</span>：
+                                    <span>套餐{{isPackAll}}元| </span>
+                                    <span>优惠{{discountPrice}}元 </span>
+                                    <span>附加收费{{other_price}}元 </span>
+                                </div>
+                                <div><a (click)="feeDetail()" *ngIf="isShowFeeDetail===true">费用明细</a></div>
+                                <div *ngIf="detailModel?.sales_note!=''">
+                                    <a nz-tooltip [nzTooltipTitle]="detailModel?.sales_note" nzTooltipPlacement="bottomRight" style="color: red;">特别说明<img src="http://cdn.bigline.com.cn/static/images/help_Outline.png"></a>
+                                </div>
+                            </ng-container>
                         </div>
                         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
                             <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" style="letter-spacing: 2px; margin-bottom: 9px;" (click)="add()">提交</button>

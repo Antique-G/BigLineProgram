@@ -43,7 +43,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
             pay_type: new FormControl('', [Validators.required]),
             pay_time: new FormControl(null, [Validators.required]),
             transaction_id: new FormControl('', [Validators.maxLength(35)]),
-            // money: new FormControl('', [Validators.required]),
+            money: new FormControl('', [Validators.required]),
         })
         this.comfirmOrderModel = {
             order_id: '',
@@ -64,9 +64,9 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
         console.log("Number(this.data?.price_total)", Number(this.data?.price_total), Number(this.data?.amount_received))
         this.isPrice = Number(this.data?.price_total) - Number(this.data?.amount_received);
         this.isPrice = this.toDecimal(this.isPrice);
-        // this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
-        //     this.isMoney = res?.money;
-        // })
+        this.adminUserinfoService.userinfoDetail(this.data?.user_id).subscribe(res => {
+            this.isMoney = res?.money;
+        })
     }
 
 
@@ -84,17 +84,18 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
         this.comfirmOrderModel.order_id = this.data.id;
         this.comfirmOrderModel.fee = this.addForm.value.fee;
         this.comfirmOrderModel.pay_type = this.addForm.value.pay_type;
-        this.comfirmOrderModel.pay_time = format(new Date(this.addForm.value.pay_time), 'yyyy-MM-dd HH:mm:ss');
+        this.comfirmOrderModel.pay_time = this.addForm.value.pay_time != '' ? format(new Date(this.addForm.value.pay_time), 'yyyy-MM-dd HH:mm:ss') : '';
         this.comfirmOrderModel.transaction_id = this.addForm.value.transaction_id;
+        this.comfirmOrderModel.money = this.addForm.value.money;
     }
 
     add() {
         this.setValue();
+        console.log("提交的内容是", this.comfirmOrderModel)
         for (const i in this.addForm.controls) {
             this.addForm.controls[i].markAsDirty();
             this.addForm.controls[i].updateValueAndValidity();
         }
-        console.log("this.addForm.valid", this.addForm.valid);
         console.log("this.addForm.valid", this.addForm);
         if (this.addForm.valid) {
             if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
@@ -132,16 +133,30 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
 
     changeType(data: any) {
         this.isTypeShow = data;
-        if (data === '3') {
+        // 现金支付和余额时候，流水号非必填
+        if (data == 3) {
             this.isShow = false;
             this?.addForm?.controls['transaction_id'].setValidators(null);
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            return
+        }
+        // 余额，时间非必填
+        else if (data == 7) {
+            this?.addForm?.controls['transaction_id'].setValidators(null);
+            this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            this?.addForm?.controls['pay_time'].setValidators(null);
+            this?.addForm?.controls['pay_time'].updateValueAndValidity();
+            return
         }
         else {
             this.isShow = true;
             this?.addForm?.controls['transaction_id'].setValidators([Validators.required, Validators.maxLength(35)]);
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            this?.addForm?.controls['pay_time'].setValidators([Validators.required, Validators.maxLength(35)]);
+            this?.addForm?.controls['pay_time'].updateValueAndValidity();
+            return
         }
+
     }
 
 
