@@ -610,6 +610,7 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '供应商管理列表'
                 }
             },
+            //
             {
                 path: 'financeGroupCashReq',
                 component: AdminFinanceGroupReqMoneyComponent,

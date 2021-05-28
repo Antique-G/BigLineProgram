@@ -24,7 +24,7 @@ export class AdminFinaceGroupService {
     groupTravelList(page: number, per_page: number, status: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
         order_end_date: any, contact_name: any, contact_phone: any, payment_status: any,
-        transaction_id?: any,pay_type?: any): Observable<StoreOrderGroupTravelListRequestModel> {
+        transaction_id?: any, pay_type?: any): Observable<StoreOrderGroupTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -41,7 +41,7 @@ export class AdminFinaceGroupService {
             .set('payment_status', payment_status ? payment_status : '')
             .set('transaction_id', transaction_id ? transaction_id : '')
             .set('pay_type', pay_type ? pay_type : '');
-        
+
 
 
         const findhttpOptions = {
@@ -105,16 +105,19 @@ export class AdminFinaceGroupService {
 
 
     // 团请款
-    groupCashList(page: number, per_page: number, group_status: any, payout_status: any, group_id: any, order_number: any,
-        product_name: any, store_id: any,): Observable<GroupCashReqModel> {
+    groupCashList(page: number, per_page: number, group_status: any, payout_status: any, group_id: any, pay_status: any,
+        product_name: any, store_id: any, date_start?: any, date_end?: any): Observable<GroupCashReqModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('group_status', group_status ? group_status : '')
             .set('payout_status', payout_status ? payout_status : '')
             .set('group_id', group_id ? group_id : '')
-            .set('order_number', order_number ? order_number : '')
+            .set('pay_status', pay_status ? pay_status : '')
             .set('product_name', product_name ? product_name : '')
-            .set('store_id', store_id ? store_id : '');
+            .set('store_id', store_id ? store_id : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '');
+
 
 
 
@@ -129,6 +132,30 @@ export class AdminFinaceGroupService {
     }
 
 
+    // 团请款合计
+    groupCashTotal(page: number, per_page: number, group_status: any, payout_status: any, group_id: any, pay_status: any,
+        product_name: any, store_id: any, date_start?: any, date_end?: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('group_status', group_status ? group_status : '')
+            .set('payout_status', payout_status ? payout_status : '')
+            .set('group_id', group_id ? group_id : '')
+            .set('pay_status', pay_status ? pay_status : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '');
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminGroupCashTotal, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
 
     // 请款审核PostAdminFinanceOrderCheckoutCash
