@@ -362,7 +362,7 @@
                                                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="height: 100%;">
                                                     <div style="font-weight: bold;font-size: 18px;">
                                                         <span *ngIf="isFinished==='2'">退款中...</span>
-                                                        <span *ngIf="isFinished==='3'">退款成功！</span>
+                                                        <span *ngIf="isFinished==='3'">财务已处理</span>
                                                     </div>
                                                     <div style="font-weight: bold;font-size: 18px;"><span>退款金额：</span><span style="color: red;">{{'￥'+detailModel?.refund_amount}}</span></div>
                                                     <div>销售主管审核时间：<span>{{detailModel?.check_at}}</span></div>
@@ -469,6 +469,7 @@
                                                                             <th style="text-align: center;">退款单号</th>
                                                                             <th style="text-align: center;">返回方式</th>
                                                                             <th style="text-align: center;">退款金额</th>
+                                                                            <th style="text-align: center;">退款状态</th>
                                                                             <th style="text-align: center;">处理时间</th>
                                                                             <th style="text-align: center;">最后处理时间</th>
                                                                         </tr>
@@ -489,6 +490,11 @@
                                                                                 <span *ngIf="data.pay_type===9">携程</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
+                                                                            <td>
+                                                                                <span *ngIf="data.status==0">失败</span>
+                                                                                <span *ngIf="data.status==1">待完成</span>
+                                                                                <span *ngIf="data.status==2">已完成</span>
+                                                                            </td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                                                                             <td>{{data?.updated_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                                                                         </tr>
@@ -725,7 +731,7 @@
                                                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="height: 100%;">
                                                     <div style="font-weight: bold;font-size: 18px;">
                                                         <span *ngIf="isFinished==='2'">退款中...</span>
-                                                        <span *ngIf="isFinished==='3'">退款成功！</span>
+                                                        <span *ngIf="isFinished==='3'">财务已处理</span>
                                                     </div>
                                                     <div style="font-weight: bold;font-size: 18px;"><span>退款金额：</span><span style="color: red;">{{'￥'+detailModel?.refund_amount}}</span></div>
                                                     <div>销售主管审核时间：<span>{{detailModel?.check_at}}</span></div>
@@ -834,6 +840,7 @@
                                                                             <th style="text-align: center;">退款单号</th>
                                                                             <th style="text-align: center;">返回方式</th>
                                                                             <th style="text-align: center;">退款金额</th>
+                                                                            <th style="text-align: center;">退款状态</th>
                                                                             <th style="text-align: center;">处理时间</th>
                                                                             <th style="text-align: center;">最后处理时间</th>
                                                                         </tr>
@@ -854,6 +861,11 @@
                                                                                 <span *ngIf="data.pay_type===9">携程</span>
                                                                             </td>
                                                                             <td>{{data.refund_amount}}</td>
+                                                                            <td>
+                                                                                <span *ngIf="data.status==0">失败</span>
+                                                                                <span *ngIf="data.status==1">待完成</span>
+                                                                                <span *ngIf="data.status==2">已完成</span>
+                                                                            </td>
                                                                             <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                                                                             <td>{{data?.updated_at|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                                                                         </tr>
