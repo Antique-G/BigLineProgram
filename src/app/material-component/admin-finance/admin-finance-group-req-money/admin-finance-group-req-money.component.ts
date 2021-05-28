@@ -5,6 +5,7 @@ import { AdminFinaceGroupService } from '../../../../services/admin/admin-finace
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance-group-req-review/admin-finance-group-req-review.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -23,21 +24,26 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
     group_status: any;
     payout_status: any;
     group_id: any;
-    order_number: any;
+    pay_status: any;
     product_name: any;
     store_id: any;
     setQuery: any;
+    dateArray: any[] = [];
+    date_start: any;
+    date_end: any;
+    moneyModel: any;
 
     constructor(public fb: FormBuilder, public router: Router, private modal: NzModalService,
-                public adminProductManagementService: AdminProductManagementService,
-                public adminFinaceGroupService: AdminFinaceGroupService) {
+        public adminProductManagementService: AdminProductManagementService,
+        public adminFinaceGroupService: AdminFinaceGroupService) {
         this.searchForm = this.fb.group({
             group_status: [''],
             payout_status: [''],
             group_id: [''],
-            order_number: [''],
+            pay_status: [''],
             product_name: [''],
             store_id: [''],
+            date_start: [''],
         });
     }
 
@@ -50,27 +56,31 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
             this.group_status = getSeatch?.group_status ? getSeatch.group_status : '';
             this.payout_status = getSeatch?.payout_status ? getSeatch?.payout_status : '';
             this.group_id = getSeatch?.group_id ? getSeatch?.group_id : '';
-            this.order_number = getSeatch?.order_number ? getSeatch?.order_number : '';
+            this.pay_status = getSeatch?.pay_status ? getSeatch?.pay_status : '';
             this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+            this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
+            this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
             this.page = getSeatch?.page ? getSeatch?.page : '';
 
             this.searchForm.patchValue({
                 group_status: this.group_status,
                 payout_status: this.payout_status,
                 group_id: this.group_id,
-                order_number: this.order_number,
+                pay_status: this.pay_status,
                 product_name: this.product_name,
-                store_id: this.store_id
+                store_id: this.store_id,
+                date_start: this.date_start == null ? [] : [this.date_start, this.date_end],
             });
             this.getList();
+            this.getCashList();
         });
 
     }
 
     getList() {
         this.loading = true;
-        this.adminFinaceGroupService.groupCashList(this.page, this.per_page, this.group_status, this.payout_status, this.group_id, this.order_number, this.product_name, this.store_id).subscribe(res => {
+        this.adminFinaceGroupService.groupCashList(this.page, this.per_page, this.group_status, this.payout_status, this.group_id, this.pay_status, this.product_name, this.store_id, this.date_start, this.date_end).subscribe(res => {
             console.log('结果是', res.data);
             this.loading = false;
             this.dataSource = res?.data;
@@ -78,6 +88,12 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         });
     }
 
+    getCashList() {
+        this.adminFinaceGroupService.groupCashTotal(this.page, this.per_page, this.group_status, this.payout_status, this.group_id, this.pay_status, this.product_name, this.store_id, this.date_start, this.date_end).subscribe(res => {
+            console.log('结果是111111', res);
+            this.moneyModel = res?.data;
+        });
+    }
 
     changePageIndex(page: number) {
         console.log('当前页', page);
@@ -85,10 +101,13 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             group_status: this.group_status, payout_status: this.payout_status, group_id: this.group_id,
-            order_number: this.order_number, product_name: this.product_name, store_id: this.store_id, page: this.page
+            pay_status: this.pay_status, product_name: this.product_name, store_id: this.store_id, page: this.page,
+            date_start: this.date_start, date_end: this.date_end,
         };
         localStorage.setItem('adminGroupCashReqSearch', JSON.stringify(this.setQuery));
         this.getList();
+        this.getCashList();
+
 
     }
 
@@ -96,6 +115,8 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         console.log('一页显示多少', per_page);
         this.per_page = per_page;
         this.getList();
+        this.getCashList();
+
     }
 
 
@@ -103,6 +124,19 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         this.page = 1;
         this.setValue();
         this.getList();
+        this.getCashList();
+
+
+    }
+
+    onChangeDate(event: any) {
+        this.dateArray = [];
+        const datePipe = new DatePipe('en-US');
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate1);
+        console.log("event", this.dateArray);
 
     }
 
@@ -110,12 +144,15 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         this.group_status = this.searchForm.value.group_status;
         this.payout_status = this.searchForm.value.payout_status;
         this.group_id = this.searchForm.value.group_id;
-        this.order_number = this.searchForm.value.order_number;
+        this.pay_status = this.searchForm.value.pay_status;
         this.product_name = this.searchForm.value.product_name;
         this.store_id = this.searchForm.value.store_id;
+        this.date_start = this.dateArray[0];
+        this.date_end = this.dateArray[1];
         this.setQuery = {
             group_status: this.group_status, payout_status: this.payout_status, group_id: this.group_id,
-            order_number: this.order_number, product_name: this.product_name, store_id: this.store_id, page: this.page
+            pay_status: this.pay_status, product_name: this.product_name, store_id: this.store_id, page: this.page,
+            date_start: this.date_start, date_end: this.date_end,
         };
         localStorage.setItem('adminGroupCashReqSearch', JSON.stringify(this.setQuery));
     }
@@ -125,9 +162,10 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
             group_status: '',
             payout_status: '',
             group_id: '',
-            order_number: '',
+            pay_status: '',
             product_name: '',
-            store_id: ''
+            store_id: '',
+            date_start: '',
         });
     }
 

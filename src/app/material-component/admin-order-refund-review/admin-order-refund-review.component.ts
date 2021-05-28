@@ -41,6 +41,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
     setQuery2: any
     setQuery1: any
     selectedTabIndex = 0;    //选中的tab 默认第一个
+    refundAmountTotalNotModel: any;
+    refundAmountTotalYesModel: any;
+
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminProductManagementService: AdminProductManagementService, public adminRefundService: AdminRefundService) {
@@ -93,6 +96,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             id: this.id,
         });
         this.getList();
+        this.getRefundAmountTotalNot();
         let getSeatch2 = JSON.parse(localStorage.getItem("adminRefundReview2Search")!);
         this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
         this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
@@ -109,6 +113,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             refund_id: this.refund_id,
         });
         this.getList1();
+        this.getRefundAmountTotalYes();
     }
 
     // 未退款
@@ -120,6 +125,14 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             this.total = res?.meta?.pagination?.total;
         })
     }
+
+    getRefundAmountTotalNot() {
+        this.adminRefundService.getRefundAmountTotal(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 2).subscribe(res => {
+            console.log('res :>> 11111111', res);
+            this.refundAmountTotalNotModel = res?.data;
+        })
+    }
+
 
 
     search1() {
@@ -138,6 +151,8 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         }
         localStorage.setItem('adminRefundReview1Search', JSON.stringify(this.setQuery1));
         this.getList();
+        this.getRefundAmountTotalNot();
+
     }
 
 
@@ -148,6 +163,14 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             this.dataSource2 = res.data;
             this.loading1 = false;
             this.total1 = res?.meta?.pagination?.total;
+        })
+    }
+
+    
+    getRefundAmountTotalYes() {
+        this.adminRefundService.getRefundAmountTotal(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3).subscribe(res => {
+            console.log('res :>> 11111111', res);
+            this.refundAmountTotalYesModel = res?.data;
         })
     }
 
@@ -167,17 +190,21 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
         this.getList1();
+        this.getRefundAmountTotalYes();
     }
 
 
     changePageIndex(page: number) {
         this.page = page;
         this.getList();
+        this.getRefundAmountTotalNot();
+
     }
 
     changePageSize(per_page: number) {
         this.per_page = per_page;
         this.getList();
+        this.getRefundAmountTotalNot();
     }
 
     changePageIndex1(page: number) {
@@ -190,11 +217,15 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
         this.getList1();
+        this.getRefundAmountTotalYes();
+
     }
 
     changePageSize1(per_page: number) {
         this.per_page1 = per_page;
         this.getList1();
+        this.getRefundAmountTotalYes();
+
     }
 
 

@@ -143,6 +143,33 @@ export class AdminRefundService {
             )
     }
 
+
+
+    // 财务退款 统计
+    getRefundAmountTotal(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any, date_end: any, id: any, status: any, check_status?: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_id', order_id ? order_id : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('id', id ? id : '')
+            .set('status', status ? status : '')
+            .set('check_status', check_status ? check_status : '');
+
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminRefundAmountTotal, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
     public handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
