@@ -4,8 +4,8 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="return()">返回订单退款列表</button>
-
+                    <button mat-raised-button *ngIf="sale!=1" color="primary" style="letter-spacing: 2px;" (click)="return()">返回订单退款列表</button>
+                    <button mat-raised-button *ngIf="sale==1" color="primary" style="letter-spacing: 2px;" (click)="return1()">返回订单审核退款列表</button>
                 </div>
 
                 <mat-card>
@@ -269,25 +269,25 @@
                                                                     </nz-form-control>
                                                                 </div>
                                                                 <div nz-row style="margin-left: 136px;">
-                                                                    <div >
+                                                                    <div>
                                                                         <span class="total-title">已收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{price_receive}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">退款金额:</span>
                                                                         <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
                                                                     </div>
-    
-                                                                    <div  class="marginLeft-50">
+
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">实收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">还需收款金额:</span>
                                                                         <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
                                                                     </div>
-                                                                   
-                                                                    
+
+
                                                                 </div>
                                                             </nz-form-item>
                                                         </div>
@@ -677,25 +677,25 @@
                                                                     </nz-form-control>
                                                                 </div>
                                                                 <div nz-row style="margin-left: 136px;">
-                                                                    <div >
+                                                                    <div>
                                                                         <span class="total-title">已收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{price_receive}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">退款金额:</span>
                                                                         <span class="total-title marginLeft-10">￥{{detailModel?.order?.data?.refund_amount}}<span class="retruning">（退款中金额￥{{detailModel?.order?.data?.refunding_amount}}）</span> </span>
                                                                     </div>
-    
-                                                                    <div  class="marginLeft-50">
+
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">实收金额:</span>
                                                                         <span class="total-title marginLeft-10">{{detailModel?.order?.data?.amount_received}}</span>
                                                                     </div>
-                                                                    <div  class="marginLeft-50">
+                                                                    <div class="marginLeft-50">
                                                                         <span class="total-title">还需收款金额:</span>
                                                                         <span class="total-title marginLeft-10">{{playMoney.toFixed(2)}}</span>
                                                                     </div>
-                                                                   
-                                                                    
+
+
                                                                 </div>
                                                             </nz-form-item>
 

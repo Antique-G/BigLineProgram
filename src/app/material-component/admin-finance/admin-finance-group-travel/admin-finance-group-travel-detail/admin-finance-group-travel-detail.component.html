@@ -481,6 +481,9 @@
                                                         <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">退款明细</th>
                                                         <th style="text-align: center;">退款审核时间</th>
+                                                        <th style="text-align: center;">操作人</th>
+                                                        <th style="text-align: center;">审核人</th>
+                                                        <th style="text-align: center;">财务</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -528,6 +531,15 @@
                                                         </td>
                                                         <td>
                                                             {{data.check_at}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.handler_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.checker_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.finance_name}}
                                                         </td>
                                                     </tr>
                                                 </tbody>

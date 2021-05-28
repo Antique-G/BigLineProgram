@@ -6,13 +6,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
+import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
 
 @Component({
-    selector: 'app-admin-order-refund-edit',
-    templateUrl: './admin-order-refund-edit.component.html',
-    styleUrls: ['./admin-order-refund-edit.component.css']
+    selector: 'app-admin-order-refund-sale-approval-detail',
+    templateUrl: './admin-order-refund-sale-approval-detail.component.html',
+    styleUrls: ['./admin-order-refund-sale-approval-detail.component.css']
 })
-export class AdminOrderRefundEditComponent implements OnInit {
+export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
     detailId: any;
     selectedTabIndex = 0;    //选中的tab 默认第一个
     addForm!: FormGroup;
@@ -82,6 +83,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     nowOrderMoneyPack: any;
     lastPeople = 0;
     pendingPay = 0;
+    adminRefundCheckDataModel: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
@@ -133,6 +135,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
             num_room: '',
             change: []
         }
+        this.adminRefundCheckDataModel = {
+            id: '',
+            check: '',
+            remark: '',
+        }
     }
 
     ngOnInit(): void {
@@ -154,7 +161,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 this.nowOrderMoney = this.detailModel.order?.data?.price_total;
                 this.price_receive = this.detailModel.order?.data?.price_receive;
                 // 待收款
-                this.pendingPay = (Number(this.price_total)*100 - Number(this.detailModel?.order?.data?.amount_received)*100)/100;
+                this.pendingPay = (Number(this.price_total) * 100 - Number(this.detailModel?.order?.data?.amount_received) * 100) / 100;
 
 
                 this.playMoney = (Number(this.detailModel.order?.data?.price_total) * 100 - Number(this.detailModel.order?.data?.amount_received) * 100) / 100
@@ -179,7 +186,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                         this.otherArray.push(this.fb.group({
                             name: new FormControl(priceArr[i]?.title),
                             namePrice: new FormControl(priceArr[i]?.namePrice),
-                            price: new FormControl(priceArr[i].item_type==3?priceArr[i].price:0),
+                            price: new FormControl(priceArr[i].item_type == 3 ? priceArr[i].price : 0),
                             num: new FormControl(priceArr[i]?.num),
                             item_type: new FormControl(priceArr[i]?.item_type),
                             type: new FormControl(priceArr[i]?.type),
@@ -298,6 +305,18 @@ export class AdminOrderRefundEditComponent implements OnInit {
                         ele['disabled'] = true;
                         this.setOfCheckedId.add(ele.id);
                         this.onItemChecked(ele, true)
+
+                    })
+                }
+                else {
+                    this.selectMemberData.forEach((ele: any) => {
+                        ele['disabled'] = true;
+                        if (this.detailModel?.handle_data?.members.indexOf(ele.id) != -1) {
+                            this.setOfCheckedId.add(ele.id);
+                            this.onItemChecked(ele, true)
+
+                        }
+
                     })
                 }
 
@@ -337,6 +356,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     next2() {
         this.selectedTabIndex = 2;
     }
+
 
 
 
@@ -446,6 +466,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
 
+
+
+
+
+
     // 退款房间数
     numRefundRooms(data: any) {
         console.log('删除前', this.refundRoomNum, data != '')
@@ -529,11 +554,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
         // 基础退款金额
         console.log("99999999", Number(this.price_total) * 100, Number(this.nowOrderMoney) * 100, (Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100),);
-        console.log("0000000000",((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage)*100),((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage)*100)/100)
-        this.bascie_money = ((Number(this.price_total)*100 - Number(this.nowOrderMoney)*100) * Number(this.percentage))/100;
-        
-        this.bascie_money = ((Number(this.bascie_money)*100)/100).toFixed(2);
-      
+        console.log("0000000000", ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100), ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100) / 100)
+        this.bascie_money = ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage)) / 100;
+
+        this.bascie_money = ((Number(this.bascie_money) * 100) / 100).toFixed(2);
+
         // 保留两位小数
         // this.bascie_money = this.toDecimal(this.bascie_money);
         this.basicRefund = '（' + Number(this.price_total) + '-' + Number(this.nowOrderMoney) + '）*比例' + this.percent + '%=￥' + this.bascie_money;
@@ -695,10 +720,10 @@ export class AdminOrderRefundEditComponent implements OnInit {
         // 当前订单价钱
         this.nowOrderMoneyPack = Number(packs) + Number(priceDetail);
         // 基础退款金额
-        this.isPackRefundBasic = ((Number(this.price_total)*100 - Number(this.nowOrderMoneyPack)*100) * Number(this.percentage))/100;
+        this.isPackRefundBasic = ((Number(this.price_total) * 100 - Number(this.nowOrderMoneyPack) * 100) * Number(this.percentage)) / 100;
         // this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         this.isPackRefundBasic = ((Number(this.isPackRefundBasic) * 100) / 100).toFixed(2);
-        
+
 
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
         this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
@@ -840,6 +865,50 @@ export class AdminOrderRefundEditComponent implements OnInit {
             }
         });
         this.priceDetailChange();
+    }
+
+
+
+
+
+
+    success() {
+        this.adminRefundCheckDataModel.id = this.detailModel?.id;
+        this.adminRefundCheckDataModel.check = 2;
+        this.adminRefundCheckDataModel.remark = '';
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>审核成功后，将提交到财务处理退款</h6>",
+            nzOnOk: () =>
+                this.adminRefundService.postAdminRefundDataCheck(this.adminRefundCheckDataModel).subscribe((res) => {
+                    this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
+                }),
+        });
+
+    }
+
+
+    fail() {
+        const editmodal = this.modal.create({
+            nzTitle: '拒绝',
+            nzContent: AdminOrderRefundSaleApprovalRejectComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: this.detailModel?.id
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: "primary",
+                    onClick: componentInstance => {
+                        componentInstance?.add()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
+        })
     }
 }
 

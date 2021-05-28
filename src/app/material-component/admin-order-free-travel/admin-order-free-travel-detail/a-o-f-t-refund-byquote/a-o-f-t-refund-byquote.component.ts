@@ -337,7 +337,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
             this.content = '<h5>如果您确认提交退款处理信息无误，提交后退款金额将退至您的小程序账户余额里，请注意查收。'
         }
         else {
-            this.content = '<h5>如果您确认提交退款处理信息无误，提交后财务工作员将审核退款，退款进度请联系财务管理人员。'
+            this.content = '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。'
         }
         // 部分退款
         if (this.isType == 1) {

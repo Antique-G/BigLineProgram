@@ -71,6 +71,8 @@ import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-financ
 import { AdminPreSaleListComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-list.component';
 import { AdminPreSaleDetailComponent } from './admin-pre-sale/admin-pre-sale-list/admin-pre-sale-detail/admin-pre-sale-detail.component';
 import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint.component';
+import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
+import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -342,8 +344,6 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '添加订单'
                 }
             },
-
-
             {
                 path: 'refund',
                 component: AdminOrderRefundComponent,
@@ -366,26 +366,48 @@ export const MaterialRoutes: Routes = [
                 }
             },
             {
+                path: 'salesApproval',
+                component: AdminOrderRefundSaleApprovalComponent,
+                data: {
+                    breadcrumb: '销售主管审核退款列表'
+                }
+            },
+            {
+                path: 'salesApproval/detail',
+                component: AdminOrderRefundDetailComponent,
+                data: {
+                    breadcrumb: '销售主管审核详情页面'
+                }
+            },
+            {
+                path: 'salesApproval/edit',
+                component: AdminOrderRefundSaleApprovalDetailComponent,
+                data: {
+                    breadcrumb: '销售主管审核退款详情'
+                }
+            },
+            {
                 path: 'refundReview',
                 component: AdminOrderRefundReviewComponent,
                 data: {
-                    breadcrumb: '订单退款审核列表'
+                    breadcrumb: '财务退款列表'
                 }
             },
             {
                 path: 'refundReview/edit',
                 component: AdminOrderRefundReviewEditComponent,
                 data: {
-                    breadcrumb: '审核订单退款'
+                    breadcrumb: '财务退款审核'
                 }
             },
             {
                 path: 'refundReview/detail',
                 component: AdminOrderRefundReviewDetailComponent,
                 data: {
-                    breadcrumb: '订单退款审核已完成'
+                    breadcrumb: '财务退款已完成'
                 }
             },
+            
             {
                 path: 'refundTurnOver',
                 component: AdminOrderRefundTurnoverComponent,
