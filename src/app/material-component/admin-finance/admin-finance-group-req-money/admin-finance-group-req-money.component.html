@@ -112,7 +112,7 @@
                             <span style="color: red;">{{moneyModel?.payed_money}}元</span>
                         </div>
                         <div>待付款：
-                            <span style="color: red;">{{moneyModel?.total-moneyModel?.payed_money}}元</span>
+                            <span style="color: red;">{{(moneyModel?.total-moneyModel?.payed_money).toFixed(2)}}元</span>
                         </div>
                     </div>
 
