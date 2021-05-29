@@ -90,7 +90,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
         this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
         this.id = getSeatch1?.id ? getSeatch1?.id : '';
-        this.page = 1;
+        this.page = getSeatch1?.page ? getSeatch1?.page : '';
         this.searchForm1.patchValue({
             product_name: this.product_name,
             store_id: this.store_id,
@@ -109,7 +109,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.updated_start = getSeatch2?.updated_start ? getSeatch2?.updated_start : null;
         this.updated_end = getSeatch2?.updated_end ? getSeatch2?.updated_end : null;
         this.refund_id = getSeatch2?.refund_id ? getSeatch2?.refund_id : '';
-        this.page = 1;
+        this.page1 = getSeatch2?.page1 ? getSeatch2?.page1 : '';
         this.searchForm2.patchValue({
             product_name: '',
             store_id: this.store_id,
@@ -189,12 +189,12 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.updated_start = this.updateArray[0];
         this.updated_end = this.updateArray[1];
         this.refund_id = this.searchForm2.value.refund_id;
-        this.page = 1;
+        this.page1 = 1;
         // 筛选条件存进cookie
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page, updated_start: this.updated_start, updated_end: this.updated_end
+            refund_id: this.refund_id, page1: this.page1, updated_start: this.updated_start, updated_end: this.updated_end
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
         console.log("this.setQuery2",this.setQuery2)
@@ -222,7 +222,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page, updated_start: this.updated_start, updated_end: this.updated_end
+            refund_id: this.refund_id, page1: this.page1, updated_start: this.updated_start, updated_end: this.updated_end
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
         this.getList1();

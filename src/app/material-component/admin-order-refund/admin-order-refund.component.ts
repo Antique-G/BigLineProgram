@@ -89,7 +89,7 @@ export class AdminOrderRefundComponent implements OnInit {
     this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
     this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
     this.id = getSeatch1?.id ? getSeatch1?.id : '';
-    this.page = 1;
+    this.page = getSeatch1?.page ? getSeatch1?.page : '';
     this.searchForm1.patchValue({
       product_name: this.product_name,
       store_id: this.store_id,
@@ -106,7 +106,7 @@ export class AdminOrderRefundComponent implements OnInit {
     this.date_end = getSeatch2?.date_end ? getSeatch2?.date_end : null;
     this.refund_id = getSeatch2?.refund_id ? getSeatch2?.refund_id : '';
     this.status = getSeatch2?.status ? getSeatch2?.status : '';
-    this.page = 1;
+    this.page1 = getSeatch2?.page1 ? getSeatch2?.page1 : '';
     this.searchForm2.patchValue({
       product_name: '',
       store_id: this.store_id,
