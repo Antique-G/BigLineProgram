@@ -86,7 +86,7 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
         this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
         this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
         this.id = getSeatch1?.id ? getSeatch1?.id : '';
-        this.page = 1;
+        this.page = getSeatch1?.page ? getSeatch1?.page : '';
         this.searchForm1.patchValue({
             product_name: this.product_name,
             store_id: this.store_id,
@@ -95,7 +95,6 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
             id: this.id,
         });
         this.getList();
-
         let getSeatch2 = JSON.parse(localStorage.getItem("adminRefundSale2Search")!);
         this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
         this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
@@ -103,7 +102,7 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
         this.date_start = getSeatch2?.date_start ? getSeatch2?.date_start : null;
         this.date_end = getSeatch2?.date_end ? getSeatch2?.date_end : null;
         this.refund_id = getSeatch2?.refund_id ? getSeatch2?.refund_id : '';
-        this.page = 1;
+        this.page1 = getSeatch2?.page1 ? getSeatch2?.page1 : '';
         this.searchForm2.patchValue({
             product_name: '',
             store_id: this.store_id,
@@ -160,12 +159,12 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
         this.date_start = this.dateArray2[0];
         this.date_end = this.dateArray2[1];
         this.refund_id = this.searchForm2.value.refund_id;
-        this.page = 1;
+        this.page1 = 1;
         // 筛选条件存进cookie
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page
+            refund_id: this.refund_id, page1: this.page1
         }
         localStorage.setItem('adminRefundSale2Search', JSON.stringify(this.setQuery2));
         this.getList1();
@@ -188,7 +187,7 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page
+            refund_id: this.refund_id, page1: this.page1
         }
         localStorage.setItem('adminRefundSale2Search', JSON.stringify(this.setQuery2));
         this.getList1();

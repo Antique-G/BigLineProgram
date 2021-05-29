@@ -21,7 +21,8 @@ export class AdminRefundService {
 
 
     // 退款列表
-    getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any, date_end: any, id: any, status: any, check_status?: any): Observable<RefundModel> {
+    getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any,
+        date_end: any, id: any, status: any, check_status?: any,updated_start?:any,updated_end?:any): Observable<RefundModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_id', order_id ? order_id : '')
@@ -31,7 +32,10 @@ export class AdminRefundService {
             .set('date_end', date_end ? date_end : '')
             .set('id', id ? id : '')
             .set('status', status ? status : '')
-            .set('check_status', check_status ? check_status : '');
+            .set('check_status', check_status ? check_status : '')
+            .set('updated_start', updated_start ? updated_start : '')
+            .set('updated_end', updated_end ? updated_end : '');
+
 
 
 
@@ -138,6 +142,38 @@ export class AdminRefundService {
     // 主管审核退款
     postAdminRefundDataCheck(adminRefundCheckDataModel: AdminRefundCheckDataModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminRefundDataCheck, adminRefundCheckDataModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+    // 财务退款 统计
+    getRefundAmountTotal(page: number, per_page: number, order_id: any, store_id: any,
+        product_name: any, date_start: any, date_end: any, id: any, status: any,
+        check_status?: any,updated_start?:any,updated_end?:any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_id', order_id ? order_id : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('id', id ? id : '')
+            .set('status', status ? status : '')
+            .set('check_status', check_status ? check_status : '')
+            .set('updated_start', updated_start ? updated_start : '')
+            .set('updated_end', updated_end ? updated_end : '');
+
+
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminRefundAmountTotal, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )
