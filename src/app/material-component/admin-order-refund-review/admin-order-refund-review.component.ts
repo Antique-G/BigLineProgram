@@ -43,7 +43,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
     selectedTabIndex = 0;    //选中的tab 默认第一个
     refundAmountTotalNotModel: any;
     refundAmountTotalYesModel: any;
-
+    updateArray: any[] = [];
+    updated_start: any;
+    updated_end: any;
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminProductManagementService: AdminProductManagementService, public adminRefundService: AdminRefundService) {
@@ -60,6 +62,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             order_id: [''],
             time: [''],
             refund_id: [''],
+            updatedTime: [''],
         });
     }
 
@@ -103,6 +106,8 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.product_name = getSeatch2?.product_name ? getSeatch2?.product_name : '';
         this.date_start = getSeatch2?.date_start ? getSeatch2?.date_start : null;
         this.date_end = getSeatch2?.date_end ? getSeatch2?.date_end : null;
+        this.updated_start = getSeatch2?.updated_start ? getSeatch2?.updated_start : null;
+        this.updated_end = getSeatch2?.updated_end ? getSeatch2?.updated_end : null;
         this.refund_id = getSeatch2?.refund_id ? getSeatch2?.refund_id : '';
         this.page = 1;
         this.searchForm2.patchValue({
@@ -111,6 +116,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             order_id: this.order_id,
             time: this.date_start == null ? [] : [this.date_start, this.date_end],
             refund_id: this.refund_id,
+            updatedTime: this.updated_start == null ? [] : [this.updated_start, this.updated_end],
         });
         this.getList1();
         this.getRefundAmountTotalYes();
@@ -158,7 +164,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
 
     // 已退款
     getList1() {
-        this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3).subscribe(res => {
+        this.adminRefundService.getRefundList(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3, '', this.updated_start, this.updated_end).subscribe(res => {
             console.log('res :>> ', res);
             this.dataSource2 = res.data;
             this.loading1 = false;
@@ -166,9 +172,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         })
     }
 
-    
+
     getRefundAmountTotalYes() {
-        this.adminRefundService.getRefundAmountTotal(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3).subscribe(res => {
+        this.adminRefundService.getRefundAmountTotal(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3, '', this.updated_start, this.updated_end).subscribe(res => {
             console.log('res :>> 11111111', res);
             this.refundAmountTotalYesModel = res?.data;
         })
@@ -180,15 +186,18 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.product_name = this.searchForm2.value.product_name;
         this.date_start = this.dateArray2[0];
         this.date_end = this.dateArray2[1];
+        this.updated_start = this.updateArray[0];
+        this.updated_end = this.updateArray[1];
         this.refund_id = this.searchForm2.value.refund_id;
         this.page = 1;
         // 筛选条件存进cookie
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page
+            refund_id: this.refund_id, page: this.page, updated_start: this.updated_start, updated_end: this.updated_end
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
+        console.log("this.setQuery2",this.setQuery2)
         this.getList1();
         this.getRefundAmountTotalYes();
     }
@@ -213,7 +222,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.setQuery2 = {
             order_id: this.order_id, store_id: this.store_id, product_name: this.product_name,
             date_start: this.date_start, date_end: this.date_end,
-            refund_id: this.refund_id, page: this.page
+            refund_id: this.refund_id, page: this.page, updated_start: this.updated_start, updated_end: this.updated_end
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
         this.getList1();
@@ -249,6 +258,16 @@ export class AdminOrderRefundReviewComponent implements OnInit {
     }
 
 
+
+    onChangeUpdatedTime(event: any) {
+        this.updateArray = [];
+        const datePipe = new DatePipe('en-US');
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.updateArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.updateArray.push(myFormattedDate1);
+    }
+
     handle(data: any) {
         this.router.navigate(['/admin/main/refundReview/edit'], { queryParams: { detailId: data.id } });
     }
@@ -276,6 +295,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             product_name: '',
             time: '',
             refund_id: '',
+            updatedTime: '',
         })
     }
 }
