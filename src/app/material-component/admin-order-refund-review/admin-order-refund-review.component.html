@@ -6,7 +6,7 @@
                     <mat-tab-group [selectedIndex]="selectedTabIndex">
                         <mat-tab label="未退款">
                             <div class="content">
-                                <div class="example-container" style="margin-bottom: 50px;">
+                                <div class="example-container" style="margin-bottom: 50px;margin-top: 10px;">
                                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
                                         <div style="margin-top: 10px;">
@@ -156,7 +156,7 @@
 
                         <mat-tab label="已退款">
                             <div class="content">
-                                <div class="example-container" style="margin-bottom: 50px;">
+                                <div class="example-container" style="margin-bottom: 50px;margin-top: 10px;">
                                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <div style="margin-top: 10px;">
                                             <form [formGroup]="searchForm2" nz-row nz-form>
@@ -197,6 +197,16 @@
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="updatedTime">操作时间</nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeUpdatedTime($event)" formControlName="updatedTime"></nz-range-picker>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="refund_id">退款编号</nz-form-label>
@@ -252,6 +262,7 @@
                                                         <th style="text-align: center;">操作人</th>
                                                         <th style="text-align: center;">审核人</th>
                                                         <th style="text-align: center;">财务</th>
+                                                        <th style="text-align: center;">财务操作时间</th>
                                                         <th style="text-align: center;">查看详情</th>
                                                     </tr>
                                                 </thead>
@@ -289,6 +300,7 @@
                                                         <td>{{data?.handler_name}}</td>
                                                         <td>{{data?.checker_name}}</td>
                                                         <td>{{data?.finance_name}}</td>
+                                                        <td>{{data?.updated_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
                                                             <div style="cursor: pointer;">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="查看详情" (click)="edit(data)">
