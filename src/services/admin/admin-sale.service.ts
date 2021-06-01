@@ -2,7 +2,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { AdminUrls } from 'api';
 import { EncodeComponent } from 'app/store-app/store-material/EncodeComponent';
-import { FreeSaleListModel, PreSaleDetailModel } from 'interfaces/store/storePreSale/store-pre-sale-model';
+import { FreeSaleListModel, PreSaleDetailModel, PresellCodeModel } from 'interfaces/store/storePreSale/store-pre-sale-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -59,9 +59,10 @@ export class AdminSaleService {
             )
     }
 
+    // 预约码列表
     getCodeList(page: any, per_page: any, order_id: any, user_id: any, ticket_order_id: any, status: any, transaction_id: any,
         code: any, product_name: any, name: any,
-        phone: any, use_date_start: any, user_date_end: any, date_start: any, date_end: any): Observable<any> {
+        phone: any, use_date_start: any, user_date_end: any, date_start: any, date_end: any): Observable<PresellCodeModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_id', order_id ? order_id : '')
@@ -82,13 +83,20 @@ export class AdminSaleService {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
             params: params
         };
-        return this.httpClient.get<any>(this.urls.GetAdminOrderTicketCode, findhttpOptions)
+        return this.httpClient.get<PresellCodeModel>(this.urls.GetAdminOrderTicketCode, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )
     }
 
 
+    //   预约码详情  
+    getTicketCodeDetail(id: any) {
+        return this.httpClient.get<any>(this.urls.GetAdminOrderTicketCodeDetail + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);

@@ -2,11 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AdminSaleService } from 'services/admin/admin-sale.service';
+import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
+import { AdminSaleService } from '../../../../services/admin/admin-sale.service';
 @Component({
-  selector: 'app-admin-pre-appoint',
-  templateUrl: './admin-pre-appoint.component.html',
-  styleUrls: ['./admin-pre-appoint.component.css']
+    selector: 'app-admin-pre-appoint',
+    templateUrl: './admin-pre-appoint.component.html',
+    styleUrls: ['./admin-pre-appoint.component.css']
 })
 export class AdminPreAppointComponent implements OnInit {
     searchForm: FormGroup;
@@ -30,9 +31,12 @@ export class AdminPreAppointComponent implements OnInit {
     user_date_end: any;
     date_start: any;
     date_end: any;
+    storeList: any[] = [];
 
 
-    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService) {
+
+    constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService,
+        public adminProductManagementService: AdminProductManagementService,) {
         this.searchForm = fb.group({
             status: [''],
             product_name: [''],
@@ -43,17 +47,29 @@ export class AdminPreAppointComponent implements OnInit {
             code: [''],
             transaction_id: [''],
             use_date_start: [''],
-            date_starts: ['']
+            date_starts: [''],
+            store_id: [''],
         });
     }
 
     ngOnInit(): void {
-        this.adminSaleService.getCodeList(this.page, this.per_page, this.order_id, this.user_id, this.ticket_order_id, this.status,
-            this.transaction_id, this.code, this.product_name, this.name, this.phone, this.use_date_start, this.user_date_end, this.date_start, this.date_end).subscribe(res => {
-            console.log("res",res)
+        this.adminProductManagementService.storeList('').subscribe(res => {
+            console.log("24234", res);
+            this.storeList = res;
         })
+        this.getCodeList();
     }
 
+    getCodeList() {
+        this.loading = true;
+        this.adminSaleService.getCodeList(this.page, this.per_page, this.order_id, this.user_id, this.ticket_order_id, this.status,
+            this.transaction_id, this.code, this.product_name, this.name, this.phone, this.use_date_start, this.user_date_end, this.date_start, this.date_end).subscribe(res => {
+                console.log("res", res)
+                this.loading = false;
+                this.dataSource = res?.data;
+                this.total = res?.meta?.pagination?.total;
+            })
+    }
 
     changePageIndex(page: number) {
         console.log("当前页", page);
@@ -70,14 +86,16 @@ export class AdminPreAppointComponent implements OnInit {
         // localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
 
         this.loading = true;
-        // this.groupTravel();
+        this.getCodeList();
+
     }
 
 
     changePageSize(per_page: number) {
         console.log("一页显示多少", per_page);
         this.per_page = per_page;
-        // this.groupTravel();
+        this.getCodeList();
+
     }
 
 
@@ -90,7 +108,7 @@ export class AdminPreAppointComponent implements OnInit {
     }
 
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/admin/main/preSaleRecord/detail'], { queryParams: { detailId: data.id } });
     }
 
     onChangeDate(event: any) {

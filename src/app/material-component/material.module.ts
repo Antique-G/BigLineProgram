@@ -186,6 +186,8 @@ import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/adm
 import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
 import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
 import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
+import { AdminPreAppointDetailComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint-detail/admin-pre-appoint-detail.component';
+import { AdminProductManagementSchedultComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-schedult/admin-product-management-schedult.component';
 
 
 
@@ -399,6 +401,8 @@ import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refun
     AdminOrderRefundSaleApprovalComponent,
     AdminOrderRefundSaleApprovalDetailComponent,
     AdminOrderRefundSaleApprovalRejectComponent,
+    AdminPreAppointDetailComponent,
+    AdminProductManagementSchedultComponent,
 
   ]
 })

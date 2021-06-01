@@ -114,7 +114,8 @@
                                 <tr>
                                     <th style="text-align: center;">预售订单号</th>
                                     <th style="text-align: center;">订单状态</th>
-                                    <th style="text-align: center;">产品标题</th>
+                                    <th style="text-align: center;">产品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">购买份数/单价</th>
                                     <th style="text-align: center;">订单总金额</th>
                                     <th style="text-align: center;">联系人姓名/手机号</th>
@@ -134,6 +135,7 @@
                                         <span *ngIf="data?.order_status==3">已完成</span>
                                     </td>
                                     <td>{{data?.product_name}}</td>
+                                    <td>{{data?.store_name}}</td>
                                     <td>
                                         <div>{{data?.number}}份</div>
                                         <div>{{data?.ticket_price}}元</div>

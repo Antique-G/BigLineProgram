@@ -266,14 +266,14 @@ export const StoreMaterialRoutes: Routes = [
                 path: 'storePreFreeSaleList',
                 component: StorePreFreeSaleListComponent,
                 data: {
-                    breadcrumb: '自由行预售订单抢购记录列表'
+                    breadcrumb: '自由行预售订单列表'
                 }
             },
             {
                 path: 'storePreFreeSaleList/detail',
                 component: StorePreFreeSaleListDetailComponent,
                 data: {
-                    breadcrumb: '自由行预售订单抢购记录详情'
+                    breadcrumb: '自由行预售订单详情'
                 }
             },
             {

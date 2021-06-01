@@ -60,7 +60,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_nums">购买份数</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="pay_nums" nzBorderless readonly [ngModel]="detailModel?.number" />
+                                                        <input nz-input formControlName="pay_nums" nzBorderless readonly [ngModel]="detailModel?.number+'份'" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -136,13 +136,10 @@
                                                 <td>{{data.ticket_price}}</td>
                                                 <td>{{data.status_info}}</td>
                                                 <td>{{data?.order_id}} </td>
-                                                <td>
-
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                                <td></td>
+                                                <td>{{data?.ticket_order_id}} </td>
+                                                <td>{{data?.use_date}}</td>
+                                                <td>{{data?.extra_charge}}</td>
+                                                <td>{{data?.source}}</td>
                                             </tr>
                                         </tbody>
                                     </nz-table>
@@ -170,7 +167,7 @@
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">订单id</th>
-                                                <th style="text-align: center;">流水号</th>
+                                                <th style="text-align: center;">支付流水号</th>
                                                 <th style="text-align: center;">金额</th>
                                                 <th style="text-align: center;">支付状态</th>
                                                 <th style="text-align: center;">支付方式</th>

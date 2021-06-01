@@ -19,6 +19,7 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public storePreSaleService: StorePreSaleService) {
         this.addForm = this.fb.group({
+            presell_id: ['',],
             order_id: ['',],
             date_pay: ['',],
             pay_nums: ['',],

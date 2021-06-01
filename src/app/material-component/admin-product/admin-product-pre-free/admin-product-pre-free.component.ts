@@ -182,65 +182,47 @@ export class AdminProductPreFreeComponent implements OnInit {
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/admin/main/preFree/detail'], { queryParams: { detailId: data.id, is_presell: 1 } });
+        this.router.navigate(['/admin/main/preFree/detail'], { queryParams: { detailId: data.product_id, is_presell: 1 } });
     }
 
 
-    review(data: any) {
-        console.log("编辑", data);
-        const dialogRef = this.dialog.open(AdminProductFreeReviewComponent, {
-            width: '800px',
-            data: data
-        })
-        dialogRef.afterClosed().subscribe(result => {
-            if (result !== undefined) {
-                this.getFeeTravelList();
-            }
-        })
-    }
+    // review(data: any) {
+    //     console.log("编辑", data);
+    //     const dialogRef = this.dialog.open(AdminProductFreeReviewComponent, {
+    //         width: '800px',
+    //         data: data
+    //     })
+    //     dialogRef.afterClosed().subscribe(result => {
+    //         if (result !== undefined) {
+    //             this.getFeeTravelList();
+    //         }
+    //     })
+    // }
 
 
-    // 上架
-    up(data: any) {
-        this.confirmModal = this.modal.confirm({
-            nzTitle: '是否确定该操作?',
-            nzContent: '请确认操作的数据是否正确',
-            nzOnOk: () => {
-                this.adminProductFreeTravelService.freeTravelUp(data.id).subscribe(res => {
-                    console.log("结果是", res)
-                    this.getFeeTravelList();
-                })
-            }
-        })
+    // // 上架
+    // up(data: any) {
+    //     this.confirmModal = this.modal.confirm({
+    //         nzTitle: '是否确定该操作?',
+    //         nzContent: '请确认操作的数据是否正确',
+    //         nzOnOk: () => {
+    //             this.adminProductFreeTravelService.freeTravelUp(data.id).subscribe(res => {
+    //                 console.log("结果是", res)
+    //                 this.getFeeTravelList();
+    //             })
+    //         }
+    //     })
 
-    }
+    // }
 
 
-    quteDateClick(data: any) {
+    goToQuoteClick(data: any) {
         console.log('data :>> ', data);
-        this.router.navigate(['/admin/main/preFree/qutedate'], { queryParams: { detailId: data.id, proName: data.title, childStatus: data.reserve_children, few_nights: data?.few_nights, quote_type: data?.quote_type, is_presell: 1,prePrice: data?.product_ticket[0]?.ticket_price} });
-    }
+        this.router.navigate(['/admin/main/preFree/qutedate'], { queryParams: { detailId: data.product_id, proName: data.product_name, childStatus: data.product?.reserve_children, few_nights: data?.product?.few_nights, quote_type: data?.product?.quote_type, is_presell: 1,prePrice: data?.ticket_price} });
+}
 
 
 
-    getCode(data: any) {
-        if (data?.status === 0) {
-            this.message.create('error', `该产品暂未上架，无法生成小程序码`)
-        }
-        else {
-            const addmodal = this.modal.create({
-                nzTitle: '生成小程序码',
-                nzContent: AdminProductMiniCodeComponent,
-                nzWidth: 800,
-                nzComponentParams: {
-                    data: [data, 1]
-                },
-                nzFooter: null
-            })
-            addmodal.afterClose.subscribe((res: any) => {
-            })
-        }
-    }
 
 
 
