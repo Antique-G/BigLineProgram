@@ -81,3 +81,50 @@ export interface DataPreSaleDetailModel {
     ticket_code: any;
     pay_log: any;
 }
+
+
+
+
+
+// 预约码列表
+export interface PresellCodeModel {
+    data: DataPresellCodeModel[];
+    meta: MetaPresellCodeModel;
+}
+
+export interface MetaPresellCodeModel {
+    pagination: PaginationPresellCodeModel;
+}
+
+export interface PaginationPresellCodeModel {
+    total: number;
+    count: number;
+    per_page: number;
+    current_page: number;
+    total_pages: number;
+    links: LinksPresellCodeModel;
+}
+
+export interface LinksPresellCodeModel {
+    next: string;
+}
+
+export interface DataPresellCodeModel {
+    id: number;
+    ticket_id: number;
+    ticket_order_id: number;
+    order_id: number;
+    user_id: number;
+    code: string;
+    ticket_price: number;
+    subsidy_price: number;
+    use_date: string | object;
+    transaction_id: string;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    extra_charge?: string;
+    source?: string;
+    status_info?: string;
+}
+

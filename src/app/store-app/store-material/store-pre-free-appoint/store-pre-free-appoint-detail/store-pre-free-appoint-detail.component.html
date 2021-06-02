@@ -1,0 +1,277 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFreeAppointList">返回自由行预约码列表</button>
+                </div>
+
+                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">产品信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div>
+                                            <h5 style="font-weight: bold;">{{detailModel?.order?.data?.product_name}}</h5>
+                                        </div>
+                                    </div>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_id">产品id</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="product_id" nzBorderless readonly [ngModel]="detailModel?.product?.data?.id" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure">出发城市</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="departure" nzBorderless readonly [ngModel]="detailModel?.product?.data?.departure" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination">目的城市</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="destination" nzBorderless readonly [ngModel]="detailModel?.product?.data?.destination" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="days">行程天数</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="days" nzBorderless readonly [ngModel]="detailModel?.product?.data?.few_days+'天'+detailModel?.product?.data?.few_nights+'晚'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ticket_price">预售价格</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="ticket_price" nzBorderless readonly [ngModel]="detailModel?.ticket?.data?.ticket_price+'元'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="subsidy_price">补贴金额</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="subsidy_price" nzBorderless readonly [ngModel]="detailModel?.ticket?.data?.subsidy_price+'元'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="use_start_date">使用有效日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="use_start_date" nzBorderless readonly [ngModel]="detailModel?.ticket?.data?.use_start_date+'~'+detailModel?.ticket?.data?.use_end_date" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card>
+
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <div>
+                                            <div>
+                                                <button class="btn" *ngIf="detailModel?.status===0">已取消</button>
+                                                <button class="btn" *ngIf="detailModel?.status===1">未使用</button>
+                                                <button class="btn" *ngIf="detailModel?.status===2">已使用</button>
+                                                <button class="btn" *ngIf="detailModel?.status===3">过期作废</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                        <form nz-form [formGroup]="addForm" nz-row>
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code">预约码</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="code" nzBorderless readonly [ngModel]="detailModel?.code.toString()" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="created_at">下单日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="created_at" nzBorderless readonly [ngModel]="detailModel?.created_at|date:'yyyy-MM-dd HH:mm:ss'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="use_date">出发日期</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="use_date" nzBorderless readonly [ngModel]="detailModel?.use_date" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_name">联系人姓名</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_name" />
+
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_phone">联系人电话</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_phone" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_wechat">联系人微信</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_wechat" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_wechat" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_qq">联系人qq</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_qq" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_qq" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_email">联系人邮箱</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="contact_email" nzBorderless readonly [ngModel]="detailModel?.order?.data?.contact_email" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">客人备注</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="customer_remarks" nzBorderless readonly [ngModel]="detailModel?.order?.data?.customer_remarks" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card>
+
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">订单费用情况</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                                        <div style="margin-top:13px">
+                                            <div style="font-weight: 500;font-size: 16px;letter-spacing: 1px;">
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">预售套餐</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.ticket_price}}*1</div>
+                                                </div>
+                                            </div>
+
+                                            <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">合计</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.order?.data.price_total}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">已收金额</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.order?.data.amount_received}}
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-card>
+
+
+
+
+                    </div>
+                </nz-spin>
+            </div>
+
+        </div>
+
+    </div>
+</div>

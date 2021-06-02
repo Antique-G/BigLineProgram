@@ -10,10 +10,10 @@
                     <div fxLayout="row" fxLayoutGap="20px">
                         <button mat-raised-button *ngIf="isPrePro!=1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeFreeTravel">返回自由行列表</button>
                         <button mat-raised-button *ngIf="isPrePro==1" color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFree">返回自由行预售产品列表</button>
-                       
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
 
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="quoteDelete()">批量删除报价</button>
+                        <button mat-raised-button color="primary" *ngIf="isPrePro!=1" style="letter-spacing: 2px;" (click)="quoteClick()">批量报价</button>
+
+                        <button mat-raised-button color="primary" *ngIf="isPrePro!=1" style="letter-spacing: 2px;" (click)="quoteDelete()">批量删除报价</button>
 
                         <div style="display: flex;align-items: center;">
                             <div><span class="dot item-bg-success"></span>审核通过</div>
@@ -22,7 +22,7 @@
                     </div>
 
                     <div>
-                        <div fxLayout="row" fxLayoutGap="150px" fxLayoutAlign="start stretch" style="background-color: #e6f7ff;border: 1px solid #91d5ff;height: 41px;padding: 9px;">
+                        <div fxLayout="row" fxLayoutGap="100px" fxLayoutAlign="start stretch" style="background-color: #e6f7ff;border: 1px solid #91d5ff;height: 41px;padding: 9px;">
                             <div style="font-size: 15px;font-weight: bold;">当前时间: {{ seletYearMonth}}</div>
                             <div style="font-size: 15px;font-weight: bold;" *ngIf="type == 'freeTravel'">当前报价类型: 按套餐报价</div>
                             <div style="font-size: 15px;font-weight: bold;" *ngIf="type == 'freeTravel'">是否预售：{{is_presell==1?'是':'否'}}</div>

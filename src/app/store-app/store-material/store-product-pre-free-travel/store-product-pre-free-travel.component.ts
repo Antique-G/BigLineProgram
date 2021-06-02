@@ -8,7 +8,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
-import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -239,7 +238,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/store/main/storeFreeTravel/detail'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/store/main/storeFreeTravel/detail'], { queryParams: { detailId: data.product_id, is_presell: 1 } });
     }
 
     // 报价
@@ -247,7 +246,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         console.log('data', data);
         let child_status = Number(data.product?.reserve_children)
         // 处理时间，预计多久报名
-        let minutes = data.product?.fearlier;
+        let minutes = data.product?.earlier;
         this.newMin = Math.floor(minutes % 60);
         if (this.newMin === 0) {
             this.newHour = Math.floor(24 - minutes / 60 % 24);
@@ -271,8 +270,6 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         let ticket_price = data?.ticket_price;
         let subsidy_price = data?.subsidy_price;
         this.router.navigate(['/store/main/storePreFree/quote'], {
-
-        // this.router.navigate(['/store/main/storeFreeTravel/storeQuote/byPack'], {
             queryParams: {
                 productId: data.product_id,
                 type: 'freeTravel', earlier: this.isEar, proName: data.product?.title,

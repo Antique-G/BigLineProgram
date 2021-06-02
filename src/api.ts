@@ -93,7 +93,6 @@ export const AdminUrls = {
     GetAdminInsuranceDayList: api + '/admin/insurance/data',      // 跟团游保险列表天数
 
 
-
     GetAdminProductMiniCode: api + '/admin/product/get_mini_code', // 生成小程序码
 
 
@@ -131,6 +130,8 @@ export const AdminUrls = {
     GetAdminOrderTicket: api + '/admin/order/ticket',   // 预售订单列表
     GetAdminOrderTicketDetail: api + '/admin/order/ticket/',   // 预售订单详情
     GetAdminOrderTicketCode: api + '/admin/order/ticket_code',   // 预约码列表
+    GetAdminOrderTicketCodeDetail: api + '/admin/order/ticket_code/',   // 预约码详情
+
 
     
 
@@ -497,6 +498,7 @@ export const StoreUrls = {
     GetStoreOrderTicket: api + '/store/order/ticket',   // 预售订单列表
     GetStoreOrderTicketDetail: api + '/store/order/ticket/',   // 预售订单详情
     GetStoreOrderTicketCode: api + '/store/order/ticket_code',   // 预约码列表
+    GetStoreOrderTicketCodeDetail: api + '/store/order/ticket_code/',   // 预约码详情
 
 
 

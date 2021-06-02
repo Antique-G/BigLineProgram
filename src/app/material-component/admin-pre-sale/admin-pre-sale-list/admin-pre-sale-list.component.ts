@@ -23,7 +23,7 @@ export class AdminPreSaleListComponent implements OnInit {
 
     storeList: any[] = [];
 
-    order_status: any;
+    use_status: any;
     product_name: any;
     order_id: any;
     date_start: any;
@@ -39,7 +39,7 @@ export class AdminPreSaleListComponent implements OnInit {
     constructor(public fb: FormBuilder, public router: Router, public adminSaleService: AdminSaleService,
         public adminProductManagementService: AdminProductManagementService,) {
         this.searchForm = fb.group({
-            order_status: [''],
+            use_status: [''],
             product_name: [''],
             name: [''],
             phone: [''],
@@ -55,10 +55,10 @@ export class AdminPreSaleListComponent implements OnInit {
         this.adminProductManagementService.storeList('').subscribe(res => {
             console.log("24234", res);
             this.storeList = res;
-        })
-        // 将上次查询的筛选条件赋值
+
+              // 将上次查询的筛选条件赋值
         let getSeatch = JSON.parse(localStorage.getItem("adminPreFreeSaleList")!)
-        this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
+        this.use_status = getSeatch?.use_status ? getSeatch?.use_status : '';
         this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
         this.name = getSeatch?.name ? getSeatch?.name : '';
         this.phone = getSeatch?.phone ? getSeatch?.phone : '';
@@ -72,7 +72,7 @@ export class AdminPreSaleListComponent implements OnInit {
         this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
 
         this.searchForm.patchValue({
-            order_status: this.order_status,
+            use_status: this.use_status,
             product_name: this.product_name,
             name: this.name,
             phone: this.phone,
@@ -83,13 +83,15 @@ export class AdminPreSaleListComponent implements OnInit {
             store_id: this.store_id
         })
         this.getOrderList();
+        })
+      
     }
 
 
 
     getOrderList() {
         this.loading = true;
-        this.adminSaleService.groupPreFreeSaleList(this.page, this.per_page, this.order_status, this.product_name, this.order_id,
+        this.adminSaleService.groupPreFreeSaleList(this.page, this.per_page, this.use_status, this.product_name, this.order_id,
             this.date_start, this.date_end, this.code, this.use_date_start, this.use_date_end, this.name, this.phone, this.store_id).subscribe(res => {
                 this.loading = false;
                 console.log("结果是", res);
@@ -103,7 +105,7 @@ export class AdminPreSaleListComponent implements OnInit {
     }
 
     search() {
-        this.order_status = this.searchForm.value.order_status;
+        this.use_status = this.searchForm.value.use_status;
         this.product_name = this.searchForm.value.product_name;
         this.order_id = this.searchForm.value.order_id;
         this.date_start = this.dateArray[0];
@@ -117,7 +119,7 @@ export class AdminPreSaleListComponent implements OnInit {
 
         // 筛选条件存进cookie
         this.setQuery = {
-            order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
+            use_status: this.use_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
             name: this.name, phone: this.phone, store_id: this.store_id
@@ -132,7 +134,7 @@ export class AdminPreSaleListComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-            order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
+            use_status: this.use_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
             name: this.name, phone: this.phone, store_id: this.store_id
@@ -152,7 +154,7 @@ export class AdminPreSaleListComponent implements OnInit {
 
     reset() {
         this.searchForm.patchValue({
-            order_status: '',
+            use_status: '',
             product_name: '',
             name: '',
             phone: '',

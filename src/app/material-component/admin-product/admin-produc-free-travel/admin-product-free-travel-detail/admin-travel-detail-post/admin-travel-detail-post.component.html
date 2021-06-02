@@ -5,7 +5,9 @@
                 <div class="example-container" style="margin-bottom: 50px;">
                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                         <div *ngIf="isShow">
-                            <img [src]="imgSrc+'?x-oss-process=image/resize,w_450,m_lfit'" style="margin-left: 20px;margin-top: 20px;border: 1px solid ghostwhite;">
+                            <a href={{imgSrc}} target="_blank" title="点击查看大图">
+                                <img [src]="imgSrc+'?x-oss-process=image/resize,w_450,m_lfit'" style="margin-left: 20px;margin-top: 20px;border: 1px solid ghostwhite;">
+                            </a>
                         </div>
                         <div *ngIf="!isShow" fxLayout="row" fxLayoutAlign="center center">
                             <div style="color: red;font-size: 14px;height: 80px;font-size: 16px;font-weight: bold;line-height: 124px;">暂无海报</div>

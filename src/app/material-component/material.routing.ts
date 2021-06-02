@@ -73,6 +73,7 @@ import { AdminPreSaleDetailComponent } from './admin-pre-sale/admin-pre-sale-lis
 import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint.component';
 import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
 import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
+import { AdminPreAppointDetailComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint-detail/admin-pre-appoint-detail.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -629,7 +630,14 @@ export const MaterialRoutes: Routes = [
                 path: 'preSaleRecord',
                 component: AdminPreAppointComponent,
                 data: {
-                    breadcrumb: '自由行预售流水'
+                    breadcrumb: '自由行预约码列表'
+                }
+            },
+            {
+                path: 'preSaleRecord/detail',
+                component: AdminPreAppointDetailComponent,
+                data: {
+                    breadcrumb: '自由行预约码详情'
                 }
             },
         ]

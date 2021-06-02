@@ -15,8 +15,8 @@
                     <div class="example-container" style="padding: 15px;">
                         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                             <div>
-                                <button nz-button nzType="primary" (click)="checkStateClick(2)">通过</button>
-                                <button nz-button nzType="primary" style="margin-left: 10px;" nzDanger (click)="checkStateClick(3)">未通过</button>
+                                <button nz-button nzType="primary" *ngIf="is_presell!=1" (click)="checkStateClick(2)">通过</button>
+                                <button nz-button nzType="primary" *ngIf="is_presell!=1" style="margin-left: 10px;" nzDanger (click)="checkStateClick(3)">未通过</button>
                             </div>
 
 
@@ -74,12 +74,12 @@
                                                                     </ng-container>
                                                                     <ng-container *ngIf="is_presell==1">
                                                                         <td>
-                                                                           <div>{{prePrice}}</div>
+                                                                            <div>{{prePrice}}</div>
                                                                         </td>
                                                                     </ng-container>
                                                                     <ng-container *ngIf="quote_type==1">
                                                                         <td>
-                                                                            <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                            <div *ngIf="data.inclusive_price!='0'">{{data.inclusive_price}}</div>
                                                                             <div *ngIf="data.inclusive_price=='0'">-</div>
                                                                         </td>
                                                                     </ng-container>
@@ -153,12 +153,12 @@
                                                                         </ng-container>
                                                                         <ng-container *ngIf="is_presell==1">
                                                                             <td>
-                                                                               <div>{{prePrice}}</div>
+                                                                                <div>{{prePrice}}</div>
                                                                             </td>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
-                                                                                <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                                <div *ngIf="data.inclusive_price!='0'">{{data.inclusive_price}}</div>
                                                                                 <div *ngIf="data.inclusive_price=='0'">-</div>
                                                                             </td>
                                                                         </ng-container>
@@ -234,12 +234,12 @@
                                                                         </ng-container>
                                                                         <ng-container *ngIf="is_presell==1">
                                                                             <td>
-                                                                               <div>{{prePrice}}</div>
+                                                                                <div>{{prePrice}}</div>
                                                                             </td>
                                                                         </ng-container>
                                                                         <ng-container *ngIf="quote_type==1">
                                                                             <td>
-                                                                                <div *ngIf="data.inclusive_price!=='0'">{{data.inclusive_price}}</div>
+                                                                                <div *ngIf="data.inclusive_price!='0'">{{data.inclusive_price}}</div>
                                                                                 <div *ngIf="data.inclusive_price=='0'">-</div>
                                                                             </td>
                                                                         </ng-container>

@@ -191,8 +191,6 @@ export class AdminProductManagementService {
     }
 
 
-
-
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
