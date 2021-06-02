@@ -22,12 +22,12 @@ export class AdminSaleService {
 
 
     // 自由行预售订单列表
-    groupPreFreeSaleList(page: number, per_page: number, order_status: any, product_name: any, order_id: any,
+    groupPreFreeSaleList(page: number, per_page: number, use_status: any, product_name: any, order_id: any,
         date_start: any, date_end: any, code: any, use_date_start: any, use_date_end: any,
         name: any, phone: any, store_id?: any): Observable<FreeSaleListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
-            .set('order_status', order_status ? order_status : '')
+            .set('use_status', use_status ? use_status : '')
             .set('product_name', product_name ? product_name : '')
             .set('order_id', order_id ? order_id : '')
             .set('date_start', date_start ? date_start : '')
@@ -62,7 +62,7 @@ export class AdminSaleService {
     // 预约码列表
     getCodeList(page: any, per_page: any, order_id: any, user_id: any, ticket_order_id: any, status: any, transaction_id: any,
         code: any, product_name: any, name: any,
-        phone: any, use_date_start: any, user_date_end: any, date_start: any, date_end: any): Observable<PresellCodeModel> {
+        phone: any, use_date_start: any, use_date_end: any, date_start: any, date_end: any): Observable<PresellCodeModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_id', order_id ? order_id : '')
@@ -75,7 +75,7 @@ export class AdminSaleService {
             .set('name', name ? name : '')
             .set('phone', phone ? phone : '')
             .set('use_date_start', use_date_start ? use_date_start : '')
-            .set('user_date_end', user_date_end ? user_date_end : '')
+            .set('use_date_end', use_date_end ? use_date_end : '')
             .set('date_start', date_start ? date_start : '')
             .set('date_end', date_end ? date_end : '');
 

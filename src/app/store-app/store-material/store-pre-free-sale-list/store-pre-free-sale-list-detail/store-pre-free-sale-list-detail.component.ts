@@ -26,7 +26,8 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
             date_use: ['',],
             contact_name: ['',],
             contact_phone: ['',],
-          
+            ticket_price: ['',],
+            subsidy_price: ['',],
         });
     }
 
@@ -34,7 +35,9 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.detailId;
+            this.isSpinning = true;
             this.storePreSaleService.getStoreOrderTicketDetail(this.detailId).subscribe(res => {
+                this.isSpinning = false;
                 console.log("11", res);
                 this.detailModel = res.data;
                 this.dataPayLog = this.detailModel?.pay_log?.data;

@@ -191,19 +191,6 @@ export class AdminProductManagementService {
     }
 
 
-
-    
-    // 上传行程
-    uploadStroke(reqData: any): Observable<any> {
-        const imgHttpOptions = {
-            reportProgress: true,    // headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
-        };
-        return this.httpClient.post<any>(this.urls.PostAdminUploadStroke, reqData, imgHttpOptions)
-            .pipe(
-            )
-    }
-
-
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {

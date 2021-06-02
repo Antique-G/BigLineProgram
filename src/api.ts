@@ -91,7 +91,6 @@ export const AdminUrls = {
     GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
     GetAdminProductManagementStoreList: api + '/admin/store/list', // 查询店铺
     GetAdminInsuranceDayList: api + '/admin/insurance/data',      // 跟团游保险列表天数
-    PostAdminUploadStroke: api + '/admin/product/schedule_upload',  // 上传行程
 
 
     GetAdminProductMiniCode: api + '/admin/product/get_mini_code', // 生成小程序码
@@ -499,6 +498,7 @@ export const StoreUrls = {
     GetStoreOrderTicket: api + '/store/order/ticket',   // 预售订单列表
     GetStoreOrderTicketDetail: api + '/store/order/ticket/',   // 预售订单详情
     GetStoreOrderTicketCode: api + '/store/order/ticket_code',   // 预约码列表
+    GetStoreOrderTicketCodeDetail: api + '/store/order/ticket_code/',   // 预约码详情
 
 
 

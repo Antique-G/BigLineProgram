@@ -53,15 +53,15 @@ const MENUITEMS = [
             { state: 'refundTurnOver', name: '订单退款流水列表', permission_name: 'order_refund_log' },
         ]
     },
-    // {
-    //     title: '预售管理', icon: 'clock-circle', permission_name: 'admin_presell',
-    //     children: [
-    //         { state: 'preFree', name: '自由行预售产品', permission_name: 'product_indent_presell' },
-    //         { state: 'preSaleList', name: '自由行预售订单', permission_name: 'order_indent_presell' },
-    //         { state: 'preSaleRecord', name: '自由行预约码管理', permission_name: 'order_indent_presell_code' },
+    {
+        title: '预售管理', icon: 'clock-circle', permission_name: 'admin_presell',
+        children: [
+            { state: 'preFree', name: '自由行预售产品', permission_name: 'product_indent_presell' },
+            { state: 'preSaleList', name: '自由行预售订单', permission_name: 'order_indent_presell' },
+            { state: 'preSaleRecord', name: '自由行预约码管理', permission_name: 'order_indent_presell_code' },
             
-    //     ]
-    // },
+        ]
+    },
     {
         title: '佣金模块', icon: 'pound', permission_name: 'admin_dist',
         children: [
@@ -157,7 +157,7 @@ const StoreMENUITEMS = [
         children: [
             { state: 'storePreFree', name: '自由行预售产品列表' },
             { state: 'storePreFreeSaleList', name: '自由行预售订单' },
-            { state: 'storePreFreeAppointList', name: '自由行预约记录' },
+            { state: 'storePreFreeAppointList', name: '自由行预约码管理' },
         ]
     },
     {

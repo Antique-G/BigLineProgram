@@ -4,7 +4,7 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/preSaleRecord">返回自由行预约码列表</button>
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storePreFreeAppointList">返回自由行预约码列表</button>
                 </div>
 
                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
@@ -35,14 +35,6 @@
                                                 </div>
                                             </nz-form-item>
 
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.store_name" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
 
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
@@ -123,6 +115,7 @@
                                                 <button class="btn" *ngIf="detailModel?.status===0">已取消</button>
                                                 <button class="btn" *ngIf="detailModel?.status===1">未使用</button>
                                                 <button class="btn" *ngIf="detailModel?.status===2">已使用</button>
+                                                <button class="btn" *ngIf="detailModel?.status===3">过期作废</button>
                                             </div>
                                         </div>
                                     </div>

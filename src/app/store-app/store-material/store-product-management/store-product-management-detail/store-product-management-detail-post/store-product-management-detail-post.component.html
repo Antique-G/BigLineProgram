@@ -9,7 +9,9 @@
                             <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;" (click)="import()">从图库导入</button>
                         </div>
                         <div *ngIf="isShow">
-                            <img [src]="imgSrc+'?x-oss-process=image/resize,w_450,m_lfit'" style="margin-left: 20px;border: 1px solid ghostwhite;">
+                            <a href={{imgSrc}} target="_blank" title="点击查看大图">
+                                <img [src]="imgSrc+'?x-oss-process=image/resize,w_450,m_lfit'" style="margin-left: 20px;border: 1px solid ghostwhite;">
+                            </a>
                         </div>
                     </div>
                 </div>

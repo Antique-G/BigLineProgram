@@ -14,6 +14,7 @@
                                         <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'未使用'" [nzValue]="'1'"></nz-option>
                                         <nz-option [nzLabel]="'已使用'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'过期作废'" [nzValue]="'3'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -110,7 +111,7 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="use_date_start">使用时间</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="use_date_start"></nz-range-picker>
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDateUse($event)" formControlName="use_date_start"></nz-range-picker>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
@@ -134,31 +135,38 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">预约码</th>
+                                    <th style="text-align: center;">产品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">预约订单号</th>
                                     <th style="text-align: center;">预售订单号</th>
-                                    <!-- <th style="text-align: center;">产品标题</th> -->
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">预售价格/补贴金额</th>
                                     <th style="text-align: center;">补差价</th>
-                                    <th style="text-align: center;">预约日期</th>
+                                    <th style="text-align: center;">预约人/手机号码</th>
+                                    <th style="text-align: center;">下单日期</th>
                                     <th style="text-align: center;">出发日期</th>
                                     <th style="text-align: center;">交易流水号</th>
-                                    <th style="text-align: center;">使用渠道</th>
+                                    <th style="text-align: center;">预约渠道</th>
                                     <th style="text-align: center;">查看详情</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data?.code}}</td>
+                                    <td>{{data.ticket_order?.product_name}}</td>
+                                    <td>{{data?.store_name}}</td>
                                     <td>{{data?.order_id}}</td>
                                     <td>{{data?.ticket_order_id}}</td>
-                                    <!-- <td>{{data.product_name}}</td> -->
                                     <td>{{data.status_info}}</td>
                                     <td>
                                         <div>{{data?.ticket_price}}元/</div>
                                         <div>{{data?.subsidy_price}}元</div>
                                     </td>
                                     <td>{{data.extra_charge}}元</td>
+                                    <td>
+                                        <div>{{data.ticket_order?.name}}</div>
+                                        <div>{{data.ticket_order?.phone}}</div>
+                                    </td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>{{data.use_date}}</td>
                                     <td>{{data.transaction_id}}</td>

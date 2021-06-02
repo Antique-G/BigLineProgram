@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminSaleService } from '../../../../../services/admin/admin-sale.service';
+import { StorePreSaleService } from '../../../../../services/store/store-pre-sale/store-pre-sale.service';
 
 @Component({
-    selector: 'app-admin-pre-appoint-detail',
-    templateUrl: './admin-pre-appoint-detail.component.html',
-    styleUrls: ['./admin-pre-appoint-detail.component.css']
+  selector: 'app-store-pre-free-appoint-detail',
+  templateUrl: './store-pre-free-appoint-detail.component.html',
+  styleUrls: ['./store-pre-free-appoint-detail.component.css']
 })
-export class AdminPreAppointDetailComponent implements OnInit {
+export class StorePreFreeAppointDetailComponent implements OnInit {
     public isSpinning = false;
     addForm!: FormGroup;
 
@@ -17,7 +17,7 @@ export class AdminPreAppointDetailComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-        public adminSaleService: AdminSaleService,) {
+        public storePreSaleService: StorePreSaleService,) {
         this.addForm = this.fb.group({
             product_id: [''],
             departure: [''],
@@ -45,7 +45,7 @@ export class AdminPreAppointDetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.detailId;
-            this.adminSaleService.getTicketCodeDetail(this.detailId).subscribe(res => {
+            this.storePreSaleService.getTicketCodeDetail(this.detailId).subscribe(res => {
                 console.log("详情", res)
                 this.isSpinning = false;
                 this.detailModel = res?.data;
@@ -54,3 +54,4 @@ export class AdminPreAppointDetailComponent implements OnInit {
     }
 
 }
+

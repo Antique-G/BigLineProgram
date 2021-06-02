@@ -21,7 +21,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
     loading = true;
 
 
-    order_status: any;
+    use_status: any;
     product_name: any;
     order_id: any;
     date_start: any;
@@ -35,7 +35,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public router: Router, public storePreSaleService: StorePreSaleService) {
         this.searchForm = fb.group({
-            order_status: [''],
+            use_status: [''],
             product_name: [''],
             name: [''],
             phone: [''],
@@ -49,7 +49,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
     ngOnInit(): void {
         // 将上次查询的筛选条件赋值
         let getSeatch = JSON.parse(localStorage.getItem("storePreFreeSaleList")!)
-        this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
+        this.use_status = getSeatch?.use_status ? getSeatch?.use_status : '';
         this.product_name = getSeatch?.product_name ? getSeatch?.product_name : '';
         this.name = getSeatch?.name ? getSeatch?.name : '';
         this.phone = getSeatch?.phone ? getSeatch?.phone : '';
@@ -62,7 +62,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
         this.page = getSeatch?.page ? getSeatch?.page : '';
 
         this.searchForm.patchValue({
-            order_status: this.order_status,
+            use_status: this.use_status,
             product_name: this.product_name,
             name: this.name,
             phone: this.phone,
@@ -78,7 +78,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
 
     getOrderList() {
         this.loading = true;
-        this.storePreSaleService.groupPreFreeSaleList(this.page, this.per_page, this.order_status, this.product_name, this.order_id,
+        this.storePreSaleService.groupPreFreeSaleList(this.page, this.per_page, this.use_status, this.product_name, this.order_id,
             this.date_start, this.date_end, this.code, this.use_date_start, this.use_date_end, this.name, this.phone).subscribe(res => {
                 this.loading = false;
                 console.log("结果是", res);
@@ -91,8 +91,8 @@ export class StorePreFreeSaleListComponent implements OnInit {
             })
     }
 
-    search() {
-        this.order_status = this.searchForm.value.order_status;
+    setValue() {
+        this.use_status = this.searchForm.value.use_status;
         this.product_name = this.searchForm.value.product_name;
         this.order_id = this.searchForm.value.order_id;
         this.date_start = this.dateArray[0];
@@ -104,12 +104,17 @@ export class StorePreFreeSaleListComponent implements OnInit {
         this.phone = this.searchForm.value.phone;
         // 筛选条件存进cookie
         this.setQuery = {
-            order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
+            use_status: this.use_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
             name: this.name, phone: this.phone
         }
         localStorage.setItem('storePreFreeSaleList', JSON.stringify(this.setQuery));
+    }
+
+    search() {
+        this.page = 1;
+        this.setValue();
         this.getOrderList();
     }
 
@@ -119,7 +124,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-            order_status: this.order_status, product_name: this.product_name, order_id: this.order_id,
+            use_status: this.use_status, product_name: this.product_name, order_id: this.order_id,
             date_start: this.date_start, date_end: this.date_end, code: this.code, page: this.page,
             use_date_start: this.use_date_start, use_date_end: this.use_date_end,
             name: this.name, phone: this.phone
@@ -139,7 +144,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
 
     reset() {
         this.searchForm.patchValue({
-            order_status: '',
+            use_status: '',
             product_name: '',
             name: '',
             phone: '',

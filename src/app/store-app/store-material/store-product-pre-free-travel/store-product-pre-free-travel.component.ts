@@ -8,7 +8,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
-import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
