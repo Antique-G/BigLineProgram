@@ -165,7 +165,6 @@ import { AdminOrderSurrenderComponent } from './admin-order-group-travel/admin-o
 import { AdminMemberComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
 import { AdminLotteryComponent } from './admin-lottery/admin-lottery.component';
 import { AdminFinanceChangeTransComponent } from './admin-finance/admin-finance-group-travel/admin-finance-change-trans/admin-finance-change-trans.component';
-import { AdminProductPreFreeDetailComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-product-pre-free-detail/admin-product-pre-free-detail.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
 import { AdminSelectRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
@@ -188,6 +187,8 @@ import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refun
 import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
 import { AdminPreAppointDetailComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint-detail/admin-pre-appoint-detail.component';
 import { AdminProductManagementSchedultComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-schedult/admin-product-management-schedult.component';
+import { AdminFinancePreFreeOrderComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order.component';
+import { AdminFinancePreFreeOrderDetailComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order-detail/admin-finance-pre-free-order-detail.component';
 
 
 
@@ -376,7 +377,6 @@ import { AdminProductManagementSchedultComponent } from './admin-product/admin-p
     AdminWelcomeComponent,
     AdminLotteryComponent,
     AdminFinanceChangeTransComponent,
-    AdminProductPreFreeDetailComponent,
     AdminProductPreFreeComponent,
     AdminSelectRefundComponent,
     AdminEditContractComponent,
@@ -403,6 +403,8 @@ import { AdminProductManagementSchedultComponent } from './admin-product/admin-p
     AdminOrderRefundSaleApprovalRejectComponent,
     AdminPreAppointDetailComponent,
     AdminProductManagementSchedultComponent,
+    AdminFinancePreFreeOrderComponent,
+    AdminFinancePreFreeOrderDetailComponent,
 
   ]
 })

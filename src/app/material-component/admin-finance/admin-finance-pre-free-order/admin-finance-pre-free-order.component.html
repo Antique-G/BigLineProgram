@@ -1,0 +1,170 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">预售订单号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="order_id" placeholder="请输入预售订单号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="use_status">使用状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="use_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未使用'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'部分使用'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已使用'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'过期作废'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_name">产品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="product_name" placeholder="请输入产品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="transaction_id">支付流水号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="transaction_id" placeholder="请输入支付流水号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_type">支付方式</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="pay_type" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                                        <nz-option [nzLabel]="'微信二维码'" [nzValue]="4"></nz-option>
+                                        <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="5"></nz-option>
+                                        <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                                        <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
+                                        <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
+                                        <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="date_start">抢购时间</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="date_starts"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_start_date">使用时间</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDateOrder($event)" formControlName="user_start_date"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="4" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+
+
+                    </form>
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">预售订单号</th>
+                                    <th style="text-align: center;">产品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;">购买份数/单价</th>
+                                    <th style="text-align: center;">订单总金额</th>
+                                    <th style="text-align: center;">支付方式</th>
+                                    <th style="text-align: center;">交易流水号</th>
+                                    <th style="text-align: center;">抢购时间</th>
+                                    <th style="text-align: center;">可使用时间</th>
+                                    <th style="text-align: center;">使用状态</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data?.order_id}}</td>
+                                    <td>{{data?.product_name}}</td>
+                                    <td>{{data?.store_name}}</td>
+                                    <td>
+                                        <div>{{data?.number}}份</div>
+                                        <div>{{data?.ticket_price}}元</div>
+                                    </td>
+                                    <td>{{data?.price_total}}元</td>
+                                    <td>{{data?.pay_type_info}}</td>
+                                    <td>{{data?.transaction_id}}</td>
+                                    <td>
+                                        <div>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                    </td>
+                                    <td>
+                                        {{data?.use_start_date}}~{{data?.use_end_date}}
+                                    </td>
+                                    <td>
+                                        <span *ngIf="data?.use_status==0">未使用</span>
+                                        <span *ngIf="data?.use_status==1">部分使用</span>
+                                        <span *ngIf="data?.use_status==2">已使用</span>
+                                    </td>
+                                    <td>
+                                        <div style="cursor: pointer;">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>
