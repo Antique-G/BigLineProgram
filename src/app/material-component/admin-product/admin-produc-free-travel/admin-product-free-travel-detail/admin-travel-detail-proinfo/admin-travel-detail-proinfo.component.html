@@ -86,10 +86,10 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type" nzRequired>报价方式</nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24">
                                                 <nz-radio-group (ngModelChange)="quoteType($event)" formControlName="quote_type" ngModel={{dataDetailModel?.quote_type}}>
-                                                    <label nz-radio nzValue='2'>按人头</label>
+                                                    <label nz-radio nzValue='2' [nzDisabled]="dataDetailModel?.is_presell==1">按人头</label>
                                                     <label nz-radio nzValue='1'>按套餐份数</label>
                                                 </nz-radio-group>
-                                                <p style="font-size: 12px;color: red;letter-spacing: 1px;">若修改报价方式，之前的报价数据将失效</p>
+                                                <div><span style="font-size: 12px;color: red;letter-spacing: 1px;" *ngIf="dataDetailModel?.is_presell==1">此产品已开启预售，无法修改报价类型，如若修改，请先关闭预售;</span><span style="font-size: 12px;color: red;letter-spacing: 1px;">若修改报价方式，之前的报价数据将失效</span></div>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

@@ -6,7 +6,7 @@
                 <div fxLayout="row" fxLayoutGap="20px">
                     <button mat-raised-button *ngIf="is_presell!=1" color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/freeTravel">返回自由行列表</button>
                     <button mat-raised-button *ngIf="is_presell==1" color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/preFree">返回自由行预售列表</button>
-                 </div>
+                </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center">
                     <h4 style="font-weight: bold;">{{productName}}</h4>
@@ -15,16 +15,18 @@
 
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="基本信息">
-                        <div class="content">
-                            <app-admin-travel-detail-proinfo *ngIf="is_presell!=1"></app-admin-travel-detail-proinfo>
-                            <app-admin-product-pre-free-detail *ngIf="is_presell==1"></app-admin-product-pre-free-detail>
-                        </div>
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-admin-travel-detail-proinfo> </app-admin-travel-detail-proinfo>
+                            </div>
+                        </ng-template>
                     </mat-tab>
 
                     <mat-tab label="产品特色">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-travel-detail-feature [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-feature>
+                                <app-admin-travel-detail-feature [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-travel-detail-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -32,7 +34,8 @@
                     <mat-tab label="产品详情">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-travel-detail-editordetail [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-editordetail>
+                                <app-admin-travel-detail-editordetail [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-travel-detail-editordetail>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -44,7 +47,8 @@
                     <mat-tab label="预约须知">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-travel-detail-editornotice [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-editornotice>
+                                <app-admin-travel-detail-editornotice [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-travel-detail-editornotice>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -52,7 +56,8 @@
                     <mat-tab label="图片与视频">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-choose-img [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-choose-img>
+                                <app-admin-choose-img [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-choose-img>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -60,7 +65,8 @@
                     <mat-tab label="海报">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-travel-detail-post [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-post>
+                                <app-admin-travel-detail-post [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-travel-detail-post>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -69,7 +75,8 @@
                     <mat-tab label="预售信息">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-admin-travel-detail-presell [dataFreeDetailModel]='dataFreeDetailModel'></app-admin-travel-detail-presell>
+                                <app-admin-travel-detail-presell [dataFreeDetailModel]='dataFreeDetailModel'>
+                                </app-admin-travel-detail-presell>
                             </div>
                         </ng-template>
                     </mat-tab>

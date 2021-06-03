@@ -15,14 +15,17 @@
 
                 <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                     <mat-tab label="产品信息">
-                        <div class="content">
-                            <app-store-travel-detail-proinfo ></app-store-travel-detail-proinfo>
-                        </div>
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-travel-detail-proinfo></app-store-travel-detail-proinfo>
+                            </div>
+                        </ng-template>
                     </mat-tab>
                     <mat-tab label="产品特色">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'></app-store-travel-detail-feature>
+                                <app-store-travel-detail-feature [dataDetailModel]='dataDetailModel'>
+                                </app-store-travel-detail-feature>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -30,7 +33,8 @@
                         <ng-template matTabContent>
                             <div class="content">
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
-                                    <app-store-travel-detail-desc [dataDetailModel]='dataDetailModel'></app-store-travel-detail-desc>
+                                    <app-store-travel-detail-desc [dataDetailModel]='dataDetailModel'>
+                                    </app-store-travel-detail-desc>
                                 </nz-spin>
                             </div>
                         </ng-template>
@@ -39,7 +43,8 @@
                     <mat-tab label="预约须知">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-notice [dataDetailModel]='dataDetailModel'></app-store-travel-detail-notice>
+                                <app-store-travel-detail-notice [dataDetailModel]='dataDetailModel'>
+                                </app-store-travel-detail-notice>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -47,7 +52,8 @@
                     <mat-tab label="图片与视频">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-image [dataDetailModel]='dataDetailModel'></app-store-travel-detail-image>
+                                <app-store-travel-detail-image [dataDetailModel]='dataDetailModel'>
+                                </app-store-travel-detail-image>
                             </div>
                         </ng-template>
                     </mat-tab>
@@ -55,16 +61,18 @@
                     <mat-tab label="海报">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-free-detail-post [dataDetailModel]='dataDetailModel'></app-store-free-detail-post>
+                                <app-store-free-detail-post [dataDetailModel]='dataDetailModel'>
+                                </app-store-free-detail-post>
                             </div>
                         </ng-template>
                     </mat-tab>
 
 
-                    <mat-tab label="预售信息" >
+                    <mat-tab label="预售信息">
                         <ng-template matTabContent>
                             <div class="content">
-                                <app-store-travel-detail-presell [dataDetailModel]='dataDetailModel'></app-store-travel-detail-presell>
+                                <app-store-travel-detail-presell [dataDetailModel]='dataDetailModel'>
+                                </app-store-travel-detail-presell>
                             </div>
                         </ng-template>
                     </mat-tab>

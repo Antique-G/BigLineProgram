@@ -74,6 +74,8 @@ import { AdminPreAppointComponent } from './admin-pre-sale/admin-pre-appoint/adm
 import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
 import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
 import { AdminPreAppointDetailComponent } from './admin-pre-sale/admin-pre-appoint/admin-pre-appoint-detail/admin-pre-appoint-detail.component';
+import { AdminFinancePreFreeOrderComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order.component';
+import { AdminFinancePreFreeOrderDetailComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order-detail/admin-finance-pre-free-order-detail.component';
 
 
 export const MaterialRoutes: Routes = [
@@ -640,6 +642,21 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行预约码详情'
                 }
             },
+            {
+                path: 'financePreSaleList',
+                component: AdminFinancePreFreeOrderComponent,
+                data: {
+                    breadcrumb: '自由行预售订单列表'
+                }
+            },
+            {
+                path: 'financePreSaleList/detail',
+                component: AdminFinancePreFreeOrderDetailComponent,
+                data: {
+                    breadcrumb: '自由行预售订单详情'
+                }
+            },
+            
         ]
     }
 ];
