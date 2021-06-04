@@ -234,7 +234,7 @@ export class AdminOrderRefundDetailComponent implements OnInit {
 
 
     return() {
-        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
+        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 2} });
     }
 
     return1() {

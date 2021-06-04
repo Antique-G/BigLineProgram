@@ -184,6 +184,7 @@ import { AdminFinanceGroupReqReviewComponent } from './admin-finance/admin-finan
 import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
 import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
 import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
+import { AdminOrderRefundChangeComponent } from './admin-order-refund/admin-order-refund-change/admin-order-refund-change.component';
 
 
 
@@ -395,6 +396,7 @@ import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refun
     AdminOrderRefundSaleApprovalComponent,
     AdminOrderRefundSaleApprovalDetailComponent,
     AdminOrderRefundSaleApprovalRejectComponent,
+    AdminOrderRefundChangeComponent,
 
   ]
 })
