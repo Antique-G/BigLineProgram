@@ -1,10 +1,10 @@
-import { format } from 'date-fns';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
+import { Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RefundFinished, RefundlogModel } from '../../../../../interfaces/store/storeRefund/storerefund';
-import { Router } from '@angular/router';
+import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 
 @Component({
     selector: 'app-admin-order-refund-ways',
@@ -38,6 +38,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             bank_number: ['', [Validators.required]],
             pay_at: ['', [Validators.required]],
             transaction_id: ['', [Validators.required]],
+            refund_amount_to_account: ['', [Validators.required]],
         });
         this.refundFinished = {
             refund_id: '',
@@ -76,7 +77,8 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             }
         })
         this.addForm.patchValue({
-            refund_amount:this.detailModel?.refund_amount
+            refund_amount: this.detailModel?.refund_amount,
+            refund_amount_to_account: this.detailModel?.refund_amount,
         })
     }
 
@@ -93,13 +95,14 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             }
         })
         console.log('newArr :>> ', newArr);
+        // 原路返回
         if (this.isWay == 1) {
             this.refundFinished.refund_id = this.detailModel?.id;
             this.refundFinished.refund_log = newArr;
             return
         }
+        // 银行转账
         if (this.isWay == 2) {
-            // 银行转账
             this.refund1Model2.pay_type = 6;
             this.refund1Model2.pay_at = this.addForm.value.pay_at != '' ? format(new Date(this.addForm.value.pay_at), 'yyyy-MM-dd HH:mm:ss') : '';
             this.refund1Model2.bank_address = this.addForm.value.bank_address;
@@ -111,12 +114,32 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this.refundFinished.refund_log.push(this.refund1Model2);
             return
         }
-        else if (this.isWay == 7) {
+        // 退至余额
+        if (this.isWay == 7) {
             this.refundModel3.pay_type = 7;
-            this.refundModel3.refund_amount = this.addForm.value.refund_amount;
+            this.refundModel3.refund_amount = this.addForm.value.refund_amount_to_account;
             this.refundFinished.refund_id = this.detailModel?.id;
             this.refundFinished.refund_log.push(this.refundModel3);
             return
+        }
+        // 多种方式退
+        else if (this.isWay == 100) {
+            // 原路
+            this.refundFinished.refund_id = this.detailModel?.id;
+            this.refundFinished.refund_log = newArr;
+            // 银行
+            this.refund1Model2.pay_type = 6;
+            this.refund1Model2.pay_at = this.addForm.value.pay_at != '' ? format(new Date(this.addForm.value.pay_at), 'yyyy-MM-dd HH:mm:ss') : '';
+            this.refund1Model2.bank_address = this.addForm.value.bank_address;
+            this.refund1Model2.bank_user = this.addForm.value.bank_user;
+            this.refund1Model2.bank_number = this.addForm.value.bank_number;
+            this.refund1Model2.refund_amount = this.addForm.value.refund_amount;
+            this.refund1Model2.transaction_id = this.addForm.value.transaction_id;
+            this.refundFinished.refund_log.push(this.refund1Model2);
+            // 余额
+            this.refundModel3.pay_type = 7;
+            this.refundModel3.refund_amount = this.addForm.value.refund_amount_to_account;
+            this.refundFinished.refund_log.push(this.refundModel3);
         }
         console.log('提交的 :>> ', this.refundFinished.refund_log, this.refundFinished);
 
@@ -140,9 +163,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
                         this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
                     },
                         error => {
-
                             return;
-
                         })
                 }
 
@@ -168,6 +189,8 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this?.addForm?.controls['pay_at'].updateValueAndValidity();
             this?.addForm?.controls['transaction_id'].setValidators(null);
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount_to_account'].setValidators(null);
+            this?.addForm?.controls['refund_amount_to_account'].updateValueAndValidity();
             return
         }
         if (event == 2) {
@@ -184,22 +207,49 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             this?.addForm?.controls['pay_at'].updateValueAndValidity();
             this?.addForm?.controls['transaction_id'].setValidators([Validators.required]);
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount_to_account'].setValidators(null);
+            this?.addForm?.controls['refund_amount_to_account'].updateValueAndValidity();
             return
         }
-        else if (event == 7) {
+        if (event == 7) {
             this.isWay = 7;
-            this?.addForm?.controls['refund_amount'].setValidators([Validators.required]);
-            this?.addForm?.controls['refund_amount'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount_to_account'].setValidators([Validators.required]);
+            this?.addForm?.controls['refund_amount_to_account'].updateValueAndValidity();
             this?.addForm?.controls['bank_user'].setValidators(null);
             this?.addForm?.controls['bank_user'].updateValueAndValidity();
             this?.addForm?.controls['bank_address'].setValidators(null);
             this?.addForm?.controls['bank_address'].updateValueAndValidity();
             this?.addForm?.controls['bank_number'].setValidators(null);
             this?.addForm?.controls['bank_number'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount'].setValidators(null);
+            this?.addForm?.controls['refund_amount'].updateValueAndValidity();
             this?.addForm?.controls['pay_at'].setValidators(null);
             this?.addForm?.controls['pay_at'].updateValueAndValidity();
             this?.addForm?.controls['transaction_id'].setValidators(null);
             this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            return
+        }
+        // 多种方式
+        if (event == 100) {
+            this.isWay = 100;
+            this.addForm.patchValue({
+                refund_amount: '',
+                refund_amount_to_account: ''
+            })
+            this?.addForm?.controls['bank_user'].setValidators(null);
+            this?.addForm?.controls['bank_user'].updateValueAndValidity();
+            this?.addForm?.controls['bank_address'].setValidators(null);
+            this?.addForm?.controls['bank_address'].updateValueAndValidity();
+            this?.addForm?.controls['bank_number'].setValidators(null);
+            this?.addForm?.controls['bank_number'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount'].setValidators(null);
+            this?.addForm?.controls['refund_amount'].updateValueAndValidity();
+            this?.addForm?.controls['pay_at'].setValidators(null);
+            this?.addForm?.controls['pay_at'].updateValueAndValidity();
+            this?.addForm?.controls['transaction_id'].setValidators(null);
+            this?.addForm?.controls['transaction_id'].updateValueAndValidity();
+            this?.addForm?.controls['refund_amount_to_account'].setValidators(null);
+            this?.addForm?.controls['refund_amount_to_account'].updateValueAndValidity();
             return
         }
 
