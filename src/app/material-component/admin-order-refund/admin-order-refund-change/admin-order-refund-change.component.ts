@@ -7,12 +7,14 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
 
+
+
 @Component({
-    selector: 'app-admin-order-refund-edit',
-    templateUrl: './admin-order-refund-edit.component.html',
-    styleUrls: ['./admin-order-refund-edit.component.css']
+    selector: 'app-admin-order-refund-change',
+    templateUrl: './admin-order-refund-change.component.html',
+    styleUrls: ['./admin-order-refund-change.component.css']
 })
-export class AdminOrderRefundEditComponent implements OnInit {
+export class AdminOrderRefundChangeComponent implements OnInit {
     detailId: any;
     selectedTabIndex = 0;    //选中的tab 默认第一个
     addForm!: FormGroup;
@@ -82,6 +84,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
     nowOrderMoneyPack: any;
     lastPeople = 0;
     pendingPay = 0;
+    adminRefundCheckDataModel: any;
+
+
+    reCommit = true;
+    recommit_refund_amount: any;
+    recommit_pack_refund_amount: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         private modal: NzModalService, public adminRefundService: AdminRefundService, public message: NzMessageService,) {
@@ -120,8 +128,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
             selectPack: [''],
             store_name: [''],
             refundRooms: [0],
-            oldRoom: [''],
-            to_account: [''],
+            to_account:['']
         })
         this.reundCheckModel = {
             id: '',
@@ -133,8 +140,12 @@ export class AdminOrderRefundEditComponent implements OnInit {
             type: '',
             number: '',
             num_room: '',
-            change: [],
-            to_account: ''
+            change: []
+        }
+        this.adminRefundCheckDataModel = {
+            id: '',
+            check: '',
+            remark: '',
         }
     }
 
@@ -301,6 +312,18 @@ export class AdminOrderRefundEditComponent implements OnInit {
                         ele['disabled'] = true;
                         this.setOfCheckedId.add(ele.id);
                         this.onItemChecked(ele, true)
+
+                    })
+                }
+                else {
+                    this.selectMemberData.forEach((ele: any) => {
+                        ele['disabled'] = true;
+                        if (this.detailModel?.handle_data?.members.indexOf(ele.id) != -1) {
+                            this.setOfCheckedId.add(ele.id);
+                            this.onItemChecked(ele, true)
+
+                        }
+
                     })
                 }
 
@@ -318,6 +341,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 else {
                     this.onEnterPack(this.addForm.value.ispackNum);
                 }
+                // 最开始退款
+                this.recommit_refund_amount = this.detailModel?.handle_data?.refund_amount;
+                this.recommit_pack_refund_amount = this.detailModel?.handle_data?.refund_amount;
             })
         });
     }
@@ -340,6 +366,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
     next2() {
         this.selectedTabIndex = 2;
     }
+
 
 
 
@@ -446,6 +473,11 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.priceAll();
 
     }
+
+
+
+
+
 
 
 
@@ -588,6 +620,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.reundCheckModel.remark = this.addForm.value.remarks;
         this.reundCheckModel.num_room = this.refundRoomNum;
         this.reundCheckModel.to_account = Number(this.addForm.value.to_account);
+
     }
 
     setPackValue() {
@@ -600,74 +633,6 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.reundCheckModel.number = this.addForm.value.ispackNum;
         this.reundCheckModel.num_room = 0;
         this.reundCheckModel.to_account = Number(this.addForm.value.to_account);
-    }
-
-
-    add() {
-        if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
-        }
-        else {
-            if (Number(this.refund_amount) > Number(this.detailModel.order?.data?.price_total)) {
-                this.message.create('error', `退款总金额不能大于订单付款总金额`)
-            }
-            else {
-                console.log('Number(this.refund_amount) :>> ', Number(this.refund_amount), Number(this.price_total), Number(this.refund_amount) > Number(this.price_receive));
-                this.setValue();
-                console.log('this.checkAdultNum.length :>> ', this.checkAdultNum, this.allAdultNum.length);
-                if (this.checkAdultNum === this.allAdultNum.length) {
-                    if (this.checkkidNum != this.allKidNum.length || this.checkbaNum != this.allbabyNum.length) {
-                        this.message.create('error', `所有出行人为成人的已选择退款，儿童和婴儿也必须退款`);
-                    }
-                    else {
-                        if (this.detailModel?.type === 0) {
-                            this.reundCheckModel.type = 0;
-                            this.modal.confirm({
-                                nzTitle: '<h4>确认提交退款</h4>',
-                                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                                nzOnOk: () =>
-                                    this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                                        console.log('res :>> ', res);
-                                        if (res === null) {
-                                            this.router.navigate(['/admin/main/refund']);
-                                        }
-                                    })
-                            });
-                        }
-                        else if (this.detailModel?.type === 1) {
-                            this.reundCheckModel.type = 0;
-                            this.modal.confirm({
-                                nzTitle: '<h4>确认提交退款</h4>',
-                                nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                                nzOnOk: () =>
-                                    this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                                        console.log('res :>> ', res);
-                                        if (res === null) {
-                                            this.router.navigate(['/admin/main/refund']);
-                                        }
-                                    })
-                            });
-                        }
-
-                    }
-                }
-                else {
-                    this.reundCheckModel.type = 1;
-                    this.modal.confirm({
-                        nzTitle: '<h4>确认提交退款</h4>',
-                        nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                        nzOnOk: () =>
-                            this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                                console.log('res :>> ', res);
-                                if (res === null) {
-                                    this.router.navigate(['/admin/main/refund']);
-                                }
-                            })
-                    });
-                }
-            }
-
-        }
     }
 
 
@@ -717,76 +682,23 @@ export class AdminOrderRefundEditComponent implements OnInit {
 
 
     numTestPack(data: any) {
-        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-        if (this.isPack_refund_amount < 0) {
+        this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
+        this.recommit_pack_refund_amount = this.toDecimal(this.recommit_pack_refund_amount);
+        if (this.recommit_pack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
     }
 
     numTestPack2(data: any) {
-        this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
-        if (this.isPack_refund_amount < 0) {
+        this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
+        this.recommit_pack_refund_amount = this.toDecimal(this.recommit_pack_refund_amount);
+        if (this.recommit_pack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
     }
 
 
 
-    addPack() {
-        this.setPackValue();
-        // 部分退款
-        if (this.detailModel.type == 1) {
-            if (Number(this.addForm.value.ispackNum) < Number(this.detailModel?.order?.data?.num_total)) {
-                this.reundCheckModel.type = this.detailModel.type;
-                console.log('提交的 :>> ', this.reundCheckModel);
-                this.modal.confirm({
-                    nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                    nzOnOk: () =>
-                        this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                            console.log('res :>> ', res);
-                            if (res === null) {
-                                this.router.navigate(['/admin/main/refund']);
-                            }
-                        })
-                });
-            }
-            else {
-                this.reundCheckModel.type = 0;
-                console.log('提交的 :>> ', this.reundCheckModel);
-                this.modal.confirm({
-                    nzTitle: '<h4>确认提交退款</h4>',
-                    nzContent: '<h5>因所有套餐份数已选择退款，所以此单改成全额退款</h5><h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                    nzOnOk: () =>
-                        this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                            console.log('res :>> ', res);
-                            if (res === null) {
-                                this.router.navigate(['/admin/main/refund']);
-                            }
-                        })
-                });
-            }
-        }
-        else {
-            this.reundCheckModel.type = 0;
-            console.log('提交的 :>> ', this.reundCheckModel);
-            this.modal.confirm({
-                nzTitle: '<h4>确认提交退款</h4>',
-                nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
-                nzOnOk: () =>
-                    this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
-                        console.log('res :>> ', res);
-                        if (res === null) {
-                            this.router.navigate(['/admin/main/refund']);
-                        }
-                    })
-            });
-        }
-
-
-    }
 
     // 计算优惠跟附加
     priceChange(price: any, i: any) {
@@ -846,6 +758,76 @@ export class AdminOrderRefundEditComponent implements OnInit {
         });
         this.priceDetailChange();
     }
+
+
+
+
+
+
+    change() {
+        if (this.reCommit) {
+            this.reCommit = false;
+        }
+        else {
+            return;
+        }
+
+    }
+
+    cancel() {
+        if (!this.reCommit) {
+            this.reCommit = true;
+        }
+        else {
+            return;
+        }
+    }
+
+
+    reCommits() {
+        this.setValue();
+        this.reundCheckModel.type = this.detailModel?.type;
+        console.log('提交的 :>> ', this.reundCheckModel);
+        this.modal.confirm({
+            nzTitle: '<h4>确认重新提交退款？</h4>',
+            nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
+            nzOnOk: () =>
+                this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+                    console.log('res :>> ', res);
+                    if (res === null) {
+                        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1} });
+                    }
+                })
+        });
+    }
+
+
+    // 重新提交
+    reCommitPack() {
+        this.setPackValue();
+        this.reundCheckModel.type = this.detailModel?.type;
+        console.log('提交的 :>> ', this.reundCheckModel);
+        this.modal.confirm({
+            nzTitle: '<h4>确认重新提交退款？</h4>',
+            nzContent: '<h5>如果您确认提交退款处理信息无误，提交后主管将审核退款，退款进度请联系相关负责人员。</h5>',
+            nzOnOk: () =>
+                this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
+                    console.log('res :>> ', res);
+                    if (res === null) {
+                        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
+                    }
+                })
+        });
+    }
+
+
+    return() {
+        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
+    }
+
+
+
+
 }
 
 

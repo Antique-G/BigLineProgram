@@ -873,12 +873,20 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
 
     success() {
+        let contentText = '';
+        if (this.detailModel?.handle_data?.to_account == 1) {
+            contentText = `<h6>审核成功后，将直接退款至此用户账户余额</h6>`;
+        }
+        else {
+            contentText = `<h6>审核成功后，将提交到财务处理退款</h6>`;
+        }
+        
         this.adminRefundCheckDataModel.id = this.detailModel?.id;
         this.adminRefundCheckDataModel.check = 2;
         this.adminRefundCheckDataModel.remark = '';
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",
-            nzContent: "<h6>审核成功后，将提交到财务处理退款</h6>",
+            nzContent: contentText,
             nzOnOk: () =>
                 this.adminRefundService.postAdminRefundDataCheck(this.adminRefundCheckDataModel).subscribe((res) => {
                     this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });

@@ -1,5 +1,5 @@
 <nz-layout style="width: 100%;height: 100%;">
-    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="overflow-y: scroll;">
         <div *ngIf="this.pathName==='admin'">
             <div class="user-profile" style="background: url(http://cdn.bigline.com.cn/static/images/user-info.jpg) no-repeat;">
                 <div class="profile-img">
@@ -19,11 +19,11 @@
                 <mat-menu #sdprofile="matMenu" class="mymegamenu">
                     <button mat-menu-item (click)="accountDetail()">
                         <span> <img src="http://cdn.bigline.com.cn/static/images/profile.png"></span>
-                       <span style="margin-left: 16px;"> 修改密码</span> 
+                       <span style="margin-left: 16px;"> 修改密码</span>
                     </button>
                     <button mat-menu-item (click)="logOut()">
                         <span> <img src="http://cdn.bigline.com.cn/static/images/signOut.png"></span>
-                       <span style="margin-left: 16px;"> 登出</span> 
+                       <span style="margin-left: 16px;"> 登出</span>
                     </button>
                 </mat-menu>
             </div>
@@ -46,11 +46,11 @@
                 <mat-menu #sdprofile="matMenu" class="mymegamenu">
                     <button mat-menu-item (click)="storeAccountDetail()">
                         <span> <img src="http://cdn.bigline.com.cn/static/images/profile.png"></span>
-                        <span style="margin-left: 16px;"> 修改密码</span> 
+                        <span style="margin-left: 16px;"> 修改密码</span>
                     </button>
                     <button mat-menu-item (click)="storeLogOut()">
                         <span> <img src="http://cdn.bigline.com.cn/static/images/signOut.png"></span>
-                        <span style="margin-left: 16px;"> 登出</span> 
+                        <span style="margin-left: 16px;"> 登出</span>
                     </button>
                 </mat-menu>
             </div>

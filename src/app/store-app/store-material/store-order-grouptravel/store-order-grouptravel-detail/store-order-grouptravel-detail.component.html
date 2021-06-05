@@ -370,7 +370,7 @@
                             <nz-divider></nz-divider>
                             <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                 <div class="mat-elevation-z8">
-                                    <nz-table #rowSelectionTableRefundLog [nzData]="refundLog">
+                                    <nz-table #rowSelectionTableRefundLog nzBordered [nzData]="refundLog">
                                         <thead>
                                             <tr>
                                                 <th style="text-align: center;">订单id</th>
@@ -379,7 +379,10 @@
                                                 <th style="text-align: center;">退款状态</th>
                                                 <th style="text-align: center;">退款类型</th>
                                                 <th style="text-align: center;">退款方式</th>
-                                                <th style="text-align: center;">退款明细</th>
+                                                <th style="text-align: center;">金额</th>
+                                                <th style="text-align: center;">退款时间</th>
+                                                <th style="text-align: center;">流水号</th>
+                                                <th style="text-align: center;width: 15%;">退款明细</th>
                                                 <th style="text-align: center;">退款审核时间</th>
                                                 <th style="text-align: center;">操作人</th>
                                                 <th style="text-align: center;">审核人</th>
@@ -387,61 +390,122 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let data of rowSelectionTableRefundLog.data">
-                                                <td>{{data.order_id}}</td>
-                                                <td>{{data.refund_reason}}</td>
-                                                <td>{{data.refund_amount}}元</td>
-                                                <td>
-                                                    <span *ngIf="data.status===2">退款中</span>
-                                                    <span *ngIf="data.status===3">已完成</span>
-                                                </td>
-                                                <td>
-                                                    <span *ngIf="data.type===0">全额退</span>
-                                                    <span *ngIf="data.type===1">部分退款</span>
-                                                    <span *ngIf="data.type===2">多付返还</span>
-                                                    <span *ngIf="data.type===3">退保</span>
-                                                </td>
-                                                <td>
-                                                    <ng-container *ngFor="let refund of data?.refund_log?.data">
-                                                        <span *ngIf="refund.pay_type===1">微信</span>
-                                                        <span *ngIf="refund.pay_type===2">支付宝</span>
-                                                        <span *ngIf="refund.pay_type===3">现金</span>
-                                                        <span *ngIf="refund.pay_type===4">微信</span>
-                                                        <span *ngIf="refund.pay_type===5">支付宝</span>
-                                                        <span *ngIf="refund.pay_type===6">银行卡转账</span>
-                                                        <span *ngIf="refund.pay_type===7">余额</span>
-                                                        <span *ngIf="refund.pay_type===8">飞猪</span>
-                                                        <span *ngIf="refund.pay_type===9">携程</span>
-                                                    </ng-container>
-                                                </td>
-                                                <td>
-                                                    <div fxLayout="column" fxLayoutAlign="center center">
-                                                        <div>
-                                                            退款:
-                                                            <span>成人*{{data.member_detail[0]}}|</span>
-                                                            <span>儿童*{{data.member_detail[1]}}|</span>
-                                                            <span>婴儿*{{data.member_detail[2]}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
-                                                        <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
-                                                        <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {{data.check_at}}
-                                                </td>
-                                                <td>
-                                                    {{data?.handler_name}}
-                                                </td>
-                                                <td>
-                                                    {{data?.checker_name}}
-                                                </td>
-                                                <td>
-                                                    {{data?.finance_name}}
-                                                </td>
-                                            </tr>
+                                            <ng-container *ngFor="let data of rowSelectionTableRefundLog.data">
+                                                <!-- 退款中 -->
+                                                <ng-container *ngIf="data?.status!=3">
+                                                    <tr>
+                                                        <td>{{data.order_id}}</td>
+                                                        <td>{{data.refund_reason}}</td>
+                                                        <td>{{data.refund_amount}}元</td>
+                                                        <td>
+                                                            <span *ngIf="data.status===2"><nz-badge nzColor="yellow"></nz-badge>退款中</span>
+                                                            <span *ngIf="data.status===3"><nz-badge nzColor="green"></nz-badge>已完成</span>
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="data.type===0">全额退</span>
+                                                            <span *ngIf="data.type===1">部分退款</span>
+                                                            <span *ngIf="data.type===2">多付返还</span>
+                                                            <span *ngIf="data.type===3">退保</span>
+                                                        </td>
+                                                        <td>{{data?.to_account==1?'退至用户账户余额':'原路返回'}}</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <div fxLayout="column" fxLayoutAlign="center center">
+                                                                <div>
+                                                                    退款:
+                                                                    <span>成人*{{data.member_detail[0]}}|</span>
+                                                                    <span>儿童*{{data.member_detail[1]}}|</span>
+                                                                    <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
+                                                                <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
+                                                                <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{data.check_at}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.handler_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.checker_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.finance_name}}
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                                <!-- 已完成 -->
+                                                <ng-container *ngIf="data?.status==3">
+                                                    <tr *ngFor="let item of data?.refund_log?.data;let i=index">
+                                                        <ng-container *ngIf="i==0">
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data.order_id}}</td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data.refund_reason}}</td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data.refund_amount}}元</td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                <span *ngIf="data.status===2"><nz-badge nzColor="yellow"></nz-badge>退款中</span>
+                                                                <span *ngIf="data.status===3"><nz-badge nzColor="green"></nz-badge>已完成</span>
+                                                            </td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                <span *ngIf="data.type===0">全额退</span>
+                                                                <span *ngIf="data.type===1">部分退款</span>
+                                                                <span *ngIf="data.type===2">多付返还</span>
+                                                                <span *ngIf="data.type===3">退保</span>
+                                                            </td>
+                                                        </ng-container>
+                                                        <td>
+                                                            <span *ngIf="item.pay_type===1">微信</span>
+                                                            <span *ngIf="item.pay_type===2">支付宝</span>
+                                                            <span *ngIf="item.pay_type===3">现金</span>
+                                                            <span *ngIf="item.pay_type===4">微信</span>
+                                                            <span *ngIf="item.pay_type===5">支付宝</span>
+                                                            <span *ngIf="item.pay_type===6">银行卡转账</span>
+                                                            <span *ngIf="item.pay_type===7">余额</span>
+                                                            <span *ngIf="item.pay_type===8">飞猪</span>
+                                                            <span *ngIf="item.pay_type===9">携程</span>
+                                                        </td>
+                                                        <td>{{item.refund_amount}}元</td>
+                                                        <td>{{item.pay_at}}</td>
+                                                        <td>{{item.transaction_id}}</td>
+                                                        <td>
+                                                            <div fxLayout="column" fxLayoutAlign="center center">
+                                                                <div>
+                                                                    退款:
+                                                                    <span>成人*{{data.member_detail[0]}}|</span>
+                                                                    <span>儿童*{{data.member_detail[1]}}|</span>
+                                                                    <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
+                                                                <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
+                                                                <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{data.check_at}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.handler_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.checker_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{data?.finance_name}}
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+
+                                            </ng-container>
                                         </tbody>
                                     </nz-table>
                                 </div>
