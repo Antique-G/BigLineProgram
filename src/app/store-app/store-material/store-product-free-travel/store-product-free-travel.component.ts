@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { StoreProductMiniCodeComponent } from '../store-product-management/store-product-mini-code/store-product-mini-code.component';
 
 
@@ -52,6 +52,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
     is_presell: any;
+    product_id: any;
+
 
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
@@ -378,5 +380,22 @@ export class StoreProductFreeTravelComponent implements OnInit {
             destination_city: '',
             is_presell: ''
         })
+    }
+
+
+    
+    // 克隆
+    copy(data: any) {
+        this.product_id = data?.id;
+        this.modal.confirm({
+            nzTitle: '<h5>请确认</h5>',
+            nzContent: '<h6>是否生成该产品副本？</h6>',
+            nzOnOk: () => {
+                this.freeTrvelService.copyProduct(this.product_id).subscribe(res => {
+                    console.log(res);
+                    this.getProductList();
+                })
+            }
+        });
     }
 }

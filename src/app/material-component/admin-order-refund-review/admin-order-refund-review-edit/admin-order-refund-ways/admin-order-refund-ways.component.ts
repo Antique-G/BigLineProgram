@@ -64,7 +64,13 @@ export class AdminOrderRefundWaysComponent implements OnInit {
         this.order_id = this.detailModel?.order_id;
         this.adminRefundService.getPayLog(this.order_id).subscribe(res => {
             console.log('结果是22222222 :>> ', res);
-            this.dataSource = res.data;
+            let newArr:any[]=[];
+            res.data.forEach((element: any) => {
+                if ([1, 2, 4, 5].indexOf(element?.pay_type) != -1) {
+                    newArr.push(element)
+                }
+            });
+            this.dataSource = newArr;
             if (this.detailModel?.refund_amount == 0) {
                 this.dataSource.forEach((element) => {
                     element['addNum'] = 0;
@@ -74,6 +80,13 @@ export class AdminOrderRefundWaysComponent implements OnInit {
                 this.dataSource.forEach((element) => {
                     element['addNum'] = '';
                 })
+            }
+            // 没有数据的话，以到余额为基础
+            if (this.dataSource.length == 0) {
+                this.isWay = 7;
+            }
+            else {
+                this.isWay = 1;
             }
         })
         this.addForm.patchValue({
