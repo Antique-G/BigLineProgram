@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { AdminRefundCheckDataModel, AdminRefundLogEditModel, CreateReundModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundCheckDataModel, AdminRefundLogEditModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 
 
 const httpOptions = {
@@ -22,7 +22,7 @@ export class AdminRefundService {
 
     // 退款列表
     getRefundList(page: number, per_page: number, order_id: any, store_id: any, product_name: any, date_start: any,
-        date_end: any, id: any, status: any, check_status?: any,updated_start?:any,updated_end?:any): Observable<RefundModel> {
+        date_end: any, id: any, status: any, check_status?: any, updated_start?: any, updated_end?: any): Observable<RefundModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_id', order_id ? order_id : '')
@@ -152,7 +152,7 @@ export class AdminRefundService {
     // 财务退款 统计
     getRefundAmountTotal(page: number, per_page: number, order_id: any, store_id: any,
         product_name: any, date_start: any, date_end: any, id: any, status: any,
-        check_status?: any,updated_start?:any,updated_end?:any): Observable<any> {
+        check_status?: any, updated_start?: any, updated_end?: any): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_id', order_id ? order_id : '')
@@ -174,6 +174,15 @@ export class AdminRefundService {
             params: params
         };
         return this.httpClient.get<any>(this.urls.GetAdminRefundAmountTotal, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 撤销退款
+    postRefundCancel(id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminRefundCancel, { id }, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )
