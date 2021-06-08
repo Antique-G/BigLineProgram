@@ -584,18 +584,18 @@ export class AdminOrderRefundChangeComponent implements OnInit {
 
     numTest(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
-        if (this.refund_amount < 0) {
+        this.recommit_refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
+        this.recommit_refund_amount = Math.round(this.recommit_refund_amount * 100) / 100;
+        if (this.recommit_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
     }
 
     numTest1(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
-        this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
-        if (this.refund_amount < 0) {
+        this.recommit_refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
+        this.recommit_refund_amount = Math.round(this.recommit_refund_amount * 100) / 100;
+        if (this.recommit_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
     }
@@ -614,7 +614,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
     setValue() {
         this.reundCheckModel.id = this.detailModel?.id;
         this.reundCheckModel.members = [...this.setOfCheckedId];
-        this.reundCheckModel.refund_amount = this.refund_amount;
+        this.reundCheckModel.refund_amount = this.recommit_refund_amount;
         this.reundCheckModel.amount_add = this.addForm.value.amount_add;
         this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
         this.reundCheckModel.remark = this.addForm.value.remarks;
@@ -626,7 +626,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
     setPackValue() {
         this.reundCheckModel.id = this.detailModel?.id;
         this.reundCheckModel.members = '';
-        this.reundCheckModel.refund_amount = this.isPack_refund_amount;
+        this.reundCheckModel.refund_amount = this.recommit_pack_refund_amount;
         this.reundCheckModel.amount_add = this.addForm.value.amount_add;
         this.reundCheckModel.amount_cut = this.addForm.value.amount_cut;
         this.reundCheckModel.remark = this.addForm.value.remarks;
@@ -683,7 +683,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
 
     numTestPack(data: any) {
         this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+        this.recommit_pack_refund_amount = Math.round(this.recommit_pack_refund_amount * 100) / 100;
         if (this.recommit_pack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -691,7 +691,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
 
     numTestPack2(data: any) {
         this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+        this.recommit_pack_refund_amount = Math.round(this.recommit_pack_refund_amount * 100) / 100;
         if (this.recommit_pack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
