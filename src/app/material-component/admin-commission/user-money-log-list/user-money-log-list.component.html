@@ -85,7 +85,14 @@
                                             -
                                         </ng-container>
                                     </td>
-                                    <td>{{data?.transaction_id}}</td>
+                                    <td>
+                                        <ng-container *ngIf="data?.type==3">
+                                            <a title="查看流水列表" (click)="routeToRefund(data?.transaction_id)">{{data?.transaction_id}} </a>
+                                        </ng-container>
+                                        <ng-container *ngIf="data?.type!=3">
+                                            {{data?.transaction_id}}
+                                        </ng-container>
+                                    </td>
                                     <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>{{data?.user?.name}}</td>
                                     <td>

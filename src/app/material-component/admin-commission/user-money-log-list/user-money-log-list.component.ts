@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminUserMoneyLogService } from '../../../../services/admin/admin-user-money-log.service';
 
 @Component({
@@ -25,9 +25,10 @@ export class UserMoneyLogListComponent implements OnInit {
 
     // 跳转到订单详情
     isUrl: any;
-
+    // 跳到流水
+    isRefundUrl: any;
     
-    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,
+    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,  public router: Router, 
         public adminUserMoneyLogService: AdminUserMoneyLogService) {
         this.searchForm = fb.group({
             type: [""],
@@ -103,5 +104,9 @@ export class UserMoneyLogListComponent implements OnInit {
         else if (data?.product_type == 1) {
             this.isUrl = '/admin/main/freeTravelOrder/detail?detailId='+data?.id;
         }
+    }
+
+    routeToRefund(data: any) {
+        this.router.navigate(['/admin/main/refundTurnOver'], { queryParams: { transaction_id: data } });
     }
 }
