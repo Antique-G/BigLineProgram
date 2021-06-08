@@ -118,9 +118,7 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
 
 
   edit(data: any) {
-    console.log('data :>> ', data, data.status === 2);
-    if (data.status === 3) {
-      const dialogRef = this.dialog.open(StoreOrderRefundTurnoverDetailComponent, {
+    const dialogRef = this.dialog.open(StoreOrderRefundTurnoverDetailComponent, {
         width: '900px',
         data: data
       });
@@ -128,7 +126,6 @@ export class StoreOrderRefundTurnoverComponent implements OnInit {
 
 
       });
-    }
   }
 
 

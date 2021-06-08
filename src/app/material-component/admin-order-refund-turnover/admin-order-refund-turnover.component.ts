@@ -163,17 +163,14 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
 
 
     edit(data: any) {
-        console.log('data :>> ', data, data.status === 2);
-        if (data.status === 3) {
-            const dialogRef = this.dialog.open(AdminOrderRefundTurnoverDetailComponent, {
-                width: '900px',
-                data: data
-            });
-            dialogRef.afterClosed().subscribe(result => {
+        const dialogRef = this.dialog.open(AdminOrderRefundTurnoverDetailComponent, {
+            width: '900px',
+            data: data
+        });
+        dialogRef.afterClosed().subscribe(result => {
 
 
-            });
-        }
+        });
     }
 
     send(data: any) {
