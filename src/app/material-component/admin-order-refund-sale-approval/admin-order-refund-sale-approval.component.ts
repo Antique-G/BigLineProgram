@@ -1,9 +1,10 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminRefundService } from '../../../services/admin/admin-refund.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
+import { AdminRefundService } from '../../../services/admin/admin-refund.service';
 
 @Component({
     selector: 'app-admin-order-refund-sale-approval',
@@ -45,6 +46,7 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
     selectedTabIndex = 0;    //选中的tab 默认第一个
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
+        public modal: NzModalService,
         public adminProductManagementService: AdminProductManagementService, public adminRefundService: AdminRefundService) {
         this.searchForm1 = fb.group({
             product_name: [''],
@@ -247,6 +249,19 @@ export class AdminOrderRefundSaleApprovalComponent implements OnInit {
             time: '',
             refund_id: '',
         })
+    }
+
+
+    
+    cancelRefund(data:any) {
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>是否确定撤销退款</h6>",
+            nzOnOk: () =>
+              this.adminRefundService.postRefundCancel(data.id).subscribe((res) => {
+                  this.getList();
+              }),
+          });
     }
 }
 

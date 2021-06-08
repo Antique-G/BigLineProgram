@@ -89,6 +89,7 @@
                                                         <th style="text-align: center;">审核人</th>
                                                         <th style="text-align: center;">财务</th>
                                                         <th style="text-align: center;">操作</th>
+                                                        <th style="text-align: center;">撤销退款</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -124,6 +125,9 @@
                                                         <td>{{data?.finance_name}}</td>
                                                         <td>
                                                             <a (click)="handle(data)">去处理</a>
+                                                        </td>
+                                                        <td>
+                                                            <a (click)="cancelRefund(data)">撤销</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
