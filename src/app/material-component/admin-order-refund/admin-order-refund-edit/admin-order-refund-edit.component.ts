@@ -849,6 +849,20 @@ export class AdminOrderRefundEditComponent implements OnInit {
         });
         this.priceDetailChange();
     }
+
+
+
+    //撤销退款申请
+    cancelRefund() {
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>是否确定撤销退款</h6>",
+            nzOnOk: () =>
+              this.adminRefundService.postRefundCancel(this.detailModel?.id).subscribe((res) => {
+                this.router.navigate(['/admin/main/refund']);
+              }),
+          });
+    }
 }
 
 
