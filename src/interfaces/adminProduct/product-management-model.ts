@@ -53,6 +53,7 @@ interface DatumModel {
     insurance_extra?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    third_product_id?: any;
 }
 
 export interface StoreModel {

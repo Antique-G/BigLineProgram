@@ -1,10 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { StoreFreeTravelModel, ProductTabListModel, FreeTravelListModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
+import { Observable } from 'rxjs';
 import { StoreUrls } from '../../../api';
-import { AddProductTrip, AssemblingPlaceListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
+import { AddProductTrip, AssemblingPlaceListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
+import { FreeTravelListModel, StoreFreeTravelModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 
 const httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -128,7 +128,7 @@ export class StoreProductTreeTravelService {
     // 预售产品列表
     GetPreFreeTravelList(page: number, per_page: number, status: any, check_status: any, title: any,
         few_days: any, id: any, tag?: any, departure_city?: any, destination_city?: any,
-        start_date?:any,end_date?:any,use_start_date?:any,use_end_date?:any): Observable<any> {
+        start_date?: any, end_date?: any, use_start_date?: any, use_end_date?: any): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('check_status', check_status ? check_status : '')
@@ -143,7 +143,7 @@ export class StoreProductTreeTravelService {
             .set('end_date', end_date ? end_date : '')
             .set('use_start_date', use_start_date ? use_start_date : '')
             .set('use_end_date', use_end_date ? use_end_date : '');
-        
+
 
 
         const findhttpOptions = {
@@ -162,6 +162,13 @@ export class StoreProductTreeTravelService {
         return this.httpClient.post<any>(this.urls.PostStorePreFreeTravelAdd, freeTravelModel, httpOptions)
             .pipe(
 
+            )
+    }
+
+    // 复制产品
+    copyProduct(product_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreCopyIndentPro, { product_id }, httpOptions)
+            .pipe(
             )
     }
 }

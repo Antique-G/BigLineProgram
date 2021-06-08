@@ -196,6 +196,7 @@ export interface DetailsModel {
     total_member?: any;
     detailModel?: any;
     store_name?: any;
+    cash_requirement?: any;
 }
 
 

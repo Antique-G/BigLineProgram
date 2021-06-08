@@ -63,6 +63,7 @@ export interface DatumModel {
     use_num?: any;
     inclusive?: any;
     buy_num_max?: any;
+    third_product_id?: any;
 }
 
 export interface StoreModel {
