@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
-                                    <td>{{data?.user?.user_id}}</td>
+                                    <td>{{data?.user_id}}</td>
                                     <td>{{data?.money}}元</td>
                                     <td>
                                         <span *ngIf="data?.type==1">+</span>
