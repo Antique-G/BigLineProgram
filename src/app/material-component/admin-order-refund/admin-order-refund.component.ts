@@ -90,67 +90,30 @@ export class AdminOrderRefundComponent implements OnInit {
             else {
                 this.selectedTabIndex = params.tabIndex;
             }
+            this.onTabChange(this.selectedTabIndex)
         })
 
         this.adminProductManagementService.storeList('').subscribe(res => {
             console.log("34334", res);
             this.storeList = res;
+            // 将上次查询的筛选条件赋值
+            let getSeatch1 = JSON.parse(localStorage.getItem("adminRefund1Search")!);
+            this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
+            this.store_id = getSeatch1?.store_id ? getSeatch1?.store_id : '';
+            this.product_name = getSeatch1?.product_name ? getSeatch1?.product_name : '';
+            this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
+            this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
+            this.id = getSeatch1?.id ? getSeatch1?.id : '';
+            this.page = getSeatch1?.page ? getSeatch1?.page : '';
+            this.searchForm1.patchValue({
+                product_name: this.product_name,
+                store_id: this.store_id,
+                order_id: this.order_id,
+                time: this.date_start == null ? [] : [this.date_start, this.date_end],
+                id: this.id,
+            });
+            this.getList();
         })
-        // 将上次查询的筛选条件赋值
-        let getSeatch1 = JSON.parse(localStorage.getItem("adminRefund1Search")!);
-        this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
-        this.store_id = getSeatch1?.store_id ? getSeatch1?.store_id : '';
-        this.product_name = getSeatch1?.product_name ? getSeatch1?.product_name : '';
-        this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
-        this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
-        this.id = getSeatch1?.id ? getSeatch1?.id : '';
-        this.page = getSeatch1?.page ? getSeatch1?.page : '';
-        this.searchForm1.patchValue({
-            product_name: this.product_name,
-            store_id: this.store_id,
-            order_id: this.order_id,
-            time: this.date_start == null ? [] : [this.date_start, this.date_end],
-            id: this.id,
-        });
-        this.getList();
-
-        // 将上次查询的筛选条件赋值
-        let getSeatch2 = JSON.parse(localStorage.getItem("adminRefund2Search")!);
-        this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
-        this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
-        this.product_name = getSeatch2?.product_name ? getSeatch2?.product_name : '';
-        this.date_start = getSeatch2?.date_start ? getSeatch2?.date_start : null;
-        this.date_end = getSeatch2?.date_end ? getSeatch2?.date_end : null;
-        this.id = getSeatch2?.id ? getSeatch2?.id : '';
-        this.page2 = getSeatch2?.page2 ? getSeatch2?.page2 : '';
-        this.searchForm2.patchValue({
-            product_name: this.product_name,
-            store_id: this.store_id,
-            order_id: this.order_id,
-            time: this.date_start == null ? [] : [this.date_start, this.date_end],
-            id: this.id,
-        });
-        this.getList2();
-
-
-        let getSeatch3 = JSON.parse(localStorage.getItem("adminRefund3Search")!);
-        this.order_id = getSeatch3?.order_id ? getSeatch3.order_id : '';
-        this.store_id = getSeatch3?.store_id ? getSeatch3?.store_id : '';
-        this.product_name = getSeatch3?.product_name ? getSeatch3?.product_name : '';
-        this.date_start = getSeatch3?.date_start ? getSeatch3?.date_start : null;
-        this.date_end = getSeatch3?.date_end ? getSeatch3?.date_end : null;
-        this.refund_id = getSeatch3?.refund_id ? getSeatch3?.refund_id : '';
-        this.status = getSeatch3?.status ? getSeatch3?.status : '';
-        this.page3 = getSeatch3?.page3 ? getSeatch3?.page3 : '';
-        this.searchForm3.patchValue({
-            product_name: '',
-            store_id: this.store_id,
-            order_id: this.order_id,
-            time: this.date_start == null ? [] : [this.date_start, this.date_end],
-            refund_id: this.refund_id,
-            status: this.status
-        });
-        this.getList3();
     }
 
     // 未处理
@@ -249,7 +212,7 @@ export class AdminOrderRefundComponent implements OnInit {
         this.router.navigate(['/admin/main/refund/edit'], { queryParams: { detailId: data.id } });
     }
 
-    
+
     //   未审核
     seeDetailAndChange(data: any) {
         this.router.navigate(['/admin/main/refund/change'], { queryParams: { detailId: data.id } });
@@ -379,5 +342,71 @@ export class AdminOrderRefundComponent implements OnInit {
             refund_id: '',
             status: '',
         });
+    }
+
+
+    onTabChange(index: any) {
+        console.log("点击的是", index);
+        if (index == 0) {
+            // 将上次查询的筛选条件赋值
+            let getSeatch1 = JSON.parse(localStorage.getItem("adminRefund1Search")!);
+            this.order_id = getSeatch1?.order_id ? getSeatch1.order_id : '';
+            this.store_id = getSeatch1?.store_id ? getSeatch1?.store_id : '';
+            this.product_name = getSeatch1?.product_name ? getSeatch1?.product_name : '';
+            this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
+            this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
+            this.id = getSeatch1?.id ? getSeatch1?.id : '';
+            this.page = getSeatch1?.page ? getSeatch1?.page : '';
+            this.searchForm1.patchValue({
+                product_name: this.product_name,
+                store_id: this.store_id,
+                order_id: this.order_id,
+                time: this.date_start == null ? [] : [this.date_start, this.date_end],
+                id: this.id,
+            });
+            this.getList();
+            return
+        }
+        if (index == 1) {
+            // 将上次查询的筛选条件赋值
+            let getSeatch2 = JSON.parse(localStorage.getItem("adminRefund2Search")!);
+            this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
+            this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
+            this.product_name = getSeatch2?.product_name ? getSeatch2?.product_name : '';
+            this.date_start = getSeatch2?.date_start ? getSeatch2?.date_start : null;
+            this.date_end = getSeatch2?.date_end ? getSeatch2?.date_end : null;
+            this.id = getSeatch2?.id ? getSeatch2?.id : '';
+            this.page2 = getSeatch2?.page2 ? getSeatch2?.page2 : '';
+            this.searchForm2.patchValue({
+                product_name: this.product_name,
+                store_id: this.store_id,
+                order_id: this.order_id,
+                time: this.date_start == null ? [] : [this.date_start, this.date_end],
+                id: this.id,
+            });
+            this.getList2();
+            return
+        }
+        else if (index == 2) {
+            let getSeatch3 = JSON.parse(localStorage.getItem("adminRefund3Search")!);
+            this.order_id = getSeatch3?.order_id ? getSeatch3.order_id : '';
+            this.store_id = getSeatch3?.store_id ? getSeatch3?.store_id : '';
+            this.product_name = getSeatch3?.product_name ? getSeatch3?.product_name : '';
+            this.date_start = getSeatch3?.date_start ? getSeatch3?.date_start : null;
+            this.date_end = getSeatch3?.date_end ? getSeatch3?.date_end : null;
+            this.refund_id = getSeatch3?.refund_id ? getSeatch3?.refund_id : '';
+            this.status = getSeatch3?.status ? getSeatch3?.status : '';
+            this.page3 = getSeatch3?.page3 ? getSeatch3?.page3 : '';
+            this.searchForm3.patchValue({
+                product_name: '',
+                store_id: this.store_id,
+                order_id: this.order_id,
+                time: this.date_start == null ? [] : [this.date_start, this.date_end],
+                refund_id: this.refund_id,
+                status: this.status
+            });
+            this.getList3();
+            return
+        }
     }
 }

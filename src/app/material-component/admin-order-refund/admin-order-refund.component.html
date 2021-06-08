@@ -3,7 +3,7 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <mat-tab-group [selectedIndex]="selectedTabIndex">
+                    <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
                         <mat-tab label="未处理">
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
@@ -83,7 +83,7 @@
                                                         <th style="text-align: center;">退款原因</th>
                                                         <th style="text-align: center;">退款类型</th>
                                                         <th style="text-align: center;">退款方式</th>
-                                                        <th style="text-align: center;">退款状态</th>
+                                                        <th style="text-align: center;">是否主管拒绝</th>
                                                         <th style="text-align: center;">申请时间</th>
                                                         <th style="text-align: center;">操作</th>
                                                     </tr>
@@ -110,10 +110,9 @@
                                                             </ng-container>
                                                         </td>
                                                         <td>
-                                                            <span *ngIf="data.status===0">已取消</span>
-                                                            <span *ngIf="data.status===1">待审核</span>
-                                                            <span *ngIf="data.status===2">待退款</span>
-                                                            <span *ngIf="data.status===3">已退款</span>
+                                                            <span *ngIf="data?.checker_id!=0">是
+                                                                <i nz-icon nzType="question-circle" nzTheme="outline" style="cursor: pointer;" title={{data?.remark}}></i></span>
+                                                            <span *ngIf="data?.checker_id==0">-</span>
                                                         </td>
                                                         <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
@@ -130,7 +129,11 @@
                         </mat-tab>
 
 
-                        <mat-tab label="未审核">
+                        <mat-tab>
+                            <ng-template mat-tab-label>
+                                未审核
+                                <i nz-icon nzType="question-circle" nzTheme="outline" title="主管待审核时，销售可修改退款信息"></i>
+                            </ng-template>
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
                                     <div fxLayout="column" fxLayoutAlign="start stretch">
@@ -211,7 +214,7 @@
                                                         <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">退款状态</th>
                                                         <th style="text-align: center;">申请时间</th>
-                                                        <th style="text-align: center;">查看详情</th>
+                                                        <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

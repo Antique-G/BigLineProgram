@@ -22,6 +22,11 @@ export class UserMoneyLogListComponent implements OnInit {
     // 用户id
     userList_id: any;
 
+
+    // 跳转到订单详情
+    isUrl: any;
+
+    
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,
         public adminUserMoneyLogService: AdminUserMoneyLogService) {
         this.searchForm = fb.group({
@@ -49,7 +54,7 @@ export class UserMoneyLogListComponent implements OnInit {
             })
             this.getDataList();
         }
-
+     
     }
 
 
@@ -87,5 +92,16 @@ export class UserMoneyLogListComponent implements OnInit {
             type: '',
             user_id: '',
         })
+    }
+
+
+    routeToDetail(data: any) {
+        console.log("dara", data);
+        if (data?.product_type == 0) {
+            this.isUrl = '/admin/main/groupTravelOrder/detail?detailId='+data?.id;
+        }
+        else if (data?.product_type == 1) {
+            this.isUrl = '/admin/main/freeTravelOrder/detail?detailId='+data?.id;
+        }
     }
 }
