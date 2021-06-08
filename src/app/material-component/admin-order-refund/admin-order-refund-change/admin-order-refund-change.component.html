@@ -47,7 +47,7 @@
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">产品名称
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="id" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_name" readonly />
+                                                            <input nz-input formControlName="product_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.product_name" readonly />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -563,7 +563,8 @@
                                                         <div nz-row style="margin-top: 10px;">
                                                             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                                 <div nz-row>
-                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" style="font-weight: bold;">退款方式</nz-form-label>
+                                                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" style="font-weight: bold;">
+                                                                        退款方式</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
                                                                         <ng-container *ngIf="!detailModel?.handle_data">
                                                                             <nz-select formControlName="to_account" ngModel={{detailModel?.to_account}} [nzDisabled]="reCommit">
@@ -578,7 +579,8 @@
                                                                                         </nz-select>
                                                                         </ng-container>
 
-                                                                        <p style="color: red;font-size: 12px;">默认为用户申请的退款方式，不可随意更改</p>
+                                                                        <p style="color: red;font-size: 12px;">
+                                                                            默认为用户申请的退款方式，不可随意更改</p>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -695,6 +697,7 @@
                                                         <button mat-raised-button color="primary"  style="letter-spacing: 2px;"  (click)="change()" *ngIf="reCommit">修改</button>
                                                             <button mat-raised-button   style="letter-spacing: 2px;"  (click)="cancel()" *ngIf="!reCommit">取消</button>
                                                                 <button mat-raised-button  color="primary"  style="letter-spacing: 2px;"  (click)="reCommits()" *ngIf="!reCommit">重新提交</button>
+                                                                    <button mat-raised-button style="letter-spacing: 2px;" (click)="cancelRefund()">撤销退款申请</button>
                                                 </div>
                                             </div>
 
@@ -975,7 +978,8 @@
                                             <div nz-row style="margin-top: 10px;">
                                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" style="font-weight: bold;">退款方式</nz-form-label>
+                                                        <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" style="font-weight: bold;">
+                                                            退款方式</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
                                                             <ng-container *ngIf="!detailModel?.handle_data">
                                                                 <nz-select formControlName="to_account" ngModel={{detailModel?.to_account}} [nzDisabled]="reCommit">
@@ -989,7 +993,8 @@
                                                                         <nz-option [nzLabel]="'退至用户账户余额'"  [nzValue]="'1'"></nz-option>
                                                                             </nz-select>
                                                             </ng-container>
-                                                            <p style="color: red;font-size: 12px;">默认为用户申请的退款方式，不可随意更改</p>
+                                                            <p style="color: red;font-size: 12px;">
+                                                                默认为用户申请的退款方式，不可随意更改</p>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -1108,6 +1113,8 @@
                                     <button mat-raised-button color="primary"  style="letter-spacing: 2px;"  (click)="change()" *ngIf="reCommit">修改</button>
                                         <button mat-raised-button   style="letter-spacing: 2px;"  (click)="cancel()" *ngIf="!reCommit">取消</button>
                                             <button mat-raised-button  color="primary"  style="letter-spacing: 2px;"  (click)="reCommitPack()" *ngIf="!reCommit">重新提交</button>
+                                                <button mat-raised-button style="letter-spacing: 2px;" (click)="cancelRefund()">撤销退款申请</button>
+
                             </div>
                         </div>
 

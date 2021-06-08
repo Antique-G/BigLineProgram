@@ -421,7 +421,8 @@ export class AdminOrderRefundComponent implements OnInit {
             nzContent: "<h6>是否确定撤销退款</h6>",
             nzOnOk: () =>
               this.adminRefundService.postRefundCancel(data.id).subscribe((res) => {
-                this.getList();
+                  this.getList();
+                  this.getList2();
               }),
           });
     }
