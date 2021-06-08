@@ -461,37 +461,39 @@
                                                         <td>{{item.refund_amount}}元</td>
                                                         <td>{{item.pay_at}}</td>
                                                         <td>{{item.transaction_id}}</td>
-                                                        <td>
-                                                            <div fxLayout="column" fxLayoutAlign="center center">
-                                                                <div *ngIf="detailModel?.quote_type!=1">
-                                                                    退款:
-                                                                    <span>成人*{{data.member_detail[0]}}|</span>
-                                                                    <span>儿童*{{data.member_detail[1]}}|</span>
-                                                                    <span>婴儿*{{data.member_detail[2]}}</span>
+                                                        <ng-container *ngIf="i==0">
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                <div fxLayout="column" fxLayoutAlign="center center">
+                                                                    <div *ngIf="detailModel?.quote_type!=1">
+                                                                        退款:
+                                                                        <span>成人*{{data.member_detail[0]}}|</span>
+                                                                        <span>儿童*{{data.member_detail[1]}}|</span>
+                                                                        <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                    </div>
+                                                                    <div *ngIf="detailModel?.quote_type==1">
+                                                                        退款:
+                                                                        <span>套餐*{{data?.refund_number}}</span>
+                                                                    </div>
                                                                 </div>
-                                                                <div *ngIf="detailModel?.quote_type==1">
-                                                                    退款:
-                                                                    <span>套餐*{{data?.refund_number}}</span>
+                                                                <div>
+                                                                    <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
+                                                                    <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
+                                                                    <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
                                                                 </div>
-                                                            </div>
-                                                            <div>
-                                                                <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
-                                                                <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
-                                                                <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            {{data.check_at}}
-                                                        </td>
-                                                        <td>
-                                                            {{data?.handler_name}}
-                                                        </td>
-                                                        <td>
-                                                            {{data?.checker_name}}
-                                                        </td>
-                                                        <td>
-                                                            {{data?.finance_name}}
-                                                        </td>
+                                                            </td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data.check_at}}
+                                                            </td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data?.handler_name}}
+                                                            </td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data?.checker_name}}
+                                                            </td>
+                                                            <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                {{data?.finance_name}}
+                                                            </td>
+                                                        </ng-container>
                                                     </tr>
                                                 </ng-container>
 
