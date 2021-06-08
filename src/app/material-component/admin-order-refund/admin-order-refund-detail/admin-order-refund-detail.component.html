@@ -72,7 +72,12 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refund_to_account">退款方式</nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="refund_to_account" nzBorderless readonly [ngModel]="detailModel?.to_account==1?'退至用户账户余额':'原路返回'" />
+                                                            <ng-container *ngIf="!detailModel?.handle_data">
+                                                                <input nz-input formControlName="refund_to_account" nzBorderless readonly [ngModel]="detailModel?.to_account==1?'退至用户账户余额':'原路返回'" />
+                                                            </ng-container>
+                                                            <ng-container *ngIf="detailModel?.handle_data">
+                                                                <input nz-input formControlName="refund_to_account" nzBorderless readonly [ngModel]="detailModel?.handle_data?.to_account==1?'退至用户账户余额':'原路返回'" />
+                                                            </ng-container>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -362,7 +367,7 @@
                                                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="height: 100%;">
                                                     <div style="font-weight: bold;font-size: 18px;">
                                                         <span *ngIf="isFinished==='2'">退款中...</span>
-                                                        <span *ngIf="isFinished==='3'">财务已处理</span>
+                                                        <span *ngIf="isFinished==='3'">已处理</span>
                                                     </div>
                                                     <div style="font-weight: bold;font-size: 18px;"><span>退款金额：</span><span style="color: red;">{{'￥'+detailModel?.refund_amount}}</span></div>
                                                     <div>销售主管审核时间：<span>{{detailModel?.check_at}}</span></div>
@@ -476,7 +481,14 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr *ngFor="let data of rowSelectionTable.data">
-                                                                            <td>{{data.transaction_id}}</td>
+                                                                            <td>
+                                                                                <ng-container *ngIf="data.pay_type==7">
+                                                                                    <a (click)="routeIt(detailModel?.order?.data?.user_id)" title="跳转到用户记录">{{data.transaction_id}}</a>
+                                                                                </ng-container>
+                                                                                <ng-container *ngIf="data.pay_type!=7">
+                                                                                    {{data.transaction_id}}
+                                                                                </ng-container>
+                                                                            </td>
                                                                             <td>{{data.refund_no}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>
@@ -731,7 +743,7 @@
                                                 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style="height: 100%;">
                                                     <div style="font-weight: bold;font-size: 18px;">
                                                         <span *ngIf="isFinished==='2'">退款中...</span>
-                                                        <span *ngIf="isFinished==='3'">财务已处理</span>
+                                                        <span *ngIf="isFinished==='3'">已处理</span>
                                                     </div>
                                                     <div style="font-weight: bold;font-size: 18px;"><span>退款金额：</span><span style="color: red;">{{'￥'+detailModel?.refund_amount}}</span></div>
                                                     <div>销售主管审核时间：<span>{{detailModel?.check_at}}</span></div>
@@ -847,7 +859,14 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr *ngFor="let data of rowSelectionTable.data">
-                                                                            <td>{{data.transaction_id}}</td>
+                                                                            <td>
+                                                                                <ng-container *ngIf="data.pay_type==7">
+                                                                                    <a (click)="routeIt(detailModel?.order?.data?.user_id)" title="跳转到用户记录">{{data.transaction_id}}</a>
+                                                                                </ng-container>
+                                                                                <ng-container *ngIf="data.pay_type!=7">
+                                                                                    {{data.transaction_id}}
+                                                                                </ng-container>
+                                                                            </td>
                                                                             <td>{{data.refund_no}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.pay_type===1">微信</span>

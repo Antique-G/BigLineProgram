@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminUserMoneyLogService } from '../../../../services/admin/admin-user-money-log.service';
 
 @Component({
@@ -22,7 +22,13 @@ export class UserMoneyLogListComponent implements OnInit {
     // 用户id
     userList_id: any;
 
-    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,
+
+    // 跳转到订单详情
+    isUrl: any;
+    // 跳到流水
+    isRefundUrl: any;
+    
+    constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute,  public router: Router, 
         public adminUserMoneyLogService: AdminUserMoneyLogService) {
         this.searchForm = fb.group({
             type: [""],
@@ -49,7 +55,7 @@ export class UserMoneyLogListComponent implements OnInit {
             })
             this.getDataList();
         }
-
+     
     }
 
 
@@ -78,6 +84,7 @@ export class UserMoneyLogListComponent implements OnInit {
         console.log("value", this.searchForm.value)
         this.user_id = this.searchForm.value.user_id;
         this.type = this.searchForm.value.type;
+        this.page=1
         this.getDataList();
     }
 
@@ -87,5 +94,20 @@ export class UserMoneyLogListComponent implements OnInit {
             type: '',
             user_id: '',
         })
+    }
+
+
+    routeToDetail(data: any) {
+        console.log("dara", data);
+        if (data?.product_type == 0) {
+            this.isUrl = '/admin/main/groupTravelOrder/detail?detailId='+data?.id;
+        }
+        else if (data?.product_type == 1) {
+            this.isUrl = '/admin/main/freeTravelOrder/detail?detailId='+data?.id;
+        }
+    }
+
+    routeToRefund(data: any) {
+        this.router.navigate(['/admin/main/refundTurnOver'], { queryParams: { transaction_id: data } });
     }
 }

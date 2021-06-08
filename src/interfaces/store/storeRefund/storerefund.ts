@@ -23,18 +23,49 @@ interface DatumRefundModel {
     id: number;
     order_id: number;
     type: number;
+    to_account: number;
     source: number;
     status: number;
     refund_amount: number;
+    refund_number: number;
     refund_reason: string;
-    remark?: any;
+    remark: string;
     created_at: string;
     updated_at: string;
     handler_id: number;
-    amount_detail?: any;
-    product_name?: any;
-    to_account?: any;
+    checker_id: number;
+    finance_id: number;
+    handle_data: HandleData;
+    amount_detail: object;
+    store_id: number;
+    product_id: number;
+    check_at: object;
+    member_detail: object;
+    handler_name: string;
+    checker_name: string;
+    finance_name: string;
+    store_name: string;
+    product_name: string;
+    product_type: number;
+    check_amount: number;
+    success_amount: number;
+    false_amount: number;
 }
+
+export interface HandleData {
+    refund_amount: number;
+    amount_add: number;
+    amount_cut: number;
+    members: string;
+    change: any[];
+    number: number;
+    num_room: number;
+    remark: string;
+    to_account: string;
+    type: number;
+    source: number;
+}
+
 
 // 详情
 export interface RefundDetailModel {
@@ -339,7 +370,7 @@ interface DatumRefundListModel {
     bank_number: string;
     store_name: string;
     to_account?: any;
-
+    user_id?: any;
 }
 
 

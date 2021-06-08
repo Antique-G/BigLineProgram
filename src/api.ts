@@ -221,6 +221,8 @@ export const AdminUrls = {
     PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
     PostAdminRefundDataCheck: api + '/admin/refund_data_check', // 主管审核退款
     GetAdminRefundAmountTotal: api + '/admin/refund_amount_total', //  财务退款 统计
+    PostAdminRefundCancel: api + '/admin/cancel_refund', // 撤销退款
+
      
 
 

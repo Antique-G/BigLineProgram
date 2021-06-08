@@ -110,7 +110,7 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
 
                 this.playMoney = (Number(this.detailModel.order?.data?.price_total) * 100 - Number(this.detailModel.order?.data?.amount_received) * 100) / 100
 
-                
+
                 console.log('object :>> ', this.detailModel.price_detail.data,);
                 // this.detailModel.price_detail.
                 let priceArr = this.detailModel.price_detail.data;
@@ -228,5 +228,12 @@ export class AdminOrderRefundReviewDetailComponent implements OnInit {
 
     return() {
         this.router.navigate(['/admin/main/refundReview'], { queryParams: { tabIndex: 1 } });
+    }
+
+
+    // 跳转到用户记录
+    routeIt(data: any) {
+        console.log("data", data);
+        this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
     }
 }

@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
-import { CreateReundModel, ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 
 @Component({
     selector: 'app-a-o-g-t-d-part-refund',
@@ -487,16 +487,16 @@ export class AOGTDPartRefundComponent implements OnInit {
 
         console.log("11111111", Number(adultfff), Number(KidFff), Number(babyFff), Number(this.detailModel.price_diff) * Number(this.difRoom), Number(priceDetail))
         this.nowOrderMoney = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.price_diff) * Number(this.difRoom) + Number(priceDetail);
+        this.nowOrderMoney = Math.round(this.nowOrderMoney * 100) / 100;
 
-        this.nowOrderMoney = this.toDecimal(this.nowOrderMoney);
 
 
         // 基础退款金额
-        console.log("99999999", Number(this.price_total) * 100, Number(this.nowOrderMoney) * 100, (Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100),);
-        console.log("0000000000", ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100), ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100) / 100)
+        // console.log("99999999", Number(this.price_total) * 100, Number(this.nowOrderMoney) * 100, (Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100),);
+        // console.log("0000000000", ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100), ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100) / 100)
         this.bascie_money = ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage)) / 100;
+        this.bascie_money = Math.round(this.bascie_money * 100) / 100;
 
-        this.bascie_money = ((Number(this.bascie_money) * 100) / 100).toFixed(2);
 
         // 保留两位小数
         // this.bascie_money = this.toDecimal(this.bascie_money);
@@ -504,7 +504,8 @@ export class AOGTDPartRefundComponent implements OnInit {
 
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
+
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -514,7 +515,7 @@ export class AOGTDPartRefundComponent implements OnInit {
     numTest(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -523,7 +524,7 @@ export class AOGTDPartRefundComponent implements OnInit {
     numTest1(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -600,7 +601,7 @@ export class AOGTDPartRefundComponent implements OnInit {
                                 this.reundCheckModel.type = 0;
                                 this.modal.confirm({
                                     nzTitle: '<h4>确认提交退款</h4>',
-                                    nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5>'+this.content,
+                                    nzContent: '<h5>因所有出行人为成人的已选择退款，所以此单改成全额退款</h5>' + this.content,
                                     nzOnOk: () =>
                                         this.adminRefundService.createRefund(this.reundCheckModel).subscribe(res => {
                                             console.log('res :>> ', res);

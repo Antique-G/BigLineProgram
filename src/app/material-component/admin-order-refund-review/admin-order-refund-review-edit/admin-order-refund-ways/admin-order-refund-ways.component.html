@@ -5,7 +5,7 @@
                 <div nz-row>
                     <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                         <div nz-row>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="id">退款编号</nz-form-label>
+                            <nz-form-label [nzSm]="9" [nzXs]="24" nzFor="id">退款编号</nz-form-label>
                             <nz-form-control [nzSm]="15" [nzXs]="24">
                                 <input nz-input formControlName="id" nzBorderless [ngModel]="detailModel?.id" />
                             </nz-form-control>
@@ -13,7 +13,7 @@
                     </nz-form-item>
                     <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                         <div nz-row>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
+                            <nz-form-label [nzSm]="9" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                             <nz-form-control [nzSm]="15" [nzXs]="24">
                                 <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.order_id" />
                             </nz-form-control>
@@ -21,21 +21,23 @@
                     </nz-form-item>
                     <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                         <div nz-row>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount">退款金额</nz-form-label>
+                            <nz-form-label [nzSm]="9" [nzXs]="24" nzFor="refund_amount">退款金额</nz-form-label>
                             <span style="color: red;font-size: 16px;margin-top: 3px;font-weight: bold;">{{'￥'+detailModel?.refund_amount}}</span>
                         </div>
                     </nz-form-item>
 
-                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                         <div nz-row>
-                            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="way" style="font-weight: bold;">选择退款方式
+                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="way" style="font-weight: bold;">选择退款方式
                             </nz-form-label>
-                            <nz-form-control [nzSm]="15" [nzXs]="24">
+                            <nz-form-control [nzSm]="10" [nzXs]="24">
                                 <nz-select formControlName="way" [(ngModel)]="isWay" (ngModelChange)="changeWay($event)">
                                     <nz-option [nzLabel]="'原路返回'"  [nzValue]="1"></nz-option>
                                         <nz-option [nzLabel]="'银行转账'"  [nzValue]="2"></nz-option>
-                                            <nz-option [nzLabel]="'用户余额'"  [nzValue]="7"></nz-option>
-                                                </nz-select>
+                                            <nz-option [nzLabel]="'退至用户余额'"  [nzValue]="7"></nz-option>
+                                                <nz-option [nzLabel]="'多种方式退'"  [nzValue]="100"></nz-option>
+                                                    </nz-select>
+                                                    <p style="color: red;font-size: 13px;" *ngIf="isWay == 100">！选择多种方式退时，输入的退款金额总数相加必须等于退款金额</p>
                             </nz-form-control>
                         </div>
                     </nz-form-item>
@@ -44,8 +46,9 @@
         </form>
 
 
-        <div style="width: 100%;" *ngIf="isWay == 1">
-            <p>( 注：退款上限指原路退款时，某支付流水号最大可退金额为实收金额，当退款上限金额小于实收金额时，表示该流水号已产生过退款。)</p>
+        <div style="font-size: 14px;font-weight: 800;" *ngIf="isWay == 100">原路返回</div>
+        <div style="width: 100%;" *ngIf="isWay == 1||isWay == 100">
+            <p style="color: red;">( 注：退款上限指原路退款时，某支付流水号最大可退金额为实收金额，当退款上限金额小于实收金额时，表示该流水号已产生过退款。)</p>
             <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource">
                 <thead>
                     <tr>
@@ -82,13 +85,14 @@
             </nz-table>
         </div>
 
-        <ng-container *ngIf="isWay == 2">
+        <div style="font-size: 14px;font-weight: 800;" *ngIf="isWay == 100">银行转账(若需此方式，请填写以下关于银行卡所有信息)</div>
+        <ng-container *ngIf="isWay == 2||isWay == 100">
             <form nz-form [formGroup]="addForm" nz-row>
                 <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
                     <div nz-row>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_user" nzRequired>开户名</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_user" [nzRequired]="isWay == 2">开户名</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入开户名">
                                     <input nz-input formControlName="bank_user" />
                                 </nz-form-control>
@@ -96,7 +100,8 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_address" nzRequired>开户行</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_address" [nzRequired]="isWay == 2">开户行
+                                </nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入开户行">
                                     <input nz-input formControlName="bank_address" />
                                 </nz-form-control>
@@ -104,7 +109,7 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_number" nzRequired>账户</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_number" [nzRequired]="isWay == 2">账户</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入账户">
                                     <input nz-input formControlName="bank_number" />
                                 </nz-form-control>
@@ -112,7 +117,8 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" nzRequired>退款金额</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" [nzRequired]="isWay == 2">退款金额
+                                </nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入退款金额">
                                     <nz-input-number class="input" style="width: 100%;" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                 </nz-form-control>
@@ -120,7 +126,7 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="pay_at" nzRequired>退款时间</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="pay_at" [nzRequired]="isWay == 2">退款时间</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择退款时间">
                                     <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" style="width: 100%;" formControlName="pay_at"></nz-date-picker>
                                 </nz-form-control>
@@ -128,7 +134,7 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id" nzRequired>银行流水号
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id" [nzRequired]="isWay == 2">银行流水号
                                 </nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入银行流水号">
                                     <input nz-input formControlName="transaction_id" />
@@ -143,16 +149,17 @@
         </ng-container>
 
 
-
-        <ng-container *ngIf="isWay == 7">
+        <div style="font-size: 14px;font-weight: 800;" *ngIf="isWay == 100">退至用户余额</div>
+        <ng-container *ngIf="isWay == 7||isWay == 100">
             <form nz-form [formGroup]="addForm" nz-row>
                 <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
                     <div nz-row>
                         <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" nzRequired>退款金额</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount_to_account" [nzRequired]="isWay == 7">退款金额
+                                </nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入退款金额">
-                                    <nz-input-number class="input" style="width: 100%;" formControlName="refund_amount" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                    <nz-input-number class="input" style="width: 100%;" formControlName="refund_amount_to_account" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>
