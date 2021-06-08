@@ -65,7 +65,10 @@ export interface CashRequirementList {
     payed_money: number;
     group_cost_type: GroupCostType;
     supplier: Supplier;
+    admin: any;
+    operation_id: number;
 }
+
 
 export interface Supplier {
     data: SupplierList[];

@@ -210,5 +210,9 @@ export class AdminOrderRefundTurnoverComponent implements OnInit {
   }
 
 
-
+    // 跳转到用户记录
+    routeIt(data: any) {
+        console.log("data", data);
+        this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
+    }
 }

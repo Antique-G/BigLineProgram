@@ -370,7 +370,7 @@ interface DatumRefundListModel {
     bank_number: string;
     store_name: string;
     to_account?: any;
-
+    user_id?: any;
 }
 
 

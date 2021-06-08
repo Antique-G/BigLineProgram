@@ -100,7 +100,14 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.refund_id}}</td>
-                                    <td>{{data.transaction_id}}</td>
+                                    <td>
+                                        <ng-container *ngIf="data.pay_type==7">
+                                            <a (click)="routeIt(data?.user_id)" title="跳转到用户记录">{{data.transaction_id}}</a>
+                                        </ng-container>
+                                        <ng-container *ngIf="data.pay_type!=7">
+                                            {{data.transaction_id}}
+                                        </ng-container>
+                                    </td>
                                     <td>{{data.refund_no}}</td>
                                     <td>
                                         <div *ngIf="data?.product_type == 0"> <a href={{url+data?.order_id}} target="_blank">{{data.order_id}}</a></div>
