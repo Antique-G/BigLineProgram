@@ -137,7 +137,7 @@
                                     <th style="text-align: center;">请款金额</th>
                                     <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">已批金额</th>
-                                    <!-- <th style="text-align: center;">操作人</th> -->
+                                    <th style="text-align: center;">操作人</th>
                                     <th style="text-align: center;">审核</th>
                                 </tr>
                             </thead>
@@ -201,7 +201,7 @@
                                         <td>
                                             <span style="color: red;font-weight: 600;">{{item.payed_money}}元</span>
                                         </td>
-                                        <!-- <td>{{item.admin?.data[0]?.real_name}}</td> -->
+                                        <td>{{item.admin?.data[0]?.real_name}}</td>
                                         <td>
                                             <div style="cursor: pointer;" *ngIf="item?.pay_status==0||item?.pay_status==1">
                                                 <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="审核" (click)="review(item,data)">

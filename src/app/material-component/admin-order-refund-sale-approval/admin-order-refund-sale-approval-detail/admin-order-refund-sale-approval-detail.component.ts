@@ -884,7 +884,7 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         else {
             contentText = `<h6>审核成功后，将提交到财务处理退款</h6>`;
         }
-        
+
         this.adminRefundCheckDataModel.id = this.detailModel?.id;
         this.adminRefundCheckDataModel.check = 2;
         this.adminRefundCheckDataModel.remark = '';
@@ -921,6 +921,18 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         editmodal.afterClose.subscribe(res => {
             this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
         })
+    }
+
+    //撤销退款申请
+    cancelRefund() {
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>是否确定撤销退款</h6>",
+            nzOnOk: () =>
+                this.adminRefundService.postRefundCancel(this.detailModel?.id).subscribe((res) => {
+                    this.router.navigate(['/admin/main/salesApproval']);
+                }),
+        });
     }
 }
 
