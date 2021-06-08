@@ -84,6 +84,7 @@ export class UserMoneyLogListComponent implements OnInit {
         console.log("value", this.searchForm.value)
         this.user_id = this.searchForm.value.user_id;
         this.type = this.searchForm.value.type;
+        this.page=1
         this.getDataList();
     }
 
