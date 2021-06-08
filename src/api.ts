@@ -474,6 +474,9 @@ export const StoreUrls = {
     // 自由行预售产品
     GetStorePreFreeTravelList: api + '/store/indent_ticket_list',   // 列表
     PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  // 添加
+    PostStoreCopyIndentPro: api + '/store/copy_indent_product',  // 复制产品
+
+    
 
 
     // 成本

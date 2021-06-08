@@ -134,6 +134,7 @@
                                 <tr>
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center; width: 15%;">产品名称</th>
+                                    <th style="text-align: center;">大航产品</th>
                                     <!-- <th style="text-align: center;">产品编码</th> -->
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">创建人</th>
@@ -152,6 +153,7 @@
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data.title}}</td>
+                                    <td>{{data?.third_product_id>0?'是':'否'}}</td>
                                     <!-- <td>{{data.code}}</td> -->
                                     <td>{{data?.store?.name}}</td>
                                     <td>{{data.operation_name}}</td>
