@@ -36,6 +36,7 @@ export class AdminFinanceFreeTravelDetailComponent implements OnInit {
 
   idChangeBirDate: any;
   idChangeBir = false;
+  cashList: any[] = [];
 
 
 
@@ -133,6 +134,8 @@ export class AdminFinanceFreeTravelDetailComponent implements OnInit {
               }
               element['edit'] = false;
           });
+          this.cashList = this.detailModel?.cash_requirement?.data;
+
           this.fee();
       })
   }
