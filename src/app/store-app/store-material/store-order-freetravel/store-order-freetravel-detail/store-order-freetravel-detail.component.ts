@@ -316,7 +316,16 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
                         });
                     })
             });
-        }
+    }
+    
+
+        
+    changeSuppy(data: any,i:any) {
+        console.log('111', data, i);
+        let ii = this.supplyList.filter((item: any) => item?.id == data)
+        console.log("22222", ii,this.cashList);
+        this.cashList[i].supplier.data = ii;
+    }
 }
 
 
