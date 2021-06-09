@@ -104,7 +104,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="money" nzRequired>待批金额</nz-form-label>
                             <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入待批金额">
-                                <nz-input-number style="width: 100%;" formControlName="money" [nzMin]="0" ngModel={{detail.total-detail.payed_money}}>
+                                <nz-input-number style="width: 100%;" formControlName="money" [nzMin]="0" ngModel={{(detail.total-detail.payed_money).toFixed(2)}}>
                                 </nz-input-number>
                             </nz-form-control>
                         </div>
