@@ -146,6 +146,7 @@
                                     <th style="text-align: center;">订单短信通知书</th>
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">查看详情</th>
 
                                 </tr>
@@ -203,15 +204,17 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                        <span *ngIf="data.payout_status===2">已收款</span>
+                                        <span *ngIf="data.payout_status===3">已收发票</span>
+                                    </td>
+                                    <td>
                                         <div style="cursor: pointer;">
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                         </div>
                                     </td>
-                                    <!-- <td>
-                                        <div style="cursor: pointer;" *ngIf="data.order_status!=0&&data.payment_status!=1">
-                                            <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
-                                        </div>
-                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>

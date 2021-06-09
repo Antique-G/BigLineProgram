@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { StoreCostService } from 'services/store/store-cost/store-cost.service';
 
@@ -16,6 +16,7 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
     selected: any;
     allPrice = 1;
     requestMoneyModel: any;
+    requestFreeMoneyModel: any;
     precision = 2;
     cutValue = 0;
     cutNums = 0;
@@ -39,12 +40,22 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
             price: '',
             num: '',
             content: '',
-            suppiler_id: ''
+            suppiler_id: '',
+            type: ''
         };
-
+        this.requestFreeMoneyModel = {
+            order_id: '',
+            cost_type: '',
+            price: '',
+            num: '',
+            content: '',
+            suppiler_id: '',
+            type: ''
+        };
     }
 
     ngOnInit(): void {
+        console.log("this.data", this.data)
         // 初始化
         // const control = this.addForm.controls.baseList as FormArray;
         // control.push(new FormGroup({
@@ -123,15 +134,29 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
 
 
     add() {
-        this.setValue();
-        for (const i in this.addForm.controls) {
-            this.addForm.controls[i].markAsDirty();
-            this.addForm.controls[i].updateValueAndValidity();
+        if (this.data.free) {
+            this.setFreeValue();
+            for (const i in this.addForm.controls) {
+                this.addForm.controls[i].markAsDirty();
+                this.addForm.controls[i].updateValueAndValidity();
+            }
+            if (this.addForm.valid) {
+                this.storeCostService.addCash(this.requestFreeMoneyModel).subscribe(res => {
+                    console.log('请款', res);
+                });
+            }
         }
-        if (this.addForm.valid) {
-            this.storeCostService.addCash(this.requestMoneyModel).subscribe(res => {
-                console.log('请款', res);
-            });
+        else {
+            this.setValue();
+            for (const i in this.addForm.controls) {
+                this.addForm.controls[i].markAsDirty();
+                this.addForm.controls[i].updateValueAndValidity();
+            }
+            if (this.addForm.valid) {
+                this.storeCostService.addCash(this.requestMoneyModel).subscribe(res => {
+                    console.log('请款', res);
+                });
+            }
         }
     }
 
@@ -143,6 +168,18 @@ export class StoreOrderRequestMoneyComponent implements OnInit {
         this.requestMoneyModel.num = this.addForm.value.nums;
         this.requestMoneyModel.content = this.addForm.value.remarks;
         this.requestMoneyModel.suppiler_id = this.addForm.value.supplier_name;
+        this.requestMoneyModel.type = 1;
+    }
+
+
+    setFreeValue() {
+        this.requestFreeMoneyModel.order_id = this.data.order_id;
+        this.requestFreeMoneyModel.cost_type = this.addForm.value.cost_type;
+        this.requestFreeMoneyModel.price = this.addForm.value.price;
+        this.requestFreeMoneyModel.num = this.addForm.value.nums;
+        this.requestFreeMoneyModel.content = this.addForm.value.remarks;
+        this.requestFreeMoneyModel.suppiler_id = this.addForm.value.supplier_name;
+        this.requestFreeMoneyModel.type = 2;
     }
 
 }

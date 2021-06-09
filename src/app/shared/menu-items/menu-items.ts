@@ -111,6 +111,8 @@ const MENUITEMS = [
             { state: 'financeGroupTravel', name: '跟团游订单列表', permission_name: 'financial_group_order' },
             { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
+            { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
+            
         ]
     },
 

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
-import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { format } from 'date-fns';
-import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
-import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
+import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
+import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
-import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
-import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
-import { MatDialog } from '@angular/material/dialog';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
+import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
 
 
 @Component({
@@ -39,7 +39,10 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
     idChangeBirDate: any;
     idChangeBir = false;
+    cashList: any[] = [];
 
+    // 自由行请款跳过来
+    isFreeReq: any;
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, public dialog: MatDialog,
@@ -91,6 +94,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.detailId;
+            this.isFreeReq = params?.isFreeReq;
             this.isSpinning = true;
             // 详情
             this.getDetail();
@@ -136,6 +140,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
                 }
                 element['edit'] = false;
             });
+            this.cashList = this.detailModel?.cash_requirement?.data;
             this.fee();
         })
     }

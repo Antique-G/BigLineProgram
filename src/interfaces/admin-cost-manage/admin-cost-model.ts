@@ -32,12 +32,14 @@ export interface AddTypeRequestModel {
 
 
 export interface RequestMoneyModel {
-    group_id: any;
+    group_id?: any;
     cost_type: any;
     price?: any;
     num: any;
     content: any;
     suppiler_id: any;
     id?: any;
+    type: any;
+    order_id?: any;
 }
 

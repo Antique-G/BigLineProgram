@@ -292,8 +292,9 @@ export const AdminUrls = {
     GetAdminFinanceGroupCashList: api + '/admin/group_cash_require',  // 团请款列表
     PostAdminFinanceOrderCheckoutCash: api + '/admin/check_cash_require',  // 团请款审核
     GetAdminGroupCashTotal: api + '/admin/group_cash_total',  // 团请款的合计
+    GetAdminFinanceFreeCashList: api + '/admin/finance/free_travel_cash',  // 自由行请款列表
+    GetAdminFreeCashTotal: api + '/admin/finance/free_travel_total',  // 自由行请款的合计
 
-    
 
 
     // 供应商
