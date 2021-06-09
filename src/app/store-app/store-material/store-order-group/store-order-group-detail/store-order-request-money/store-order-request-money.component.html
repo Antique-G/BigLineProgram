@@ -1,112 +1,112 @@
 <div fxLayoutWrap="wrap">
     <div style="padding: 5px;">
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-            <div fxLayout="row" fxLayoutAlign="end center"  fxLayoutGap="20px">
-               <!-- <div><i nz-icon nzType="form" nzTheme="outline" style="cursor: pointer;"></i></div> -->
-               <!-- <div><i nz-icon nzType="delete" nzTheme="outline" style="cursor: pointer;" (click)="removeBase()"></i></div> -->
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+                <!-- <div><i nz-icon nzType="form" nzTheme="outline" style="cursor: pointer;"></i></div> -->
+                <!-- <div><i nz-icon nzType="delete" nzTheme="outline" style="cursor: pointer;" (click)="removeBase()"></i></div> -->
             </div>
-       
+
             <form nz-form [formGroup]="addForm">
                 <!-- style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;" -->
-                <div >
+                <div>
                     <!-- <div formArrayName="baseList" *ngFor="let human of baseArray.controls as FormArray;let i = index"
                         style="margin-bottom:10px;margin-top: 10px;">
                         <div [formGroupName]="i" nz-row> -->
-                            <div nz-row style="margin-bottom:10px;margin-top: 10px;">
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cost_type" nzRequired>成本类型</nz-form-label>
-                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="选择">
-                                        <nz-select nzPlaceHolder="请选择" formControlName="cost_type">
-                                            <nz-option *ngFor="let type of typeList" [nzLabel]="type?.title" [nzValue]="type?.id">
-                                            </nz-option>
-                                        </nz-select>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                    <div nz-row style="margin-bottom:10px;margin-top: 10px;">
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="cost_type" nzRequired>成本类型</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="选择">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="cost_type">
+                                        <nz-option *ngFor="let type of typeList" [nzLabel]="type?.title" [nzValue]="type?.id">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="supplier_name">供应商</nz-form-label>
-                                    <nz-form-control [nzSm]="16" [nzXs]="24">
-                                        <nz-select nzPlaceHolder="请选择" formControlName="supplier_name" (ngModelChange)="changeSuppy($event)"> 
-                                            <nz-option *ngFor="let cash of cashList" [nzLabel]="cash?.supplier_name" [nzValue]="cash?.id">
-                                            </nz-option>
-                                        </nz-select>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="supplier_name">供应商</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="supplier_name" (ngModelChange)="changeSuppy($event)">
+                                        <nz-option *ngFor="let cash of cashList" [nzLabel]="cash?.supplier_name" [nzValue]="cash?.id">
+                                        </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>单价</nz-form-label>
-                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
-                                        <nz-input-number style="width: 89%;" formControlName="price"  [nzPrecision]="precision" nzPrecisionMode="cut" [nzMin]="0" (ngModelChange)="changePrice($event)">
-                                        </nz-input-number>
-                                        <span style="line-height: 32px;padding: 0 9px;">元</span>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price" nzRequired>单价</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
+                                    <nz-input-number style="width: 89%;" formControlName="price" [nzPrecision]="precision" nzPrecisionMode="cut" [nzMin]="1" (ngModelChange)="changePrice($event)">
+                                    </nz-input-number>
+                                    <span style="line-height: 32px;padding: 0 9px;">元</span>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nums" nzRequired>数量</nz-form-label>
-                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
-                                        <nz-input-number style="width: 100%;" formControlName="nums" [nzPrecision]="cutNums" nzPrecisionMode="cut" [nzMin]="0" (ngModelChange)="changeNum($event)">
-                                        </nz-input-number>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nums" nzRequired>数量</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
+                                    <nz-input-number style="width: 100%;" formControlName="nums" [nzPrecision]="cutNums" nzPrecisionMode="cut" [nzMin]="1" (ngModelChange)="changeNum($event)">
+                                    </nz-input-number>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" nzRequired>总金额</nz-form-label>
-                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
-                                        <input nz-input formControlName="price_total" nzBorderless readonly ngModel={{allPrice}}/>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="price_total" nzRequired>总金额</nz-form-label>
+                                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
+                                    <input nz-input formControlName="price_total" nzBorderless readonly ngModel={{allPrice}}/>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_account" nzRequired>供应商收款账户
-                                    </nz-form-label>
-                                    <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
-                                        <input nz-input formControlName="bank_account" readonly ngModel={{selected?.bank_account}}/>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_account" nzRequired>供应商收款账户
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
+                                    <input nz-input formControlName="bank_account" readonly ngModel={{selected?.bank_account}}/>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_name" nzRequired>银行名称</nz-form-label>
-                                    <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
-                                        <input nz-input formControlName="bank_name" readonly ngModel={{selected?.bank_name}}/>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_name" nzRequired>银行名称</nz-form-label>
+                                <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
+                                    <input nz-input formControlName="bank_name" readonly ngModel={{selected?.bank_name}}/>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_open" nzRequired>开户行地址</nz-form-label>
-                                    <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
-                                        <input nz-input formControlName="bank_open" readonly ngModel={{selected?.bank_open}}/>
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bank_open" nzRequired>开户行地址</nz-form-label>
+                                <nz-form-control [nzSm]="16 " [nzXs]="24" nzErrorTip="请输入">
+                                    <input nz-input formControlName="bank_open" readonly ngModel={{selected?.bank_open}}/>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                <div nz-row>
-                                    <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="remarks" >请款说明</nz-form-label>
-                                    <nz-form-control [nzSm]="20 " [nzXs]="24" >
-                                        <input nz-input formControlName="remarks" />
-                                    </nz-form-control>
-                                </div>
-                            </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="remarks">请款说明</nz-form-label>
+                                <nz-form-control [nzSm]="20 " [nzXs]="24">
+                                    <input nz-input formControlName="remarks" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
-                        </div>
                     </div>
-                    <!-- </div>
+                </div>
+                <!-- </div>
 
 
 

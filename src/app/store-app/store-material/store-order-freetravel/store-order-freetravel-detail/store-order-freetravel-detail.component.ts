@@ -298,6 +298,25 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
         });
     }
 
+
+
+        // 删除
+        deleteIt(data: any) {
+            this.modal.confirm({
+                nzTitle: '<h4>提示</h4>',
+                nzContent: '<h6>是否删除该条请款</h6>',
+                nzOnOk: () =>
+                    this.storeCostService.deleteCash(data).subscribe(res => {
+                        this.activatedRoute.queryParams.subscribe(params => {
+                            console.log("params", params)
+                            this.detailId = params?.detailId;
+                            // 详情
+                            this.getDetail();
+            
+                        });
+                    })
+            });
+        }
 }
 
 
