@@ -99,6 +99,62 @@ export class AdminFinaceFreedomService {
             )
     }
 
+
+    // 自由行请款
+    freeCashList(page: number, per_page: number, status: any, payout_status: any,
+        pay_status: any, order_number: any, product_name: any, store_id: any,
+        date_start: any, date_end: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('status', status ? status : '')
+            .set('payout_status', payout_status ? payout_status : '')
+            .set('pay_status', pay_status ? pay_status : '')
+            .set('order_number', order_number ? order_number : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '');
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminFinanceFreeCashList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+    // 自由行请款统计
+    freeCashTotal(page: number, per_page: number, status: any, payout_status: any,
+        pay_status: any, order_number: any, product_name: any, store_id: any,
+        date_start: any, date_end: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('status', status ? status : '')
+            .set('payout_status', payout_status ? payout_status : '')
+            .set('pay_status', pay_status ? pay_status : '')
+            .set('order_number', order_number ? order_number : '')
+            .set('product_name', product_name ? product_name : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '');
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminFreeCashTotal, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
