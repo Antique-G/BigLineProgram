@@ -6,6 +6,7 @@ import { UserMoneyLogListComponent } from './admin-commission/user-money-log-lis
 import { AdminContractComponent } from './admin-contract/admin-contract.component';
 import { AdminCostTypeComponent } from './admin-cost-manage/admin-cost-type/admin-cost-type.component';
 import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/admin-pro-supply.component';
+import { AdminFinanceFreeReqCashComponent } from './admin-finance/admin-finance-free-req-cash/admin-finance-free-req-cash.component';
 import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel-detail/admin-finance-free-travel-detail.component';
 import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
@@ -624,6 +625,13 @@ export const MaterialRoutes: Routes = [
                 component: AdminFinanceGroupReqMoneyComponent,
                 data: {
                     breadcrumb: '团请款列表'
+                }
+            },
+            {
+                path: 'financeFreeCash',
+                component: AdminFinanceFreeReqCashComponent,
+                data: {
+                    breadcrumb: '自由行请款列表'
                 }
             },
 

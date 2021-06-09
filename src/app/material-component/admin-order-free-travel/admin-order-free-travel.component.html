@@ -187,6 +187,7 @@
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
                                     <th style="width: 8%;">附属操作</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">确认收款</th>
                                 </tr>
@@ -246,6 +247,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                        <span *ngIf="data.payout_status===2">已收款</span>
+                                        <span *ngIf="data.payout_status===3">已收发票</span>
                                     </td>
                                     <td>
                                         <div style="cursor: pointer;">

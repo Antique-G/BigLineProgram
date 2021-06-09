@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-order-free-travel-model';
+import { StoreCostService } from '../../../../../services/store/store-cost/store-cost.service';
 import { StoreOrderFreeTravelService } from '../../../../../services/store/store-order/store-order-free-travel.service';
+import { StoreOrderRequestMoneyComponent } from '../../store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreOrderFreeChangeDateComponent } from './store-order-free-change-date/store-order-free-change-date.component';
 import { StoreOrderFreeChangePriceComponent } from './store-order-free-change-price/store-order-free-change-price.component';
-import { format } from 'date-fns';
 
 
 @Component({
@@ -25,11 +27,17 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
     priceTotal: any;
     dataPayLog: any[] = [];
     refundLog: any[] = [];
+    cashList: any[] = [];
+    typeList: any[] = [];
+    supplyList: any[] = [];
+    requestMoneyModel: any;
+
 
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
-        public storeOrderFreeTravelService: StoreOrderFreeTravelService, private modal: NzModalService) {
+        public storeOrderFreeTravelService: StoreOrderFreeTravelService, private modal: NzModalService,
+        public storeCostService: StoreCostService) {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
             start_date: ['', [Validators.required]],
@@ -49,10 +57,24 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
             departure_city_name: [''],
             destination_city_name: [''],
         });
-
+        this.requestMoneyModel = {
+            cost_type: '',
+            price: '',
+            num: '',
+            content: '',
+            suppiler_id: '',
+            id: ''
+        };
     }
 
     ngOnInit(): void {
+        this.storeCostService.getTypeList(1, 100, 1).subscribe(res => {
+            this.typeList = res?.data?.data;
+            this.storeCostService.getCashList(1, 100, 1).subscribe(res => {
+                console.log('res', res);
+                this.supplyList = res?.data?.data;
+            });
+        });
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.detailId;
@@ -98,6 +120,10 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
                     console.log('object :>> ', newDate, i);
                     element.assembling_time = format(new Date(newDate), 'yyyy-MM-dd HH:mm');
                 }
+            });
+            this.cashList = this.detailModel?.cash_requirement?.data;
+            this.cashList.forEach((element: any) => {
+                element.edit = false;
             });
             this.fee();
         })
@@ -187,6 +213,119 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
         })
     }
 
+
+
+   
+    // 请款
+    requestMoney(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '请款',
+            nzWidth: 1000,
+            nzContent: StoreOrderRequestMoneyComponent,
+            nzComponentParams: {
+                data: {
+                    order_id: data,
+                    free:1
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add();
+
+                    }
+                }
+            ]
+        });
+        addmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        });
+    }
+
+
+
+    // 修改请款
+    startEdit(data: any): void {
+        this.cashList.filter(function(item: any, index: any) {
+            if (item.id === data.id) {
+                item.edit = true;
+            }
+        });
+    }
+
+
+    cancelEdit(id: string): void {
+        console.log('id :>> ', id);
+        this.cashList.filter(function(item: any, index: any) {
+            if (item.id === id) {
+                item.edit = false;
+            }
+        });
+    }
+
+
+
+
+    saveEdit(data: any): void {
+        this.requestMoneyModel.id = data.id;
+        this.requestMoneyModel.cost_type = data.cost_type;
+        this.requestMoneyModel.price = data.price;
+        this.requestMoneyModel.num = data.num;
+        this.requestMoneyModel.content = data.content;
+        this.requestMoneyModel.suppiler_id = data.suppiler_id;
+        this.storeCostService.updateCash(this.requestMoneyModel).subscribe((res: any) => {
+            console.log('结果是 :>> ', res);
+            this.cashList.filter(function(item: any, index: any) {
+                if (item.id === data.id) {
+                    item.edit = false;
+                }
+            });
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        });
+    }
+
+
+
+        // 删除
+        deleteIt(data: any) {
+            this.modal.confirm({
+                nzTitle: '<h4>提示</h4>',
+                nzContent: '<h6>是否删除该条请款</h6>',
+                nzOnOk: () =>
+                    this.storeCostService.deleteCash(data).subscribe(res => {
+                        this.activatedRoute.queryParams.subscribe(params => {
+                            console.log("params", params)
+                            this.detailId = params?.detailId;
+                            // 详情
+                            this.getDetail();
+            
+                        });
+                    })
+            });
+    }
+    
+
+        
+    changeSuppy(data: any,i:any) {
+        console.log('111', data, i);
+        let ii = this.supplyList.filter((item: any) => item?.id == data)
+        console.log("22222", ii,this.cashList);
+        this.cashList[i].supplier.data = ii;
+    }
 }
 
 
