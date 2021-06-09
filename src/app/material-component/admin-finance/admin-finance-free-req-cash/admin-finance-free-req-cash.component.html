@@ -176,12 +176,12 @@
                                                 </div>
                                             </td>
                                             <td [attr.rowspan]="data?.cash_requirement?.data.length">
-                                                <span style="color: red;font-weight: 600;">{{data.cash_money_total}}元</span>
+                                                <span style="color: red;font-weight: 600;">{{data?.cash_money_total}}元</span>
                                             </td>
                                         </ng-container>
-                                        <td> {{item.group_cost_type?.data[0].title}}</td>
-                                        <td> {{item.supplier?.data[0].supplier_name}} </td>
-                                        <td> {{item.supplier?.data[0].bank_account}}</td>
+                                        <td> {{item.group_cost_type?.data[0]?.title}}</td>
+                                        <td> {{item.supplier?.data[0]?.supplier_name}} </td>
+                                        <td> {{item.supplier?.data[0]?.bank_account}}</td>
                                         <td> {{item.content}}</td>
                                         <td>
                                             <span style="color: red;font-weight: 600;">{{item.total}}元</span>
