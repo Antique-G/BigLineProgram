@@ -159,7 +159,7 @@
                                                     <ng-template #editTemplate>
                                                         <td>{{data.id}}</td>
                                                         <td>
-                                                            <nz-input-number [nzMin]="1" [(ngModel)]="data.price" [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number>
+                                                            <nz-input-number [nzMin]="0.001" [(ngModel)]="data.price" [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number>
                                                         </td>
                                                         <td>
                                                             <nz-input-number [nzMin]="1" [(ngModel)]="data.num" [nzPrecision]="cutNums" nzPrecisionMode="cut"> </nz-input-number>
