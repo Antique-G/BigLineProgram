@@ -1,0 +1,22 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div style="height: 500px;font-size: 22px; text-align: center;padding-top: 120px;">
+                        <div *ngIf="adminProductDetailModel?.schedule_file_url != ''">
+                            <a href={{adminProductDetailModel?.schedule_file_url}} target="_blank" style="color: #999;">
+                                <i nz-icon nzType="file-text" nzTheme="outline" style="font-size: 22px; margin-right: 10px;"></i>
+                                <span>{{adminProductDetailModel?.schedule_file_url}}</span>
+                            </a>
+                        </div>
+                        <div style="color: #999;" *ngIf="adminProductDetailModel?.schedule_file_url == ''">
+                            还没有上传行程哦~~~
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
