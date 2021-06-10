@@ -187,6 +187,7 @@ import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refun
 import { AdminOrderRefundChangeComponent } from './admin-order-refund/admin-order-refund-change/admin-order-refund-change.component';
 import { AdminFinanceFreeReqCashComponent } from './admin-finance/admin-finance-free-req-cash/admin-finance-free-req-cash.component';
 import { AdminFinanceFreeReqCashReviewComponent } from './admin-finance/admin-finance-free-req-cash/admin-finance-free-req-cash-review/admin-finance-free-req-cash-review.component';
+import { AdminProductManagementSchedultComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-schedult/admin-product-management-schedult.component';
 
 
 
@@ -401,6 +402,7 @@ import { AdminFinanceFreeReqCashReviewComponent } from './admin-finance/admin-fi
     AdminOrderRefundChangeComponent,
     AdminFinanceFreeReqCashComponent,
     AdminFinanceFreeReqCashReviewComponent,
+    AdminProductManagementSchedultComponent,
 
   ]
 })
