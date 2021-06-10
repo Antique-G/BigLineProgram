@@ -7,79 +7,313 @@
                     <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeOrderFreeTravel">返回自由行订单列表</button>
                 </div>
 
-                <mat-card>
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <mat-card>
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="requestMoney(detailModel.id)" *ngIf="detailModel?.order_status>1">请款</button>
+                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                                        <div>
+                                            <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                            <div>
+                                                <button class="btn" *ngIf="detailModel?.order_status===0">订单已取消</button>
+                                                <button class="btn" *ngIf="detailModel?.order_status===1">订单待支付</button>
+                                                <button class="btn" *ngIf="detailModel?.order_status===2">订单待出行</button>
+                                                <button class="btn" *ngIf="detailModel?.order_status===3">订单已完成</button>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:13px">
+                                            <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="start_date">订单出发日期
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="start_date" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="days">行程天数
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="days" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.few_days+'天'+detailModel?.independent_product?.data?.few_nights+'晚'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city_name">出发城市</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="departure_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.departure" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city_name">目的城市</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="destination_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.destination" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type">报价方式
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="quote_type" nzBorderless readonly [ngModel]="detailModel?.quote_type==1?'按套餐':'按人头'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="internal_remarks">
+                                                            计调内部备注</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="internal_remarks" nzBorderless readonly [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                            </form>
+                                        </div>
+                                    </nz-spin>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </mat-card>
+
+
+                    <mat-card *ngIf="cashList.length>0">
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">请款信息</h4>
+                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div class="mat-elevation-z8">
+                                        <nz-table #rowSelectionTable [nzData]="cashList">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">请款id</th>
+                                                    <th style="text-align: center;">请款单价</th>
+                                                    <th style="text-align: center;">请款数量</th>
+                                                    <th style="text-align: center;">请款总金额</th>
+                                                    <th style="text-align: center;">成本类型</th>
+                                                    <th style="text-align: center;">供应商</th>
+                                                    <th style="text-align: center;">供应商收款账户</th>
+                                                    <th style="text-align: center;">银行名称</th>
+                                                    <th style="text-align: center;">开户行地址</th>
+                                                    <th style="text-align: center;">请款说明</th>
+                                                    <th style="text-align: center;">支付状态</th>
+                                                    <th style="text-align: center;">已批金额</th>
+                                                    <th style="text-align: center;">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of rowSelectionTable.data;let i=index">
+                                                    <ng-container *ngIf="!data.edit; else editTemplate">
+                                                        <td>{{data.id}}</td>
+                                                        <td>{{data.price}}</td>
+                                                        <td>{{data.num}}</td>
+                                                        <td>{{data.total}}元</td>
+                                                        <td>{{data.group_cost_type?.data[0]?.title}}</td>
+                                                        <td>{{data.supplier?.data[0]?.supplier_name}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_account}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_name}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_open}}</td>
+                                                        <td>{{data?.content}}</td>
+                                                        <td>
+                                                            <!-- 0未付款 1,部分付款 2,已付款 3,已收发票 -->
+                                                            <span *ngIf="data?.pay_status==0">未付款</span>
+                                                            <span *ngIf="data?.pay_status==1">部分付款</span>
+                                                            <span *ngIf="data?.pay_status==2">已付款</span>
+                                                            <span *ngIf="data?.pay_status==3">已收发票</span>
+                                                        </td>
+                                                        <td>{{data?.payed_money}}元</td>
+                                                        <td>
+                                                            <div *ngIf="data?.pay_status==0"><a (click)="startEdit(data)">修改</a></div>
+                                                            <div *ngIf="data?.pay_status==0"><a (click)="deleteIt(data.id)">删除</a></div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-template #editTemplate>
+                                                        <td>{{data.id}}</td>
+                                                        <td>
+                                                            <nz-input-number [nzMin]="0.01" [(ngModel)]="data.price" [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number>
+                                                        </td>
+                                                        <td>
+                                                            <nz-input-number [nzMin]="1" [(ngModel)]="data.num" [nzPrecision]="cutNums" nzPrecisionMode="cut"> </nz-input-number>
+                                                        </td>
+                                                        <td>{{data.total}}元</td>
+                                                        <td>
+                                                            <nz-select [(ngModel)]="data.cost_type">
+                                                                <nz-option *ngFor="let type of typeList" [nzLabel]="type?.title" [nzValue]="type?.id">
+                                                                </nz-option>
+                                                            </nz-select>
+                                                        </td>
+                                                        <td>
+                                                            <nz-select [(ngModel)]="data.suppiler_id" (ngModelChange)="changeSuppy($event,i)">
+                                                                <nz-option *ngFor="let supply of supplyList" [nzLabel]="supply?.supplier_name" [nzValue]="supply?.id">
+                                                                </nz-option>
+                                                            </nz-select>
+                                                        </td>
+                                                        <td>{{data.supplier?.data[0]?.bank_account}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_name}}</td>
+                                                        <td>{{data.supplier?.data[0]?.bank_open}}</td>
+                                                        <td>
+                                                            <input type="text" nz-input [(ngModel)]="data.content" />
+                                                        </td>
+                                                        <td>
+                                                            <span *ngIf="data?.pay_status==0">未付款</span>
+                                                            <span *ngIf="data?.pay_status==1">部分付款</span>
+                                                            <span *ngIf="data?.pay_status==2">已付款</span>
+                                                            <span *ngIf="data?.pay_status==3">已收发票</span>
+                                                        </td>
+                                                        <td>{{data?.payed_money}}元</td>
+                                                        <td>
+                                                            <div><a (click)="saveEdit(data)">保存</a></div>
+                                                            <div><a (click)="cancelEdit(data.id)">取消</a></div>
+                                                        </td>
+                                                    </ng-template>
+                                                </tr>
+                                            </tbody>
+                                        </nz-table>
+                                    </div>
+
                                 </div>
                             </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+
+                        </div>
+                    </mat-card>
+
+                    <mat-card>
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
                                     <div>
-                                        <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
+                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px" *ngIf="detailModel?.quote_type!=1">
                                         <div>
-                                            <button class="btn" *ngIf="detailModel?.order_status===0">订单已取消</button>
-                                            <button class="btn" *ngIf="detailModel?.order_status===1">订单待支付</button>
-                                            <button class="btn" *ngIf="detailModel?.order_status===2">订单待出行</button>
-                                            <button class="btn" *ngIf="detailModel?.order_status===3">订单已完成</button>
+                                            <span> 当前出行人{{detailModel?.num_total}}人： </span>
+                                            <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
+                                            <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}}
+                                            </span>
+                                        </div>
+                                        <!-- 退款 -->
+                                        <div *ngIf="detailModel?.refund_status!=0">
+                                            <span>退款{{detailModel?.refund_member[0]}}人： </span>
+                                            <span>成人{{detailModel?.refund_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.refund_member[2]}}</span>
+                                            <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.refund_member[3]}}
+                                            </span>
+                                        </div>
+
+                                        <div>
+                                            <span> 共{{detailModel?.total_member[0]}}人： </span>
+                                            <span>成人{{detailModel?.total_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.total_member[2]}}</span>
+                                            <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.total_member[3]}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div *ngIf="detailModel?.quote_type==1" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px">
+                                        <div>
+                                            <div>当前套餐份数：{{detailModel?.num_total}}份</div>
+                                            <div>每份套餐使用人数：{{detailModel?.independent_product?.data?.use_num}}人</div>
+                                        </div>
+                                        <div *ngIf="detailModel?.refund_status!=0">
+                                            <div>退款套餐份数：{{detailModel?.refund_number}}份</div>
+                                        </div>
+                                        <div>
+                                            <div>套餐总份数：{{detailModel?.total_number}}份</div>
                                         </div>
                                     </div>
                                     <div style="margin-top:13px">
                                         <form nz-form [formGroup]="addForm" nz-row>
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_name">联系人姓名
+                                                    </nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                                        <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.contact_name" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="start_date">订单出发日期</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_phone">联系人电话
+                                                    </nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="start_date" nzBorderless readonly [ngModel]="detailModel?.start_date" />
+                                                        <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.contact_phone" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="days">行程天数</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_wechat">联系人微信
+                                                    </nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="days" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.few_days+'天'+detailModel?.independent_product?.data?.few_nights+'晚'" />
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
-
-
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="departure_city_name">出发城市</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="departure_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.departure" />
+                                                        <input nz-input formControlName="contact_wechat" nzBorderless readonly [ngModel]="detailModel?.contact_wechat?detailModel?.contact_wechat:'-'" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="destination_city_name">目的城市</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_qq">联系人qq
+                                                    </nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="destination_city_name" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.destination" />
+                                                        <input nz-input formControlName="contact_qq" nzBorderless readonly [ngModel]="detailModel?.contact_qq?detailModel?.contact_qq:'-'" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="quote_type">报价方式</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_email">联系人邮箱
+                                                    </nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="quote_type" nzBorderless readonly [ngModel]="detailModel?.quote_type==1?'按套餐':'按人头'" />
+                                                        <input nz-input formControlName="contact_email" nzBorderless readonly [ngModel]="detailModel?.contact_email?detailModel?.contact_email:'-'" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -87,568 +321,541 @@
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="internal_remarks">计调内部备注</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="emergency_contact_person">紧急联系人姓名</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="internal_remarks" nzBorderless readonly [ngModel]="detailModel?.internal_remarks?detailModel?.internal_remarks:'-'" />
+                                                        <input nz-input formControlName="emergency_contact_person" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_person?detailModel.emergency_contact_person:'-'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="emergency_contact_number">紧急联系人电话</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="emergency_contact_number" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_number?detailModel.emergency_contact_number:'-'" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">
+                                                        客人需求备注</nz-form-label>
+                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <input nz-input formControlName="customer_remarks" nzBorderless readonly [ngModel]="detailModel?.customer_remarks" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
                                         </form>
                                     </div>
-                                </nz-spin>
+                                    <div class="mat-elevation-z8" *ngIf="dataMember?.length!=0">
+                                        <nz-table #rowSelectionTable [nzData]="dataMember">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">出行人id</th>
+                                                    <th style="text-align: center;">姓名</th>
+                                                    <th style="text-align: center;">英文名字</th>
+                                                    <th style="text-align: center;">类型</th>
+                                                    <th style="text-align: center;">性别</th>
+                                                    <th style="text-align: center;">证件类型</th>
+                                                    <th style="text-align: center;">证件号码</th>
+                                                    <th style="text-align: center;">出生日期</th>
+                                                    <th style="text-align: center;">联系方式</th>
+                                                    <th style="text-align: center;">出行人状态</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of rowSelectionTable.data">
+                                                    <td>{{data.id}}</td>
+                                                    <td>{{data.name}}</td>
+                                                    <td>{{data.eng_name}}</td>
+                                                    <td>
+                                                        <span *ngIf="data.is_kid===0">成人</span>
+                                                        <span *ngIf="data.is_kid===1">儿童</span>
+                                                        <span *ngIf="data.is_kid===2">婴儿</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="data.gender===1">男</span>
+                                                        <span *ngIf="data.gender===2">女</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="data.id_type===1">身份证</span>
+                                                        <span *ngIf="data.id_type===2">护照</span>
+                                                        <span *ngIf="data.id_type===3">回乡证</span>
+                                                    </td>
+                                                    <td>{{data.id_num}}</td>
+                                                    <td>{{data.birthday}}</td>
+                                                    <td>{{data.phone}}</td>
+                                                    <td>
+                                                        <div *ngIf="data.refund_status===1" style="color: red;">退款</div>
+                                                        <div *ngIf="data.refund_status===0">正常</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </nz-table>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
-
-                    </div>
-                </mat-card>
+                    </mat-card>
 
 
-                <mat-card>
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
-                                </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px" *ngIf="detailModel?.quote_type!=1">
+                    <mat-card *ngIf="dataPayLog.length!=0">
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
                                     <div>
-                                        <span> 当前出行人{{detailModel?.num_total}}人： </span>
-                                        <span>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}</span>
-                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}} </span>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">收款流水信息</h4>
                                     </div>
-                                    <!-- 退款 -->
-                                    <div *ngIf="detailModel?.refund_status!=0">
-                                        <span>退款{{detailModel?.refund_member[0]}}人： </span>
-                                        <span>成人{{detailModel?.refund_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.refund_member[2]}}</span>
-                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.refund_member[3]}} </span>
-                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div class="mat-elevation-z8">
+                                        <nz-table #rowSelectionTablePayLog [nzData]="dataPayLog">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">订单id</th>
+                                                    <th style="text-align: center;">流水号</th>
+                                                    <th style="text-align: center;">金额</th>
+                                                    <th style="text-align: center;">支付状态</th>
+                                                    <th style="text-align: center;">支付方式</th>
+                                                    <th style="text-align: center;">支付时间</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of rowSelectionTablePayLog.data">
+                                                    <td>{{data.order_id}}</td>
+                                                    <td>{{data.transaction_id}}</td>
+                                                    <td>{{data.fee}}元</td>
+                                                    <td>
+                                                        <span *ngIf="data.status===0">已取消/失效</span>
+                                                        <span *ngIf="data.status===1">待完成</span>
+                                                        <span *ngIf="data.status===2">已完成</span>
+                                                        <span *ngIf="data.status===3">已确认</span>
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="data.pay_type===1">微信</span>
+                                                        <span *ngIf="data.pay_type===2">支付宝</span>
+                                                        <span *ngIf="data.pay_type===3">现金</span>
+                                                        <span *ngIf="data.pay_type===4">微信二维码</span>
+                                                        <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                                        <span *ngIf="data.pay_type===6">银行卡转账</span>
+                                                        <span *ngIf="data.pay_type===7">余额支付</span>
+                                                        <span *ngIf="data.pay_type===8">飞猪</span>
+                                                        <span *ngIf="data.pay_type===9">携程</span>
 
-                                    <div>
-                                        <span> 共{{detailModel?.total_member[0]}}人： </span>
-                                        <span>成人{{detailModel?.total_member[1]}}&nbsp;|&nbsp;儿童{{detailModel?.total_member[2]}}</span>
-                                        <span *ngIf="detailModel?.baby_num!=0">&nbsp;|&nbsp;婴儿{{detailModel?.total_member[3]}} </span>
+                                                    </td>
+                                                    <td>
+                                                        {{data.pay_time}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </nz-table>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="end center">
+                                        <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.price_receive}}</span>
                                     </div>
                                 </div>
 
-
-
-                                <div *ngIf="detailModel?.quote_type==1" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="200px">
-                                    <div>
-                                        <div>当前套餐份数：{{detailModel?.num_total}}份</div>
-                                        <div>每份套餐使用人数：{{detailModel?.independent_product?.data?.use_num}}人</div>
-                                    </div>
-                                    <div *ngIf="detailModel?.refund_status!=0">
-                                        <div>退款套餐份数：{{detailModel?.refund_number}}份</div>
-                                    </div>
-                                    <div>
-                                        <div>套餐总份数：{{detailModel?.total_number}}份</div>
-                                    </div>
-                                </div>
-                                <div style="margin-top:13px">
-                                    <form nz-form [formGroup]="addForm" nz-row>
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_name">联系人姓名</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="contact_name" nzBorderless readonly [ngModel]="detailModel?.contact_name" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_phone">联系人电话</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="contact_phone" nzBorderless readonly [ngModel]="detailModel?.contact_phone" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_wechat">联系人微信</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="contact_wechat" nzBorderless readonly [ngModel]="detailModel?.contact_wechat?detailModel?.contact_wechat:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_qq">联系人qq</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="contact_qq" nzBorderless readonly [ngModel]="detailModel?.contact_qq?detailModel?.contact_qq:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contact_email">联系人邮箱</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="contact_email" nzBorderless readonly [ngModel]="detailModel?.contact_email?detailModel?.contact_email:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="emergency_contact_person">紧急联系人姓名</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="emergency_contact_person" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_person?detailModel.emergency_contact_person:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="emergency_contact_number">紧急联系人电话</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="emergency_contact_number" nzBorderless readonly [ngModel]="detailModel?.emergency_contact_number?detailModel.emergency_contact_number:'-'" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                            <div nz-row>
-                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="customer_remarks">客人需求备注</nz-form-label>
-                                                <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                    <input nz-input formControlName="customer_remarks" nzBorderless readonly [ngModel]="detailModel?.customer_remarks" />
-                                                </nz-form-control>
-                                            </div>
-                                        </nz-form-item>
-
-                                    </form>
-                                </div>
-                                <div class="mat-elevation-z8" *ngIf="dataMember?.length!=0">
-                                    <nz-table #rowSelectionTable [nzData]="dataMember">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">出行人id</th>
-                                                <th style="text-align: center;">姓名</th>
-                                                <th style="text-align: center;">英文名字</th>
-                                                <th style="text-align: center;">类型</th>
-                                                <th style="text-align: center;">性别</th>
-                                                <th style="text-align: center;">证件类型</th>
-                                                <th style="text-align: center;">证件号码</th>
-                                                <th style="text-align: center;">出生日期</th>
-                                                <th style="text-align: center;">联系方式</th>
-                                                <th style="text-align: center;">出行人状态</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of rowSelectionTable.data">
-                                                <td>{{data.id}}</td>
-                                                <td>{{data.name}}</td>
-                                                <td>{{data.eng_name}}</td>
-                                                <td>
-                                                    <span *ngIf="data.is_kid===0">成人</span>
-                                                    <span *ngIf="data.is_kid===1">儿童</span>
-                                                    <span *ngIf="data.is_kid===2">婴儿</span>
-                                                </td>
-                                                <td>
-                                                    <span *ngIf="data.gender===1">男</span>
-                                                    <span *ngIf="data.gender===2">女</span>
-                                                </td>
-                                                <td>
-                                                    <span *ngIf="data.id_type===1">身份证</span>
-                                                    <span *ngIf="data.id_type===2">护照</span>
-                                                    <span *ngIf="data.id_type===3">回乡证</span>
-                                                </td>
-                                                <td>{{data.id_num}}</td>
-                                                <td>{{data.birthday}}</td>
-                                                <td>{{data.phone}}</td>
-                                                <td>
-                                                    <div *ngIf="data.refund_status===1" style="color: red;">退款</div>
-                                                    <div *ngIf="data.refund_status===0">正常</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </div>
                             </div>
 
                         </div>
+                    </mat-card>
 
-                    </div>
-                </mat-card>
-
-
-                <mat-card *ngIf="dataPayLog.length!=0">
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">收款流水信息</h4>
+                    <mat-card *ngIf="refundLog.length!=0">
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">退款流水信息</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <div class="mat-elevation-z8">
-                                    <nz-table #rowSelectionTablePayLog [nzData]="dataPayLog">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">订单id</th>
-                                                <th style="text-align: center;">流水号</th>
-                                                <th style="text-align: center;">金额</th>
-                                                <th style="text-align: center;">支付状态</th>
-                                                <th style="text-align: center;">支付方式</th>
-                                                <th style="text-align: center;">支付时间</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of rowSelectionTablePayLog.data">
-                                                <td>{{data.order_id}}</td>
-                                                <td>{{data.transaction_id}}</td>
-                                                <td>{{data.fee}}元</td>
-                                                <td>
-                                                    <span *ngIf="data.status===0">已取消/失效</span>
-                                                    <span *ngIf="data.status===1">待完成</span>
-                                                    <span *ngIf="data.status===2">已完成</span>
-                                                    <span *ngIf="data.status===3">已确认</span>
-                                                </td>
-                                                <td>
-                                                    <span *ngIf="data.pay_type===1">微信</span>
-                                                    <span *ngIf="data.pay_type===2">支付宝</span>
-                                                    <span *ngIf="data.pay_type===3">现金</span>
-                                                    <span *ngIf="data.pay_type===4">微信二维码</span>
-                                                    <span *ngIf="data.pay_type===5">支付宝二维码</span>
-                                                    <span *ngIf="data.pay_type===6">银行卡转账</span>
-                                                    <span *ngIf="data.pay_type===7">余额支付</span>
-                                                    <span *ngIf="data.pay_type===8">飞猪</span>
-                                                    <span *ngIf="data.pay_type===9">携程</span>
-
-                                                </td>
-                                                <td>
-                                                    {{data.pay_time}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="end center">
-                                    <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.price_receive}}</span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </mat-card>
-
-                <mat-card *ngIf="refundLog.length!=0">
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">退款流水信息</h4>
-                                </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <div class="mat-elevation-z8">
-                                    <nz-table #rowSelectionTableRefundLog [nzData]="refundLog">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">订单id</th>
-                                                <th style="text-align: center;">退款原因</th>
-                                                <th style="text-align: center;">退款金额</th>
-                                                <th style="text-align: center;">退款状态</th>
-                                                <th style="text-align: center;">退款类型</th>
-                                                <th style="text-align: center;">退款方式</th>
-                                                <th style="text-align: center;">退款明细</th>
-                                                <th style="text-align: center;">退款审核时间</th>
-                                                <th style="text-align: center;">操作人</th>
-                                                <th style="text-align: center;">审核人</th>
-                                                <th style="text-align: center;">财务</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of rowSelectionTableRefundLog.data">
-                                                <td>{{data.order_id}}</td>
-                                                <td>{{data.refund_reason}}</td>
-                                                <td>{{data.refund_amount}}元</td>
-                                                <td>
-                                                    <span *ngIf="data.status===2">退款中</span>
-                                                    <span *ngIf="data.status===3">已完成</span>
-                                                </td>
-                                                <td>
-                                                    <span *ngIf="data.type===0">全额退</span>
-                                                    <span *ngIf="data.type===1">部分退款</span>
-                                                    <span *ngIf="data.type===2">多付返还</span>
-                                                    <span *ngIf="data.type===3">退保</span>
-                                                </td>
-                                                <td>
-                                                    <ng-container *ngFor="let refund of data?.refund_log?.data">
-                                                        <span *ngIf="refund.pay_type===1">微信</span>
-                                                        <span *ngIf="refund.pay_type===2">支付宝</span>
-                                                        <span *ngIf="refund.pay_type===3">现金</span>
-                                                        <span *ngIf="refund.pay_type===4">微信</span>
-                                                        <span *ngIf="refund.pay_type===5">支付宝</span>
-                                                        <span *ngIf="refund.pay_type===6">银行卡转账</span>
-                                                        <span *ngIf="refund.pay_type===7">余额</span>
-                                                        <span *ngIf="refund.pay_type===8">飞猪</span>
-                                                        <span *ngIf="refund.pay_type===9">携程</span>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div class="mat-elevation-z8">
+                                        <nz-table #rowSelectionTableRefundLog nzBordered [nzData]="refundLog">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">订单id</th>
+                                                    <th style="text-align: center;">退款原因</th>
+                                                    <th style="text-align: center;">退款金额</th>
+                                                    <th style="text-align: center;">退款状态</th>
+                                                    <th style="text-align: center;">退款类型</th>
+                                                    <th style="text-align: center;">退款方式</th>
+                                                    <th style="text-align: center;">金额</th>
+                                                    <th style="text-align: center;">退款时间</th>
+                                                    <th style="text-align: center;">流水号</th>
+                                                    <th style="text-align: center;width: 15%;">退款明细</th>
+                                                    <th style="text-align: center;">退款审核时间</th>
+                                                    <th style="text-align: center;">操作人</th>
+                                                    <th style="text-align: center;">审核人</th>
+                                                    <th style="text-align: center;">财务</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let data of rowSelectionTableRefundLog.data">
+                                                    <!-- 退款中 -->
+                                                    <ng-container *ngIf="data?.status!=3">
+                                                        <tr>
+                                                            <td>{{data.order_id}}</td>
+                                                            <td>{{data.refund_reason}}</td>
+                                                            <td>{{data.refund_amount}}元</td>
+                                                            <td>
+                                                                <span *ngIf="data.status===2">
+                                                                    <nz-badge nzColor="yellow"></nz-badge>退款中
+                                                                </span>
+                                                                <span *ngIf="data.status===3">
+                                                                    <nz-badge nzColor="green"></nz-badge>已完成
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span *ngIf="data.type===0">全额退</span>
+                                                                <span *ngIf="data.type===1">部分退款</span>
+                                                                <span *ngIf="data.type===2">多付返还</span>
+                                                                <span *ngIf="data.type===3">退保</span>
+                                                            </td>
+                                                            <td>{{data?.to_account==1?'退至用户账户余额':'原路返回'}}</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>
+                                                                <div fxLayout="column" fxLayoutAlign="center center">
+                                                                    <div *ngIf="detailModel?.quote_type!=1">
+                                                                        退款:
+                                                                        <span>成人*{{data.member_detail[0]}}|</span>
+                                                                        <span>儿童*{{data.member_detail[1]}}|</span>
+                                                                        <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                    </div>
+                                                                    <div *ngIf="detailModel?.quote_type==1">
+                                                                        退款:
+                                                                        <span>套餐*{{data?.refund_number}}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
+                                                                    <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
+                                                                    <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                {{data.check_at}}
+                                                            </td>
+                                                            <td>
+                                                                {{data?.handler_name}}
+                                                            </td>
+                                                            <td>
+                                                                {{data?.checker_name}}
+                                                            </td>
+                                                            <td>
+                                                                {{data?.finance_name}}
+                                                            </td>
+                                                        </tr>
                                                     </ng-container>
-                                                </td>
-                                                <td>
-                                                    <div fxLayout="column" fxLayoutAlign="center center">
-                                                        <div *ngIf="detailModel?.quote_type!=1">
-                                                            退款:
-                                                            <span>成人*{{data.member_detail[0]}}|</span>
-                                                            <span>儿童*{{data.member_detail[1]}}|</span>
-                                                            <span>婴儿*{{data.member_detail[2]}}</span>
-                                                        </div>
-                                                        <div *ngIf="detailModel?.quote_type==1">
-                                                            退款:
-                                                            <span>套餐*{{data?.refund_number}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
-                                                        <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
-                                                        <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    {{data.check_at}}
-                                                </td>
-                                                <td>
-                                                    {{data?.handler_name}}
-                                                </td>
-                                                <td>
-                                                    {{data?.checker_name}}
-                                                </td>
-                                                <td>
-                                                    {{data?.finance_name}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
+                                                    <!-- 已完成 -->
+                                                    <ng-container *ngIf="data?.status==3">
+                                                        <tr *ngFor="let item of data?.refund_log?.data;let i=index">
+                                                            <ng-container *ngIf="i==0">
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data.order_id}}</td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data.refund_reason}}</td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data.refund_amount}}元</td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    <span *ngIf="data.status===2">
+                                                                        <nz-badge nzColor="yellow"></nz-badge>退款中
+                                                                    </span>
+                                                                    <span *ngIf="data.status===3">
+                                                                        <nz-badge nzColor="green"></nz-badge>已完成
+                                                                    </span>
+                                                                </td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    <span *ngIf="data.type===0">全额退</span>
+                                                                    <span *ngIf="data.type===1">部分退款</span>
+                                                                    <span *ngIf="data.type===2">多付返还</span>
+                                                                    <span *ngIf="data.type===3">退保</span>
+                                                                </td>
+                                                            </ng-container>
+                                                            <td>
+                                                                <span *ngIf="item.pay_type===1">微信</span>
+                                                                <span *ngIf="item.pay_type===2">支付宝</span>
+                                                                <span *ngIf="item.pay_type===3">现金</span>
+                                                                <span *ngIf="item.pay_type===4">微信</span>
+                                                                <span *ngIf="item.pay_type===5">支付宝</span>
+                                                                <span *ngIf="item.pay_type===6">银行卡转账</span>
+                                                                <span *ngIf="item.pay_type===7">余额</span>
+                                                                <span *ngIf="item.pay_type===8">飞猪</span>
+                                                                <span *ngIf="item.pay_type===9">携程</span>
+                                                            </td>
+                                                            <td>{{item.refund_amount}}元</td>
+                                                            <td>{{item.pay_at}}</td>
+                                                            <td>{{item.transaction_id}}</td>
+                                                            <ng-container *ngIf="i==0">
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    <div fxLayout="column" fxLayoutAlign="center center">
+                                                                        <div *ngIf="detailModel?.quote_type!=1">
+                                                                            退款:
+                                                                            <span>成人*{{data.member_detail[0]}}|</span>
+                                                                            <span>儿童*{{data.member_detail[1]}}|</span>
+                                                                            <span>婴儿*{{data.member_detail[2]}}</span>
+                                                                        </div>
+                                                                        <div *ngIf="detailModel?.quote_type==1">
+                                                                            退款:
+                                                                            <span>套餐*{{data?.refund_number}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <span>基础退款金额:{{data.amount_detail[0]}}元,</span>
+                                                                        <span>额外退款金额:{{data.amount_detail[1]}}元,</span>
+                                                                        <span>其他扣除费用:{{data.amount_detail[2]}}元</span>
+                                                                    </div>
+                                                                </td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data.check_at}}
+                                                                </td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data?.handler_name}}
+                                                                </td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data?.checker_name}}
+                                                                </td>
+                                                                <td [attr.rowspan]="data?.refund_log?.data.length">
+                                                                    {{data?.finance_name}}
+                                                                </td>
+                                                            </ng-container>
+                                                        </tr>
+                                                    </ng-container>
+
+                                                </ng-container>
+                                            </tbody>
+                                        </nz-table>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="end center">
+                                        <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.refund_amount}}</span>
+                                    </div>
                                 </div>
-                                <div fxLayout="row" fxLayoutAlign="end center">
-                                    <span style="font-size: 17px;font-weight: 600;">合计：￥{{detailModel?.refund_amount}}</span>
-                                </div>
+
                             </div>
 
                         </div>
-
-                    </div>
-                </mat-card>
+                    </mat-card>
 
 
 
-                <mat-card *ngIf="detailModel?.quote_type!=1">
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单支付情况</h4>
-                                </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                    <mat-card *ngIf="detailModel?.quote_type!=1">
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
                                     <div>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">订单支付情况</h4>
+                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                         <div>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
+                                            <div>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="margin-top:13px">
-                                        <div style="font-weight: 200;font-size: 14px;letter-spacing: 1px;">
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">成人x{{detailModel?.num_adult}}</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_adult}}*{{detailModel?.num_adult}}</div>
-                                            </div>
+                                        <div style="margin-top:13px">
+                                            <div style="font-weight: 200;font-size: 14px;letter-spacing: 1px;">
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">成人x{{detailModel?.num_adult}}</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.price_adult}}*{{detailModel?.num_adult}}</div>
+                                                </div>
 
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_kid!=0&&detailModel?.num_kid!=0">
-                                                <div style="width: 50%;">儿童x{{detailModel?.num_kid}}</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_kid}}*{{detailModel?.num_kid}}</div>
-                                            </div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_kid!=0&&detailModel?.num_kid!=0">
+                                                    <div style="width: 50%;">儿童x{{detailModel?.num_kid}}</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.price_kid}}*{{detailModel?.num_kid}}</div>
+                                                </div>
 
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_baby!=0&&detailModel?.baby_num!=0">
-                                                <div style="width: 50%;">婴儿x{{detailModel?.baby_num}}</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_baby}}*{{detailModel?.baby_num}}</div>
-                                            </div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_baby!=0&&detailModel?.baby_num!=0">
+                                                    <div style="width: 50%;">婴儿x{{detailModel?.baby_num}}</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.price_baby}}*{{detailModel?.baby_num}}</div>
+                                                </div>
 
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_diff!=0&&detailModel?.num_diff!=0">
-                                                <div style="width: 50%;">补房差</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_diff}}*{{detailModel?.num_diff}}</div>
-                                            </div>
-                                            <ng-container *ngIf="detailModel?.price_other!=0">
-                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                    <ng-container *ngIf="fee?.type==0">
-                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                            <!-- 附加收费 -->
-                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                                <div style="width: 50%;">{{fee?.title}}</div>
-                                                                <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.price_diff!=0&&detailModel?.num_diff!=0">
+                                                    <div style="width: 50%;">补房差</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.price_diff}}*{{detailModel?.num_diff}}</div>
+                                                </div>
+                                                <ng-container *ngIf="detailModel?.price_other!=0">
+                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                        <ng-container *ngIf="fee?.type==0">
+                                                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                                <!-- 附加收费 -->
+                                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                    <div style="width: 50%;">{{fee?.title}}</div>
+                                                                    <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </ng-container>
                                                     </ng-container>
                                                 </ng-container>
-                                            </ng-container>
 
-                                            <ng-container *ngIf="detailModel?.discount_other!=0">
-                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                    <ng-container *ngIf="fee?.type==1">
-                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                                <!-- 优惠 -->
-                                                                <div style="width: 50%;">{{fee?.title}}</div>
-                                                                <div style="width: 50%;">-￥{{fee?.price}}</div>
+                                                <ng-container *ngIf="detailModel?.discount_other!=0">
+                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                        <ng-container *ngIf="fee?.type==1">
+                                                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                    <!-- 优惠 -->
+                                                                    <div style="width: 50%;">{{fee?.title}}</div>
+                                                                    <div style="width: 50%;">-￥{{fee?.price}}</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </ng-container>
                                                     </ng-container>
                                                 </ng-container>
-                                            </ng-container>
-                                        </div>
-
-                                        <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
-
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">合计</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">已收金额</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                            </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
-                                                <div style="width: 50%;">退款金额</div>
-                                                <div style="width: 50%;">
-                                                    <span>￥{{detailModel?.refund_amount}}</span>
-                                                    <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
+
+                                            <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">合计</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">已收金额</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
+                                                    <div style="width: 50%;">退款金额</div>
+                                                    <div style="width: 50%;">
+                                                        <span>￥{{detailModel?.refund_amount}}</span>
+                                                        <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
+                                                    </div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">实收金额</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">还需收款金额</div>
+                                                    <div style="width: 50%;">￥{{priceTotal}}</div>
                                                 </div>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">实收金额</div>
-                                                <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
-                                            </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">还需收款金额</div>
-                                                <div style="width: 50%;">￥{{priceTotal}}</div>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                </nz-spin>
+                                        </div>
+                                    </nz-spin>
+                                </div>
                             </div>
+
                         </div>
-
-                    </div>
-                </mat-card>
+                    </mat-card>
 
 
 
-                <mat-card *ngIf="detailModel?.quote_type==1">
-                    <div>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <div>
-                                    <h4 style="padding-left: 10px;padding-top: 10px;">订单支付情况</h4>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
-                                </div>
-                            </div>
-                            <nz-divider></nz-divider>
-                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                    <mat-card *ngIf="detailModel?.quote_type==1">
+                        <div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
                                     <div>
-                                        <div>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
-                                            <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
-                                        </div>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">订单支付情况</h4>
                                     </div>
-                                    <div style="margin-top:13px">
-                                        <div style="font-weight: 500;font-size: 16px;letter-spacing: 1px;">
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">套餐总价</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_inclusive}}*{{detailModel?.num_total}}</div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                    </div>
+                                </div>
+                                <nz-divider></nz-divider>
+                                <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                                        <div>
+                                            <div>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
+                                                <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
                                             </div>
-
-                                            <ng-container *ngIf="detailModel?.price_other!=0">
-                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                    <ng-container *ngIf="fee?.type==0">
-                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                            <!-- 附加收费 -->
-                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                                <div style="width: 50%;">{{fee?.title}}</div>
-                                                                <div style="width: 50%;">￥{{fee?.price}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <ng-container *ngIf="detailModel?.discount_other!=0">
-                                                <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
-                                                    <ng-container *ngIf="fee?.type==1">
-                                                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                                <!-- 优惠 -->
-                                                                <div style="width: 50%;">{{fee?.title}}</div>
-                                                                <div style="width: 50%;">-￥{{fee?.price}}</div>
-                                                            </div>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
                                         </div>
+                                        <div style="margin-top:13px">
+                                            <div style="font-weight: 500;font-size: 16px;letter-spacing: 1px;">
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">套餐总价</div>
+                                                    <div style="width: 50%;">
+                                                        ￥{{detailModel?.price_inclusive}}*{{detailModel?.num_total}}
+                                                    </div>
+                                                </div>
 
-                                        <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                                                <ng-container *ngIf="detailModel?.price_other!=0">
+                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                        <ng-container *ngIf="fee?.type==0">
+                                                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                                <!-- 附加收费 -->
+                                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                    <div style="width: 50%;">{{fee?.title}}</div>
+                                                                    <div style="width: 50%;">￥{{fee?.price}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
 
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">合计</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
+                                                <ng-container *ngIf="detailModel?.discount_other!=0">
+                                                    <ng-container *ngFor="let fee of detailModel?.price_detail?.data">
+                                                        <ng-container *ngIf="fee?.type==1">
+                                                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                                    <!-- 优惠 -->
+                                                                    <div style="width: 50%;">{{fee?.title}}</div>
+                                                                    <div style="width: 50%;">-￥{{fee?.price}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">已收金额</div>
-                                                <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                            </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
-                                                <div style="width: 50%;">退款金额</div>
-                                                <div style="width: 50%;">
-                                                    <span>￥{{detailModel?.refund_amount}}</span>
-                                                    <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
+
+                                            <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">合计</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">已收金额</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
+                                                    <div style="width: 50%;">退款金额</div>
+                                                    <div style="width: 50%;">
+                                                        <span>￥{{detailModel?.refund_amount}}</span>
+                                                        <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
+                                                    </div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">实收金额</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
+                                                </div>
+                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">还需收款金额</div>
+                                                    <div style="width: 50%;">￥{{priceTotal}}</div>
                                                 </div>
                                             </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">实收金额</div>
-                                                <div style="width: 50%;">￥{{detailModel?.amount_received}}</div>
-                                            </div>
-                                            <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                <div style="width: 50%;">还需收款金额</div>
-                                                <div style="width: 50%;">￥{{priceTotal}}</div>
-                                            </div>
+
+
                                         </div>
-
-
-                                    </div>
-                                </nz-spin>
+                                    </nz-spin>
+                                </div>
                             </div>
+
                         </div>
-
-                    </div>
-                </mat-card>
-
+                    </mat-card>
+                </div>
             </div>
 
         </div>

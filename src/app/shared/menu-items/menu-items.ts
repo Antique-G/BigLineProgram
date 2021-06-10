@@ -119,6 +119,8 @@ const MENUITEMS = [
             { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
             { state: 'financePreSaleList', name: '自由行预售订单列表', permission_name: 'financial_indent_presell' },
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
+            { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
+            
         ]
     },
 

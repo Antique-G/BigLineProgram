@@ -91,9 +91,7 @@
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">退款金额</th>
                                     <th style="text-align: center;">退款去向</th>
-                                    <th style="text-align: center;">操作人</th>
-                                    <th style="text-align: center;">审核人</th>
-                                    <th style="text-align: center;">财务</th>
+                                    <th style="text-align: center;">财务操作人</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">退款时间</th>
                                     <th style="text-align: center;">修改状态</th>
@@ -102,7 +100,14 @@
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.refund_id}}</td>
-                                    <td>{{data.transaction_id}}</td>
+                                    <td>
+                                        <ng-container *ngIf="data.pay_type==7">
+                                            <a (click)="routeIt(data?.user_id)" title="跳转到用户记录">{{data.transaction_id}}</a>
+                                        </ng-container>
+                                        <ng-container *ngIf="data.pay_type!=7">
+                                            {{data.transaction_id}}
+                                        </ng-container>
+                                    </td>
                                     <td>{{data.refund_no}}</td>
                                     <td>
                                         <div *ngIf="data?.product_type == 0"> <a href={{url+data?.order_id}} target="_blank">{{data.order_id}}</a></div>
@@ -126,8 +131,6 @@
                                         <span *ngIf="data.pay_type===9">携程</span>
                                     </td>
                                     <td>{{data?.handler_name}}</td>
-                                    <td>{{data?.checker_name}}</td>
-                                    <td>{{data?.finance_name}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
                                             <a title="重新发送退款请求" (click)="send(data)">退款失败</a>

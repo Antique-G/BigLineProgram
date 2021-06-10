@@ -1,11 +1,11 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
-import { AdminFinaceGroupService } from '../../../../services/admin/admin-finace-group.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminFinaceGroupService } from '../../../../services/admin/admin-finace-group.service';
+import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminFinanceGroupReqReviewComponent } from './admin-finance-group-req-review/admin-finance-group-req-review.component';
-import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -200,6 +200,7 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
         });
         editmodal.afterClose.subscribe(res => {
             this.getList();
+            this.getCashList();
         });
     }
 }

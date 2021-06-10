@@ -227,6 +227,8 @@ export const AdminUrls = {
     PostAdminRefundLogEdit: api + '/admin/refund_log/edit', // 变更退款流水信息
     PostAdminRefundDataCheck: api + '/admin/refund_data_check', // 主管审核退款
     GetAdminRefundAmountTotal: api + '/admin/refund_amount_total', //  财务退款 统计
+    PostAdminRefundCancel: api + '/admin/cancel_refund', // 撤销退款
+
      
 
 
@@ -296,8 +298,9 @@ export const AdminUrls = {
     GetAdminFinanceGroupCashList: api + '/admin/group_cash_require',  // 团请款列表
     PostAdminFinanceOrderCheckoutCash: api + '/admin/check_cash_require',  // 团请款审核
     GetAdminGroupCashTotal: api + '/admin/group_cash_total',  // 团请款的合计
+    GetAdminFinanceFreeCashList: api + '/admin/finance/free_travel_cash',  // 自由行请款列表
+    GetAdminFreeCashTotal: api + '/admin/finance/free_travel_total',  // 自由行请款的合计
 
-    
 
 
     // 供应商
@@ -478,6 +481,9 @@ export const StoreUrls = {
     // 自由行预售产品
     GetStorePreFreeTravelList: api + '/store/indent_ticket_list',   // 列表
     PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  // 添加
+    PostStoreCopyIndentPro: api + '/store/copy_indent_product',  // 复制产品
+
+    
 
 
     // 成本

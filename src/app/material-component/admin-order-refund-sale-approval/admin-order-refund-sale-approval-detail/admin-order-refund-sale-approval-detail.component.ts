@@ -548,16 +548,15 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
         console.log("11111111", Number(adultfff), Number(KidFff), Number(babyFff), Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom), Number(priceDetail))
         this.nowOrderMoney = Number(adultfff) + Number(KidFff) + Number(babyFff) + Number(this.detailModel.order?.data?.price_diff) * Number(this.difRoom) + Number(priceDetail);
-
-        this.nowOrderMoney = this.toDecimal(this.nowOrderMoney);
+        this.nowOrderMoney = Math.round(this.nowOrderMoney * 100) / 100;
 
 
         // 基础退款金额
         console.log("99999999", Number(this.price_total) * 100, Number(this.nowOrderMoney) * 100, (Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100),);
         console.log("0000000000", ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100), ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage) * 100) / 100)
         this.bascie_money = ((Number(this.price_total) * 100 - Number(this.nowOrderMoney) * 100) * Number(this.percentage)) / 100;
+        this.bascie_money = Math.round(this.bascie_money * 100) / 100;
 
-        this.bascie_money = ((Number(this.bascie_money) * 100) / 100).toFixed(2);
 
         // 保留两位小数
         // this.bascie_money = this.toDecimal(this.bascie_money);
@@ -565,7 +564,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
+
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -575,7 +575,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
     numTest(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
+
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -584,7 +585,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
     numTest1(data: any) {
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.refund_amount = this.toDecimal(this.refund_amount);
+        this.refund_amount = Math.round(this.refund_amount * 100) / 100;
+
         if (this.refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -722,14 +724,14 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         // 基础退款金额
         this.isPackRefundBasic = ((Number(this.price_total) * 100 - Number(this.nowOrderMoneyPack) * 100) * Number(this.percentage)) / 100;
         // this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
-        this.isPackRefundBasic = ((Number(this.isPackRefundBasic) * 100) / 100).toFixed(2);
+        this.isPackRefundBasic = Math.round(this.isPackRefundBasic * 100) / 100;
 
 
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
-        this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -738,7 +740,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
     numTestPack(data: any) {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -746,7 +749,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
     numTestPack2(data: any) {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -873,12 +877,20 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
 
 
     success() {
+        let contentText = '';
+        if (this.detailModel?.handle_data?.to_account == 1) {
+            contentText = `<h6>审核成功后，将直接退款至此用户账户余额</h6>`;
+        }
+        else {
+            contentText = `<h6>审核成功后，将提交到财务处理退款</h6>`;
+        }
+
         this.adminRefundCheckDataModel.id = this.detailModel?.id;
         this.adminRefundCheckDataModel.check = 2;
         this.adminRefundCheckDataModel.remark = '';
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",
-            nzContent: "<h6>审核成功后，将提交到财务处理退款</h6>",
+            nzContent: contentText,
             nzOnOk: () =>
                 this.adminRefundService.postAdminRefundDataCheck(this.adminRefundCheckDataModel).subscribe((res) => {
                     this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
@@ -909,6 +921,18 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         editmodal.afterClose.subscribe(res => {
             this.router.navigate(['/admin/main/salesApproval'], { queryParams: { tabIndex: 1 } });
         })
+    }
+
+    //撤销退款申请
+    cancelRefund() {
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>是否确定撤销退款</h6>",
+            nzOnOk: () =>
+                this.adminRefundService.postRefundCancel(this.detailModel?.id).subscribe((res) => {
+                    this.router.navigate(['/admin/main/salesApproval']);
+                }),
+        });
     }
 }
 

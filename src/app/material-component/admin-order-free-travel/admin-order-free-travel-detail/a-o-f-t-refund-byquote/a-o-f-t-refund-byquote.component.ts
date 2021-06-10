@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
-import { CreateReundModel, ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ReundCheckModel } from '../../../../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundService } from '../../../../../services/admin/admin-refund.service';
 
 @Component({
     selector: 'app-a-o-f-t-refund-byquote',
@@ -275,6 +275,8 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.reundCheckModel.num_room = 0;
         this.reundCheckModel.reason = this.resultForm.value.reason;
         this.reundCheckModel.to_account = this.resultForm.value.to_account;
+      
+   
     }
 
 
@@ -299,14 +301,13 @@ export class AOFTRefundByquoteComponent implements OnInit {
         // 基础退款金额
         this.isPackRefundBasic = ((Number(this.price_total) * 100 - Number(this.nowOrderMoneyPack) * 100) * Number(this.percentage)) / 100;
         // this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
-        this.isPackRefundBasic = ((Number(this.isPackRefundBasic) * 100) / 100).toFixed(2);
-
-
+        this.isPackRefundBasic = Math.round(this.isPackRefundBasic * 100) / 100;
         this.isPackbasicRefund = '（' + this.price_total + '-' + this.nowOrderMoneyPack + '）*比例' + this.percent + '%=￥' + this.isPackRefundBasic;
-        this.isPackRefundBasic = this.toDecimal(this.isPackRefundBasic);
+       
         // 可退款总金额=基础退款金额+额外退款金额-其他扣除费用-待收款金额
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
+
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -315,7 +316,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
 
     numTestPack(data: any) {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }
@@ -323,7 +324,7 @@ export class AOFTRefundByquoteComponent implements OnInit {
 
     numTestPack2(data: any) {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
-        this.isPack_refund_amount = this.toDecimal(this.isPack_refund_amount);
+        this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
             this.message.create('error', `总金额不能小于0`)
         }

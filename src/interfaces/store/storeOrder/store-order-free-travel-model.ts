@@ -63,8 +63,9 @@ export interface StoreOrderFreeTravelList {
     member: Member;
     quote_type?: any
     independent_product: Independentproduct;
-    total_number?: any
-    refund_number?: any
+    total_number?: any;
+    refund_number?: any;
+    payout_status?: any;
 }
 
 export interface Independentproduct {
@@ -196,6 +197,7 @@ export interface DetailsModel {
     total_member?: any;
     detailModel?: any;
     store_name?: any;
+    cash_requirement?: any;
 }
 
 

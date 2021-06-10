@@ -15,7 +15,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_user" nzRequired>开户名</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="bank_user" nzBorderless [ngModel]="data?.bank_user" />
+                                        <input nz-input formControlName="bank_user" nzBorderless readonly [ngModel]="data?.bank_user" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -23,7 +23,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_address" nzRequired>开户行</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="bank_address" nzBorderless [ngModel]="data?.bank_address" />
+                                        <input nz-input formControlName="bank_address" nzBorderless readonly [ngModel]="data?.bank_address" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -31,7 +31,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_number" nzRequired>账户</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="bank_number" nzBorderless [ngModel]="data?.bank_number" />
+                                        <input nz-input formControlName="bank_number" nzBorderless readonly [ngModel]="data?.bank_number" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -39,7 +39,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="refund_amount" nzRequired>退款金额</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="refund_amount" nzBorderless [ngModel]="data?.refund_amount" />
+                                        <input nz-input formControlName="refund_amount" nzBorderless readonly [ngModel]="data?.refund_amount" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -47,7 +47,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="pay_at" nzRequired>退款时间</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="pay_at" nzBorderless [ngModel]="data?.created_at|date:'yyyy-MM-dd HH:mm:ss'" />
+                                        <input nz-input formControlName="pay_at" nzBorderless readonly [ngModel]="data?.created_at|date:'yyyy-MM-dd HH:mm:ss'" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>
@@ -55,7 +55,7 @@
                                 <div nz-row>
                                     <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="transaction_id" nzRequired>银行流水号</nz-form-label>
                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                        <input nz-input formControlName="transaction_id" nzBorderless [ngModel]="data?.transaction_id" />
+                                        <input nz-input formControlName="transaction_id" nzBorderless readonly [ngModel]="data?.transaction_id" />
                                     </nz-form-control>
                                 </div>
                             </nz-form-item>

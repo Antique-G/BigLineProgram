@@ -10,6 +10,15 @@
                             <div nz-row>
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
+                                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account_id">账户id</nz-form-label>
+                                        <nz-form-control [nzSm]="13" [nzXs]="24">
+                                            <input nz-input formControlName="account_id" nzBorderless [ngModel]="detailModel?.account_id" />
+                                        </nz-form-control>
+                                    </div>
+                                </nz-form-item>
+
+                                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                    <div nz-row>
                                         <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="account">账户名</nz-form-label>
                                         <nz-form-control [nzSm]="13" [nzXs]="24">
                                             <input nz-input formControlName="account" nzBorderless [ngModel]="detailModel?.name" />

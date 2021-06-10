@@ -1,11 +1,11 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StoreOrderService } from '../../../../../services/store/store-order/store-order.service';
-import { DataOrderDetail, SubgroupDeatilModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreOrderRequestMoneyComponent } from './store-order-request-money/store-order-request-money.component';
+import { DataOrderDetail } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { StoreCostService } from '../../../../../services/store/store-cost/store-cost.service';
+import { StoreOrderService } from '../../../../../services/store/store-order/store-order.service';
+import { StoreOrderRequestMoneyComponent } from './store-order-request-money/store-order-request-money.component';
 
 
 
@@ -250,8 +250,13 @@ export class StoreOrderGroupDetailComponent implements OnInit {
         });
     }
 
-    changeSuppy(data: any) {
-        console.log('');
+
+    
+    changeSuppy(data: any,i:any) {
+        console.log('111', data, i);
+        let ii = this.supplyList.filter((item: any) => item?.id == data)
+        console.log("22222", ii);
+        this.cashList[i].supplier.data = ii;
     }
 }
 

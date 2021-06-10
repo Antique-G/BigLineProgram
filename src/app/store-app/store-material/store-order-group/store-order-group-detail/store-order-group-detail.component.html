@@ -131,7 +131,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let data of rowSelectionTable.data">
+                                                <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                     <ng-container *ngIf="!data.edit; else editTemplate">
                                                         <td>{{data.id}}</td>
                                                         <td>{{data.price}}</td>
@@ -159,10 +159,10 @@
                                                     <ng-template #editTemplate>
                                                         <td>{{data.id}}</td>
                                                         <td>
-                                                            <nz-input-number [nzMin]="0" [(ngModel)]="data.price" [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number>
+                                                            <nz-input-number [nzMin]="0.01" [(ngModel)]="data.price" [nzPrecision]="precision" nzPrecisionMode="cut"> </nz-input-number>
                                                         </td>
                                                         <td>
-                                                            <nz-input-number [nzMin]="0" [(ngModel)]="data.num" [nzPrecision]="cutNums" nzPrecisionMode="cut"> </nz-input-number>
+                                                            <nz-input-number [nzMin]="1" [(ngModel)]="data.num" [nzPrecision]="cutNums" nzPrecisionMode="cut"> </nz-input-number>
                                                         </td>
                                                         <td>{{data.total}}元</td>
                                                         <td>
@@ -172,7 +172,7 @@
                                                             </nz-select>
                                                         </td>
                                                         <td>
-                                                            <nz-select [(ngModel)]="data.suppiler_id" (ngModelChange)="changeSuppy($event)">
+                                                            <nz-select [(ngModel)]="data.suppiler_id" (ngModelChange)="changeSuppy($event,i)">
                                                                 <nz-option *ngFor="let supply of supplyList" [nzLabel]="supply?.supplier_name" [nzValue]="supply?.id">
                                                                 </nz-option>
                                                             </nz-select>
