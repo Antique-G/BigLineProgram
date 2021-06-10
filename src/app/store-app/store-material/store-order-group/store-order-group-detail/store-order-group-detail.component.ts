@@ -164,6 +164,11 @@ export class StoreOrderGroupDetailComponent implements OnInit {
                 item.edit = false;
             }
         });
+        console.log("111",this.cashList)
+        this.storeOrderService.getOrderGroupDetail(this.detailId).subscribe(res => {
+            this.cashList = this.detailModel?.cash_requirement?.data;
+            console.log("4444",this.detailModel?.cash_requirement?.data,this.cashList)
+        })
     }
 
 
