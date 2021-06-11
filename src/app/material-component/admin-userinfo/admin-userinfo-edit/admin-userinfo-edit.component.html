@@ -1,0 +1,254 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/user">返回用户信息列表</button>
+                </div>
+
+                <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">用户基本信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                                        <div style="margin-top:13px">
+                                            <form nz-form [formGroup]="addForm" nz-row>
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户id
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="user_id" nzBorderless readonly [ngModel]="detailModel?.user_id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name">用户昵称
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="name" nzBorderless readonly [ngModel]="detailModel?.name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="real_name">用户真实姓名
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="real_name" nzBorderless readonly [ngModel]="detailModel?.real_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender">用户性别
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="gender" nzBorderless readonly [ngModel]="detailModel?.gender" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">手机号
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="phone" nzBorderless readonly [ngModel]="detailModel?.phone" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="city_name">区域
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="city_name" nzBorderless readonly [ngModel]="detailModel?.city_name" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card>
+
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">用户关联订单信息</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                                        <div style="margin-top:13px">
+                                            <div class="mat-elevation-z8 ListBox">
+                                                <nz-table #rowSelectionTable nzBordered [nzLoading]="loading" [nzFrontPagination]="false" [nzData]="orderList" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                                                    (nzPageSizeChange)="changePageSize($event)">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;">订单号</th>
+                                                            <th style="text-align: center;">下单人</th>
+                                                            <th style="text-align: center;">店铺名称</th>
+                                                            <th style="text-align: center;width: 10%;">产品名称</th>
+                                                            <th style="text-align: center;">名称类型</th>
+                                                            <th style="text-align: center;">联系人姓名/手机号</th>
+                                                            <th style="text-align: center;">订单出发日期</th>
+                                                            <th style="text-align: center;">订单下单日期</th>
+                                                            <th style="text-align: center;">订单状态</th>
+                                                            <th style="text-align: center;">订单总价格</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let data of rowSelectionTable.data">
+                                                            <td>
+                                                                <a (click)="toDetail(data)">{{data.id}}</a>
+                                                            </td>
+                                                            <td>{{data?.bind_account_name}}</td>
+                                                            <td>{{data.store_name}}</td>
+                                                            <td>{{data.product_name}}</td>
+                                                            <td>{{data.product_type==1?'自由行':'跟团游'}}</td>
+                                                            <td>
+                                                                <div>{{data.contact_name}}</div>
+                                                                <div>{{data.contact_phone}}</div>
+                                                            </td>
+
+                                                            <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
+                                                            <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                            <td>
+                                                                <span *ngIf="data.order_status===0">
+                                                                    <nz-badge nzColor="yellow"></nz-badge>已取消
+                                                                </span>
+                                                                <span *ngIf="data.order_status===1">
+                                                                    <nz-badge nzColor="red"></nz-badge>待支付
+                                                                </span>
+                                                                <span *ngIf="data.order_status===2">
+                                                                    <nz-badge nzColor="pink"></nz-badge>待出行
+                                                                </span>
+                                                                <span *ngIf="data.order_status===3">
+                                                                    <nz-badge nzColor="green"></nz-badge>已完成
+                                                                </span>
+                                                            </td>
+                                                            <td>{{data.price_total}}元</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </nz-table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card>
+
+
+                        <mat-card>
+                            <div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">账户余额变动记录</h4>
+                                        </div>
+                                    </div>
+                                    <nz-divider></nz-divider>
+                                    <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+
+                                        <div style="margin-top:13px">
+                                            <div class="mat-elevation-z8 ListBox">
+                                                <nz-table #rowSelectionTable1 nzBordered [nzLoading]="loading1" [nzFrontPagination]="false" [nzData]="userMoneyList" [nzTotal]="total1" [(nzPageIndex)]="page1" [(nzPageSize)]="per_page1" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex1($event)"
+                                                    (nzPageSizeChange)="changePageSize1($event)">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;">用户id</th>
+                                                            <th style="text-align: center;">用户余额</th>
+                                                            <th style="text-align: center;">变动金额</th>
+                                                            <th style="text-align: center;">类型</th>
+                                                            <th style="text-align: center;">订单id</th>
+                                                            <th style="text-align: center;">交易流水号</th>
+                                                            <th style="text-align: center;">变动时间</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let data of rowSelectionTable1.data">
+                                                            <td>{{data?.user_id}}</td>
+                                                            <td>{{data?.money}}元</td>
+                                                            <td>
+                                                                <span *ngIf="data?.type==1">+</span>
+                                                                <span *ngIf="data?.type==3">+</span>
+                                                                <span *ngIf="data?.type==2">-</span>
+                                                                <span *ngIf="data?.type==4">-</span> {{data?.change_money}}元
+                                                            </td>
+                                                            <td>
+                                                                <div *ngIf="data?.type===1">
+                                                                    平台返佣
+                                                                </div>
+                                                                <div *ngIf="data?.type===2">
+                                                                    提现
+                                                                </div>
+                                                                <div *ngIf="data?.type===3">
+                                                                    退款
+                                                                </div>
+                                                                <div *ngIf="data?.type===4">
+                                                                    支付
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <ng-container *ngIf="data?.order_log">
+                                                                    <a href={{isOrderUrl}} target="_blank" title="查看订单详情" (click)="routeToDetail(data?.order_log?.order)">{{data?.order_log?.order?.id}} </a>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="!data?.order_log">
+                                                                    -
+                                                                </ng-container>
+                                                            </td>
+                                                            <td>
+                                                                <ng-container *ngIf="data?.type==3">
+                                                                    <a title="查看流水列表" (click)="routeToRefund(data?.transaction_id)">{{data?.transaction_id}} </a>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="data?.type!=3">
+                                                                    {{data?.transaction_id}}
+                                                                </ng-container>
+                                                            </td>
+                                                            <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </nz-table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </mat-card>
+                    </div>
+                </nz-spin>
+            </div>
+        </div>
+    </div>
+</div>

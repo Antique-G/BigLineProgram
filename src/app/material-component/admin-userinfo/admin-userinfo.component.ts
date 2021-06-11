@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SetStatusRequestModel } from '../../../interfaces/adminUserinfo/admin-userinfo-model';
 import { AdminUserinfoService } from '../../../services/admin/admin-userinfo.service';
 import { AdminUserinfoDetailComponent } from './admin-userinfo-detail/admin-userinfo-detail.component';
+
 
 @Component({
     selector: 'app-admin-userinfo',
@@ -106,6 +107,10 @@ export class AdminUserinfoComponent implements OnInit {
         })
     }
 
+    
+    detail(data: any) {
+        this.router.navigate(['/admin/main/user/detail'], { queryParams: { user_id: data.user_id } });
+    }
 
 
     // 重置

@@ -70,6 +70,7 @@ import { AdminTermTemplateEditComponent } from './admin-term-template/admin-term
 import { AdminTermTemplateComponent } from './admin-term-template/admin-term-template.component';
 import { AdminTermsManageComponent } from './admin-terms-manage/admin-terms-manage.component';
 import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
+import { AdminUserinfoEditComponent } from './admin-userinfo/admin-userinfo-edit/admin-userinfo-edit.component';
 import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockDetailComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-detail/admin-wechat-pageblock-detail.component';
@@ -463,6 +464,13 @@ export const MaterialRoutes: Routes = [
                 component: AdminUserinfoComponent,
                 data: {
                     breadcrumb: '用户信息列表'
+                }
+            },
+            {
+                path: 'user/detail',
+                component: AdminUserinfoEditComponent,
+                data: {
+                    breadcrumb: '用户信息详情'
                 }
             },
             {
