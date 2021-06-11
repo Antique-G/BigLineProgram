@@ -196,6 +196,7 @@ export interface DataProductDetailModel {
     insurance_extra?: any;
     include_insurance_fee?: any;
     insurance_base_info?: any;
+    schedule_file_url?: any;
 }
 
 
