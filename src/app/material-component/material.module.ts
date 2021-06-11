@@ -190,6 +190,7 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
+import { AdminUserinfoEditComponent } from './admin-userinfo/admin-userinfo-edit/admin-userinfo-edit.component';
 
 
 
@@ -411,6 +412,7 @@ import { MaterialRoutes } from './material.routing';
     AdminOrderRefundChangeComponent,
     AdminFinanceFreeReqCashComponent,
     AdminFinanceFreeReqCashReviewComponent,
+    AdminUserinfoEditComponent,
 
   ]
 })

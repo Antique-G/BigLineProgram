@@ -167,6 +167,8 @@ export const AdminUrls = {
     PostAdminUserinfoStatus: api + '/admin/user/set_status',      // 用户状态修改
     GetAdminUserinfoDetail: api + '/admin/user/',      // 用户详情
     PutAdminUserinfoUpdate: api + '/admin/user/',      // 用户详情修改
+    GetAdminUserOrderIndex: api + '/admin/order/index/',      // 用户订单
+
 
 
     GetAdminOrderGroupList: api + '/admin/group',  // 订单团列表

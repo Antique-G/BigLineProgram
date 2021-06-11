@@ -85,3 +85,71 @@ export interface UpdateInfoModel {
     phone: string;
     id?: any
 }
+
+
+// 用户关联订单
+export interface UserOrderModel {
+    data: DataUserOrderModel[];
+    meta: MetaUserOrderModel;
+}
+
+
+export interface MetaUserOrderModel {
+    pagination: PaginationUserOrderModel;
+}
+
+export interface PaginationUserOrderModel {
+    total: number;
+    count: number;
+    per_page: number;
+    current_page: number;
+    total_pages: number;
+    links: LinksUserOrderModel;
+}
+
+export interface LinksUserOrderModel {
+    next: string;
+}
+
+export interface DataUserOrderModel {
+    id: number;
+    store_id: number;
+    user_id: number;
+    contact_phone: string;
+    contact_name: string;
+    product_id: number;
+    product_code: string;
+    product_name: string;
+    start_date: string;
+    order_status: number;
+    price_total: number;
+    price_receive: number;
+    payment_status: number;
+    order_sms: number;
+    insurance_status: number;
+    cancel_type: number;
+    refund_status: number;
+    created_at: string;
+    product_type: any;
+    bind_type: number;
+    bind_id: number;
+    num_adult: number;
+    num_kid: number;
+    baby_num: number;
+    contract_status: number;
+    payout_status: number;
+    refund_amount: number;
+    amount_received: string;
+    store_name: string;
+    insurance_status_info: string;
+    cancel_type_info: string;
+    bind_account_name: string;
+    bind_shop_name: string | object;
+    refunding_amount: number;
+    cash_money_total: number;
+    num_member: number;
+    refund_member: number[];
+    total_member: number[];
+}
+
+

@@ -1,0 +1,12 @@
+.ant-form-item {
+    margin: 0 0 5px !important;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
