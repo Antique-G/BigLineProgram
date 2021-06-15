@@ -107,7 +107,7 @@
                                     <th style="text-align: center;">联系人姓名/手机号</th>
                                     <th style="text-align: center;">抢购时间</th>
                                     <th style="text-align: center;">可使用时间</th>
-                                    <th style="text-align: center;">预约码</th>
+                                    <th style="text-align: center;" nzWidth="200px">预约码</th>
                                     <th style="text-align: center;">使用状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                 </tr>
@@ -131,7 +131,11 @@
                                     <td>
                                         {{data?.use_start_date}}~{{data?.use_end_date}}
                                     </td>
-                                    <td> {{data?.ticket_code}}</td>
+                                    <td>
+                                        <div style="width:200px;display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;cursor: pointer;" title={{data?.ticket_code}}>
+                                            {{data?.ticket_code}}
+                                        </div>
+                                    </td>
                                     <td>
                                         <span *ngIf="data?.use_status==0">未使用</span>
                                         <span *ngIf="data?.use_status==1">部分使用</span>
