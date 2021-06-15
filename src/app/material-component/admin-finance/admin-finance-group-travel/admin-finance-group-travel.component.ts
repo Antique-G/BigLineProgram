@@ -296,12 +296,16 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
         this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
         this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
         this.payment_status = this.payment_status == null ? '' : this.payment_status;
-        this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+        this.pay_type = this.pay_type == null ? '' : this.pay_type;
+        this.isExport = this.api + '/admin/order/export/0?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
             '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
             '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
             '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
-            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone + '&payment_status=' + this.payment_status;
+            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone + '&payment_status=' + this.payment_status +
+            '&transaction_id=' + this.transaction_id + '&pay_type=' + this.pay_type;
 
         console.log('object :>> ', this.isExport);
+        this.loading = false;
+
     }
 }
