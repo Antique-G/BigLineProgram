@@ -1,13 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { environment } from '../../../environments/environment';
 import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
-import { environment } from '../../../environments/environment';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
+import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
 
 
 @Component({
@@ -343,13 +343,15 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             this.admin_id = this.admin_id ? this.admin_id : '',
 
 
-            this.isExport = this.api + '/admin/order/export?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+            this.isExport = this.api + '/admin/order/export/0?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
             '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
             '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
             '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
             '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
             '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city + '&admin_id=' + this.admin_id;
         console.log('object :>> ', this.isExport);
+        this.loading = false;
+
     }
 
 
