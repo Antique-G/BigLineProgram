@@ -59,7 +59,7 @@ const MENUITEMS = [
         title: '佣金模块', icon: 'pound', permission_name: 'admin_dist',
         children: [
             { state: 'userCommission', name: '用户分销佣金', permission_name: 'dist_user_dist' },
-            { state: 'commissionWithdraw', name: '提现列表', permission_name: 'dist_user_dist' },
+            // { state: 'commissionWithdraw', name: '提现列表', permission_name: 'dist_user_dist' },
             { state: 'userMoneyLog', name: '金额变动记录', permission_name: 'dist_money_log' }
         ]
     },
@@ -112,19 +112,10 @@ const MENUITEMS = [
             { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
+            { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
             
         ]
     },
-
-
-
-    // {
-    //   title: '其他', icon: 'compass', permission_name: 'admin_financial' ,
-    //   children: [
-    //     { state: 'lottery', name: '抽奖活动' , permission_name: 'financial_group_order' },
-    //   ]
-    // },
-
 
 ];
 

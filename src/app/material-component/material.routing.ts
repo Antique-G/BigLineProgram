@@ -12,6 +12,7 @@ import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-f
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
+import { AdminMiniWithdrawalReviewComponent } from './admin-finance/admin-mini-withdrawal-review/admin-mini-withdrawal-review.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
@@ -634,7 +635,13 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行请款列表'
                 }
             },
-
+            {
+                path: 'miniWithdrawalReview',
+                component: AdminMiniWithdrawalReviewComponent,
+                data: {
+                    breadcrumb: '小程序钱包提现审核列表'
+                }
+            },
         ]
     }
 ];
