@@ -26,8 +26,8 @@ export class AdminTravelDetailPresellComponent implements OnInit {
         public router: Router,) {
         this.addForm = new FormGroup({
             is_presell: new FormControl(0, [Validators.required]),
-            dateValid: new FormControl(null, [Validators.required]),
-            useDateValid: new FormControl(null, [Validators.required]),
+            dateValid: new FormControl('', [Validators.required]),
+            useDateValid: new FormControl('', [Validators.required]),
             ticket_price: new FormControl('', [Validators.required]),
             inventory: new FormControl('', [Validators.required]),
             subsidy_price: new FormControl('', [Validators.required]),
@@ -78,8 +78,14 @@ export class AdminTravelDetailPresellComponent implements OnInit {
 
 
     setFormValue() {
-        this.addForm.get('dateValid')?.setValue([this.dataFreeDetailModel?.product_ticket?.data[0]?.start_date, this.dataFreeDetailModel?.product_ticket?.data[0]?.end_date]);
-        this.addForm.get('useDateValid')?.setValue([this.dataFreeDetailModel?.product_ticket?.data[0]?.use_start_date, this.dataFreeDetailModel?.product_ticket?.data[0]?.use_end_date]);
+        if (this.dataFreeDetailModel?.product_ticket?.data.length > 0) {
+            this.addForm.get('dateValid')?.setValue([this.dataFreeDetailModel?.product_ticket?.data[0]?.start_date, this.dataFreeDetailModel?.product_ticket?.data[0]?.end_date]);
+            this.addForm.get('useDateValid')?.setValue([this.dataFreeDetailModel?.product_ticket?.data[0]?.use_start_date, this.dataFreeDetailModel?.product_ticket?.data[0]?.use_end_date]);
+        }
+        else {
+            this.addForm.get('dateValid')?.setValue('');
+            this.addForm.get('useDateValid')?.setValue('');
+        }
         this.addForm.get('ticket_price')?.setValue(this.dataFreeDetailModel?.product_ticket?.data[0]?.ticket_price);
         this.addForm.get('inventory')?.setValue(this.dataFreeDetailModel?.product_ticket?.data[0]?.inventory);
         this.addForm.get('show_price')?.setValue(this.dataFreeDetailModel?.product_ticket?.data[0]?.show_price);
@@ -88,7 +94,7 @@ export class AdminTravelDetailPresellComponent implements OnInit {
     }
 
     setValue() {
-        console.log("this.dateArray[0]",)
+        console.log("11111111111", this.dateArray.length == 0, this.dateUseArray.length == 0)
         this.detailUpdateModel.is_presell = this.addForm.value.is_presell;
         this.detailUpdateModel.start_date = this.dateArray.length == 0 ? this.dataFreeDetailModel?.product_ticket?.data[0]?.start_date : this.dateArray[0];
         this.detailUpdateModel.end_date = this.dateArray.length == 0 ? this.dataFreeDetailModel?.product_ticket?.data[0]?.end_date : this.dateArray[1];
@@ -97,7 +103,7 @@ export class AdminTravelDetailPresellComponent implements OnInit {
         this.detailUpdateModel.ticket_price = this.addForm.value.ticket_price;
         this.detailUpdateModel.inventory = this.addForm.value.inventory;
         this.detailUpdateModel.subsidy_price = this.addForm.value.subsidy_price;
-        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules==null?'':this.addForm.value.ticket_rules;
+        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules == null ? '' : this.addForm.value.ticket_rules;
         console.log("this.dateArray[0]", this.detailUpdateModel)
     }
 
@@ -120,7 +126,9 @@ export class AdminTravelDetailPresellComponent implements OnInit {
                     this.isLoadingBtn = false;
                 })
         }
-        //   
+        else {
+            this.isLoadingBtn = false; 
+        }
     }
 
 
