@@ -27,12 +27,12 @@ export class StoreTravelDetailPresellComponent implements OnInit {
         public router: Router,) {
         this.addForm = new FormGroup({
             is_presell: new FormControl('0', [Validators.required]),
-            dateValid: new FormControl(null, ),
-            useDateValid: new FormControl(null,),
-            ticket_price: new FormControl('', ),
-            inventory: new FormControl('', ),
-            subsidy_price: new FormControl('', ),
-            ticket_rules: new FormControl('', ),
+            dateValid: new FormControl('',),
+            useDateValid: new FormControl('',),
+            ticket_price: new FormControl('',),
+            inventory: new FormControl('',),
+            subsidy_price: new FormControl('',),
+            ticket_rules: new FormControl('',),
         });
         this.detailUpdateModel = {
             step: 7,
@@ -79,8 +79,14 @@ export class StoreTravelDetailPresellComponent implements OnInit {
 
 
     setFormValue() {
-        this.addForm.get('dateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.start_date, this.dataDetailModel?.product_ticket?.data[0]?.end_date]);
-        this.addForm.get('useDateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.use_start_date, this.dataDetailModel?.product_ticket?.data[0]?.use_end_date]);
+        if (this.dataDetailModel?.product_ticket?.data.length > 0) {
+            this.addForm.get('dateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.start_date, this.dataDetailModel?.product_ticket?.data[0]?.end_date]);
+            this.addForm.get('useDateValid')?.setValue([this.dataDetailModel?.product_ticket?.data[0]?.use_start_date, this.dataDetailModel?.product_ticket?.data[0]?.use_end_date]);
+        }
+        else {
+            this.addForm.get('dateValid')?.setValue('');
+            this.addForm.get('useDateValid')?.setValue('');
+        }
         this.addForm.get('ticket_price')?.setValue(this.dataDetailModel?.product_ticket?.data[0]?.ticket_price);
         this.addForm.get('inventory')?.setValue(this.dataDetailModel?.product_ticket?.data[0]?.inventory);
         this.addForm.get('show_price')?.setValue(this.dataDetailModel?.product_ticket?.data[0]?.show_price);
@@ -119,7 +125,9 @@ export class StoreTravelDetailPresellComponent implements OnInit {
                     this.isLoadingBtn = false;
                 })
         }
-        //   
+        else {
+            this.isLoadingBtn = false; 
+        } 
     }
 
 
