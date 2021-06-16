@@ -185,7 +185,9 @@ export const AdminUrls = {
 
 
     PostAdminOrderAddPriceDetails: api + '/admin/order/add_price_details',  // 订单改价（附加收费、优惠）
-    GetAdminOrderExport: api + '/admin/order/export',  // 订单导出
+    GetAdminOrderExport: api + '/admin/order/export/0',  // 跟团游订单导出
+    GetAdminFreeOrderExport: api + '/admin/order/export/1',  // 自由行订单导出
+
 
 
 
