@@ -39,6 +39,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
+                                    <th>保险id</th>
                                     <th>保险名称</th>
                                     <th>保险产品方案代码</th>
                                     <th>保额</th>
@@ -51,6 +52,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.id}}</td>
                                     <td>{{data.name}}</td>
                                     <td>{{data.code}}</td>
                                     <td>{{data.insurance_amount}}</td>

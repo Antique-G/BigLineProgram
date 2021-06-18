@@ -1,0 +1,160 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">审核状态
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'已通过'" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'拒绝'" [nzValue]="3"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="applyTime">申请时间
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeApplyTime($event)" formControlName="applyTime"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_type">提现方式
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="pay_type" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'银行卡'" [nzValue]="6"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bank_user">持卡人
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bank_user" placeholder="请输入持卡人" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户id
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzShowSearch nzAllowClear formControlName="user_id" nzPlaceHolder="请输入用户">
+                                        <nz-option *ngFor="let user of userList" [nzLabel]="user.name" [nzValue]="user.user_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">手机号码
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="phone" placeholder="请输入手机号码" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="payment_no">交易流水号
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="payment_no" placeholder="请输入交易流水号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+
+                    </form>
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">id</th>
+                                    <th style="text-align: center;">流水号</th>
+                                    <th style="text-align: center;">申请时间</th>
+                                    <th style="text-align: center;">审核状态</th>
+                                    <th style="text-align: center;">拒绝原因</th>
+                                    <th style="text-align: center;">提现金额</th>
+                                    <th style="text-align: center;">提现方式</th>
+                                    <th style="text-align: center;">持卡人</th>
+                                    <th style="text-align: center;">银行卡号</th>
+                                    <th style="text-align: center;">开户行</th>
+                                    <th style="text-align: center;">手机号码</th>
+                                    <th style="text-align: center;">用户id</th>
+                                    <th style="text-align: center;">审核时间</th>
+                                    <th style="text-align: center;">审核人</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.payment_no}}</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>
+                                        <span *ngIf="data.status==2">已通过</span>
+                                        <span *ngIf="data.status==3">拒绝</span>
+                                    </td>
+                                    <td>{{data.error_desc}}</td>
+                                    <td>
+                                        <span style="color: red;font-weight: 800;">{{data.money}}元</span>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="data.pay_type===1">微信</span>
+                                        <span *ngIf="data.pay_type===2">支付宝</span>
+                                        <span *ngIf="data.pay_type===3">现金</span>
+                                        <span *ngIf="data.pay_type===4">微信二维码</span>
+                                        <span *ngIf="data.pay_type===5">支付宝二维码</span>
+                                        <span *ngIf="data.pay_type===6">银行卡转账</span>
+                                        <span *ngIf="data.pay_type===7">余额支付</span>
+                                        <span *ngIf="data.pay_type===8">飞猪</span>
+                                        <span *ngIf="data.pay_type===9">携程</span>
+                                    </td>
+                                    <td>{{data.bank_user}}</td>
+                                    <td>{{data.bank_number}}</td>
+                                    <td>{{data.bank_name}}</td>
+                                    <td>{{data.user?.phone}}</td>
+                                    <td>
+                                        <a (click)="routeIt(data.user_id)" title="跳转到用户金额变动列表">{{data.user_id}}</a>
+                                    </td>
+                                    <td>{{data.pay_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{data.reviewer_name}}</td>
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
