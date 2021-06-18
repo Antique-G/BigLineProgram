@@ -110,7 +110,12 @@ export const AdminUrls = {
     PostAdminUserCommissionAudit: api + '/admin/dist/check',   // 佣金通过/拒绝审核
     PostAdminAllUserCommissionAudit: api + '/admin/dist/check_all',   // 佣金通过/拒绝审核
     GetAdminUserWithdrawList: api + '/admin/user_withdraw',  // 提现列表
+    PutAdminUserWithdrawReview: api + '/admin/user_withdraw/',  // 审核提现
     GetAdminUserMoneyLogList: api + '/admin/user_money_log',  // 金额变动记录
+    GetAdminUserOption: api + '/admin/user/option',  // 提现列表的用户列表信息
+    GetAdminWithdrawTotal: api + '/admin/user_withdraw/statistic',  // 提现统计
+
+    
 
 
 

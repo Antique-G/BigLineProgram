@@ -113,6 +113,7 @@ const MENUITEMS = [
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
             { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
+            { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
             
         ]
     },
