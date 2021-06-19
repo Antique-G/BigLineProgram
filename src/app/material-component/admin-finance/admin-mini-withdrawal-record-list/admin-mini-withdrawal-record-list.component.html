@@ -37,7 +37,7 @@
                                     <nz-select nzPlaceHolder="请选择" formControlName="pay_type" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
                                         <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
-                                        <nz-option [nzLabel]="'银行卡'" [nzValue]="6"></nz-option>
+                                        <nz-option [nzLabel]="'银行卡'" [nzValue]="3"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -135,13 +135,7 @@
                                     <td>
                                         <span *ngIf="data.pay_type===1">微信</span>
                                         <span *ngIf="data.pay_type===2">支付宝</span>
-                                        <span *ngIf="data.pay_type===3">现金</span>
-                                        <span *ngIf="data.pay_type===4">微信二维码</span>
-                                        <span *ngIf="data.pay_type===5">支付宝二维码</span>
-                                        <span *ngIf="data.pay_type===6">银行卡转账</span>
-                                        <span *ngIf="data.pay_type===7">余额支付</span>
-                                        <span *ngIf="data.pay_type===8">飞猪</span>
-                                        <span *ngIf="data.pay_type===9">携程</span>
+                                        <span *ngIf="data.pay_type===3">银行卡</span>
                                     </td>
                                     <td>{{data.bank_user}}</td>
                                     <td>{{data.bank_number}}</td>
