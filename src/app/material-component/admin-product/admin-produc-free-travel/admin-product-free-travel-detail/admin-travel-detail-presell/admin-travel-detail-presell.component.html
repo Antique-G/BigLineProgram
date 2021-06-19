@@ -31,6 +31,7 @@
                                                 <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDate($event)" formControlName="dateValid"></nz-range-picker>
                                             </nz-form-control>
                                         </div>
+                                        <p style="margin-left: 191px;color:red">！预售日期需小于等于使用日期</p>
                                     </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
@@ -41,6 +42,7 @@
                                                 <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeUseDate($event)" formControlName="useDateValid"></nz-range-picker>
                                             </nz-form-control>
                                         </div>
+                                        <p style="margin-left: 191px;color:red">！使用日期需大于等于预售日期</p>
                                     </nz-form-item>
 
                                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
@@ -48,8 +50,9 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ticket_price" nzRequired>预售价格
                                             </nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入预售价格">
-                                                <nz-input-number style="width:100%;" formControlName="ticket_price" [nzMin]="0"></nz-input-number>
+                                                <nz-input-number style="width:93%;" formControlName="ticket_price" [nzMin]="0"></nz-input-number>元
                                             </nz-form-control>
+                                            <i nz-icon nzType="question-circle" nzTheme="outline" style="line-height: 37px;cursor: pointer;" title="产品报价金额≥(预售金额+补贴金额),当产品报价金额>(预售金额+补贴金额)时,预约时需补差价,差价金额=产品报价金额-(预售金额+补贴金额),当产品报价金额≤(预售金额+补贴金额)时,预约时无需补差价"></i>
                                         </div>
                                     </nz-form-item>
 
@@ -58,7 +61,7 @@
                                             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="subsidy_price" nzRequired>补贴金额
                                             </nz-form-label>
                                             <nz-form-control [nzSm]="8" [nzXs]="24" nzErrorTip="请输入补贴金额">
-                                                <nz-input-number style="width:100%;" formControlName="subsidy_price" [nzMin]="0"></nz-input-number>
+                                                <nz-input-number style="width:93%;" formControlName="subsidy_price" [nzMin]="0"></nz-input-number>元
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

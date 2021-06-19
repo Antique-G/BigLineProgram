@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { AdminProductFreeTravelService } from 'services/admin/admin-product-free-travel.service';
 
 
@@ -23,7 +24,7 @@ export class AdminTravelDetailPresellComponent implements OnInit {
     isShow = false;
 
     constructor(public fb: FormBuilder, public adminProductFreeTravelService: AdminProductFreeTravelService,
-        public router: Router,) {
+        public router: Router, private message: NzMessageService) {
         this.addForm = new FormGroup({
             is_presell: new FormControl(0, [Validators.required]),
             dateValid: new FormControl('', [Validators.required]),
@@ -117,14 +118,37 @@ export class AdminTravelDetailPresellComponent implements OnInit {
         }
         console.log(this.addForm.valid);
         if (this.addForm.valid) {
-            this.detailUpdateModel.id = this.dataFreeDetailModel.id;
-            this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
-                this.isLoadingBtn = false;
-                console.log("结果是", res);
-            },
-                error => {
+            // 预售的话，验证时间的大小
+            if (this.detailUpdateModel.is_presell == 1) {
+                // 使用时间>预售时间，直接调接口
+                if (new Date(this.detailUpdateModel.use_start_date).getTime() > new Date(this.detailUpdateModel.start_date).getTime()) {
+                    this.detailUpdateModel.id = this.dataFreeDetailModel.id;
+                    this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+                        this.isLoadingBtn = false;
+                        console.log("结果是", res);
+                    },
+                        error => {
+                            this.isLoadingBtn = false;
+                        })
+                }
+                // 否则报错
+                else {
+                    this.message.error('使用时间需大于预售时间，请重新设置',{ nzDuration: 2500 });
                     this.isLoadingBtn = false;
-                })
+                    return;
+                }
+            }
+            // 非预售
+            else {
+                this.detailUpdateModel.id = this.dataFreeDetailModel.id;
+                this.adminProductFreeTravelService.freeTravelUpdate(this.detailUpdateModel).subscribe(res => {
+                    this.isLoadingBtn = false;
+                    console.log("结果是", res);
+                },
+                    error => {
+                        this.isLoadingBtn = false;
+                    })
+            }
         }
         else {
             this.isLoadingBtn = false; 
