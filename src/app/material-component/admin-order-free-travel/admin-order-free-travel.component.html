@@ -179,7 +179,8 @@
                                     <th style="text-align: center;">下单人</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <!-- <th style="text-align: center;width: 6%;">产品编码</th> -->
-                                    <th style="text-align: center;width: 12%;">产品名称</th>
+                                    <th style="text-align: center;width: 10%;">产品名称</th>
+                                    <th style="text-align: center;">是否预售</th>
                                     <th style="text-align: center;">联系人姓名/手机号</th>
                                     <th style="text-align: center;">订单出发日期</th>
                                     <th style="text-align: center;">订单下单日期</th>
@@ -200,6 +201,7 @@
                                     <td>{{data.store_name}}</td>
                                     <!-- <td>{{data.product_id}}</td> -->
                                     <td>{{data.product_name}}</td>
+                                    <td>{{data.is_presell==1?'是':'否'}}</td>
                                     <td>{{data.contact_name}}/{{data.contact_phone}}</td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>

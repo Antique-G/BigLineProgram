@@ -21,7 +21,9 @@
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                                             <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="detailModel?.order_status===0">订单修改日期</button> -->
-                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
+                                            <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell!=1">
+                                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
+                                            </ng-container>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="cancelOrder()" *ngIf="detailModel?.order_status==1">取消订单</button>
                                         </div>
@@ -110,6 +112,30 @@
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="is_presell">是否预售产品
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="is_presell" nzBorderless readonly [ngModel]="detailModel?.independent_product?.data?.is_presell==1?'是':'否'" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell==1">
+                                                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="code">预约码
+                                                            </nz-form-label>
+                                                            <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                                <input nz-input formControlName="code" nzBorderless readonly [ngModel]="detailModel?.ticket_code?.toString()" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+                                                </ng-container>
+
+
                                             </form>
                                         </div>
 
@@ -474,17 +500,7 @@
                                                             <span *ngIf="data.status===2">已完成</span>
                                                             <span *ngIf="data.status===3">已确认</span>
                                                         </td>
-                                                        <td>
-                                                            <span *ngIf="data.pay_type===1">微信</span>
-                                                            <span *ngIf="data.pay_type===2">支付宝</span>
-                                                            <span *ngIf="data.pay_type===3">现金</span>
-                                                            <span *ngIf="data.pay_type===4">微信二维码</span>
-                                                            <span *ngIf="data.pay_type===5">支付宝二维码</span>
-                                                            <span *ngIf="data.pay_type===6">银行卡转账</span>
-                                                            <span *ngIf="data.pay_type===7">余额支付</span>
-                                                            <span *ngIf="data.pay_type===8">飞猪</span>
-                                                            <span *ngIf="data.pay_type===9">携程</span>
-                                                        </td>
+                                                        <td>{{data.pay_type_info}}</td>
                                                         <td>
                                                             {{data.pay_time}}
                                                         </td>
@@ -541,8 +557,12 @@
                                                                 <td>{{data.refund_reason}}</td>
                                                                 <td>{{data.refund_amount}}元</td>
                                                                 <td>
-                                                                    <span *ngIf="data.status===2"><nz-badge nzColor="yellow"></nz-badge>退款中</span>
-                                                                    <span *ngIf="data.status===3"><nz-badge nzColor="green"></nz-badge>已完成</span>
+                                                                    <span *ngIf="data.status===2">
+                                                                        <nz-badge nzColor="yellow"></nz-badge>退款中
+                                                                    </span>
+                                                                    <span *ngIf="data.status===3">
+                                                                        <nz-badge nzColor="green"></nz-badge>已完成
+                                                                    </span>
                                                                 </td>
                                                                 <td>
                                                                     <span *ngIf="data.type===0">全额退</span>
@@ -598,8 +618,12 @@
                                                                     <td [attr.rowspan]="data?.refund_log?.data.length">
                                                                         {{data.refund_amount}}元</td>
                                                                     <td [attr.rowspan]="data?.refund_log?.data.length">
-                                                                        <span *ngIf="data.status===2"><nz-badge nzColor="yellow"></nz-badge>退款中</span>
-                                                                        <span *ngIf="data.status===3"><nz-badge nzColor="green"></nz-badge>已完成</span>
+                                                                        <span *ngIf="data.status===2">
+                                                                            <nz-badge nzColor="yellow"></nz-badge>退款中
+                                                                        </span>
+                                                                        <span *ngIf="data.status===3">
+                                                                            <nz-badge nzColor="green"></nz-badge>已完成
+                                                                        </span>
                                                                     </td>
                                                                     <td [attr.rowspan]="data?.refund_log?.data.length">
                                                                         <span *ngIf="data.type===0">全额退</span>
@@ -608,17 +632,7 @@
                                                                         <span *ngIf="data.type===3">退保</span>
                                                                     </td>
                                                                 </ng-container>
-                                                                <td>
-                                                                    <span *ngIf="item.pay_type===1">微信</span>
-                                                                    <span *ngIf="item.pay_type===2">支付宝</span>
-                                                                    <span *ngIf="item.pay_type===3">现金</span>
-                                                                    <span *ngIf="item.pay_type===4">微信</span>
-                                                                    <span *ngIf="item.pay_type===5">支付宝</span>
-                                                                    <span *ngIf="item.pay_type===6">银行卡转账</span>
-                                                                    <span *ngIf="item.pay_type===7">余额</span>
-                                                                    <span *ngIf="item.pay_type===8">飞猪</span>
-                                                                    <span *ngIf="item.pay_type===9">携程</span>
-                                                                </td>
+                                                                <td>{{item.pay_type_info}}</td>
                                                                 <td>{{item.refund_amount}}元</td>
                                                                 <td>{{item.pay_at}}</td>
                                                                 <td>{{item.transaction_id}}</td>
@@ -802,7 +816,9 @@
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单费用情况</h4>
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                            <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell!=1">
+                                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changePrice()" [disabled]="!(detailModel?.order_status===1||detailModel?.order_status===2)">订单改价</button>
+                                            </ng-container>
                                         </div>
                                     </div>
                                     <nz-divider></nz-divider>
