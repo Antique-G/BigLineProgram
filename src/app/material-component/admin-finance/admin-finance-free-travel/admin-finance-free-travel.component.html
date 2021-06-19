@@ -297,18 +297,7 @@
                                       </p>
                                       </span>
                                         </td>
-                                        <td>
-                                            <span *ngIf="item.pay_type===1">微信</span>
-                                            <span *ngIf="item.pay_type===2">支付宝</span>
-                                            <span *ngIf="item.pay_type===3">现金</span>
-                                            <span *ngIf="item.pay_type===4">微信二维码</span>
-                                            <span *ngIf="item.pay_type===5">支付宝二维码</span>
-                                            <span *ngIf="item.pay_type===6">银行卡转账</span>
-                                            <span *ngIf="item.pay_type===7">余额支付</span>
-                                            <span *ngIf="item.pay_type===8">飞猪</span>
-                                            <span *ngIf="item.pay_type===9">携程</span>
-
-                                        </td>
+                                        <td>{{item.pay_type_info}}</td>
                                         <td>{{item.transaction_id}}</td>
                                         <td>{{item.pay_time}}</td>
                                         <td>
@@ -341,15 +330,7 @@
                                         </td>
                                         <td>
                                             <ng-container *ngFor="let refund of item?.refund_log?.data">
-                                                <span *ngIf="refund.pay_type===1">微信</span>
-                                                <span *ngIf="refund.pay_type===2">支付宝</span>
-                                                <span *ngIf="refund.pay_type===3">现金</span>
-                                                <span *ngIf="refund.pay_type===4">微信</span>
-                                                <span *ngIf="refund.pay_type===5">支付宝</span>
-                                                <span *ngIf="refund.pay_type===6">银行卡转账</span>
-                                                <span *ngIf="refund.pay_type===7">余额</span>
-                                                <span *ngIf="refund.pay_type===8">飞猪</span>
-                                                <span *ngIf="refund.pay_type===9">携程</span>
+                                                {{refund.pay_type_info}}
                                             </ng-container>
                                         </td>
                                         <td>

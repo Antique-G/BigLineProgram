@@ -56,6 +56,8 @@ export class StoreOrderFreetravelDetailComponent implements OnInit {
             days: [''],
             departure_city_name: [''],
             destination_city_name: [''],
+            is_presell: [''],
+            code: [''],
         });
         this.requestMoneyModel = {
             cost_type: '',

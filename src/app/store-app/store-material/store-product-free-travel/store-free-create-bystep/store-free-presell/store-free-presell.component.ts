@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 
 @Component({
@@ -22,15 +23,15 @@ export class StoreFreePresellComponent implements OnInit {
     isShow = false;
 
     constructor(public fb: FormBuilder, private freeTravelService: StoreProductTreeTravelService,
-        public router: Router, ) {
+        public router: Router, private message: NzMessageService) {
         this.addForm = new FormGroup({
             is_presell: new FormControl('0', [Validators.required]),
-            dateValid: new FormControl(null, ),
+            dateValid: new FormControl(null,),
             useDateValid: new FormControl(null,),
-            ticket_price: new FormControl('', ),
-            inventory: new FormControl('', ),
-            subsidy_price: new FormControl('', ),
-            ticket_rules: new FormControl('', ),
+            ticket_price: new FormControl('',),
+            inventory: new FormControl('',),
+            subsidy_price: new FormControl('',),
+            ticket_rules: new FormControl('',),
         });
         this.detailUpdateModel = {
             step: 7,
@@ -84,7 +85,7 @@ export class StoreFreePresellComponent implements OnInit {
         this.detailUpdateModel.ticket_price = this.addForm.value.ticket_price;
         this.detailUpdateModel.inventory = this.addForm.value.inventory;
         this.detailUpdateModel.subsidy_price = this.addForm.value.subsidy_price;
-        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules==null?'':this.addForm.value.ticket_rules;
+        this.detailUpdateModel.ticket_rules = this.addForm.value.ticket_rules == null ? '' : this.addForm.value.ticket_rules;
     }
 
     nextTab() {
@@ -97,20 +98,42 @@ export class StoreFreePresellComponent implements OnInit {
         }
         console.log(this.addForm);
         if (this.addForm.valid) {
-            this.detailUpdateModel.id = this.dataDetailModel.id;
-            this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
-                this.isLoadingBtn = false;
-                this.router.navigate(['/store/main/storeFreeTravel']);
-                console.log("结果是", res);
-            },
-                error => {
+            // 预售的话，验证时间的大小
+            if (this.detailUpdateModel.is_presell == 1) {
+                // 使用时间>预售时间，直接调接口
+                if (new Date(this.detailUpdateModel.use_start_date).getTime() > new Date(this.detailUpdateModel.start_date).getTime()) {
+                    this.detailUpdateModel.id = this.dataDetailModel.id;
+                    this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
+                        this.isLoadingBtn = false;
+                        this.router.navigate(['/store/main/storeFreeTravel']);
+                        console.log("结果是", res);
+                    },
+                        error => {
+                            this.isLoadingBtn = false;
+                        })
+                }
+                // 否则报错
+                else {
+                    this.message.error('使用时间需大于预售时间，请重新设置', { nzDuration: 2500 });
                     this.isLoadingBtn = false;
-                })
+                    return;
+                }
+            }
+            // 非预售
+            else {
+                this.detailUpdateModel.id = this.dataDetailModel.id;
+                this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
+                    this.isLoadingBtn = false;
+                    console.log("结果是", res);
+                },
+                    error => {
+                        this.isLoadingBtn = false;
+                    })
+            }
         }
         else {
             this.isLoadingBtn = false;
         }
-        //   
     }
 
 

@@ -198,6 +198,7 @@ export interface DetailsModel {
     detailModel?: any;
     store_name?: any;
     cash_requirement?: any;
+    ticket_code?: any;
 }
 
 
@@ -254,8 +255,9 @@ export interface IndependentproductsModel {
     destination: string;
     quote_type?: string;
     use_num?: string;
-    total_number?: any
-    refund_number?: any
+    total_number?: any;
+    product_ticket?: any;
+    refund_number?: any;
 }
 
 interface Members {
