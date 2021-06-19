@@ -7,7 +7,7 @@
                         <mat-tab label="未审核">
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
-                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div fxLayout="column" fxLayoutAlign="start stretch">
 
                                         <div style="margin-top: 10px;">
                                             <form [formGroup]="searchForm1" nz-row nz-form>
@@ -99,6 +99,7 @@
                                                         <th style="text-align: center;">开户行</th>
                                                         <th style="text-align: center;">手机号码</th>
                                                         <th style="text-align: center;">用户id</th>
+                                                        <th style="text-align: center;">用户昵称</th>
                                                         <th style="text-align: center;">操作</th>
                                                     </tr>
                                                 </thead>
@@ -127,6 +128,7 @@
                                                         <td>
                                                             <a (click)="routeIt(data.user_id)" title="跳转到用户金额变动列表">{{data.user_id}}</a>
                                                         </td>
+                                                        <td>{{data.user?.name}}</td>
                                                         <td>
                                                             <a (click)="review(data)">审核提现</a>
                                                         </td>
@@ -146,7 +148,7 @@
                         <mat-tab label="已审核">
                             <div class="content">
                                 <div class="example-container" style="margin-bottom: 50px;">
-                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                    <div fxLayout="column" fxLayoutAlign="start stretch">
 
                                         <div style="margin-top: 10px;">
                                             <form [formGroup]="searchForm2" nz-row nz-form>
@@ -259,6 +261,7 @@
                                                         <th style="text-align: center;">开户行</th>
                                                         <th style="text-align: center;">手机号码</th>
                                                         <th style="text-align: center;">用户id</th>
+                                                        <th style="text-align: center;">用户昵称</th>
                                                         <th style="text-align: center;">审核时间</th>
                                                         <th style="text-align: center;">审核人</th>
                                                     </tr>
@@ -272,7 +275,10 @@
                                                             <span *ngIf="data.status==2">已通过</span>
                                                             <span *ngIf="data.status==3">拒绝</span>
                                                         </td>
-                                                        <td>{{data.error_desc}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.status==2">-</span>
+                                                            <span *ngIf="data.status==3">{{data.error_desc}}</span>
+                                                        </td>
                                                         <td>
                                                             <span style="color: red;font-weight: 800;">{{data.money}}元</span>
                                                         </td>
@@ -294,7 +300,8 @@
                                                         <td>
                                                             <a (click)="routeIt(data.user_id)" title="跳转到用户金额变动列表">{{data.user_id}}</a>
                                                         </td>
-                                                        <td>{{data.pay_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{data.user?.name}}</td>
+                                                        <td> {{convertToDate(data.pay_time)}}</td>
                                                         <td>{{data.reviewer_name}}</td>
                                                     </tr>
                                                 </tbody>

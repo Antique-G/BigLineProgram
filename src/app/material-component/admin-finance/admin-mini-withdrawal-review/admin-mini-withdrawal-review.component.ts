@@ -42,7 +42,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
     phone: any;
     check: any;
     userList: any[] = [];
-    totalMoney :any;
+    totalMoney: any;
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         private modal: NzModalService, public adminUserCommissionListService: AdminUserCommissionListService
@@ -238,7 +238,8 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
             nzFooter: null
         })
         editmodal.afterClose.subscribe(res => {
-
+            this.getList1();
+            this.getList2();
         })
     }
 
@@ -268,6 +269,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
                 console.log("Jieguoshi ", res);
                 this.dataSource2 = res?.data;
                 this.total2 = res?.meta?.pagination?.total;
+                
             })
     }
 
@@ -299,5 +301,20 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
     routeIt(data: any) {
         console.log("data", data);
         this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
+    }
+
+
+
+    // 转化成标准时间
+    convertToDate(nows: any) {
+        let minsChange = nows * 1000;
+        let allMIns = new Date(minsChange);
+        let year = allMIns.getFullYear();
+        let month = allMIns.getMonth()+1 < 10 ? '0'+(allMIns.getMonth()+1) : allMIns.getMonth()+1;
+        let date = allMIns.getDate();
+        let hour = allMIns.getHours();
+        let minute = allMIns.getMinutes();
+        let second = allMIns.getSeconds();
+        return year + "-" + month + "-" + date + "-  " + hour + ":" + minute + ":" + second;
     }
 }
