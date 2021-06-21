@@ -100,11 +100,11 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
-                                    <th style="text-align: center;">提现编号</th>
-                                    <th style="text-align: center;">交易流水号</th>
+                                    <th style="text-align: center;" nzWidth="200px">提现编号</th>
+                                    <th style="text-align: center;" nzWidth="200px">交易流水号</th>
                                     <th style="text-align: center;">申请时间</th>
                                     <th style="text-align: center;">审核状态</th>
-                                    <th style="text-align: center;">拒绝原因</th>
+                                    <th style="text-align: center;" nzWidth="100px">拒绝原因</th>
                                     <th style="text-align: center;">提现金额</th>
                                     <th style="text-align: center;">提现方式</th>
                                     <th style="text-align: center;">持卡人</th>
@@ -115,13 +115,22 @@
                                     <th style="text-align: center;">用户昵称</th>
                                     <th style="text-align: center;">审核时间</th>
                                     <th style="text-align: center;">审核人</th>
+                                    <th style="text-align: center;">到账时间</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
-                                    <td>{{data.order_sn}}</td>
-                                    <td>{{data.payment_no}}</td>
+                                    <td>
+                                        <div style="width:200px;display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;cursor: pointer;" title={{data.order_sn}}>
+                                            {{data.order_sn}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="width:200px;display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;cursor: pointer;" title={{data.payment_no}}>
+                                            {{data.payment_no}}
+                                        </div>
+                                    </td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
                                         <span *ngIf="data.status==2">已通过</span>
@@ -129,7 +138,9 @@
                                     </td>
                                     <td>
                                         <span *ngIf="data.status==2">-</span>
-                                        <span *ngIf="data.status==3">{{data.error_desc}}</span>
+                                        <div *ngIf="data.status==3" style="width:100px;display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;cursor: pointer;" title={{data.error_desc}}>
+                                            <span>{{data.error_desc}}</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <span style="color: red;font-weight: 800;">{{data.money}}元</span>
@@ -149,6 +160,10 @@
                                     <td>{{data.user?.name}}</td>
                                     <td>{{convertToDate(data.pay_time)}}</td>
                                     <td>{{data.reviewer_name}}</td>
+                                    <td>
+                                        <span *ngIf="data.status==2">{{convertToDate(data.pay_time)}}</span>
+                                        <span *ngIf="data.status==3">-</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </nz-table>
