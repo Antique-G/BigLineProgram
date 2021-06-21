@@ -239,6 +239,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
         })
         editmodal.afterClose.subscribe(res => {
             this.getList1();
+            this.getTotal1();
             this.getList2();
         })
     }
