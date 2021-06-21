@@ -117,6 +117,13 @@ import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-
 import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
 import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
+import { StoreGoodsProComponent } from './store-goods-pro/store-goods-pro.component';
+import { StoreGoodsProCreateBystepComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-create-bystep.component';
+import { StoreGoodsProInfoComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-info/store-goods-pro-info.component';
+import { StoreGoodsProEditdetailComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editdetail/store-goods-pro-editdetail.component';
+import { StoreGoodsProEditnoticeComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editnotice/store-goods-pro-editnotice.component';
+import { StoreGoodsProEditimgComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editimg/store-goods-pro-editimg.component';
+import { StoreGoodsProEditpostComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editpost/store-goods-pro-editpost.component';
 
 
 @NgModule({
@@ -251,6 +258,13 @@ import { StoreProductMiniCodeComponent } from './store-product-management/store-
         StoreOrderRequestMoneyComponent,
         StoreRequestMoneyComponent,
         StoreProductMiniCodeComponent,
+        StoreGoodsProComponent,
+        StoreGoodsProCreateBystepComponent,
+        StoreGoodsProInfoComponent,
+        StoreGoodsProEditdetailComponent,
+        StoreGoodsProEditnoticeComponent,
+        StoreGoodsProEditimgComponent,
+        StoreGoodsProEditpostComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

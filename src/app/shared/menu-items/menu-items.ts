@@ -147,6 +147,12 @@ const StoreMENUITEMS = [
             { state: 'storeFreeTravel', name: '自由行' },
         ]
     },
+    {
+        title: '生鲜管理', icon: 'apple',
+        children: [
+            { state: 'storeGoods', name: '生鲜商品列表' },
+        ]
+    },
     // {
     //     title: '预售管理', icon: 'clock-circle',
     //     children: [
