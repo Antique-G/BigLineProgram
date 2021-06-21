@@ -304,7 +304,7 @@
                                                             <a (click)="routeIt(data.user_id)" title="跳转到用户金额变动列表">{{data.user_id}}</a>
                                                         </td>
                                                         <td>{{data.user?.name}}</td>
-                                                        <td> {{convertToDate(data.pay_time)}}</td>
+                                                        <td>{{data.updated_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>{{data.reviewer_name}}</td>
                                                         <td>
                                                             <span *ngIf="data.status==2">{{convertToDate(data.pay_time)}}</span>
