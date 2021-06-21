@@ -47,10 +47,10 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户id
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户昵称
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <nz-select nzShowSearch nzAllowClear formControlName="user_id" nzPlaceHolder="请输入用户">
+                                                            <nz-select nzShowSearch nzAllowClear formControlName="user_id" nzPlaceHolder="请输入用户昵称">
                                                                 <nz-option *ngFor="let user of userList" [nzLabel]="user.name" [nzValue]="user.user_id"> </nz-option>
                                                             </nz-select>
                                                         </nz-form-control>
@@ -91,6 +91,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="text-align: center;">id</th>
+                                                        <th style="text-align: center;">提现编号</th>
                                                         <th style="text-align: center;">申请时间</th>
                                                         <th style="text-align: center;">申请金额</th>
                                                         <th style="text-align: center;">提现方式</th>
@@ -106,6 +107,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let data of rowSelectionTable1.data">
                                                         <td>{{data.id}}</td>
+                                                        <td>{{data.order_sn}}</td>
                                                         <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
                                                             <span style="color: red;font-weight: 800;">{{data.money}}元</span>
@@ -197,10 +199,10 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户id
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户昵称
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <nz-select nzShowSearch nzAllowClear formControlName="user_id" nzPlaceHolder="请输入用户">
+                                                            <nz-select nzShowSearch nzAllowClear formControlName="user_id" nzPlaceHolder="请输入用户昵称">
                                                                 <nz-option *ngFor="let user of userList" [nzLabel]="user.name" [nzValue]="user.user_id"> </nz-option>
                                                             </nz-select>
                                                         </nz-form-control>
@@ -244,7 +246,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="text-align: center;">id</th>
-                                                        <th style="text-align: center;">流水号</th>
+                                                        <th style="text-align: center;">提现编号</th>
+                                                        <th style="text-align: center;">交易流水号</th>
                                                         <th style="text-align: center;">申请时间</th>
                                                         <th style="text-align: center;">审核状态</th>
                                                         <th style="text-align: center;">拒绝原因</th>
@@ -263,6 +266,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let data of rowSelectionTable2.data">
                                                         <td>{{data.id}}</td>
+                                                        <td>{{data.order_sn}}</td>
                                                         <td>{{data.payment_no}}</td>
                                                         <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                         <td>
