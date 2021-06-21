@@ -1,0 +1,145 @@
+<div class="example-container" style="margin-bottom: 50px;">
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        <div style="padding: 10px 10px;">
+
+
+            <form nz-form [formGroup]="addForm" nz-row>
+                <div fxLayout="column" fxLayoutAlign="start stretch" style="width: 100%;">
+                    <div nz-row>
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="date">申请提现时间</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="date" nzBorderless readonly [ngModel]="detailModel?.created_at|date:'yyyy-MM-dd HH:mm:ss'" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24">申请提现金额</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input style="font-size: 16px;color: red;font-weight: 700;" nz-input formControlName="money" nzBorderless readonly [ngModel]="'￥'+detailModel?.money" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="user_id">用户id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="user_id" nzBorderless readonly [ngModel]="detailModel?.user_id" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="phone">用户手机号码</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="phone" nzBorderless readonly [ngModel]="detailModel?.user?.phone" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="account_type">提现方式</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="account_type" nzBorderless readonly [ngModel]="'银行卡'" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank">开户行</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bank" nzBorderless readonly [ngModel]="detailModel?.bank_name" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_name">持卡人</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bank_name" nzBorderless readonly [ngModel]="detailModel?.bank_user" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bank_account">银行卡号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bank_account" nzBorderless readonly [ngModel]="detailModel?.bank_number" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="status" nzRequired>审核</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
+                                    <nz-radio-group formControlName="status" (ngModelChange)="isCheck($event)">
+                                        <label nz-radio nzValue=2>通过审核</label>
+                                        <label nz-radio nzValue=3>拒绝提现</label>
+                                    </nz-radio-group>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <ng-container *ngIf="isReason">
+                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                <div nz-row>
+                                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="payment_no" nzRequired>银行流水
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请输入银行流水号">
+                                        <input nz-input formControlName="payment_no" />
+                                    </nz-form-control>
+                                </div>
+                            </nz-form-item>
+
+
+
+                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                <div nz-row>
+                                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="pay_time" nzRequired>交易时间
+                                    </nz-form-label>
+                                    <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                                        <nz-date-picker style="width: 100%; " nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="pay_time">
+                                        </nz-date-picker>
+                                    </nz-form-control>
+                                </div>
+                            </nz-form-item>
+                        </ng-container>
+
+                        <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="!isReason">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="error_desc">拒绝原因</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <textarea nz-input formControlName="error_desc" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" style="margin-top: 10px;">
+                <div>
+                    <button nz-button nzType="primary" (click)="add()" [nzLoading]="isLoadingBtn">确定</button>
+                </div>
+                <div>
+                    <button nz-button (click)="cancel()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
