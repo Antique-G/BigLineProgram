@@ -265,7 +265,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
 
 
     getList2() {
-        this.adminUserCommissionListService.UserWithdrawList(this.page1, this.per_page1, this.status, this.user_id,
+        this.adminUserCommissionListService.UserWithdrawList(this.page2, this.per_page2, this.status, this.user_id,
             this.pay_type, this.payment_no, this.bank_user, this.date_start, this.date_end, this.phone, 1).subscribe(res => {
                 console.log("Jieguoshi ", res);
                 this.dataSource2 = res?.data;
