@@ -36,6 +36,9 @@ import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-fi
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
 import { AdminFinancePreFreeOrderDetailComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order-detail/admin-finance-pre-free-order-detail.component';
 import { AdminFinancePreFreeOrderComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order.component';
+import { AdminMiniWithdrawalRecordListComponent } from './admin-finance/admin-mini-withdrawal-record-list/admin-mini-withdrawal-record-list.component';
+import { AdminMiniWithdrawalOperateComponent } from './admin-finance/admin-mini-withdrawal-review/admin-mini-withdrawal-operate/admin-mini-withdrawal-operate.component';
+import { AdminMiniWithdrawalReviewComponent } from './admin-finance/admin-mini-withdrawal-review/admin-mini-withdrawal-review.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { FeeByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/fee-by-quote/fee-by-quote.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
@@ -175,6 +178,7 @@ import { AdminTouristCreateComponent } from './admin-tourist/admin-tourist-creat
 import { AdminTouristDetailComponent } from './admin-tourist/admin-tourist-detail/admin-tourist-detail.component';
 import { AdminTouristComponent } from './admin-tourist/admin-tourist.component';
 import { AdminUserinfoDetailComponent } from './admin-userinfo/admin-userinfo-detail/admin-userinfo-detail.component';
+import { AdminUserinfoEditComponent } from './admin-userinfo/admin-userinfo-edit/admin-userinfo-edit.component';
 import { AdminUserinfoComponent } from './admin-userinfo/admin-userinfo.component';
 import { AdminWechatPageblockCreateComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-create.component';
 import { AdminWechatPageblockProlistComponent } from './admin-wechat-pageconfig/admin-wechat-pageblock/admin-wechat-pageblock-create/admin-wechat-pageblock-prolist/admin-wechat-pageblock-prolist.component';
@@ -190,10 +194,6 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
-import { AdminUserinfoEditComponent } from './admin-userinfo/admin-userinfo-edit/admin-userinfo-edit.component';
-
-
-
 
 
 
@@ -413,6 +413,10 @@ import { AdminUserinfoEditComponent } from './admin-userinfo/admin-userinfo-edit
     AdminFinanceFreeReqCashComponent,
     AdminFinanceFreeReqCashReviewComponent,
     AdminUserinfoEditComponent,
+    AdminProductManagementSchedultComponent,
+    AdminMiniWithdrawalReviewComponent,
+    AdminMiniWithdrawalOperateComponent,
+    AdminMiniWithdrawalRecordListComponent,
 
   ]
 })

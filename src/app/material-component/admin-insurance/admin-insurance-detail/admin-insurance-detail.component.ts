@@ -1,8 +1,7 @@
-import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminInsuranceUpdateRequestModel, InsuranceDetailModel } from '../../../../interfaces/adminInsurance/admin-insurance-model';
 import { AdminInsuranceService } from '../../../../services/admin/admin-insurance.service';
-import { Observable, Observer } from 'rxjs';
 // import { isNumber } from '../../../../app/util/validators';
 
 @Component({
@@ -53,6 +52,7 @@ export class AdminInsuranceDetailComponent implements OnInit {
     };
     forms() {
         this.validateForm = this.fb.group({
+            id: new FormControl(''),
             name: new FormControl(null, [Validators.required, Validators.maxLength(32)]),
             code: new FormControl(null, [Validators.required, Validators.maxLength(20)]),
             insured_date: new FormArray([new FormControl(null, [Validators.required, Validators.min(0)])]),

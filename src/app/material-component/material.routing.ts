@@ -13,6 +13,8 @@ import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-fi
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
 import { AdminFinancePreFreeOrderDetailComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order-detail/admin-finance-pre-free-order-detail.component';
 import { AdminFinancePreFreeOrderComponent } from './admin-finance/admin-finance-pre-free-order/admin-finance-pre-free-order.component';
+import { AdminMiniWithdrawalRecordListComponent } from './admin-finance/admin-mini-withdrawal-record-list/admin-mini-withdrawal-record-list.component';
+import { AdminMiniWithdrawalReviewComponent } from './admin-finance/admin-mini-withdrawal-review/admin-mini-withdrawal-review.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
@@ -679,7 +681,20 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '自由行请款列表'
                 }
             },
-
+            {
+                path: 'miniWithdrawalReview',
+                component: AdminMiniWithdrawalReviewComponent,
+                data: {
+                    breadcrumb: '小程序钱包提现审核列表'
+                }
+            },
+            {
+                path: 'miniWithdrawalRecordList',
+                component: AdminMiniWithdrawalRecordListComponent,
+                data: {
+                    breadcrumb: '小程序钱包提现流水列表'
+                }
+            },
         ]
     }
 ];
