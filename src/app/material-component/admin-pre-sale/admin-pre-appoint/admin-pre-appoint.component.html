@@ -155,7 +155,9 @@
                                     <td>{{data?.code}}</td>
                                     <td>{{data.ticket_order?.product_name}}</td>
                                     <td>{{data?.store_name}}</td>
-                                    <td>{{data?.order_id}}</td>
+                                    <td>
+                                        {{data?.order_id==0?'-':data?.order_id}}
+                                    </td>
                                     <td>{{data?.ticket_order_id}}</td>
                                     <td>{{data.status_info}}</td>
                                     <td>
