@@ -304,6 +304,15 @@ export const AdminUrls = {
     PostAdminSupplyAdd: api + '/admin/supplier',   // 添加
     PutAdminSupplyUpdate: api + '/admin/supplier/',   // 更新
 
+
+
+    // 生鲜商城
+    GetAdminGoodsCateList: api + '/admin/goods_cate',   // 分类列表
+    PostAdminGoodsCate: api + '/admin/goods_cate',   // 添加
+    PutAdminGoodsCateUpdate: api + '/admin/goods_cate/',   // 更新
+
+    
+
 };
 
 

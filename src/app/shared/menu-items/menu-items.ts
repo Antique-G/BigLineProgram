@@ -41,6 +41,13 @@ const MENUITEMS = [
         ]
     },
     {
+        title: '生鲜管理', icon: 'apple', permission_name: 'admin_product',
+        children: [
+            { state: 'goodsCate', name: '商品分类', permission_name: 'product_tag' },
+           
+        ]
+    },
+    {
         title: '订单模块', icon: 'ordered-list', permission_name: 'admin_order',
         children: [
             { state: 'orderList', name: '团列表', permission_name: 'order_group_list' },

@@ -15,6 +15,7 @@ import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
+import { AdminGoodsCateComponent } from './admin-goods/admin-goods-cate/admin-goods-cate.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
@@ -635,6 +636,15 @@ export const MaterialRoutes: Routes = [
                 }
             },
 
+
+            // 生鲜商城
+            {
+                path: 'goodsCate',
+                component: AdminGoodsCateComponent,
+                data: {
+                    breadcrumb: '商品分类列表'
+                }
+            },
         ]
     }
 ];
