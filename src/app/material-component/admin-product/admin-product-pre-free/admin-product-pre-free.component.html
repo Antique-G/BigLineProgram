@@ -129,7 +129,7 @@
                                     <th style="text-align: center;">预售价格/补贴金额</th>
                                     <th style="text-align: center;">预售有效时间范围</th>
                                     <th style="text-align: center;">使用有效时间范围</th>
-                                    <th style="text-align: center;">库存</th>
+                                    <th style="text-align: center;">实时库存</th>
                                     <!-- <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th> -->
                                     <th style="text-align: center;">操作</th>
@@ -157,7 +157,7 @@
                                         {{data?.use_start_date}}&nbsp;~ {{data?.use_end_date}}
                                     </td>
                                     <td>
-                                        {{data?.inventory}}
+                                        {{data?.inventory-data?.sold}}
                                     </td>
                                     <!-- <td>
                                         <div *ngIf="data?.product?.check_status===0">
