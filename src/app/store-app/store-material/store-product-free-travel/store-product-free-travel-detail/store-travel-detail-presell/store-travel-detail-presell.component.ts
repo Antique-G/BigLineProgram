@@ -121,7 +121,7 @@ export class StoreTravelDetailPresellComponent implements OnInit {
             // 预售的话，验证时间的大小
             if (this.detailUpdateModel.is_presell == 1) {
                 // 使用时间>预售时间，直接调接口
-                if (new Date(this.detailUpdateModel.use_start_date).getTime() > new Date(this.detailUpdateModel.start_date).getTime()) {
+                if (new Date(this.detailUpdateModel.use_start_date).getTime() >= new Date(this.detailUpdateModel.start_date).getTime()) {
                     this.detailUpdateModel.id = this.dataDetailModel.id;
                     this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
                         this.isLoadingBtn = false;
