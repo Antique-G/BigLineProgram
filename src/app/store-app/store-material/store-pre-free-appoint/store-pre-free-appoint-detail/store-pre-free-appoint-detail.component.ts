@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorePreSaleService } from '../../../../../services/store/store-pre-sale/store-pre-sale.service';
 
 @Component({
-  selector: 'app-store-pre-free-appoint-detail',
-  templateUrl: './store-pre-free-appoint-detail.component.html',
-  styleUrls: ['./store-pre-free-appoint-detail.component.css']
+    selector: 'app-store-pre-free-appoint-detail',
+    templateUrl: './store-pre-free-appoint-detail.component.html',
+    styleUrls: ['./store-pre-free-appoint-detail.component.css']
 })
 export class StorePreFreeAppointDetailComponent implements OnInit {
     public isSpinning = false;
@@ -15,6 +15,10 @@ export class StorePreFreeAppointDetailComponent implements OnInit {
     detailId: any;
     detailModel: any;
 
+
+    // 跳转到订单详情
+    url: any;
+    preurl: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public storePreSaleService: StorePreSaleService,) {
@@ -38,7 +42,7 @@ export class StorePreFreeAppointDetailComponent implements OnInit {
             subsidy_price: [''],
             use_start_date: [''],
         })
-         }
+    }
 
     ngOnInit(): void {
         this.isSpinning = true;
@@ -49,6 +53,9 @@ export class StorePreFreeAppointDetailComponent implements OnInit {
                 console.log("详情", res)
                 this.isSpinning = false;
                 this.detailModel = res?.data;
+                // 跳转到订单详情
+                this.url = '/store/main/storeOrderFreeTravel/detail?detailId=';
+                this.preurl = '/store/main/storePreFreeSaleList/detail?detailId=';
             })
         })
     }

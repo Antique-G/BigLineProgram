@@ -34,7 +34,7 @@
                                             <form nz-form [formGroup]="addForm" nz-row>
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="presell_id">预售id
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="presell_id">预售订单id
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
                                                             <input nz-input formControlName="presell_id" nzBorderless readonly [ngModel]="detailModel?.id" />
@@ -44,13 +44,24 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">预售订单号
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_id">产品id
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                            <input nz-input formControlName="product_id" nzBorderless readonly [ngModel]="detailModel?.product_id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
@@ -152,11 +163,12 @@
                                             <nz-table #rowSelectionTableCode [nzData]="codeList">
                                                 <thead>
                                                     <tr>
+                                                        <th style="text-align: center;">预售订单号</th>
                                                         <th style="text-align: center;">预约码</th>
                                                         <th style="text-align: center;">预约码金额</th>
+                                                        <th style="text-align: center;">抢购日期</th>
                                                         <th style="text-align: center;">使用状态</th>
                                                         <th style="text-align: center;">预约订单号</th>
-                                                        <th style="text-align: center;">抢购日期</th>
                                                         <th style="text-align: center;">出发日期</th>
                                                         <th style="text-align: center;">补差价</th>
                                                         <th style="text-align: center;">预约来源</th>
@@ -164,13 +176,22 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let data of rowSelectionTableCode.data">
+                                                        <td>{{data?.ticket_order_id}}</td>
                                                         <td>{{data.code}}</td>
-                                                        <td>{{data.ticket_price}}</td>
-                                                        <td>{{data?.status_info}}</td>
-                                                        <td>{{data?.ticket_order_id}} </td>
+                                                        <td>{{data.ticket_price}}元</td>
                                                         <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                        <td>{{data?.status_info}}</td>
+                                                        <td>
+                                                            <a href={{url+data?.order_id}} target="_blank" *ngIf="data.status==2" title="跳转到订单详情">
+                                                                {{data?.order_id}}</a>
+                                                            <span *ngIf="data.status!=2">-</span>
+                                                        </td>
+
                                                         <td>{{data?.use_date}}</td>
-                                                        <td>{{data?.extra_charge}}</td>
+                                                        <td>
+                                                            <span *ngIf="data.status==2">{{data.extra_charge>0?data.extra_charge:0}}元</span>
+                                                            <span *ngIf="data.status!=2">-</span>
+                                                        </td>
                                                         <td>{{data?.source}}</td>
                                                     </tr>
                                                 </tbody>
@@ -198,7 +219,7 @@
                                             <nz-table #rowSelectionTablePayLog [nzData]="dataPayLog">
                                                 <thead>
                                                     <tr>
-                                                        <th style="text-align: center;">订单id</th>
+                                                        <th style="text-align: center;">预售订单号</th>
                                                         <th style="text-align: center;">支付流水号</th>
                                                         <th style="text-align: center;">金额</th>
                                                         <th style="text-align: center;">支付状态</th>

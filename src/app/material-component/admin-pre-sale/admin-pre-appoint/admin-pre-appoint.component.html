@@ -137,13 +137,13 @@
                                     <th style="text-align: center;">预约码</th>
                                     <th style="text-align: center;">产品名称</th>
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;">预约订单号</th>
                                     <th style="text-align: center;">预售订单号</th>
-                                    <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">预售价格/补贴金额</th>
+                                    <th style="text-align: center;">下单日期</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">预约订单号</th>
                                     <th style="text-align: center;">补差价</th>
                                     <th style="text-align: center;">预约人/手机号码</th>
-                                    <th style="text-align: center;">下单日期</th>
                                     <th style="text-align: center;">出发日期</th>
                                     <th style="text-align: center;">交易流水号</th>
                                     <th style="text-align: center;">预约渠道</th>
@@ -155,21 +155,26 @@
                                     <td>{{data?.code}}</td>
                                     <td>{{data.ticket_order?.product_name}}</td>
                                     <td>{{data?.store_name}}</td>
-                                    <td>
-                                        {{data?.order_id==0?'-':data?.order_id}}
-                                    </td>
                                     <td>{{data?.ticket_order_id}}</td>
-                                    <td>{{data.status_info}}</td>
                                     <td>
                                         <div>{{data?.ticket_price}}元/</div>
                                         <div>{{data?.subsidy_price}}元</div>
                                     </td>
-                                    <td>{{data.extra_charge}}元</td>
+                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                    <td>{{data.status_info}}</td>
+                                    <td>
+
+                                        {{data?.order_id==0?'-':data?.order_id}}
+                                    </td>
+                                    <td>
+                                        <span *ngIf="data.status==2">{{data.extra_charge>0?data.extra_charge:0}}元</span>
+                                        <span *ngIf="data.status!=2">-</span>
+                                    </td>
                                     <td>
                                         <div>{{data.ticket_order?.name}}</div>
                                         <div>{{data.ticket_order?.phone}}</div>
                                     </td>
-                                    <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+
                                     <td>{{data.use_date}}</td>
                                     <td>{{data.transaction_id}}</td>
                                     <td>{{data.source}}</td>

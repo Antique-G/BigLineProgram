@@ -16,6 +16,11 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
     dataPayLog: any[] = [];
     detailId: any;
 
+
+
+    // 跳转到订单详情
+    url: any;
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public storePreSaleService: StorePreSaleService) {
         this.addForm = this.fb.group({
@@ -28,6 +33,7 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
             contact_phone: ['',],
             ticket_price: ['',],
             subsidy_price: ['',],
+            product_id: ['',],
         });
     }
 
@@ -42,6 +48,8 @@ export class StorePreFreeSaleListDetailComponent implements OnInit {
                 this.detailModel = res.data;
                 this.dataPayLog = this.detailModel?.pay_log?.data;
                 this.codeList = this.detailModel?.ticket_code?.data;
+                // 跳转到订单详情
+                this.url = '/store/main/storeOrderFreeTravel/detail?detailId=';
             })
         })
 
