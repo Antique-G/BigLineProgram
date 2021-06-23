@@ -39,7 +39,7 @@
                                                 <div nz-row>
                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="store_name">店铺名称</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.order?.data?.store_name" />
+                                                        <input nz-input formControlName="store_name" nzBorderless readonly [ngModel]="detailModel?.store_name" />
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -128,14 +128,17 @@
                                     </div>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <form nz-form [formGroup]="addForm" nz-row>
-                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                                                <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">预约订单号</nz-form-label>
-                                                    <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <a href={{url+detailModel?.order_id}} target="_blank" title="跳转到订单详情" style="margin-left: 10px;">{{detailModel?.order_id}}</a>
-                                                    </nz-form-control>
-                                                </div>
-                                            </nz-form-item>
+                                            <ng-container *ngIf="detailModel?.status==2">
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">预约订单号</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <a href={{url+detailModel?.order_id}} target="_blank" title="跳转到订单详情" style="margin-left: 10px;">{{detailModel?.order_id}}</a>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </ng-container>
+
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
