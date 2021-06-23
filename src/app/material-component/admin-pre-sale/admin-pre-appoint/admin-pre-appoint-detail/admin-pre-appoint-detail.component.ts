@@ -14,7 +14,9 @@ export class AdminPreAppointDetailComponent implements OnInit {
 
     detailId: any;
     detailModel: any;
-
+    // 跳转到订单详情
+    url: any;
+    preurl: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public adminSaleService: AdminSaleService,) {
@@ -37,6 +39,7 @@ export class AdminPreAppointDetailComponent implements OnInit {
             ticket_price: [''],
             subsidy_price: [''],
             use_start_date: [''],
+            ticket_order_id: [''],
         })
          }
 
@@ -49,6 +52,9 @@ export class AdminPreAppointDetailComponent implements OnInit {
                 console.log("详情", res)
                 this.isSpinning = false;
                 this.detailModel = res?.data;
+                 // 跳转到订单详情
+                this.url = '/admin/main/freeTravelOrder/detail?detailId=';
+                this.preurl = '/admin/main/preSaleList/detail?detailId=';
             })
         })
     }
