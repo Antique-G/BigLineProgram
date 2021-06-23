@@ -225,7 +225,7 @@ export const AdminUrls = {
     GetAdminRefundAmountTotal: api + '/admin/refund_amount_total', //  财务退款 统计
     PostAdminRefundCancel: api + '/admin/cancel_refund', // 撤销退款
 
-     
+
 
 
     GetAdminRefundDetail: api + '/admin/refund/',  // 退款详情
@@ -311,7 +311,7 @@ export const AdminUrls = {
     PostAdminGoodsCate: api + '/admin/goods_cate',   // 添加
     PutAdminGoodsCateUpdate: api + '/admin/goods_cate/',   // 更新
 
-    
+
 
 };
 
@@ -488,7 +488,7 @@ export const StoreUrls = {
     PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  // 添加
     PostStoreCopyIndentPro: api + '/store/copy_indent_product',  // 复制产品
 
-    
+
 
 
     // 成本
@@ -502,5 +502,14 @@ export const StoreUrls = {
     PostStoreCash: api + '/store/cash_requirement',   // 请款
     PutStoreCashUpdate: api + '/store/cash_requirement/',   // 更新
     DeleteStoreCashType: api + '/store/cash_requirement/',   // 删除
+
+
+
+    // 生鲜商城
+    GetStoreGoodsCateListTree: api + '/store/cate_list_tree',   // 分类列表
+    GetStoreGoodsList: api + '/store/goods',     //商品列表
+    PostStoreAddGoods: api + '/store/goods',     //添加商品
+    PutStoreGoodsUpdate: api + '/store/goods/',     //更新
+    GetStoreGoodsDetail: api + '/store/goods/',  // 详情
 
 };

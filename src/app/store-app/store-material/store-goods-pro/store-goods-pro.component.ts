@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StoreRegionService } from 'services/store/store-region/store-region.service';
+import { StoreGoodsService } from '../../../../services/store/store-goods/store-goods.service';
+
 
 @Component({
     selector: 'app-store-goods-pro',
@@ -13,18 +14,20 @@ export class StoreGoodsProComponent implements OnInit {
     dataSource: any[] = [];   //1.4将数据添加到dataSource
     loading = true;
     page = 1;
-    per_page = 20;
+    per_page = 10;
     total: any;
 
-    // 城市
-    nzOptions: any[] | null = null;
+    status: any;
+    check_status: any;
+    is_order: any;
+    cate_id: any;
+    title: any;
 
 
-    firstLevelList: any;
-    selectedFirst: any;
-    selectedSecond: any;
-    typeData: any;
-    changeType1(event: any) { }
+    cateFistList: any;
+    cateSecondList: any;
+    isCateId: any;
+
     //     //   selectedProvince = 'Zhejiang';
     //   selectedCity = 'Hangzhou';
     //   provinceData = ['Zhejiang', 'Jiangsu'];
@@ -39,28 +42,44 @@ export class StoreGoodsProComponent implements OnInit {
 
 
 
-    constructor(public fb: FormBuilder, public storeRegionService: StoreRegionService, public router: Router,) {
+    constructor(public fb: FormBuilder,  public router: Router,
+    public storeGoodsService:StoreGoodsService) {
         this.searchForm = this.fb.group({
             status: [''],
-            checkStatus: [''],
-            freeShipping: [''],
-            name: [''],
+            check_status: [''],
+            title: [''],
             firstType: [''],
             secondType: [''],
-            departure_city: [''],
+            is_order: [''],
         })
     }
 
     ngOnInit(): void {
-        this.storeRegionService.getAllRegionList().subscribe(res => {
-            this.nzOptions = res;
+        this.storeGoodsService.getCateListTree().subscribe(res => {
+            console.log("11111", res);
+            this.cateFistList = res;
+            this.getGoodList();
         })
     }
 
 
+    getGoodList() {
+        this.storeGoodsService.goodsList(this.page, this.per_page, this.status, this.check_status, this.is_order, this.cate_id, this.title).subscribe(res => {
+            this.loading = false;
+            console.log("111", res.data);
+            this.dataSource = res.data.data;
+            this.total = res.data.total;
+        })
+    }
+
 
     search() {
-
+        this.page = 1;
+        this.status = this.searchForm.value.status;
+        this.check_status = this.searchForm.value.check_status;
+        this.title = this.searchForm.value.title;
+        this.is_order = this.searchForm.value.is_order;
+        this.cate_id = this.isCateId;
     }
 
 
@@ -85,10 +104,7 @@ export class StoreGoodsProComponent implements OnInit {
     }
 
 
-    // 产地
-    onChanges(data: any) {
-
-    }
+  
 
     reset() {
 
@@ -100,5 +116,22 @@ export class StoreGoodsProComponent implements OnInit {
     
     addStep() {
         this.router.navigate(['/store/main/storeGoods/create']);
+    }
+
+
+
+    // 选择分类
+    changeTypeFirst(event: any) {
+        console.log("1111", event);
+        this.cateSecondList = event?.children;
+        this.searchForm.patchValue({
+            secondType:this.cateSecondList[0]?this.cateSecondList[0]:''
+        })
+    }
+    
+
+    changeTypeSecond(event: any) {
+        console.log("2222", event);
+        this.isCateId = event.id;
     }
 }

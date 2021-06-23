@@ -1,1 +1,23 @@
-<p>store-goods-pro-editpost works!</p>
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <mat-card>
+                <div class="example-container" style="margin-bottom: 50px;">
+                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                        <div style="padding-left: 10px;padding-top: 10px;">
+                            <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="upload()">上传图片</button>
+                            <button mat-raised-button color="primary" style="width: 120px;letter-spacing: 2px;margin-left: 10px;" (click)="import()">从图库导入</button>
+                        </div>
+                        <div *ngIf="isShow">
+                            <img [src]="imgSrc+'?x-oss-process=image/resize,w_450,m_lfit'" style="margin-left: 20px;">
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+        <div class="btn" *ngIf="isShow">
+            <button nz-button nzType="primary" [nzLoading]="isLoadingBtn" (click)="nextTab()">保存</button>
+        </div>
+    </div>
+</div>
