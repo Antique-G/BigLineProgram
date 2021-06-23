@@ -4,6 +4,7 @@ import { StoreCerticationComponent } from './store-certication/store-certication
 import { StoreContractComponent } from './store-contract/store-contract.component';
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
 import { StoreGoodsProCreateBystepComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-create-bystep.component';
+import { StoreGoodsProDetailComponent } from './store-goods-pro/store-goods-pro-detail/store-goods-pro-detail.component';
 import { StoreGoodsProComponent } from './store-goods-pro/store-goods-pro.component';
 import { StoreMeetingPlaceComponent } from './store-meeting-place/store-meeting-place.component';
 import { SOFreetravelOrderComponent } from './store-order-freetravel/s-o-freetravel-order/s-o-freetravel-order.component';
@@ -304,6 +305,14 @@ export const StoreMaterialRoutes: Routes = [
                     breadcrumb: '添加生鲜商品'
                 }
             },
+            {
+                path: 'storeGoods/detail',
+                component: StoreGoodsProDetailComponent,
+                data: {
+                    breadcrumb: '生鲜商品详情'
+                }
+            },
+            
         ]
     }
 ];

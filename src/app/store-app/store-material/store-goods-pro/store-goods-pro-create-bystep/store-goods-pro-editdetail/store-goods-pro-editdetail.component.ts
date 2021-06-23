@@ -44,7 +44,7 @@ export class StoreGoodsProEditdetailComponent implements OnInit {
     ngOnChanges(changes: SimpleChanges) {
         if (changes['addDataDetailModel'] && changes['addDataDetailModel'].currentValue) {
             this.dataModel = changes['addDataDetailModel'].currentValue;
-            console.log("1111111",this.dataModel)
+            console.log("645645645",this.dataModel)
             this.reqModel.id = this.dataModel.id;
         }
     }

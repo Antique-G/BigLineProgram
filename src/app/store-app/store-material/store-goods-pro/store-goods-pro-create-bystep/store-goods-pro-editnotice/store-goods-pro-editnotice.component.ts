@@ -18,14 +18,14 @@ import { InsertABCMenu } from '../../../InsertABCMenu';
 export class StoreGoodsProEditnoticeComponent implements OnInit {
     @ViewChild("noticeBox") noticeBox: any;       //获取dom
     @Output() tabIndex = new EventEmitter;
-    @Input() addaddDataDetailModel: any;
+    @Input() addDataDetailModel: any;
     dataModel: any;
     noticeList: any[] = [];
     isLoadingBtn = false;
 
 
     reqModel = {
-        id: 0,
+        id: '',
         step: 2,
         notice: '',
     }
@@ -35,13 +35,14 @@ export class StoreGoodsProEditnoticeComponent implements OnInit {
         private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
     ngOnInit(): void {
-
     }
 
 
+    // 拿到id
     ngOnChanges(changes: SimpleChanges) {
         if (changes['addDataDetailModel'] && changes['addDataDetailModel'].currentValue) {
             this.dataModel = changes['addDataDetailModel'].currentValue;
+            console.log("64564564588888", this.dataModel)
             this.reqModel.id = this.dataModel.id;
         }
     }

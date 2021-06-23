@@ -28,22 +28,8 @@ export class StoreGoodsProComponent implements OnInit {
     cateSecondList: any;
     isCateId: any;
 
-    //     //   selectedProvince = 'Zhejiang';
-    //   selectedCity = 'Hangzhou';
-    //   provinceData = ['Zhejiang', 'Jiangsu'];
-    //   cityData: { [place: string]: string[] } = {
-    //     Zhejiang: ['Hangzhou', 'Ningbo', 'Wenzhou'],
-    //     Jiangsu: ['Nanjing', 'Suzhou', 'Zhenjiang']
-    //   };
-
-    //   provinceChange(value: string): void {
-    //     this.selectedCity = this.cityData[value][0];
-    //   }
-
-
-
-    constructor(public fb: FormBuilder,  public router: Router,
-    public storeGoodsService:StoreGoodsService) {
+    constructor(public fb: FormBuilder, public router: Router,
+        public storeGoodsService: StoreGoodsService) {
         this.searchForm = this.fb.group({
             status: [''],
             check_status: [''],
@@ -80,13 +66,15 @@ export class StoreGoodsProComponent implements OnInit {
         this.title = this.searchForm.value.title;
         this.is_order = this.searchForm.value.is_order;
         this.cate_id = this.isCateId;
+        this.getGoodList();
     }
 
 
 
     changePageSize(per_page: number) {
         this.per_page = per_page;
-        // this.getProductList();
+        this.getGoodList();
+
     }
 
     changePageIndex(page: number) {
@@ -100,22 +88,34 @@ export class StoreGoodsProComponent implements OnInit {
         //     departure_city: this.departure_city, destination_city: this.destination_city
         // }
         // localStorage.setItem('storeGroupSearch', JSON.stringify(this.setQuery));
-        // this.getProductList();
+        this.getGoodList();
+
     }
 
 
-  
+
 
     reset() {
-
+        this.searchForm.patchValue({
+            status: '',
+            check_status: '',
+            title: '',
+            firstType: '',
+            secondType: '',
+            is_order: '',
+        })
     }
 
 
 
     // 添加
-    
     addStep() {
         this.router.navigate(['/store/main/storeGoods/create']);
+    }
+
+    // 编辑
+    edit(data: any) {
+        this.router.navigate(['/store/main/storeGoods/detail'], { queryParams: { detailId: data.id } });
     }
 
 
@@ -125,10 +125,10 @@ export class StoreGoodsProComponent implements OnInit {
         console.log("1111", event);
         this.cateSecondList = event?.children;
         this.searchForm.patchValue({
-            secondType:this.cateSecondList[0]?this.cateSecondList[0]:''
+            secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
         })
     }
-    
+
 
     changeTypeSecond(event: any) {
         console.log("2222", event);

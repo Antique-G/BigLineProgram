@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
@@ -10,22 +10,19 @@ import { StoreRegionService } from '../../../../../../services/store/store-regio
 
 
 
+
 @Component({
-    selector: 'app-store-goods-pro-info',
-    templateUrl: './store-goods-pro-info.component.html',
-    styleUrls: ['./store-goods-pro-info.component.css']
+    selector: 'app-store-goods-pro-detai-info',
+    templateUrl: './store-goods-pro-detai-info.component.html',
+    styleUrls: ['./store-goods-pro-detai-info.component.css']
 })
-export class StoreGoodsProInfoComponent implements OnInit {
-    @Output() tabIndex = new EventEmitter;
-    @Input() isId: any;
-    @Input() isShowId: any;
-    @Input() getOneTab: any;
+export class StoreGoodsProDetaiInfoComponent implements OnInit {
     isLoadingBtn = false;
 
     addForm!: FormGroup;
     public isSpinning: any = true;    //loading 
     detailId: any; //产品id
-    dataModel: any;
+    addDataDetailModel: any;
 
     addGoodsModel: AddGoodsModel;
 
@@ -34,14 +31,12 @@ export class StoreGoodsProInfoComponent implements OnInit {
     cityList: any[] = [];
     // 分类
     cateFistList: any;
+    selectedcateFist: any;
     cateSecondList: any;
+    selectedcateSecond: any;
     isCateId: any;
     // 预售时间
     isShow = false;
-
-
-    // 详情的规格
-    goods_specsArr: any;
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         private storeRegionService: StoreRegionService, public storeGoodsService: StoreGoodsService,
@@ -63,7 +58,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         });
         this.addGoodsModel = {
             title: '',
-            cate_id:'',
+            cate_id: '',
             is_order: '',
             send_time: '',
             sales_note: '',
@@ -73,21 +68,12 @@ export class StoreGoodsProInfoComponent implements OnInit {
             sort: '',
             goods_specs: [],
             id: '',
-            step:''
+            step: ''
         }
 
     }
 
     ngOnInit(): void {
-        // 初始化规格
-        let control = <FormArray>this.addForm.controls['specificationList'];
-        control.push(new FormGroup({
-            spec_name: new FormControl('', [Validators.required]),
-            price: new FormControl('', [Validators.required]),
-            stock: new FormControl('', [Validators.required]),
-            unit: new FormControl('', [Validators.required]),
-            postage: new FormControl('2', [Validators.required]),
-        }));
         this.activatedRoute.queryParams.subscribe(params => {
             this.detailId = params.detailId;
         });
@@ -111,7 +97,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         }
     }
 
-    addSpecification(){
+    addSpecification() {
         this.specificationArray.push(this.fb.group({
             spec_name: new FormControl('', [Validators.required]),
             price: new FormControl('', [Validators.required]),
@@ -134,23 +120,80 @@ export class StoreGoodsProInfoComponent implements OnInit {
         this.storeGoodsService.getCateListTree().subscribe(res => {
             console.log("11111", res);
             this.cateFistList = res;
-            this.isSpinning = false;
+            this.getGoodsDetail();
         })
     }
+
+    getGoodsDetail() {
+        this.storeGoodsService.getGoodsDetail(this.detailId).subscribe(res => {
+            console.log("结果是12", res)
+            this.addDataDetailModel = res.data;
+            this.isSpinning = false;
+            this.setFormValue();
+        })
+    }
+
+
+    setFormValue() {
+        this.addForm.get('title')?.setValue(this.addDataDetailModel.title);
+        //产地
+        const str = this.addDataDetailModel.product_area;
+        for (let i = 0; i < str.length / 4; i++) {
+            let temp = this.cityList[i] || '' + str.substr(0, 4 * (i + 1))
+            this.cityList.push(temp);
+        }
+        console.log('this.values产地', this.cityList);
+        this.addForm.get('product_area')?.setValue(this.cityList);
+      
+        // // 初始化规格
+        for (let i = 0; i < this.addDataDetailModel.goods_specs.length; i++) {
+            this.specificationArray.push(new FormGroup({
+                spec_name: new FormControl(this.addDataDetailModel.goods_specs[i].spec_name, [Validators.required]),
+                price: new FormControl(this.addDataDetailModel.goods_specs[i].price, [Validators.required]),
+                stock: new FormControl(this.addDataDetailModel.goods_specs[i].stock, [Validators.required]),
+                unit: new FormControl(this.addDataDetailModel.goods_specs[i].unit, [Validators.required]),
+                postage: new FormControl(this.addDataDetailModel.goods_specs[i].postage.toString(), [Validators.required]),
+                id:new FormControl(this.addDataDetailModel.goods_specs[i].id)
+            }));
+        }
+        this.addForm.get('sort')?.setValue(this.addDataDetailModel.sort);
+        this.addForm.get('sales_note')?.setValue(this.addDataDetailModel.sales_note);
+
+        // 预售时间赋值
+        if (this.addDataDetailModel.is_order == 1) {
+            this.addForm.get('send_time')?.setValue(this.addDataDetailModel.send_time);
+        }
+        
+          //   给类别赋值
+          let pid = this.addDataDetailModel.goods_cate.pid;
+          let cate1 = this.cateFistList.filter((item: any) => item.id == pid);
+          console.log("11111111", cate1);
+          this.selectedcateFist = cate1[0];
+          let cate2 = this.selectedcateFist?.children.filter((item: any) => item.id == this.addDataDetailModel.cate_id);
+          console.log("22222", cate2);
+          this.selectedcateSecond = cate2[0];
+  
+    }
+
+
 
     // 选择分类
     changeTypeFirst(event: any) {
         console.log("1111", event);
-        this.cateSecondList = event?.children;
-        this.addForm.patchValue({
-            secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-        })
+        if (event != undefined) {
+            this.cateSecondList = event?.children;
+            this.addForm.patchValue({
+                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+            })
+        }
     }
 
 
     changeTypeSecond(event: any) {
         console.log("2222", event);
-        this.isCateId = event.id;
+        if (event != undefined) {
+            this.isCateId = event.id;
+        }
     }
 
     setValue() {
@@ -159,7 +202,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         this.addGoodsModel.product_area = this.cityList[this.cityList.length - 1];
         this.addGoodsModel.goods_specs = this.addForm.value.specificationList;
         this.addGoodsModel.is_order = this.addForm.value.is_order;
-        this.addGoodsModel.send_time = this.addGoodsModel.is_order=='1'?format(new Date(this.addForm.value.send_time), 'yyyy-MM-dd'):format(new Date(), 'yyyy-MM-dd');
+        this.addGoodsModel.send_time = this.addGoodsModel.is_order == '1' ? format(new Date(this.addForm.value.send_time), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
         this.addGoodsModel.is_hot = this.addForm.value.is_hot;
         this.addGoodsModel.sort = this.addForm.value.sort;
@@ -167,51 +210,12 @@ export class StoreGoodsProInfoComponent implements OnInit {
     }
 
 
-    // 添加
-    nextTab() {
-        this.setValue();
-        // 验证表单
-        for (const i in this.addForm.controls) {
-            this.addForm.controls[i].markAsDirty();
-            this.addForm.controls[i].updateValueAndValidity();
-        }
-        console.log(this.addForm);
-        if (this.addForm.valid) {
-            this.isLoadingBtn = true;
-            this.storeGoodsService.addGoods(this.addGoodsModel).subscribe(res => {
-                console.log("22222222",res)
-                if (res.id) {
-                    this.isLoadingBtn = false;
-                    this.tabIndex.emit({ id: res.id, tabIndex: 1 });
-                    this.getOneTab();
-                    // 拿到规格的东西
-                    this.storeGoodsService.getGoodsDetail(res.id).subscribe(res => {
-                        console.log("结果是12", res)
-                        this.goods_specsArr = res.data.goods_specs;
-                    })
-                }
-            },
-                error => {
-                    this.isLoadingBtn = false;
-                })
 
-        }
-        else {
-            this.isLoadingBtn = false;
-        }
-    }
 
 
 
     updateTab() {
-        console.log("this.addGoodsModel.goods_specs", this.addGoodsModel.goods_specs);
-        this.addGoodsModel.goods_specs.forEach((ele: any,index:any) => {
-            ele['id'] = this.goods_specsArr[index].id;
-        })
-        console.log("this.addGoodsModel.goods_specs111", this.addGoodsModel.goods_specs);
-
         this.setValue();
-
         // 验证表单
         for (const i in this.addForm.controls) {
             this.addForm.controls[i].markAsDirty();
@@ -220,13 +224,16 @@ export class StoreGoodsProInfoComponent implements OnInit {
         console.log(this.addForm.valid);
         if (this.addForm.valid) {
             this.isLoadingBtn = true;
-            this.addGoodsModel.id = this.isId;
+            this.addGoodsModel.id = this.addDataDetailModel.id;
             this.addGoodsModel.step = 0;
             this.storeGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
                 this.isLoadingBtn = false;
-                this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+
             })
 
+        }
+        else {
+            this.isLoadingBtn = false;
         }
 
     }
