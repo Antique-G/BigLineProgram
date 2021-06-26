@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { ChooseGalleryComponent } from '../../../../../../app/layouts/choose-gallery/choose-gallery';
-import { StoreProductTreeTravelService } from '../../../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { StoreGoodsService } from '../../../../../../services/store/store-goods/store-goods.service';
+import { ChooseGoodsGalleryComponent } from '../../../common/choose-goods-gallery/choose-goods-gallery.component';
+import { UploadGoodsImgComponent } from '../../../common/upload-goods-img/upload-goods-img.component';
 
 
 
@@ -15,7 +15,7 @@ import { CommonModelComponent } from '../../../common/common-model/common-model.
   styleUrls: ['./store-goods-pro-editpost.component.css']
 })
 export class StoreGoodsProEditpostComponent implements OnInit {
-    @Input() dataDetailModel: any;
+    @Input() addDataDetailModel: any;
     @Output() tabIndex = new EventEmitter;
 
 
@@ -30,7 +30,7 @@ export class StoreGoodsProEditpostComponent implements OnInit {
 
 
     constructor(public dialog: MatDialog, private msg: NzMessageService, private modal: NzModalService,
-        private freeTravelService: StoreProductTreeTravelService, public router: Router,
+         public router: Router, public storeGoodsService: StoreGoodsService,
         public activatedRoute: ActivatedRoute, private viewContainerRef: ViewContainerRef) {
         this.detailUpdateModel = {
             step: 4,
@@ -39,8 +39,8 @@ export class StoreGoodsProEditpostComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.dataDetailModel.poster_url != "") {
-            this.imgSrc = this.dataDetailModel.poster_url;
+        if (this.addDataDetailModel.poster_url != "") {
+            this.imgSrc = this.addDataDetailModel.poster_url;
             this.isShow = true;
         }
 
@@ -51,7 +51,7 @@ export class StoreGoodsProEditpostComponent implements OnInit {
         const modal: NzModalRef = this.modal.create({
             nzTitle: '图片上传',
             nzViewContainerRef: this.viewContainerRef,
-            nzContent: CommonModelComponent,
+            nzContent: UploadGoodsImgComponent,
             nzWidth: 660,
             nzFooter: null
         })
@@ -71,7 +71,7 @@ export class StoreGoodsProEditpostComponent implements OnInit {
         const modal: NzModalRef = this.modal.create({
             nzTitle: '从图库导入资源',
             nzViewContainerRef: this.viewContainerRef,
-            nzContent: ChooseGalleryComponent,
+            nzContent: ChooseGoodsGalleryComponent,
             nzComponentParams: {
                 data: 1
             },
@@ -91,10 +91,10 @@ export class StoreGoodsProEditpostComponent implements OnInit {
 
     nextTab() {
         this.isLoadingBtn = true;
-        this.detailUpdateModel.id = this.dataDetailModel.id;
+        this.detailUpdateModel.id = this.addDataDetailModel.id;
         this.detailUpdateModel.poster_url = this.imgSrc;
         console.log("更新", this.detailUpdateModel);
-        this.freeTravelService.UpdateFreeTravelInfo(this.detailUpdateModel).subscribe(res => {
+        this.storeGoodsService.updateGoods(this.detailUpdateModel).subscribe(res => {
             this.isLoadingBtn = false;
             this.router.navigate(['/store/main/storeGoods']);
         }

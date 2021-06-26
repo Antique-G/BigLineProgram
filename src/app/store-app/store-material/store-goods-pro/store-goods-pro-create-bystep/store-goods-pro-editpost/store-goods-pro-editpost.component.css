@@ -1,3 +1,17 @@
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
+
+.footer {
+    height: 50px;
+    margin-top: -50px;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
 .btn {
     position: fixed;
     left: 0;

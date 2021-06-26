@@ -9,11 +9,11 @@ import { StoreRegionService } from '../../../../../services/store/store-region/s
 import { AgreeComponent } from '../common-model/agree/agree.component';
 
 @Component({
-    selector: 'app-upload-video',
-    templateUrl: './upload-video.component.html',
-    styleUrls: ['./upload-video.component.css']
+  selector: 'app-upload-goods-video',
+  templateUrl: './upload-goods-video.component.html',
+  styleUrls: ['./upload-goods-video.component.css']
 })
-export class UploadVideoComponent implements OnInit {
+export class UploadGoodsVideoComponent implements OnInit {
     addForm!: FormGroup;
     nzOptions: any[] | null = null;
     region_code: any
@@ -125,7 +125,6 @@ export class UploadVideoComponent implements OnInit {
                 formData.append('video', item);
                 formData.append('desc', this.addForm.value.desc);
                 formData.append('region_code', this.region_code[this.region_code.length - 1]);
-                formData.append('product_type', '0');
                 this.commonService.uploadVideo(formData).subscribe(res => {
                     this.result.push(res)
                     this.fileList[index].status = 'done';
@@ -161,3 +160,4 @@ export class UploadVideoComponent implements OnInit {
 
 
 }
+

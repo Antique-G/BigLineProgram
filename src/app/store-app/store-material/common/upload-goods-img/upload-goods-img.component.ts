@@ -3,17 +3,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { CommonServiceService } from '../../../../../services/store/common-service/common-service.service';
 import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AgreeComponent } from '../common-model/agree/agree.component';
 
+
 @Component({
-    selector: 'app-upload-video',
-    templateUrl: './upload-video.component.html',
-    styleUrls: ['./upload-video.component.css']
+  selector: 'app-upload-goods-img',
+  templateUrl: './upload-goods-img.component.html',
+  styleUrls: ['./upload-goods-img.component.css']
 })
-export class UploadVideoComponent implements OnInit {
+export class UploadGoodsImgComponent implements OnInit {
     addForm!: FormGroup;
     nzOptions: any[] | null = null;
     region_code: any
@@ -29,9 +30,6 @@ export class UploadVideoComponent implements OnInit {
     result: any[] = []
     agreeChecked: boolean = false
     region_codes: any
-    // fileType="video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
-    accept = "video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
-
 
     constructor(private storeRegionService: StoreRegionService,
         private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
@@ -68,21 +66,21 @@ export class UploadVideoComponent implements OnInit {
         })
     }
 
-
     // 上传图片之前
     beforeUpload = (file: NzUploadFile): boolean => {
-        console.log('file, file.size ', file, file.size);
+        console.log('object :>> ', file, file.size);
         let fileSize = file.size! / 1024 / 1024;
-        if (fileSize > 50) {
-            this.msg.error("视频文件过大，请重新上传！")
+        if (fileSize > 10) {
+            this.msg.error("图片大小必须10M以内,请重新上传图片!")
             return false
         }
-        console.log('this.fileList ', this.fileList);
-        if (this.fileList.length <= 2) {
+        if (this.fileList.length <= 10) {
             let id: any = this.fileList.length
+            // this.fileList = this.fileList.concat(file);
             this.fileList = this.fileList.concat({
                 uid: id,
                 name: file.name,
+                // status: 'uploading',
             });
             this.imageList = this.imageList.concat(file);
         }
@@ -91,12 +89,18 @@ export class UploadVideoComponent implements OnInit {
     };
 
 
-    onDestChange(values: any): void {
-        if (values !== null) {
-            this.region_codes = values[values.length - 1];
-        }
+    uploadCustomRequest = (file: any) => {
+        const fd = new FormData();
+        fd.append("file", file.file as any);
+        console.log(123, 'uploadCustomRequest');
     }
 
+    getExtraData = (file: NzUploadFile) => {
+        return {
+            region_code: this.region_code[this.region_code.length - 1],
+            desc: this.addForm.value.desc
+        };
+    };
 
 
     removeImg = (file: NzUploadFile) => {
@@ -108,6 +112,19 @@ export class UploadVideoComponent implements OnInit {
     }
 
 
+    getExtraHeader = () => {
+        return {
+            Authorization: 'Bearer ' + (localStorage.getItem('userToken')!),
+        }
+    }
+    handleChange(info: NzUploadChangeParam) {
+        const { file, type } = info
+        if (type === 'success') {
+            this.result.push(file.response.url)
+        }
+        console.log(info);
+    }
+
     add() {
         console.log(this.imageList);
         for (const i in this.addForm.controls) {
@@ -115,18 +132,17 @@ export class UploadVideoComponent implements OnInit {
             this.addForm.controls[i].updateValueAndValidity();
         }
         if (this.imageList.length === 0) {
-            this.msg.error('请选择上传视频')
+            this.msg.error('请选择上传图片')
             return
         }
         if (this.addForm.valid) {
             this.isSpinning = true
             this.imageList.forEach((item: any, index) => {
                 const formData = new FormData();
-                formData.append('video', item);
+                formData.append('image', item);
                 formData.append('desc', this.addForm.value.desc);
-                formData.append('region_code', this.region_code[this.region_code.length - 1]);
-                formData.append('product_type', '0');
-                this.commonService.uploadVideo(formData).subscribe(res => {
+                formData.append('region_code', this.region_codes);
+                this.commonService.uploadImg(formData).subscribe(res => {
                     this.result.push(res)
                     this.fileList[index].status = 'done';
                     if (index === this.imageList.length - 1) {
@@ -148,6 +164,15 @@ export class UploadVideoComponent implements OnInit {
 
     }
 
+
+
+    onDestChange(values: any): void {
+        if (values !== null) {
+            this.region_codes = values[values.length - 1];
+        }
+    }
+
+
     showConfirm(): void {
         this.modal.create({
             nzWidth: 600,
@@ -155,6 +180,7 @@ export class UploadVideoComponent implements OnInit {
             nzViewContainerRef: this.viewContainerRef,
             nzFooter: null
         })
+
 
     }
 

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import wangEditor from 'wangeditor';
 import { StoreGoodsService } from '../../../../../../services/store/store-goods/store-goods.service';
-import { ChooseGalleryComponent } from '../../../../../layouts/choose-gallery/choose-gallery';
-import { CommonModelComponent } from '../../../common/common-model/common-model.component';
+import { ChooseGoodsGalleryComponent } from '../../../common/choose-goods-gallery/choose-goods-gallery.component';
+import { UploadGoodsImgComponent } from '../../../common/upload-goods-img/upload-goods-img.component';
 import { InsertABCMenu } from '../../../InsertABCMenu';
-
 
 
 @Component({
@@ -30,11 +30,18 @@ export class StoreGoodsProEditnoticeComponent implements OnInit {
         notice: '',
     }
 
+
+    isUpdateId: any;
+    
+    
     constructor(public dialog: MatDialog, private msg: NzMessageService,
-        public storeGoodsService: StoreGoodsService,
+        public storeGoodsService: StoreGoodsService,public activatedRoute: ActivatedRoute,
         private modal: NzModalService, private viewContainerRef: ViewContainerRef) { }
 
     ngOnInit(): void {
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.isUpdateId = params?.detailId;
+          });
     }
 
 
@@ -72,7 +79,7 @@ export class StoreGoodsProEditnoticeComponent implements OnInit {
         const modal: NzModalRef = this.modal.create({
             nzTitle: '从图库导入资源',
             nzViewContainerRef: this.viewContainerRef,
-            nzContent: ChooseGalleryComponent,
+            nzContent: ChooseGoodsGalleryComponent,
             nzComponentParams: {
                 data: 1
             },
@@ -142,7 +149,7 @@ export class StoreGoodsProEditnoticeComponent implements OnInit {
             const modal: NzModalRef = this.modal.create({
                 nzTitle: '图片上传',
                 nzViewContainerRef: this.viewContainerRef,
-                nzContent: CommonModelComponent,
+                nzContent: UploadGoodsImgComponent,
                 nzWidth: 660,
                 nzFooter: null
             })

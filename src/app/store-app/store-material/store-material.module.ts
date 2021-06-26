@@ -128,6 +128,9 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
+import { ChooseGoodsGalleryComponent } from './common/choose-goods-gallery/choose-goods-gallery.component';
+import { UploadGoodsImgComponent } from './common/upload-goods-img/upload-goods-img.component';
+import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-goods-video.component';
 
 
 @NgModule({
@@ -273,6 +276,9 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
         StoreGoodsProDetaiInfoComponent,
         StoreGoodsProDetaiImgComponent,
         StoreGoodsProDetaiPostComponent,
+        ChooseGoodsGalleryComponent,
+        UploadGoodsImgComponent,
+        UploadGoodsVideoComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }
