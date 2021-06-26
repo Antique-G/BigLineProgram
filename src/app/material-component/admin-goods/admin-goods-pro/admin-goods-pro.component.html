@@ -3,10 +3,6 @@
         <mat-card>
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                    <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addStep()">添加商品</button>
-                    </div>
-
                     <form [formGroup]="searchForm" nz-row nz-form>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
@@ -78,6 +74,16 @@
                             </div>
                         </nz-form-item>
 
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择店铺名称" formControlName="store_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
 
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
@@ -98,6 +104,7 @@
                                     <th style="text-align: center;">id</th>
                                     <th style="text-align: center;">商品名称</th>
                                     <th style="text-align: center;">商品类型</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">产地</th>
                                     <th style="text-align: center;">商品规格</th>
                                     <th style="text-align: center;">单价</th>
@@ -118,6 +125,7 @@
                                             <td [attr.rowspan]="data?.goods_specs.length">{{data.id}}</td>
                                             <td [attr.rowspan]="data?.goods_specs.length">{{data.title}}</td>
                                             <td [attr.rowspan]="data?.goods_specs.length">{{data.goods_cate.name}}</td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.store_name}}</td>
                                             <td [attr.rowspan]="data?.goods_specs.length">{{data.goods_area_name}}</td>
                                         </ng-container>
                                         <td>{{item.spec_name}}</td>
@@ -162,8 +170,8 @@
                                                         <li nz-menu-item (click)="edit(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
                                                         </li>
-                                                        <li nz-menu-item (click)="copy(data)">
-                                                            <img src="http://cdn.bigline.com.cn/static/images/copy_text.png" title="克隆产品"> 克隆产品
+                                                        <li nz-menu-item *ngIf="data.check_status!=0" (click)="review(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="审核">审核
                                                         </li>
                                                         <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
                                                             <div *ngIf="data.status===0">
@@ -173,15 +181,6 @@
                                                                 <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架"> 下架
                                                             </div>
                                                         </li>
-                                                        <li nz-menu-item *ngIf="data.check_status==0" (click)="checkStatusClick(data)">
-                                                            <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="提交审核"> 提交审核
-                                                        </li>
-                                                        <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
-                                                            <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核"> 撤销审核
-                                                        </li>
-                                                        <!-- <li nz-menu-item (click)="setCommission(data)">
-                                                            <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
-                                                        </li> -->
                                                         <li nz-menu-item (click)="getCode(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
                                                         </li>

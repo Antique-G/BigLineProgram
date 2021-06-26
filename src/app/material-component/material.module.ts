@@ -191,6 +191,13 @@ import { AdminProductManagementSchedultComponent } from './admin-product/admin-p
 import { AdminGoodsCateComponent } from './admin-goods/admin-goods-cate/admin-goods-cate.component';
 import { AdminGoodsCateAddComponent } from './admin-goods/admin-goods-cate/admin-goods-cate-add/admin-goods-cate-add.component';
 import { AdminGoodsCateEditComponent } from './admin-goods/admin-goods-cate/admin-goods-cate-edit/admin-goods-cate-edit.component';
+import { AdminGoodsProComponent } from './admin-goods/admin-goods-pro/admin-goods-pro.component';
+import { AdminGoodsProDetailComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail.component';
+import { AdminGoodsProDetailInfoComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-info/admin-goods-pro-detail-info.component';
+import { AdminGoodsProDetailDetailComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-detail/admin-goods-pro-detail-detail.component';
+import { AdminGoodsProDetailNoticeComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-notice/admin-goods-pro-detail-notice.component';
+import { AdminGoodsProDetailImgComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-img/admin-goods-pro-detail-img.component';
+import { AdminGoodsProDetailPostComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-post/admin-goods-pro-detail-post.component';
 
 
 
@@ -409,6 +416,13 @@ import { AdminGoodsCateEditComponent } from './admin-goods/admin-goods-cate/admi
     AdminGoodsCateComponent,
     AdminGoodsCateAddComponent,
     AdminGoodsCateEditComponent,
+    AdminGoodsProComponent,
+    AdminGoodsProDetailComponent,
+    AdminGoodsProDetailInfoComponent,
+    AdminGoodsProDetailDetailComponent,
+    AdminGoodsProDetailNoticeComponent,
+    AdminGoodsProDetailImgComponent,
+    AdminGoodsProDetailPostComponent,
 
   ]
 })

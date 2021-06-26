@@ -44,6 +44,7 @@ const MENUITEMS = [
         title: '生鲜管理', icon: 'apple', permission_name: 'admin_product',
         children: [
             { state: 'goodsCate', name: '商品分类', permission_name: 'product_tag' },
+            { state: 'goodsList', name: '商品管理列表', permission_name: 'product_tag' },
            
         ]
     },

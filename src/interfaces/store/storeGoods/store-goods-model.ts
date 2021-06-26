@@ -102,6 +102,7 @@ export interface Data {
     updated_at: string | object;
     goods_specs: GoodsSpecsGoodsList[];
     goods_cate: GoodsCate;
+    goods_area_name:any;
 }
 
 export interface GoodsCate {

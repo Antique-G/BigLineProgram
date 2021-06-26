@@ -310,7 +310,11 @@ export const AdminUrls = {
     GetAdminGoodsCateList: api + '/admin/goods_cate',   // 分类列表
     PostAdminGoodsCate: api + '/admin/goods_cate',   // 添加
     PutAdminGoodsCateUpdate: api + '/admin/goods_cate/',   // 更新
+    GetAdminGoodsCateListTree: api + '/admin/cate_list_tree',   // 商品列表的分类列表
 
+    GetAdminGoodsList: api + '/admin/goods',     //商品列表
+    PutAdminGoodsUpdate: api + '/admin/goods/',     //更新
+    GetAdminGoodsDetail: api + '/admin/goods/',  // 详情
 
 
 };

@@ -225,6 +225,9 @@ export class StoreGoodsProInfoComponent implements OnInit {
             this.storeGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
                 this.isLoadingBtn = false;
                 this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+            }
+            , error => {
+                this.isLoadingBtn = false;
             })
 
         }
