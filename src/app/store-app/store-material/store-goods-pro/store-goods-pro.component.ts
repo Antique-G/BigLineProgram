@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreGoodsService } from '../../../../services/store/store-goods/store-goods.service';
 
 
@@ -26,9 +27,13 @@ export class StoreGoodsProComponent implements OnInit {
 
     cateFistList: any;
     cateSecondList: any;
+    cateThirdList: any;
+
     isCateId: any;
 
-    constructor(public fb: FormBuilder, public router: Router,
+    goodsSetStatusModel: any;
+    goodsSetCheckStatusModel: any;
+    constructor(public fb: FormBuilder, public router: Router,private modal: NzModalService,
         public storeGoodsService: StoreGoodsService) {
         this.searchForm = this.fb.group({
             status: [''],
@@ -36,8 +41,17 @@ export class StoreGoodsProComponent implements OnInit {
             title: [''],
             firstType: [''],
             secondType: [''],
+            thirdType: [''],
             is_order: [''],
-        })
+        });
+        this.goodsSetStatusModel = {
+            id: '',
+            status: ''
+        };
+        this.goodsSetCheckStatusModel = {
+            id: '',
+            check_status: ''
+        };
     }
 
     ngOnInit(): void {
@@ -102,6 +116,7 @@ export class StoreGoodsProComponent implements OnInit {
             title: '',
             firstType: '',
             secondType: '',
+            thirdType: '',
             is_order: '',
         })
     }
@@ -132,6 +147,75 @@ export class StoreGoodsProComponent implements OnInit {
 
     changeTypeSecond(event: any) {
         console.log("2222", event);
+        this.cateThirdList = event?.children;
+        this.searchForm.patchValue({
+            thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+        })
+
+    }
+
+    changeTypeThird(event: any) {
         this.isCateId = event.id;
     }
+
+
+
+
+
+    // 上下架操作
+    up(data: any) {
+        console.log("nadao", data);
+        if (data.status == 0) {
+            this.goodsSetStatusModel.status = 1;
+        }
+        else {
+            this.goodsSetStatusModel.status = 0;
+        }
+        this.goodsSetStatusModel.id = data.id;
+        this.modal.confirm({
+            nzTitle: '<h4>提示</h4>',
+            nzContent: '<h6>请确认操作</h6>',
+            nzOnOk: () =>
+                this.storeGoodsService.setStatus( this.goodsSetStatusModel).subscribe(res => {
+                    this.getGoodList();
+                })
+        });
+    }
+
+
+
+
+        // 提交审核
+    checkStatusClick(data: any) {
+        this.goodsSetCheckStatusModel.id = data.id;
+        this.goodsSetCheckStatusModel.check_status = 1;
+            this.modal.confirm({
+                nzTitle: '<h5>请确认操作?</h5>',
+                nzContent: '提交审核',
+                nzOnOk: () => {
+                    this.storeGoodsService.checkStatus(this.goodsSetCheckStatusModel).subscribe(res => {
+                        console.log(res);
+                        this.getGoodList();
+                    })
+                }
+            });
+        }
+    
+    
+        // 撤销审核
+    revokeStatus(data: any) {
+        this.goodsSetCheckStatusModel.id = data.id;
+        this.goodsSetCheckStatusModel.check_status = 0;
+            this.modal.confirm({
+                nzTitle: '<h5>请确认操作?</h5>',
+                nzContent: '撤销审核',
+                nzOnOk: () => {
+                    this.storeGoodsService.checkStatus(this.goodsSetCheckStatusModel).subscribe(res => {
+                        console.log(res);
+                        this.getGoodList();
+                    })
+                }
+            });
+        }
+
 }

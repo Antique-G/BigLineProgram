@@ -315,7 +315,8 @@ export const AdminUrls = {
     GetAdminGoodsList: api + '/admin/goods',     //商品列表
     PutAdminGoodsUpdate: api + '/admin/goods/',     //更新
     GetAdminGoodsDetail: api + '/admin/goods/',  // 详情
-
+    PostAdminGoodsSetHot: api + '/admin/set_hot',   // 设置热门
+    PostAdminGoodsSetShelves: api + '/admin/set_shelves/',     //商品上下架
 
 };
 
@@ -515,5 +516,15 @@ export const StoreUrls = {
     PostStoreAddGoods: api + '/store/goods',     //添加商品
     PutStoreGoodsUpdate: api + '/store/goods/',     //更新
     GetStoreGoodsDetail: api + '/store/goods/',  // 详情
+    PostStoreGoodsSetShelves: api + '/store/set_shelves/',     //商品上下架
+    PostStoreGoodsSetCheck: api + '/store/set_check/',     //商品审核
+
+
+
+    PostStoreGoodsImgUpload: api + '/store/goods_image',  // 上传商品图片
+    GetStoreGoodsImgList: api + '/store/goods_image',  // 获取商品图片列表
+    PostStoreGoodsVedioUpload: api + '/store/goods_video',  // 上传商品视频
+
+
 
 };

@@ -3,9 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { CommonServiceService } from '../../../../../services/store/common-service/common-service.service';
-import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AgreeComponent } from '../common-model/agree/agree.component';
 
 
@@ -16,23 +15,16 @@ import { AgreeComponent } from '../common-model/agree/agree.component';
 })
 export class UploadGoodsImgComponent implements OnInit {
     addForm!: FormGroup;
-    nzOptions: any[] | null = null;
-    region_code: any
-    count: number = 0
-    isSpinning: Boolean = true
-    uploading = false;
+
+    isSpinning: Boolean = false;
+
     fileList: NzUploadFile[] = [];
     imageList: NzUploadFile[] = [];
-    imgUrl: any
-    reqData: any
-    previewImage: string | undefined = '';
-    previewVisible = false;
-    result: any[] = []
-    agreeChecked: boolean = false
-    region_codes: any
+    result: any[] = [];
+    agreeChecked: boolean = false;
+    cate_id: any;
 
-    constructor(private storeRegionService: StoreRegionService,
-        private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
+    constructor(private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
         private modal: NzModalService, private viewContainerRef: ViewContainerRef, private sanitizer: DomSanitizer
     ) {
         this.buildForm();
@@ -40,31 +32,19 @@ export class UploadGoodsImgComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.region_code = localStorage.getItem("regionData")?.split(',');
-        this.region_codes = this.region_code
-        console.log('object :>> ', this.region_codes);
-        this.getRegionList()
+        this.cate_id = localStorage.getItem("isGoodsCateId");
     }
 
 
     // 表单初始化
     buildForm(): void {
         this.addForm = new FormGroup({
-            region_code: new FormControl('', [Validators.required]),
             agree: new FormControl('', [Validators.required]),
             desc: new FormControl(''),
         });
 
     }
 
-    // 区域
-    getRegionList() {
-        this.storeRegionService.getAllRegionList().subscribe(res => {
-            this.nzOptions = res;
-            this.isSpinning = false;
-            this.region_code = localStorage.getItem("regionData")?.split(',');
-        })
-    }
 
     // 上传图片之前
     beforeUpload = (file: NzUploadFile): boolean => {
@@ -75,12 +55,10 @@ export class UploadGoodsImgComponent implements OnInit {
             return false
         }
         if (this.fileList.length <= 10) {
-            let id: any = this.fileList.length
-            // this.fileList = this.fileList.concat(file);
+            let id: any = this.fileList.length;
             this.fileList = this.fileList.concat({
                 uid: id,
                 name: file.name,
-                // status: 'uploading',
             });
             this.imageList = this.imageList.concat(file);
         }
@@ -88,19 +66,6 @@ export class UploadGoodsImgComponent implements OnInit {
         return false
     };
 
-
-    uploadCustomRequest = (file: any) => {
-        const fd = new FormData();
-        fd.append("file", file.file as any);
-        console.log(123, 'uploadCustomRequest');
-    }
-
-    getExtraData = (file: NzUploadFile) => {
-        return {
-            region_code: this.region_code[this.region_code.length - 1],
-            desc: this.addForm.value.desc
-        };
-    };
 
 
     removeImg = (file: NzUploadFile) => {
@@ -112,18 +77,6 @@ export class UploadGoodsImgComponent implements OnInit {
     }
 
 
-    getExtraHeader = () => {
-        return {
-            Authorization: 'Bearer ' + (localStorage.getItem('userToken')!),
-        }
-    }
-    handleChange(info: NzUploadChangeParam) {
-        const { file, type } = info
-        if (type === 'success') {
-            this.result.push(file.response.url)
-        }
-        console.log(info);
-    }
 
     add() {
         console.log(this.imageList);
@@ -141,8 +94,8 @@ export class UploadGoodsImgComponent implements OnInit {
                 const formData = new FormData();
                 formData.append('image', item);
                 formData.append('desc', this.addForm.value.desc);
-                formData.append('region_code', this.region_codes);
-                this.commonService.uploadImg(formData).subscribe(res => {
+                formData.append('cate_id', this.cate_id);
+                this.commonService.uploadGoodImg(formData).subscribe(res => {
                     this.result.push(res)
                     this.fileList[index].status = 'done';
                     if (index === this.imageList.length - 1) {
@@ -166,11 +119,7 @@ export class UploadGoodsImgComponent implements OnInit {
 
 
 
-    onDestChange(values: any): void {
-        if (values !== null) {
-            this.region_codes = values[values.length - 1];
-        }
-    }
+
 
 
     showConfirm(): void {

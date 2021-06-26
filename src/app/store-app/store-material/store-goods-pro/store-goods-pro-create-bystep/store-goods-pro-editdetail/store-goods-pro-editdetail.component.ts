@@ -80,7 +80,7 @@ export class StoreGoodsProEditdetailComponent implements OnInit {
             nzViewContainerRef: this.viewContainerRef,
             nzContent: ChooseGoodsGalleryComponent,
             nzComponentParams: {
-                data: 1
+                data: '0'
             },
             nzWidth: 1105,
             nzFooter: null

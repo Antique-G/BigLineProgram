@@ -102,7 +102,8 @@ export interface Data {
     updated_at: string | object;
     goods_specs: GoodsSpecsGoodsList[];
     goods_cate: GoodsCate;
-    goods_area_name:any;
+    goods_area_name: any;
+    store: any;
 }
 
 export interface GoodsCate {
@@ -134,3 +135,26 @@ export interface GoodsSpecsGoodsList {
     updated_at: string | object;
 }
 
+
+
+
+// 商品上下架
+export interface GoodsSetStatusModel {
+    id: any;
+    status: any;
+}
+
+
+// 商品审核
+export interface GoodsSetCheckStatusModel {
+    id: any;
+    check_status: any;
+}
+
+
+// 设置热门
+export interface GoodsSetHotModel {
+    id: any;
+    is_hot: any;
+    sort: any;
+}

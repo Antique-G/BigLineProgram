@@ -51,10 +51,10 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
       this.addDataDetailModel?.album?.forEach((element: any, value: any) => {
         this.dataSourceVideo = [];
         this.dataSource = [];
-        if (element.type === 2) {
+        if (element.type ==1) {
           arr1.push(element)
         }
-        else if (element.type === 1) {
+        else if (element.type ==0) {
           arr.push(element)
         }
       });
@@ -101,7 +101,7 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
         nzViewContainerRef: this.viewContainerRef,
         nzContent: ChooseGoodsGalleryComponent,
         nzComponentParams: {
-          data: 1
+          data: '0'
         },
         nzWidth: 1105,
         nzFooter: null
@@ -192,10 +192,10 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
                 }
               });
@@ -228,10 +228,10 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
                 }
               });
@@ -320,7 +320,7 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
         nzViewContainerRef: this.viewContainerRef,
         nzContent: ChooseGoodsGalleryComponent,
         nzComponentParams: {
-          data: 2
+          data: 1
         },
         nzWidth: 1105,
         nzFooter: null
@@ -391,10 +391,10 @@ export class StoreGoodsProDetaiImgComponent implements OnInit {
             res.data?.album?.forEach((element: any, value: any) => {
               this.dataSourceVideo = [];
               this.dataSource = [];
-              if (element.type === 2) {
+              if (element.type ==1) {
                 arr1.push(element)
               }
-              else if (element.type === 1) {
+              else if (element.type ==0) {
                 arr.push(element)
               }
             });

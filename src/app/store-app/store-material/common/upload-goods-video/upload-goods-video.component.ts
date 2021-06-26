@@ -4,8 +4,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { StoreGoodsService } from 'services/store/store-goods/store-goods.service';
 import { CommonServiceService } from '../../../../../services/store/common-service/common-service.service';
-import { StoreRegionService } from '../../../../../services/store/store-region/store-region.service';
 import { AgreeComponent } from '../common-model/agree/agree.component';
 
 @Component({
@@ -15,58 +15,35 @@ import { AgreeComponent } from '../common-model/agree/agree.component';
 })
 export class UploadGoodsVideoComponent implements OnInit {
     addForm!: FormGroup;
-    nzOptions: any[] | null = null;
-    region_code: any
-    count: number = 0
-    isSpinning: Boolean = true
-    uploading = false;
+    isSpinning: Boolean = false;
     fileList: NzUploadFile[] = [];
     imageList: NzUploadFile[] = [];
-    imgUrl: any
-    reqData: any
-    previewImage: string | undefined = '';
-    previewVisible = false;
-    result: any[] = []
-    agreeChecked: boolean = false
-    region_codes: any
+    reqData: any;
+
+    result: any[] = [];
+    agreeChecked: boolean = false;
+
     // fileType="video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
     accept = "video/quicktime,video/x-mpeg2,video/x-msvideo,.mp4"
 
+    cate_id: any;
 
-    constructor(private storeRegionService: StoreRegionService,
+
+    constructor( public storeGoodsService: StoreGoodsService,
         private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
         private modal: NzModalService, private viewContainerRef: ViewContainerRef, private sanitizer: DomSanitizer
     ) {
-        this.buildForm();
+        this.addForm = new FormGroup({
+            agree: new FormControl('', [Validators.required]),
+            desc: new FormControl(''),
+        });
     }
 
 
     ngOnInit(): void {
-        this.region_code = localStorage.getItem("regionData")?.split(',');
-        this.region_codes = this.region_code
-        console.log('object :>> ', this.region_codes);
-        this.getRegionList()
+        this.cate_id = localStorage.getItem("isGoodsCateId");
     }
 
-
-    // 表单初始化
-    buildForm(): void {
-        this.addForm = new FormGroup({
-            region_code: new FormControl('', [Validators.required]),
-            agree: new FormControl('', [Validators.required]),
-            desc: new FormControl(''),
-        });
-
-    }
-
-    // 区域
-    getRegionList() {
-        this.storeRegionService.getAllRegionList().subscribe(res => {
-            this.nzOptions = res;
-            this.isSpinning = false;
-            this.region_code = localStorage.getItem("regionData")?.split(',');
-        })
-    }
 
 
     // 上传图片之前
@@ -89,13 +66,6 @@ export class UploadGoodsVideoComponent implements OnInit {
 
         return false
     };
-
-
-    onDestChange(values: any): void {
-        if (values !== null) {
-            this.region_codes = values[values.length - 1];
-        }
-    }
 
 
 
@@ -124,8 +94,9 @@ export class UploadGoodsVideoComponent implements OnInit {
                 const formData = new FormData();
                 formData.append('video', item);
                 formData.append('desc', this.addForm.value.desc);
-                formData.append('region_code', this.region_code[this.region_code.length - 1]);
-                this.commonService.uploadVideo(formData).subscribe(res => {
+                formData.append('cate_id', this.cate_id);
+                formData.append('type', '1');
+                this.commonService.uploadGoodVideo(formData).subscribe(res => {
                     this.result.push(res)
                     this.fileList[index].status = 'done';
                     if (index === this.imageList.length - 1) {

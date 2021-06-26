@@ -35,7 +35,9 @@ export class StoreGoodsProInfoComponent implements OnInit {
     // 分类
     cateFistList: any;
     cateSecondList: any;
+    cateThirdList: any;
     isCateId: any;
+    isLevel: any;
     // 预售时间
     isShow = false;
 
@@ -52,6 +54,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
             title: new FormControl('', [Validators.required]),
             firstType: new FormControl('', [Validators.required]),
             secondType: new FormControl('', [Validators.required]),
+            thirdType: new FormControl('', [Validators.required]),
             product_area: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
             send_time: new FormControl(null),
@@ -63,7 +66,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         });
         this.addGoodsModel = {
             title: '',
-            cate_id:'',
+            cate_id: '',
             is_order: '',
             send_time: '',
             sales_note: '',
@@ -73,7 +76,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
             sort: '',
             goods_specs: [],
             id: '',
-            step:''
+            step: ''
         }
 
     }
@@ -111,7 +114,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         }
     }
 
-    addSpecification(){
+    addSpecification() {
         this.specificationArray.push(this.fb.group({
             spec_name: new FormControl('', [Validators.required]),
             price: new FormControl('', [Validators.required]),
@@ -150,8 +153,19 @@ export class StoreGoodsProInfoComponent implements OnInit {
 
     changeTypeSecond(event: any) {
         console.log("2222", event);
-        this.isCateId = event.id;
+        this.cateThirdList = event?.children;
+        this.addForm.patchValue({
+            thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+        })
+
     }
+
+    changeTypeThird(event: any) {
+        this.isCateId = event.id;
+        this.isLevel = event.level;
+        localStorage.setItem("isGoodsCateId", this.isCateId);
+    }
+
 
     setValue() {
         this.addGoodsModel.title = this.addForm.value.title;
@@ -159,7 +173,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         this.addGoodsModel.product_area = this.cityList[this.cityList.length - 1];
         this.addGoodsModel.goods_specs = this.addForm.value.specificationList;
         this.addGoodsModel.is_order = this.addForm.value.is_order;
-        this.addGoodsModel.send_time = this.addGoodsModel.is_order=='1'?format(new Date(this.addForm.value.send_time), 'yyyy-MM-dd'):format(new Date(), 'yyyy-MM-dd');
+        this.addGoodsModel.send_time = this.addGoodsModel.is_order == '1' ? format(new Date(this.addForm.value.send_time), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
         this.addGoodsModel.is_hot = this.addForm.value.is_hot;
         this.addGoodsModel.sort = this.addForm.value.sort;
@@ -177,23 +191,30 @@ export class StoreGoodsProInfoComponent implements OnInit {
         }
         console.log(this.addForm);
         if (this.addForm.valid) {
-            this.isLoadingBtn = true;
-            this.storeGoodsService.addGoods(this.addGoodsModel).subscribe(res => {
-                console.log("22222222",res)
-                if (res.id) {
-                    this.isLoadingBtn = false;
-                    this.tabIndex.emit({ id: res.id, tabIndex: 1 });
-                    this.getOneTab();
-                    // 拿到规格的东西
-                    this.storeGoodsService.getGoodsDetail(res.id).subscribe(res => {
-                        console.log("结果是12", res)
-                        this.goods_specsArr = res.data.goods_specs;
+            if (this.isLevel != 3) {
+                this.message.error('当前商品的类型不是三级，请重新选择');
+            }
+            else {
+                this.isLoadingBtn = true;
+                this.storeGoodsService.addGoods(this.addGoodsModel).subscribe(res => {
+                    console.log("22222222", res)
+                    if (res.id) {
+                        this.isLoadingBtn = false;
+                        localStorage.setItem("isGoodsCateId", this.addGoodsModel.cate_id);
+                        this.tabIndex.emit({ id: res.id, tabIndex: 1 });
+                        this.getOneTab();
+                        // 拿到规格的东西
+                        this.storeGoodsService.getGoodsDetail(res.id).subscribe(res => {
+                            console.log("结果是12", res)
+                            this.goods_specsArr = res.data.goods_specs;
+                        })
+                    }
+                },
+                    error => {
+                        this.isLoadingBtn = false;
                     })
-                }
-            },
-                error => {
-                    this.isLoadingBtn = false;
-                })
+            }
+
 
         }
         else {
@@ -205,7 +226,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
 
     updateTab() {
         console.log("this.addGoodsModel.goods_specs", this.addGoodsModel.goods_specs);
-        this.addGoodsModel.goods_specs.forEach((ele: any,index:any) => {
+        this.addGoodsModel.goods_specs.forEach((ele: any, index: any) => {
             ele['id'] = this.goods_specsArr[index].id;
         })
         console.log("this.addGoodsModel.goods_specs111", this.addGoodsModel.goods_specs);
@@ -224,11 +245,11 @@ export class StoreGoodsProInfoComponent implements OnInit {
             this.addGoodsModel.step = 0;
             this.storeGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
                 this.isLoadingBtn = false;
-                this.tabIndex.emit({ id: this.isId, tabIndex: 1 });
+                localStorage.setItem("isGoodsCateId", this.addGoodsModel.cate_id);
             }
-            , error => {
-                this.isLoadingBtn = false;
-            })
+                , error => {
+                    this.isLoadingBtn = false;
+                })
 
         }
 

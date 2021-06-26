@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
-import { AddGoodsModel, GoodsListModel, StoreGoodCateTreeList } from '../../../interfaces/store/storeGoods/store-goods-model';
+import { AddGoodsModel, GoodsListModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, StoreGoodCateTreeList } from '../../../interfaces/store/storeGoods/store-goods-model';
 
 
 
@@ -14,7 +14,7 @@ const httpOptions = {
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class StoreGoodsService {
 
@@ -33,7 +33,7 @@ export class StoreGoodsService {
 
 
     // 商品列表
-    goodsList(page: number, per_page: number, status: any,check_status:any,is_order:any,cate_id:any,title:any): Observable<GoodsListModel> {
+    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any): Observable<GoodsListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -41,7 +41,7 @@ export class StoreGoodsService {
             .set('is_order', is_order ? is_order : '')
             .set('cate_id', cate_id ? cate_id : '')
             .set('title', title ? title : '');
-        
+
 
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
@@ -72,7 +72,7 @@ export class StoreGoodsService {
     }
 
 
-    
+
     // 获取商品详情
     getGoodsDetail(id: any) {
         return this.httpClient.get<any>(this.urls.GetStoreGoodsDetail + id, httpOptions)
@@ -80,6 +80,20 @@ export class StoreGoodsService {
                 catchError(this.handleError)
             )
     }
+
+
+    // 商品上下架
+    setStatus(goodsSetStatusModel: GoodsSetStatusModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreGoodsSetShelves + goodsSetStatusModel.id, goodsSetStatusModel, httpOptions)
+    }
+
+
+
+    // 提交审核和撤销
+    checkStatus(goodsSetCheckStatusModel: GoodsSetCheckStatusModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreGoodsSetCheck + goodsSetCheckStatusModel.id, goodsSetCheckStatusModel, httpOptions)
+    }
+
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);

@@ -24,13 +24,17 @@
                                             </nz-form-label>
                                             <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
                                                 <div fxLayout="row" fxLayoutGap="5px">
-                                                    <nz-select formControlName="firstType" (ngModelChange)="changeTypeFirst($event)" nzAllowClear nzShowSearch style="width: 9%;" [(ngModel)]="selectedcateFist">
+                                                    <nz-select formControlName="firstType" (ngModelChange)="changeTypeFirst($event)" nzAllowClear nzShowSearch style="width: 14%;" [(ngModel)]="selectedcateFist">
                                                         <nz-option *ngFor="let p of cateFistList" [nzValue]="p" [nzLabel]="p?.name">
                                                         </nz-option>
                                                     </nz-select>
-                                                    <nz-select formControlName="secondType" style="width: 9%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeSecond($event)" [(ngModel)]="selectedcateSecond">
+                                                    <nz-select formControlName="secondType" style="width: 14%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeSecond($event)" [(ngModel)]="selectedcateSecond">
                                                         <nz-option *ngFor="let c of cateSecondList" [nzValue]="c" [nzLabel]="c?.name"></nz-option>
                                                     </nz-select>
+                                                    <nz-select formControlName="thirdType" style="width: 14%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeThird($event)" [(ngModel)]="selectedcateThird">
+                                                        <nz-option *ngFor="let a of cateThirdList" [nzValue]="a" [nzLabel]="a?.name"></nz-option>
+                                                    </nz-select>
+                                                    <p style="color: red; margin-top: 3px;">！商品类型必须为三级</p>
                                                 </div>
                                             </nz-form-control>
                                         </div>

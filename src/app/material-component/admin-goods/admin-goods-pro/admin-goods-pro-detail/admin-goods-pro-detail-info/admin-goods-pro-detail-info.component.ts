@@ -33,6 +33,9 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     selectedcateFist: any;
     cateSecondList: any;
     selectedcateSecond: any;
+    cateThirdList: any;
+    selectedcateThird: any;
+    isLevel: any;
     isCateId: any;
     // 预售时间
     isShow = false;
@@ -47,6 +50,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             firstType: new FormControl('', [Validators.required]),
             secondType: new FormControl('', [Validators.required]),
             product_area: new FormControl('', [Validators.required]),
+            thirdType: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
             send_time: new FormControl(null),
             delivery_type: new FormControl('1'),
@@ -163,14 +167,23 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             this.addForm.get('send_time')?.setValue(this.addDataDetailModel.send_time);
         }
 
+
         //   给类别赋值
         let pid = this.addDataDetailModel.goods_cate.pid;
-        let cate1 = this.cateFistList.filter((item: any) => item.id == pid);
-        console.log("11111111", cate1);
-        this.selectedcateFist = cate1[0];
-        let cate2 = this.selectedcateFist?.children.filter((item: any) => item.id == this.addDataDetailModel.cate_id);
+        // 三级就是这个
+        this.selectedcateThird = this.addDataDetailModel.goods_cate;
+        // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
+        let cate2: any;
+        console.log("一级", this.cateFistList);
+        this.cateFistList.map((element: any) => {
+            cate2 = element.children?.filter((item: any) => item.id == pid);
+        });
         console.log("22222", cate2);
         this.selectedcateSecond = cate2[0];
+
+        // 找到一级
+        let cate = this.cateFistList?.filter((item: any) => item.id == this.selectedcateSecond.pid);
+        this.selectedcateFist = cate[0];
 
     }
 
@@ -189,9 +202,21 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
 
     changeTypeSecond(event: any) {
-        console.log("2222", event);
+        console.log("二级", event);
+        if (event != undefined) {
+            this.cateThirdList = event?.children;
+            this.addForm.patchValue({
+                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+            })
+        }
+    }
+
+
+    changeTypeThird(event: any) {
+        console.log("三级", event);
         if (event != undefined) {
             this.isCateId = event.id;
+            this.isLevel = event.level;
         }
     }
 
@@ -222,15 +247,21 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         }
         console.log(this.addForm.valid);
         if (this.addForm.valid) {
-            this.isLoadingBtn = true;
-            this.addGoodsModel.id = this.addDataDetailModel.id;
-            this.addGoodsModel.step = 0;
-            this.adminGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
-                this.isLoadingBtn = false;
+            if (this.isLevel != 3) {
+                this.message.error('当前商品的类型不是三级，请重新选择');
             }
-                , error => {
+            else {
+                this.isLoadingBtn = true;
+                this.addGoodsModel.id = this.addDataDetailModel.id;
+                this.addGoodsModel.step = 0;
+                this.adminGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
                     this.isLoadingBtn = false;
-                })
+                }
+                    , error => {
+                        this.isLoadingBtn = false;
+                    })
+            }
+
 
         }
         else {

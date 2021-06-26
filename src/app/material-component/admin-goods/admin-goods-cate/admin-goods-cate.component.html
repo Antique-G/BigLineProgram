@@ -4,10 +4,11 @@
             <div class="example-container" style="padding: 15px;">
                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                     <div fxLayout="row" fxLayoutGap="20px">
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()" *ngIf="isParent">添加分类</button>
-                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()" *ngIf="!isParent">添加子级分类</button>
-                        <div *ngIf="!isParent" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToUp()">上级分类 - <span style="color: red;">{{isParentName}}</span></div>
-
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()" *ngIf="level==1">添加一级分类</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()" *ngIf="level==2">添加二级分类</button>
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()" *ngIf="level==3">添加三级分类</button>
+                        <div *ngIf="level==3" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToUp()">上级分类 - <span style="color: red;">{{isParentName}}</span></div>
+                        <div *ngIf="level==2" fxLayoutAlign="center center" style="cursor: pointer;" (click)="backToFirst()">返回首页 - <span style="color: red;">{{oldParentName}}</span></div>
                     </div>
 
                     <form [formGroup]="searchForm" nz-row nz-form>
@@ -60,8 +61,8 @@
                                     <td>{{data.id}}</td>
                                     <td>{{data?.level}}</td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="nextLevel(data)" *ngIf="data.pid==0"><a>{{data.name}}</a></div>
-                                        <span *ngIf="data.pid!=0">{{data.name}}</span>
+                                        <div style="cursor: pointer;" (click)="nextLevel(data)" *ngIf="data.level!=3"><a>{{data.name}}</a></div>
+                                        <span *ngIf="data.level==3">{{data.name}}</span>
                                     </td>
                                     <td>{{data.desc}}</td>
                                     <td>{{data.status==1?'启用':'禁用'}}</td>

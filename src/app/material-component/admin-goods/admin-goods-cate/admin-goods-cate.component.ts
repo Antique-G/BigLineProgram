@@ -21,8 +21,10 @@ export class AdminGoodsCateComponent implements OnInit {
     status: any;
     name: any;
     pid = 0;
-    isParent: boolean = true;
     isParentName: any;
+    level: any;
+    oldPid: any;
+    oldParentName: any;
 
     constructor(public fb: FormBuilder, public adminGoodsService: AdminGoodsService,
         private modal: NzModalService) {
@@ -34,6 +36,8 @@ export class AdminGoodsCateComponent implements OnInit {
 
     ngOnInit(): void {
         this.cateList();
+        // 初始化等级为1级
+        this.level = 1;
     }
 
 
@@ -85,7 +89,6 @@ export class AdminGoodsCateComponent implements OnInit {
             nzContent: AdminGoodsCateAddComponent,
             nzComponentParams: {
                 data: {
-                    isParent: this.isParent,
                     pid:this.pid
                 }
             },
@@ -114,7 +117,6 @@ export class AdminGoodsCateComponent implements OnInit {
             nzComponentParams: {
                 data: {
                     detail:data,
-                    isParent: this.isParent,
                     pid:this.pid
                 }
             },
@@ -135,25 +137,37 @@ export class AdminGoodsCateComponent implements OnInit {
 
 
 
-
-
-
-
     nextLevel(element: any) {
+        if (element.level == 1) {
+            this.oldParentName = element.name;
+        }
+        console.log("22222",element)
+        this.reset();
+        this.name = '';
+        this.oldPid = element.pid;
         let id = element?.id;
         this.pid = id;
         this.page = 1;
         this.isParentName = element?.name;
         this.cateList();
-        this.isParent = false;
+        this.level = Number(element?.level)+1;
     }
 
 
     // 返回父级
     backToUp() {
-        this.pid =0;
+        console.log("等级", this.level);
         this.page = 1;
+        this.pid = this.oldPid;
+        this.level = Number(this.level)-1;
         this.cateList();
-        this.isParent = true;
+    }
+
+
+    backToFirst() {
+        this.level = 1;
+        this.page = 1;
+        this.pid = 0;
+        this.cateList();
     }
 }

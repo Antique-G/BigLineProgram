@@ -66,12 +66,15 @@
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="type">商品类型</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <div fxLayout="row" fxLayoutGap="3px">
-                                        <nz-select formControlName="firstType" (ngModelChange)="changeTypeFirst($event)" nzAllowClear nzShowSearch style="width: 50%;">
+                                        <nz-select formControlName="firstType" (ngModelChange)="changeTypeFirst($event)" nzAllowClear nzShowSearch style="width: 33%;">
                                             <nz-option *ngFor="let p of cateFistList" [nzValue]="p" [nzLabel]="p?.name">
                                             </nz-option>
                                         </nz-select>
-                                        <nz-select formControlName="secondType" style="width: 50%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeSecond($event)">
+                                        <nz-select formControlName="secondType" style="width: 33%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeSecond($event)">
                                             <nz-option *ngFor="let c of cateSecondList" [nzValue]="c" [nzLabel]="c?.name"></nz-option>
+                                        </nz-select>
+                                        <nz-select formControlName="thirdType" style="width: 33%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeThird($event)">
+                                            <nz-option *ngFor="let a of cateThirdList" [nzValue]="a" [nzLabel]="a?.name"></nz-option>
                                         </nz-select>
                                     </div>
                                 </nz-form-control>
@@ -162,9 +165,9 @@
                                                         <li nz-menu-item (click)="edit(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
                                                         </li>
-                                                        <li nz-menu-item (click)="copy(data)">
+                                                        <!-- <li nz-menu-item (click)="copy(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/copy_text.png" title="克隆产品"> 克隆产品
-                                                        </li>
+                                                        </li> -->
                                                         <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
                                                             <div *ngIf="data.status===0">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架"> 上架
@@ -182,9 +185,9 @@
                                                         <!-- <li nz-menu-item (click)="setCommission(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
                                                         </li> -->
-                                                        <li nz-menu-item (click)="getCode(data)">
+                                                        <!-- <li nz-menu-item (click)="getCode(data)">
                                                             <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                 </nz-dropdown-menu>
                                             </td>

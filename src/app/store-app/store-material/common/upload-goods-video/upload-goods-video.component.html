@@ -4,20 +4,6 @@
         <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
             <form nz-form [formGroup]="addForm">
                 <nz-form-item class="nz-form-item" nz-row>
-                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="region_code" nzRequired>区域</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择区域!">
-                        <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" (ngModelChange)="onDestChange($event)" [(ngModel)]="region_code" formControlName="region_code"></nz-cascader>
-                    </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item class="nz-form-item" nz-row>
-                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="desc">描述</nz-form-label>
-                    <nz-form-control [nzSm]="16" [nzXs]="24">
-                        <textarea rows="2" formControlName="desc" nz-input></textarea>
-                    </nz-form-control>
-                </nz-form-item>
-
-                <nz-form-item class="nz-form-item" nz-row>
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>上传视频</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
                         <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="accept" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1" [nzMultiple]='true' [nzLimit]='1' [nzRemove]="removeImg">
@@ -28,6 +14,13 @@
                             </div>
                         </nz-upload>
 
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="desc">描述</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <textarea rows="2" formControlName="desc" nz-input></textarea>
                     </nz-form-control>
                 </nz-form-item>
 

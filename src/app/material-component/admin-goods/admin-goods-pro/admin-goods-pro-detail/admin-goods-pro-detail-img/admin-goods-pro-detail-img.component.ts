@@ -46,10 +46,10 @@ export class AdminGoodsProDetailImgComponent implements OnInit {
       this.addDataDetailModel?.album?.forEach((element: any, value: any) => {
         this.dataSourceVideo = [];
         this.dataSource = [];
-        if (element.type === 2) {
+        if (element.type ==1) {
           arr1.push(element)
         }
-        else if (element.type === 1) {
+        else if (element.type ==0) {
           arr.push(element)
   
         }
@@ -98,10 +98,10 @@ export class AdminGoodsProDetailImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
   
                 }
@@ -136,10 +136,10 @@ export class AdminGoodsProDetailImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
   
                 }
@@ -240,10 +240,10 @@ export class AdminGoodsProDetailImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
   
                 }
@@ -278,10 +278,10 @@ export class AdminGoodsProDetailImgComponent implements OnInit {
               res.data?.album?.forEach((element: any, value: any) => {
                 this.dataSourceVideo = [];
                 this.dataSource = [];
-                if (element.type === 2) {
+                if (element.type ==1) {
                   arr1.push(element)
                 }
-                else if (element.type === 1) {
+                else if (element.type ==0) {
                   arr.push(element)
   
                 }

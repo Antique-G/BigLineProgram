@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GoodsListModel, StoreGoodCateTreeList } from 'interfaces/store/storeGoods/store-goods-model';
+import { GoodsListModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList } from 'interfaces/store/storeGoods/store-goods-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -114,7 +114,21 @@ export class AdminGoodsService {
             )
     }
 
+    
+    // 商品上下架
+    setStatus(goodsSetStatusModel: GoodsSetStatusModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsSetShelves + goodsSetStatusModel.id, goodsSetStatusModel, httpOptions)
+    }
 
+    
+
+    // 设置热门
+    setHot(goodsSetHotModel: GoodsSetHotModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsSetHot, goodsSetHotModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);

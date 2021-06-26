@@ -34,7 +34,10 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
     selectedcateFist: any;
     cateSecondList: any;
     selectedcateSecond: any;
+    cateThirdList: any;
+    selectedcateThird: any;
     isCateId: any;
+    isLevel: any;
     // 预售时间
     isShow = false;
 
@@ -47,6 +50,7 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
             title: new FormControl('', [Validators.required]),
             firstType: new FormControl('', [Validators.required]),
             secondType: new FormControl('', [Validators.required]),
+            thirdType: new FormControl('', [Validators.required]),
             product_area: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
             send_time: new FormControl(null),
@@ -144,7 +148,7 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
         }
         console.log('this.values产地', this.cityList);
         this.addForm.get('product_area')?.setValue(this.cityList);
-      
+
         // // 初始化规格
         for (let i = 0; i < this.addDataDetailModel.goods_specs.length; i++) {
             this.specificationArray.push(new FormGroup({
@@ -153,7 +157,7 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
                 stock: new FormControl(this.addDataDetailModel.goods_specs[i].stock, [Validators.required]),
                 unit: new FormControl(this.addDataDetailModel.goods_specs[i].unit, [Validators.required]),
                 postage: new FormControl(this.addDataDetailModel.goods_specs[i].postage.toString(), [Validators.required]),
-                id:new FormControl(this.addDataDetailModel.goods_specs[i].id)
+                id: new FormControl(this.addDataDetailModel.goods_specs[i].id)
             }));
         }
         this.addForm.get('sort')?.setValue(this.addDataDetailModel.sort);
@@ -163,23 +167,31 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
         if (this.addDataDetailModel.is_order == 1) {
             this.addForm.get('send_time')?.setValue(this.addDataDetailModel.send_time);
         }
-        
-          //   给类别赋值
-          let pid = this.addDataDetailModel.goods_cate.pid;
-          let cate1 = this.cateFistList.filter((item: any) => item.id == pid);
-          console.log("11111111", cate1);
-          this.selectedcateFist = cate1[0];
-          let cate2 = this.selectedcateFist?.children.filter((item: any) => item.id == this.addDataDetailModel.cate_id);
-          console.log("22222", cate2);
-          this.selectedcateSecond = cate2[0];
-  
+
+
+        //   给类别赋值
+        let pid = this.addDataDetailModel.goods_cate.pid;
+        // 三级就是这个
+        this.selectedcateThird = this.addDataDetailModel.goods_cate;
+        // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
+        let cate2: any;
+        console.log("一级", this.cateFistList);
+        this.cateFistList.map((element: any) => {
+            cate2 = element.children?.filter((item: any) => item.id == pid);
+        });
+        console.log("22222", cate2);
+        this.selectedcateSecond = cate2[0];
+
+        // 找到一级
+        let cate = this.cateFistList?.filter((item: any) => item.id == this.selectedcateSecond.pid);
+        this.selectedcateFist = cate[0];
     }
 
 
 
     // 选择分类
     changeTypeFirst(event: any) {
-        console.log("1111", event);
+        console.log("一级", event);
         if (event != undefined) {
             this.cateSecondList = event?.children;
             this.addForm.patchValue({
@@ -190,9 +202,22 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
 
 
     changeTypeSecond(event: any) {
-        console.log("2222", event);
+        console.log("二级", event);
+        if (event != undefined) {
+            this.cateThirdList = event?.children;
+            this.addForm.patchValue({
+                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+            })
+        }
+    }
+
+
+    changeTypeThird(event: any) {
+        console.log("三级", event);
         if (event != undefined) {
             this.isCateId = event.id;
+            this.isLevel = event.level;
+            localStorage.setItem("isGoodsCateId", this.isCateId);
         }
     }
 
@@ -223,17 +248,21 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
         }
         console.log(this.addForm.valid);
         if (this.addForm.valid) {
-            this.isLoadingBtn = true;
-            this.addGoodsModel.id = this.addDataDetailModel.id;
-            this.addGoodsModel.step = 0;
-            this.storeGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
-                this.isLoadingBtn = false;
+            if (this.isLevel != 3) {
+                this.message.error('当前商品的类型不是三级，请重新选择');
             }
-            , error => {
-                this.isLoadingBtn = false;
-            })
-
-
+            else {
+                this.isLoadingBtn = true;
+                this.addGoodsModel.id = this.addDataDetailModel.id;
+                this.addGoodsModel.step = 0;
+                this.storeGoodsService.updateGoods(this.addGoodsModel).subscribe(res => {
+                    this.isLoadingBtn = false;
+                    localStorage.setItem("isGoodsCateId", this.addGoodsModel.cate_id);
+                }
+                    , error => {
+                        this.isLoadingBtn = false;
+                    })
+            }
         }
         else {
             this.isLoadingBtn = false;
