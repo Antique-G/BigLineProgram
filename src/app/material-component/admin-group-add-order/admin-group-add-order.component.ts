@@ -1,10 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-admin-group-add-order',
@@ -100,20 +100,29 @@ export class AdminGroupAddOrderComponent implements OnInit {
             this.dataSource = res?.data;
             this.dataSource.forEach((value: any, index: any) => {
                 value['expand'] = false; //展开属性
+                // if (value.schedule_file_url != '') {
+                //     let filePath = value.schedule_file_url;
+                //     //获取最后一个.的位置
+                //     let index = filePath.lastIndexOf(".");
+                //     //获取后缀
+                //     let ext = filePath.substr(index + 1);
+                //     //输出结果
+                //     console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
+                //     if (ext != 'pdf') {
+                //         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+                //     }
+                //     else {
+                //         value.schedule_file_url = value.schedule_file_url;
+                //     }
+                // }
+                // 行程文件若是doc为2或者docx为3的需要转化，pdf为1不需要转化
                 if (value.schedule_file_url != '') {
-                    let filePath = value.schedule_file_url;
-                    //获取最后一个.的位置
-                    let index = filePath.lastIndexOf(".");
-                    //获取后缀
-                    let ext = filePath.substr(index + 1);
-                    //输出结果
-                    console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
-                    if (ext != 'pdf') {
+                    if (value.schedule_file != 1) {
                         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
                     }
                     else {
                         value.schedule_file_url = value.schedule_file_url;
-                    }
+                    } 
                 }
             })
             this.total = res?.total;
