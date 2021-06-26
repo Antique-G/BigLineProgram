@@ -121,11 +121,23 @@
                                     </div>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <form nz-form [formGroup]="addForm" nz-row>
+                                            <ng-container  *ngIf="detailModel?.status==2">
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">预约订单号</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <a href={{url+detailModel?.order_id}} target="_blank" title="跳转到订单详情" style="margin-left: 10px;">{{detailModel?.order_id}}</a>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+                                            </ng-container>
+                                            
+
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                                                    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ticket_order_id">预售订单号</nz-form-label>
                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                        <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
+                                                        <a href={{preurl+detailModel?.ticket_order.data.id}} target="_blank" title="跳转到订单详情" style="margin-left: 10px;">{{detailModel?.ticket_order_id}}</a>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
@@ -222,7 +234,7 @@
                         </mat-card>
 
 
-                        <mat-card>
+                        <!-- <mat-card>
                             <div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -263,7 +275,7 @@
 
                             </div>
                         </mat-card>
-
+ -->
 
 
 

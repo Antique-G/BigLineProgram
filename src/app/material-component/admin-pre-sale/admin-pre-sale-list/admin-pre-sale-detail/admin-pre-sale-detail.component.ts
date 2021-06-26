@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminSaleService } from '../../../../../services/admin/admin-sale.service';
 
@@ -16,6 +16,10 @@ export class AdminPreSaleDetailComponent implements OnInit {
     dataPayLog: any[] = [];
     detailId: any;
 
+
+    // 跳转到订单详情
+    url: any;
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router,
         public adminSaleService: AdminSaleService,) {
         this.addForm = this.fb.group({
@@ -29,6 +33,7 @@ export class AdminPreSaleDetailComponent implements OnInit {
             store_id: ['',],
             ticket_price: ['',],
             subsidy_price: ['',],
+            product_id: ['',],
         });
     }
 
@@ -43,6 +48,9 @@ export class AdminPreSaleDetailComponent implements OnInit {
                 this.detailModel = res.data;
                 this.dataPayLog = this.detailModel?.pay_log?.data;
                 this.codeList = this.detailModel?.ticket_code?.data;
+
+                // 跳转到订单详情
+                this.url = '/admin/main/freeTravelOrder/detail?detailId=';
             })
         })
 
