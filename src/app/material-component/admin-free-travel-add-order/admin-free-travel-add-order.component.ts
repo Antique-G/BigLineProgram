@@ -1,11 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRegionService } from '../../../services/admin/admin-region.service';
-import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
-import { DatePipe } from '@angular/common';
 import { format } from 'date-fns';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
+import { AdminRegionService } from '../../../services/admin/admin-region.service';
 
 
 @Component({
@@ -132,7 +132,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         this.id = this.searchForm.value.id;
         this.departure_start = this.dateArray[0];
         this.departure_end = this.dateArray[1];
-        // 筛选条件存进cookie
+        // 筛选条件存进cooki e
         this.setQuery = {
             title: this.title, departure_start: this.departure_start, departure_end: this.departure_end, departure_city: this.departure_city,
             destination_city: this.destination_city, few_days: this.few_days, quote_type: this.quote_type, id: this.id, page: this.page
