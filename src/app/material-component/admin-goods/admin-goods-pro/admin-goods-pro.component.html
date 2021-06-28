@@ -114,7 +114,6 @@
                                     <th style="text-align: center;">单位</th>
                                     <th style="text-align: center;">库存</th>
                                     <th style="text-align: center;">是否包邮</th>
-                                    <!-- <th style="text-align: center;">总库存</th> -->
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th>
                                     <th style="text-align: center;">是否预售</th>
@@ -141,7 +140,6 @@
                                             <span *ngIf="item.postage==2">不包邮</span>
                                         </td>
                                         <ng-container *ngIf="i==0">
-                                            <!-- <td [attr.rowspan]="data?.goods_specs.length">{{data.id}}</td> -->
                                             <td [attr.rowspan]="data?.goods_specs.length">
                                                 <div *ngIf="data.check_status===0">
                                                     未提交审核
@@ -154,7 +152,7 @@
                                                 </div>
                                                 <div *ngIf="data.check_status===3">
                                                     未通过
-                                                    <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{isReason}} (mouseenter)="viewLog(data)">
+                                                    <!-- <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{isReason}} (mouseenter)="viewLog(data)"> -->
                                                 </div>
                                             </td>
                                             <td [attr.rowspan]="data?.goods_specs.length">

@@ -317,7 +317,9 @@ export const AdminUrls = {
     GetAdminGoodsDetail: api + '/admin/goods/',  // 详情
     PostAdminGoodsSetHot: api + '/admin/set_hot',   // 设置热门
     PostAdminGoodsSetShelves: api + '/admin/set_shelves/',     //商品上下架
+    PostAdminGoodsSetCheck: api + '/admin/set_check/',     //商品审核
 
+    
 };
 
 

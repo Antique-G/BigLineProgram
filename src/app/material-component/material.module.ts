@@ -199,6 +199,7 @@ import { AdminGoodsProDetailNoticeComponent } from './admin-goods/admin-goods-pr
 import { AdminGoodsProDetailImgComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-img/admin-goods-pro-detail-img.component';
 import { AdminGoodsProDetailPostComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-post/admin-goods-pro-detail-post.component';
 import { AdminGoodsProIshotComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-ishot/admin-goods-pro-ishot.component';
+import { AdminGoodsProReviewComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-review/admin-goods-pro-review.component';
 
 
 
@@ -425,6 +426,7 @@ import { AdminGoodsProIshotComponent } from './admin-goods/admin-goods-pro/admin
     AdminGoodsProDetailImgComponent,
     AdminGoodsProDetailPostComponent,
     AdminGoodsProIshotComponent,
+    AdminGoodsProReviewComponent,
 
   ]
 })
