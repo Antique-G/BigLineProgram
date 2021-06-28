@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
-import { AdminProductMiniCodeComponent } from '../admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AdminProductManagementService } from 'services/admin/admin-product-management.service';
+import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
-import { AdminProductFreeReviewComponent } from '../admin-produc-free-travel/admin-product-free-review/admin-product-free-review.component';
 
 
 @Component({
@@ -23,15 +22,11 @@ export class AdminProductPreFreeComponent implements OnInit {
     page = 1;
     per_page = 20;
     total = 1;
-    status: any;
-    check_status: any;
     title: any;
-    store_name: any;
+    store_id: any;
     confirmModal?: NzModalRef; // g-zorro model 提示框
     id: any;
     few_days: any;
-    tag: any;
-    tagList: any[] = [];
     setQuery: any;
 
     // 城市
@@ -41,59 +36,55 @@ export class AdminProductPreFreeComponent implements OnInit {
     isDeparture: any;
     isDestination: any;
 
+    start_date: any;
+    end_date: any;
+    dateArray: any[] = [];
+    storeList: any[] = [];
 
     constructor(public fb: FormBuilder, public dialog: MatDialog, private modal: NzModalService,
         public adminProductFreeTravelService: AdminProductFreeTravelService, private message: NzMessageService,
-        public router: Router, public adminProductTagService: AdminProductTagService,
-        public adminRegionService: AdminRegionService,) {
+        public router: Router, public adminRegionService: AdminRegionService,public adminProductManagementService: AdminProductManagementService, ) {
         this.searchForm = this.fb.group({
-            status: [''],
-            checkStatus: [''],
             title: [''],
-            store_name: [''],
+            store_id: [''],
             id: [''],
-            tag: [''],
             few_days: [''],
             departure_city: [''],
             destination_city: [''],
+            date_starts: [''],
         })
 
     }
 
 
     ngOnInit(): void {
-        this.adminProductTagService.getProductTagList(1, 100, 2, '', '').subscribe((result: any) => {
-            console.log("jieguo", result);
-            this.tagList = result.data;
-            // 城市
-            this.adminRegionService.getAllRegionList().subscribe(res => {
-                this.nzOptions = res;
+        this.adminRegionService.getAllRegionList().subscribe(res => {
+            this.nzOptions = res;
+            this.adminProductManagementService.storeList('').subscribe(res => {
+                console.log('24234', res);
+                this.storeList = res;
             })
-
-        });
+        })
         // 将上次查询的筛选条件赋值
-        let getSeatch = JSON.parse(localStorage.getItem("adminPreFreeSearch")!)
-        this.status = getSeatch?.status ? getSeatch?.status : '';
-        this.check_status = getSeatch?.check_status ? getSeatch?.check_status : '';
+        let getSeatch = JSON.parse(localStorage.getItem("adminPreFreeSearch")!);
         this.title = getSeatch?.title ? getSeatch?.title : '';
-        this.store_name = getSeatch?.store_name ? getSeatch?.store_name : '';
+        this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
         this.id = getSeatch?.id ? getSeatch?.id : '';
         this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
-        this.tag = getSeatch?.tag ? getSeatch?.tag : '';
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
+        this.start_date = getSeatch?.start_date ? getSeatch?.start_date : null;
+        this.end_date = getSeatch?.end_date ? getSeatch?.end_date : null;
 
         this.searchForm.patchValue({
-            status: this.status,
-            checkStatus: this.check_status,
             title: this.title,
             id: this.id,
-            tag: this.tag,
-            store_name: this.store_name,
+            store_id: this.store_id,
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
+            date_starts: this.start_date == null ? [] : [this.start_date, this.end_date],
         })
         this.getFeeTravelList();
     }
@@ -101,7 +92,7 @@ export class AdminProductPreFreeComponent implements OnInit {
 
     getFeeTravelList() {
         this.loading = true;
-        this.adminProductFreeTravelService.preFreeTravelList(this.page, this.per_page, this.status, this.check_status, this.title, this.store_name, this.id, this.few_days, this.tag, this.departure_city, this.destination_city).subscribe(res => {
+        this.adminProductFreeTravelService.preFreeTravelList(this.page, this.per_page, this.title, this.store_id, this.id, this.few_days, this.departure_city, this.destination_city,this.start_date,this.end_date).subscribe(res => {
             console.log("结果是", res)
             this.loading = false;
             this.total = res.total;   //总页数
@@ -120,9 +111,9 @@ export class AdminProductPreFreeComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.check_status, title: this.title,
-            store_name: this.store_name, id: this.id, few_days: this.few_days,
-            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city
+            title: this.title, store_id: this.store_id, id: this.id, few_days: this.few_days,
+            page: this.page, departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date
         }
         localStorage.setItem('adminPreFreeSearch', JSON.stringify(this.setQuery));
         this.getFeeTravelList();
@@ -156,23 +147,20 @@ export class AdminProductPreFreeComponent implements OnInit {
     }
 
     search() {
-        this.status = this.searchForm.value.status;
-        this.check_status = this.searchForm.value.checkStatus;
         this.title = this.searchForm.value.title;
-        this.store_name = this.searchForm.value.store_name;
+        this.store_id = this.searchForm.value.store_id;
         this.id = this.searchForm.value.id;
         this.few_days = this.searchForm.value.few_days;
-        this.tag = this.searchForm.value.tag;
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
-
-
+       this.start_date = this.dateArray[0];
+        this.end_date = this.dateArray[1];
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.check_status, title: this.title,
-            store_name: this.store_name, id: this.id, few_days: this.few_days,
-            tag: this.tag, page: this.page, departure_city: this.departure_city, destination_city: this.destination_city
+            title: this.title, store_id: this.store_id, id: this.id, few_days: this.few_days,
+            page: this.page, departure_city: this.departure_city, destination_city: this.destination_city,
+            start_date:this.start_date,end_date:this.end_date
         }
         localStorage.setItem('adminPreFreeSearch', JSON.stringify(this.setQuery));
         this.getFeeTravelList();
@@ -186,40 +174,12 @@ export class AdminProductPreFreeComponent implements OnInit {
     }
 
 
-    // review(data: any) {
-    //     console.log("编辑", data);
-    //     const dialogRef = this.dialog.open(AdminProductFreeReviewComponent, {
-    //         width: '800px',
-    //         data: data
-    //     })
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         if (result !== undefined) {
-    //             this.getFeeTravelList();
-    //         }
-    //     })
-    // }
-
-
-    // // 上架
-    // up(data: any) {
-    //     this.confirmModal = this.modal.confirm({
-    //         nzTitle: '是否确定该操作?',
-    //         nzContent: '请确认操作的数据是否正确',
-    //         nzOnOk: () => {
-    //             this.adminProductFreeTravelService.freeTravelUp(data.id).subscribe(res => {
-    //                 console.log("结果是", res)
-    //                 this.getFeeTravelList();
-    //             })
-    //         }
-    //     })
-
-    // }
 
 
     goToQuoteClick(data: any) {
         console.log('data :>> ', data);
-        this.router.navigate(['/admin/main/preFree/qutedate'], { queryParams: { detailId: data.product_id, proName: data.product_name, childStatus: data.product?.reserve_children, few_nights: data?.product?.few_nights, quote_type: data?.product?.quote_type, is_presell: 1,prePrice: data?.ticket_price} });
-}
+        this.router.navigate(['/admin/main/preFree/qutedate'], { queryParams: { detailId: data.product_id, proName: data.product_name, childStatus: data.product?.reserve_children, few_nights: data?.product?.few_nights, quote_type: data?.product?.quote_type, is_presell: 1, prePrice: data?.ticket_price } });
+    }
 
 
 
@@ -229,16 +189,26 @@ export class AdminProductPreFreeComponent implements OnInit {
     // 重置
     reset() {
         this.searchForm.patchValue({
-            status: '',
-            checkStatus: '',
             title: '',
-            store_name: '',
+            store_id: '',
             id: '',
-            tag: '',
             few_days: '',
             departure_city: '',
             destination_city: '',
+            date_starts: '',
         });
         this.page = 1;
+    }
+
+
+
+    onChangeDate(event: any) {
+        this.dateArray = [];
+        const datePipe = new DatePipe('en-US');
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate1);
+        console.log('event', this.dateArray);
     }
 }

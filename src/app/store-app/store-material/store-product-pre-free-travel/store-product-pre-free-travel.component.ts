@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -5,10 +6,9 @@ import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
-import { DatePipe } from '@angular/common';
+import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 
 @Component({
     selector: 'app-store-product-pre-free-travel',
@@ -17,25 +17,17 @@ import { DatePipe } from '@angular/common';
 })
 export class StoreProductPreFreeTravelComponent implements OnInit {
     searchForm: FormGroup;
-    checkStatus: any;
     title: any;
     few_days: any;
     id: any;
-    status: any;
-    tag: any;
-
     dataSource: any[] = [];   //1.4将数据添加到dataSource
     loading = true;
     page = 1;
     per_page = 20;
     total = 1;
-    tagList: any[] = [];
-
-
     newDay: any
     newHour: any;
     newMin: any;
-
     isEar: any;
     setRewardModel: any;
 
@@ -62,12 +54,9 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
         private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,) {
         this.searchForm = this.fb.group({
-            checkStatus: [''],
             title: [''],
             few_days: [''],
             id: [''],
-            status: [''],
-            tag: [''],
             departure_city: [''],
             destination_city: [''],
             preDate: [''],
@@ -79,16 +68,12 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
     ngOnInit(): void {
         this.storeRegionService.getAllRegionList().subscribe(res => {
             this.nzOptions = res;
-            this.getTagList();
         })
         // 将上次查询的筛选条件赋值
-        let getSeatch = JSON.parse(localStorage.getItem("storePreFreeSearch")!)
-        this.status = getSeatch?.status ? getSeatch?.status : '';
-        this.checkStatus = getSeatch?.check_status ? getSeatch?.check_status : '';
+        let getSeatch = JSON.parse(localStorage.getItem("storePreFreeSearch")!);
         this.title = getSeatch?.title ? getSeatch?.title : '';
         this.id = getSeatch?.id ? getSeatch?.id : '';
         this.few_days = getSeatch?.few_days ? getSeatch?.few_days : '';
-        this.tag = getSeatch?.tag ? getSeatch?.tag : '';
         this.page = getSeatch?.page ? getSeatch?.page : 1;
         this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
         this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
@@ -98,11 +83,8 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.use_end_date = getSeatch?.use_end_date ? getSeatch?.use_end_date : null;
 
         this.searchForm.patchValue({
-            status: this.status,
-            checkStatus: this.checkStatus,
             title: this.title,
             id: this.id,
-            tag: this.tag,
             few_days: this.few_days,
             departure_city: this.departure_city ? this.cityChange(this.departure_city) : '',
             destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
@@ -120,16 +102,11 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.nzContextMenuService.close();
     }
 
-    getTagList() {
-        this.storeProductService.productTagList(2).subscribe(res => {
-            console.log("标签", res.data);
-            this.tagList = res.data;
-        })
-    }
+
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.status, this.checkStatus, this.title, this.few_days, this.id, this.tag, this.departure_city, this.destination_city, this.start_date, this.end_date, this.use_start_date, this.use_end_date).subscribe(res => {
+        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page,  this.title, this.few_days, this.id, this.departure_city, this.destination_city, this.start_date, this.end_date, this.use_start_date, this.use_end_date).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -148,8 +125,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.checkStatus, title: this.title,
-            id: this.id, few_days: this.few_days, tag: this.tag, page: this.page,
+          title: this.title,id: this.id, few_days: this.few_days, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
             start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
         }
@@ -208,12 +184,9 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
 
     search() {
-        this.checkStatus = this.searchForm.value.checkStatus;
         this.title = this.searchForm.value.title;
         this.few_days = this.searchForm.value.few_days;
         this.id = this.searchForm.value.id;
-        this.status = this.searchForm.value.status;
-        this.tag = this.searchForm.value.tag;
         this.page = 1;
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
@@ -223,8 +196,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.use_end_date = this.dateArray1[1];
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.checkStatus, title: this.title, id: this.id,
-            few_days: this.few_days, tag: this.tag, page: this.page,
+           title: this.title, id: this.id, few_days: this.few_days,  page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
             start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
 
@@ -289,12 +261,9 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
     // 重置
     reset() {
         this.searchForm.patchValue({
-            checkStatus: '',
             title: '',
             few_days: '',
             id: '',
-            status: '',
-            tag: '',
             departure_city: '',
             destination_city: '',
             preDate: '',

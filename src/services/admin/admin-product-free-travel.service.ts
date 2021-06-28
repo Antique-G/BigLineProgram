@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
+import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AddProductTrip } from '../../interfaces/store/storeProduct/ProductModel';
 
 
@@ -126,20 +126,20 @@ export class AdminProductFreeTravelService {
 
 
     // 自由行预售产品列表
-    preFreeTravelList(page: number, per_page: number, status: any, check_status: any,
-        title: string, store_name: string, id: any, few_days: any,
-        tag?: any, departure_city?: any, destination_city?: any): Observable<any> {
+    preFreeTravelList(page: number, per_page: number,
+        title: string, store_id: string, id: any, few_days: any,
+        departure_city?: any, destination_city?: any, start_date?: any, end_date?: any): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
-            .set('status', status ? status : '')
-            .set('check_status', check_status ? check_status : '')
             .set('title', title ? title : '')
-            .set('store_name', store_name ? store_name : '')
+            .set('store_id', store_id ? store_id : '')
             .set('id', id ? id : '')
             .set('few_days', few_days ? few_days : '')
-            .set('tag', tag ? tag : '')
             .set('departure_city', departure_city ? departure_city : '')
-            .set('destination_city', destination_city ? destination_city : '');
+            .set('destination_city', destination_city ? destination_city : '')
+            .set('start_date', start_date ? start_date : '')
+            .set('end_date', end_date ? end_date : '');
+        
 
 
         const findhttpOptions = {
