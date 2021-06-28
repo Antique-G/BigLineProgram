@@ -145,16 +145,12 @@
                                     <td>
                                         {{data?.use_start_date}}~{{data?.use_end_date}}
                                     </td>
-                                    <td> 
+                                    <td>
                                         <div style="width:200px;display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;cursor: pointer;" title={{data?.ticket_code}}>
                                             {{data?.ticket_code}}
                                         </div>
                                     </td>
-                                    <td>
-                                        <span *ngIf="data?.use_status==0">未使用</span>
-                                        <span *ngIf="data?.use_status==1">部分使用</span>
-                                        <span *ngIf="data?.use_status==2">已使用</span>
-                                    </td>
+                                    <td>{{data?.use_status_info}} </td>
                                     <td>
                                         <div style="cursor: pointer;">
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
