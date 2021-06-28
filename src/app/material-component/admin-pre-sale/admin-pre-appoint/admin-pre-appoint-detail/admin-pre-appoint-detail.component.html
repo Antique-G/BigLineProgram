@@ -120,9 +120,7 @@
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <div>
                                             <div>
-                                                <button class="btn" *ngIf="detailModel?.status===0">已取消</button>
-                                                <button class="btn" *ngIf="detailModel?.status===1">未使用</button>
-                                                <button class="btn" *ngIf="detailModel?.status===2">已使用</button>
+                                                <button class="btn">{{detailModel?.status_info}}</button>
                                             </div>
                                         </div>
                                     </div>

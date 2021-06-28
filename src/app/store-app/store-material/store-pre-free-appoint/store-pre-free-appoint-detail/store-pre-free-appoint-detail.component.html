@@ -112,16 +112,13 @@
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <div>
                                             <div>
-                                                <button class="btn" *ngIf="detailModel?.status===0">已取消</button>
-                                                <button class="btn" *ngIf="detailModel?.status===1">未使用</button>
-                                                <button class="btn" *ngIf="detailModel?.status===2">已使用</button>
-                                                <button class="btn" *ngIf="detailModel?.status===3">过期作废</button>
+                                                <button class="btn">{{detailModel?.status_info}}</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                                         <form nz-form [formGroup]="addForm" nz-row>
-                                            <ng-container  *ngIf="detailModel?.status==2">
+                                            <ng-container *ngIf="detailModel?.status==2">
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">预约订单号</nz-form-label>
@@ -131,7 +128,7 @@
                                                     </div>
                                                 </nz-form-item>
                                             </ng-container>
-                                            
+
 
                                             <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
