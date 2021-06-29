@@ -209,8 +209,8 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
 
     // 自由行报价
     setFreeTravelValue() {
-        this.resultArr = [];
-        this.dateArr = this.getAllDateCN(this.selectDate[0], this.selectDate[1])
+        this.dateArr = this.getAllDateCN(this.selectDate[0], this.selectDate[1]);
+        console.log("this.dateArr", this.dateArr)
         this.dateArr.forEach((date: any) => {
             this.freeTraveModel = {
                 id: 0,
@@ -229,12 +229,15 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
             this.freeTraveModel.date = date;
             this.freeTraveModel.independent_product_id = this.productId;
             this.freeTraveModel.inclusive_price = this.addForm.value.inclusive_price;
+            console.log("this.selectItem1111111", this.addForm.value.inclusive_price, this.freeTraveModel.inclusive_price)
+
             this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
             this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
             this.freeTraveModel.allow_over = this.addForm.value.allow_over;
             this.resultArr.push(this.freeTraveModel);
         });
         console.log('添加值', this.resultArr);
+
     }
 
 
@@ -257,14 +260,16 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
                 this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
                     console.log(res);
                 }, error => {
-                    this.isSpinning = false
+                    this.isSpinning = false;
+                    this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
                 })
             } else {
                 // // 添加
                 this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
                     console.log(res);
                 }, error => {
-                    this.isSpinning = false
+                    this.isSpinning = false;
+                    this.resultArr = [];
                 })
 
             }
