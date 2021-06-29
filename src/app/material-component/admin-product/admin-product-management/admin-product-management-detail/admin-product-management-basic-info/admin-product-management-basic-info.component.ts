@@ -570,12 +570,16 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
                 this.msg.error("儿童最大身高不能小于最小身高");
             }
             else {
+               
                 this.isLoadingBtn = true;
                 this.detailUpdateModel.id = this.detailId;
                 this.adminProductManagementService.updateProduct(this.detailUpdateModel).subscribe(res => {
                     this.isLoadingBtn = false;
                     console.log("res结果", res);
                     localStorage.setItem("few_days", this.addForm.value.few_days);
+                    if (this.addForm.value.few_days != this.dataProductDetailModel.few_days || this.addForm.value.few_nights != this.dataProductDetailModel.few_nights) {
+                        this.msg.warning("更新完成，需核对产品详情模块的行程天数无误");
+                    }
                 },
                     error => {
                         this.isLoadingBtn = false;

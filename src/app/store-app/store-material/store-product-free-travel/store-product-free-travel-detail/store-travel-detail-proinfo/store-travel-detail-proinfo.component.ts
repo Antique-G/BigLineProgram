@@ -338,6 +338,9 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
                     this.isLoadingBtn = false;
                     if (res.message == "更新成功") {
                         localStorage.setItem("few_days", this.addForm.value.few_days);
+                        if (this.addForm.value.few_days != this.dataModel.few_days || this.addForm.value.few_nights != this.dataModel.few_nights) {
+                            this.msg.warning("更新完成，需核对产品详情模块的行程天数无误");
+                        }
                     }
                 },
                     error => {

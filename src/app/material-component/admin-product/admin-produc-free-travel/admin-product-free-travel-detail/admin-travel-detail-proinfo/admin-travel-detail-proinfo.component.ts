@@ -460,6 +460,9 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
                     this.isLoadingBtn = false;
                     if (res.message == "更新成功") {
                         localStorage.setItem("few_days", this.addForm.value.few_days);
+                        if (this.addForm.value.few_days != this.dataDetailModel.few_days || this.addForm.value.few_nights != this.dataDetailModel.few_nights) {
+                            this.msg.warning("更新完成，需核对产品详情模块的行程天数无误");
+                        }
                     }
                 },
                     error => {
@@ -470,6 +473,7 @@ export class AdminTravelDetailProinfoComponent implements OnInit {
         }
 
     }
+
 
 
     isReserveAheadChange(status: any) {

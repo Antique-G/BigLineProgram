@@ -621,6 +621,9 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
                     this.isLoadingBtn = false;
                     console.log("res结果", res);
                     localStorage.setItem("few_days", this.detailUpdateModel.few_days);
+                    if (this.addForm.value.few_days != this.dataProductDetailModel.few_days || this.addForm.value.few_nights != this.dataProductDetailModel.few_nights) {
+                        this.msg.warning("更新完成，需核对产品详情模块的行程天数无误");
+                    }
 
                 },
                     error => {
