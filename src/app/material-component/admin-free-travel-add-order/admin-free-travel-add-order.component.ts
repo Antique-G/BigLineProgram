@@ -1,10 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order-free-travel.service';
-import { DatePipe } from '@angular/common';
+import { AdminRegionService } from '../../../services/admin/admin-region.service';
 
 
 @Component({
@@ -178,7 +178,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'asc';
         this.loading = true;
-        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type, this.id).subscribe(res => {
+        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.quote_type, this.id, this.sort_field, this.sort).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
@@ -191,7 +191,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'desc';
         this.loading = true;
-        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type, this.id).subscribe(res => {
+        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.quote_type, this.id, this.sort_field, this.sort).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
