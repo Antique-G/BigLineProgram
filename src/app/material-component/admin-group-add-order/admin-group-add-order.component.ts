@@ -101,15 +101,17 @@ export class AdminGroupAddOrderComponent implements OnInit {
             this.dataSource.forEach((value: any, index: any) => {
                 value['expand'] = false; //展开属性
                 if (value.schedule_file_url != '') {
-                    if ( Number(value.schedule_file)!= 1) {
+                    if (Number(value.schedule_file) != 1) {
                         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
                     }
                     else {
                         value.schedule_file_url = value.schedule_file_url;
-                    } 
+                    }
                 }
             })
             this.total = res?.total;
+        }, error => {
+            this.loading = false;
         })
     }
 
@@ -201,8 +203,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'asc';
         this.loading = true;
-      
-        this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.code).subscribe(res => {
+        this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.code,this.sort_field, this.sort, ).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
@@ -210,15 +211,17 @@ export class AdminGroupAddOrderComponent implements OnInit {
                 value['checked'] = false;
                 value['expand'] = false; //展开属性
                 if (value.schedule_file_url != '') {
-                    if ( Number(value.schedule_file)!= 1) {
+                    if (Number(value.schedule_file) != 1) {
                         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
                     }
                     else {
                         value.schedule_file_url = value.schedule_file_url;
-                    } 
+                    }
                 }
             })
             this.total = res?.total;
+        }, error => {
+            this.loading = false;
         })
     }
 
@@ -227,7 +230,7 @@ export class AdminGroupAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'desc';
         this.loading = true;
-        this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.code).subscribe(res => {
+        this.adminOrderGroupTravelService.getPro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days,  this.code,this.sort_field, this.sort, ).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
@@ -235,15 +238,17 @@ export class AdminGroupAddOrderComponent implements OnInit {
                 value['checked'] = false;
                 value['expand'] = false; //展开属性
                 if (value.schedule_file_url != '') {
-                    if ( Number(value.schedule_file)!= 1) {
+                    if (Number(value.schedule_file) != 1) {
                         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
                     }
                     else {
                         value.schedule_file_url = value.schedule_file_url;
-                    } 
+                    }
                 }
             })
             this.total = res?.total;
+        }, error => {
+            this.loading = false;
         })
     }
 
