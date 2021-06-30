@@ -271,7 +271,9 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
                 this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
                     console.log(res);
                 }, error => {
+                    // 报错清空数组再push
                     this.isSpinning = false;
+                    this.resultArr = [];
                     this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
                 })
             } else {
@@ -284,7 +286,14 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
                     console.log("compare", compare, Number(compare), Number(compare) < 0)
                     if (Number(compare) < 0) {
                         this.isSpinning = false;
-                        this.msg.error('报价金额小于预售设置金额，请重设');
+                        this.modal['error']({
+                            nzMask: true,
+                            nzTitle: "<h3>错误提示</h3>",
+                            nzContent: `<h5>报价金额小于预售设置金额，请重设</h5>`,
+                            nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
+                            // ,transform:translate 
+                        })
+                        this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
                     }
                     else {
                         //添加
@@ -310,7 +319,7 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
             }
         }
         else {
-            this.isSpinning = false
+            this.isSpinning = false;
         }
     }
 
