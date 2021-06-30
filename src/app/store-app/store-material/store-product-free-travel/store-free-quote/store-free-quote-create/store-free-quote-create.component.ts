@@ -169,12 +169,12 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
         var date_all = [];
         var i = 0;
         while ((endTime.getTime() - startTime.getTime()) >= 0) {
-            console.log(this.weekValue, startTime.getDay());
+            console.log('答应的订单', this.weekValue, startTime.getDay());
             if (this.weekValue.indexOf(startTime.getDay()) > -1) {
                 console.log(123);
                 date_all[date_all.length] = format(startTime, 'yyyy-MM-dd')
             }
-            console.log(date_all, 'date_all');
+            console.log('date_all', date_all);
             startTime.setDate(startTime.getDate() + 1)
             i += 1
         }
@@ -210,32 +210,43 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
     // 自由行报价
     setFreeTravelValue() {
         this.dateArr = this.getAllDateCN(this.selectDate[0], this.selectDate[1]);
-        console.log("this.dateArr", this.dateArr)
-        this.dateArr.forEach((date: any) => {
-            this.freeTraveModel = {
-                id: 0,
-                date: '',
-                independent_product_id: 0,
-                inclusive_price: '',
-                inventory_num: 1,
-                set_inventory: 0,
-                allow_over: 0,
-                check_status: 0,
-                adult_price: 0,
-                child_price: 0,
-                baby_price: 0,
-                difference_price: 0,
-            }
-            this.freeTraveModel.date = date;
-            this.freeTraveModel.independent_product_id = this.productId;
-            this.freeTraveModel.inclusive_price = this.addForm.value.inclusive_price;
-            console.log("this.selectItem1111111", this.addForm.value.inclusive_price, this.freeTraveModel.inclusive_price)
+        // bao
+        if (this.dateArr.length == 0) {
+            this.resultArr.forEach((ele: any) => {
+                ele.inclusive_price = this.addForm.value.inclusive_price;
+                ele.inventory_num = this.addForm.value.inventory_num;
+                ele.set_inventory = this.addForm.value.set_inventory;
+                ele.allow_over = this.addForm.value.allow_over;
+            })
+        }
+        else {
+            this.dateArr.forEach((date: any) => {
+                this.freeTraveModel = {
+                    id: 0,
+                    date: '',
+                    independent_product_id: 0,
+                    inclusive_price: '',
+                    inventory_num: 1,
+                    set_inventory: 0,
+                    allow_over: 0,
+                    check_status: 0,
+                    adult_price: 0,
+                    child_price: 0,
+                    baby_price: 0,
+                    difference_price: 0,
+                }
+                this.freeTraveModel.date = date;
+                this.freeTraveModel.independent_product_id = this.productId;
+                this.freeTraveModel.inclusive_price = this.addForm.value.inclusive_price;
+                console.log("this.selectItem1111111", this.addForm.value.inclusive_price, this.freeTraveModel.inclusive_price)
 
-            this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
-            this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
-            this.freeTraveModel.allow_over = this.addForm.value.allow_over;
-            this.resultArr.push(this.freeTraveModel);
-        });
+                this.freeTraveModel.inventory_num = this.addForm.value.inventory_num;
+                this.freeTraveModel.set_inventory = this.addForm.value.set_inventory;
+                this.freeTraveModel.allow_over = this.addForm.value.allow_over;
+                this.resultArr.push(this.freeTraveModel);
+            });
+        }
+
         console.log('添加值', this.resultArr);
 
     }
@@ -264,13 +275,37 @@ export class StoreFreeQuoteCreateComponent implements OnInit {
                     this.selectDate = [new Date(this.freeTravelModel.date), new Date(this.freeTravelModel.date)];
                 })
             } else {
-                // // 添加
-                this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
-                    console.log(res);
-                }, error => {
-                    this.isSpinning = false;
-                    this.resultArr = [];
-                })
+                if (this.is_presell == 1) {
+                    console.log("Number(this.addForm.value.inclusive_price)", Number(this.addForm.value.inclusive_price), Number(this.ticket_price), Number(this.subsidy_price))
+                    let price1 = Number(this.addForm.value.inclusive_price) * 100;
+                    let price2 = Number(this.ticket_price) * 100;
+                    let price3 = Number(this.subsidy_price) * 100;
+                    let compare = (price1 - price2 - price3) / 100;
+                    console.log("compare", compare, Number(compare), Number(compare) < 0)
+                    if (Number(compare) < 0) {
+                        this.isSpinning = false;
+                        this.msg.error('报价金额小于预售设置金额，请重设');
+                    }
+                    else {
+                        //添加
+                        this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
+                            console.log(res);
+                            this.isSpinning = false;
+                        }, error => {
+                            this.isSpinning = false;
+                            this.resultArr = [];
+                        })
+                    }
+                }
+                else {
+                    //  添加
+                    this.quoteBydateService.createFreeTravelQuteDate(this.resultArr).subscribe(res => {
+                        console.log(res);
+                    }, error => {
+                        this.isSpinning = false;
+                        // this.resultArr = [];
+                    })
+                }
 
             }
         }
