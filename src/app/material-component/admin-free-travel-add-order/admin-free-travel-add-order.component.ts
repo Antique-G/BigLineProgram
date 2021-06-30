@@ -192,7 +192,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'asc';
         this.loading = true;
-        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type, this.id).subscribe(res => {
+        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.quote_type, this.id, this.sort_field, this.sort).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
@@ -208,7 +208,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         this.setValue();
         this.sort = 'desc';
         this.loading = true;
-        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.sort_field, this.sort, this.quote_type, this.id).subscribe(res => {
+        this.adminOrderFreeTravelService.getFreePro(this.page, this.per_page, this.title, this.departure_start, this.departure_end, this.departure_city, this.destination_city, this.few_days, this.quote_type, this.id, this.sort_field, this.sort).subscribe(res => {
             console.log('结果是 :>> ', res);
             this.loading = false;
             this.dataSource = res?.data;
