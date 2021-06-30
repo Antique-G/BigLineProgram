@@ -100,13 +100,29 @@ export class AdminGroupAddOrderComponent implements OnInit {
             this.dataSource = res?.data;
             this.dataSource.forEach((value: any, index: any) => {
                 value['expand'] = false; //展开属性
+                // if (value.schedule_file_url != '') {
+                //     let filePath = value.schedule_file_url;
+                //     //获取最后一个.的位置
+                //     let index = filePath.lastIndexOf(".");
+                //     //获取后缀
+                //     let ext = filePath.substr(index + 1);
+                //     //输出结果
+                //     console.log('1212121', ext, ext == 'doc', ext != 'pdf', ext == 'pdf');
+                //     if (ext != 'pdf') {
+                //         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
+                //     }
+                //     else {
+                //         value.schedule_file_url = value.schedule_file_url;
+                //     }
+                // }
+                // 行程文件若是doc为2或者docx为3的需要转化，pdf为1不需要转化
                 if (value.schedule_file_url != '') {
                     if (Number(value.schedule_file) != 1) {
                         value.schedule_file_url = 'https://view.officeapps.live.com/op/view.aspx?src=' + value.schedule_file_url;
                     }
                     else {
                         value.schedule_file_url = value.schedule_file_url;
-                    }
+                    } 
                 }
             })
             this.total = res?.total;
