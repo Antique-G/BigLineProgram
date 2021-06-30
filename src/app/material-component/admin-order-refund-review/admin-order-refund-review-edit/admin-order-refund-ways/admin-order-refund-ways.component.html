@@ -15,7 +15,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="9" [nzXs]="24" nzFor="order_id">订单编号</nz-form-label>
                             <nz-form-control [nzSm]="15" [nzXs]="24">
-                                <input nz-input formControlName="order_id" nzBorderless [ngModel]="detailModel?.order_id" />
+                                <a href={{orderUrl+detailModel?.order_id}} target="_blank"> {{detailModel?.order_id}}</a>
                             </nz-form-control>
                         </div>
                     </nz-form-item>

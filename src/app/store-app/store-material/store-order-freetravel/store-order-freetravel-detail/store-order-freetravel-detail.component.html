@@ -421,6 +421,7 @@
                                                     <th style="text-align: center;">金额</th>
                                                     <th style="text-align: center;">支付状态</th>
                                                     <th style="text-align: center;">支付方式</th>
+                                                    <th style="text-align: center;">支付方法</th>
                                                     <th style="text-align: center;">支付时间</th>
                                                 </tr>
                                             </thead>
@@ -446,6 +447,11 @@
                                                         <span *ngIf="data.pay_type===8">飞猪</span>
                                                         <span *ngIf="data.pay_type===9">携程</span>
 
+                                                    </td>
+                                                    <td>
+                                                        <span *ngIf="data.pay_way==0">线上支付</span>
+                                                        <span *ngIf="data.pay_way==1">后台手动录入</span>
+                                                        <span *ngIf="data.pay_way==2">POS机收款</span>
                                                     </td>
                                                     <td>
                                                         {{data.pay_time}}
