@@ -8,6 +8,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-order-free-travel-model';
 import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
@@ -44,9 +45,11 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     // 自由行请款跳过来
     isFreeReq: any;
 
+    syncOrderModel: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, public dialog: MatDialog,
-        public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService, private msg: NzMessageService,
+        public adminOrderFreeTravelService: AdminOrderFreeTravelService,
+        public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, private msg: NzMessageService,
         public adminOrderService: AdminOrderService) {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
@@ -90,6 +93,9 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             id_num: '',
             birthday: '',
         };
+        this.syncOrderModel = {
+            order_id:''
+        }
     }
 
     ngOnInit(): void {
@@ -414,35 +420,64 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     }
 
 
-        // 取消订单
-        cancelOrder() {
-            const editmodal = this.modal.create({
-                nzTitle: '取消订单',
-                nzContent: AdminOrderCancelComponent,
-                nzWidth: 700,
-                nzComponentParams: {
-                    data:this.detailModel?.id
-                },
-                nzFooter: [
-                    {
-                        label: '提交',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.add()
-                        }
+    // 取消订单
+    cancelOrder() {
+        const editmodal = this.modal.create({
+            nzTitle: '取消订单',
+            nzContent: AdminOrderCancelComponent,
+            nzWidth: 700,
+            nzComponentParams: {
+                data: this.detailModel?.id
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add()
                     }
-                ]
-            })
-            editmodal.afterClose.subscribe(res => {
-                this.activatedRoute.queryParams.subscribe(params => {
-                    console.log("params", params)
-                    this.detailId = params?.detailId;
-                    // 详情
-                    this.getDetail();
-    
-                });
-            })
-        }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
+    }
+
+
+    // 同步在启航系统下单的大航产品的订单到大航系统
+    syncOrder() {
+        this.syncOrderModel.order_id = this.detailModel?.id;
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>确定同步此订单到大航系统？</h6>",
+            nzOnOk: () =>
+                this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
+                console.log("res",res)
+                if (res.data.length==0) {
+                    this.modal['success']({
+                        nzMask: false,
+                        nzTitle: `同步成功`,
+                    })
+                }
+                else {
+                    this.modal['error']({
+                        nzMask: true,
+                        nzTitle: "<h3>错误提示</h3>",
+                        nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
+                        nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
+                    })
+                }
+              }),
+        });
+        
+    }
 }
 
 

@@ -21,6 +21,7 @@
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="cancelOrder()" *ngIf="detailModel?.order_status==1">取消订单</button>
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="syncOrder()" *ngIf="detailModel?.product?.data?.third_product_id!=0">订单同步到大航系统</button>
                                         </div>
                                     </div>
                                     <nz-divider></nz-divider>

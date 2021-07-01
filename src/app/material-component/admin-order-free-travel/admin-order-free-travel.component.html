@@ -202,7 +202,10 @@
                                     <!-- <td>{{data.product_id}}</td> -->
                                     <td>{{data.product_name}}</td>
                                     <td>{{data.is_presell==1?'是':'否'}}</td>
-                                    <td>{{data.contact_name}}/{{data.contact_phone}}</td>
+                                    <td>
+                                        <div>{{data.contact_name}}</div>
+                                        <div>{{data.contact_phone}}</div>
+                                    </td>
                                     <td>{{data.start_date|date:'yyyy-MM-dd'}}</td>
                                     <td>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                     <td>
