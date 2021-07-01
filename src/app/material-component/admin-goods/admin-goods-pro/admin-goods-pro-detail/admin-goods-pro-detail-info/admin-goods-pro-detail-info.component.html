@@ -147,13 +147,17 @@
                                         </div>
                                     </nz-form-item>
 
+
+
                                     <ng-container *ngIf="isShow">
-                                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                        <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                             <div nz-row>
-                                                <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="send_time" nzRequired> 发货时间
+                                                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date_starts" nzRequired>
+                                                    发货时间
                                                 </nz-form-label>
-                                                <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请选择">
-                                                    <nz-date-picker formControlName="send_time" nzFormat="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
+                                                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请选择">
+                                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeSendDate($event)" formControlName="date_starts" style="width: 100%;">
+                                                    </nz-range-picker>
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>

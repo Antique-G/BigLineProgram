@@ -75,10 +75,14 @@ export class StoreGoodsProComponent implements OnInit {
             // 三级就是这个
             // this.selectedcateThird = this.addDataDetailModel.goods_cate;
             // // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-            let cate2: any;
+            let cate2: any[]=[];
             console.log("一级", this.cateFistList);
             this.cateFistList.map((element: any) => {
-                cate2 = element.children?.filter((item: any) => item.id == this.pid);
+                let ca  = element.children?.filter((item: any) => item.id == this.pid);
+                if (ca && ca?.length > 0) {
+                    cate2 = ca
+                    return
+                 }
             });
             console.log("22222", cate2, this.cate_id);
             // 找到一级
@@ -157,6 +161,7 @@ export class StoreGoodsProComponent implements OnInit {
     reset() {
         this.cate_id = '';
         this.isCateId = '';
+        this.pid = '';
         this.searchForm.patchValue({
             status: '',
             check_status: '',

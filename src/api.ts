@@ -318,6 +318,10 @@ export const AdminUrls = {
     PostAdminGoodsSetHot: api + '/admin/set_hot',   // 设置热门
     PostAdminGoodsSetShelves: api + '/admin/set_shelves/',     //商品上下架
     PostAdminGoodsSetCheck: api + '/admin/set_check/',     //商品审核
+    PostAdminGoodsAddOrder: api + '/admin/goods_order',     //添加商品订单
+    GetAdminGoodsOrderList: api + '/admin/goods_order',     //商品订单
+
+
 
     
 };

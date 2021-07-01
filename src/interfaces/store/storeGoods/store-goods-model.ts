@@ -28,7 +28,8 @@ export interface AddGoodsModel {
     title: string;
     cate_id: string;
     is_order: string;
-    send_time: any;
+    send_time_start: any,
+    send_time_end: any,
     sales_note: string;
     product_area: string;
     delivery_type: string;
@@ -158,3 +159,101 @@ export interface GoodsSetHotModel {
     is_hot: any;
     sort: any;
 }
+
+
+// 添加商品
+export interface AddGoodsOrderModel {
+    region_code: any;
+    address: any;
+    consignee: any;
+    phone: any;
+    price_total: any;
+    goods_id: any;
+    spec_id: any;
+    goods_num: any;
+    freight: any;
+    remarks: any;
+    user_phone: any;
+}
+
+
+// 订单列表
+export interface GoodsOrderListModel {
+    data: DataGoodsOrderListModel[];
+    meta: MetaGoodsOrderListModel;
+}
+
+export interface MetaGoodsOrderListModel {
+    pagination: Pagination;
+}
+
+export interface Pagination {
+    total: number;
+    count: number;
+    per_page: number;
+    current_page: number;
+    total_pages: number;
+    links: object;
+}
+
+export interface DataGoodsOrderListModel {
+    id: number;
+    user_id: number;
+    bind_id: number;
+    bind_name: any;
+    order_status: number;
+    payment_status: number;
+    refund_status: number;
+    price_total: number;
+    region_code: string;
+    consignee: string;
+    phone: string;
+    address: string;
+    zip_code: string;
+    created_at: string;
+    updated_at: string;
+    sub_order: SubOrderGoodsOrderListModel;
+}
+
+export interface SubOrderGoodsOrderListModel {
+    data: Data_1GoodsOrderListModel[];
+}
+
+export interface Data_1GoodsOrderListModel {
+    id: number;
+    order_id: number;
+    store_id: number;
+    total_price: number;
+    express_number: string;
+    express_status: number;
+    order_status: number;
+    status: number;
+    created_at: string;
+    updated_at: string;
+    remarks: string;
+    order_item: OrderItem;
+}
+
+export interface OrderItem {
+    data: DataOrderItem[];
+}
+
+export interface DataOrderItem {
+    id: number;
+    sub_order_id: number;
+    order_id: number;
+    goods_id: number;
+    spec_id: number;
+    goods_name: string;
+    spec_name: string;
+    goods_num: number;
+    goods_price: number;
+    freight_price: number;
+    total_price: number;
+    created_at: string;
+    updated_at: string;
+    send_start: string;
+    send_end: string;
+    cate_name: string;
+}
+

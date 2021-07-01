@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GoodsListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList } from 'interfaces/store/storeGoods/store-goods-model';
+import { AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList } from 'interfaces/store/storeGoods/store-goods-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -126,7 +126,7 @@ export class AdminGoodsService {
         return this.httpClient.post<any>(this.urls.PostAdminGoodsSetCheck + goodsSetCheckStatusModel.id, goodsSetCheckStatusModel, httpOptions)
     }
 
-    
+
 
 
     // 设置热门
@@ -135,6 +135,51 @@ export class AdminGoodsService {
             .pipe(
                 catchError(this.handleError)
             )
+    }
+
+
+    // 添加商品订单
+    addOrder(addGoodsOrderModel: AddGoodsOrderModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsAddOrder, addGoodsOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+
+    // 订单列表
+    orderList(page: number, per_page: number, order_status: any, order_id: any, express_status: any, goods_name: any, cate_id: any,
+        is_postage: any, date_start: any, date_end: any, send_time_start: any, send_time_end: any,
+        store_id: any, consignee: any, phone: any, bind_id: any,): Observable<GoodsOrderListModel> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_status', order_status ? order_status : '')
+            .set('order_id', order_id ? order_id : '')
+            .set('express_status', express_status ? express_status : '')
+            .set('goods_name', goods_name ? goods_name : '')
+            .set('cate_id', cate_id ? cate_id : '')
+            .set('is_postage', is_postage ? is_postage : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('send_time_start', send_time_start ? send_time_start : '')
+            .set('send_time_end', send_time_end ? send_time_end : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('consignee', consignee ? consignee : '')
+            .set('phone', phone ? phone : '')
+            .set('bind_id', bind_id ? bind_id : '');
+          
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<GoodsOrderListModel>(this.urls.GetAdminGoodsOrderList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(error: HttpErrorResponse) {

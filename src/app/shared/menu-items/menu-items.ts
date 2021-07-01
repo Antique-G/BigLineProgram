@@ -45,6 +45,10 @@ const MENUITEMS = [
         children: [
             { state: 'goodsCate', name: '商品分类', permission_name: 'product_tag' },
             { state: 'goodsList', name: '商品管理列表', permission_name: 'product_tag' },
+            { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'product_tag' },
+            { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'product_tag' },
+
+            
            
         ]
     },
@@ -156,9 +160,11 @@ const StoreMENUITEMS = [
         ]
     },
     {
-        title: '生鲜管理', icon: 'apple',
+        title: '商城管理', icon: 'apple',
         children: [
-            { state: 'storeGoods', name: '生鲜商品列表' },
+            { state: 'storeGoods', name: '商品管理列表' },
+            { state: 'storeGoodsOrder', name: '商品订单列表' },
+
         ]
     },
     // {

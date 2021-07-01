@@ -200,6 +200,10 @@ import { AdminGoodsProDetailImgComponent } from './admin-goods/admin-goods-pro/a
 import { AdminGoodsProDetailPostComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail-post/admin-goods-pro-detail-post.component';
 import { AdminGoodsProIshotComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-ishot/admin-goods-pro-ishot.component';
 import { AdminGoodsProReviewComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-review/admin-goods-pro-review.component';
+import { AdminGoodsProAddOrderComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order.component';
+import { AdminGoodsProAddOrderDetailComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order-detail/admin-goods-pro-add-order-detail.component';
+import { AdminGoodsProOrderComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order.component';
+import { AdminGoodsProOrderDetailComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-detail/admin-goods-pro-order-detail.component';
 
 
 
@@ -427,6 +431,10 @@ import { AdminGoodsProReviewComponent } from './admin-goods/admin-goods-pro/admi
     AdminGoodsProDetailPostComponent,
     AdminGoodsProIshotComponent,
     AdminGoodsProReviewComponent,
+    AdminGoodsProAddOrderComponent,
+    AdminGoodsProAddOrderDetailComponent,
+    AdminGoodsProOrderComponent,
+    AdminGoodsProOrderDetailComponent,
 
   ]
 })

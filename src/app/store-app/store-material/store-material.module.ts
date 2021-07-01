@@ -131,6 +131,7 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
 import { ChooseGoodsGalleryComponent } from './common/choose-goods-gallery/choose-goods-gallery.component';
 import { UploadGoodsImgComponent } from './common/upload-goods-img/upload-goods-img.component';
 import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-goods-video.component';
+import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.component';
 
 
 @NgModule({
@@ -279,6 +280,7 @@ import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-go
         ChooseGoodsGalleryComponent,
         UploadGoodsImgComponent,
         UploadGoodsVideoComponent,
+        StoreGoodsOrderComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

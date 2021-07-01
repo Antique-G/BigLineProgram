@@ -16,6 +16,10 @@ import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
 import { AdminGoodsCateComponent } from './admin-goods/admin-goods-cate/admin-goods-cate.component';
+import { AdminGoodsProAddOrderDetailComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order-detail/admin-goods-pro-add-order-detail.component';
+import { AdminGoodsProAddOrderComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order.component';
+import { AdminGoodsProOrderDetailComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-detail/admin-goods-pro-order-detail.component';
+import { AdminGoodsProOrderComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order.component';
 import { AdminGoodsProDetailComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail.component';
 import { AdminGoodsProComponent } from './admin-goods/admin-goods-pro/admin-goods-pro.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
@@ -76,6 +80,7 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-w
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
+
 
 
 export const MaterialRoutes: Routes = [
@@ -661,6 +666,36 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '商品详情'
                 }
             },
+            {
+                path: 'goodsAddOrder',
+                component: AdminGoodsProAddOrderComponent,
+                data: {
+                    breadcrumb: '添加商品可下单列表'
+                }
+            },
+            {
+                path: 'goodsAddOrder/add',
+                component: AdminGoodsProAddOrderDetailComponent,
+                data: {
+                    breadcrumb: '添加商品订单'
+                }
+            },
+            {
+                path: 'goodsOrderList',
+                component: AdminGoodsProOrderComponent,
+                data: {
+                    breadcrumb: '商品订单列表'
+                }
+            },
+            {
+                path: 'goodsOrderList/detail',
+                component: AdminGoodsProOrderDetailComponent,
+                data: {
+                    breadcrumb: '商品订单详情'
+                }
+            },
+            
+            
         ]
     }
 ];

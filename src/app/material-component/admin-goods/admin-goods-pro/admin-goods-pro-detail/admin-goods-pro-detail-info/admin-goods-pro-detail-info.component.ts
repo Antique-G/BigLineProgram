@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,6 +40,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     isCateId: any;
     // 预售时间
     isShow = false;
+    dateArray: any[] = [];
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminRegionService: AdminRegionService, public adminGoodsService: AdminGoodsService,
@@ -52,7 +54,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             product_area: new FormControl('', [Validators.required]),
             thirdType: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
-            send_time: new FormControl(null),
+            date_starts: new FormControl(null),
             delivery_type: new FormControl('1'),
             is_hot: new FormControl('0'),
             sort: new FormControl(),
@@ -63,7 +65,8 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             title: '',
             cate_id: '',
             is_order: '',
-            send_time: '',
+            send_time_start: '',
+            send_time_end: '',
             sales_note: '',
             product_area: '',
             delivery_type: '',
@@ -164,7 +167,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
         // 预售时间赋值
         if (this.addDataDetailModel.is_order == 1) {
-            this.addForm.get('send_time')?.setValue(this.addDataDetailModel.send_time);
+            this.addForm.get('date_starts')?.setValue([this.addDataDetailModel.send_time_start, this.addDataDetailModel.send_time_end]);
         }
 
 
@@ -173,10 +176,14 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         // 三级就是这个
         this.selectedcateThird = this.addDataDetailModel.goods_cate;
         // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-        let cate2: any;
+        let cate2: any[] = [];
         console.log("一级", this.cateFistList);
         this.cateFistList.map((element: any) => {
-            cate2 = element.children?.filter((item: any) => item.id == pid);
+            let ca = element.children?.filter((item: any) => item.id == pid);
+            if (ca && ca?.length > 0) {
+                cate2 = ca
+                return
+            }
         });
         console.log("22222", cate2);
         this.selectedcateSecond = cate2[0];
@@ -226,7 +233,8 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         this.addGoodsModel.product_area = this.cityList[this.cityList.length - 1];
         this.addGoodsModel.goods_specs = this.addForm.value.specificationList;
         this.addGoodsModel.is_order = this.addForm.value.is_order;
-        this.addGoodsModel.send_time = this.addGoodsModel.is_order == '1' ? format(new Date(this.addForm.value.send_time), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
+        this.addGoodsModel.send_time_start = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[0]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
+        this.addGoodsModel.send_time_end = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[1]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
         this.addGoodsModel.is_hot = this.addForm.value.is_hot;
         this.addGoodsModel.sort = this.addForm.value.sort;
@@ -275,16 +283,28 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     changePresell(data: any) {
         // 预售
         if (data == 1) {
-            this.addForm?.controls['send_time'].setValidators([Validators.required]);
-            this.addForm?.controls['send_time'].updateValueAndValidity();
+            this.addForm?.controls['date_starts'].setValidators([Validators.required]);
+            this.addForm?.controls['date_starts'].updateValueAndValidity();
             this.isShow = true;
             return;
         }
         else {
-            this?.addForm?.controls['send_time'].setValidators(null);
+            this?.addForm?.controls['date_starts'].setValidators(null);
             this.isShow = false;
             return;
         }
+    }
+
+
+    // 时间
+    onChangeSendDate(event: any) {
+        this.dateArray = [];
+        const datePipe = new DatePipe('en-US');
+        const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate);
+        const myFormattedDate1 = datePipe.transform(event[1], 'yyyy-MM-dd');
+        this.dateArray.push(myFormattedDate1);
+        console.log("event", this.dateArray);
     }
 }
 
