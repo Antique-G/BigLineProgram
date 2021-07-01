@@ -114,7 +114,7 @@ export const AdminUrls = {
     GetAdminUserOption: api + '/admin/user/option',  // 提现列表的用户列表信息
     GetAdminWithdrawTotal: api + '/admin/user_withdraw/statistic',  // 提现统计
 
-    
+
 
 
 
@@ -138,7 +138,7 @@ export const AdminUrls = {
     GetAdminOrderTicketCodeDetail: api + '/admin/order/ticket_code/',   // 预约码详情
 
 
-    
+
 
 
     GetAdminMeetingPlace: api + '/admin/assembling_place/list',   // 集合地点列表
@@ -220,6 +220,8 @@ export const AdminUrls = {
     GetAdminContractView: api + '/admin/contract_view/',  // 电子合同
     PostAdminSignContract: api + '/admin/contract',  // 签署电子合同
     PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
+    PostAdminSyncOrder: api + '/admin/send_bigline',  // 同步订单
+
 
     GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
@@ -238,7 +240,7 @@ export const AdminUrls = {
     GetAdminRefundAmountTotal: api + '/admin/refund_amount_total', //  财务退款 统计
     PostAdminRefundCancel: api + '/admin/cancel_refund', // 撤销退款
 
-     
+
 
 
     GetAdminRefundDetail: api + '/admin/refund/',  // 退款详情
@@ -492,7 +494,7 @@ export const StoreUrls = {
     PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  // 添加
     PostStoreCopyIndentPro: api + '/store/copy_indent_product',  // 复制产品
 
-    
+
 
 
     // 成本

@@ -665,3 +665,9 @@ export interface CashReqReviwqModel {
     id: any;
     money: any;
 }
+
+
+// 同步订单
+export interface SyncOrderModel {
+    order_id: any;
+}
