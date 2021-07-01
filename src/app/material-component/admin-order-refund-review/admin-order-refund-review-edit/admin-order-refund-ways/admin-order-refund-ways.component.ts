@@ -24,7 +24,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     isDisabled = true;
 
     @Input() data: any;
-
+    orderUrl: any;
 
     constructor(public fb: FormBuilder, public router: Router,
         public adminRefundService: AdminRefundService, private modal: NzModalService,) {
@@ -60,7 +60,9 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        
         this.detailModel = this.data;
+        console.log("1231232423",this.detailModel)
         this.order_id = this.detailModel?.order_id;
         this.adminRefundService.getPayLog(this.order_id).subscribe(res => {
             console.log('结果是22222222 :>> ', res);
@@ -93,6 +95,16 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             refund_amount: this.detailModel?.refund_amount,
             refund_amount_to_account: this.detailModel?.refund_amount,
         })
+
+        // 跟团游
+        if (this.detailModel?.product_type == 0) {
+            this.orderUrl = '/admin/main/financeGroupTravel/detail?detailId=';
+        }
+        // 自由行
+        else {
+            this.orderUrl = '/admin/main/financefreeDTravel/detail?detailId=';
+            
+        }
     }
 
 
