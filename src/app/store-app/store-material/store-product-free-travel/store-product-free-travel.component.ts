@@ -11,6 +11,7 @@ import { StoreProductService } from '../../../../services/store/store-product/st
 import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 import { StoreProductMiniCodeComponent } from '../store-product-management/store-product-mini-code/store-product-mini-code.component';
+import { StoreProductFreeTravelOperateLogComponent } from './store-product-free-travel-operate-log/store-product-free-travel-operate-log.component';
 
 
 @Component({
@@ -58,7 +59,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
         private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,
-        private message: NzMessageService, ) {
+        private message: NzMessageService,) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -383,7 +384,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     }
 
 
-    
+
     // 克隆
     copy(data: any) {
         this.product_id = data?.id;
@@ -397,5 +398,21 @@ export class StoreProductFreeTravelComponent implements OnInit {
                 })
             }
         });
+    }
+
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: StoreProductFreeTravelOperateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 }

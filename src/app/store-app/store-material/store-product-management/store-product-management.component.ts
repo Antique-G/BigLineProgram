@@ -3,13 +3,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
 import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
+import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { StoreProductManagementOperateLogComponent } from './store-product-management-operate-log/store-product-management-operate-log.component';
 import { StoreProductMiniCodeComponent } from './store-product-mini-code/store-product-mini-code.component';
+
+
+
 
 @Component({
     selector: 'app-store-product-management',
@@ -55,7 +59,7 @@ export class StoreProductManagementComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public storeProductService: StoreProductService, public router: Router,
-        private modal: NzModalService, private nzContextMenuService: NzContextMenuService, private message: NzMessageService, 
+        private modal: NzModalService, private nzContextMenuService: NzContextMenuService, private message: NzMessageService,
         public storeRegionService: StoreRegionService, public quoteBydateService: StoreQuoteBydateService) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
@@ -424,6 +428,22 @@ export class StoreProductManagementComponent implements OnInit {
             operation_id: '',
             departure_city: '',
             destination_city: '',
+        })
+    }
+
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: StoreProductManagementOperateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
         })
     }
 }

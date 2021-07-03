@@ -2,9 +2,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelUpdateModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
+import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
 import { AddProductTrip } from '../../interfaces/store/storeProduct/ProductModel';
 
 
@@ -151,6 +151,17 @@ export class AdminProductFreeTravelService {
                 catchError(this.handleError)
             )
     }
+
+
+
+    //获取操作的时间线
+    getOperateLog(id: any): Observable<any> {
+        return this.httpClient.get<any>(this.urls.GetAdminIndentProOperLog + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);

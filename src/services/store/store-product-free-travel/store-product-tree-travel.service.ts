@@ -171,4 +171,13 @@ export class StoreProductTreeTravelService {
             .pipe(
             )
     }
+
+    
+    //获取操作的时间线
+    getOperateLog(id: any): Observable<any> {
+        return this.httpClient.get<any>(this.urls.GetStoreIndentProOperLog + id, httpOptions)
+            .pipe(
+               
+            )
+    }
 }
