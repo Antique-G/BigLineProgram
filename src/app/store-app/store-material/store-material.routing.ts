@@ -3,6 +3,7 @@ import { FullComponent } from '../../../app/layouts/full/full.component';
 import { StoreCerticationComponent } from './store-certication/store-certication.component';
 import { StoreContractComponent } from './store-contract/store-contract.component';
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
+import { StoreGoodsOrderDetailComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-detail.component';
 import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.component';
 import { StoreGoodsProCreateBystepComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-create-bystep.component';
 import { StoreGoodsProDetailComponent } from './store-goods-pro/store-goods-pro-detail/store-goods-pro-detail.component';
@@ -320,6 +321,14 @@ export const StoreMaterialRoutes: Routes = [
                     breadcrumb: '商品订单列表'
                 }
             },
+            {
+                path: 'storeGoodsOrder/detail',
+                component: StoreGoodsOrderDetailComponent,
+                data: {
+                    breadcrumb: '商品订单详情'
+                }
+            },
+
         ]
     }
 ];

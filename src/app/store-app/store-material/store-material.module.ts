@@ -132,6 +132,9 @@ import { ChooseGoodsGalleryComponent } from './common/choose-goods-gallery/choos
 import { UploadGoodsImgComponent } from './common/upload-goods-img/upload-goods-img.component';
 import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-goods-video.component';
 import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.component';
+import { StoreGoodsOrderDetailComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-detail.component';
+import { StoreGoodsOrderMergeShipComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-merge-ship/store-goods-order-merge-ship.component';
+import { StoreGoodsOrderShipComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-ship/store-goods-order-ship.component';
 
 
 @NgModule({
@@ -281,6 +284,9 @@ import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.
         UploadGoodsImgComponent,
         UploadGoodsVideoComponent,
         StoreGoodsOrderComponent,
+        StoreGoodsOrderDetailComponent,
+        StoreGoodsOrderMergeShipComponent,
+        StoreGoodsOrderShipComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

@@ -63,7 +63,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
             delivery_type: new FormControl('1'),
             is_hot: new FormControl('0'),
             sort: new FormControl(),
-            specificationList: this.fb.array([]),
+            specificationList: this.fb.array([], [Validators.required]),
             sales_note: new FormControl(),
         });
         this.addGoodsModel = {

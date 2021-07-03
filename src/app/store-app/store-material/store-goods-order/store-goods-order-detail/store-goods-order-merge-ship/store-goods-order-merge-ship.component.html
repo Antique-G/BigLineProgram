@@ -1,0 +1,44 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 5px 20px;" fxLayoutWrap="column" fxLayoutAlign="start strench">
+        <form nz-form [formGroup]="addForm" style="width: 100%;">
+            <div nz-row>
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24">商品清单</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <div style="margin-top: 5px;">
+                                <ng-container *ngFor="let goods of data">
+                                    <div>{{goods?.goods_name}}</div>
+                                </ng-container>
+                            </div>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="courier_company" nzRequired>快递公司</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                            <input nz-input formControlName="courier_company" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="courier_number" nzRequired>快递单号</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入">
+                            <input nz-input formControlName="courier_number" />
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

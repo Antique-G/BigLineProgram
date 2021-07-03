@@ -169,7 +169,7 @@ export class AdminGoodsService {
             .set('consignee', consignee ? consignee : '')
             .set('phone', phone ? phone : '')
             .set('bind_id', bind_id ? bind_id : '');
-          
+
 
 
         const findhttpOptions = {
@@ -181,6 +181,16 @@ export class AdminGoodsService {
                 catchError(this.handleError)
             );
     }
+
+
+    // 订单详情
+    orderDetail(id: any) {
+        return this.httpClient.get<any>(this.urls.GetAdminGoodsOrderDetail + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);

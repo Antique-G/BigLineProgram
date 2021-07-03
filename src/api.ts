@@ -320,10 +320,11 @@ export const AdminUrls = {
     PostAdminGoodsSetCheck: api + '/admin/set_check/',     //商品审核
     PostAdminGoodsAddOrder: api + '/admin/goods_order',     //添加商品订单
     GetAdminGoodsOrderList: api + '/admin/goods_order',     //商品订单
+    GetAdminGoodsOrderDetail: api + '/admin/goods_order/',     //商品订单详情
 
 
 
-    
+
 };
 
 
@@ -524,6 +525,8 @@ export const StoreUrls = {
     GetStoreGoodsDetail: api + '/store/goods/',  // 详情
     PostStoreGoodsSetShelves: api + '/store/set_shelves/',     //商品上下架
     PostStoreGoodsSetCheck: api + '/store/set_check/',     //商品审核
+    GetStoreGoodsOrderList: api + '/store/goods_order',     //商品订单
+    GetStoreGoodsOrderDetail: api + '/store/goods_order/',     //商品订单详情
 
 
 

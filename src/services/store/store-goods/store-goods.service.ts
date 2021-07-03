@@ -95,6 +95,49 @@ export class StoreGoodsService {
     }
 
 
+    // 订单列表
+    orderList(page: number, per_page: number, order_status: any, order_id: any, express_status: any, goods_name: any, cate_id: any,
+        is_postage: any, date_start: any, date_end: any, send_time_start: any, send_time_end: any,
+       consignee: any, phone: any, bind_id: any,): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_status', order_status ? order_status : '')
+            .set('order_id', order_id ? order_id : '')
+            .set('express_status', express_status ? express_status : '')
+            .set('goods_name', goods_name ? goods_name : '')
+            .set('cate_id', cate_id ? cate_id : '')
+            .set('is_postage', is_postage ? is_postage : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('send_time_start', send_time_start ? send_time_start : '')
+            .set('send_time_end', send_time_end ? send_time_end : '')
+            .set('consignee', consignee ? consignee : '')
+            .set('phone', phone ? phone : '')
+            .set('bind_id', bind_id ? bind_id : '');
+
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetStoreGoodsOrderList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    // 订单详情
+    orderDetail(id: any) {
+        return this.httpClient.get<any>(this.urls.GetStoreGoodsOrderDetail + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);
         switch (error.status) {
