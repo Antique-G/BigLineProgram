@@ -91,6 +91,7 @@ export const AdminUrls = {
     GetAdminProductCheckLog: api + '/admin/product/check_log', // 审核日志
     GetAdminProductManagementStoreList: api + '/admin/store/list', // 查询店铺
     GetAdminInsuranceDayList: api + '/admin/insurance/data',      // 跟团游保险列表天数
+    GetAdminProOperLog: api + '/admin/product_opet_log/',      // 操作时间线
 
 
 
@@ -115,7 +116,7 @@ export const AdminUrls = {
     GetAdminUserOption: api + '/admin/user/option',  // 提现列表的用户列表信息
     GetAdminWithdrawTotal: api + '/admin/user_withdraw/statistic',  // 提现统计
 
-    
+
 
 
 
@@ -131,6 +132,7 @@ export const AdminUrls = {
 
     // 自由行预售产品
     GetAdminPreFreeTravelList: api + '/admin/indent_ticket_list',   // 列表
+    GetAdminIndentProOperLog: api + '/admin/indent_opet_log/',      // 操作时间线
 
 
 
@@ -212,6 +214,8 @@ export const AdminUrls = {
     GetAdminContractView: api + '/admin/contract_view/',  // 电子合同
     PostAdminSignContract: api + '/admin/contract',  // 签署电子合同
     PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
+    GetAdminOrderOperateLog: api + '/admin/order_opet_log/',  // 订单日志
+
 
     GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
@@ -230,7 +234,7 @@ export const AdminUrls = {
     GetAdminRefundAmountTotal: api + '/admin/refund_amount_total', //  财务退款 统计
     PostAdminRefundCancel: api + '/admin/cancel_refund', // 撤销退款
 
-     
+
 
 
     GetAdminRefundDetail: api + '/admin/refund/',  // 退款详情
@@ -356,6 +360,8 @@ export const StoreUrls = {
     PostStoreProductTripDel: api + '/store/product_trip_del', // 删除行程
     GetStoreProSearch: api + '/store/product/search',  // 跟团游产品搜索
     PostStoreProductOrderGroup: api + '/store/order/group_product',  // 创建订单（跟团游）
+    GetStoreProOperLog: api + '/store/product_opet_log/',      // 操作时间线
+
 
     PostStoreProductReward: api + '/store/product_reward', // 佣金的编辑
     PostStoreFreeReward: api + '/store/inden_product_reward', // 佣金的编辑
@@ -396,6 +402,7 @@ export const StoreUrls = {
     PostUpDownFreeTravelInfoSetCheck: api + '/store/independent_product/set_check',
     PostStoreFreeTravelInfoDetail: api + '/store/inden_product_trip',
     PostStoreFreeTraveDel: api + '/store/inden_trip_del',
+    GetStoreIndentProOperLog: api + '/store/indent_opet_log/',      // 操作时间线
 
 
 
@@ -459,6 +466,8 @@ export const StoreUrls = {
     GetStoreOrderChangeDate: api + '/store/order/change_date',  // 订单改日期（提交前展示）
     PostStoreOrderChangeDate: api + '/store/order/change_date',  // 订单改日期（提交）
     PostStoreOrderConfirmReceipt: api + '/store/order/confirm_receipt',  // 确认收款
+    GetStoreOrderOperateLog: api + '/store/order_opet_log/',  // 订单日志
+
 
 
     GetStoreRefund: api + '/store/refund',  // 退款列表
@@ -484,7 +493,7 @@ export const StoreUrls = {
     PostStorePreFreeTravelAdd: api + '/store/indent_ticket_add',  // 添加
     PostStoreCopyIndentPro: api + '/store/copy_indent_product',  // 复制产品
 
-    
+
 
 
     // 成本

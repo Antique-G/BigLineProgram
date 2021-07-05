@@ -137,7 +137,7 @@
                                     <th style="text-align: center;">大航产品</th>
                                     <!-- <th style="text-align: center;">产品编码</th> -->
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;">创建人</th>
+                                    <th style="text-align: center;">创建人/创建时间</th>
                                     <th style="text-align: center;">行程天数</th>
                                     <th style="text-align: center;">最低价格/套餐价格</th>
                                     <th style="text-align: center;">出发城市</th>
@@ -156,7 +156,10 @@
                                     <td>{{data?.third_product_id>0?'是':'否'}}</td>
                                     <!-- <td>{{data.code}}</td> -->
                                     <td>{{data?.store?.name}}</td>
-                                    <td>{{data.operation_name}}</td>
+                                    <td>
+                                        <div>{{data.operation_name==''?'-':data.operation_name}}</div>
+                                        <div>{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                                    </td>
                                     <td>{{data.few_days}}天{{data.few_nights}}晚</td>
                                     <td>
                                         <div *ngIf="data.quote_type==2">
@@ -235,6 +238,9 @@
                                                 </li>
                                                 <li nz-menu-item (click)="getCode(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
+                                                </li>
+                                                <li nz-menu-item (click)="getTimeLine(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
                                                 </li>
                                             </ul>
                                         </nz-dropdown-menu>

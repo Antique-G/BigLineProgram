@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 import { StoreUrls } from '../../../api';
+import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 import { ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, ProModel, StoreOrderGroupTravelListRequestModel } from '../../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 const httpOptions = {
@@ -117,6 +117,15 @@ export class StoreOrderGroupTravelService {
     // 确认收款
     comfirmOrder(comfirmOrderModel: ComfirmOrderModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostStoreOrderConfirmReceipt, comfirmOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    //获取操作的时间线
+    getOperateLog(id: any): Observable<any> {
+        return this.httpClient.get<any>(this.urls.GetStoreOrderOperateLog + id, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

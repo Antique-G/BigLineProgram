@@ -9,6 +9,7 @@ import { AdminOrderGroupTravelService } from '../../../services/admin/admin-orde
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminOrderGroupMoneyComponent } from '../admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
+import { AdminProductOprateLogComponent } from '../admin-product/admin-product-management/admin-product-oprate-log/admin-product-oprate-log.component';
 
 
 @Component({
@@ -362,6 +363,25 @@ export class AdminOrderFreeTravelComponent implements OnInit {
         console.log('object :>> ', this.isExport);
         this.loading = false;
 
+    }
+
+
+
+
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: AdminProductOprateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 }
 

@@ -8,6 +8,8 @@ import { AdminOrderGroupTravelService } from '../../../services/admin/admin-orde
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
+import { AdminOrderGroupOprateLogComponent } from './admin-order-group-oprate-log/admin-order-group-oprate-log.component';
+
 
 
 @Component({
@@ -383,6 +385,23 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     // 修改合同
     contractChange(data: any) {
         this.router.navigate(['/admin/main/groupTravelOrder/editContract'], { queryParams: { orderId: data.id } });
+    }
+
+
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: AdminOrderGroupOprateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 }
 

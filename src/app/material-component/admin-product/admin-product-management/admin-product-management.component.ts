@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 import { AdminProductSetStatusModel } from '../../../../interfaces/adminProduct/product-management-model';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
-import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
-import { AdminProductMiniCodeComponent } from './admin-product-mini-code/admin-product-mini-code.component';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { AdminProductMiniCodeComponent } from './admin-product-mini-code/admin-product-mini-code.component';
+import { AdminProductOprateLogComponent } from './admin-product-oprate-log/admin-product-oprate-log.component';
+import { AdminProductReviewComponent } from './admin-product-review/admin-product-review.component';
+
 
 @Component({
     selector: 'app-admin-product-management',
@@ -297,5 +299,21 @@ export class AdminProductManagementComponent implements OnInit {
         });
         this.page = 1;
 
+    }
+
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: AdminProductOprateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 }

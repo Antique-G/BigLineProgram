@@ -1,0 +1,22 @@
+<div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+    <div class="">
+        <nz-table #rowSelectionTable nzBordered [nzData]="dataSource" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changePageSize($event)">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">操作人</th>
+                    <th style="text-align: center;">操作内容</th>
+                    <th style="text-align: center;">操作时间</th>
+                    <th style="text-align: center;">操作来源</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data">
+                    <td>{{data?.operation_name}}</td>
+                    <td>{{data?.description}}</td>
+                    <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{data?.type==1?'平台操作':'店铺操作'}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
