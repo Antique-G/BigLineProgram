@@ -395,24 +395,24 @@ export class StoreProductManagementComponent implements OnInit {
 
     // 生成小程序码
     getCode(data: any) {
-        console.log('data :>> ', data, data?.status === 0);
-        if (data?.status === 0) {
-            this.message.create('error', `该产品暂未上架，无法生成小程序码`)
-        }
-        else {
-            const addmodal = this.modal.create({
-                nzTitle: '生成小程序码',
-                nzContent: StoreProductMiniCodeComponent,
-                nzWidth: 800,
-                nzComponentParams: {
-                    data: [data, 0]
-                },
-                nzFooter: null
-            })
-            addmodal.afterClose.subscribe((res: any) => {
-            })
-        }
+        // console.log('data :>> ', data, data?.status === 0);
+        // if (data?.status === 0) {
+        //     this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+        // }
+        // else {
 
+        // }
+        const addmodal = this.modal.create({
+            nzTitle: '生成小程序码',
+            nzContent: StoreProductMiniCodeComponent,
+            nzWidth: 800,
+            nzComponentParams: {
+                data: [data, 0]
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 
 
