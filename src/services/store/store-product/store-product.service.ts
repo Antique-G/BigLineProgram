@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 import { AdminInsuranceListResponseModel } from '../../../interfaces/adminInsurance/admin-insurance-model';
-import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
+import { CheckLogModule, ProductQuteDateModel } from '../../../interfaces/adminProduct/product-management-model';
 import { AddProductResponseModel, AddProductTrip, AddStoreProductModel, AssemblingPlaceListModel, ProductDateilResponseModel, ProductResponseListResponseModel, ProductTagCateListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
@@ -277,12 +277,17 @@ export class StoreProductService {
     }
 
 
-
-
-
     //获取操作的时间线
-    getOperateLog(id: any): Observable<any> {
-        return this.httpClient.get<any>(this.urls.GetStoreProOperLog + id, httpOptions)
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetStoreProOperLog + id, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )

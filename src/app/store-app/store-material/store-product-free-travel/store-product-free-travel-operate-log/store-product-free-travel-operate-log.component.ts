@@ -11,15 +11,34 @@ import { StoreProductTreeTravelService } from '../../../../../services/store/sto
 export class StoreProductFreeTravelOperateLogComponent implements OnInit {
     @Input() data: any;
     dataSource: any[] = [];
+    page = 1;
+    per_page = 10;
+    total = 1;
 
     constructor(public storeProductTreeTravelService: StoreProductTreeTravelService,) { }
 
     ngOnInit(): void {
-        this.storeProductTreeTravelService.getOperateLog(this.data.id).subscribe(res => {
+        this.getOperateLog();
+    }
+
+    getOperateLog() {
+        this.storeProductTreeTravelService.getOperateLog(this.page, this.per_page, this.data.id).subscribe(res => {
             console.log("12312", res);
             this.dataSource = res.data;
         })
-
     }
+
+
+    changePageSize(per_page: number) {
+        this.per_page = per_page;
+        this.getOperateLog();
+    }
+
+    changePageIndex(page: number) {
+        console.log("当前页", page);
+        this.page = page;
+        this.getOperateLog();
+    }
+
 
 }

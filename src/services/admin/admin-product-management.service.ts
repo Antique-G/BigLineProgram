@@ -192,13 +192,20 @@ export class AdminProductManagementService {
 
 
     //获取操作的时间线
-    getOperateLog(id: any): Observable<any> {
-        return this.httpClient.get<any>(this.urls.GetAdminProOperLog + id, httpOptions)
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+        
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminProOperLog+id, findhttpOptions)
             .pipe(
                 catchError(this.handleError)
             )
     }
-
 
 
 

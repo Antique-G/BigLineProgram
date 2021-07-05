@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
+import { ProductQuteDateModel } from '../../../interfaces/adminProduct/product-management-model';
 import { AddProductTrip, AssemblingPlaceListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 import { FreeTravelListModel, StoreFreeTravelModel } from '../../../interfaces/store/storeProductFreeTravel/storeProductFreeTravel';
 
@@ -172,12 +173,19 @@ export class StoreProductTreeTravelService {
             )
     }
 
-    
+
     //获取操作的时间线
-    getOperateLog(id: any): Observable<any> {
-        return this.httpClient.get<any>(this.urls.GetStoreIndentProOperLog + id, httpOptions)
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetStoreIndentProOperLog + id, findhttpOptions)
             .pipe(
-               
             )
     }
 }

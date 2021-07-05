@@ -147,7 +147,8 @@
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
                                     <th style="text-align: center;">请款状态</th>
-                                    <th style="text-align: center;">操作</th>
+                                    <!-- <th style="text-align: center;">操作</th> -->
+                                    <th style="text-align: center;">查看详情</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -210,6 +211,11 @@
                                         <span *ngIf="data.payout_status===3">已收发票</span>
                                     </td>
                                     <td>
+                                        <div style="cursor: pointer;">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                        </div>
+                                    </td>
+                                    <!-- <td>
                                         <a nz-dropdown [nzDropdownMenu]="operate" nzTrigger="click">
                                             操作
                                             <i nz-icon nzType="down"></i>
@@ -224,7 +230,7 @@
                                                 </li>
                                             </ul>
                                         </nz-dropdown-menu>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>
