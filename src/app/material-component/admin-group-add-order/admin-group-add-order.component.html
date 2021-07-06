@@ -79,7 +79,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="width: 3%;"></th>
+                                    <th style="width: 4%;">团队列表</th>
                                     <th style="text-align: center;">产品id</th>
                                     <th style="text-align: center;">产品编码</th>
                                     <th style="text-align: center;width: 15%;">产品名称</th>
@@ -132,7 +132,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a (click)="anOrder(data)">去下单</a>
+                                            <a (click)="anOrder(data)">去下单
+                                                <img src="http://cdn.bigline.com.cn/static/images/prompt.png" *ngIf="data.sales_note" [title]="'销售备注：'+data.sales_note">
+                                            </a>
                                         </td>
 
                                     </tr>

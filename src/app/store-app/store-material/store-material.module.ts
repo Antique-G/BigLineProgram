@@ -117,6 +117,9 @@ import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-
 import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
 import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
+import { StoreProductManagementOperateLogComponent } from './store-product-management/store-product-management-operate-log/store-product-management-operate-log.component';
+import { StoreProductFreeTravelOperateLogComponent } from './store-product-free-travel/store-product-free-travel-operate-log/store-product-free-travel-operate-log.component';
+import { StoreOrderGroupOperateLogComponent } from './store-order-grouptravel/store-order-group-operate-log/store-order-group-operate-log.component';
 
 
 @NgModule({
@@ -251,6 +254,9 @@ import { StoreProductMiniCodeComponent } from './store-product-management/store-
         StoreOrderRequestMoneyComponent,
         StoreRequestMoneyComponent,
         StoreProductMiniCodeComponent,
+        StoreProductManagementOperateLogComponent,
+        StoreProductFreeTravelOperateLogComponent,
+        StoreOrderGroupOperateLogComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

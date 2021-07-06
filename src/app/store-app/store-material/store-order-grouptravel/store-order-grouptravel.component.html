@@ -138,8 +138,8 @@
                                     <th style="text-align: center;">订单短信通知书</th>
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
+                                    <!-- <th style="text-align: center;">操作</th> -->
                                     <th style="text-align: center;">查看详情</th>
-                                    <!-- <th style="text-align: center;">确认收款</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -212,9 +212,20 @@
                                         </div>
                                     </td>
                                     <!-- <td>
-                                        <div style="cursor: pointer;" *ngIf="data.order_status!=0&&data.payment_status!=1">
-                                            <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
-                                        </div>
+                                        <a nz-dropdown [nzDropdownMenu]="operate" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #operate="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" style="cursor: pointer;">编辑
+                                                </li>
+                                                <li nz-menu-item (click)="getTimeLine(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
                                     </td> -->
                                 </tr>
                             </tbody>

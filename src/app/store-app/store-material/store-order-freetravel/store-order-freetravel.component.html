@@ -147,8 +147,8 @@
                                     <th style="text-align: center;">订单取消类型</th>
                                     <th style="text-align: center;">订单退款状态</th>
                                     <th style="text-align: center;">请款状态</th>
+                                    <!-- <th style="text-align: center;">操作</th> -->
                                     <th style="text-align: center;">查看详情</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -215,6 +215,22 @@
                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                         </div>
                                     </td>
+                                    <!-- <td>
+                                        <a nz-dropdown [nzDropdownMenu]="operate" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #operate="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" style="cursor: pointer;">编辑
+                                                </li>
+                                                <li nz-menu-item (click)="getTimeLine(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>

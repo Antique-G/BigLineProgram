@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { AdminProductFreeReviewComponent } from './admin-product-free-review/admin-product-free-review.component';
-import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
-import { AdminProductMiniCodeComponent } from '../admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { AdminProductFreeTravelService } from '../../../../services/admin/admin-product-free-travel.service';
+import { AdminProductTagService } from '../../../../services/admin/admin-product-tag.service';
 import { AdminRegionService } from '../../../../services/admin/admin-region.service';
+import { AdminProductMiniCodeComponent } from '../admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
+import { AdminProductFreeReviewComponent } from './admin-product-free-review/admin-product-free-review.component';
+import { AdminProductFreeTravelOprateLogComponent } from './admin-product-free-travel-oprate-log/admin-product-free-travel-oprate-log.component';
+
 
 @Component({
     selector: 'app-admin-produc-free-travel',
@@ -232,22 +234,23 @@ export class AdminProducFreeTravelComponent implements OnInit {
 
 
     getCode(data: any) {
-        if (data?.status === 0) {
-            this.message.create('error', `该产品暂未上架，无法生成小程序码`)
-        }
-        else {
-            const addmodal = this.modal.create({
-                nzTitle: '生成小程序码',
-                nzContent: AdminProductMiniCodeComponent,
-                nzWidth: 800,
-                nzComponentParams: {
-                    data: [data, 1]
-                },
-                nzFooter: null
-            })
-            addmodal.afterClose.subscribe((res: any) => {
-            })
-        }
+        // if (data?.status === 0) {
+        //     this.message.create('error', `该产品暂未上架，无法生成小程序码`)
+        // }
+        // else {
+      
+        // }
+        const addmodal = this.modal.create({
+            nzTitle: '生成小程序码',
+            nzContent: AdminProductMiniCodeComponent,
+            nzWidth: 800,
+            nzComponentParams: {
+                data: [data, 1]
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 
 
@@ -267,5 +270,21 @@ export class AdminProducFreeTravelComponent implements OnInit {
             is_presell: ''
         });
         this.page = 1;
+    }
+
+
+       // 查看操作记录
+       getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: AdminProductFreeTravelOprateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
+        })
     }
 }

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
-import { ProductResponseListResponseModel, ProductDateilResponseModel, AddStoreProductModel, AddProductResponseModel, DetailModel, UploadImgModel, AssemblingPlaceListModel, ProductTagCateListModel, AddProductTrip, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
-import { CheckLogModule } from '../../../interfaces/adminProduct/product-management-model';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
 import { AdminInsuranceListResponseModel } from '../../../interfaces/adminInsurance/admin-insurance-model';
+import { CheckLogModule, ProductQuteDateModel } from '../../../interfaces/adminProduct/product-management-model';
+import { AddProductResponseModel, AddProductTrip, AddStoreProductModel, AssemblingPlaceListModel, ProductDateilResponseModel, ProductResponseListResponseModel, ProductTagCateListModel, SetRewardModel } from '../../../interfaces/store/storeProduct/ProductModel';
 
 const httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json')
@@ -276,6 +276,22 @@ export class StoreProductService {
             )
     }
 
+
+    //获取操作的时间线
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetStoreProOperLog + id, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
 
 
     private handleError(error: HttpErrorResponse) {
