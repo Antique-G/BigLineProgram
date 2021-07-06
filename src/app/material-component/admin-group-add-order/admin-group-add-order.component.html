@@ -132,7 +132,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a (click)="anOrder(data)">去下单</a>
+                                            <a (click)="anOrder(data)">去下单
+                                                <img src="http://cdn.bigline.com.cn/static/images/prompt.png" *ngIf="data.sales_note" [title]="'销售备注：'+data.sales_note">
+                                            </a>
                                         </td>
 
                                     </tr>
