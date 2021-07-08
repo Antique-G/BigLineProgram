@@ -312,6 +312,13 @@ export const AdminUrls = {
     PutAdminGoodsCateUpdate: api + '/admin/goods_cate/',   // 更新
     GetAdminGoodsCateListTree: api + '/admin/cate_list_tree',   // 商品列表的分类列表
 
+    GetAdminExpressCompanyList: api + '/admin/express_company',   // 快递列表
+    PostAdminExpressCompany: api + '/admin/express_company',   // 添加
+    PutAdminExpressCompanyUpdate: api + '/admin/express_company/',   // 更新
+    DeleteAdminExpressCompany: api + '/admin/express_company/',   // 删除
+
+
+
     GetAdminGoodsList: api + '/admin/goods',     //商品列表
     PutAdminGoodsUpdate: api + '/admin/goods/',     //更新
     GetAdminGoodsDetail: api + '/admin/goods/',  // 详情
@@ -321,6 +328,8 @@ export const AdminUrls = {
     PostAdminGoodsAddOrder: api + '/admin/goods_order',     //添加商品订单
     GetAdminGoodsOrderList: api + '/admin/goods_order',     //商品订单
     GetAdminGoodsOrderDetail: api + '/admin/goods_order/',     //商品订单详情
+    PostAdminGoodsOrderUpdateItem: api + '/admin/goods_order/update_item',     //商品订单修改
+    PutAdminGoodsOrderUpdateCon: api + '/admin/goods_order/',     //商品订单修改收货人信息
 
 
 
@@ -525,8 +534,14 @@ export const StoreUrls = {
     GetStoreGoodsDetail: api + '/store/goods/',  // 详情
     PostStoreGoodsSetShelves: api + '/store/set_shelves/',     //商品上下架
     PostStoreGoodsSetCheck: api + '/store/set_check/',     //商品审核
-    GetStoreGoodsOrderList: api + '/store/goods_order',     //商品订单
-    GetStoreGoodsOrderDetail: api + '/store/goods_order/',     //商品订单详情
+    GetStoreGoodsOrderList: api + '/store/goods_sub_order',     //商品订单
+    GetStoreGoodsOrderDetail: api + '/store/goods_sub_order/',     //商品订单详情
+    PostStoreGoodsOrderUpdateItem: api + '/store/goods_order/update_item',     //商品订单修改
+    PostStoreGoodsOrderAddSub: api + '/store/goods_order/add_sub',     //拆分订单
+
+    
+    GetStoreExpressCompanyList: api + '/store/express_company/list',     //快递公司
+    PostStoreGoodsSendExpress: api + '/store/goods_order/express',     //快递发货
 
 
 

@@ -16,6 +16,7 @@ import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
 import { AdminGoodsCateComponent } from './admin-goods/admin-goods-cate/admin-goods-cate.component';
+import { AdminGoodsExpressCompanyComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company.component';
 import { AdminGoodsProAddOrderDetailComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order-detail/admin-goods-pro-add-order-detail.component';
 import { AdminGoodsProAddOrderComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order.component';
 import { AdminGoodsProOrderDetailComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-detail/admin-goods-pro-order-detail.component';
@@ -694,7 +695,13 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '商品订单详情'
                 }
             },
-            
+            {
+                path: 'expressCompany',
+                component: AdminGoodsExpressCompanyComponent,
+                data: {
+                    breadcrumb: '快递公司列表'
+                }
+            },
             
         ]
     }

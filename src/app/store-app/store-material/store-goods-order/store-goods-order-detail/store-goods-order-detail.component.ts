@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreGoodsService } from 'services/store/store-goods/store-goods.service';
+import { StoreGoodsOrderDetailModifyComponent } from './store-goods-order-detail-modify/store-goods-order-detail-modify.component';
 import { StoreGoodsOrderMergeShipComponent } from './store-goods-order-merge-ship/store-goods-order-merge-ship.component';
-import { StoreGoodsOrderShipComponent } from './store-goods-order-ship/store-goods-order-ship.component';
-
 
 
 @Component({
@@ -19,22 +18,29 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
     addForm!: FormGroup;
     detailModel: any;
     detailId: any;
-
     checked = false;
     setOfCheckedId = new Set<number>();
     setArr = new Set<any>();
+    splitGoodsOrderModel: any;
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public storeGoodsService: StoreGoodsService,
         private message: NzMessageService, private modal: NzModalService,) {
         this.addForm = this.fb.group({
             order_id: [''],
+            main_order_id: [''],
             orderDate: [''],
             bind_name: [''],
             consignee: [''],
             phone: [''],
             address: [''],
-        })
+            region_code: [''],
+            remark: [''],
+        });
+        this.splitGoodsOrderModel = {
+            item_ids: '',
+            sub_order_id: ''
+        }
     }
 
     ngOnInit(): void {
@@ -56,14 +62,15 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
     }
 
 
-    // 单个发货
-    ship(data:any) {
+
+    // 发货
+    mergeShip() {
         const editmodal = this.modal.create({
             nzTitle: '商品发货',
             nzWidth: 700,
-            nzContent: StoreGoodsOrderShipComponent,
+            nzContent: StoreGoodsOrderMergeShipComponent,
             nzComponentParams: {
-                data: data
+                data: this.detailModel
             },
             nzFooter: [
                 {
@@ -79,45 +86,6 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
             this.getOrderDetail();
         });
     }
-
-    // 合并发货
-    mergeShip() {
-        let mergeList = [...this.setArr];
-        if (mergeList.length < 2) {
-            this.message.error('请至少选择两个商品进行合并发货');
-        }
-        else {
-            const editmodal = this.modal.create({
-                nzTitle: '合并发货',
-                nzWidth: 700,
-                nzContent: StoreGoodsOrderMergeShipComponent,
-                nzComponentParams: {
-                    data: mergeList
-                },
-                nzFooter: [
-                    {
-                        label: '提交',
-                        type: 'primary',
-                        onClick: componentInstance => {
-                            componentInstance?.add();
-                        }
-                    }
-                ]
-            });
-            editmodal.afterClose.subscribe(res => {
-                this.getOrderDetail();
-            });
-        }
-    }
-
-
-
-    // 全选
-    onAllChecked(checked: boolean): void {
-        console.log("")
-        this.detailModel?.sub_order?.data[0]?.order_item?.data.forEach((data: any) => this.updateCheckedSet(data, checked));
-    }
-
 
     updateCheckedSet(data: any, checked: boolean): void {
         if (checked) {
@@ -136,4 +104,72 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
         this.updateCheckedSet(data, checked);
     }
 
+
+
+    // 修改商品信息
+    changeGoods(data: any) {
+        const editmodal = this.modal.create({
+            nzTitle: "修改商品信息",
+            nzContent: StoreGoodsOrderDetailModifyComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data,
+            },
+            nzFooter: null
+        });
+        editmodal.afterClose.subscribe((res) => {
+            this.getOrderDetail();
+        });
+    }
+
+
+
+
+    // 拆分订单
+    splitOrder() {
+        let mergeList = [...this.setArr];
+        let ids = [...this.setOfCheckedId];
+        if (mergeList.length != 1) {
+            this.message.error('请选择1个商品进行拆分');
+        }
+        else {
+            console.log("23423", mergeList);
+            this.splitGoodsOrderModel.item_ids = ids;
+            this.splitGoodsOrderModel.sub_order_id = this.detailModel.id;
+
+            this.modal.confirm({
+                nzTitle: "<h4>提示</h4>",
+                nzContent: `<h6>是否将 ${mergeList[0].goods_name} 从此订单中拆分，生成一个新的子订单？</h6>`,
+                nzOnOk: () =>
+                    this.storeGoodsService.splitGoodsOrderSub(this.splitGoodsOrderModel).subscribe((res) => {
+                        this.getOrderDetail();
+                    }),
+            });
+        }
+    }
+
+
+    // 修改快递信息
+    changeShip() {
+        const editmodal = this.modal.create({
+            nzTitle: '修改快递信息',
+            nzWidth: 700,
+            nzContent: StoreGoodsOrderMergeShipComponent,
+            nzComponentParams: {
+                data: this.detailModel
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add();
+                    }
+                }
+            ]
+        });
+        editmodal.afterClose.subscribe(res => {
+            this.getOrderDetail();
+        });
+    }
 }

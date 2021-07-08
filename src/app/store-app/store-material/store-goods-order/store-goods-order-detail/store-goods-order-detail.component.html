@@ -16,6 +16,9 @@
                                         <div>
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
+                                        <div *ngIf="detailModel?.express_status==0">
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="mergeShip()">订单发货</button>
+                                        </div>
                                     </div>
                                     <nz-divider></nz-divider>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
@@ -28,7 +31,17 @@
                                             <form nz-form [formGroup]="addForm" nz-row>
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="main_order_id">订单id
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="main_order_id" nzBorderless readonly [ngModel]="detailModel?.order_id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">主订单id
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
@@ -51,7 +64,7 @@
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_name">下单人
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="bind_name" nzBorderless readonly [ngModel]="detailModel?.bind_name" />
+                                                            <input nz-input formControlName="bind_name" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.bind_id==0?'-': detailModel?.main_order?.data?.bind_name" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -61,7 +74,7 @@
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="consignee">收货人
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="consignee" nzBorderless readonly [ngModel]="detailModel?.consignee" />
+                                                            <input nz-input formControlName="consignee" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.consignee" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -71,23 +84,41 @@
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">收货人电话
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="phone" nzBorderless readonly [ngModel]="detailModel?.phone" />
+                                                            <input nz-input formControlName="phone" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.phone" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address">收货地址
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="region_code">
+                                                            收货人所在地区
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="address" nzBorderless readonly [ngModel]="detailModel?.address" />
+                                                            <input nz-input formControlName="region_code" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.region_full_name" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
 
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address" nzRequired>收货人详细地址</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人详细地址">
+                                                            <input nz-input formControlName="address" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.address" />
 
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
 
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="remark">内部备注
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="remark" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.remark" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
                                             </form>
                                         </div>
 
@@ -98,158 +129,100 @@
                             </div>
                         </mat-card>
 
-
-                        <mat-card>
-                            <div>
-                                <div fxLayout="column" fxLayoutAlign="start stretch">
-                                    <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px;">
-                                        <div>
-                                            <h4 style="padding-left: 10px;padding-top: 10px;">商品清单//待支付</h4>
-                                        </div>
-                                    </div>
-                                    <nz-divider></nz-divider>
-                                    <ng-container *ngFor="let sub of detailModel?.sub_order?.data;let i=index">
-                                        <div>
-                                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px" style="font-weight: 500;">
-                                                    <div fxLayout="row" fxLayoutGap="50px" style="width: 20%;">
-                                                        <div style="font-weight: 800;"># {{i+1}}</div>
-                                                        <div><span> 子订单号： {{sub?.id}}</span> </div>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>店铺名称：{{sub?.store_name}}</span>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>客人留言：{{sub?.remarks}}</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mat-elevation-z8">
-                                                    <nz-table #rowSelectionTable [nzData]="sub?.order_item?.data">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center;">商品名称</th>
-                                                                <th style="text-align: center;">商品类型</th>
-                                                                <th style="text-align: center;">商品规格</th>
-                                                                <th style="text-align: center;">单价</th>
-                                                                <th style="text-align: center;">数量</th>
-                                                                <th style="text-align: center;">订单金额</th>
-                                                                <th style="text-align: center;">是否包邮</th>
-                                                                <th style="text-align: center;">发货期间</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let data of rowSelectionTable.data">
-                                                                <td>{{data?.goods_name}}</td>
-                                                                <td>{{data?.cate_name}}</td>
-                                                                <td>{{data?.spec_name}}</td>
-                                                                <td>{{data?.goods_price}}元</td>
-                                                                <td>{{data?.goods_num}}份</td>
-                                                                <td>{{data?.total_price}}元</td>
-                                                                <td>{{data?.freight_price==0?'是':'否'}}</td>
-                                                                <td>{{data?.send_start}}~{{data?.send_end}}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </nz-table>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </ng-container>
-
-                                </div>
-
-                            </div>
-                        </mat-card>
-
-
-
-
                         <mat-card>
                             <div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px" style="padding: 10px;">
                                         <div>
-                                            <h4 style="padding-left: 10px;padding-top: 10px;">商品清单//待发货</h4>
+                                            <h4 style="padding-left: 10px;padding-top: 10px;">商品清单</h4>
                                         </div>
-                                        <div>
-                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="mergeShip()">合并发货</button>
+                                        <div *ngIf="detailModel?.express_status==0" fxLayout="row" fxLayoutAlign="start stretch">
+                                            <ng-container *ngIf="detailModel?.order_item?.data.length>1">
+                                                <div><button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="splitOrder()">拆分订单</button></div>
+                                                <div>
+                                                    <p style="color: red;margin-top: 6px;">勾选需要拆分的商品，点击“拆分订单”，将生成一个新的子订单</p>
+                                                </div>
+                                            </ng-container>
                                         </div>
                                     </div>
                                     <nz-divider></nz-divider>
-                                    <ng-container *ngFor="let sub of detailModel?.sub_order?.data;let i=index">
-                                        <div>
-                                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px" style="font-weight: 500;">
-                                                    <div fxLayout="row" fxLayoutGap="50px" style="width: 20%;">
-                                                        <div style="font-weight: 800;"># {{i+1}}</div>
-                                                        <div><span> 子订单号： {{sub?.id}}</span> </div>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>店铺名称：{{sub?.store_name}}</span>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>客人留言：{{sub?.remarks}}</span>
-                                                    </div>
+                                    <div>
+                                        <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px" style="font-weight: 500;">
+                                                <div fxLayout="row" fxLayoutGap="50px" style="width: 20%;">
+                                                    <div><span> 子订单号： {{detailModel?.sub_number}}</span> </div>
                                                 </div>
-
-                                                <div class="mat-elevation-z8">
-                                                    <nz-table #rowSelectionTable [nzData]="sub?.order_item?.data" nzShowSizeChanger>
-                                                        <thead>
-                                                            <tr>
-                                                                <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)" style="width: 3%;"></th>
-                                                                <th style="text-align: center;">商品名称</th>
-                                                                <th style="text-align: center;">商品类型</th>
-                                                                <th style="text-align: center;">商品规格</th>
-                                                                <th style="text-align: center;">单价</th>
-                                                                <th style="text-align: center;">数量</th>
-                                                                <th style="text-align: center;">订单金额</th>
-                                                                <th style="text-align: center;">是否包邮</th>
-                                                                <th style="text-align: center;">发货期间</th>
-                                                                <th style="text-align: center;">发货状态</th>
-                                                                <th style="text-align: center;">快递信息</th>
-                                                                <th style="text-align: center;">操作</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let data of rowSelectionTable.data">
-                                                                <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)"></td>
-                                                                <td>{{data?.goods_name}}</td>
-                                                                <td>{{data?.cate_name}}</td>
-                                                                <td>{{data?.spec_name}}</td>
-                                                                <td>{{data?.goods_price}}元</td>
-                                                                <td>{{data?.goods_num}}份</td>
-                                                                <td>{{data?.total_price}}元</td>
-                                                                <td>{{data?.freight_price==0?'是':'否'}}</td>
-                                                                <td>{{data?.send_start}}~{{data?.send_end}}</td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <!-- <div>申通快递</div>
-                                                                    <div>557058317640220</div> -->
-                                                                </td>
-                                                                <td>
-                                                                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-                                                                        <div><a (click)="ship(data)">发货</a></div>
-                                                                        <!-- <div><a (click)="ship(data)">修改</a></div> -->
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </nz-table>
+                                                <div style="width: 20%;">
+                                                    <span>客人留言：{{detailModel?.remarks}}</span>
                                                 </div>
                                             </div>
 
-
+                                            <div class="mat-elevation-z8">
+                                                <nz-table #rowSelectionTable [nzData]="detailModel?.order_item?.data">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 3%;" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></th>
+                                                            <th style="text-align: center;">商品名称</th>
+                                                            <th style="text-align: center;">商品类型</th>
+                                                            <th style="text-align: center;">商品规格</th>
+                                                            <th style="text-align: center;">单价</th>
+                                                            <th style="text-align: center;">数量</th>
+                                                            <th style="text-align: center;">订单金额</th>
+                                                            <th style="text-align: center;">是否包邮</th>
+                                                            <th style="text-align: center;">发货期间</th>
+                                                            <th style="text-align: center;">发货状态</th>
+                                                            <th style="text-align: center;">快递信息</th>
+                                                            <th style="text-align: center;">操作</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let data of rowSelectionTable.data;let i=index">
+                                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></td>
+                                                            <td>{{data?.goods_name}}</td>
+                                                            <td>{{data?.cate_name}}</td>
+                                                            <td>{{data?.spec_name}}</td>
+                                                            <td>{{data?.goods_price}}元</td>
+                                                            <td>{{data?.goods_num}}份</td>
+                                                            <td>{{data?.total_price}}元</td>
+                                                            <td>{{data?.freight_price==0?'是':'否,油费:￥'+data?.freight_price}}
+                                                            </td>
+                                                            <td>{{data?.send_start}}~{{data?.send_end}}</td>
+                                                            <td>
+                                                                <span *ngIf="detailModel?.express_status==0">
+                                                                    <nz-badge nzColor="yellow"></nz-badge>未发货
+                                                                </span>
+                                                                <span *ngIf="detailModel?.express_status==1">
+                                                                    <nz-badge nzColor="green"></nz-badge>已发货
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <div>{{detailModel?.express_company_name}}</div>
+                                                                <div>{{detailModel?.express_number}}</div>
+                                                            </td>
+                                                            <ng-container *ngIf="i==0">
+                                                                <td [attr.rowspan]="detailModel?.order_item?.data?.length" *ngIf="detailModel?.express_status==1">
+                                                                    <div>
+                                                                        <button mat-raised-button color="primary" (click)="changeShip()">修改快递信息</button>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+                                                            <td *ngIf="detailModel?.express_status==0">
+                                                                <div>
+                                                                    <button mat-raised-button color="primary" (click)="changeGoods(data)">修改商品信息</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </nz-table>
+                                            </div>
                                         </div>
-                                    </ng-container>
 
+
+                                    </div>
                                 </div>
 
                             </div>
                         </mat-card>
-
-
 
                         <mat-card>
                             <div>
@@ -261,59 +234,14 @@
                                     </div>
                                     <nz-divider></nz-divider>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                        <div>
-                                            <div>
-                                                <button class="btn" *ngIf="detailModel?.payment_status===0">待支付</button>
-                                                <button class="btn" *ngIf="detailModel?.payment_status===1">已支付</button>
-                                                <button class="btn" *ngIf="detailModel?.payment_status===2">待支付</button>
-                                            </div>
-                                        </div>
                                         <div style="margin-top:13px">
-                                            <div style="font-weight: 200;font-size: 14px;letter-spacing: 1px;">
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">商品小计</div>
-                                                    <div style="width: 50%;">￥</div>
+                                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="font-weight: 800;font-size: 16px;letter-spacing: 1px;">
+                                                <div>合计:<span style="color: red;">￥{{detailModel?.total_price}}</span>
                                                 </div>
-
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">运费</div>
-                                                    <div style="width: 50%;">￥</div>
-                                                </div>
+                                                <div>商品小计:￥{{detailModel?.item_total}}</div>
+                                                <div>运费:￥{{detailModel?.freight_total}}</div>
                                             </div>
-
-                                            <div style="font-weight: 500;font-size: 16px;color: red;" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
-
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">合计</div>
-                                                    <div style="width: 50%;">￥{{detailModel?.price_total}}</div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">已收金额</div>
-                                                    <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
-                                                    <div style="width: 50%;">退款金额</div>
-                                                    <div style="width: 50%;">
-                                                        <span>￥</span>
-                                                        <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
-                                                    </div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">实收金额</div>
-                                                    <div style="width: 50%;">￥}</div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">还需收款金额</div>
-                                                    <div style="width: 50%;">￥</div>
-                                                </div>
-                                            </div>
-
                                         </div>
-
                                     </div>
 
                                 </div>

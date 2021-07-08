@@ -257,3 +257,56 @@ export interface DataOrderItem {
     cate_name: string;
 }
 
+// 修改商品订单信息
+export interface UpdateGoodsOrderModel {
+    item_id: any;
+    spec_id: any;
+    goods_num: any;
+    goods_price: any;
+    freight_price: any;
+}
+
+// 拆分订单
+export interface SplitGoodsOrderModel {
+    item_ids: any;
+    sub_order_id: any;
+}
+
+
+// 修改收货人信息
+export interface UpdateGoodsOrderConsigneeModel {
+    consignee: any;
+    phone: any;
+    region_code: any;
+    address: any;
+    remark: any;
+    id?: any;
+}
+
+
+
+// 添加快递信息
+export interface AddExpressCompanyModel {
+    name: any;
+    status: any;
+    id?: any;
+}
+
+
+
+// 获取店铺路由的快递
+export interface StoreExpressCompanyList {
+    data: DataStoreExpressCompanyList[];
+}
+
+export interface DataStoreExpressCompanyList {
+    id: number;
+    name: string;
+}
+
+// 快递发货
+export interface SendStoreExpressCompany {
+    sub_order_id: any;
+    express_company: string;
+    express_number: any;
+}

@@ -1,0 +1,76 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="add()">添加</button>
+                    </div>
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'禁用'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'启用'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name"> 快递公司</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="name" placeholder="请输入快递公司" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                    </form>
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">快递公司</th>
+                                    <th style="text-align: center;">状态</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.status==1?'启用':'禁用'}}</td>
+                                    <td>
+                                        <div style="cursor: pointer;" (click)="edit(data)">
+                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+
+
+                        </nz-table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </mat-card>
+    </div>
+</div>

@@ -124,7 +124,7 @@
                                         <form nz-form nz-row [formGroup]="addForm">
                                             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="2" [nzXs]="24">商品id</nz-form-label>
+                                                    <nz-form-label [nzSm]="2" [nzXs]="24">选择规格</nz-form-label>
                                                     <nz-form-control [nzSm]="21" [nzXs]="24">
                                                         <nz-radio-group ngModel={{specificationValue}} nzButtonStyle="solid" formControlName="specificationValue" (ngModelChange)="changeSpecs($event)">
                                                             <div fxLayout="row" fxLayoutGap="20px">
@@ -248,21 +248,25 @@
                                                 </div>
                                             </nz-form-item>
 
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24"></nz-form-item>
 
-
-                                            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                                            <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                 <div nz-row>
-                                                    <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>收货地址</nz-form-label>
-                                                    <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请输入准确的收货地址">
-                                                        <nz-input-group nzCompact>
-                                                            <nz-cascader nzChangeOnSelect style="width: 50%;" placeholder="请选择区域" [nzOptions]="nzOptions" (ngModelChange)="onChangesCity($event)" formControlName="region_code"></nz-cascader>
-                                                            <input nz-input style="width:50%;" formControlName="address" placeholder="请输入详细地址" />
-                                                        </nz-input-group>
+                                                    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>收货人所在地区</nz-form-label>
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入准确的收货地址">
+                                                        <nz-cascader placeholder="请选择区域" [nzOptions]="nzOptions" (ngModelChange)="onChangesCity($event)" formControlName="region_code"></nz-cascader>
                                                     </nz-form-control>
                                                 </div>
                                             </nz-form-item>
 
-
+                                            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>详细地址</nz-form-label>
+                                                    <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="请输入准确的详细地址">
+                                                        <input nz-input formControlName="address" placeholder="请输入详细地址" />
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
 
 
                                             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">

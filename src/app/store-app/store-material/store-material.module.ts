@@ -11,11 +11,14 @@ import 'hammerjs';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { DemoMaterialModule } from '../../demo-material-module';
 import { DemoNgZorroAntdModule } from '../../ng-zorro-antd.module';
+import { ChooseGoodsGalleryComponent } from './common/choose-goods-gallery/choose-goods-gallery.component';
 import { AgreeComponent } from './common/common-model/agree/agree.component';
 import { CommonModelComponent } from './common/common-model/common-model.component';
 import { DeleteComfirmComponent } from './common/delete-comfirm/delete-comfirm.component';
 import { SetCommissionComponent } from './common/set-commission/set-commission.component';
 import { StoreAccountDetailComponent } from './common/store-account-detail/store-account-detail.component';
+import { UploadGoodsImgComponent } from './common/upload-goods-img/upload-goods-img.component';
+import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-goods-video.component';
 import { UploadVideoComponent } from './common/upload-video/upload-video.component';
 import { StoreCerticationComponent } from './store-certication/store-certication.component';
 import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
@@ -31,6 +34,10 @@ import { StoreContractComponent } from './store-contract/store-contract.componen
 import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-create/store-cost-type-create.component';
 import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
 import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
+import { StoreGoodsOrderDetailModifyComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-detail-modify/store-goods-order-detail-modify.component';
+import { StoreGoodsOrderDetailComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-detail.component';
+import { StoreGoodsOrderMergeShipComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-merge-ship/store-goods-order-merge-ship.component';
+import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.component';
 import { StoreGoodsProCreateBystepComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-create-bystep.component';
 import { StoreGoodsProEditdetailComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editdetail/store-goods-pro-editdetail.component';
 import { StoreGoodsProEditimgComponent } from './store-goods-pro/store-goods-pro-create-bystep/store-goods-pro-editimg/store-goods-pro-editimg.component';
@@ -128,13 +135,6 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
-import { ChooseGoodsGalleryComponent } from './common/choose-goods-gallery/choose-goods-gallery.component';
-import { UploadGoodsImgComponent } from './common/upload-goods-img/upload-goods-img.component';
-import { UploadGoodsVideoComponent } from './common/upload-goods-video/upload-goods-video.component';
-import { StoreGoodsOrderComponent } from './store-goods-order/store-goods-order.component';
-import { StoreGoodsOrderDetailComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-detail.component';
-import { StoreGoodsOrderMergeShipComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-merge-ship/store-goods-order-merge-ship.component';
-import { StoreGoodsOrderShipComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-ship/store-goods-order-ship.component';
 
 
 @NgModule({
@@ -286,7 +286,7 @@ import { StoreGoodsOrderShipComponent } from './store-goods-order/store-goods-or
         StoreGoodsOrderComponent,
         StoreGoodsOrderDetailComponent,
         StoreGoodsOrderMergeShipComponent,
-        StoreGoodsOrderShipComponent,
+        StoreGoodsOrderDetailModifyComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

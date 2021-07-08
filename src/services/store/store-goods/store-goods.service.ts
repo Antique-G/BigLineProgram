@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
-import { AddGoodsModel, GoodsListModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, StoreGoodCateTreeList } from '../../../interfaces/store/storeGoods/store-goods-model';
+import { AddGoodsModel, GoodsListModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, SendStoreExpressCompany, SplitGoodsOrderModel, StoreExpressCompanyList, StoreGoodCateTreeList, UpdateGoodsOrderModel } from '../../../interfaces/store/storeGoods/store-goods-model';
 
 
 
@@ -98,7 +98,7 @@ export class StoreGoodsService {
     // 订单列表
     orderList(page: number, per_page: number, order_status: any, order_id: any, express_status: any, goods_name: any, cate_id: any,
         is_postage: any, date_start: any, date_end: any, send_time_start: any, send_time_end: any,
-       consignee: any, phone: any, bind_id: any,): Observable<any> {
+        consignee: any, phone: any, bind_id: any,): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_status', order_status ? order_status : '')
@@ -136,6 +136,37 @@ export class StoreGoodsService {
             )
     }
 
+    // 修改订单的商品信息
+    updateGoodsOrderItem(updateGoodsOrderModel: UpdateGoodsOrderModel): Observable<any> {
+        return this.httpClient.post(this.urls.PostStoreGoodsOrderUpdateItem, updateGoodsOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 拆分订单
+    splitGoodsOrderSub(splitGoodsOrderModel: SplitGoodsOrderModel): Observable<any> {
+        return this.httpClient.post(this.urls.PostStoreGoodsOrderAddSub, splitGoodsOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+    // 获取快递公司
+    expressCompanyList() {
+        return this.httpClient.get<StoreExpressCompanyList>(this.urls.GetStoreExpressCompanyList, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    // 快递发货
+    sendExpress(sendStoreExpressCompany: SendStoreExpressCompany): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreGoodsSendExpress, sendStoreExpressCompany, httpOptions)
+    }
 
 
     private handleError(error: HttpErrorResponse) {

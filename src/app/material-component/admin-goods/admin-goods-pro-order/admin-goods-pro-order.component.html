@@ -12,7 +12,7 @@
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
                                         <nz-option [nzLabel]="'取消'" [nzValue]="'0'"></nz-option>
                                         <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
-                                        <nz-option [nzLabel]="'待收货'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'已支付'" [nzValue]="'2'"></nz-option>
                                         <nz-option [nzLabel]="'已完成'" [nzValue]="'3'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -181,37 +181,93 @@
                             </thead>
                             <tbody>
                                 <ng-container *ngFor="let data of rowSelectionTable.data;">
-                                    <ng-container *ngFor="let sub_order of data?.sub_order?.data;">
+                                    <ng-container *ngFor="let sub_order of data?.sub_order?.data;let j=index">
                                         <tr *ngFor="let order_item of sub_order?.order_item?.data;let i=index">
-                                            <td>
-                                                {{data.id}}</td>
-                                            <td>
-                                                {{data.bind_name}}</td>
-                                            <td>
-                                                {{sub_order.store_name}}
-                                            </td>
-                                            <td>{{order_item.goods_name}}</td>
-                                            <td>{{order_item.spec_name}}</td>
-                                            <td>{{order_item.cate_name}}</td>
-                                            <td>{{order_item.goods_price}}元/{{order_item.goods_num}}</td>
-                                            <td>{{order_item.total_price}}元</td>
-                                            <td>{{order_item.freight_price==0?'是':'否'}}</td>
-                                            <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
-                                            <td>{{sub_order?.express_status==0?'未发':'已发'}}</td>
-                                            <td>
-                                                <div>
-                                                    <div>{{data?.consignee}}</div>
-                                                    <div>{{data?.phone}}</div>
-                                                </div>
-                                            </td>
-                                            <td>{{data?.order_status_info}} </td>
-                                            <td>{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                            <td>
-                                                <div style="cursor: pointer;">
-                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
-                                                </div>
-                                            </td>
-                                            <td> </td>
+                                            <!-- 如果只有一个子订单，则row为商品的长度 -->
+                                            <ng-container *ngIf="data?.sub_order?.data.length==1">
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data.id}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data.bind_name}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{sub_order.store_name}}
+                                                    </td>
+                                                </ng-container>
+                                                <td>{{order_item.goods_name}}</td>
+                                                <td>{{order_item.spec_name}}</td>
+                                                <td>{{order_item.cate_name}}</td>
+                                                <td>{{order_item.goods_price}}元/{{order_item.goods_num}}</td>
+                                                <td>{{order_item.total_price}}元</td>
+                                                <td>{{order_item.freight_price==0?'是':'否'}}</td>
+                                                <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <ng-container *ngIf="data?.order_status>1">
+                                                            <span *ngIf="sub_order?.express_status==0">
+                                                            <nz-badge nzColor="yellow"></nz-badge>未发货</span>
+                                                            <span *ngIf="sub_order?.express_status==1">
+                                                            <nz-badge nzColor="green"></nz-badge>已发货</span>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="data?.order_status<2">-</ng-container>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <div>
+                                                            <div>{{data?.consignee}}</div>
+                                                            <div>{{data?.phone}}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">{{data?.order_status_info}} </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <div style="cursor: pointer;">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length"> </td>
+                                                </ng-container>
+
+                                            </ng-container>
+
+                                            <!-- 多个子订单 -->
+                                            <ng-container *ngIf="data?.sub_order?.data.length!=1">
+                                                <!-- <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length">
+                                                        {{data.id}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length">
+                                                        {{data.bind_name}}
+                                                    </td>
+                                                    <td [attr.rowspan]="sub_order?.order_item?.data.length">
+                                                        {{sub_order.store_name}}
+                                                    </td>
+                                                </ng-container>
+                                                <td>{{order_item.goods_name}}</td>
+                                                <td>{{order_item.spec_name}}</td>
+                                                <td>{{order_item.cate_name}}</td>
+                                                <td>{{order_item.goods_price}}元/{{order_item.goods_num}}</td>
+                                                <td>{{order_item.total_price}}元</td>
+                                                <td>{{order_item.freight_price==0?'是':'否'}}</td>
+                                                <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
+                                                <ng-container *ngIf="j==0">
+                                                    <td [attr.rowspan]="sub_order?.order_item?.data.length">{{sub_order?.express_status==0?'未发':'已发'}}</td>
+                                                    <td [attr.rowspan]="sub_order?.order_item?.data.length">
+                                                        <div>
+                                                            <div>{{data?.consignee}}</div>
+                                                            <div>{{data?.phone}}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length">{{data?.order_status_info}} </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length">{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length">
+                                                        <div style="cursor: pointer;">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data?.length*sub_order?.order_item?.data.length"> </td>
+                                                </ng-container> -->
+
+                                            </ng-container>
+
                                         </tr>
                                     </ng-container>
                                 </ng-container>

@@ -44,6 +44,7 @@ const MENUITEMS = [
         title: '生鲜管理', icon: 'apple', permission_name: 'admin_product',
         children: [
             { state: 'goodsCate', name: '商品分类', permission_name: 'product_tag' },
+            { state: 'expressCompany', name: '快递公司', permission_name: 'product_tag' },
             { state: 'goodsList', name: '商品管理列表', permission_name: 'product_tag' },
             { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'product_tag' },
             { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'product_tag' },

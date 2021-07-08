@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList } from 'interfaces/store/storeGoods/store-goods-model';
+import { AddExpressCompanyModel, AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList, UpdateGoodsOrderConsigneeModel, UpdateGoodsOrderModel } from 'interfaces/store/storeGoods/store-goods-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -186,6 +186,71 @@ export class AdminGoodsService {
     // 订单详情
     orderDetail(id: any) {
         return this.httpClient.get<any>(this.urls.GetAdminGoodsOrderDetail + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 修改订单的商品信息
+    updateGoodsOrderItem(updateGoodsOrderModel: UpdateGoodsOrderModel): Observable<any> {
+        return this.httpClient.post(this.urls.PostAdminGoodsOrderUpdateItem, updateGoodsOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+    // 修改收货人信息
+    updateGoodsOrderCon(updateGoodsOrderConsigneeModel: UpdateGoodsOrderConsigneeModel): Observable<any> {
+        const id = updateGoodsOrderConsigneeModel.id;
+        return this.httpClient.put(this.urls.PutAdminGoodsOrderUpdateCon + id, updateGoodsOrderConsigneeModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 快递列表
+    expressCompanyList(page: number, per_page: number, status: any, name: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('status', status ? status : '')
+            .set('name', name ? name : '');
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminExpressCompanyList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    // 添加快递
+    addExpressCompany(addExpressCompanyModel: AddExpressCompanyModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminExpressCompany, addExpressCompanyModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    // 更新快递
+    updateExpressCompany(addExpressCompanyModel: AddExpressCompanyModel): Observable<any> {
+        const id = addExpressCompanyModel.id;
+        return this.httpClient.put(this.urls.PutAdminExpressCompanyUpdate + id, addExpressCompanyModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    //删除快递
+    deleteExpressCompany(id: any): Observable<any> {
+        return this.httpClient.delete<any>(this.urls.DeleteAdminExpressCompany + id, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )
