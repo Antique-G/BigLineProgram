@@ -26,6 +26,7 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
     values: any[] = [];
     isRegion_code: any;
     updateGoodsOrderConsigneeModel: UpdateGoodsOrderConsigneeModel;
+    isHadExpress = true;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public adminGoodsService: AdminGoodsService,
         private modal: NzModalService, public adminRegionService: AdminRegionService,) {
@@ -68,7 +69,15 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
             this.isSpinning = false;
             this.detailModel = res.data;
             this.dataPayLog = this.detailModel?.pay_log?.data;
+            this.detailModel?.sub_order?.data.forEach((element: any) => {
+                // 已发货不显示
+                if (element?.express_status == 1) {
+                    this.isHadExpress = false;
+                    return
+                }
+            });
             console.log("订单详情", res)
+            console.log("333", this.isHadExpress)
         })
     }
 

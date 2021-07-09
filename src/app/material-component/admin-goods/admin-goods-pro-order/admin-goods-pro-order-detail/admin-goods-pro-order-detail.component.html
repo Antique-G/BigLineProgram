@@ -16,11 +16,10 @@
                                         <div>
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
-                                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" *ngIf="isHadExpress">
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改收货人信息</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="commitDetail()" *ngIf="isChange">提交修改</button>
                                             <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button>
-
                                         </div>
                                     </div>
                                     <nz-divider></nz-divider>
@@ -125,8 +124,7 @@
                         </mat-card>
 
 
-                        <!-- 待支付跟取消 -->
-                        <mat-card *ngIf="detailModel?.order_status<2">
+                        <mat-card>
                             <div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                     <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px;">
@@ -152,113 +150,54 @@
                                                 </div>
 
                                                 <div class="mat-elevation-z8">
-                                                    <nz-table #rowSelectionTable [nzData]="sub?.order_item?.data">
+                                                    <nz-table #rowSelectionTable nzBordered [nzData]="sub?.order_item?.data">
                                                         <thead>
                                                             <tr>
-                                                                <th style="text-align: center;width: 12%;">商品名称</th>
-                                                                <th style="text-align: center;width: 8%;">商品类型</th>
-                                                                <th style="text-align: center;width: 12%;">商品规格</th>
-                                                                <th style="text-align: center;width: 8%;">单价</th>
-                                                                <th style="text-align: center;width: 8%;">数量</th>
-                                                                <th style="text-align: center;width: 10%;">订单金额</th>
-                                                                <th style="text-align: center;width: 8%;">是否包邮</th>
-                                                                <th style="text-align: center;width: 15%;">发货期间</th>
-                                                                <th style="text-align: center;width: 8%;">修改商品信息</th>
+                                                                <th style="text-align: center;">商品名称</th>
+                                                                <th style="text-align: center;">商品类型</th>
+                                                                <th style="text-align: center;">商品规格</th>
+                                                                <th style="text-align: center;">单价</th>
+                                                                <th style="text-align: center;">数量</th>
+                                                                <th style="text-align: center;">订单金额</th>
+                                                                <th style="text-align: center;">是否包邮</th>
+                                                                <th style="text-align: center;">发货期间</th>
+                                                                <th style="text-align: center;">发货状态</th>
+                                                                <th style="text-align: center;">快递信息</th>
+                                                                <th style="text-align: center;">操作</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let data of rowSelectionTable.data">
+                                                            <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                                 <td>{{data?.goods_name}}</td>
                                                                 <td>{{data?.cate_name}}</td>
                                                                 <td>{{data?.spec_name}}</td>
                                                                 <td>{{data?.goods_price}}元</td>
                                                                 <td>{{data?.goods_num}}份</td>
                                                                 <td>{{data?.total_price}}元</td>
-                                                                <td>{{data?.freight_price==0?'是':'否,油费:￥'+data?.freight_price}}
-                                                                </td>
+                                                                <td>{{data?.freight_price==0?'是':'否,油费:￥'+data?.freight_price}}</td>
                                                                 <td>{{data?.send_start}}~{{data?.send_end}}</td>
+                                                                <ng-container *ngIf="i==0">
+                                                                    <td [attr.rowspan]="sub?.order_item?.data?.length">
+                                                                        <span *ngIf="sub?.express_status==0">
+                                                                            <nz-badge nzColor="yellow"></nz-badge>未发货
+                                                                        </span>
+                                                                        <span *ngIf="sub?.express_status==1">
+                                                                            <nz-badge nzColor="green"></nz-badge>已发货
+                                                                        </span>
+                                                                    </td>
+                                                                    <td [attr.rowspan]="sub?.order_item?.data?.length">
+                                                                        <ng-container *ngIf="sub?.express_status==0">-</ng-container>
+                                                                        <ng-container *ngIf="sub?.express_status==1">
+                                                                            <div>{{sub?.express_company_name}}</div>
+                                                                            <div>{{sub?.express_number}}</div>
+                                                                        </ng-container>
+                                                                    </td>
+                                                                </ng-container>
                                                                 <td>
-                                                                    <button mat-raised-button color="primary" (click)="changeGoods(data)" *ngIf="detailModel?.order_status==1">修改</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </nz-table>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </ng-container>
-
-                                </div>
-
-                            </div>
-                        </mat-card>
-
-
-
-                        <!-- 订单已支付和已完成 -->
-                        <mat-card *ngIf="detailModel?.order_status>1">
-                            <div>
-                                <div fxLayout="column" fxLayoutAlign="start stretch">
-                                    <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 10px;">
-                                        <div>
-                                            <h4 style="padding-left: 10px;padding-top: 10px;">商品清单</h4>
-                                        </div>
-                                    </div>
-                                    <nz-divider></nz-divider>
-                                    <ng-container *ngFor="let sub of detailModel?.sub_order?.data;let i=index">
-                                        <div>
-                                            <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px" style="font-weight: 500;">
-                                                    <div fxLayout="row" fxLayoutGap="50px" style="width: 20%;">
-                                                        <div style="font-weight: 800;"># {{i+1}}</div>
-                                                        <div><span> 子订单号： {{sub?.sub_number}}</span> </div>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>店铺名称：{{sub?.store_name}}</span>
-                                                    </div>
-                                                    <div style="width: 20%;">
-                                                        <span>客人留言：{{sub?.remarks}}</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="mat-elevation-z8">
-                                                    <nz-table #rowSelectionTable [nzData]="sub?.order_item?.data">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center;width: 12%;">商品名称</th>
-                                                                <th style="text-align: center;width: 8%;">商品类型</th>
-                                                                <th style="text-align: center;width: 12%;">商品规格</th>
-                                                                <th style="text-align: center;width: 8%;">单价</th>
-                                                                <th style="text-align: center;width: 8%;">数量</th>
-                                                                <th style="text-align: center;width: 10%;">订单金额</th>
-                                                                <th style="text-align: center;width: 8%;">是否包邮</th>
-                                                                <th style="text-align: center;width: 15%;">发货期间</th>
-                                                                <th style="text-align: center;width: 8%;">发货状态</th>
-                                                                <th style="text-align: center;width: 20%;">快递信息</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let data of rowSelectionTable.data">
-                                                                <td>{{data?.goods_name}}</td>
-                                                                <td>{{data?.cate_name}}</td>
-                                                                <td>{{data?.spec_name}}</td>
-                                                                <td>{{data?.goods_price}}元</td>
-                                                                <td>{{data?.goods_num}}份</td>
-                                                                <td>{{data?.total_price}}元</td>
-                                                                <td>{{data?.freight_price==0?'是':'否,油费:￥'+data?.freight_price}}
-                                                                </td>
-                                                                <td>{{data?.send_start}}~{{data?.send_end}}</td>
-                                                                <td>
-                                                                    <span *ngIf="sub?.express_status==0">
-                                                                        <nz-badge nzColor="yellow"></nz-badge>未发货</span>
-                                                                    <span *ngIf="sub?.express_status==1">
-                                                                        <nz-badge nzColor="green"></nz-badge>已发货</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>{{sub?.express_company_name}}</div>
-                                                                    <div>{{sub?.express_number}}</div>
+                                                                    <!-- 只有订单待支付才能修改商品信息 -->
+                                                                    <ng-container *ngIf="detailModel?.order_status==1">
+                                                                        <button mat-raised-button color="primary" (click)="changeGoods(data)">修改商品信息</button>
+                                                                    </ng-container>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -347,12 +286,12 @@
                                             <div style="font-weight: 200;font-size: 14px;letter-spacing: 1px;">
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                     <div style="width: 50%;">商品小计</div>
-                                                    <div style="width: 50%;">￥</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.item_total}}</div>
                                                 </div>
 
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                     <div style="width: 50%;">运费</div>
-                                                    <div style="width: 50%;">￥</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.freight_total}}</div>
                                                 </div>
                                             </div>
 
@@ -365,25 +304,12 @@
                                                 <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                     <div style="width: 50%;">已收金额</div>
-                                                    <div style="width: 50%;">￥{{detailModel?.price_receive}}</div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;" *ngIf="detailModel?.refund_status!=0">
-                                                    <div style="width: 50%;">退款金额</div>
-                                                    <div style="width: 50%;">
-                                                        <span>￥</span>
-                                                        <span style="color: black;" *ngIf="detailModel?.refund_status==2">(退款中金额￥{{detailModel?.refunding_amount}})</span>
-                                                    </div>
-                                                </div>
-                                                <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);" *ngIf="detailModel?.refund_status!=0"></div>
-                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
-                                                    <div style="width: 50%;">实收金额</div>
-                                                    <div style="width: 50%;">￥}</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.amount_paid}}</div>
                                                 </div>
                                                 <div style="width: 32%;border-top: 1px solid rgba(0,0,0,.06);"></div>
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                     <div style="width: 50%;">还需收款金额</div>
-                                                    <div style="width: 50%;">￥</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.amount_unpaid}}</div>
                                                 </div>
                                             </div>
 

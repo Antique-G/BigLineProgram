@@ -116,4 +116,16 @@ export class AdminGoodsExpressCompanyComponent implements OnInit {
             this.getList();
         })
     }
+
+
+    delet(data: any) {
+        this.modal.confirm({
+            nzTitle: '<h4>提示</h4>',
+            nzContent: '<h6>是否删除</h6>',
+            nzOnOk: () =>
+              this.adminGoodsService.deleteExpressCompany(data.id).subscribe(res => {
+                this.getList();
+              })
+          });
+    }
 }

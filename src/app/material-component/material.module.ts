@@ -205,6 +205,7 @@ import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
 import { AdminGoodsExpressCompanyComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company.component';
 import { AdminGoodsExpressCompanyCreateComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company-create/admin-goods-express-company-create.component';
+import { AdminGoodsProOrderMoneyComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-money/admin-goods-pro-order-money.component';
 
 
 
@@ -441,6 +442,7 @@ import { AdminGoodsExpressCompanyCreateComponent } from './admin-goods/admin-goo
     AdminGoodsProOrderDetailModifyComponent,
     AdminGoodsExpressCompanyComponent,
     AdminGoodsExpressCompanyCreateComponent,
+    AdminGoodsProOrderMoneyComponent,
 
   ]
 })

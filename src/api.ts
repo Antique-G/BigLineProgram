@@ -330,7 +330,10 @@ export const AdminUrls = {
     GetAdminGoodsOrderDetail: api + '/admin/goods_order/',     //商品订单详情
     PostAdminGoodsOrderUpdateItem: api + '/admin/goods_order/update_item',     //商品订单修改
     PutAdminGoodsOrderUpdateCon: api + '/admin/goods_order/',     //商品订单修改收货人信息
-
+    PostAdminGoodsOrderConfirmReceipt: api + '/admin/goods_order/confirm_receipt',     //商品订单收款
+    PostAdminGoodsOrderGetWeChatPayQr: api + '/admin/goods_order/get_wechat_pay_qr',   // 生成商品订微信收款码
+    PostAdminGoodsOrderAlipayCode: api + '/admin/goods_order/get_alipay_code',   // 生成商品订支付宝收款码
+    
 
 
 

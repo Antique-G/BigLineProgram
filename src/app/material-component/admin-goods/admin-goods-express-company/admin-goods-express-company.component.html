@@ -54,8 +54,13 @@
                                     <td>{{data.name}}</td>
                                     <td>{{data.status==1?'启用':'禁用'}}</td>
                                     <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)">
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+                                            <div style="cursor: pointer;" (click)="edit(data)" title="编辑">
+                                                <img src="http://cdn.bigline.com.cn/static/images/edit.png">
+                                            </div>
+                                            <div style="cursor: pointer;" (click)="delet(data)" title="删除">
+                                                <img src="http://cdn.bigline.com.cn/static/images/delete.png">
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

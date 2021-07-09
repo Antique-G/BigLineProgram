@@ -16,9 +16,11 @@
                                         <div>
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
-                                        <div *ngIf="detailModel?.express_status==0">
-                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="mergeShip()">订单发货</button>
-                                        </div>
+                                        <ng-container *ngIf="detailModel?.order_status==2">
+                                            <div *ngIf="detailModel?.express_status==0">
+                                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="mergeShip()">订单发货</button>
+                                            </div>
+                                        </ng-container>
                                     </div>
                                     <nz-divider></nz-divider>
                                     <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
@@ -102,10 +104,9 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address" nzRequired>收货人详细地址</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人详细地址">
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address">收货人详细地址</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="address" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.address" />
-
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -136,7 +137,7 @@
                                         <div>
                                             <h4 style="padding-left: 10px;padding-top: 10px;">商品清单</h4>
                                         </div>
-                                        <div *ngIf="detailModel?.express_status==0" fxLayout="row" fxLayoutAlign="start stretch">
+                                        <div *ngIf="detailModel?.express_status==0&&detailModel?.order_status==2" fxLayout="row" fxLayoutAlign="start stretch">
                                             <ng-container *ngIf="detailModel?.order_item?.data.length>1">
                                                 <div><button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="splitOrder()">拆分订单</button></div>
                                                 <div>
@@ -158,10 +159,12 @@
                                             </div>
 
                                             <div class="mat-elevation-z8">
-                                                <nz-table #rowSelectionTable [nzData]="detailModel?.order_item?.data">
+                                                <nz-table #rowSelectionTable nzBordered [nzData]="detailModel?.order_item?.data">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 3%;" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></th>
+                                                            <ng-container *ngIf="detailModel?.order_status==2">
+                                                                <th style="width: 3%;" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></th>
+                                                            </ng-container>
                                                             <th style="text-align: center;">商品名称</th>
                                                             <th style="text-align: center;">商品类型</th>
                                                             <th style="text-align: center;">商品规格</th>
@@ -172,12 +175,15 @@
                                                             <th style="text-align: center;">发货期间</th>
                                                             <th style="text-align: center;">发货状态</th>
                                                             <th style="text-align: center;">快递信息</th>
-                                                            <th style="text-align: center;">操作</th>
+                                                            <th style="text-align: center;">修改快递信息</th>
+                                                            <th style="text-align: center;" *ngIf="detailModel?.order_status==1">修改商品信息</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let data of rowSelectionTable.data;let i=index">
-                                                            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></td>
+                                                            <ng-container *ngIf="detailModel?.order_status==2">
+                                                                <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></td>
+                                                            </ng-container>
                                                             <td>{{data?.goods_name}}</td>
                                                             <td>{{data?.cate_name}}</td>
                                                             <td>{{data?.spec_name}}</td>
@@ -196,17 +202,20 @@
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <div>{{detailModel?.express_company_name}}</div>
-                                                                <div>{{detailModel?.express_number}}</div>
+                                                                <ng-container *ngIf="detailModel?.express_status==0">-</ng-container>
+                                                                <ng-container *ngIf="detailModel?.express_status==1">
+                                                                    <div>{{detailModel?.express_company_name}}</div>
+                                                                    <div>{{detailModel?.express_number}}</div>
+                                                                </ng-container>
                                                             </td>
                                                             <ng-container *ngIf="i==0">
-                                                                <td [attr.rowspan]="detailModel?.order_item?.data?.length" *ngIf="detailModel?.express_status==1">
-                                                                    <div>
+                                                                <td [attr.rowspan]="detailModel?.order_item?.data?.length">
+                                                                    <div *ngIf="detailModel?.express_status==1">
                                                                         <button mat-raised-button color="primary" (click)="changeShip()">修改快递信息</button>
                                                                     </div>
                                                                 </td>
                                                             </ng-container>
-                                                            <td *ngIf="detailModel?.express_status==0">
+                                                            <td *ngIf="detailModel?.order_status==1">
                                                                 <div>
                                                                     <button mat-raised-button color="primary" (click)="changeGoods(data)">修改商品信息</button>
                                                                 </div>

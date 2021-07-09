@@ -2,8 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminGoodsService } from 'services/admin/admin-goods.service';
 import { AdminProductManagementService } from 'services/admin/admin-product-management.service';
+import { AdminGoodsProOrderMoneyComponent } from './admin-goods-pro-order-money/admin-goods-pro-order-money.component';
 
 
 @Component({
@@ -51,7 +53,7 @@ export class AdminGoodsProOrderComponent implements OnInit {
     setQuery: any;
 
     constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
-        public adminGoodsService: AdminGoodsService, public router: Router,) {
+        public adminGoodsService: AdminGoodsService, public router: Router, public modal: NzModalService,) {
         this.searchForm = this.fb.group({
             order_status: [''],
             order_id: [''],
@@ -120,7 +122,7 @@ export class AdminGoodsProOrderComponent implements OnInit {
                     firstType: cate1 ? cate1[0] : '',
                     secondType: cate2 ? cate2[0] : '',
                     thirdType: cate3 ? cate3[0] : '',
-                    is_postage: this.goods_name,
+                    is_postage: this.is_postage,
                     orderTime: this.date_start == null ? [] : [this.date_start, this.date_end],
                     deliveryTime: this.send_time_start == null ? [] : [this.send_time_start, this.send_time_end],
                     express_status: this.express_status,
@@ -142,11 +144,23 @@ export class AdminGoodsProOrderComponent implements OnInit {
                 this.loading = false;
                 this.dataSource = res.data;
                 this.total = res.meta.pagination.total;
+
+                this.dataSource.forEach((res: any) => {
+                    let s = 0;
+                    console.log("res1111", res);
+                    res?.sub_order?.data.forEach((element: any, index: any) => {
+                        console.log("element", element, element?.order_item?.data?.length);
+                        console.log("233333333", index);
+                        s += Number(element?.order_item?.data?.length);
+                    });
+                    res['allLength'] = s;
+                })
+                console.log("5555555", this.dataSource)
             })
     }
 
     search() {
-        this.loading=true;
+        this.loading = true;
         this.page = 1;
         this.order_status = this.searchForm.value.order_status;
         this.order_id = this.searchForm.value.order_id;
@@ -282,5 +296,30 @@ export class AdminGoodsProOrderComponent implements OnInit {
     // 查看详情
     edit(data: any) {
         this.router.navigate(['/admin/main/goodsOrderList/detail'], { queryParams: { id: data.id } })
+    }
+
+
+    // 收款
+    money(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '收款',
+            nzContent: AdminGoodsProOrderMoneyComponent,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add()
+
+                    }
+                }
+            ]
+        })
+        addmodal.afterClose.subscribe(res => {
+            this.getOrderList();
+        })
     }
 }

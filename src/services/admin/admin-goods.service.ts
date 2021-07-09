@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AddExpressCompanyModel, AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList, UpdateGoodsOrderConsigneeModel, UpdateGoodsOrderModel } from 'interfaces/store/storeGoods/store-goods-model';
+import { ComfirmOrderModel, WeChatModel } from 'interfaces/store/storeOrder/store-order-group-travel-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -206,6 +207,34 @@ export class AdminGoodsService {
     updateGoodsOrderCon(updateGoodsOrderConsigneeModel: UpdateGoodsOrderConsigneeModel): Observable<any> {
         const id = updateGoodsOrderConsigneeModel.id;
         return this.httpClient.put(this.urls.PutAdminGoodsOrderUpdateCon + id, updateGoodsOrderConsigneeModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
+    // 确认收款
+    comfirmGoodOrder(comfirmOrderModel: ComfirmOrderModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsOrderConfirmReceipt, comfirmOrderModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    
+    // 微信二维码收款
+    goodOrderGetPayWechatQr(weChatModel: WeChatModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsOrderGetWeChatPayQr, weChatModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 支付宝二维码收款
+    postGoodOrderGetAlipayQr(weChatModel: WeChatModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsOrderAlipayCode, weChatModel, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

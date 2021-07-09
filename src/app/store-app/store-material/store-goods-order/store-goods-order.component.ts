@@ -112,7 +112,7 @@ export class StoreGoodsOrderComponent implements OnInit {
                 firstType: cate1 ? cate1[0] : '',
                 secondType: cate2 ? cate2[0] : '',
                 thirdType: cate3 ? cate3[0] : '',
-                is_postage: this.goods_name,
+                is_postage: this.is_postage,
                 orderTime: this.date_start == null ? [] : [this.date_start, this.date_end],
                 deliveryTime: this.send_time_start == null ? [] : [this.send_time_start, this.send_time_end],
                 express_status: this.express_status,

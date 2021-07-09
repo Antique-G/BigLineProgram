@@ -55,7 +55,7 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             this.addForm.patchValue({
                 goods_num: this.data.goods_num,
                 freight: this.data.freight_price,
-
+                price: this.data.goods_price
             });
             this.isSpinning = false;
         })
@@ -71,9 +71,9 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             console.log("1111", select);
             this.selectSpec = select[0];
             this.isPrice = this.selectSpec.price;
-            this.addForm.patchValue({
-                price: this.isPrice
-            })
+            // this.addForm.patchValue({
+            //     price: this.isPrice
+            // })
             this.freightPrice = this.addForm.value.freightPrice;
         }
     }
