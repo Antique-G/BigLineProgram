@@ -215,7 +215,11 @@ export const AdminUrls = {
     PostAdminSignContract: api + '/admin/contract',  // 签署电子合同
     PostAdminOrderCancel: api + '/admin/order/cancel',  // 取消订单
     GetAdminOrderOperateLog: api + '/admin/order_opet_log/',  // 订单日志
+    PostAdminSyncOrder: api + '/admin/send_bigline',  // 同步订单
+    PostAdminContractCreateTravel: api + '/admin/contract_create',   //发送合同
+    PostAdminContractCancelTravel: api + '/admin/contract_cancel',   //作废合同
 
+      
 
     GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
@@ -238,6 +242,7 @@ export const AdminUrls = {
 
 
     GetAdminRefundDetail: api + '/admin/refund/',  // 退款详情
+    PutAdminRefundDetailType: api + '/admin/refund/',  // 退款详情修改退款方式
 
 
 

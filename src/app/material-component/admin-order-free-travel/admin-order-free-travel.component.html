@@ -21,6 +21,19 @@
                         </nz-form-item>
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="push_status">订单同步状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="push_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未同步'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'同步失败'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'同步成功'" [nzValue]="'2'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_id">产品id</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_id" placeholder="请输入产品id" />
@@ -178,6 +191,7 @@
                                     <th style="text-align: center;">订单号</th>
                                     <th style="text-align: center;">下单/推荐人</th>
                                     <th style="text-align: center;">订单来源</th>
+                                    <th style="text-align: center;">订单同步状态</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <!-- <th style="text-align: center;width: 6%;">产品编码</th> -->
                                     <th style="text-align: center;width: 10%;">产品名称</th>
@@ -202,7 +216,11 @@
                                         <span *ngIf="data?.order_source==1">小程序</span>
                                         <span *ngIf="data?.order_source==2">管理后台</span>
                                     </td>
-
+                                    <td>
+                                        <span *ngIf="data?.push_time==0">未同步</span>
+                                        <span *ngIf="data?.push_time==1">同步失败</span>
+                                        <span *ngIf="data?.push_time>10">同步成功</span>
+                                    </td>
                                     <td>{{data.store_name}}</td>
                                     <!-- <td>{{data.product_id}}</td> -->
                                     <td>{{data.product_name}}</td>

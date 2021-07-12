@@ -395,3 +395,10 @@ export interface AdminRefundCheckDataModel {
     check: any;  //1拒绝，2通过
     remark?: any; //备注
 }
+
+
+// 主管退款方式修改
+export interface RefundChangeTypeModel {
+    id: any;
+    to_account: any;
+}

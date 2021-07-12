@@ -13,9 +13,9 @@ import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-ch
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminMemberComponent } from './admin-member/admin-member.component';
+import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-cancel.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
-import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-cancel.component';
 
 
 
@@ -53,6 +53,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     order_insurance_id: any;
 
     url: any;
+
+    // 同步订单
+    syncOrderModel:any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, public dialog: MatDialog,
@@ -99,6 +102,9 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             emergency_contact_number: '',
             customer_remarks: '',
             internal_remarks: '',
+        };
+        this.syncOrderModel = {
+            order_id:''
         }
     }
 
@@ -532,7 +538,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzContent: AdminOrderCancelComponent,
             nzWidth: 700,
             nzComponentParams: {
-                data:this.detailModel?.id
+                data: this.detailModel?.id
             },
             nzFooter: [
                 {
@@ -553,6 +559,37 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
             });
         })
+    }
+
+
+
+    // 同步在启航系统下单的大航产品的订单到大航系统
+    syncOrder() {
+        this.syncOrderModel.order_id = this.detailModel?.id;
+        this.modal.confirm({
+            nzTitle: "<h4>提示</h4>",
+            nzContent: "<h6>确定同步此订单到大航系统？</h6>",
+            nzOnOk: () =>
+                this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
+                    console.log("res", res)
+                    if (res.data.length == 0) {
+                        this.modal['success']({
+                            nzMask: false,
+                            nzTitle: `同步成功`,
+                        })
+                    }
+                    else {
+                        this.modal['error']({
+                            nzMask: true,
+                            nzTitle: "<h3>错误提示</h3>",
+                            nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
+                            nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
+                        })
+                    }
+                }),
+        });
+
+
     }
 
 }
