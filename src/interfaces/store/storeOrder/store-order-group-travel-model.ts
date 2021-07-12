@@ -665,3 +665,11 @@ export interface CashReqReviwqModel {
     id: any;
     money: any;
 }
+
+
+
+// 发送合同
+export interface SendCreateContractModel {
+    order_id: any;
+    has_shopping: any;
+}

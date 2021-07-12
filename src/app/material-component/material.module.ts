@@ -194,6 +194,8 @@ import { AdminMiniWithdrawalRecordListComponent } from './admin-finance/admin-mi
 import { AdminProductOprateLogComponent } from './admin-product/admin-product-management/admin-product-oprate-log/admin-product-oprate-log.component';
 import { AdminProductFreeTravelOprateLogComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-oprate-log/admin-product-free-travel-oprate-log.component';
 import { AdminOrderGroupOprateLogComponent } from './admin-order-group-travel/admin-order-group-oprate-log/admin-order-group-oprate-log.component';
+import { AdminGenerateContractComponent } from './admin-order-group-travel/admin-generate-contract/admin-generate-contract.component';
+import { AdminOrderRefundSaleChangeTypeComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-change-type/admin-order-refund-sale-change-type.component';
 
 
 
@@ -415,6 +417,8 @@ import { AdminOrderGroupOprateLogComponent } from './admin-order-group-travel/ad
     AdminProductOprateLogComponent,
     AdminProductFreeTravelOprateLogComponent,
     AdminOrderGroupOprateLogComponent,
+    AdminGenerateContractComponent,
+    AdminOrderRefundSaleChangeTypeComponent,
 
   ]
 })
