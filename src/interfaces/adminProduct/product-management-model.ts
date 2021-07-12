@@ -264,3 +264,10 @@ export interface StoreListModel {
     store_id: number;
     name: string;
 }
+
+
+
+// 同步订单
+export interface SyncOrderModel {
+    order_id: any;
+}
