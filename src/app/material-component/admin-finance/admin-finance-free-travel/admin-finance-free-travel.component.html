@@ -319,10 +319,13 @@
                                             <span *ngIf="item.pay_type===7">余额支付</span>
                                             <span *ngIf="item.pay_type===8">飞猪</span>
                                             <span *ngIf="item.pay_type===9">携程</span>
-                                            <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7)">
-                                                <span *ngIf="item.pay_way==0">（线上）</span>
-                                                <span *ngIf="item.pay_way==1">（手动）</span>
-                                                <span *ngIf="item.pay_way==2">（POS）</span>
+                                            <span *ngIf="item.pay_type===10">预售码</span>
+                                            <ng-container *ngIf="item.status>1">
+                                                <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7||item.pay_type==10)">
+                                                    <span *ngIf="item.pay_way==0">（线上）</span>
+                                                    <span *ngIf="item.pay_way==1">（手动）</span>
+                                                    <span *ngIf="item.pay_way==2">（POS）</span>
+                                                </ng-container>
                                             </ng-container>
                                         </td>
                                         <td>{{item.transaction_id}}</td>
