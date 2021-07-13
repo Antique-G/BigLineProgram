@@ -4,7 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, StoreOrderGroupTravelListRequestModel, SyncOrderModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { ProductQuteDateModel, SyncOrderModel } from '../../interfaces/adminProduct/product-management-model';
+import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, SendCreateContractModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -25,7 +26,7 @@ export class AdminOrderGroupTravelService {
     groupTravelList(page: number, per_page: number, status: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
         order_end_date: any, contact_name: any, contact_phone: any,
-        departure_city?: any, destination_city?: any, admin_id?: any): Observable<StoreOrderGroupTravelListRequestModel> {
+        departure_city?: any, destination_city?: any, admin_id?: any, push_status?: any,): Observable<StoreOrderGroupTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -41,7 +42,9 @@ export class AdminOrderGroupTravelService {
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '')
-            .set('admin_id', admin_id ? admin_id : '');
+            .set('admin_id', admin_id ? admin_id : '')
+            .set('push_status', push_status ? push_status : '');
+
 
 
 
@@ -177,7 +180,7 @@ export class AdminOrderGroupTravelService {
     getOrderTotal(status: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
         order_end_date: any, contact_name: any, contact_phone: any,
-        departure_city?: any, destination_city?: any, admin_id?: any,): Observable<OrderTotalModel> {
+        departure_city?: any, destination_city?: any, admin_id?: any, push_status?: any,): Observable<OrderTotalModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('status', status ? status : '')
             .set('product_name', product_name ? product_name : '')
             .set('order_number', order_number ? order_number : '')
@@ -191,7 +194,9 @@ export class AdminOrderGroupTravelService {
             .set('contact_phone', contact_phone ? contact_phone : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '')
-            .set('admin_id', admin_id ? admin_id : '');
+            .set('admin_id', admin_id ? admin_id : '')
+            .set('push_status', push_status ? push_status : '');
+
 
 
 
@@ -294,6 +299,26 @@ export class AdminOrderGroupTravelService {
             )
     }
 
+    
+
+    // 发送合同
+    createContract(sendCreateContractModel: SendCreateContractModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminContractCreateTravel, sendCreateContractModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    
+    // 作废合同
+    cancelContract(order_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminContractCancelTravel, { order_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    
     // 取消订单
     cancelOrder(cancelOrderModel: CancelOrderModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminOrderCancel, cancelOrderModel, httpOptions)
@@ -311,7 +336,6 @@ export class AdminOrderGroupTravelService {
             )
     }
 
-
     // 同步订单到大航系统
     syncOrder(syncOrderModel: SyncOrderModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminSyncOrder, syncOrderModel, httpOptions)
@@ -319,6 +343,24 @@ export class AdminOrderGroupTravelService {
                 catchError(this.handleError)
             )
     }
+
+
+    //获取操作的时间线
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminOrderOperateLog + id, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);

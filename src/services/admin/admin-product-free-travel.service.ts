@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminFreeTravelDetailResponseModel, AdminFreeTravelListResponseModel, FreeTravelQuteDateModel, SetCheckModel } from '../../interfaces/adminProduct/free-travel-model';
+import { ProductQuteDateModel } from '../../interfaces/adminProduct/product-management-model';
 import { AddProductTrip } from '../../interfaces/store/storeProduct/ProductModel';
 
 
@@ -151,6 +152,26 @@ export class AdminProductFreeTravelService {
                 catchError(this.handleError)
             )
     }
+
+
+
+    //获取操作的时间线
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminIndentProOperLog + id, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);

@@ -1,11 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { StoreOrderGroupTravelService } from '../../../../services/store/store-order/store-order-group-travel.service';
-import { StoreOrderGroupMoneyComponent } from './store-order-group-money/store-order-group-money.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreOrderGroupTravelService } from '../../../../services/store/store-order/store-order-group-travel.service';
 import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
+import { StoreOrderGroupMoneyComponent } from './store-order-group-money/store-order-group-money.component';
+import { StoreOrderGroupOperateLogComponent } from './store-order-group-operate-log/store-order-group-operate-log.component';
+
+
 
 @Component({
     selector: 'app-store-order-grouptravel',
@@ -259,6 +262,21 @@ export class StoreOrderGrouptravelComponent implements OnInit {
             contact_phone: '',
             departure_city: '',
             destination_city: '',
+        })
+    }
+
+    // 查看操作记录
+    getTimeLine(data: any) {
+        const addmodal = this.modal.create({
+            nzTitle: '操作记录',
+            nzContent: StoreOrderGroupOperateLogComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data
+            },
+            nzFooter: null
+        })
+        addmodal.afterClose.subscribe((res: any) => {
         })
     }
 }

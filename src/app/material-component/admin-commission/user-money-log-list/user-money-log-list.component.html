@@ -8,33 +8,52 @@
                     </div>
 
                     <form [formGroup]="searchForm">
-                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                            <div fxFlex=10>
-                                <mat-form-field>
-                                    <mat-label>类型</mat-label>
-                                    <mat-select placeholder="选择类型" formControlName="type">
-                                        <mat-option value=''>全部</mat-option>
-                                        <mat-option value=1> 平台返佣</mat-option>
-                                        <mat-option value=2>提现</mat-option>
-                                        <mat-option value=3>退款</mat-option>
-                                        <mat-option value=4>支付</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="type">类型</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择类型" formControlName="type" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'平台返佣'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'提现'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'退款'" [nzValue]="'3'"></nz-option>
+                                        <nz-option [nzLabel]="'支付'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=20>
-                                <mat-form-field>
-                                    <mat-label>用户id</mat-label>
-                                    <input matInput value="" formControlName="user_id" placeholder="请输入关键字">
-                                </mat-form-field>
+                        </nz-form-item>
 
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="search_type">搜索类别</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择搜索类别" formControlName="search_type" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'用户id'" [nzValue]="'user_id'"></nz-option>
+                                        <nz-option [nzLabel]="'手机号码'" [nzValue]="'phone'"></nz-option>
+                                        <nz-option [nzLabel]="'订单id'" [nzValue]="'order_id'"></nz-option>
+                                        <nz-option [nzLabel]="'交易流水号'" [nzValue]="'transaction_id'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=5>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="user_id">用户id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="user_id" placeholder="请输入关键字:根据前面类别所写" />
+                                </nz-form-control>
                             </div>
-                            <div fxFlex=5>
-                                <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
-                            </div>
+                        </nz-form-item>
+
+                        <div fxFlex=5>
+                            <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="search()">搜索</button>
                         </div>
+                        <div fxFlex=5>
+                            <button mat-raised-button color="primary" style="width: 50px;letter-spacing: 2px;" (click)="reset()">重置</button>
+                        </div>
+
                     </form>
 
                     <div class="mat-elevation-z8 ListBox">

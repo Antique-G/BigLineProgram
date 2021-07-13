@@ -17,8 +17,20 @@ import { DeleteComfirmComponent } from './common/delete-comfirm/delete-comfirm.c
 import { SetCommissionComponent } from './common/set-commission/set-commission.component';
 import { StoreAccountDetailComponent } from './common/store-account-detail/store-account-detail.component';
 import { UploadVideoComponent } from './common/upload-video/upload-video.component';
+import { StoreCerticationComponent } from './store-certication/store-certication.component';
+import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
+import { StoreCertifiChangeComponent } from './store-certication/store-certifi-basic-info/store-certifi-change/store-certifi-change.component';
+import { StoreCertifiDoneComponent } from './store-certication/store-certifi-done/store-certifi-done.component';
+import { StoreCertifiHistoryComponent } from './store-certication/store-certifi-progress/store-certifi-history/store-certifi-history.component';
+import { StoreCertifiProgressComponent } from './store-certication/store-certifi-progress/store-certifi-progress.component';
+import { StoreCertificationDetailComponent } from './store-certication/store-certification-detail/store-certification-detail.component';
+import { UploadCertificationComponent } from './store-certication/store-certification-detail/upload-certification/upload-certification.component';
+import { UploadPdfComponent } from './store-certication/store-certification-detail/upload-pdf/upload-pdf.component';
 import { StoreContractCreateComponent } from './store-contract/store-contract-create/store-contract-create.component';
 import { StoreContractComponent } from './store-contract/store-contract.component';
+import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-create/store-cost-type-create.component';
+import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
+import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
 import { StoreMaterialRoutes } from './store-material.routing';
 import { StoreMeetingPlaceCreateComponent } from './store-meeting-place/store-meeting-place-create/store-meeting-place-create.component';
 import { StoreMeetingPlaceDetailComponent } from './store-meeting-place/store-meeting-place-detail/store-meeting-place-detail.component';
@@ -35,16 +47,24 @@ import { StoreOrderGroupDetailSubgroupSentsmsComponent } from './store-order-gro
 import { StoreOrderGroupDetailSubgroupSetguideComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup-setguide/store-order-group-detail-subgroup-setguide.component';
 import { StoreOrderGroupDetailSubgroupComponent } from './store-order-group/store-order-group-detail/store-order-group-detail-subgroup/store-order-group-detail-subgroup.component';
 import { StoreOrderGroupDetailComponent } from './store-order-group/store-order-group-detail/store-order-group-detail.component';
+import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
 import { StoreOrderGroupComponent } from './store-order-group/store-order-group.component';
 import { StoreOrderGroupMoneyComponent } from './store-order-grouptravel/store-order-group-money/store-order-group-money.component';
+import { StoreOrderGroupOperateLogComponent } from './store-order-grouptravel/store-order-group-operate-log/store-order-group-operate-log.component';
 import { StoreOrderGroupChangeDateComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-group-change-date/store-order-group-change-date.component';
 import { StoreOrderGroupChangePriceComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-group-change-price/store-order-group-change-price.component';
 import { StoreOrderGrouptravelDetailComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-grouptravel-detail.component';
+import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-member/store-order-member.component';
 import { StoreOrderGrouptravelOrderComponent } from './store-order-grouptravel/store-order-grouptravel-order/store-order-grouptravel-order.component';
 import { StoreOrderGrouptravelComponent } from './store-order-grouptravel/store-order-grouptravel.component';
+import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-turnover/store-order-refund-turnover-detail/store-order-refund-turnover-detail.component';
 import { StoreOrderRefundTurnoverComponent } from './store-order-refund-turnover/store-order-refund-turnover.component';
 import { StoreOrderRefundDetailComponent } from './store-order-refund/store-order-refund-detail/store-order-refund-detail.component';
 import { StoreOrderRefundComponent } from './store-order-refund/store-order-refund.component';
+import { StorePreFreeAppointDetailComponent } from './store-pre-free-appoint/store-pre-free-appoint-detail/store-pre-free-appoint-detail.component';
+import { StorePreFreeAppointComponent } from './store-pre-free-appoint/store-pre-free-appoint.component';
+import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
+import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-pre-free-sale-list.component';
 import { StoreFreeCreateBystepComponent } from './store-product-free-travel/store-free-create-bystep/store-free-create-bystep.component';
 import { StoreFreeDescComponent } from './store-product-free-travel/store-free-create-bystep/store-free-desc/store-free-desc.component';
 import { StoreFreeFeatureComponent } from './store-product-free-travel/store-free-create-bystep/store-free-feature/store-free-feature.component';
@@ -52,7 +72,10 @@ import { StoreFreeImageComponent } from './store-product-free-travel/store-free-
 import { StoreFreeInfoComponent } from './store-product-free-travel/store-free-create-bystep/store-free-info/store-free-info.component';
 import { StoreFreeNoticeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-notice/store-free-notice.component';
 import { StoreFreePostComponent } from './store-product-free-travel/store-free-create-bystep/store-free-post/store-free-post.component';
+import { StoreFreePresellComponent } from './store-product-free-travel/store-free-create-bystep/store-free-presell/store-free-presell.component';
 import { StoreFreeUploadStrokeComponent } from './store-product-free-travel/store-free-create-bystep/store-free-upload-stroke/store-free-upload-stroke.component';
+import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store-free-quote/store-free-quote-create/store-free-quote-create.component';
+import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
 import { StoreFreeDetailPostComponent } from './store-product-free-travel/store-product-free-travel-detail/store-free-detail-post/store-free-detail-post.component';
 import { StoreFreeDetailUploadStrokeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-free-detail-upload-stroke/store-free-detail-upload-stroke.component';
 import { StoreProductFreeTravelDetailComponent } from './store-product-free-travel/store-product-free-travel-detail/store-product-free-travel-detail.component';
@@ -60,13 +83,16 @@ import { StoreTravelDetailDescComponent } from './store-product-free-travel/stor
 import { StoreTravelDetailFeatureComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-feature/store-travel-detail-feature.component';
 import { StoreTravelDetailImageComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-image/store-travel-detail-image.component';
 import { StoreTravelDetailNoticeComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-notice/store-travel-detail-notice.component';
+import { StoreTravelDetailPresellComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-presell/store-travel-detail-presell.component';
 import { StoreTravelDetailProinfoComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-proinfo/store-travel-detail-proinfo.component';
+import { StoreProductFreeTravelOperateLogComponent } from './store-product-free-travel/store-product-free-travel-operate-log/store-product-free-travel-operate-log.component';
 import { StoreProductFreeTravelComponent } from './store-product-free-travel/store-product-free-travel.component';
 import { StoreProductCreateBystepComponent } from './store-product-management/store-product-create-bystep/store-product-create-bystep.component';
 import { StoreProductDescComponent } from './store-product-management/store-product-create-bystep/store-product-desc/store-product-desc.component';
 import { StoreProductEditordetailComponent } from './store-product-management/store-product-create-bystep/store-product-editordetail/store-product-editordetail.component';
 import { StoreProductEditornoticeComponent } from './store-product-management/store-product-create-bystep/store-product-editornotice/store-product-editornotice.component';
 import { StoreProductFeatureComponent } from './store-product-management/store-product-create-bystep/store-product-feature/store-product-feature.component';
+import { StoreInsuranceDetailComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-insurance-detail/store-insurance-detail.component';
 import { StoreProductInfoComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-product-info.component';
 import { StoreProductPostComponent } from './store-product-management/store-product-create-bystep/store-product-post/store-product-post.component';
 import { StoreProUSCreateComponent } from './store-product-management/store-product-create-bystep/store-product-upload-stroke/store-pro-u-s-create/store-pro-u-s-create.component';
@@ -79,9 +105,13 @@ import { StoreProductManagementDetailFeatureComponent } from './store-product-ma
 import { StoreProductManagementDetailInfoComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-info/store-product-management-detail-info.component';
 import { StoreProductManagementDetailPostComponent } from './store-product-management/store-product-management-detail/store-product-management-detail-post/store-product-management-detail-post.component';
 import { StoreProductManagementDetailComponent } from './store-product-management/store-product-management-detail/store-product-management-detail.component';
+import { StoreProductManagementOperateLogComponent } from './store-product-management/store-product-management-operate-log/store-product-management-operate-log.component';
 import { StoreProductManagementComponent } from './store-product-management/store-product-management.component';
+import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
+import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
 import { StoreQuoteBydateCreateComponent } from './store-quote-bydate/store-quote-bydate-create/store-quote-bydate-create.component';
 import { StoreQuoteBydateComponent } from './store-quote-bydate/store-quote-bydate.component';
+import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
 import { StoreTermManagementReviewComponent } from './store-terms-management/store-term-management-review/store-term-management-review.component';
 import { StoreTemplateExampleComponent } from './store-terms-management/store-terms-management-create/store-template-example/store-template-example.component';
 import { StoreTermsManagementCreateComponent } from './store-terms-management/store-terms-management-create/store-terms-management-create.component';
@@ -90,33 +120,6 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
-import { StoreOrderRefundTurnoverDetailComponent } from './store-order-refund-turnover/store-order-refund-turnover-detail/store-order-refund-turnover-detail.component';
-import { StoreCerticationComponent } from './store-certication/store-certication.component';
-import { StoreCertifiDoneComponent } from './store-certication/store-certifi-done/store-certifi-done.component';
-import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
-import { StoreCertifiProgressComponent } from './store-certication/store-certifi-progress/store-certifi-progress.component';
-import { StoreCertificationDetailComponent } from './store-certication/store-certification-detail/store-certification-detail.component';
-import { UploadCertificationComponent } from './store-certication/store-certification-detail/upload-certification/upload-certification.component';
-import { UploadPdfComponent } from './store-certication/store-certification-detail/upload-pdf/upload-pdf.component';
-import { StoreCertifiHistoryComponent } from './store-certication/store-certifi-progress/store-certifi-history/store-certifi-history.component';
-import { StoreCertifiChangeComponent } from './store-certication/store-certifi-basic-info/store-certifi-change/store-certifi-change.component';
-import { StoreInsuranceDetailComponent } from './store-product-management/store-product-create-bystep/store-product-info/store-insurance-detail/store-insurance-detail.component';
-import { StoreFreeQuoteComponent } from './store-product-free-travel/store-free-quote/store-free-quote.component';
-import { StoreFreeQuoteCreateComponent } from './store-product-free-travel/store-free-quote/store-free-quote-create/store-free-quote-create.component';
-import { StoreOrderMemberComponent } from './store-order-grouptravel/store-order-grouptravel-detail/store-order-member/store-order-member.component';
-import { StoreProductPreFreeTravelComponent } from './store-product-pre-free-travel/store-product-pre-free-travel.component';
-import { StoreFreePresellComponent } from './store-product-free-travel/store-free-create-bystep/store-free-presell/store-free-presell.component';
-import { StoreTravelDetailPresellComponent } from './store-product-free-travel/store-product-free-travel-detail/store-travel-detail-presell/store-travel-detail-presell.component';
-import { StorePreFreeSaleListComponent } from './store-pre-free-sale-list/store-pre-free-sale-list.component';
-import { StorePreFreeSaleListDetailComponent } from './store-pre-free-sale-list/store-pre-free-sale-list-detail/store-pre-free-sale-list-detail.component';
-import { StoreCostTypeComponent } from './store-cost-type/store-cost-type.component';
-import { StoreCostTypeCreateComponent } from './store-cost-type/store-cost-type-create/store-cost-type-create.component';
-import { StoreCostTypeDetailComponent } from './store-cost-type/store-cost-type-detail/store-cost-type-detail.component';
-import { StoreOrderRequestMoneyComponent } from './store-order-group/store-order-group-detail/store-order-request-money/store-order-request-money.component';
-import { StoreRequestMoneyComponent } from './store-request-money/store-request-money.component';
-import { StorePreFreeAppointComponent } from './store-pre-free-appoint/store-pre-free-appoint.component';
-import { StoreProductMiniCodeComponent } from './store-product-management/store-product-mini-code/store-product-mini-code.component';
-import { StorePreFreeAppointDetailComponent } from './store-pre-free-appoint/store-pre-free-appoint-detail/store-pre-free-appoint-detail.component';
 
 
 @NgModule({
@@ -251,6 +254,9 @@ import { StorePreFreeAppointDetailComponent } from './store-pre-free-appoint/sto
         StorePreFreeAppointComponent,
         StoreProductMiniCodeComponent,
         StorePreFreeAppointDetailComponent,
+        StoreProductManagementOperateLogComponent,
+        StoreProductFreeTravelOperateLogComponent,
+        StoreOrderGroupOperateLogComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

@@ -671,3 +671,9 @@ export interface CashReqReviwqModel {
 export interface SyncOrderModel {
     order_id: any;
 }
+
+// 发送合同
+export interface SendCreateContractModel {
+    order_id: any;
+    has_shopping: any;
+}

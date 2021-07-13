@@ -7,6 +7,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ReundCheckModel } from '../../../../interfaces/store/storeRefund/storerefund';
 import { AdminRefundService } from '../../../../services/admin/admin-refund.service';
 import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
+import { AdminOrderRefundSaleChangeTypeComponent } from './admin-order-refund-sale-change-type/admin-order-refund-sale-change-type.component';
+
+
+
 
 @Component({
     selector: 'app-admin-order-refund-sale-approval-detail',
@@ -933,6 +937,215 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
                     this.router.navigate(['/admin/main/salesApproval']);
                 }),
         });
+    }
+
+
+    // 修改退款方式
+    changeType() {
+        const editmodal = this.modal.create({
+            nzTitle: '修改退款方式',
+            nzWidth: 800,
+            nzContent: AdminOrderRefundSaleChangeTypeComponent,
+            nzComponentParams: {
+                data: this.detailModel
+            },
+            nzFooter: null
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                this.detailId = params.detailId;
+                this.adminRefundService.getRefundDetail(this.detailId).subscribe(res => {
+                    this.detailModel = res.data;
+                    console.log('退款2323结果是 :>> ', this.detailModel);
+                    this.isType = this.detailModel.type == 0 ? "全部退款" : this.detailModel.type == 1 ? "部分退款" : this.detailModel.type == 2 ? '多付返还' : '退保';
+    
+    
+                    // 订单价格显示
+                    this.pro_num_adult = '￥' + this.detailModel.order?.data?.price_adult + '*' + this.detailModel.order?.data?.num_adult;
+                    this.pro_num_kid = '￥' + this.detailModel.order?.data?.price_kid + '*' + this.detailModel.order?.data?.num_kid;
+                    this.pro_num_baby = '￥' + this.detailModel.order?.data?.price_baby + '*' + this.detailModel.order?.data?.baby_num;
+                    this.price_diff = '￥' + this.detailModel.order?.data?.price_diff + '*' + this.detailModel.order?.data?.num_diff;
+                    this.difRoom = this.detailModel.order?.data?.num_diff;
+                    this.price_total = this.detailModel.order?.data?.price_total;
+                    this.nowOrderMoney = this.detailModel.order?.data?.price_total;
+                    this.price_receive = this.detailModel.order?.data?.price_receive;
+                    // 待收款
+                    this.pendingPay = (Number(this.price_total) * 100 - Number(this.detailModel?.order?.data?.amount_received) * 100) / 100;
+    
+    
+                    this.playMoney = (Number(this.detailModel.order?.data?.price_total) * 100 - Number(this.detailModel.order?.data?.amount_received) * 100) / 100
+                    console.log('object :>> ', this.detailModel.price_detail.data,);
+                    this.dataMember = this.detailModel?.member?.data;
+                    this.lastPeople = this.dataMember.length;
+                    // 优惠附加收费
+                    this.priceDetail = JSON.parse(JSON.stringify(this.detailModel.price_detail.data))
+                    let priceArr = JSON.parse(JSON.stringify(this.detailModel.price_detail.data));
+                    priceArr.forEach((element: any, index: any) => {
+                        this.oldPriceArr[index] = false
+                        if (element.type === 0) {
+                            element.namePrice = '+￥' + element.price + '*' + element.num;
+                        }
+                        else {
+                            element.namePrice = '-￥' + element.price + '*' + element.num;
+                        }
+                    });
+                    // 全额退值直接设为0
+                    if (this.detailModel.type == 0) {
+                        for (let i = 0; i < priceArr.length; i++) {
+                            this.otherArray.push(this.fb.group({
+                                name: new FormControl(priceArr[i]?.title),
+                                namePrice: new FormControl(priceArr[i]?.namePrice),
+                                price: new FormControl(priceArr[i].item_type == 3 ? priceArr[i].price : 0),
+                                num: new FormControl(priceArr[i]?.num),
+                                item_type: new FormControl(priceArr[i]?.item_type),
+                                type: new FormControl(priceArr[i]?.type),
+                                id: new FormControl(priceArr[i]?.id),
+                            }))
+                        }
+                        let changeModel: any[] = [];
+                        let otherModel = this.addForm.value.otherList;
+                        otherModel.forEach((element: any) => {
+                            console.log("element,", element)
+                            if (element?.item_type == 0) {
+                                let i = { id: element?.id, price: element?.price }
+                                changeModel.push(i)
+                            }
+                        });
+                        this.reundCheckModel.change = changeModel;
+                    }
+                    else {
+                        for (let i = 0; i < priceArr.length; i++) {
+                            this.otherArray.push(this.fb.group({
+                                name: new FormControl(priceArr[i]?.title),
+                                namePrice: new FormControl(priceArr[i]?.namePrice),
+                                price: new FormControl(priceArr[i]?.price),
+                                num: new FormControl(priceArr[i]?.num),
+                                item_type: new FormControl(priceArr[i]?.item_type),
+                                type: new FormControl(priceArr[i]?.type),
+                                id: new FormControl(priceArr[i]?.id),
+                            }))
+                        }
+                        let changeModel: any[] = [];
+                        let otherModel = this.addForm.value.otherList;
+                        otherModel.forEach((element: any) => {
+                            console.log("element,", element)
+                            if (element?.item_type == 0) {
+                                let i = { id: element?.id, price: element?.price }
+                                changeModel.push(i)
+                            }
+                        });
+                        this.reundCheckModel.change = changeModel;
+                    }
+    
+                    console.log('otherArray.controls :>> ', this.otherArray.controls);
+                    //最开始剩余房间数为原始的
+                    if (this.detailModel.type == 1) {
+                        this.refundRoomNum = this.detailModel.order?.data?.num_room;
+                    }
+                    else {
+                        this.refundRoomNum = 0;
+                        this.isDia = true;
+                    }
+    
+                    this.selectMemberData = this.detailModel?.member?.data;
+                    // 筛选出行人未申请过退款的
+                    let newMember: any[] = [];
+                    this.selectMemberData.forEach((ele: any) => {
+                        if (ele.refund_status === 0) {
+                            newMember.push(ele);
+                        }
+                    })
+                    this.selectMemberData = newMember;
+                    // 总成人数
+                    let adAllArr: any[] = [];
+                    let kidAllArr: any[] = [];
+                    let baAllArr: any[] = [];
+                    this.selectMemberData.forEach((ele: any) => {
+                        if (ele.is_kid === 0) {
+                            adAllArr.push(ele);
+                        }
+                        if (ele.is_kid === 1) {
+                            kidAllArr.push(ele);
+                        }
+                        if (ele.is_kid === 2) {
+                            baAllArr.push(ele);
+                        }
+                    })
+                    // 应退款的那些人
+                    this.allAdultNum = adAllArr;  //成人
+                    this.allKidNum = kidAllArr;   //儿童
+                    this.allbabyNum = baAllArr;   //婴儿
+                    console.log('5666565656 ', this.selectMemberData, this.allAdultNum, this.allKidNum, this.allbabyNum);
+    
+                    // 提前天数
+                    let date1 = new Date(format(new Date(this.detailModel?.order?.data?.start_date), 'yyyy,MM,dd'));
+                    let date2 = new Date(format(new Date(this.detailModel?.created_at), 'yyyy,MM,dd'));
+                    this.advance = (date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24);
+    
+                    if (this.advance > 7) {
+                        this.isStandard = 0;
+                        this.percentage = 1;
+                        this.percent = 100;
+                    }
+                    else if (6 <= this.advance && this.advance <= 7) {
+                        this.isStandard = 1;
+                        this.percentage = 0.8;
+                        this.percent = 80;
+                    }
+                    else if (4 <= this.advance && this.advance <= 5) {
+                        this.isStandard = 2;
+                        this.percentage = 0.7;
+                        this.percent = 70;
+                    }
+                    else if (1 <= this.advance && this.advance <= 3) {
+                        this.isStandard = 3;
+                        this.percentage = 0.5;
+                        this.percent = 50;
+                    }
+                    else {
+                        this.isStandard = 4;
+                        this.percentage = 0;
+                        this.percent = 0;
+                    }
+    
+                    // 退款方案  this.isType = this.detailModel.type === 0 ? "全部退款" : "部分退款"; 全部退款就全选
+                    if (this.detailModel.type === 0) {
+                        this.selectMemberData.forEach((ele: any) => {
+                            ele['disabled'] = true;
+                            this.setOfCheckedId.add(ele.id);
+                            this.onItemChecked(ele, true)
+    
+                        })
+                    }
+                    else {
+                        this.selectMemberData.forEach((ele: any) => {
+                            ele['disabled'] = true;
+                            if (this.detailModel?.handle_data?.members.indexOf(ele.id) != -1) {
+                                this.setOfCheckedId.add(ele.id);
+                                this.onItemChecked(ele, true)
+    
+                            }
+    
+                        })
+                    }
+    
+                    // 按套餐
+                    this.packAge = '￥' + this.detailModel?.order?.data?.price_inclusive + '*' + this.detailModel?.order?.data?.num_total;
+                    this.oldPackage = this.detailModel?.order?.data?.num_total;
+                    this.newPackage = this.detailModel?.order?.data?.num_total;
+                    this.nowOrderMoneyPack = this.detailModel.order?.data?.price_total;
+                    if (this.detailModel.type == 0) {
+                        this.addForm.patchValue({
+                            ispackNum: this.detailModel?.order?.data?.num_total
+                        })
+                        this.onEnterPack(this.detailModel?.order?.data?.num_total);
+                    }
+                    else {
+                        this.onEnterPack(this.addForm.value.ispackNum);
+                    }
+                })
+            });
+        })
     }
 }
 

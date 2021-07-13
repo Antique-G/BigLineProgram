@@ -22,6 +22,20 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="push_status">订单同步状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="push_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未同步'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'同步失败'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'同步成功'" [nzValue]="'2'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="product_code">产品编码/id</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="product_code" placeholder="请输入产品编码/id" />
@@ -49,7 +63,7 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="admin_id">下单人</nz-form-label>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="admin_id">下单/推荐人</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <nz-select nzPlaceHolder="请选择下单人" formControlName="admin_id" nzAllowClear nzShowSearch>
                                         <nz-option *ngFor="let data of adminList" [nzLabel]="data.real_name" [nzValue]="data.admin_id"> </nz-option>
@@ -168,7 +182,9 @@
                                 <img src="http://cdn.bigline.com.cn/static/images/sms.png">订单短信通知书
                             </div>
                             <div>
-                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png">电子合同（<img src="http://cdn.bigline.com.cn/static/images/sendcontract.png">发送签署合同请求，<img src="http://cdn.bigline.com.cn/static/images/seecontract.png">查看合同）
+                                <img src="http://cdn.bigline.com.cn/static/images/conImg.png">电子合同（<img src="http://cdn.bigline.com.cn/static/images/generateCon.png">生成合同，
+                                <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png">发送签署合同请求，
+                                <img src="http://cdn.bigline.com.cn/static/images/seecontract.png">查看合同）
                             </div>
                             <div>
                                 <img src="http://cdn.bigline.com.cn/static/images/insImg.png">保险状态
@@ -179,10 +195,12 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">订单号</th>
-                                    <th style="text-align: center;">下单人</th>
+                                    <th style="text-align: center;">下单/推荐人</th>
+                                    <th style="text-align: center;">订单来源</th>
+                                    <th style="text-align: center;">订单同步状态</th>
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;width: 9%;">产品编码</th>
-                                    <th style="text-align: center;width: 10%;">产品名称</th>
+                                    <th style="text-align: center;width: 8%;">产品编码</th>
+                                    <th style="text-align: center;width: 8%;">产品名称</th>
                                     <th style="text-align: center;">联系人姓名/手机号</th>
                                     <th style="text-align: center;">订单人数</th>
                                     <th style="text-align: center;">订单出发日期</th>
@@ -192,14 +210,23 @@
                                     <th style="text-align: center;width: 5%;">订单取消类型</th>
                                     <th style="text-align: center;width: 5%;">订单退款状态</th>
                                     <th style="width: 10%;">附属操作</th>
-                                    <th style="text-align: center;">查看详情</th>
-                                    <th style="text-align: center;">确认收款</th>
+                                    <th style="text-align: center;">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
                                     <td>{{data.id}}</td>
                                     <td>{{data?.bind_account_name}}</td>
+                                    <td>
+                                        <span *ngIf="data?.order_source==0">未知</span>
+                                        <span *ngIf="data?.order_source==1">小程序</span>
+                                        <span *ngIf="data?.order_source==2">管理后台</span>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="data?.push_time==0">未同步</span>
+                                        <span *ngIf="data?.push_time==1">同步失败</span>
+                                        <span *ngIf="data?.push_time>10">同步成功</span>
+                                    </td>
                                     <td>{{data.store_name}}</td>
                                     <td>{{data.product_code}}</td>
                                     <td>{{data.product_name}}</td>
@@ -281,13 +308,29 @@
                                                     </a>
                                                     <nz-dropdown-menu #menu="nzDropdownMenu">
                                                         <ul nz-menu nzSelectable class="menu">
-                                                            <ng-container *ngIf="data.contract_status==0||data.contract_status==1">
+                                                            <!-- 订单状态>0 -->
+                                                            <ng-container *ngIf="data.order_status>0">
+                                                                <li nz-menu-item (click)="generate(data)" *ngIf="data.contract_send_type==1">
+                                                                    <img src="http://cdn.bigline.com.cn/static/images/generateCon.png" style="cursor: pointer;" title="发送合同">发送合同
+                                                                </li>
+                                                                <li nz-menu-item (click)="reGenerate(data)" *ngIf="data.contract_send_type==2">
+                                                                    <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" title="重发合同">重发合同
+                                                                </li>
+                                                            </ng-container>
+                                                            <!-- <ng-container *ngIf="data.contract_status==0||data.contract_status==1">
                                                                 <li nz-menu-item (click)="signCon(data)" *ngIf="data.order_status==2||data.order_status==1">
                                                                     <img src="http://cdn.bigline.com.cn/static/images/sendcontract.png" style="cursor: pointer;" title="发送签署请求">发送签署请求
                                                                 </li>
-                                                            </ng-container>
+                                                            </ng-container> -->
                                                             <li nz-menu-item *ngIf="data.contract_status!=0" (click)="contractView(data)">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/seecontract.png" style="cursor: pointer;" title="查看合同">查看合同
+                                                            </li>
+
+                                                            <li nz-menu-item *ngIf="data.contract_cancel_type==1" (click)="withdraw(data)">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/destroy.png" style="cursor: pointer;" title="撤回合同">撤回合同
+                                                            </li>
+                                                            <li nz-menu-item *ngIf="data.contract_cancel_type==2" (click)="destroy(data)">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/destroy.png" style="cursor: pointer;" title="作废合同">作废合同
                                                             </li>
                                                             <!-- <li nz-menu-item *ngIf="data.contract_status!=0" (click)="contractChange(data)">
                                                                 <img src="http://cdn.bigline.com.cn/static/images/editcontract.png" style="cursor: pointer;" title="修改合同">修改合同
@@ -313,16 +356,25 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div style="cursor: pointer;">
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <ng-container *ngIf="data.order_status!=0">
-                                            <div style="cursor: pointer;" *ngIf="data.payment_status==0||data.payment_status==2">
-                                                <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
-                                            </div>
-                                        </ng-container>
+                                        <a nz-dropdown [nzDropdownMenu]="operate" nzTrigger="click">
+                                            操作
+                                            <i nz-icon nzType="down"></i>
+                                          </a>
+                                        <nz-dropdown-menu #operate="nzDropdownMenu">
+                                            <ul nz-menu nzSelectable class="menu">
+                                                <li nz-menu-item (click)="edit(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" style="cursor: pointer;">编辑
+                                                </li>
+                                                <ng-container *ngIf="data.order_status!=0">
+                                                    <li nz-menu-item *ngIf="data.payment_status==0||data.payment_status==2" (click)="money(data)">
+                                                        <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" style="cursor: pointer;">收款
+                                                    </li>
+                                                </ng-container>
+                                                <li nz-menu-item (click)="getTimeLine(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
+                                                </li>
+                                            </ul>
+                                        </nz-dropdown-menu>
                                     </td>
                                 </tr>
 

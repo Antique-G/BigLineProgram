@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminUrls } from '../../api';
+import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AdminProductCheckStatusModel, AdminProductDetailResponseModel, AdminProductManagementListResponseModel, AdminProductResponseModel, AdminProductSetStatusModel, CheckLogModule, ProductQuteDateModel, StoreListModel } from '../../interfaces/adminProduct/product-management-model';
 import { AddProductTrip } from '../../interfaces/store/storeProduct/ProductModel';
 
@@ -36,7 +36,7 @@ export class AdminProductManagementService {
             .set('tag', tag ? tag : '')
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '');
-        
+
 
 
         const findhttpOptions = {
@@ -189,6 +189,24 @@ export class AdminProductManagementService {
                 catchError(this.handleError)
             )
     }
+
+
+    //获取操作的时间线
+    getOperateLog(page: number, per_page: number, id: any) {
+        const params = new HttpParams()
+            .set('page', page.toString())
+            .set('per_page', per_page.toString())
+        
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<ProductQuteDateModel>(this.urls.GetAdminProOperLog+id, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
 
     private handleError(error: HttpErrorResponse) {

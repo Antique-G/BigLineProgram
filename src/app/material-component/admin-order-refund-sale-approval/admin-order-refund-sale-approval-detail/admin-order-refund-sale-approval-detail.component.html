@@ -66,7 +66,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refund_to_account">
                                                             退款方式</nz-form-label>
-                                                        <nz-form-control [nzSm]="15" [nzXs]="24">
+                                                        <nz-form-control [nzSm]="4" [nzXs]="24">
                                                             <ng-container *ngIf="!detailModel?.handle_data">
                                                                 <input nz-input formControlName="refund_to_account" nzBorderless readonly [ngModel]="detailModel?.to_account==1?'退至用户账户余额':'原路返回'" />
                                                             </ng-container>
@@ -74,6 +74,8 @@
                                                                 <input nz-input formControlName="refund_to_account" nzBorderless readonly [ngModel]="detailModel?.handle_data?.to_account==1?'退至用户账户余额':'原路返回'" />
                                                             </ng-container>
                                                         </nz-form-control>
+                                                        <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeType()">修改</button>
+
                                                     </div>
                                                 </nz-form-item>
 

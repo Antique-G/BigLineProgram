@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { StoreOrderGroupTravelService } from '../../../../../services/store/store-order/store-order-group-travel.service';
@@ -8,7 +9,6 @@ import { StoreOrderGroupChangeDateComponent } from './store-order-group-change-d
 import { StoreOrderGroupChangePriceComponent } from './store-order-group-change-price/store-order-group-change-price.component';
 import { StoreOrderMemberComponent } from './store-order-member/store-order-member.component';
 
-import { format } from 'date-fns';
 
 
 
@@ -122,7 +122,7 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
         this.audltPrice = Number(this.detailModel?.price_adult) * Number(this.detailModel?.num_adult);
         this.childPrice = Number(this.detailModel?.price_kid) * Number(this.detailModel?.num_kid);
         this.babyPrice = Number(this.detailModel?.price_baby) * Number(this.detailModel?.baby_num);
-        this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.price_receive);
+        this.priceTotal = Number(this.detailModel?.price_total) - Number(this.detailModel?.amount_received);
         this.priceTotal = this.toDecimal(this.priceTotal);
     }
 

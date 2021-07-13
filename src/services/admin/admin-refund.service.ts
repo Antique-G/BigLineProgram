@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { AdminRefundCheckDataModel, AdminRefundLogEditModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
+import { AdminRefundCheckDataModel, AdminRefundLogEditModel, RefundChangeTypeModel, RefundDetailModel, RefundFinished, RefundListModel, RefundModel, RefundPayLog, ReundCheckModel } from '../../interfaces/store/storeRefund/storerefund';
 
 
 const httpOptions = {
@@ -53,6 +53,15 @@ export class AdminRefundService {
     // 获取退款详情
     getRefundDetail(id: any) {
         return this.httpClient.get<RefundDetailModel>(this.urls.GetAdminRefundDetail + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+    // 修改退款方式PutAdminRefundDetailType
+    putRefundType(refundChangeTypeModel: RefundChangeTypeModel): Observable<any> {
+        const id = refundChangeTypeModel.id;
+        return this.httpClient.put(this.urls.PutAdminRefundDetailType + id, refundChangeTypeModel, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

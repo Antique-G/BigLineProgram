@@ -1,0 +1,24 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="to_account" nzRequired>退款方式</nz-form-label>
+                <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-radio-group formControlName="to_account" ngModel={{data.handle_data?data?.handle_data?.to_account:data?.to_account}}>
+                        <label nz-radio nzValue=0>原路返回</label>
+                        <label nz-radio nzValue=1>退至用户账户余额</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                <nz-form-control [nzSpan]="24">
+                    <div style="display: flex;flex-direction: column;align-items: center;">
+                        <button style="width: 120px;" nz-button nzType="primary" (click)="confirm()">确定修改</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

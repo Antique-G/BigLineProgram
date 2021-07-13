@@ -258,49 +258,13 @@
                                                 <!-- <li nz-menu-item (click)="setCommission(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
                                                 </li> -->
+                                                <li nz-menu-item (click)="getTimeLine(data)">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
+                                                </li>
                                             </ul>
                                         </nz-dropdown-menu>
                                     </td>
-                                    <!-- <td>
-                                        <div style="cursor: pointer;" (click)="edit(data)" title="详情">
 
-                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png">
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;">
-                                            <img src="http://cdn.bigline.com.cn/static/images/assignment_ind.png" (click)="goToQuoteClick(data)" title="报价">
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;" *ngIf="data.check_status==2" (click)="up(data)" title="上架">
-                                            <div *ngIf="data.status==0">
-                                                <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架">
-                                            </div>
-                                            <div *ngIf="data.status==1">
-                                                <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架">
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;">
-                                            <div *ngIf="data.check_status===0">
-                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" (click)="checkStatusClick(data)" title="提交审核">
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="cursor: pointer;">
-                                            <div *ngIf="data.check_status==1">
-                                                <img src="http://cdn.bigline.com.cn/static/images/assignment.png" (click)="revokeStatus(data)" title="撤销审核">
-                                            </div>
-
-                                        </div>
-                                    </td> -->
                                 </tr>
                             </tbody>
                         </nz-table>

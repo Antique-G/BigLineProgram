@@ -44,13 +44,12 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
     // 自由行请款跳过来
     isFreeReq: any;
-
+    // 同步订单
     syncOrderModel: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, public dialog: MatDialog,
-        public adminOrderFreeTravelService: AdminOrderFreeTravelService,
-        public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, private msg: NzMessageService,
-        public adminOrderService: AdminOrderService) {
+        public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService, private msg: NzMessageService,
+        public adminOrderService: AdminOrderService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
             start_date: ['', [Validators.required]],
@@ -94,7 +93,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             birthday: '',
         };
         this.syncOrderModel = {
-            order_id:''
+            order_id: ''
         }
     }
 
@@ -459,24 +458,25 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                console.log("res",res)
-                if (res.data.length==0) {
-                    this.modal['success']({
-                        nzMask: false,
-                        nzTitle: `同步成功`,
-                    })
-                }
-                else {
-                    this.modal['error']({
-                        nzMask: true,
-                        nzTitle: "<h3>错误提示</h3>",
-                        nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
-                        nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
-                    })
-                }
-              }),
+                    console.log("res", res)
+                    if (res.data.length == 0) {
+                        this.modal['success']({
+                            nzMask: false,
+                            nzTitle: `同步成功`,
+                        })
+                    }
+                    else {
+                        this.modal['error']({
+                            nzMask: true,
+                            nzTitle: "<h3>错误提示</h3>",
+                            nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
+                            nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
+                        })
+                    }
+                }),
         });
-        
+
+
     }
 }
 

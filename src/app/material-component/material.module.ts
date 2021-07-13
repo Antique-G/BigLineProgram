@@ -62,7 +62,9 @@ import { AdminOrderFreeTravelDetailComponent } from './admin-order-free-travel/a
 import { AdminOrderFreeTravelComponent } from './admin-order-free-travel/admin-order-free-travel.component';
 import { AdminOrderPreFreeTravelDetailComponent } from './admin-order-free-travel/admin-order-pre-free-travel-detail/admin-order-pre-free-travel-detail.component';
 import { AdminEditContractComponent } from './admin-order-group-travel/admin-edit-contract/admin-edit-contract.component';
+import { AdminGenerateContractComponent } from './admin-order-group-travel/admin-generate-contract/admin-generate-contract.component';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
+import { AdminOrderGroupOprateLogComponent } from './admin-order-group-travel/admin-order-group-oprate-log/admin-order-group-oprate-log.component';
 import { AdminOrderGroupOrderComponent } from './admin-order-group-travel/admin-order-group-order/admin-order-group-order.component';
 import { AOGTDChangePriceComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
@@ -80,6 +82,7 @@ import { AdminOrderRefundWaysComponent } from './admin-order-refund-review/admin
 import { AdminOrderRefundReviewComponent } from './admin-order-refund-review/admin-order-refund-review.component';
 import { AdminOrderRefundSaleApprovalDetailComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-detail.component';
 import { AdminOrderRefundSaleApprovalRejectComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-approval-reject/admin-order-refund-sale-approval-reject.component';
+import { AdminOrderRefundSaleChangeTypeComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-change-type/admin-order-refund-sale-change-type.component';
 import { AdminOrderRefundSaleApprovalComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval.component';
 import { AdminOrderRefundChangStatusComponent } from './admin-order-refund-turnover/admin-order-refund-chang-status/admin-order-refund-chang-status.component';
 import { AdminOrderRefundTurnoverDetailComponent } from './admin-order-refund-turnover/admin-order-refund-turnover-detail/admin-order-refund-turnover-detail.component';
@@ -114,6 +117,7 @@ import { AdminTravelDetailFeatureComponent } from './admin-product/admin-produc-
 import { AdminTravelDetailPostComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-post/admin-travel-detail-post.component';
 import { AdminTravelDetailPresellComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-presell/admin-travel-detail-presell.component';
 import { AdminTravelDetailProinfoComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-detail/admin-travel-detail-proinfo/admin-travel-detail-proinfo.component';
+import { AdminProductFreeTravelOprateLogComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-oprate-log/admin-product-free-travel-oprate-log.component';
 import { AdminProductFreeTravelQutedateComponent } from './admin-product/admin-produc-free-travel/admin-product-free-travel-qutedate/admin-product-free-travel-qutedate.component';
 import { AdminPeoductManagementEditordetailComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-editordetail/admin-peoduct-management-editordetail.component';
 import { AdminPeoductManagementFeatureComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-peoduct-management-feature/admin-peoduct-management-feature.component';
@@ -126,6 +130,7 @@ import { AdminProductManagementPostComponent } from './admin-product/admin-produ
 import { AdminProductManagementSchedultComponent } from './admin-product/admin-product-management/admin-product-management-detail/admin-product-management-schedult/admin-product-management-schedult.component';
 import { AdminProductManagementComponent } from './admin-product/admin-product-management/admin-product-management.component';
 import { AdminProductMiniCodeComponent } from './admin-product/admin-product-management/admin-product-mini-code/admin-product-mini-code.component';
+import { AdminProductOprateLogComponent } from './admin-product/admin-product-management/admin-product-oprate-log/admin-product-oprate-log.component';
 import { AdminProductQutedateComponent } from './admin-product/admin-product-management/admin-product-qutedate/admin-product-qutedate.component';
 import { AdminProductReviewComponent } from './admin-product/admin-product-management/admin-product-review/admin-product-review.component';
 import { AdminProductPreFreeComponent } from './admin-product/admin-product-pre-free/admin-product-pre-free.component';
@@ -194,6 +199,7 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
+
 
 
 
@@ -417,6 +423,11 @@ import { MaterialRoutes } from './material.routing';
     AdminMiniWithdrawalReviewComponent,
     AdminMiniWithdrawalOperateComponent,
     AdminMiniWithdrawalRecordListComponent,
+    AdminProductOprateLogComponent,
+    AdminProductFreeTravelOprateLogComponent,
+    AdminOrderGroupOprateLogComponent,
+    AdminGenerateContractComponent,
+    AdminOrderRefundSaleChangeTypeComponent,
 
   ]
 })
