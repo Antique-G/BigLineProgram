@@ -1,0 +1,365 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_status">订单状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="pay_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'待确认'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'已确认'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="pay_type">支付途径</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="pay_type" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                                        <nz-option [nzLabel]="'微信二维码'" [nzValue]="4"></nz-option>
+                                        <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="5"></nz-option>
+                                        <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                                        <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
+                                        <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
+                                        <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="order_id" placeholder="请输入订单id" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="transaction_id">流水号</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="transaction_id" placeholder="请输入流水号" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="goods_name">商品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="goods_name" placeholder="请输入商品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="orderTime">下单日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeOrderDate($event)" formControlName="orderTime"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="consignee">收货人姓名</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="consignee" placeholder="请输入收货人姓名" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">收货人电话</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="phone" placeholder="请输入收货人电话" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择店铺" formControlName="store_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of storeList" [nzLabel]="data.name" [nzValue]="data.store_id"> </nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_id">下单人</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bind_id" placeholder="请输入下单人" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                    </form>
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">订单id</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                    <th style="text-align: center;">下单人</th>
+                                    <th style="text-align: center;">店铺名称</th>
+                                    <th style="text-align: center;">商品名称</th>
+                                    <th style="text-align: center;">订单状态</th>
+                                    <th style="text-align: center;">下单日期</th>
+                                    <th style="text-align: center;">订单总金额</th>
+                                    <th style="text-align: center;">收货人姓名/电话</th>
+                                    <th style="text-align: center;">类型</th>
+                                    <th style="text-align: center;">支付序号</th>
+                                    <th style="text-align: center;">支付金额</th>
+                                    <th style="text-align: center;">流水状态</th>
+                                    <th style="text-align: center;">支付方式</th>
+                                    <th>支付流水号</th>
+                                    <th style="text-align: center;">支付时间</th>
+                                    <th style="text-align: center;">确认收款</th>
+                                    <th style="text-align: center;">修改流水</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let data of rowSelectionTable.data;">
+                                    <ng-container *ngFor="let sub_order of data?.sub_order?.data;let j=index">
+                                        <tr *ngFor="let order_item of sub_order?.order_item?.data;let i=index">
+                                            <!-- 如果只有一个子订单，则row为商品的长度 -->
+                                            <ng-container *ngIf="data?.sub_order?.data.length==1">
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data.id}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <div style="cursor: pointer;">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data.bind_name}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{sub_order.store_name}}
+                                                    </td>
+                                                </ng-container>
+                                                <td>{{order_item.goods_name}}</td>
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data?.order_status_info}} </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        {{data?.price_total}} 元</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <div>
+                                                            <div>{{data?.consignee}}</div>
+                                                            <div>{{data?.phone}}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        收款 </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let num of data?.pay_log?.data">
+                                                            <td>{{num?.pay_number}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let fee of data?.pay_log?.data">
+                                                            <td><span style="color: red;">{{fee?.fee}}元</span></td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let status of  data?.pay_log?.data">
+                                                            <td>
+                                                                <span *ngIf="status?.status==0" style="color: #ccc;"> 已取消/失效</span>
+                                                                <span *ngIf="status?.status==1" style="color: purple;">待支付</span>
+                                                                <span *ngIf="status?.status==2" style="color: blue;">  已支付</span>
+                                                                <span *ngIf="status?.status==3" style="color: green;"> 已确认</span>
+                                                            </td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let payType of data?.pay_log?.data">
+                                                            <td>{{payType?.pay_type_info}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let transaction of data?.pay_log?.data">
+                                                            <td>{{transaction?.transaction_id}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <tr *ngFor="let payTime of data?.pay_log?.data">
+                                                            <td>{{payTime?.pay_time}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <ng-container *ngFor="let item of data?.pay_log?.data">
+                                                            <div>
+                                                                <div style="cursor: pointer;" *ngIf="item.status==2">
+                                                                    <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="moneyConfirm(item)">
+                                                                </div>
+                                                            </div>
+                                                            <div style="cursor: pointer;" *ngIf="item.status!=2">-</div>
+                                                        </ng-container>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <!-- 未确认的和后台手动填写收款的才可以修改 "-->
+                                                        <ng-container *ngFor="let item of data?.pay_log?.data">
+                                                            <div *ngIf="item.pay_way==1">
+                                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                                                    <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="item.pay_way!=1">-</div>
+                                                        </ng-container>
+                                                    </td>
+                                                </ng-container>
+
+
+                                            </ng-container>
+
+                                            <!-- 多个 -->
+                                            <ng-container *ngIf="data?.sub_order?.data.length!=1">
+                                                <ng-container *ngIf="j==0">
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        {{data.id}}</td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <div style="cursor: pointer;">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                                        </div>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        {{data.bind_name}}
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="sub_order?.order_item?.data?.length">
+                                                        {{sub_order.store_name}}
+                                                    </td>
+                                                </ng-container>
+                                                <td>{{order_item.goods_name}}</td>
+
+                                                <ng-container *ngIf="j==0">
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        {{data?.order_status_info}} </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        {{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        {{data?.price_total}} 元</td>
+                                                </ng-container>
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="sub_order?.order_item?.data.length">
+                                                        <div>
+                                                            <div>{{data?.consignee}}</div>
+                                                            <div>{{data?.phone}}</div>
+                                                        </div>
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="j==0">
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        收款
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let pay of data?.pay_log?.data">
+                                                            <td>{{pay.pay_number}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let fee of data?.pay_log?.data">
+                                                            <td><span style="color: red;">{{fee?.fee}}元</span></td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let status of  data?.pay_log?.data">
+                                                            <td>
+                                                                <span *ngIf="status?.status==0" style="color: #ccc;"> 已取消/失效</span>
+                                                                <span *ngIf="status?.status==1" style="color: purple;">待支付</span>
+                                                                <span *ngIf="status?.status==2" style="color: blue;">  已支付</span>
+                                                                <span *ngIf="status?.status==3" style="color: green;"> 已确认</span>
+                                                            </td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let payType of data?.pay_log?.data">
+                                                            <td>{{payType?.pay_type_info}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let transaction of data?.pay_log?.data">
+                                                            <td>{{transaction?.transaction_id}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <tr *ngFor="let payTime of data?.pay_log?.data">
+                                                            <td>{{payTime?.pay_time}}</td>
+                                                        </tr>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <ng-container *ngFor="let item of data?.pay_log?.data">
+                                                            <div style="cursor: pointer;" *ngIf="item.status==2">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="moneyConfirm(item)">
+                                                            </div>
+                                                            <div style="cursor: pointer;" *ngIf="item.status!=2">-</div>
+                                                        </ng-container>
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <!-- 未确认的和后台手动填写收款的才可以修改 "-->
+                                                        <ng-container *ngFor="let item of data?.pay_log?.data">
+                                                            <div *ngIf="item.pay_way==1">
+                                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                                                    <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="item.pay_way!=1">-</div>
+                                                        </ng-container>
+                                                    </td>
+                                                </ng-container>
+
+                                            </ng-container>
+
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

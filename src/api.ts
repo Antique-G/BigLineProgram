@@ -333,9 +333,11 @@ export const AdminUrls = {
     PostAdminGoodsOrderConfirmReceipt: api + '/admin/goods_order/confirm_receipt',     //商品订单收款
     PostAdminGoodsOrderGetWeChatPayQr: api + '/admin/goods_order/get_wechat_pay_qr',   // 生成商品订微信收款码
     PostAdminGoodsOrderAlipayCode: api + '/admin/goods_order/get_alipay_code',   // 生成商品订支付宝收款码
+    GetAdminFinanceGoodsOrderList: api + '/admin/finance/goods_order',     //财务商品订单
+    PostAdminFinanceGoodsOrderConfirm: api + '/admin/finance/goods_order_confirm',   // 财务确认商品收款
+    PostAdminFinanceGoodsOrderEditReceipt: api + '/admin/goods_order/edit_receipt',   // 财务修改商品流水
+ 
     
-
-
 
 };
 

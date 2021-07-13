@@ -206,6 +206,10 @@ import { MaterialRoutes } from './material.routing';
 import { AdminGoodsExpressCompanyComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company.component';
 import { AdminGoodsExpressCompanyCreateComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company-create/admin-goods-express-company-create.component';
 import { AdminGoodsProOrderMoneyComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-money/admin-goods-pro-order-money.component';
+import { AdminFinanceGoodsOrderComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order.component';
+import { AdminFinanceGoodsOrderDetailComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order-detail/admin-finance-goods-order-detail.component';
+import { AdminFinanceGoodsOrderConfirmComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order-confirm/admin-finance-goods-order-confirm.component';
+import { AdminFinanceGoodsOrderChangeTransComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order-change-trans/admin-finance-goods-order-change-trans.component';
 
 
 
@@ -443,6 +447,10 @@ import { AdminGoodsProOrderMoneyComponent } from './admin-goods/admin-goods-pro-
     AdminGoodsExpressCompanyComponent,
     AdminGoodsExpressCompanyCreateComponent,
     AdminGoodsProOrderMoneyComponent,
+    AdminFinanceGoodsOrderComponent,
+    AdminFinanceGoodsOrderDetailComponent,
+    AdminFinanceGoodsOrderConfirmComponent,
+    AdminFinanceGoodsOrderChangeTransComponent,
 
   ]
 })

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AddExpressCompanyModel, AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList, UpdateGoodsOrderConsigneeModel, UpdateGoodsOrderModel } from 'interfaces/store/storeGoods/store-goods-model';
-import { ComfirmOrderModel, WeChatModel } from 'interfaces/store/storeOrder/store-order-group-travel-model';
+import { ComfirmOrderModel, TransChangeModel, WeChatModel } from 'interfaces/store/storeOrder/store-order-group-travel-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -222,7 +222,7 @@ export class AdminGoodsService {
             )
     }
 
-    
+
     // 微信二维码收款
     goodOrderGetPayWechatQr(weChatModel: WeChatModel): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminGoodsOrderGetWeChatPayQr, weChatModel, httpOptions)
@@ -285,6 +285,51 @@ export class AdminGoodsService {
             )
     }
 
+
+    // 财务模块订单列表
+    orderList_finance(page: number, per_page: number, pay_status: any, order_id: any, goods_name: any,
+        date_start: any, date_end: any, transaction_id: any, pay_type: any,
+        store_id: any, consignee: any, phone: any, bind_id: any,): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('pay_status', pay_status ? pay_status : '')
+            .set('order_id', order_id ? order_id : '')
+            .set('goods_name', goods_name ? goods_name : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('transaction_id', transaction_id ? transaction_id : '')
+            .set('pay_type', pay_type ? pay_type : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('consignee', consignee ? consignee : '')
+            .set('phone', phone ? phone : '')
+            .set('bind_id', bind_id ? bind_id : '');
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminFinanceGoodsOrderList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    // 财务确认收款
+    confirmGoodPayLog(pay_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminFinanceGoodsOrderConfirm, { pay_id: pay_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    // 修改流水信息
+    changeTrans(transChangeModel: TransChangeModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminFinanceGoodsOrderEditReceipt, transChangeModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);
