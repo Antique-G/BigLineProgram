@@ -172,7 +172,7 @@
                                                 <div>{{data.id}}</div>
                                                 <div>{{data.order_id}}</div>
                                             </td>
-                                            <td [attr.rowspan]="data?.order_item?.data?.length">{{data.bind_name}}</td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">{{data?.main_order?.data?.bind_name}}</td>
                                         </ng-container>
                                         <td>{{order_item.goods_name}}</td>
                                         <td>{{order_item.spec_name}}</td>

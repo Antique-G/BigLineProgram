@@ -98,7 +98,7 @@ export class AdminGoodsProAddOrderComponent implements OnInit {
 
 
     getGoodList() {
-        this.adminGoodsService.goodsList(this.page, this.per_page, 1, 2, this.is_order, this.cate_id, this.title, this.store_id).subscribe(res => {
+        this.adminGoodsService.goodsList(this.page, this.per_page, 1, 2, this.is_order, this.cate_id, this.title, this.store_id,'').subscribe(res => {
             this.loading = false;
             console.log("111", res.data);
             this.dataSource = res.data.data;
