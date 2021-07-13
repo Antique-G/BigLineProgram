@@ -244,9 +244,19 @@ export class AdminGoodsProOrderComponent implements OnInit {
         console.log("1111", event);
         if (event) {
             this.cateSecondList = event?.children;
-            this.searchForm.patchValue({
-                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-            })
+            if (this.cateSecondList != undefined) {
+                this.searchForm.patchValue({
+                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+                })
+            }
+            else {
+                this.searchForm.patchValue({
+                    secondType: '',
+                    thirdType: ''
+                })
+                this.isCateId = event?.id;
+                this.pid = event.pid;
+            }
         }
     }
 
@@ -255,9 +265,11 @@ export class AdminGoodsProOrderComponent implements OnInit {
         console.log("2222", event);
         if (event) {
             this.cateThirdList = event?.children;
-            this.searchForm.patchValue({
-                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-            })
+            if (this.cateThirdList != undefined) {
+                this.searchForm.patchValue({
+                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+                })
+            }
         }
 
 

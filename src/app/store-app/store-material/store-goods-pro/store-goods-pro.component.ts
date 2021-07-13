@@ -23,7 +23,7 @@ export class StoreGoodsProComponent implements OnInit {
     is_order: any;
     cate_id: any;
     title: any;
-
+    is_hot: any;
 
     cateFistList: any;
     cateSecondList: any;
@@ -47,6 +47,7 @@ export class StoreGoodsProComponent implements OnInit {
             secondType: [''],
             thirdType: [''],
             is_order: [''],
+            is_hot: [''],
         });
         this.goodsSetStatusModel = {
             id: '',
@@ -70,19 +71,19 @@ export class StoreGoodsProComponent implements OnInit {
             this.is_order = getSeatch?.is_order ? getSeatch?.is_order : '';
             this.pid = getSeatch?.pid ? getSeatch?.pid : '';
             this.cate_id = getSeatch?.cate_id ? getSeatch?.cate_id : '';
-
+            this.is_hot = getSeatch?.is_hot ? getSeatch?.is_hot : '';
 
             // 三级就是这个
             // this.selectedcateThird = this.addDataDetailModel.goods_cate;
             // // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-            let cate2: any[]=[];
+            let cate2: any[] = [];
             console.log("一级", this.cateFistList);
             this.cateFistList.map((element: any) => {
-                let ca  = element.children?.filter((item: any) => item.id == this.pid);
+                let ca = element.children?.filter((item: any) => item.id == this.pid);
                 if (ca && ca?.length > 0) {
                     cate2 = ca
                     return
-                 }
+                }
             });
             console.log("22222", cate2, this.cate_id);
             // 找到一级
@@ -95,10 +96,11 @@ export class StoreGoodsProComponent implements OnInit {
                 status: this.status,
                 check_status: this.check_status,
                 title: this.title,
-                firstType: cate1?cate1[0]:'',
-                secondType: cate2?cate2[0]:'',
-                thirdType: cate3?cate3[0]:'',
+                firstType: cate1 ? cate1[0] : '',
+                secondType: cate2 ? cate2[0] : '',
+                thirdType: cate3 ? cate3[0] : '',
                 is_order: this.is_order,
+                is_hot: this.is_hot
             })
 
             this.getGoodList();
@@ -108,7 +110,7 @@ export class StoreGoodsProComponent implements OnInit {
 
 
     getGoodList() {
-        this.storeGoodsService.goodsList(this.page, this.per_page, this.status, this.check_status, this.is_order, this.cate_id, this.title).subscribe(res => {
+        this.storeGoodsService.goodsList(this.page, this.per_page, this.status, this.check_status, this.is_order, this.cate_id, this.title, this.is_hot).subscribe(res => {
             this.loading = false;
             console.log("111", res.data);
             this.dataSource = res.data.data;
@@ -123,12 +125,13 @@ export class StoreGoodsProComponent implements OnInit {
         this.check_status = this.searchForm.value.check_status;
         this.title = this.searchForm.value.title;
         this.is_order = this.searchForm.value.is_order;
+        this.is_hot = this.searchForm.value.is_hot;
         this.cate_id = this.isCateId;
         this.getGoodList();
 
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.check_status, title: this.title,
+            status: this.status, check_status: this.check_status, title: this.title, is_hot: this.is_hot,
             is_order: this.is_order, cate_id: this.cate_id, page: this.page, pid: this.pid
         }
         localStorage.setItem('storeGoodsSearch', JSON.stringify(this.setQuery));
@@ -147,7 +150,7 @@ export class StoreGoodsProComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-            status: this.status, check_status: this.check_status, title: this.title,
+            status: this.status, check_status: this.check_status, title: this.title, is_hot: this.is_hot,
             is_order: this.is_order, cate_id: this.cate_id, page: this.page, pid: this.pid
         }
         localStorage.setItem('storeGoodsSearch', JSON.stringify(this.setQuery));
@@ -170,6 +173,7 @@ export class StoreGoodsProComponent implements OnInit {
             secondType: '',
             thirdType: '',
             is_order: '',
+            is_hot: '',
         })
     }
 
@@ -192,9 +196,19 @@ export class StoreGoodsProComponent implements OnInit {
         console.log("1111", event);
         if (event) {
             this.cateSecondList = event?.children;
-            this.searchForm.patchValue({
-                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-            })
+            if (this.cateSecondList != undefined) {
+                this.searchForm.patchValue({
+                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+                })
+            }
+            else {
+                this.searchForm.patchValue({
+                    secondType: '',
+                    thirdType: ''
+                })
+                this.isCateId = event?.id;
+                this.pid = event.pid;
+            }
         }
     }
 
@@ -203,9 +217,11 @@ export class StoreGoodsProComponent implements OnInit {
         console.log("2222", event);
         if (event) {
             this.cateThirdList = event?.children;
-            this.searchForm.patchValue({
-                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-            })
+            if (this.cateThirdList != undefined) {
+                this.searchForm.patchValue({
+                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+                })
+            }
         }
 
     }

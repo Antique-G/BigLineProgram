@@ -70,7 +70,7 @@
                                                         <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="price" nzRequired>
                                                             价格</nz-form-label>
                                                         <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入价格">
-                                                            <nz-input-number style="width: 90%;" formControlName="price" [nzMin]="0"></nz-input-number>元
+                                                            <nz-input-number style="width: 90%;" formControlName="price" [nzMin]="0" [nzPrecision]="precision1"></nz-input-number>元
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -82,7 +82,7 @@
                                                         <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="stock" nzRequired>
                                                             商品库存</nz-form-label>
                                                         <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入商品库存">
-                                                            <nz-input-number style="width: 100%;" formControlName="stock" [nzMin]="0">
+                                                            <nz-input-number style="width: 100%;" formControlName="stock" [nzMin]="0" [nzPrecision]="precision">
                                                             </nz-input-number>
                                                         </nz-form-control>
                                                     </div>
@@ -172,29 +172,6 @@
                                                     <label nz-radio nzValue='1'>产地发货</label>
                                                     <label nz-radio nzValue='0'>商家发货</label>
                                                 </nz-radio-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="is_hot"> 是否设置推荐
-                                            </nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                <nz-radio-group formControlName="is_hot" ngModel={{addDataDetailModel?.is_hot}}>
-                                                    <label nz-radio nzValue='0'>否 </label>
-                                                    <label nz-radio nzValue='1'>推荐商品</label>
-                                                </nz-radio-group>
-                                            </nz-form-control>
-                                        </div>
-                                    </nz-form-item>
-
-                                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
-                                        <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="sort">排序
-                                            </nz-form-label>
-                                            <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                <nz-input-number style="width: 190px;" formControlName="sort" [nzMin]="1"></nz-input-number>
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>

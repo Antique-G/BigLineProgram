@@ -33,8 +33,8 @@ export interface AddGoodsModel {
     sales_note: string;
     product_area: string;
     delivery_type: string;
-    is_hot: string;
-    sort: string;
+    is_hot?: string;
+    sort?: string;
     goods_specs: GoodsSpecsAddGoods[];
     id?: any;
     step?: any;

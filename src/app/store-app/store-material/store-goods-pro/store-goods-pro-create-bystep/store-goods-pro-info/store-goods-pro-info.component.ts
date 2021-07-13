@@ -46,6 +46,8 @@ export class StoreGoodsProInfoComponent implements OnInit {
 
     // 详情的规格
     goods_specsArr: any;
+    precision = 0;
+    precision1 = 2;
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         private storeRegionService: StoreRegionService, public storeGoodsService: StoreGoodsService,
@@ -61,10 +63,8 @@ export class StoreGoodsProInfoComponent implements OnInit {
             is_order: new FormControl('0', [Validators.required]),
             date_starts: new FormControl(null),
             delivery_type: new FormControl('1'),
-            is_hot: new FormControl('0'),
-            sort: new FormControl(),
             specificationList: this.fb.array([], [Validators.required]),
-            sales_note: new FormControl(),
+            sales_note: new FormControl(''),
         });
         this.addGoodsModel = {
             title: '',
@@ -75,8 +75,6 @@ export class StoreGoodsProInfoComponent implements OnInit {
             sales_note: '',
             product_area: '',
             delivery_type: '',
-            is_hot: '',
-            sort: '',
             goods_specs: [],
             id: '',
             step: ''
@@ -148,18 +146,29 @@ export class StoreGoodsProInfoComponent implements OnInit {
     changeTypeFirst(event: any) {
         console.log("1111", event);
         this.cateSecondList = event?.children;
-        this.addForm.patchValue({
-            secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-        })
+        if (this.cateSecondList != undefined) {
+            this.addForm.patchValue({
+                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+            })
+        }
+        else {
+            this.addForm.patchValue({
+                secondType: '',
+                thirdType: ''
+            })
+        }
+
     }
 
 
     changeTypeSecond(event: any) {
         console.log("2222", event);
         this.cateThirdList = event?.children;
-        this.addForm.patchValue({
-            thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-        })
+        if (this.cateThirdList != undefined) {
+            this.addForm.patchValue({
+                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+            })
+        }
 
     }
 
@@ -179,8 +188,6 @@ export class StoreGoodsProInfoComponent implements OnInit {
         this.addGoodsModel.send_time_start = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[0]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.send_time_end = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[1]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
-        this.addGoodsModel.is_hot = this.addForm.value.is_hot;
-        this.addGoodsModel.sort = this.addForm.value.sort;
         this.addGoodsModel.sales_note = this.addForm.value.sales_note;
     }
 
@@ -188,17 +195,17 @@ export class StoreGoodsProInfoComponent implements OnInit {
     // 添加
     nextTab() {
         this.setValue();
-        // 验证表单
-        for (const i in this.addForm.controls) {
-            this.addForm.controls[i].markAsDirty();
-            this.addForm.controls[i].updateValueAndValidity();
+        if (this.isLevel != 3) {
+            this.message.error('当前商品的类型不是三级，请重新选择');
         }
-        console.log(this.addForm);
-        if (this.addForm.valid) {
-            if (this.isLevel != 3) {
-                this.message.error('当前商品的类型不是三级，请重新选择');
+        else {
+            // 验证表单
+            for (const i in this.addForm.controls) {
+                this.addForm.controls[i].markAsDirty();
+                this.addForm.controls[i].updateValueAndValidity();
             }
-            else {
+            console.log(this.addForm);
+            if (this.addForm.valid) {
                 this.isLoadingBtn = true;
                 this.storeGoodsService.addGoods(this.addGoodsModel).subscribe(res => {
                     console.log("22222222", res)
@@ -217,13 +224,15 @@ export class StoreGoodsProInfoComponent implements OnInit {
                     error => {
                         this.isLoadingBtn = false;
                     })
+
+
+
             }
-
-
+            else {
+                this.isLoadingBtn = false;
+            }
         }
-        else {
-            this.isLoadingBtn = false;
-        }
+
     }
 
 

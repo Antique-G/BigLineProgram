@@ -42,6 +42,9 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     isShow = false;
     dateArray: any[] = [];
 
+    precision = 0;
+    precision1 = 2;
+
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminRegionService: AdminRegionService, public adminGoodsService: AdminGoodsService,
         private msg: NzMessageService, private message: NzMessageService,
@@ -56,10 +59,8 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             is_order: new FormControl('0', [Validators.required]),
             date_starts: new FormControl(null),
             delivery_type: new FormControl('1'),
-            is_hot: new FormControl('0'),
-            sort: new FormControl(),
             specificationList: this.fb.array([]),
-            sales_note: new FormControl(),
+            sales_note: new FormControl(''),
         });
         this.addGoodsModel = {
             title: '',
@@ -70,8 +71,6 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
             sales_note: '',
             product_area: '',
             delivery_type: '',
-            is_hot: '',
-            sort: '',
             goods_specs: [],
             id: '',
             step: ''
@@ -201,9 +200,17 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         console.log("1111", event);
         if (event != undefined) {
             this.cateSecondList = event?.children;
-            this.addForm.patchValue({
-                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-            })
+            if (this.cateSecondList != undefined) {
+                this.addForm.patchValue({
+                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+                })
+            }
+            else {
+                this.addForm.patchValue({
+                    secondType: '',
+                    thirdType: ''
+                })
+            }
         }
     }
 
@@ -212,9 +219,11 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         console.log("二级", event);
         if (event != undefined) {
             this.cateThirdList = event?.children;
-            this.addForm.patchValue({
-                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-            })
+            if (this.cateThirdList != undefined) {
+                this.addForm.patchValue({
+                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+                })
+            }
         }
     }
 
@@ -236,8 +245,6 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         this.addGoodsModel.send_time_start = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[0]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.send_time_end = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[1]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
-        this.addGoodsModel.is_hot = this.addForm.value.is_hot;
-        this.addGoodsModel.sort = this.addForm.value.sort;
         this.addGoodsModel.sales_note = this.addForm.value.sales_note;
     }
 
@@ -248,17 +255,17 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
     updateTab() {
         this.setValue();
-        // 验证表单
-        for (const i in this.addForm.controls) {
-            this.addForm.controls[i].markAsDirty();
-            this.addForm.controls[i].updateValueAndValidity();
+        if (this.isLevel != 3) {
+            this.message.error('当前商品的类型不是三级，请重新选择');
         }
-        console.log(this.addForm.valid);
-        if (this.addForm.valid) {
-            if (this.isLevel != 3) {
-                this.message.error('当前商品的类型不是三级，请重新选择');
+        else {
+            // 验证表单
+            for (const i in this.addForm.controls) {
+                this.addForm.controls[i].markAsDirty();
+                this.addForm.controls[i].updateValueAndValidity();
             }
-            else {
+            console.log(this.addForm.valid);
+            if (this.addForm.valid) {
                 this.isLoadingBtn = true;
                 this.addGoodsModel.id = this.addDataDetailModel.id;
                 this.addGoodsModel.step = 0;
@@ -269,12 +276,11 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
                         this.isLoadingBtn = false;
                     })
             }
-
-
+            else {
+                this.isLoadingBtn = false;
+            }
         }
-        else {
-            this.isLoadingBtn = false;
-        }
+
 
     }
 

@@ -33,14 +33,16 @@ export class StoreGoodsService {
 
 
     // 商品列表
-    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any): Observable<GoodsListModel> {
+    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any,is_hot:any): Observable<GoodsListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
             .set('check_status', check_status ? check_status : '')
             .set('is_order', is_order ? is_order : '')
             .set('cate_id', cate_id ? cate_id : '')
-            .set('title', title ? title : '');
+            .set('title', title ? title : '')
+            .set('is_hot', is_hot ? is_hot : '');
+        
 
 
         const findhttpOptions = {

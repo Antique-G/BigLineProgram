@@ -232,6 +232,11 @@
                                                         </div>
                                                     </td>
                                                     <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <ng-container *ngIf="data.order_status!=0">
+                                                            <div style="cursor: pointer;" *ngIf="data.payment_status==0||data.payment_status==2">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="money(data)">
+                                                            </div>
+                                                        </ng-container>
                                                     </td>
                                                 </ng-container>
 

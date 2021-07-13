@@ -65,14 +65,14 @@ export class AdminGoodsProAddOrderComponent implements OnInit {
                 // 三级就是这个
                 // this.selectedcateThird = this.addDataDetailModel.goods_cate;
                 // // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-                let cate2: any[]=[];
+                let cate2: any[] = [];
                 console.log("一级", this.cateFistList);
                 this.cateFistList.map((element: any) => {
-                    let ca  = element.children?.filter((item: any) => item.id == this.pid);
+                    let ca = element.children?.filter((item: any) => item.id == this.pid);
                     if (ca && ca?.length > 0) {
                         cate2 = ca
                         return
-                     }
+                    }
                 });
                 console.log("22222", cate2, this.cate_id);
                 // 找到一级
@@ -173,9 +173,19 @@ export class AdminGoodsProAddOrderComponent implements OnInit {
         console.log("1111", event);
         if (event) {
             this.cateSecondList = event?.children;
-            this.searchForm.patchValue({
-                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-            })
+            if (this.cateSecondList != undefined) {
+                this.searchForm.patchValue({
+                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
+                })
+            }
+            else {
+                this.searchForm.patchValue({
+                    secondType: '',
+                    thirdType: ''
+                })
+                this.isCateId = event?.id;
+                this.pid = event.pid;
+            }
         }
     }
 
@@ -184,9 +194,11 @@ export class AdminGoodsProAddOrderComponent implements OnInit {
         console.log("2222", event);
         if (event) {
             this.cateThirdList = event?.children;
-            this.searchForm.patchValue({
-                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-            })
+            if (this.cateThirdList != undefined) {
+                this.searchForm.patchValue({
+                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
+                })
+            }
         }
 
 

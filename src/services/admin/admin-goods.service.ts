@@ -75,7 +75,7 @@ export class AdminGoodsService {
     }
 
     // 商品列表
-    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any, store_id: any): Observable<GoodsListModel> {
+    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any, store_id: any, is_hot: any): Observable<GoodsListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -83,7 +83,10 @@ export class AdminGoodsService {
             .set('is_order', is_order ? is_order : '')
             .set('cate_id', cate_id ? cate_id : '')
             .set('title', title ? title : '')
-            .set('store_id', store_id ? store_id : '');
+            .set('store_id', store_id ? store_id : '')
+            .set('is_hot', is_hot ? is_hot : '');
+
+
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
             params

@@ -193,7 +193,7 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
         if (this.addForm.valid) {
             this.modal.confirm({
                 nzTitle: '请确认',
-                nzContent: `购买商品${this.detailModel?.title}：规格为${this.selectSpec.spec_name}, ${this.addGoodsOrderModel.goods_num}份，油费${this.addGoodsOrderModel.freight}元，总价${this.addGoodsOrderModel.price_total}元，确认无误请提交`,
+                nzContent: `购买商品${this.detailModel?.title}：规格为${this.selectSpec.spec_name}, ${this.addGoodsOrderModel.goods_num}份，运费${this.addGoodsOrderModel.freight}元，总价${this.addGoodsOrderModel.price_total}元，确认无误请提交`,
                 nzOnOk: () => this.adminGoodsService.addOrder(this.addGoodsOrderModel).subscribe(res => {
                     this.router.navigate(['/admin/main/goodsOrderList']);
                 }, error => {
