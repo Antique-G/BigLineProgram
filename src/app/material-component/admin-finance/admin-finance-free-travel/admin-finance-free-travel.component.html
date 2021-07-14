@@ -177,6 +177,11 @@
 
 
                     <div class="mat-elevation-z8">
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px" style="height: 28px;">
+                            <div>线上：通过小程序或者扫码进行付款 </div>
+                            <div>手动：后台手动收款</div>
+                            <div>POS：通过POS机收款</div>
+                        </div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
@@ -207,43 +212,49 @@
                                 <ng-container *ngFor="let data of rowSelectionTable.data;">
                                     <tr *ngFor="let item of data?.pay_logs?.data;let i=index">
                                         <ng-container *ngIf="i==0">
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.id}}</td>
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data?.bind_account_name}}</td>
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.store_name}}</td>
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.product_name}}</td>
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data.id}}</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data?.bind_account_name}}</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data.store_name}}</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data.product_name}}</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                             <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                                 <span [ngSwitch]="data.payment_status">
-                                            <p *ngSwitchCase="0">
-                                                待支付
-                                            </p>
-                                            <p *ngSwitchCase="1">
-                                                已支付
-                                            </p>
-                                            <p *ngSwitchCase="2">
-                                                支付中
-                                            </p>
-                                            <p *ngSwitchCase="3">
-                                                已确认
-                                            </p>
-                                        </span>
+                                                    <p *ngSwitchCase="0">
+                                                        待支付
+                                                    </p>
+                                                    <p *ngSwitchCase="1">
+                                                        已支付
+                                                    </p>
+                                                    <p *ngSwitchCase="2">
+                                                        支付中
+                                                    </p>
+                                                    <p *ngSwitchCase="3">
+                                                        已确认
+                                                    </p>
+                                                </span>
 
                                             </td>
                                             <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                                 <span *ngIf="data.order_status===0">
-                                            <nz-badge nzColor="yellow"></nz-badge>已取消
-                                        </span>
+                                                    <nz-badge nzColor="yellow"></nz-badge>已取消
+                                                </span>
                                                 <span *ngIf="data.order_status===1">
-                                            <nz-badge nzColor="red"></nz-badge>待支付
-                                        </span>
+                                                    <nz-badge nzColor="red"></nz-badge>待支付
+                                                </span>
                                                 <span *ngIf="data.order_status===2">
-                                            <nz-badge nzColor="pink"></nz-badge>待出行
-                                        </span>
+                                                    <nz-badge nzColor="pink"></nz-badge>待出行
+                                                </span>
                                                 <span *ngIf="data.order_status===3">
-                                            <nz-badge nzColor="green"></nz-badge>已完成
-                                        </span>
+                                                    <nz-badge nzColor="green"></nz-badge>已完成
+                                                </span>
                                             </td>
-                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">{{data.price_total}}元</td>
+                                            <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
+                                                {{data.price_total}}元</td>
                                             <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
                                                 <span *ngIf="data.cancel_type===0">-</span>
                                                 <span *ngIf="data.cancel_type===1">超时未支付</span>
@@ -254,7 +265,8 @@
                                                 <span *ngIf="data.cancel_type===6">后台退款</span>
                                             </td>
                                             <td [attr.rowspan]="data?.pay_logs?.data.length+data?.refunds?.data.length">
-                                                <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">-</div>
+                                                <div *ngIf="data.cancel_type===0||data.cancel_type===3||data.cancel_type===1">
+                                                    -</div>
                                                 <div *ngIf="data.cancel_type!=0&&data.cancel_type!=3&&data.cancel_type!=1">
                                                     <span *ngIf="data.refund_status===0">未退款</span>
                                                     <span *ngIf="data.refund_status===1">待审核</span>
@@ -280,34 +292,41 @@
                                         </td>
                                         <td>
                                             <span [ngSwitch]="item.status">
-                                      <p *ngSwitchCase="0" style="color: #ccc;">
-                                          已取消/失效
-                                      </p>
-                                      <p *ngSwitchCase="1"  style="color: purple;">
-                                          待支付
-                                      </p>
-                                      <p *ngSwitchCase="2" style="color: blue;">
-                                          已支付
-                                      </p>
-                                      <p *ngSwitchCase="3" style="color: green;">
-                                          已确认
-                                      </p>
-                                      <p *ngSwitchDefault style="color: red;">
-                                          错误状态
-                                      </p>
-                                      </span>
+                                                <p *ngSwitchCase="0" style="color: #ccc;">
+                                                    已取消/失效
+                                                </p>
+                                                <p *ngSwitchCase="1" style="color: purple;">
+                                                    待支付
+                                                </p>
+                                                <p *ngSwitchCase="2" style="color: blue;">
+                                                    已支付
+                                                </p>
+                                                <p *ngSwitchCase="3" style="color: green;">
+                                                    已确认
+                                                </p>
+                                                <p *ngSwitchDefault style="color: red;">
+                                                    错误状态
+                                                </p>
+                                            </span>
                                         </td>
                                         <td>
                                             <span *ngIf="item.pay_type===1">微信</span>
                                             <span *ngIf="item.pay_type===2">支付宝</span>
                                             <span *ngIf="item.pay_type===3">现金</span>
                                             <span *ngIf="item.pay_type===4">微信二维码</span>
-                                            <span *ngIf="item.pay_type===5">支付宝二维码</span>
+                                            <span *ngIf="item.pay_type===5">支付宝二维码 </span>
                                             <span *ngIf="item.pay_type===6">银行卡转账</span>
                                             <span *ngIf="item.pay_type===7">余额支付</span>
                                             <span *ngIf="item.pay_type===8">飞猪</span>
                                             <span *ngIf="item.pay_type===9">携程</span>
-
+                                            <span *ngIf="item.pay_type===10">预售码</span>
+                                            <ng-container *ngIf="item.status>1">
+                                                <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7||item.pay_type==10)">
+                                                    <span *ngIf="item.pay_way==0">（线上）</span>
+                                                    <span *ngIf="item.pay_way==1">（手动）</span>
+                                                    <span *ngIf="item.pay_way==2">（POS）</span>
+                                                </ng-container>
+                                            </ng-container>
                                         </td>
                                         <td>{{item.transaction_id}}</td>
                                         <td>{{item.pay_time}}</td>
@@ -331,13 +350,13 @@
                                         <td>{{item.refund_amount}}元</td>
                                         <td>
                                             <span [ngSwitch]="item.status">
-                                        <p *ngSwitchCase="2" style="color: blue;">
-                                            审核成功待退款
-                                        </p>
-                                        <p *ngSwitchCase="3" style="color: green;">
-                                            退款完成
-                                        </p>
-                                        </span>
+                                                <p *ngSwitchCase="2" style="color: blue;">
+                                                    审核成功待退款
+                                                </p>
+                                                <p *ngSwitchCase="3" style="color: green;">
+                                                    退款完成
+                                                </p>
+                                            </span>
                                         </td>
                                         <td>
                                             <ng-container *ngFor="let refund of item?.refund_log?.data">
