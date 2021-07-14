@@ -167,7 +167,7 @@
                                                 </div>
                                                 <div *ngIf="data.check_status===3">
                                                     未通过
-                                                    <!-- <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{isReason}} (mouseenter)="viewLog(data)"> -->
+                                                    <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{data?.check_log?.reason}} style="cursor: pointer;">
                                                 </div>
                                             </td>
                                             <td [attr.rowspan]="data?.goods_specs.length">

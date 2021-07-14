@@ -74,7 +74,7 @@
                     <div nz-row>
                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="check_status" nzRequired>审核</nz-form-label>
                         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择">
-                            <nz-radio-group ngModel={{data.check_status}} formControlName="check_status">
+                            <nz-radio-group ngModel={{data.check_status}} formControlName="check_status" (ngModelChange)="isCheck($event)">
                                 <label nz-radio nzValue=2 [nzDisabled]="data.check_status==3">已通过 </label>
                                 <label nz-radio nzValue=3>未通过 </label>
                             </nz-radio-group>
@@ -83,17 +83,18 @@
                 </nz-form-item>
 
 
-                <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
-                    <nz-form-control [nzSpan]="12" [nzOffset]="9">
-                        <div fxLayout="row" fxLayoutGap="20px">
-                            <div>
-                                <button nz-button nzType="primary" (click)="update()">确定</button>
-                            </div>
-                            <div>
-                                <button nz-button nzType="primary" (click)="cancel()">取消</button>
-                            </div>
-                        </div>
+                <nz-form-item nz-col [nzSm]="24" [nzXs]="24" *ngIf="isReason">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="reason">审核未通过原因</nz-form-label>
+                        <nz-form-control [nzSm]="19" [nzXs]="24">
+                            <textarea nz-input formControlName="reason" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
 
+                <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                    <nz-form-control [nzSpan]="14" [nzOffset]="12">
+                        <button nz-button nzType="primary" (click)="update()">审核</button>
                     </nz-form-control>
                 </nz-form-item>
             </form>
