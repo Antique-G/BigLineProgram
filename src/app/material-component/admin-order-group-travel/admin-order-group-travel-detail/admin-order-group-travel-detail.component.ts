@@ -55,7 +55,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     url: any;
 
     // 同步订单
-    syncOrderModel:any;
+    syncOrderModel: any;
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, private msg: NzMessageService,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, private modal: NzModalService, public dialog: MatDialog,
@@ -104,7 +104,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             internal_remarks: '',
         };
         this.syncOrderModel = {
-            order_id:''
+            order_id: ''
         }
     }
 
@@ -147,12 +147,32 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             this.dataMember = res.data?.member?.data;
             console.log("出行人信息内容", this.dataMember);
             this.dataMember.forEach((element: any) => {
-                if (element.birthday === null) {
-                    let year = element.id_num.slice(6, 10);
-                    let month = element.id_num.slice(10, 12);
-                    let date = element.id_num.slice(12, 14);
-                    element.birthday = year + '-' + month + '-' + date;
+                // 看证件号码是否为空
+                if (element?.id_num == '') {
+                    if (element.birthday == null || element.birthday == '') {
+                        element.birthday = null;
+                    }
                 }
+                else {
+                    // 证件号码不为空，又是身份证
+                    if (element?.id_type == 1) {
+                        if (element.birthday == null) {
+                            let year = element.id_num.slice(6, 10);
+                            let month = element.id_num.slice(10, 12);
+                            let date = element.id_num.slice(12, 14);
+                            element.birthday = year + '-' + month + '-' + date;
+                        }
+                    }
+                    // 为其他证件
+                    else {
+                        if (element.birthday == null||element.birthday =='') {
+                            element.birthday = null;
+                        }
+                    }
+                }
+
+
+               
                 element['edit'] = false;
                 if (element?.assembling_time != null) {
                     let i = '2021-01-01' + ' ' + element?.assembling_time;

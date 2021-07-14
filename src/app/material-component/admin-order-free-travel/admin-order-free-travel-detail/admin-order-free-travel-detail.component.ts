@@ -134,15 +134,27 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
 
             this.dataMember = res.data?.member?.data;
             this.dataMember.forEach((element: any) => {
-                if (element.birthday == null) {
-                    if (element.id_num != '') {
-                        let year = element.id_num.slice(6, 10);
-                        let month = element.id_num.slice(10, 12);
-                        let date = element.id_num.slice(12, 14);
-                        element.birthday = year + '-' + month + '-' + date;
-                    }
-                    else {
+                // 看证件号码是否为空
+                if (element?.id_num == '') {
+                    if (element.birthday == null || element.birthday == '') {
                         element.birthday = null;
+                    }
+                }
+                else {
+                    // 证件号码不为空，又是身份证
+                    if (element?.id_type == 1) {
+                        if (element.birthday == null) {
+                            let year = element.id_num.slice(6, 10);
+                            let month = element.id_num.slice(10, 12);
+                            let date = element.id_num.slice(12, 14);
+                            element.birthday = year + '-' + month + '-' + date;
+                        }
+                    }
+                    // 为其他证件
+                    else {
+                        if (element.birthday == null || element.birthday == '') {
+                            element.birthday = null;
+                        }
                     }
                 }
                 element['edit'] = false;
@@ -284,42 +296,42 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         this.editMemberModel.phone = data.phone;
         this.editMemberModel.id_type = data.id_type;
         this.editMemberModel.id_num = data.id_num;
-        if (this.idChangeBir === false) {
+        if (this.idChangeBir == false) {
             this.editMemberModel.birthday = data.birthday;
         }
-        else {
+        else if (this.idChangeBir == true) {
             this.editMemberModel.birthday = this.idChangeBirDate;
         }
         console.log('v33333333 ', this.editMemberModel);
-        if (this.detailModel?.independent_product?.data?.quote_type == '2') {
-            if (this.editMemberModel.birthday == null) {
-                this.msg.error('出生年月日不能为空');
-            }
-            else {
-                this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
-                    console.log('结果是 :>> ', res);
-                    this.dataMember.filter(function (item: any, index: any) {
-                        if (item.id === data.id) {
-                            item.edit = false;
-                        }
-                    });
-                    this.getDetail();
-                })
-            }
-        }
-        else {
-            this.editMemberModel.birthday = '';
-            this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
-                console.log('结果是 :>> ', res);
-                this.dataMember.filter(function (item: any, index: any) {
-                    if (item.id === data.id) {
-                        item.edit = false;
-                    }
-                });
-                this.getDetail();
-            })
-        }
-
+        // if (this.detailModel?.independent_product?.data?.quote_type == '2') {
+        //     if (this.editMemberModel.birthday == null) {
+        //         this.msg.error('出生年月日不能为空');
+        //     }
+        //     else {
+        //         this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+        //             console.log('结果是 :>> ', res);
+        //             this.dataMember.filter(function (item: any, index: any) {
+        //                 if (item.id === data.id) {
+        //                     item.edit = false;
+        //                 }
+        //             });
+        //             this.getDetail();
+        //         })
+        //     }
+        // }
+        // else {
+        //     this.editMemberModel.birthday = '';
+        
+        // }
+        this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
+            console.log('结果是 :>> ', res);
+            this.dataMember.filter(function (item: any, index: any) {
+                if (item.id === data.id) {
+                    item.edit = false;
+                }
+            });
+            this.getDetail();
+        })
     }
 
 
