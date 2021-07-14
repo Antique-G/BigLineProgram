@@ -328,7 +328,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             is_kid: new FormControl(2, [Validators.required]),
             id_type: new FormControl(1),
             id_num: new FormControl(''),
-            birthday: new FormControl(null),
+            birthday: new FormControl(''),
             id_photo: new FormControl(''),
             gender: new FormControl(1, [Validators.required]),
             eng_name: new FormControl(''),
