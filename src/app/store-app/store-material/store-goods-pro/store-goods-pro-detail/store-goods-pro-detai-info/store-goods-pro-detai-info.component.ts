@@ -168,6 +168,8 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
         // 预售时间赋值
         if (this.addDataDetailModel.is_order == 1) {
             this.addForm.get('date_starts')?.setValue([this.addDataDetailModel.send_time_start, this.addDataDetailModel.send_time_end]);
+            this.dateArray=[this.addDataDetailModel.send_time_start,this.addDataDetailModel.send_time_end]
+        
         }
 
 

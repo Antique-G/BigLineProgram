@@ -167,6 +167,8 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         // 预售时间赋值
         if (this.addDataDetailModel.is_order == 1) {
             this.addForm.get('date_starts')?.setValue([this.addDataDetailModel.send_time_start, this.addDataDetailModel.send_time_end]);
+            this.dateArray=[this.addDataDetailModel.send_time_start,this.addDataDetailModel.send_time_end]
+       
         }
 
 
@@ -242,6 +244,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         this.addGoodsModel.product_area = this.cityList[this.cityList.length - 1];
         this.addGoodsModel.goods_specs = this.addForm.value.specificationList;
         this.addGoodsModel.is_order = this.addForm.value.is_order;
+        console.log("this.dateArray",this.dateArray)
         this.addGoodsModel.send_time_start = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[0]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.send_time_end = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[1]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
@@ -304,6 +307,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
     // 时间
     onChangeSendDate(event: any) {
+        console.log("232",event)
         this.dateArray = [];
         const datePipe = new DatePipe('en-US');
         const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');
