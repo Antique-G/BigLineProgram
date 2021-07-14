@@ -1,23 +1,22 @@
-import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 // antd日历
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+// 接收传过来的参数
+import { ActivatedRoute } from '@angular/router';
+import { differenceInCalendarDays, format } from 'date-fns';
+import { NzCalendarMode } from 'ng-zorro-antd/calendar';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { FreeTraveQuoteBydateModel, FreeTraveRsponseListModel, StoreQuoteBydateRsponseListModel } from '../../../../interfaces/store/storeQuote/store-quote-bydate';
+import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 // 引用报价组件
 import { StoreQuoteBydateCreateComponent } from './store-quote-bydate-create/store-quote-bydate-create.component';
-// 接收传过来的参数
-import { ActivatedRoute, Router } from '@angular/router';
+registerLocaleData(zh);
 
-import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 
-import { StoreQuoteBydateRsponseListModel, FreeTraveRsponseListModel } from '../../../../interfaces/store/storeQuote/store-quote-bydate';
-import { differenceInCalendarDays, format } from 'date-fns';
 
-import { FreeTraveQuoteBydateModel } from '../../../../interfaces/store/storeQuote/store-quote-bydate';
-import { NzCalendarMode } from 'ng-zorro-antd/calendar';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -120,9 +119,9 @@ export class StoreQuoteBydateComponent implements OnInit {
         this.nzPageIndex = Number(newMon);
         let newDay = format(new Date(select), 'yyyy-MM-dd');
         // 处理不能点击的日期
-        let i = 1 + Number(this.isEarlier);
-        console.log("differenceInCalendarDays(select, this.toDay) < i", differenceInCalendarDays(select, this.toDay) < i)
-        if (differenceInCalendarDays(select, this.toDay) < i) {
+        // let i = 1 + Number(this.isEarlier);
+        // console.log("differenceInCalendarDays(select, this.toDay) < i", differenceInCalendarDays(select, this.toDay) < i)
+        if (differenceInCalendarDays(select, this.toDay) < 0) {
             this.msg.error('当前日期不能进行报价');
             this.isSpinning = false;
         }
