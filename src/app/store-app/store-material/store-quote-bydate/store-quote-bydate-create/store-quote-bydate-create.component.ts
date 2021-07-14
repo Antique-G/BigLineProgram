@@ -1,13 +1,12 @@
-import { Component, OnInit, Inject, EventEmitter, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { differenceInCalendarDays, format } from 'date-fns';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { StoreQuoteBydateRequestModel, StoreQuoteBydateModel, FreeTraveQuoteBydateModel } from '../../../../../interfaces/store/storeQuote/store-quote-bydate';
-
-import { StoreQuoteBydateService } from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
-import { isNumber, isFloat } from '../../../../util/validators';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { FreeTraveQuoteBydateModel, StoreQuoteBydateModel, StoreQuoteBydateRequestModel } from '../../../../../interfaces/store/storeQuote/store-quote-bydate';
+import { StoreQuoteBydateService } from '../../../../../services/store/store-quote-bydate/store-quote-bydate.service';
+import { isNumber } from '../../../../util/validators';
+
 
 @Component({
     selector: 'app-store-quote-bydate-create',
@@ -279,8 +278,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     disabledDate = (current: Date): boolean => {
         // 禁用之前的日期
         // console.log("this.isEarlier", this.isEarlier);
-        let i = 1 + Number(this.isEarlier);
-        return differenceInCalendarDays(current, this.today) < i;
+        // let i = 1 + Number(this.isEarlier);
+        return differenceInCalendarDays(current, this.today) < 0;
     };
 
 
