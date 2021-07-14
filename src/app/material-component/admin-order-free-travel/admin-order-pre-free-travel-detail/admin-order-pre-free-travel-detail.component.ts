@@ -39,7 +39,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public router: Router, public dialog: MatDialog,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService, private modal: NzModalService, private msg: NzMessageService,
-        public adminOrderService: AdminOrderService,  public adminOrderGroupTravelService: AdminOrderGroupTravelService, ) {
+        public adminOrderService: AdminOrderService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
         this.addForm = this.fb.group({
             order_id: ['', [Validators.required]],
             start_date: ['', [Validators.required]],
@@ -114,15 +114,27 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
 
             this.dataMember = res.data?.member?.data;
             this.dataMember.forEach((element: any) => {
-                if (element.birthday == null) {
-                    if (element.id_num != '') {
-                        let year = element.id_num.slice(6, 10);
-                        let month = element.id_num.slice(10, 12);
-                        let date = element.id_num.slice(12, 14);
-                        element.birthday = year + '-' + month + '-' + date;
-                    }
-                    else {
+                // 看证件号码是否为空
+                if (element?.id_num == '') {
+                    if (element.birthday == null || element.birthday == '') {
                         element.birthday = null;
+                    }
+                }
+                else {
+                    // 证件号码不为空，又是身份证
+                    if (element?.id_type == 1) {
+                        if (element.birthday == null) {
+                            let year = element.id_num.slice(6, 10);
+                            let month = element.id_num.slice(10, 12);
+                            let date = element.id_num.slice(12, 14);
+                            element.birthday = year + '-' + month + '-' + date;
+                        }
+                    }
+                    // 为其他证件
+                    else {
+                        if (element.birthday == null || element.birthday == '') {
+                            element.birthday = null;
+                        }
                     }
                 }
                 element['edit'] = false;
