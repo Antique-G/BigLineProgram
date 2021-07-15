@@ -192,7 +192,7 @@
                                                     <div>{{order_item.goods_num}}份</div>
                                                 </td>
                                                 <td>{{order_item.total_price}}元</td>
-                                                <td>{{order_item.freight_price==0?'是':'否,运费:￥'+order_item?.freight_price}}</td>
+                                                <td>{{order_item.postage==0?'是':'否,运费:￥'+order_item?.freight_price}}</td>
                                                 <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
                                                 <ng-container *ngIf="i==0">
                                                     <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
