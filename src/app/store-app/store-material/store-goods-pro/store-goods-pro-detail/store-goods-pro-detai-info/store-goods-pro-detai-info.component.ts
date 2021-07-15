@@ -170,6 +170,7 @@ export class StoreGoodsProDetaiInfoComponent implements OnInit {
         this.cateListId = this.cateAnalyze(this.addDataDetailModel.cate_id);
         console.log("this.cateListId", this.cateListId, this.addDataDetailModel.cate_id)
         this.addForm.get('type')?.setValue(this.cateListId);
+        localStorage.setItem("isGoodsCateId", this.addDataDetailModel.cate_id);
     }
 
 
