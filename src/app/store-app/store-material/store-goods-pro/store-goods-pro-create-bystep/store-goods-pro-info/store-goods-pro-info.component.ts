@@ -34,9 +34,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
     nzOptions: any[] | null = null;
     cityList: any[] = [];
     // 分类
-    cateFistList: any;
-    cateSecondList: any;
-    cateThirdList: any;
+    cateList: any;
     isCateId: any;
     isLevel: any;
     // 预售时间
@@ -56,9 +54,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
         // 表单初始化
         this.addForm = new FormGroup({
             title: new FormControl('', [Validators.required]),
-            firstType: new FormControl('', [Validators.required]),
-            secondType: new FormControl('', [Validators.required]),
-            thirdType: new FormControl('', [Validators.required]),
+            type: new FormControl('', [Validators.required]),
             product_area: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
             date_starts: new FormControl(null),
@@ -137,45 +133,19 @@ export class StoreGoodsProInfoComponent implements OnInit {
     getCateListTree() {
         this.storeGoodsService.getCateListTree().subscribe(res => {
             console.log("11111", res);
-            this.cateFistList = res;
+            this.cateList = res;
             this.isSpinning = false;
         })
     }
 
+
     // 选择分类
-    changeTypeFirst(event: any) {
-        console.log("1111", event);
-        this.cateSecondList = event?.children;
-        if (this.cateSecondList != undefined) {
-            this.addForm.patchValue({
-                secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-            })
+    onChangeCate(event: any) {
+        console.log("选择分类", event);
+        this.isLevel = event;
+        if (event !== null) {
+            this.isCateId = event[event.length - 1];
         }
-        else {
-            this.addForm.patchValue({
-                secondType: '',
-                thirdType: ''
-            })
-        }
-
-    }
-
-
-    changeTypeSecond(event: any) {
-        console.log("2222", event);
-        this.cateThirdList = event?.children;
-        if (this.cateThirdList != undefined) {
-            this.addForm.patchValue({
-                thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-            })
-        }
-
-    }
-
-    changeTypeThird(event: any) {
-        this.isCateId = event.id;
-        this.isLevel = event.level;
-        localStorage.setItem("isGoodsCateId", this.isCateId);
     }
 
 
@@ -195,7 +165,7 @@ export class StoreGoodsProInfoComponent implements OnInit {
     // 添加
     nextTab() {
         this.setValue();
-        if (this.isLevel != 3) {
+        if (this.isLevel.length != 3) {
             this.message.error('当前商品的类型不是三级，请重新选择');
         }
         else {

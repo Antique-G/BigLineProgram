@@ -32,17 +32,14 @@ export class ChooseGoodsGalleryComponent implements OnInit {
     type = 1;
 
 
-    is_cate_id: any;
-    cateFistList: any;
-    cateSecondList: any;
-    cateThirdList: any;
+    // 商品类型
+    cateList: any;
+    isCateId: any;
 
     constructor(private commonService: CommonServiceService, public storeGoodsService: StoreGoodsService,
         private msg: NzMessageService, private modalRef: NzModalRef) {
         this.addForm = new FormGroup({
-            firstType: new FormControl(''),
-            secondType: new FormControl(''),
-            thirdType: new FormControl(''),
+            type: new FormControl(''),
             name: new FormControl(''),
         });
     }
@@ -54,7 +51,7 @@ export class ChooseGoodsGalleryComponent implements OnInit {
         this.getImgList();
         this.storeGoodsService.getCateListTree().subscribe(res => {
             console.log("11111", res);
-            this.cateFistList = res;
+            this.cateList = res;
         })
     }
 
@@ -70,10 +67,19 @@ export class ChooseGoodsGalleryComponent implements OnInit {
 
 
     getImgSearchList() {
-        this.cate_id = this.is_cate_id;
+        this.cate_id = this.isCateId;
         this.name = this.addForm.value.name;
         this.getImgList();
 
+    }
+
+
+    // 选择分类
+    onChangeCate(event: any) {
+        console.log("选择分类", event);
+        if (event !== null) {
+            this.isCateId = event[event.length - 1];
+        }
     }
 
     updateCheckedSet(id: number, checked: boolean): void {
@@ -132,21 +138,4 @@ export class ChooseGoodsGalleryComponent implements OnInit {
     }
 
 
-    // 选择分类
-    changeTypeFirst(event: any) {
-        console.log("1111", event);
-        this.cateSecondList = event?.children;
-        this.is_cate_id = event.id;
-    }
-
-
-    changeTypeSecond(event: any) {
-        console.log("2222", event);
-        this.cateThirdList = event?.children;
-        this.is_cate_id = event.id;
-    }
-
-    changeTypeThird(event: any) {
-        this.is_cate_id = event.id;
-    }
 }

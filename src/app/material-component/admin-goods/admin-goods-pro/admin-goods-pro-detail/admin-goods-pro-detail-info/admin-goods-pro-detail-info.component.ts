@@ -4,7 +4,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddGoodsModel } from '../../../../../../interfaces/store/storeGoods/store-goods-model';
 import { AdminGoodsService } from '../../../../../../services/admin/admin-goods.service';
 import { AdminRegionService } from '../../../../../../services/admin/admin-region.service';
@@ -29,15 +28,13 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     //产地
     nzOptions: any[] | null = null;
     cityList: any[] = [];
+
     // 分类
-    cateFistList: any;
-    selectedcateFist: any;
-    cateSecondList: any;
-    selectedcateSecond: any;
-    cateThirdList: any;
-    selectedcateThird: any;
-    isLevel: any;
+    cateList: any;
     isCateId: any;
+    isLevel: any;
+    cateListId: any;
+
     // 预售时间
     isShow = false;
     dateArray: any[] = [];
@@ -47,15 +44,12 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public router: Router, public activatedRoute: ActivatedRoute,
         public adminRegionService: AdminRegionService, public adminGoodsService: AdminGoodsService,
-        private msg: NzMessageService, private message: NzMessageService,
-        private modal: NzModalService,) {
+        private message: NzMessageService,) {
         // 表单初始化
         this.addForm = new FormGroup({
             title: new FormControl('', [Validators.required]),
-            firstType: new FormControl('', [Validators.required]),
-            secondType: new FormControl('', [Validators.required]),
+            type: new FormControl('', [Validators.required]),
             product_area: new FormControl('', [Validators.required]),
-            thirdType: new FormControl('', [Validators.required]),
             is_order: new FormControl('0', [Validators.required]),
             date_starts: new FormControl(null),
             delivery_type: new FormControl('1'),
@@ -124,7 +118,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
     getCateListTree() {
         this.adminGoodsService.getCateListTree().subscribe(res => {
             console.log("11111", res);
-            this.cateFistList = res;
+            this.cateList = res;
             this.getGoodsDetail();
         })
     }
@@ -167,75 +161,57 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         // 预售时间赋值
         if (this.addDataDetailModel.is_order == 1) {
             this.addForm.get('date_starts')?.setValue([this.addDataDetailModel.send_time_start, this.addDataDetailModel.send_time_end]);
-            this.dateArray=[this.addDataDetailModel.send_time_start,this.addDataDetailModel.send_time_end]
-       
+            this.dateArray = [this.addDataDetailModel.send_time_start, this.addDataDetailModel.send_time_end]
+
         }
 
-
         //   给类别赋值
-        let pid = this.addDataDetailModel.goods_cate.pid;
-        // 三级就是这个
-        this.selectedcateThird = this.addDataDetailModel.goods_cate;
-        // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-        let cate2: any[] = [];
-        console.log("一级", this.cateFistList);
-        this.cateFistList.map((element: any) => {
-            let ca = element.children?.filter((item: any) => item.id == pid);
-            if (ca && ca?.length > 0) {
-                cate2 = ca
-                return
-            }
-        });
-        console.log("22222", cate2);
-        this.selectedcateSecond = cate2[0];
-
-        // 找到一级
-        let cate = this.cateFistList?.filter((item: any) => item.id == this.selectedcateSecond.pid);
-        this.selectedcateFist = cate[0];
-
+        this.cateListId = this.cateAnalyze(this.addDataDetailModel.cate_id);
+        console.log("this.cateListId", this.cateListId, this.addDataDetailModel.cate_id)
+        this.addForm.get('type')?.setValue(this.cateListId);
     }
 
 
 
     // 选择分类
-    changeTypeFirst(event: any) {
-        console.log("1111", event);
-        if (event != undefined) {
-            this.cateSecondList = event?.children;
-            if (this.cateSecondList != undefined) {
-                this.addForm.patchValue({
-                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-                })
+    onChangeCate(event: any) {
+        console.log("选择分类", event);
+        this.isLevel = event;
+        if (event) {
+            this.isCateId = event[event.length - 1];
+        }
+    }
+
+
+    // 分类解析
+    cateAnalyze(data: any) {
+        const arr: any[] = [];
+        this.cateList.forEach((element: any) => {
+            console.log("element", element);
+            // 若一级的id就是则返回
+            if (element?.id == data) {
+                arr.push(data);
             }
+            // 没有则对二级遍历
             else {
-                this.addForm.patchValue({
-                    secondType: '',
-                    thirdType: ''
-                })
+                element?.children?.forEach((ele: any) => {
+                    // 若二级的id是
+                    if (ele?.id == data) {
+                        arr.push(ele.pid, ele.id);
+                    }
+                    else {
+                        // 对三级遍历
+                        ele?.children?.forEach((a: any) => {
+                            if (a?.id == data) {
+                                arr.push(ele.pid, a.pid, a.id);
+                            }
+                        });
+                    }
+                });
             }
-        }
-    }
+        });
+        return arr;
 
-
-    changeTypeSecond(event: any) {
-        console.log("二级", event);
-        if (event != undefined) {
-            this.cateThirdList = event?.children;
-            if (this.cateThirdList != undefined) {
-                this.addForm.patchValue({
-                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-                })
-            }
-        }
-    }
-
-
-    changeTypeThird(event: any) {
-        console.log("三级", event);
-        if (event != undefined) {
-            this.isCateId = event.id;
-            this.isLevel = event.level;
-        }
     }
 
     setValue() {
@@ -244,7 +220,6 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
         this.addGoodsModel.product_area = this.cityList[this.cityList.length - 1];
         this.addGoodsModel.goods_specs = this.addForm.value.specificationList;
         this.addGoodsModel.is_order = this.addForm.value.is_order;
-        console.log("this.dateArray",this.dateArray)
         this.addGoodsModel.send_time_start = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[0]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.send_time_end = this.addGoodsModel.is_order == '1' ? format(new Date(this.dateArray[1]), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd');
         this.addGoodsModel.delivery_type = this.addForm.value.delivery_type;
@@ -258,7 +233,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
     updateTab() {
         this.setValue();
-        if (this.isLevel != 3) {
+        if (this.isLevel.length != 3) {
             this.message.error('当前商品的类型不是三级，请重新选择');
         }
         else {
@@ -307,7 +282,7 @@ export class AdminGoodsProDetailInfoComponent implements OnInit {
 
     // 时间
     onChangeSendDate(event: any) {
-        console.log("232",event)
+        console.log("232", event)
         this.dateArray = [];
         const datePipe = new DatePipe('en-US');
         const myFormattedDate = datePipe.transform(event[0], 'yyyy-MM-dd');

@@ -18,25 +18,17 @@
                                             </nz-form-control>
                                         </div>
                                     </nz-form-item>
+
+
                                     <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                         <div nz-row>
-                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="cate" nzRequired>商品类型
+                                            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="type" nzRequired>商品类型
                                             </nz-form-label>
-                                            <nz-form-control [nzSm]="21" [nzXs]="24" nzErrorTip="请选择">
-                                                <div fxLayout="row" fxLayoutGap="5px">
-                                                    <nz-select formControlName="firstType" (ngModelChange)="changeTypeFirst($event)" nzAllowClear nzShowSearch style="width: 14%;">
-                                                        <nz-option *ngFor="let p of cateFistList" [nzValue]="p" [nzLabel]="p?.name">
-                                                        </nz-option>
-                                                    </nz-select>
-                                                    <nz-select formControlName="secondType" style="width: 14%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeSecond($event)">
-                                                        <nz-option *ngFor="let c of cateSecondList" [nzValue]="c" [nzLabel]="c?.name"></nz-option>
-                                                    </nz-select>
-                                                    <nz-select formControlName="thirdType" style="width: 14%;" nzAllowClear nzShowSearch (ngModelChange)="changeTypeThird($event)">
-                                                        <nz-option *ngFor="let a of cateThirdList" [nzValue]="a" [nzLabel]="a?.name"></nz-option>
-                                                    </nz-select>
-                                                    <p style="color: red; margin-top: 3px;">！商品类型必须为三级</p>
-                                                </div>
+                                            <nz-form-control [nzSm]="9" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-cascader style="width: 96%;" nzChangeOnSelect [nzOptions]="cateList" formControlName="type" [nzLabelProperty]="'name'" [nzValueProperty]="'id'" (ngModelChange)="onChangeCate($event)">
+                                                </nz-cascader>
                                             </nz-form-control>
+                                            <p style="color: red; margin-top: 3px;">！商品类型必须为三级</p>
                                         </div>
                                     </nz-form-item>
 
@@ -45,8 +37,8 @@
                                         <div nz-row>
                                             <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="product_area" nzRequired>产地
                                             </nz-form-label>
-                                            <nz-form-control [nzSm]="3" [nzXs]="24" nzErrorTip="请选择">
-                                                <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="cityList" formControlName="product_area">
+                                            <nz-form-control [nzSm]="9" [nzXs]="24" nzErrorTip="请选择">
+                                                <nz-cascader style="width: 96%;" nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="cityList" formControlName="product_area">
                                                 </nz-cascader>
                                             </nz-form-control>
                                         </div>
@@ -70,7 +62,8 @@
                                                         <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="price" nzRequired>
                                                             价格</nz-form-label>
                                                         <nz-form-control [nzSm]="13" [nzXs]="24" nzErrorTip="请输入价格">
-                                                            <nz-input-number style="width: 90%;" formControlName="price" [nzMin]="0" [nzPrecision]="precision1"></nz-input-number>元
+                                                            <nz-input-number style="width: 90%;" formControlName="price" [nzMin]="0" [nzPrecision]="precision1">
+                                                            </nz-input-number>元
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>

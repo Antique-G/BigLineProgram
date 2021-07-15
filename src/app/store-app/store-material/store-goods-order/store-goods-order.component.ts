@@ -34,13 +34,9 @@ export class StoreGoodsOrderComponent implements OnInit {
     bind_id: any;
 
 
-
-    cateFistList: any;
-    cateSecondList: any;
-    cateThirdList: any;
+    // 商品类型
+    cateList: any;
     isCateId: any;
-    pid: any;
-
 
     storeList: any[] = [];
     dateArray: any[] = [];
@@ -54,9 +50,7 @@ export class StoreGoodsOrderComponent implements OnInit {
             order_status: [''],
             order_id: [''],
             goods_name: [''],
-            firstType: [''],
-            secondType: [''],
-            thirdType: [''],
+            type: [''],
             is_postage: [''],
             orderTime: [''],
             deliveryTime: [''],
@@ -71,13 +65,12 @@ export class StoreGoodsOrderComponent implements OnInit {
     ngOnInit(): void {
         this.storeGoodsService.getCateListTree().subscribe(res => {
             console.log("11111", res);
-            this.cateFistList = res;
+            this.cateList = res;
             let getSeatch = JSON.parse(localStorage.getItem("storeGoodsOrderListSearch")!);
             this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
             this.order_id = getSeatch?.order_id ? getSeatch?.order_id : '';
             this.express_status = getSeatch?.express_status ? getSeatch?.express_status : '';
             this.goods_name = getSeatch?.goods_name ? getSeatch?.goods_name : '';
-            this.pid = getSeatch?.pid ? getSeatch?.pid : '';
             this.cate_id = getSeatch?.cate_id ? getSeatch?.cate_id : '';
             this.is_postage = getSeatch?.is_postage ? getSeatch?.is_postage : '';
             this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
@@ -88,30 +81,12 @@ export class StoreGoodsOrderComponent implements OnInit {
             this.phone = getSeatch?.phone ? getSeatch?.phone : '';
             this.bind_id = getSeatch?.bind_id ? getSeatch?.bind_id : '';
 
-            // 找到二级,对一级先遍历拿到对应的二级list，再过滤到对应的
-            let cate2: any[] = [];
-            console.log("一级", this.cateFistList);
-            this.cateFistList.map((element: any) => {
-                let ca = element.children?.filter((item: any) => item.id == this.pid);
-                if (ca && ca?.length > 0) {
-                    cate2 = ca
-                    return
-                }
-            });
-            console.log("22222", cate2, this.cate_id);
-            // 找到一级
-            let cate1 = this.cateFistList?.filter((item: any) => item.id == cate2[0]?.pid);
-            console.log("1111", cate1);
-            // 找到三级
-            let cate3 = cate2[0]?.children?.filter((item: any) => item.id == this.cate_id);
-            console.log("444", cate3);
+
             this.searchForm.patchValue({
                 order_status: this.order_status,
                 order_id: this.order_id,
                 goods_name: this.goods_name,
-                firstType: cate1 ? cate1[0] : '',
-                secondType: cate2 ? cate2[0] : '',
-                thirdType: cate3 ? cate3[0] : '',
+                type: this.cate_id ? this.cateAnalyze(this.cate_id) : '',
                 is_postage: this.is_postage,
                 orderTime: this.date_start == null ? [] : [this.date_start, this.date_end],
                 deliveryTime: this.send_time_start == null ? [] : [this.send_time_start, this.send_time_end],
@@ -160,7 +135,7 @@ export class StoreGoodsOrderComponent implements OnInit {
             is_postage: this.is_postage, date_start: this.date_start, date_end: this.date_end,
             send_time_start: this.send_time_start, send_time_end: this.send_time_end,
             consignee: this.consignee, phone: this.phone, bind_id: this.bind_id,
-            cate_id: this.cate_id, page: this.page, pid: this.pid
+            cate_id: this.cate_id, page: this.page
         }
         localStorage.setItem('storeGoodsOrderListSearch', JSON.stringify(this.setQuery));
     }
@@ -182,7 +157,7 @@ export class StoreGoodsOrderComponent implements OnInit {
             is_postage: this.is_postage, date_start: this.date_start, date_end: this.date_end,
             send_time_start: this.send_time_start, send_time_end: this.send_time_end,
             consignee: this.consignee, phone: this.phone, bind_id: this.bind_id,
-            cate_id: this.cate_id, page: this.page, pid: this.pid
+            cate_id: this.cate_id, page: this.page
         }
         localStorage.setItem('storeGoodsOrderListSearch', JSON.stringify(this.setQuery));
         this.getOrderList();
@@ -192,16 +167,11 @@ export class StoreGoodsOrderComponent implements OnInit {
 
 
     reset() {
-        this.cate_id = '';
-        this.isCateId = '';
-        this.pid = '';
         this.searchForm.patchValue({
             order_status: '',
             order_id: '',
             goods_name: '',
-            firstType: '',
-            secondType: '',
-            thirdType: '',
+            type: '',
             is_postage: '',
             orderTime: '',
             deliveryTime: '',
@@ -213,49 +183,43 @@ export class StoreGoodsOrderComponent implements OnInit {
     }
 
     // 选择分类
-    changeTypeFirst(event: any) {
-        console.log("1111", event);
-        if (event) {
-            this.cateSecondList = event?.children;
-            if (this.cateSecondList != undefined) {
-                this.searchForm.patchValue({
-                    secondType: this.cateSecondList[0] ? this.cateSecondList[0] : ''
-                })
+    onChangeCate(event: any) {
+        console.log("选择分类", event);
+        if (event !== null) {
+            this.isCateId = event[event.length - 1];
+        }
+    }
+
+    // 分类解析
+    cateAnalyze(data: any) {
+        const arr: any[] = [];
+        this.cateList.forEach((element: any) => {
+            console.log("element", element);
+            // 若一级的id就是则返回
+            if (element?.id == data) {
+                arr.push(data);
             }
+            // 没有则对二级遍历
             else {
-                this.searchForm.patchValue({
-                    secondType: '',
-                    thirdType: ''
-                })
-                this.isCateId = event?.id;
-                this.pid = event.pid;
+                element?.children?.forEach((ele: any) => {
+                    // 若二级的id是
+                    if (ele?.id == data) {
+                        arr.push(ele.pid, ele.id);
+                    }
+                    else {
+                        // 对三级遍历
+                        ele?.children?.forEach((a: any) => {
+                            if (a?.id == data) {
+                                arr.push(ele.pid, a.pid, a.id);
+                            }
+                        });
+                    }
+                });
             }
-        }
-    }
-
-
-    changeTypeSecond(event: any) {
-        console.log("2222", event);
-        if (event) {
-            this.cateThirdList = event?.children;
-            if (this.cateThirdList != undefined) {
-                this.searchForm.patchValue({
-                    thirdType: this.cateThirdList[0] ? this.cateThirdList[0] : ''
-                })
-            }
-        }
-
+        });
+        return arr;
 
     }
-
-    changeTypeThird(event: any) {
-        if (event) {
-            this.isCateId = event.id;
-            this.pid = event.pid;
-        }
-
-    }
-
 
     onChangeOrderDate(event: any) {
         this.dateArray = [];
