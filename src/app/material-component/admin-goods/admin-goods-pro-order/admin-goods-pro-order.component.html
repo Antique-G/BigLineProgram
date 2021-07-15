@@ -153,10 +153,10 @@
                                     <th style="text-align: center;">订单id</th>
                                     <th style="text-align: center;">下单/推荐人</th>
                                     <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;">商品名称</th>
+                                    <th style="text-align: center;width: 10%;">商品名称</th>
                                     <th style="text-align: center;">商品规格</th>
                                     <th style="text-align: center;">商品类型</th>
-                                    <th style="text-align: center;">单价/数量</th>
+                                    <th style="text-align: center;width: 8%;">单价/数量</th>
                                     <th style="text-align: center;">订单金额</th>
                                     <th style="text-align: center;">是否包邮</th>
                                     <th style="text-align: center;">发货时间</th>
@@ -187,9 +187,12 @@
                                                 <td>{{order_item.goods_name}}</td>
                                                 <td>{{order_item.spec_name}}</td>
                                                 <td>{{order_item.cate_name}}</td>
-                                                <td>{{order_item.goods_price}}元/{{order_item.goods_num}}</td>
+                                                <td>
+                                                    <div>{{order_item.goods_price}}元</div>
+                                                    <div>{{order_item.goods_num}}份</div>
+                                                </td>
                                                 <td>{{order_item.total_price}}元</td>
-                                                <td>{{order_item.freight_price==0?'是':'否'}}</td>
+                                                <td>{{order_item.freight_price==0?'是':'否,运费:￥'+order_item?.freight_price}}</td>
                                                 <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
                                                 <ng-container *ngIf="i==0">
                                                     <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
