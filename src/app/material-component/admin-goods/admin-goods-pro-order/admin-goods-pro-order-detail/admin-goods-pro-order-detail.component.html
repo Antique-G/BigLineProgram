@@ -35,7 +35,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id
                                                         </nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
                                                         </nz-form-control>
                                                     </div>
@@ -45,7 +45,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="orderDate">下单日期
                                                         </nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
                                                             <input nz-input formControlName="orderDate" nzBorderless readonly [ngModel]="detailModel?.created_at|date:'yyyy-MM-dd HH:mm:ss'" />
                                                         </nz-form-control>
                                                     </div>
@@ -55,7 +55,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_name">下单/推荐人
                                                         </nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
                                                             <input nz-input formControlName="bind_name" nzBorderless readonly [ngModel]="detailModel?.bind_name" />
                                                         </nz-form-control>
                                                     </div>
@@ -64,7 +64,7 @@
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="consignee" nzRequired>收货人</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入正确的收货人">
                                                             <input nz-input formControlName="consignee" nzBorderless readonly [ngModel]="detailModel?.consignee" *ngIf="!isChange" />
                                                             <input nz-input formControlName="consignee" [ngModel]="detailModel?.consignee" *ngIf="isChange" />
                                                         </nz-form-control>
@@ -75,7 +75,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone" nzRequired>
                                                             收货人电话</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人电话">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入正确的收货人电话">
                                                             <input nz-input formControlName="phone" nzBorderless readonly [ngModel]="detailModel?.phone" *ngIf="!isChange" />
                                                             <input nz-input formControlName="phone" [ngModel]="detailModel?.phone" *ngIf="isChange" />
                                                         </nz-form-control>
@@ -86,7 +86,7 @@
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="region_code" nzRequired>收货人所在地区</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人所在地区">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入正确的收货人所在地区">
                                                             <input nz-input formControlName="region_code" nzBorderless readonly [ngModel]="detailModel?.region_full_name" *ngIf="!isChange" />
                                                             <nz-cascader nzChangeOnSelect [nzOptions]="nzOptions" [(ngModel)]="values" (ngModelChange)="onChanges($event)" formControlName="region_code_id" *ngIf="isChange"></nz-cascader>
                                                         </nz-form-control>
@@ -96,7 +96,7 @@
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address" nzRequired>收货人详细地址</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请输入正确的收货人详细地址">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入正确的收货人详细地址">
                                                             <input nz-input formControlName="address" nzBorderless readonly [ngModel]="detailModel?.address" *ngIf="!isChange" />
                                                             <input nz-input formControlName="address" [ngModel]="detailModel?.address" *ngIf="isChange" />
                                                         </nz-form-control>
@@ -106,7 +106,7 @@
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="remark">内部备注</nz-form-label>
-                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
                                                             <input nz-input formControlName="remark" nzBorderless readonly [ngModel]="detailModel?.remark" *ngIf="!isChange" />
                                                             <input nz-input formControlName="remark" [ngModel]="detailModel?.remark" *ngIf="isChange" />
                                                         </nz-form-control>

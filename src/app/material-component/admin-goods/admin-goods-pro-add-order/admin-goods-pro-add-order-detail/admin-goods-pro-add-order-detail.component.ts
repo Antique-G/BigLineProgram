@@ -100,7 +100,7 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
-            this.adminRegionService.getAllRegionList().subscribe(res => {
+            this.adminRegionService.getAllRegionList(4).subscribe(res => {
                 this.nzOptions = res;
                 this.adminGoodsService.getGoodsDetail(params?.id).subscribe(res => {
                     console.log("结果是12", res)

@@ -56,7 +56,7 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
             this.detailId = params?.id;
             // 详情
             this.isSpinning = true;
-            this.adminRegionService.getAllRegionList().subscribe(res => {
+            this.adminRegionService.getAllRegionList(4).subscribe(res => {
                 this.nzOptions = res;
                 this.getOrderDetail();
             })
