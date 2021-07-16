@@ -81,7 +81,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="6" [nzXs]="24">预售发货时间</nz-form-label>
                                                         <nz-form-control [nzSm]="18" [nzXs]="24">
-                                                            <input nz-input formControlName="send_time" nzBorderless readonly [ngModel]="detailModel?.send_time|date:'yyyy-MM-dd'" />
+                                                            <span style="margin-left: 10px;font-weight: 500;">{{detailModel?.send_time_start|date:'yyyy-MM-dd'}}~{{detailModel?.send_time_end|date:'yyyy-MM-dd'}}</span>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
