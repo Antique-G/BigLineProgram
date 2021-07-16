@@ -144,6 +144,16 @@
                     </form>
 
 
+                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30px" style="letter-spacing: 1px;font-weight: bold;font-size: 16px">
+                        <div>订单总额：
+                            <span style="color: red;">{{totalMoney?.price_total}}元</span> </div>
+                        <div>入账总额：
+                            <span style="color: red;">{{totalMoney?.amount_paid}}元</span>
+                        </div>
+                        <div>待收款总额：
+                            <span style="color: red;">{{totalMoney?.amount_unpaid}}元</span>
+                        </div>
+                    </div>
 
                     <div class="mat-elevation-z8">
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"

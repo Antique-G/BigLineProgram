@@ -186,6 +186,7 @@ export interface GoodsOrderListModel {
 
 export interface MetaGoodsOrderListModel {
     pagination: Pagination;
+    statistics?: any;
 }
 
 export interface Pagination {

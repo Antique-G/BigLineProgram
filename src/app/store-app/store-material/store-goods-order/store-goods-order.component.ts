@@ -44,6 +44,7 @@ export class StoreGoodsOrderComponent implements OnInit {
 
 
     setQuery: any;
+    isDeliver: any;
 
     constructor(public fb: FormBuilder, public storeGoodsService: StoreGoodsService, public router: Router,) {
         this.searchForm = this.fb.group({
@@ -108,6 +109,9 @@ export class StoreGoodsOrderComponent implements OnInit {
                 this.loading = false;
                 this.dataSource = res.data;
                 this.total = res.meta.pagination.total;
+                if (this.page == 1) {
+                    this.isDeliver = res?.meta?.statistics?.deliver;
+                }
             })
     }
 

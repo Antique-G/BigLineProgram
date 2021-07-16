@@ -38,6 +38,7 @@ export class AdminFinanceGoodsOrderComponent implements OnInit {
     storeList: any[] = [];
     dateArray: any[] = [];
     setQuery: any;
+    totalMoney: any;
 
     constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
         public adminGoodsService: AdminGoodsService, public router: Router, public modal: NzModalService,
@@ -110,7 +111,10 @@ export class AdminFinanceGoodsOrderComponent implements OnInit {
                     });
                     res['allLength'] = s;
                 })
-                console.log("5555555", this.dataSource)
+                console.log("5555555", this.dataSource);
+                if (this.page == 1) {
+                    this.totalMoney = res?.meta?.statistics;
+                }
             })
     }
 
