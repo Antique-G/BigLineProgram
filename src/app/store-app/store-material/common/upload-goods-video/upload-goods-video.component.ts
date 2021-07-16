@@ -9,9 +9,9 @@ import { CommonServiceService } from '../../../../../services/store/common-servi
 import { AgreeComponent } from '../common-model/agree/agree.component';
 
 @Component({
-  selector: 'app-upload-goods-video',
-  templateUrl: './upload-goods-video.component.html',
-  styleUrls: ['./upload-goods-video.component.css']
+    selector: 'app-upload-goods-video',
+    templateUrl: './upload-goods-video.component.html',
+    styleUrls: ['./upload-goods-video.component.css']
 })
 export class UploadGoodsVideoComponent implements OnInit {
     addForm!: FormGroup;
@@ -29,7 +29,7 @@ export class UploadGoodsVideoComponent implements OnInit {
     cate_id: any;
 
 
-    constructor( public storeGoodsService: StoreGoodsService,
+    constructor(public storeGoodsService: StoreGoodsService,
         private commonService: CommonServiceService, private msg: NzMessageService, private modalRef: NzModalRef,
         private modal: NzModalService, private viewContainerRef: ViewContainerRef, private sanitizer: DomSanitizer
     ) {
@@ -89,7 +89,9 @@ export class UploadGoodsVideoComponent implements OnInit {
             return
         }
         if (this.addForm.valid) {
-            this.isSpinning = true
+            this.isSpinning = true;
+            let count = 0;
+            let iArrLength = this.imageList.length;
             this.imageList.forEach((item: any, index) => {
                 const formData = new FormData();
                 formData.append('video', item);
@@ -97,18 +99,20 @@ export class UploadGoodsVideoComponent implements OnInit {
                 formData.append('cate_id', this.cate_id);
                 formData.append('type', '1');
                 this.commonService.uploadGoodVideo(formData).subscribe(res => {
-                    this.result.push(res)
-                    this.fileList[index].status = 'done';
-                    if (index === this.imageList.length - 1) {
-                        this.modalRef.destroy({ data: this.result });
-                        this.modal.success({
-                            nzMask: false,
-                            nzTitle: `操作成功`,
-                        })
-                        this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-                        setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-                        this.isSpinning = false;
+                    if (res) {
+                        this.result.push(res)
+                        count++;
+                        if (count == iArrLength) {
+                            this.modalRef.destroy({ data: this.result });
+                            this.modal.success({
+                                nzMask: false,
+                                nzTitle: `操作成功`,
+                            })
+                            this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+                            setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                            this.isSpinning = false;
 
+                        }
                     }
                 }, err => {
                     this.fileList[index].status = 'done';

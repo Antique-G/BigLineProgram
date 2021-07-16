@@ -9,9 +9,9 @@ import { AgreeComponent } from '../common-model/agree/agree.component';
 
 
 @Component({
-  selector: 'app-upload-goods-img',
-  templateUrl: './upload-goods-img.component.html',
-  styleUrls: ['./upload-goods-img.component.css']
+    selector: 'app-upload-goods-img',
+    templateUrl: './upload-goods-img.component.html',
+    styleUrls: ['./upload-goods-img.component.css']
 })
 export class UploadGoodsImgComponent implements OnInit {
     addForm!: FormGroup;
@@ -89,25 +89,29 @@ export class UploadGoodsImgComponent implements OnInit {
             return
         }
         if (this.addForm.valid) {
-            this.isSpinning = true
+            this.isSpinning = true;
+            let count = 0;
+            let iArrLength = this.imageList.length;
             this.imageList.forEach((item: any, index) => {
                 const formData = new FormData();
                 formData.append('image', item);
                 formData.append('desc', this.addForm.value.desc);
                 formData.append('cate_id', this.cate_id);
                 this.commonService.uploadGoodImg(formData).subscribe(res => {
-                    this.result.push(res)
-                    this.fileList[index].status = 'done';
-                    if (index === this.imageList.length - 1) {
-                        this.modalRef.destroy({ data: this.result });
-                        this.modal.success({
-                            nzMask: false,
-                            nzTitle: `操作成功`,
-                        })
-                        this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
-                        setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-                        this.isSpinning = false;
+                    if (res) {
+                        this.result.push(res)
+                        count++;
+                        if (count == iArrLength) {
+                            this.modalRef.destroy({ data: this.result });
+                            this.modal.success({
+                                nzMask: false,
+                                nzTitle: `操作成功`,
+                            })
+                            this.modal.afterAllClose.subscribe(() => console.log('afterAllClose emitted!'));
+                            setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                            this.isSpinning = false;
 
+                        }
                     }
                 }, err => {
                     this.fileList[index].status = 'done';

@@ -73,10 +73,10 @@ export class CommonServiceService {
 
 
     // 获取图片列表
-    getGoodImgList(page: number, per_page: number, name: any, cate_id: any, type: any) {
+    getGoodImgList(page: number, per_page: number, image_name: any, cate_id: any, type: any) {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
-            .set('name', name ? name : '')
+            .set('image_name', image_name ? image_name : '')
             .set('cate_id', cate_id ? cate_id : '')
             .set('type', type ? type : '');
 

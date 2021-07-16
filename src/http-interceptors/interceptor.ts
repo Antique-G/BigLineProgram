@@ -1,5 +1,4 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -58,14 +57,18 @@ export class Interceptor implements HttpInterceptor {
                     }
                     //   console.log("返回的结果", event)
                     console.log("event", event.status);
+                    // console.log("event.url?.lastIndexOf('/store/goods_image') === -1",event.url?.lastIndexOf('/store/goods_image') === -1)
+
                     if (event.status === 200 && event.body.message != null) {
                         console.log('1111', event.body)
                         this.alertMessage = event.body.message;
                         this.alertSuccess();
                     }
-                    else if (event.status === 201 && event.url?.lastIndexOf('/store/image') === -1) {
+                    else if (event.status === 201 && !(event.url?.lastIndexOf('/store/image') != -1 || event.url?.lastIndexOf('/store/goods_image') != -1)) {
+                        console.log("true")
                         this.createSuccess();   // 更新 添加
                     }
+   
                     else if (event.status === 204) {
                         this.deleteSuccess();   // 删除
                     }
