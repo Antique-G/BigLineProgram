@@ -7,7 +7,7 @@
                         <div nz-row>
                             <nz-form-label [nzSm]="2" [nzXs]="24">商品名称</nz-form-label>
                             <nz-form-control [nzSm]="21" [nzXs]="24">
-                                <input nz-input formControlName="title" nzBorderless readonly [ngModel]="data?.goods_name" />
+                                <span>{{data?.goods_name}}</span>
                             </nz-form-control>
                         </div>
                     </nz-form-item>
@@ -18,11 +18,9 @@
                             <nz-form-label [nzSm]="2" [nzXs]="24">商品规格</nz-form-label>
                             <nz-form-control [nzSm]="21" [nzXs]="24">
                                 <nz-radio-group ngModel={{specificationValue}} nzButtonStyle="solid" formControlName="specificationValue" (ngModelChange)="changeSpecs($event)">
-                                    <div fxLayout="row" fxLayoutGap="20px">
-                                        <ng-container *ngFor="let a of detailModel?.goods_specs">
-                                            <label nz-radio-button nzValue={{a?.id}}>{{a?.spec_name}}</label>
-                                        </ng-container>
-                                    </div>
+                                    <ng-container *ngFor="let a of detailModel?.goods_specs">
+                                        <label nz-radio-button nzValue={{a?.id}}>{{a?.spec_name}}</label>
+                                    </ng-container>
                                 </nz-radio-group>
                             </nz-form-control>
                         </div>
