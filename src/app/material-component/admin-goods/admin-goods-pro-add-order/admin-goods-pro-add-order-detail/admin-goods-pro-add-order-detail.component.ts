@@ -48,8 +48,9 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
     isPrice: any; //单价
     priceTotal: any;//商品价格
     allPriceTotal: any;//总价
-    freightPrice = 8; //油费
-
+    freightPrice = 0; //油费
+    isSpinning = false;
+    isFreight = false;
     precision = 0;
     precision1 = 2;
 
@@ -57,7 +58,7 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public adminGoodsService: AdminGoodsService,
         public activatedRoute: ActivatedRoute, public adminRegionService: AdminRegionService,
-        public modal: NzModalService,public router: Router, ) {
+        public modal: NzModalService, public router: Router,) {
         // 校验手机
         const { mobile } = MyValidators;
         this.addForm = this.fb.group({
@@ -74,7 +75,7 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
             unit: ['',],
             postage: ['',],
             goods_num: [1, [Validators.required]],
-            freight: ['', [Validators.required]],
+            freight: [0],
             consignee: ['', [Validators.required]],
             phone: ['', [Validators.required, mobile]],
             user_phone: ['', [Validators.required, mobile]],
@@ -125,7 +126,17 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
             console.log("1111", select);
             this.selectSpec = select[0];
             this.isPrice = this.selectSpec.price;
-            // this.freightPrice = this.addForm.value.freightPrice;
+            // 包邮
+            if (this.selectSpec?.postage == 0) {
+                this.isFreight = false;
+                this.freightPrice = 0;
+                this.addForm?.controls['freight'].setValidators(Validators.required);
+                this?.addForm?.controls['freight'].updateValueAndValidity();
+            }
+            else {
+                this.isFreight = true;
+                this.freightPrice = this.addForm.value.freight;
+            }
             this.feeAll();
         }
     }
@@ -197,12 +208,12 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
                 nzOnOk: () => this.adminGoodsService.addOrder(this.addGoodsOrderModel).subscribe(res => {
                     this.router.navigate(['/admin/main/goodsOrderList']);
                 }, error => {
-                 
+
                 })
             });
         }
         else {
-           
+
         }
 
     }
