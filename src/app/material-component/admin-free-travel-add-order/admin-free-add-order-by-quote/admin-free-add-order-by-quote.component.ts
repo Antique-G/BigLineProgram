@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { format } from 'date-fns';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { format } from 'date-fns';
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { OrderGroupProduct } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AdminUploadIdCardComponent } from '../../admin-common/admin-upload-id-card/admin-upload-id-card.component';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { FeeByQuoteComponent } from './fee-by-quote/fee-by-quote.component';
 
 
@@ -147,7 +146,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
             is_kid: new FormControl( 0),
             id_type: new FormControl(1),
             id_num: new FormControl('',),
-            birthday: new FormControl(null,),
+            birthday: new FormControl('',),
             id_photo: new FormControl('',),
             gender: new FormControl(1,),
             eng_name: new FormControl(''),
@@ -207,7 +206,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
         this.orderGroupProduct.members = this.informationForm.value.humanList;
         console.log('this.orderGroupProduct.members :>> ', this.orderGroupProduct.members);
         this.orderGroupProduct.members.forEach((element: any) => {
-            if (element?.birthday != null) {
+            if (element?.birthday != '') {
                 element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
             }
             if (element.id_type == '' || element.id_type == null) {

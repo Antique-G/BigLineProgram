@@ -179,7 +179,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
                 is_kid: new FormControl( 0, [Validators.required]),
                 id_type: new FormControl(1, [Validators.required]),
                 id_num: new FormControl('', [Validators.required]),
-                birthday: new FormControl(null, [Validators.required]),
+                birthday: new FormControl('', [Validators.required]),
                 id_photo: new FormControl('', [Validators.required]),
                 gender: new FormControl(1, [Validators.required]),
                 eng_name: new FormControl(''),
@@ -423,7 +423,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
                 is_kid: new FormControl( 0, [Validators.required]),
                 id_type: new FormControl(1, [Validators.required]),
                 id_num: new FormControl('', [Validators.required]),
-                birthday: new FormControl(null, [Validators.required]),
+                birthday: new FormControl('', [Validators.required]),
                 id_photo: new FormControl('', [Validators.required]),
                 gender: new FormControl(1, [Validators.required]),
                 eng_name: new FormControl(''),
@@ -470,7 +470,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
         // 必填，写的身份证
         if (this.isRequestIdNum) {
             this.orderGroupProduct.members.forEach((element: any) => {
-                if (element.birthday != null) {
+                if (element.birthday != '') {
                     element.birthday = format(new Date(element.birthday), 'yyyy-MM-dd');
                 }
             });
