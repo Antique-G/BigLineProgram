@@ -68,11 +68,11 @@
                     </nz-form-item>
 
 
-                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24" *ngIf="isFreight">
                         <div nz-row>
                             <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>运费</nz-form-label>
                             <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入运费">
-                                <nz-input-number style="width: 90%;" formControlName="freight" [(ngModel)]="freightPrice" [nzMin]="0" [nzPrecision]="precision1" [nzDisabled]="selectSpec?.postage==0">
+                                <nz-input-number style="width: 90%;" formControlName="freight" [nzMin]="0" [nzPrecision]="precision1">
                                 </nz-input-number>元
                             </nz-form-control>
                         </div>

@@ -17,13 +17,11 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
     specificationValue: any;
     specList: any;
     selectSpec: any;
-    isPrice: any;
-    freightPrice: any;
     precision = 0;
     precision1 = 2;
     detailModel: any;
     updateGoodsOrderModel: UpdateGoodsOrderModel;
-
+    isFreight = false;
 
     constructor(public fb: FormBuilder, public adminGoodsService: AdminGoodsService, private modal: NzModalService) {
         this.addForm = this.fb.group({
@@ -33,7 +31,7 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             unit: ['',],
             postage: ['',],
             goods_num: [1, [Validators.required]],
-            freight: [1, [Validators.required]],
+            freight: [1],
         });
         this.updateGoodsOrderModel = {
             item_id: '',
@@ -52,6 +50,8 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             this.detailModel = res.data;
             this.specificationValue = this.data.spec_id;
             this.specList = this.detailModel?.goods_specs;
+            // 初始化赋值
+            console.log("1")
             this.addForm.patchValue({
                 goods_num: this.data.goods_num,
                 freight: this.data.freight_price,
@@ -70,11 +70,19 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             let select = this.specList?.filter((item: any) => item.id == data);
             console.log("1111", select);
             this.selectSpec = select[0];
-            this.isPrice = this.selectSpec.price;
-            // this.addForm.patchValue({
-            //     price: this.isPrice
-            // })
-            this.freightPrice = this.addForm.value.freightPrice;
+            this.addForm.patchValue({
+                price: this.selectSpec.price
+            });
+            // 包邮
+            if (this.selectSpec?.postage == 0) {
+                this.isFreight = false;
+                this.addForm?.controls['freight'].setValidators(Validators.required);
+                this?.addForm?.controls['freight'].updateValueAndValidity();
+            }
+            else {
+                this.isFreight = true;
+            }
+
         }
     }
 

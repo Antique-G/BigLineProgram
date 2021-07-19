@@ -4,8 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreGoodsService } from 'services/store/store-goods/store-goods.service';
+import { StoreGoodsOrderAddFreightComponent } from './store-goods-order-add-freight/store-goods-order-add-freight.component';
 import { StoreGoodsOrderDetailModifyComponent } from './store-goods-order-detail-modify/store-goods-order-detail-modify.component';
 import { StoreGoodsOrderMergeShipComponent } from './store-goods-order-merge-ship/store-goods-order-merge-ship.component';
+
 
 
 @Component({
@@ -122,6 +124,21 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
         });
     }
 
+    // 添加运费
+    addFreight(data: any) {
+        const editmodal = this.modal.create({
+            nzTitle: "添加运费",
+            nzContent: StoreGoodsOrderAddFreightComponent,
+            nzWidth: 1000,
+            nzComponentParams: {
+                data: data,
+            },
+            nzFooter: null
+        });
+        editmodal.afterClose.subscribe((res) => {
+            this.getOrderDetail();
+        });
+    }
 
 
 

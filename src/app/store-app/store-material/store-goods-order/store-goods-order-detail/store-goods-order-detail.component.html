@@ -177,6 +177,7 @@
                                                             <th style="text-align: center;">快递信息</th>
                                                             <th style="text-align: center;">修改快递信息</th>
                                                             <th style="text-align: center;" *ngIf="detailModel?.order_status==1">修改商品信息</th>
+                                                            <th style="text-align: center;">添加运费</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -219,6 +220,20 @@
                                                                 <div>
                                                                     <button mat-raised-button color="primary" (click)="changeGoods(data)">修改商品信息</button>
                                                                 </div>
+                                                            </td>
+                                                            <td>
+                                                                <div *ngIf="data?.postage!=0">
+                                                                    <ng-container *ngIf="detailModel?.express_status==0">
+                                                                        <button mat-raised-button color="primary" (click)="addFreight(data)">添加运费</button>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="detailModel?.express_status==1">
+                                                                        -
+                                                                    </ng-container>
+                                                                </div>
+                                                                <div *ngIf="data?.postage==0">
+
+                                                                </div>
+
                                                             </td>
                                                         </tr>
                                                     </tbody>
