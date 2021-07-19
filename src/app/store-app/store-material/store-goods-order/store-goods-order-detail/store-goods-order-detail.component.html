@@ -104,7 +104,8 @@
 
                                                 <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                                                     <div nz-row>
-                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address">收货人详细地址</nz-form-label>
+                                                        <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="address">收货人详细地址
+                                                        </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="address" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.address" />
                                                         </nz-form-control>
@@ -141,7 +142,8 @@
                                             <ng-container *ngIf="detailModel?.order_item?.data.length>1">
                                                 <div><button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="splitOrder()">拆分订单</button></div>
                                                 <div>
-                                                    <p style="color: red;margin-top: 6px;">勾选需要拆分的商品，点击“拆分订单”，将生成一个新的子订单</p>
+                                                    <p style="color: red;margin-top: 6px;">勾选需要拆分的商品，点击“拆分订单”，将生成一个新的子订单
+                                                    </p>
                                                 </div>
                                             </ng-container>
                                         </div>
@@ -163,10 +165,13 @@
                                                     <thead>
                                                         <tr>
                                                             <ng-container *ngIf="detailModel?.order_status==2">
-                                                                <th style="width: 3%;" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></th>
+                                                                <th style="width: 3%;" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1">
+                                                                </th>
                                                             </ng-container>
-                                                            <th style="text-align: center;">商品名称</th>
+                                                            <th style="text-align: center;width: 12%;">商品名称</th>
                                                             <th style="text-align: center;">商品类型</th>
+                                                            <th style="text-align: center;">商品产地</th>
+                                                            <th style="text-align: center;">商品配送</th>
                                                             <th style="text-align: center;">商品规格</th>
                                                             <th style="text-align: center;">单价</th>
                                                             <th style="text-align: center;">数量</th>
@@ -183,10 +188,14 @@
                                                     <tbody>
                                                         <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                             <ng-container *ngIf="detailModel?.order_status==2">
-                                                                <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1"></td>
+                                                                <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data, $event)" *ngIf="detailModel?.express_status==0&&detailModel?.order_item?.data.length>1">
+                                                                </td>
                                                             </ng-container>
                                                             <td>{{data?.goods_name}}</td>
                                                             <td>{{data?.goods?.data?.cate_name}}</td>
+                                                            <td>{{data?.goods?.data?.goods_area_name}}</td>
+                                                            <td>{{data?.goods?.data?.delivery_type==0?'商家发货':'产地发货'}}
+                                                            </td>
                                                             <td>{{data?.spec_name}}</td>
                                                             <td>{{data?.goods_price}}元</td>
                                                             <td>{{data?.goods_num}}份</td>
@@ -203,7 +212,8 @@
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <ng-container *ngIf="detailModel?.express_status==0">-</ng-container>
+                                                                <ng-container *ngIf="detailModel?.express_status==0">-
+                                                                </ng-container>
                                                                 <ng-container *ngIf="detailModel?.express_status==1">
                                                                     <div>{{detailModel?.express_company_name}}</div>
                                                                     <div>{{detailModel?.express_number}}</div>

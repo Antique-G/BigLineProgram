@@ -153,8 +153,10 @@
                                                     <nz-table #rowSelectionTable nzBordered [nzData]="sub?.order_item?.data">
                                                         <thead>
                                                             <tr>
-                                                                <th style="text-align: center;">商品名称</th>
+                                                                <th style="text-align: center;width: 12%;">商品名称</th>
                                                                 <th style="text-align: center;">商品类型</th>
+                                                                <th style="text-align: center;">商品产地</th>
+                                                                <th style="text-align: center;">商品配送</th>
                                                                 <th style="text-align: center;">商品规格</th>
                                                                 <th style="text-align: center;">单价</th>
                                                                 <th style="text-align: center;">数量</th>
@@ -170,6 +172,8 @@
                                                             <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                                 <td>{{data?.goods_name}}</td>
                                                                 <td>{{data?.goods?.data?.cate_name}}</td>
+                                                                <td>{{data?.goods?.data?.goods_area_name}}</td>
+                                                                <td>{{data?.goods?.data?.delivery_type==0?'商家发货':'产地发货'}}</td>
                                                                 <td>{{data?.spec_name}}</td>
                                                                 <td>{{data?.goods_price}}元</td>
                                                                 <td>{{data?.goods_num}}份</td>

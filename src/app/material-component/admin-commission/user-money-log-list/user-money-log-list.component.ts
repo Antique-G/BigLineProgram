@@ -24,7 +24,11 @@ export class UserMoneyLogListComponent implements OnInit {
 
 
     // 跳转到订单详情
-    isUrl: any;
+    isOrderUrl: any;
+    isFreeUrl: any;
+    isPreFreeUrl: any;
+    isGoodsUrl: any;
+
     // 跳到流水
     isRefundUrl: any;
     
@@ -56,6 +60,10 @@ export class UserMoneyLogListComponent implements OnInit {
             this.getDataList();
         }
      
+        this.isOrderUrl = '/admin/main/groupTravelOrder/detail?detailId=';
+        this.isFreeUrl = '/admin/main/freeTravelOrder/detail?detailId=';
+        this.isPreFreeUrl = '/admin/main/preSaleList/detail?detailId=';
+        this.isGoodsUrl = '/admin/main/goodsOrderList/detail?id=';
     }
 
 
@@ -97,15 +105,7 @@ export class UserMoneyLogListComponent implements OnInit {
     }
 
 
-    routeToDetail(data: any) {
-        console.log("dara", data);
-        if (data?.product_type == 0) {
-            this.isUrl = '/admin/main/groupTravelOrder/detail?detailId='+data?.id;
-        }
-        else if (data?.product_type == 1) {
-            this.isUrl = '/admin/main/freeTravelOrder/detail?detailId='+data?.id;
-        }
-    }
+
 
     routeToRefund(data: any) {
         this.router.navigate(['/admin/main/refundTurnOver'], { queryParams: { transaction_id: data } });
