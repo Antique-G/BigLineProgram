@@ -158,7 +158,7 @@
                                                         <tbody>
                                                             <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                                 <td>{{data?.goods_name}}</td>
-                                                                <td>{{data?.cate_name}}</td>
+                                                                <td>{{data?.goods?.data?.cate_name}}</td>
                                                                 <td>{{data?.spec_name}}</td>
                                                                 <td>{{data?.goods_price}}元</td>
                                                                 <td>{{data?.goods_num}}份</td>

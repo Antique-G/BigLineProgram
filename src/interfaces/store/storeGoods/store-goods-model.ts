@@ -106,6 +106,7 @@ export interface Data {
     goods_area_name: any;
     store: any;
     check_log: any;
+    cate_name: any;
 }
 
 export interface GoodsCate {
