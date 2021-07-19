@@ -100,12 +100,14 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.isSpinning = true;
         this.activatedRoute.queryParams.subscribe(params => {
             this.adminRegionService.getAllRegionList(4).subscribe(res => {
                 this.nzOptions = res;
                 this.adminGoodsService.getGoodsDetail(params?.id).subscribe(res => {
                     console.log("结果是12", res)
                     this.detailModel = res.data;
+                    this.isSpinning = false;
                     this.specificationValue = this.detailModel?.goods_specs[0]?.id;
                     console.log("this.specificationValue", this.specificationValue);
                     this.specList = this.detailModel?.goods_specs;
