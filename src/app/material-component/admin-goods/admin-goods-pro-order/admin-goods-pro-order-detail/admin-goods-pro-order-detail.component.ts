@@ -40,6 +40,7 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
             region_code_id: ['', [Validators.required]],
             address: ['', [Validators.required]],
             remark: [''],
+            user_phone: [''],
         });
         this.updateGoodsOrderConsigneeModel = {
             consignee: '',

@@ -37,6 +37,7 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
             phone: [''],
             address: [''],
             region_code: [''],
+            user_phone: [''],
             remark: [''],
         });
         this.splitGoodsOrderModel = {
