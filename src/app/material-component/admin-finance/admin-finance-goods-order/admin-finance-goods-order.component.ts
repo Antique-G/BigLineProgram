@@ -73,7 +73,7 @@ export class AdminFinanceGoodsOrderComponent implements OnInit {
             this.consignee = getSeatch?.consignee ? getSeatch?.consignee : '';
             this.phone = getSeatch?.phone ? getSeatch?.phone : '';
             this.bind_id = getSeatch?.bind_id ? getSeatch?.bind_id : '';
-            this.page = getSeatch?.page ? getSeatch?.page : '';
+            this.page = getSeatch?.page ? getSeatch?.page : 1;
 
             this.searchForm.patchValue({
                 pay_status: this.pay_status,
@@ -227,7 +227,7 @@ export class AdminFinanceGoodsOrderComponent implements OnInit {
     changeTrans(item: any) {
         const addmodal = this.modal.create({
             nzTitle: '修改流水号信息',
-            nzWidth: 1100,
+            nzWidth: 1200,
             nzMaskClosable: false,
             nzContent: AdminFinanceGoodsOrderChangeTransComponent,
             nzComponentParams: {
