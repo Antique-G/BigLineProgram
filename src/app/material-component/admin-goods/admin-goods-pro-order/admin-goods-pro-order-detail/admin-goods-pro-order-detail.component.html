@@ -182,7 +182,7 @@
                                                         <tbody>
                                                             <tr *ngFor="let data of rowSelectionTable.data;let i=index">
                                                                 <td>{{data?.goods_name}}</td>
-                                                                <td>{{data?.goods?.data?.cate_name}}</td>
+                                                                <td>{{data?.cate_name}}</td>
                                                                 <td>{{data?.goods?.data?.goods_area_name}}</td>
                                                                 <td>{{data?.goods?.data?.delivery_type==0?'商家发货':'产地发货'}}</td>
                                                                 <td>{{data?.spec_name}}</td>

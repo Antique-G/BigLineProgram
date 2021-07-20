@@ -196,7 +196,7 @@
                                                 </ng-container>
                                                 <td>{{order_item.goods_name}}</td>
                                                 <td>{{order_item.spec_name}}</td>
-                                                <td>{{order_item.goods?.data?.cate_name}}</td>
+                                                <td>{{order_item.cate_name}}</td>
                                                 <td>
                                                     <div>{{order_item.goods_price}}元</div>
                                                     <div>{{order_item.goods_num}}份</div>
@@ -260,7 +260,7 @@
                                                 </ng-container>
                                                 <td>{{order_item.goods_name}}</td>
                                                 <td>{{order_item.spec_name}}</td>
-                                                <td>{{order_item.goods?.data?.cate_name}}</td>
+                                                <td>{{order_item.cate_name}}</td>
                                                 <td>{{order_item.goods_price}}元/{{order_item.goods_num}}</td>
                                                 <td>{{order_item.total_price}}元</td>
                                                 <td>{{order_item.freight_price==0?'是':'否'}}</td>

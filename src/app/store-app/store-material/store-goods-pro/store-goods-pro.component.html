@@ -102,13 +102,13 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">id</th>
-                                    <th style="text-align: center;">商品名称</th>
+                                    <th style="text-align: center;width: 10%;">商品名称</th>
                                     <th style="text-align: center;">商品类型</th>
                                     <th style="text-align: center;">产地</th>
                                     <th style="text-align: center;">商品规格</th>
                                     <th style="text-align: center;">单价</th>
                                     <th style="text-align: center;">单位</th>
-                                    <th style="text-align: center;">库存</th>
+                                    <th style="text-align: center;">剩余库存/已售</th>
                                     <th style="text-align: center;">是否包邮</th>
                                     <!-- <th style="text-align: center;">总库存</th> -->
                                     <th style="text-align: center;">审核状态</th>
@@ -131,7 +131,10 @@
                                         <td>{{item.spec_name}}</td>
                                         <td>{{item.price}}</td>
                                         <td>{{item.unit}}</td>
-                                        <td>{{item.stock}}</td>
+                                        <td>
+                                            <div>{{item.stock}}份</div>
+                                            <div>{{item.sold_num}}份</div>
+                                        </td>
                                         <td>
                                             <span *ngIf="item.postage==0">包邮</span>
                                             <span *ngIf="item.postage==1">部分地区包邮</span>
