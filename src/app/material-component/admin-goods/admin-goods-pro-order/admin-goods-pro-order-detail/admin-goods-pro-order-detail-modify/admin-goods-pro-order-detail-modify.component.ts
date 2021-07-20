@@ -71,7 +71,7 @@ export class AdminGoodsProOrderDetailModifyComponent implements OnInit {
             console.log("1111", select);
             this.selectSpec = select[0];
             this.addForm.patchValue({
-                price: this.selectSpec.price
+                price: this.data?.goods_id == this.selectSpec.id ? this.data.goods_price : this.selectSpec.price
             });
             // 包邮
             if (this.selectSpec?.postage == 0) {
