@@ -57,8 +57,8 @@ export class StoreGoodsOrderAddFreightComponent implements OnInit {
         this.updateGoodsOrderModel.goods_num = this.data.goods_num;
         this.updateGoodsOrderModel.goods_price = this.data.goods_price;
         this.updateGoodsOrderModel.freight_price = this.addForm.value.freight;
-        this.updateGoodsOrderModel.discount = this.addForm.value.discount;
-        this.updateGoodsOrderModel.extra = this.addForm.value.extra;
+        this.updateGoodsOrderModel.discount = this.data.discount;
+        this.updateGoodsOrderModel.extra = this.data.extra;
 
     }
 
