@@ -26,7 +26,7 @@ export class AdminOrderGroupTravelService {
     groupTravelList(page: number, per_page: number, status: any, product_name: any, order_number: any,
         date_start: any, date_end: any, product_code: any, store_id: any, order_start_date: any,
         order_end_date: any, contact_name: any, contact_phone: any,
-        departure_city?: any, destination_city?: any, admin_id?: any, push_status?: any,): Observable<StoreOrderGroupTravelListRequestModel> {
+        departure_city?: any, destination_city?: any, admin_id?: any, push_status?: any,member_name?:any,member_phone?:any): Observable<StoreOrderGroupTravelListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -43,7 +43,10 @@ export class AdminOrderGroupTravelService {
             .set('departure_city', departure_city ? departure_city : '')
             .set('destination_city', destination_city ? destination_city : '')
             .set('admin_id', admin_id ? admin_id : '')
-            .set('push_status', push_status ? push_status : '');
+            .set('push_status', push_status ? push_status : '')
+            .set('member_name', member_name ? member_name : '')
+            .set('member_phone', member_phone ? member_phone : '');
+        
 
 
 

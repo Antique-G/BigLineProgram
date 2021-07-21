@@ -6,6 +6,7 @@ export interface StoreOrderGroupTravelListRequestModel {
 
 export interface Meta {
     pagination: Pagination;
+    statistics: any;
 }
 
 export interface Pagination {
