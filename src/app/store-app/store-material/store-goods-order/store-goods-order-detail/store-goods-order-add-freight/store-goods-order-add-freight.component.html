@@ -34,6 +34,33 @@
 
                     <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                         <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">附加收费</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="extra" nzBorderless readonly [ngModel]="data?.extra+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">优惠金额</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="discount" nzBorderless readonly [ngModel]="data?.discount+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">价格</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="price" nzBorderless readonly [ngModel]="data?.goods_price+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
                             <nz-form-label [nzSm]="8" [nzXs]="24">是否包邮</nz-form-label>
                             <nz-form-control [nzSm]="16" [nzXs]="24">
                                 <input nz-input formControlName="postage" nzBorderless readonly [ngModel]="'不包邮'" />

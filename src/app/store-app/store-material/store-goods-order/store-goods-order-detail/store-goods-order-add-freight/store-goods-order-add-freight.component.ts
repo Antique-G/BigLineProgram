@@ -29,6 +29,8 @@ export class StoreGoodsOrderAddFreightComponent implements OnInit {
             postage: ['',],
             goods_num: [''],
             freight: ['', [Validators.required]],
+            extra:[''],
+            discount:[''],
         });
         this.updateGoodsOrderModel = {
             item_id: '',
@@ -36,6 +38,8 @@ export class StoreGoodsOrderAddFreightComponent implements OnInit {
             goods_num: '',
             goods_price: '',
             freight_price: '',
+            extra: '',
+            discount: '',
         }
     }
 
@@ -53,6 +57,9 @@ export class StoreGoodsOrderAddFreightComponent implements OnInit {
         this.updateGoodsOrderModel.goods_num = this.data.goods_num;
         this.updateGoodsOrderModel.goods_price = this.data.goods_price;
         this.updateGoodsOrderModel.freight_price = this.addForm.value.freight;
+        this.updateGoodsOrderModel.discount = this.addForm.value.discount;
+        this.updateGoodsOrderModel.extra = this.addForm.value.extra;
+
     }
 
 
