@@ -171,6 +171,8 @@
                                                                 <th style="text-align: center;">商品规格</th>
                                                                 <th style="text-align: center;">单价</th>
                                                                 <th style="text-align: center;">数量</th>
+                                                                <th style="text-align: center;">优惠金额</th>
+                                                                <th style="text-align: center;">附加收费</th>
                                                                 <th style="text-align: center;">订单金额</th>
                                                                 <th style="text-align: center;">是否包邮</th>
                                                                 <th style="text-align: center;">发货期间</th>
@@ -188,6 +190,8 @@
                                                                 <td>{{data?.spec_name}}</td>
                                                                 <td>{{data?.goods_price}}元</td>
                                                                 <td>{{data?.goods_num}}份</td>
+                                                                <td>{{data?.discount}}元</td>
+                                                                <td>{{data?.extra}}元</td>
                                                                 <td>{{data?.total_price}}元</td>
                                                                 <td>{{data?.postage==0?'是':'否,运费:￥'+data?.freight_price}}</td>
                                                                 <td>{{data?.send_start}}~{{data?.send_end}}</td>
@@ -307,6 +311,16 @@
                                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
                                                     <div style="width: 50%;">运费</div>
                                                     <div style="width: 50%;">￥{{detailModel?.freight_total}}</div>
+                                                </div>
+
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">附加收费</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.extra_total}}</div>
+                                                </div>
+
+                                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="150px" style="width: 700px;">
+                                                    <div style="width: 50%;">优惠</div>
+                                                    <div style="width: 50%;">￥{{detailModel?.discount_total}}</div>
                                                 </div>
                                             </div>
 

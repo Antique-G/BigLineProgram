@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminGoodsService } from 'services/admin/admin-goods.service';
 import { AdminRegionService } from 'services/admin/admin-region.service';
-
-
 
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
@@ -49,16 +48,19 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
     priceTotal: any;//商品价格
     allPriceTotal: any;//总价
     freightPrice = 0; //油费
+    disPrice = 0;//优惠
+    ExtraPrice = 0;//附加
     isSpinning = false;
     isFreight = false;
     precision = 0;
     precision1 = 2;
+    isDis = false;
 
     addGoodsOrderModel: any;
 
     constructor(public fb: FormBuilder, public adminGoodsService: AdminGoodsService,
         public activatedRoute: ActivatedRoute, public adminRegionService: AdminRegionService,
-        public modal: NzModalService, public router: Router,) {
+        public modal: NzModalService, public router: Router, private msg: NzMessageService,) {
         // 校验手机
         const { mobile } = MyValidators;
         this.addForm = this.fb.group({
@@ -82,6 +84,8 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
             region_code: ['', [Validators.required]],
             address: ['', [Validators.required]],
             remarks: ['',],
+            discount: [0],
+            extra: [0],
         });
         this.addGoodsOrderModel = {
             region_code: '',
@@ -95,6 +99,8 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
             goods_num: '',
             freight: '',
             remarks: '',
+            discount: '',
+            extra: ''
         }
     }
 
@@ -128,6 +134,9 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
             console.log("1111", select);
             this.selectSpec = select[0];
             this.isPrice = this.selectSpec.price;
+            this.addForm.patchValue({
+                price: this.selectSpec.price
+            });
             // 包邮
             if (this.selectSpec?.postage == 0) {
                 this.isFreight = false;
@@ -140,6 +149,13 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
                 this.freightPrice = this.addForm.value.freight;
             }
             this.feeAll();
+            if (this.allPriceTotal < 0) {
+                this.msg.error('优惠金额不能大于订单金额，请重新输入');
+                this.isDis = true;
+            }
+            else {
+                this.isDis = false;
+            }
         }
     }
 
@@ -154,26 +170,66 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
 
     // 购买份数
     onEnterNums(data: any) {
-        console.log("购买份数data", data);
         this.feeAll();
+        if (this.allPriceTotal < 0) {
+            this.msg.error('优惠金额不能大于订单金额，请重新输入');
+            this.isDis = true;
+        }
+        else {
+            this.isDis = false;
+        }
     }
 
     onEnterFreight(data: any) {
         console.log("油费", data);
         this.freightPrice = data;
         this.feeAll();
+        if (this.allPriceTotal < 0) {
+            this.msg.error('优惠金额不能大于订单金额，请重新输入');
+            this.isDis = true;
+        }
+        else {
+            this.isDis = false;
+        }
     }
+
+    onEnterDis(data: any) {
+        console.log("优惠", data);
+        this.feeAll();
+        if (this.allPriceTotal < 0) {
+            this.msg.error('优惠金额不能大于订单金额，请重新输入');
+            this.isDis = true;
+        }
+        else {
+            this.isDis = false;
+        }
+    }
+
+
+    onEnterExtra(data: any) {
+        this.feeAll();
+        if (this.allPriceTotal < 0) {
+            this.msg.error('优惠金额不能大于订单金额，请重新输入');
+            this.isDis = true;
+        }
+        else {
+            this.isDis = false;
+        }
+    }
+
 
     feeAll() {
         let nums = (Number(this.addForm.value.goods_num) * 100) / 100;
         let price = (Number(this.isPrice) * 100) / 100;
         this.priceTotal = Number(nums) * Number(price);
+        this.disPrice = this.addForm.value.discount ? this.addForm.value.discount : 0;
+        this.ExtraPrice = this.addForm.value.extra ? this.addForm.value.extra : 0;
         // 包邮
         if (this.selectSpec?.postage == 0) {
             this.freightPrice = 0;
         }
         let freight = (Number(this.freightPrice) * 100) / 100;
-        this.allPriceTotal = (Number(this.priceTotal) * 100) / 100 + (Number(freight) * 100) / 100;
+        this.allPriceTotal = (Number(this.priceTotal) * 100) / 100 + (Number(freight) * 100) / 100 - (Number(this.disPrice) * 100) / 100 + (Number(this.ExtraPrice) * 100) / 100;
         this.priceTotal = Math.round(this.priceTotal * 100) / 100;
         this.allPriceTotal = Math.round(this.allPriceTotal * 100) / 100;
     }
@@ -190,6 +246,8 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
         this.addGoodsOrderModel.spec_id = this.addForm.value.specificationValue;
         this.addGoodsOrderModel.goods_num = this.addForm.value.goods_num;
         this.addGoodsOrderModel.freight = this.freightPrice;
+        this.addGoodsOrderModel.discount = this.disPrice;
+        this.addGoodsOrderModel.extra = this.ExtraPrice;
         this.addGoodsOrderModel.remarks = this.addForm.value.remarks;
     }
 
@@ -206,7 +264,7 @@ export class AdminGoodsProAddOrderDetailComponent implements OnInit {
         if (this.addForm.valid) {
             this.modal.confirm({
                 nzTitle: '请确认',
-                nzContent: `购买商品${this.detailModel?.title}：规格为${this.selectSpec.spec_name}, ${this.addGoodsOrderModel.goods_num}份，运费${this.addGoodsOrderModel.freight}元，总价${this.addGoodsOrderModel.price_total}元，确认无误请提交`,
+                nzContent: `购买商品${this.detailModel?.title}：规格为${this.selectSpec.spec_name}, ${this.addGoodsOrderModel.goods_num}份，运费${this.addGoodsOrderModel.freight}元，附加收费${this.addGoodsOrderModel.extra}元，优惠${this.addGoodsOrderModel.discount}元，合计${this.addGoodsOrderModel.price_total}元，确认无误请提交`,
                 nzOnOk: () => this.adminGoodsService.addOrder(this.addGoodsOrderModel).subscribe(res => {
                     this.router.navigate(['/admin/main/goodsOrderList']);
                 }, error => {

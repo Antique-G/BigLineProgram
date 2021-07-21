@@ -142,7 +142,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="8" [nzXs]="24">价格</nz-form-label>
                                                         <nz-form-control [nzSm]="16" [nzXs]="24">
-                                                            <input nz-input formControlName="price" nzBorderless readonly [ngModel]="'￥'+selectSpec?.price" style="color: red;font-weight: 800;" />
+                                                            <nz-input-number style="width: 90%;" formControlName="price" nzDisabled [nzMin]="1" [nzPrecision]="precision"></nz-input-number>元
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -190,6 +190,30 @@
                                                             </nz-input-number>元
                                                         </nz-form-control>
                                                     </div>
+                                                </nz-form-item>
+
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="8" [nzXs]="24">额外收费
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                            <nz-input-number style="width: 76%;" formControlName="extra" [nzMin]="0" [nzPrecision]="precision1" (ngModelChange)="onEnterExtra($event)">
+                                                            </nz-input-number>元
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="8" [nzXs]="24">优惠金额
+                                                        </nz-form-label>
+                                                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                            <nz-input-number style="width: 76%;" formControlName="discount" [nzMin]="0" [nzPrecision]="precision1" (ngModelChange)="onEnterDis($event)">
+                                                            </nz-input-number>元
+                                                        </nz-form-control>
+                                                    </div>
+                                                    <p style="color: red;margin-left: 33%;">！优惠金额不能大于订单总价</p>
                                                 </nz-form-item>
 
                                             </form>
@@ -301,14 +325,14 @@
 
                     <mat-card>
                         <div>
-                            <div style="padding:40px 400px;">
+                            <div style="padding:40px 295px;">
                                 <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="50px">
                                     <div style="letter-spacing: 2px;font-family: 'Poppins', sans-serif;font-weight: 600;font-size: 16px;">
                                         <span>合计<span
-                                                style="font-weight: 800;color: red;">{{allPriceTotal}}元</span>：商品小计{{priceTotal}}元|运费{{freightPrice}}元</span>
+                                                style="font-weight: 800;color: red;">{{allPriceTotal}}元</span>：商品小计{{priceTotal}}元|运费{{freightPrice}}元|优惠金额{{disPrice}}元|附加收费{{ExtraPrice}}元</span>
                                     </div>
                                     <div>
-                                        <button nz-button nzType="primary" style="width: 120px;" (click)="commit()">提交</button>
+                                        <button nz-button [disabled]="isDis" nzType="primary" style="width: 120px;" (click)="commit()">提交</button>
                                     </div>
                                 </div>
                             </div>

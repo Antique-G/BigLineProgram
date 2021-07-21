@@ -176,6 +176,8 @@ export interface AddGoodsOrderModel {
     freight: any;
     remarks: any;
     user_phone: any;
+    discount: any;
+    extra: any
 }
 
 
@@ -267,6 +269,8 @@ export interface UpdateGoodsOrderModel {
     goods_num: any;
     goods_price: any;
     freight_price: any;
+    extra: any;
+    discount: any;
 }
 
 // 拆分订单
