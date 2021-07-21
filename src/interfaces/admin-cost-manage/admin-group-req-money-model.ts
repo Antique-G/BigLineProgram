@@ -5,6 +5,7 @@ export interface GroupCashReqModel {
 
 export interface Meta {
     pagination: Pagination;
+    statistics: any;
 }
 
 export interface Pagination {

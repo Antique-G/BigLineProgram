@@ -101,6 +101,9 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
         });
         this.getList1();
         this.getTotal1();
+        // 拿到统计的值
+        let adminFinanceMiniWithdrawalTotalModel = JSON.parse(localStorage.getItem("adminFinanceMiniWithdrawalTotalModel")!);
+        this.totalMoney = adminFinanceMiniWithdrawalTotalModel;
 
         // 已审核
         // 将上次查询的筛选条件赋值
@@ -156,15 +159,19 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
                 console.log("Jieguoshi ", res);
                 this.dataSource1 = res?.data;
                 this.total1 = res?.meta?.pagination?.total;
+                if (this.page1 == 1) {
+                    this.totalMoney = res?.meta?.statistics;
+                    localStorage.setItem('adminFinanceMiniWithdrawalTotalModel', JSON.stringify(this.totalMoney));
+                }
             })
     }
 
     getTotal1() {
-        this.adminUserCommissionListService.totalWithdrawal(1, this.user_id,
-            this.pay_type, '', this.bank_user, this.date_start, this.date_end, this.phone, '').subscribe(res => {
-                console.log("Jieguoshi ", res);
-                this.totalMoney = res?.statistic;
-            })
+        // this.adminUserCommissionListService.totalWithdrawal(1, this.user_id,
+        //     this.pay_type, '', this.bank_user, this.date_start, this.date_end, this.phone, '').subscribe(res => {
+        //         console.log("Jieguoshi ", res);
+        //         this.totalMoney = res?.statistic;
+        //     })
     }
 
     changePageIndex1(page: number) {
@@ -270,7 +277,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
                 console.log("Jieguoshi ", res);
                 this.dataSource2 = res?.data;
                 this.total2 = res?.meta?.pagination?.total;
-                
+
             })
     }
 
@@ -311,7 +318,7 @@ export class AdminMiniWithdrawalReviewComponent implements OnInit {
         let minsChange = nows * 1000;
         let allMIns = new Date(minsChange);
         let year = allMIns.getFullYear();
-        let month = allMIns.getMonth()+1 < 10 ? '0'+(allMIns.getMonth()+1) : allMIns.getMonth()+1;
+        let month = allMIns.getMonth() + 1 < 10 ? '0' + (allMIns.getMonth() + 1) : allMIns.getMonth() + 1;
         let date = allMIns.getDate();
         let hour = allMIns.getHours();
         let minute = allMIns.getMinutes();

@@ -1,9 +1,9 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminRefundService } from '../../../services/admin/admin-refund.service';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
+import { AdminRefundService } from '../../../services/admin/admin-refund.service';
 
 @Component({
     selector: 'app-admin-order-refund-review',
@@ -90,7 +90,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.date_start = getSeatch1?.date_start ? getSeatch1?.date_start : null;
         this.date_end = getSeatch1?.date_end ? getSeatch1?.date_end : null;
         this.id = getSeatch1?.id ? getSeatch1?.id : '';
-        this.page = getSeatch1?.page ? getSeatch1?.page : '';
+        this.page = getSeatch1?.page ? getSeatch1?.page : 1;
         this.searchForm1.patchValue({
             product_name: this.product_name,
             store_id: this.store_id,
@@ -100,6 +100,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         });
         this.getList();
         this.getRefundAmountTotalNot();
+        // 拿到统计的值
+        let adminOrderRefundTotalModel = JSON.parse(localStorage.getItem("adminOrderRefundTotalModel")!);
+        this.refundAmountTotalNotModel = adminOrderRefundTotalModel;
         let getSeatch2 = JSON.parse(localStorage.getItem("adminRefundReview2Search")!);
         this.order_id = getSeatch2?.order_id ? getSeatch2.order_id : '';
         this.store_id = getSeatch2?.store_id ? getSeatch2?.store_id : '';
@@ -120,6 +123,9 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         });
         this.getList1();
         this.getRefundAmountTotalYes();
+        // 拿到统计的值
+        let adminOrderRefundTotalYesModel = JSON.parse(localStorage.getItem("adminOrderRefundTotalYesModel")!);
+        this.refundAmountTotalYesModel = adminOrderRefundTotalYesModel;
     }
 
     // 未退款
@@ -129,14 +135,18 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             this.dataSource1 = res.data;
             this.loading = false;
             this.total = res?.meta?.pagination?.total;
+            if (this.page == 1) {
+                this.refundAmountTotalNotModel = res?.meta?.statistics;
+                localStorage.setItem('adminOrderRefundTotalModel', JSON.stringify(this.refundAmountTotalNotModel));
+            }
         })
     }
 
     getRefundAmountTotalNot() {
-        this.adminRefundService.getRefundAmountTotal(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 2).subscribe(res => {
-            console.log('res :>> 11111111', res);
-            this.refundAmountTotalNotModel = res?.data;
-        })
+        // this.adminRefundService.getRefundAmountTotal(this.page, this.per_page, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.id, 2).subscribe(res => {
+        //     console.log('res :>> 11111111', res);
+        //     this.refundAmountTotalNotModel = res?.data;
+        // })
     }
 
 
@@ -169,15 +179,19 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             this.dataSource2 = res.data;
             this.loading1 = false;
             this.total1 = res?.meta?.pagination?.total;
+            if (this.page == 1) {
+                this.refundAmountTotalYesModel = res?.meta?.statistics;
+                localStorage.setItem('adminOrderRefundTotalYesModel', JSON.stringify(this.refundAmountTotalYesModel));
+            }
         })
     }
 
 
     getRefundAmountTotalYes() {
-        this.adminRefundService.getRefundAmountTotal(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3, '', this.updated_start, this.updated_end).subscribe(res => {
-            console.log('res :>> 11111111', res);
-            this.refundAmountTotalYesModel = res?.data;
-        })
+        // this.adminRefundService.getRefundAmountTotal(this.page1, this.per_page1, this.order_id, this.store_id, this.product_name, this.date_start, this.date_end, this.refund_id, 3, '', this.updated_start, this.updated_end).subscribe(res => {
+        //     console.log('res :>> 11111111', res);
+        //     this.refundAmountTotalYesModel = res?.data;
+        // })
     }
 
     search2() {
@@ -197,7 +211,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
             refund_id: this.refund_id, page1: this.page1, updated_start: this.updated_start, updated_end: this.updated_end
         }
         localStorage.setItem('adminRefundReview2Search', JSON.stringify(this.setQuery2));
-        console.log("this.setQuery2",this.setQuery2)
+        console.log("this.setQuery2", this.setQuery2)
         this.getList1();
         this.getRefundAmountTotalYes();
     }
