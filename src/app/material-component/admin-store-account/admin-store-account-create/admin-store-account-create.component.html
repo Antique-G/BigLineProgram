@@ -11,6 +11,12 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
+                <nz-form-label [nzSpan]="5">大航工号</nz-form-label>
+                <nz-form-control [nzSpan]="17">
+                    <input nz-input formControlName="job_num" placeholder="请输入大航工号" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
                 <nz-form-label [nzSpan]="5" nzRequired>密码</nz-form-label>
                 <nz-form-control [nzSpan]="17" [nzErrorTip]="formErrors.password">
                     <input nz-input autocomplete="on" type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" placeholder="请输入6-12位密码" />

@@ -112,7 +112,7 @@ export class AdminOrderRefundReviewComponent implements OnInit {
         this.updated_start = getSeatch2?.updated_start ? getSeatch2?.updated_start : null;
         this.updated_end = getSeatch2?.updated_end ? getSeatch2?.updated_end : null;
         this.refund_id = getSeatch2?.refund_id ? getSeatch2?.refund_id : '';
-        this.page1 = getSeatch2?.page1 ? getSeatch2?.page1 : '';
+        this.page1 = getSeatch2?.page1 ? getSeatch2?.page1 : 1;
         this.searchForm2.patchValue({
             product_name: '',
             store_id: this.store_id,
