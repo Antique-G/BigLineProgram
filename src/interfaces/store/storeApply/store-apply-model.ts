@@ -123,3 +123,8 @@ export interface StoreDetailModel {
   updated_at: string;
   region_full_name: string;
 }
+
+
+export interface StoreAccountChangeJobModel{
+    job_num:any
+}

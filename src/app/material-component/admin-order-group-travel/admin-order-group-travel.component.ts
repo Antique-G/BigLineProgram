@@ -327,16 +327,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             nzComponentParams: {
                 data: data
             },
-            nzFooter: [
-                {
-                    label: '提交',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.add()
-
-                    }
-                }
-            ]
+            nzFooter: null
         })
         addmodal.afterClose.subscribe(res => {
             this.groupTravel();
