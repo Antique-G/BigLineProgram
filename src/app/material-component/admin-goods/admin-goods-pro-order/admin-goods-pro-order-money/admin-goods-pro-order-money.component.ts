@@ -35,6 +35,9 @@ export class AdminGoodsProOrderMoneyComponent implements OnInit {
     user_id: any;
     isMoney = 0;
 
+    isLoadingBtn = false;
+
+
     constructor( public adminGoodsService: AdminGoodsService,
         private msg: NzMessageService, public modal: NzModalService,
         public adminUserinfoService: AdminUserinfoService) {
@@ -98,6 +101,7 @@ export class AdminGoodsProOrderMoneyComponent implements OnInit {
         }
         console.log("this.addForm.valid", this.addForm);
         if (this.addForm.valid) {
+            this.isLoadingBtn = true;
             if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
                 this.modal.confirm({
                     nzTitle: '<h4>提示</h4>',
@@ -105,20 +109,24 @@ export class AdminGoodsProOrderMoneyComponent implements OnInit {
                     nzOnOk: () =>
                         this.adminGoodsService.comfirmGoodOrder(this.comfirmOrderModel).subscribe(res => {
                             console.log('res :>> ', res);
+                            this.isLoadingBtn = false;
                         }
                             ,
                             err => {
                                 console.log('res :>> ',);
+                                this.isLoadingBtn = false;
                             })
                 })
             }
             else {
                 this.adminGoodsService.comfirmGoodOrder(this.comfirmOrderModel).subscribe(res => {
                     console.log('res :>> ', res);
+                    this.isLoadingBtn = false;
                 }
                     ,
                     err => {
                         console.log('res :>> ',);
+                        this.isLoadingBtn = false;
                     })
             }
 
