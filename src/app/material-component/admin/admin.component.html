@@ -29,7 +29,7 @@
                             </div>
                             <div fxFlex=50>
                                 <mat-form-field>
-                                    <mat-label>姓名/账号/手机号:</mat-label>
+                                    <mat-label>姓名/账号/手机号/大航工号:</mat-label>
                                     <input matInput value="" formControlName="name" placeholder="请输入关键字">
                                 </mat-form-field>
 
@@ -56,6 +56,7 @@
                                     <th style="text-align: center;">手机号</th>
                                     <th style="text-align: center;">角色</th>
                                     <th style="text-align: center;">门店员工</th>
+                                    <th style="text-align: center;">大航工号</th>
                                     <th style="text-align: center;">区域</th>
                                     <th style="text-align: center;">状态</th>
                                     <th style="text-align: center;">操作</th>
@@ -79,6 +80,7 @@
                                             是
                                         </div>
                                     </td>
+                                    <td>{{ data.job_num}}</td>
                                     <td>{{data.region_name}}</td>
                                     <td>
                                         <div *ngIf="data.status===0">
