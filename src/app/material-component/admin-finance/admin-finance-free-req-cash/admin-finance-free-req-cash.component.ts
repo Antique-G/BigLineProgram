@@ -63,7 +63,7 @@ export class AdminFinanceFreeReqCashComponent implements OnInit {
             this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
             this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
             this.order_number = getSeatch?.order_number ? getSeatch?.order_number : null;
-            this.page = getSeatch?.page ? getSeatch?.page : '';
+            this.page = getSeatch?.page ? getSeatch?.page : 1;
 
             this.searchForm.patchValue({
                 status: this.status,
@@ -76,26 +76,33 @@ export class AdminFinanceFreeReqCashComponent implements OnInit {
             });
             this.getList();
             this.getCashList();
+            // 拿到统计的值
+            let adminFinanceFreeOrderReqTotalModel = JSON.parse(localStorage.getItem("adminFinanceFreeOrderReqTotalModel")!);
+            this.moneyModel = adminFinanceFreeOrderReqTotalModel;
         });
 
     }
 
     getList() {
         this.loading = true;
-        this.adminFinaceFreedomService.freeCashList(this.page, this.per_page, this.status, this.payout_status, this.pay_status, this.order_number, this.product_name, this.store_id, this.date_start,this.date_end).subscribe(res => {
+        this.adminFinaceFreedomService.freeCashList(this.page, this.per_page, this.status, this.payout_status, this.pay_status, this.order_number, this.product_name, this.store_id, this.date_start, this.date_end).subscribe(res => {
             console.log('结果是', res.data);
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.meta?.pagination?.total;
+            if (this.page == 1) {
+                this.moneyModel = res?.meta?.statistics;
+                localStorage.setItem('adminFinanceFreeOrderReqTotalModel', JSON.stringify(this.moneyModel));
+            }
         });
     }
 
 
     getCashList() {
-        this.adminFinaceFreedomService.freeCashTotal(this.page, this.per_page, this.status, this.payout_status, this.pay_status, this.order_number, this.product_name, this.store_id, this.date_start,this.date_end).subscribe(res => {
-            console.log('结果是111111', res);
-            this.moneyModel = res?.data;
-        });
+        // this.adminFinaceFreedomService.freeCashTotal(this.page, this.per_page, this.status, this.payout_status, this.pay_status, this.order_number, this.product_name, this.store_id, this.date_start,this.date_end).subscribe(res => {
+        //     console.log('结果是111111', res);
+        //     this.moneyModel = res?.data;
+        // });
     }
 
     changePageIndex(page: number) {

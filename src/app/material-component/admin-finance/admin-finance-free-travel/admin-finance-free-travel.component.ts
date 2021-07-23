@@ -88,7 +88,7 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
             this.payment_status = getSeatch?.payment_status ? getSeatch?.payment_status : '';
             this.transaction_id = getSeatch?.transaction_id ? getSeatch?.transaction_id : '';
-            this.page = getSeatch?.page ? getSeatch?.page : '';
+            this.page = getSeatch?.page ? getSeatch?.page : 1;
             this.pay_type = getSeatch?.pay_type ? getSeatch?.pay_type : '';
 
 
@@ -111,6 +111,9 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
 
             this.getFreeTravel();
             this.getTotal();
+            // 拿到统计的值
+            let adminFinanceFreeOrderTotalModel = JSON.parse(localStorage.getItem("adminFinanceOrderFreeTotalModel")!);
+            this.totalModel = adminFinanceFreeOrderTotalModel;
         })
     }
     getFreeTravel() {
@@ -119,15 +122,19 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
             this.loading = false;
+            if (this.page == 1) {
+                this.totalModel = res?.meta?.statistics;
+                localStorage.setItem('adminFinanceOrderFreeTotalModel', JSON.stringify(this.totalModel));
+            }
         })
     }
 
 
     getTotal() {
-        this.adminFinaceFreedomService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
-            console.log('统计', res?.data);
-            this.totalModel = res?.data;
-        })
+        // this.adminFinaceFreedomService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.payment_status, this.transaction_id, this.pay_type).subscribe(res => {
+        //     console.log('统计', res?.data);
+        //     this.totalModel = res?.data;
+        // })
     }
 
 

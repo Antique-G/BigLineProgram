@@ -120,6 +120,7 @@ import { StoreProductMiniCodeComponent } from './store-product-management/store-
 import { StoreProductManagementOperateLogComponent } from './store-product-management/store-product-management-operate-log/store-product-management-operate-log.component';
 import { StoreProductFreeTravelOperateLogComponent } from './store-product-free-travel/store-product-free-travel-operate-log/store-product-free-travel-operate-log.component';
 import { StoreOrderGroupOperateLogComponent } from './store-order-grouptravel/store-order-group-operate-log/store-order-group-operate-log.component';
+import { AtoreCertifiChangeJobNumComponent } from './store-certication/store-certifi-basic-info/atore-certifi-change-job-num/atore-certifi-change-job-num.component';
 
 
 @NgModule({
@@ -257,6 +258,7 @@ import { StoreOrderGroupOperateLogComponent } from './store-order-grouptravel/st
         StoreProductManagementOperateLogComponent,
         StoreProductFreeTravelOperateLogComponent,
         StoreOrderGroupOperateLogComponent,
+        AtoreCertifiChangeJobNumComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

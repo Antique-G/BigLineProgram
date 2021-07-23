@@ -57,6 +57,7 @@
                         <th style="text-align: center;">退款上限</th>
                         <th style="text-align: center;">支付方式</th>
                         <th style="text-align: center;">支付时间</th>
+                        <th style="text-align: center;">退款单号</th>
                         <th style="text-align: center;">输入退款金额</th>
                     </tr>
                 </thead>
@@ -77,6 +78,9 @@
                             <span *ngIf="data.pay_type===9">携程</span>
                         </td>
                         <td>{{data?.pay_time|date:'yyyy-MM-dd HH:mm:dd'}}</td>
+                        <td>
+                            <input nz-input [disabled]="data?.pay_way==0" [(ngModel)]="data.refund_no" />
+                        </td>
                         <td>
                             <nz-input-number class="input" (keyup)="numTest1($event)" [disabled]="data?.refund_limit==='0.00'" [(ngModel)]="data.addNum" [nzMin]="0" [nzMax]="data?.refund_limit" [nzStep]="1"></nz-input-number>
                         </td>

@@ -130,7 +130,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
                 this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
                 this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
                 this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
-                this.page = getSeatch?.page ? getSeatch?.page : '';
+                this.page = getSeatch?.page ? getSeatch?.page : 1;
                 this.push_status = getSeatch?.push_status ? getSeatch?.push_status : '';
 
                 this.searchForm.patchValue({
@@ -152,6 +152,9 @@ export class AdminOrderFreeTravelComponent implements OnInit {
                 })
                 this.getFreeTravel();
                 this.getTotal();
+                // 拿到统计的值
+                let adminOrderFreeTotalModel = JSON.parse(localStorage.getItem("adminOrderFreeTotalModel")!);
+                this.totalModel = adminOrderFreeTotalModel;
             }
 
         })
@@ -164,15 +167,19 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
             this.loading = false;
+            if (this.page == 1) {
+                this.totalModel = res?.meta?.statistics;
+                localStorage.setItem('adminOrderFreeTotalModel', JSON.stringify(this.totalModel));
+            }
         })
     }
 
 
     getTotal() {
-        this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id,this.push_status).subscribe(res => {
-            console.log('统计', res?.data);
-            this.totalModel = res?.data;
-        })
+        // this.adminOrderFreeTravelService.getIndenOrderTotal(this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id,this.push_status).subscribe(res => {
+        //     console.log('统计', res?.data);
+        //     this.totalModel = res?.data;
+        // })
     }
 
 
@@ -308,16 +315,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             nzComponentParams: {
                 data: data
             },
-            nzFooter: [
-                {
-                    label: '提交',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.add()
-
-                    }
-                }
-            ]
+            nzFooter:null
         })
         addmodal.afterClose.subscribe(res => {
             this.getFreeTravel();

@@ -1,19 +1,19 @@
-import { format } from 'date-fns';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreApplyService } from '../../../../../services/store/store-apply/store-apply.service';
-import { StoreApplyCertifiModel } from '../../../../../interfaces/store/storeApply/store-apply-model';
-import { UploadCertificationComponent } from './upload-certification/upload-certification.component';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { UploadPdfComponent } from './upload-pdf/upload-pdf.component';
-import { NzMessageService } from 'ng-zorro-antd/message';
-
-
-
-
+import { format } from 'date-fns';
 // 银行卡校验
 import { NzSafeAny } from "ng-zorro-antd/core/types";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreApplyCertifiModel } from '../../../../../interfaces/store/storeApply/store-apply-model';
+import { StoreApplyService } from '../../../../../services/store/store-apply/store-apply.service';
+import { UploadCertificationComponent } from './upload-certification/upload-certification.component';
+import { UploadPdfComponent } from './upload-pdf/upload-pdf.component';
+
+
+
+
 export type MyErrorsOptions = { 'zh-cn': string; en: string } & Record<string, NzSafeAny>;
 export type MyValidationErrors = Record<string, MyErrorsOptions>;
 export class Bank extends Validators {
@@ -499,8 +499,9 @@ export class StoreCertificationDetailComponent implements OnInit {
   }
 
 
-  getDay(day: any) {
-    let s1 = new Date(day.replace(/-/g, "/"));
+    getDay(day: any) {
+      console.log("data",day)
+    let s1 = new Date(day?.replace(/-/g, "/"));
     let s2 = new Date();//当前日期
     let days = s1.getTime() - s2.getTime();
     let a: any = days / (1000 * 60 * 60 * 24)

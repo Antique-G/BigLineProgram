@@ -5,6 +5,7 @@ export interface RefundModel {
 }
 interface MetaRefundModel {
     pagination: Pagination;
+    statistics: any;
 }
 
 interface Pagination {

@@ -156,21 +156,17 @@
                             <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
                         </div>
-                        <div>订单总额：
-                            <span style="color: red;" *ngIf="totalModel?.price_total!=0&&totalModel?.price_total!=null">{{totalModel?.price_total}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.price_total===0||totalModel?.price_total===null">-</span>
+                        <div title="不包含已取消订单" style="cursor: pointer;">订单总额：
+                            <span style="color: red;">{{totalModel?.price_total}}元</span>
                         </div>
-                        <div>入账总额：
-                            <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
+                        <div title="不统计取消订单" style="cursor: pointer;">待收款总额：
+                            <span style="color: red;">{{totalModel?.is_pay_money}}元</span>
                         </div>
-                        <div>待收款总额：
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
+                        <div [title]="'非取消订单金额+已取消订单金额，合计' +totalModel?.total_receive+'元'" style="cursor: pointer;">入账总额：
+                            <span style="color: red;">{{totalModel?.receive}}</span>+<span style="color: green;">{{totalModel?.off_receive}}</span>元
                         </div>
-                        <div>退款总额：
-                            <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
+                        <div [title]="'非取消订单金额+已取消订单金额，合计'+totalModel?.total_refund_money+'元'" style="cursor: pointer;">退款总额：
+                            <span style="color: red;">{{totalModel?.refund_money}}</span>+<span style="color: green;">{{totalModel?.off_refund_money}}</span>元
                         </div>
                     </div>
 

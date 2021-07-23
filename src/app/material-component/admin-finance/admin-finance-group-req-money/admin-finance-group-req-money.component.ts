@@ -61,7 +61,7 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
             this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
             this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
-            this.page = getSeatch?.page ? getSeatch?.page : '';
+            this.page = getSeatch?.page ? getSeatch?.page : 1;
 
             this.searchForm.patchValue({
                 group_status: this.group_status,
@@ -74,6 +74,9 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
             });
             this.getList();
             this.getCashList();
+            // 拿到统计的值
+            let adminFinanceOrderReqTotalModel = JSON.parse(localStorage.getItem("adminFinanceOrderReqTotalModel")!);
+            this.moneyModel = adminFinanceOrderReqTotalModel;
         });
 
     }
@@ -85,14 +88,18 @@ export class AdminFinanceGroupReqMoneyComponent implements OnInit {
             this.loading = false;
             this.dataSource = res?.data;
             this.total = res?.meta?.pagination?.total;
+            if (this.page == 1) {
+                this.moneyModel = res?.meta?.statistics;
+                localStorage.setItem('adminFinanceOrderReqTotalModel', JSON.stringify(this.moneyModel));
+            }
         });
     }
 
     getCashList() {
-        this.adminFinaceGroupService.groupCashTotal(this.page, this.per_page, this.group_status, this.payout_status, this.group_id, this.pay_status, this.product_name, this.store_id, this.date_start, this.date_end).subscribe(res => {
-            console.log('结果是111111', res);
-            this.moneyModel = res?.data;
-        });
+        // this.adminFinaceGroupService.groupCashTotal(this.page, this.per_page, this.group_status, this.payout_status, this.group_id, this.pay_status, this.product_name, this.store_id, this.date_start, this.date_end).subscribe(res => {
+        //     console.log('结果是111111', res);
+        //     this.moneyModel = res?.data;
+        // });
     }
 
     changePageIndex(page: number) {
