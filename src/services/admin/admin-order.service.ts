@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EditInfoModel, EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
 import { AdminUrls } from '../../api';
-import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
+import { EditInfoModel, EditMemberModel, GroupSmsModel, MoveOrderModel, OrderGroupNum, OrderSmsModel, SetGuideModel, ShuffOrderModel, StoreOrderDetailRequestModel, StoreOrderListRequestModel } from '../../interfaces/store/storeOrder/store-order-model';
+import { GetGuideListModel } from '../../interfaces/store/storeTourist/store-tourist-model';
 
 
 
@@ -23,7 +23,8 @@ export class AdminOrderService {
 
     // 订单团列表
     getStoreOrderGroup(page: number, per_page: number, product_id: any, product_name: any, group_id: any, order_number: any,
-                       destination_city: any, date_start: any, date_end: any, group_status: any, payout_status: any, store_id: any): Observable<StoreOrderListRequestModel> {
+        destination_city: any, date_start: any, date_end: any, group_status: any, payout_status: any,
+        store_id: any, sort_field?: any, sort?: any): Observable<StoreOrderListRequestModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('product_id', product_id ? product_id : '')
@@ -35,7 +36,10 @@ export class AdminOrderService {
             .set('date_end', date_end ? date_end : '')
             .set('group_status', group_status ? group_status : '')
             .set('payout_status', payout_status ? payout_status : '')
-            .set('store_id', store_id ? store_id : '');
+            .set('store_id', store_id ? store_id : '')
+            .set('sort_field', sort_field ? sort_field : '')
+            .set('sort', sort ? sort : '');
+        
 
 
         const findhttpOptions = {
