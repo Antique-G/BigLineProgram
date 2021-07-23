@@ -591,8 +591,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    console.log("res", res)
-                    if (res.data.length == 0) {
+                    if (res?.data?.result instanceof Array) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -602,7 +601,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                         this.modal['error']({
                             nzMask: true,
                             nzTitle: "<h3>错误提示</h3>",
-                            nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
+                            nzContent: `<h5>${res?.data?.message}</h5>`,
                             nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
                         })
                     }
