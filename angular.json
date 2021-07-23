@@ -16,7 +16,8 @@
                             "rxjs-compat",
                             "rxjs",
                             "hammerjs",
-                            "chartist"
+                            "chartist",
+                            "qrcode"
                         ],
                         "outputPath": "dist",
                         "index": "src/index.html",
