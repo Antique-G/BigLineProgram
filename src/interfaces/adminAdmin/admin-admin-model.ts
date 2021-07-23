@@ -42,6 +42,7 @@ export interface Datum {
     staff_type?: any;
     region_name?: any;
     role?: Role[];
+    job_num?: any;
 }
 
 export interface Role {
@@ -74,6 +75,7 @@ export interface RegisterRequestModel {
     staff_type: any;
     region_code?: any;
     role_id: any;
+    job_num?: any;
 
 }
 
@@ -105,5 +107,6 @@ export interface UpdateRequestModel {
     staff_type: any;
     region_code?: any;
     role_id?: any;
+    job_num?: any;
 }
 

@@ -121,7 +121,7 @@ export class AdminStoreAccountDetailComponent implements OnInit {
         this.storeAccountDetailUpdateRequestModel.level = this.detaileForm.value.level;
         this.storeAccountDetailUpdateRequestModel.store_id = this.detaileForm.value.store_id;
         this.storeAccountDetailUpdateRequestModel.status = this.detaileForm.value.status;
-        // this.storeAccountDetailUpdateRequestModel.job_num = this.detaileForm.value.job_num;
+        this.storeAccountDetailUpdateRequestModel.job_num = this.detaileForm.value.job_num;
     }
 
     update() {
