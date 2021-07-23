@@ -126,7 +126,7 @@ export class AdminStoreAccountCreateComponent implements OnInit {
         this.addStoreAccountRequestModel.level = this.validateForm.value.level;
         this.addStoreAccountRequestModel.store_id = this.store_id;
         this.addStoreAccountRequestModel.status = this.validateForm.value.status;
-        this.addStoreAccountRequestModel.job_num = this.validateForm.value.job_num;
+        // this.addStoreAccountRequestModel.job_num = this.validateForm.value.job_num;
     }
 
     //商铺账号创建
