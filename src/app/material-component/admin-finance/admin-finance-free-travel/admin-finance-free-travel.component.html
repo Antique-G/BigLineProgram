@@ -135,6 +135,9 @@
                                         <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
                                         <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
                                         <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+                                        <nz-option [nzLabel]="'预售码'" [nzValue]="10"></nz-option>
+                                        <nz-option [nzLabel]="'POS机'" [nzValue]="11"></nz-option>
+                                        <nz-option [nzLabel]="'同城艺龙'" [nzValue]="12"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -177,6 +180,7 @@
                             <div>线上：通过小程序或者扫码进行付款 </div>
                             <div>手动：后台手动收款</div>
                             <div>POS：通过POS机收款</div>
+                            <div>OTA：携程、飞猪、同城艺龙</div>
                         </div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
@@ -316,11 +320,14 @@
                                             <span *ngIf="item.pay_type===8">飞猪</span>
                                             <span *ngIf="item.pay_type===9">携程</span>
                                             <span *ngIf="item.pay_type===10">预售码</span>
+                                            <span *ngIf="item.pay_type===11">POS机</span>
+                                            <span *ngIf="item.pay_type===12">同程艺龙</span>
                                             <ng-container *ngIf="item.status>1">
                                                 <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7||item.pay_type==10)">
                                                     <span *ngIf="item.pay_way==0">（线上）</span>
                                                     <span *ngIf="item.pay_way==1">（手动）</span>
                                                     <span *ngIf="item.pay_way==2">（POS）</span>
+                                                    <span *ngIf="item.pay_way==3">（OTA）</span>
                                                 </ng-container>
                                             </ng-container>
                                         </td>
@@ -365,6 +372,8 @@
                                                 <span *ngIf="refund.pay_type===7">余额</span>
                                                 <span *ngIf="refund.pay_type===8">飞猪</span>
                                                 <span *ngIf="refund.pay_type===9">携程</span>
+                                                <span *ngIf="refund.pay_type===11">Pos机</span>
+                                                <span *ngIf="refund.pay_type===12">同程艺龙</span>
                                             </ng-container>
                                         </td>
                                         <td>
