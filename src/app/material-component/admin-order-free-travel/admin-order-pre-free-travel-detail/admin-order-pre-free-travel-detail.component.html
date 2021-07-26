@@ -362,21 +362,12 @@
                                                             <span *ngIf="data.status===2">已完成</span>
                                                             <span *ngIf="data.status===3">已确认</span>
                                                         </td>
-                                                        <td>
-                                                            <span *ngIf="data.pay_type===1">微信</span>
-                                                            <span *ngIf="data.pay_type===2">支付宝</span>
-                                                            <span *ngIf="data.pay_type===3">现金</span>
-                                                            <span *ngIf="data.pay_type===4">微信二维码</span>
-                                                            <span *ngIf="data.pay_type===5">支付宝二维码</span>
-                                                            <span *ngIf="data.pay_type===6">银行卡转账</span>
-                                                            <span *ngIf="data.pay_type===7">余额支付</span>
-                                                            <span *ngIf="data.pay_type===8">飞猪</span>
-                                                            <span *ngIf="data.pay_type===9">携程</span>
-                                                        </td>
+                                                        <td>{{data?.pay_type_info}}</td>
                                                         <td>
                                                             <span *ngIf="data.pay_way==0">线上支付</span>
                                                             <span *ngIf="data.pay_way==1">后台手动录入</span>
                                                             <span *ngIf="data.pay_way==2">POS机收款</span>
+                                                            <span *ngIf="data.pay_way==3">OTA</span>
                                                         </td>
                                                         <td>
                                                             {{data.pay_time}}

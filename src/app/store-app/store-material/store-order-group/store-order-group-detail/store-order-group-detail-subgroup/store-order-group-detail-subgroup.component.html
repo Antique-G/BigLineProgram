@@ -120,15 +120,7 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <div *ngFor="let aa of data?.pay_log?.data">
-                                            <span *ngIf="aa.pay_type===1">微信</span>
-                                            <span *ngIf="aa.pay_type===2">支付宝</span>
-                                            <span *ngIf="aa.pay_type===3">现金</span>
-                                            <span *ngIf="aa.pay_type===4">微信二维码</span>
-                                            <span *ngIf="aa.pay_type===5">支付宝二维码</span>
-                                            <span *ngIf="aa.pay_type===6">银行卡转账</span>
-                                            <span *ngIf="aa.pay_type===7">余额支付</span>
-                                            <span *ngIf="aa.pay_type===8">飞猪</span>
-                                            <span *ngIf="aa.pay_type===9">携程</span>
+                                            <span>{{aa.pay_type_info}}</span>
                                         </div>
                                     </td>
                                     <td style="text-align: center;">
@@ -139,9 +131,7 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <div style="cursor: pointer;">
-                                            <a href={{url+data?.id}} target="_blank"> <img
-                                                    src="http://cdn.bigline.com.cn/static/images/edit.png"
-                                                    title="详情"></a>
+                                            <a href={{url+data?.id}} target="_blank"> <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="详情"></a>
                                         </div>
                                     </td>
                                     <td style="text-align: center;">
@@ -149,8 +139,7 @@
                                             无
                                         </ng-container>
                                         <ng-container *ngIf="data?.insurance?.data.length!=0">
-                                            <div><a *ngIf="data?.insurance_status==1&&data.order_status!=0&&data.order_status==2"
-                                                    title="是否所有保险已买，若不是，请点击">出单中（核对）</a>
+                                            <div><a *ngIf="data?.insurance_status==1&&data.order_status!=0&&data.order_status==2" title="是否所有保险已买，若不是，请点击">出单中（核对）</a>
                                             </div>
                                             <div>
                                                 <a *ngIf="data?.insurance_status==2&&data.order_status==2">已出单</a>
@@ -182,71 +171,71 @@
                                                 <th>电子保单</th>
                                             </tr>
                                         </thead>
-                        <tbody>
-                            <tr *ngFor="let dataChild of innerTable.data;let i=index">
-                                <td style="width: 8%;">{{ dataChild.name }}</td>
-                                <td style="width: 8%;">{{ dataChild.eng_name }}</td>
-                                <td style="width: 8%;">
-                                    <span *ngIf="dataChild.is_kid===0">成人</span>
-                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
-                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
-                                </td>
-                                <td style="width: 8%;">
-                                    <span *ngIf="dataChild.gender===1">男</span>
-                                    <span *ngIf="dataChild.gender===2">女</span>
-                                </td>
-                                <td style="width: 9%;">{{dataChild.birthday}}</td>
-                                <td style="width: 10%;">{{dataChild.phone}}</td>
-                                <td style="width: 7%;">
-                                    <p *ngIf="data.shared_status===0">不拼房</p>
-                                    <p *ngIf="data.shared_status===1">同性拼房</p>
-                                </td>
-                                <td style="width: 15%;">{{ dataChild.assembling_place }}</td>
-                                <td style="width: 15%;">{{ dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time }}</td>
-                                
-                                <td style="width: 7%;">
-                                    <p *ngIf="dataChild.sms_status===0">
-                                        <nz-badge nzColor="yellow"></nz-badge>未发
-                                    </p>
-                                    <p *ngIf="dataChild.sms_status===1">
-                                        <nz-badge nzColor="green"></nz-badge>已发
-                                    </p>
-                                    <p *ngIf="dataChild.sms_status===2">
-                                        <nz-badge nzColor="red"></nz-badge>发送失败
-                                    </p>
-                                </td>
-                                <td style="width: 5%;">
-                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
-                                    <div *ngIf="dataChild.refund_status===0">正常</div>
-                                </td>
-                                <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
-                                    <div fxLayout="column" fxLayoutGap="5px">
-                                        <div>
-                                            <ng-container *ngFor="let ins of data.insurance.data;let i =index">
-                                                <ng-container *ngIf="ins?.item_type==1&&ins?.status==2">
-                                                    <span *ngIf="i==0">基础保险:</span>
-                                                    <div><a>{{ins.insurance_name}}</a></div>
-                                                </ng-container>
-                                            </ng-container>
-                                        </div>
-                                        <div>
-                                            <ng-container *ngFor="let insExtra of data.insurance.data;let j =index">
-                                                <ng-container *ngIf="insExtra?.item_type==2&&insExtra?.status==2">
-                                                    <span *ngIf="j==1">额外保险:</span>
-                                                    <div><a>{{insExtra.insurance_name}}</a>
-                                                    </div>
-                                                </ng-container>
-                                            </ng-container>
+                                        <tbody>
+                                            <tr *ngFor="let dataChild of innerTable.data;let i=index">
+                                                <td style="width: 8%;">{{ dataChild.name }}</td>
+                                                <td style="width: 8%;">{{ dataChild.eng_name }}</td>
+                                                <td style="width: 8%;">
+                                                    <span *ngIf="dataChild.is_kid===0">成人</span>
+                                                    <span *ngIf="dataChild.is_kid===1">儿童</span>
+                                                    <span *ngIf="dataChild.is_kid===2">婴儿</span>
+                                                </td>
+                                                <td style="width: 8%;">
+                                                    <span *ngIf="dataChild.gender===1">男</span>
+                                                    <span *ngIf="dataChild.gender===2">女</span>
+                                                </td>
+                                                <td style="width: 9%;">{{dataChild.birthday}}</td>
+                                                <td style="width: 10%;">{{dataChild.phone}}</td>
+                                                <td style="width: 7%;">
+                                                    <p *ngIf="data.shared_status===0">不拼房</p>
+                                                    <p *ngIf="data.shared_status===1">同性拼房</p>
+                                                </td>
+                                                <td style="width: 15%;">{{ dataChild.assembling_place }}</td>
+                                                <td style="width: 15%;">{{ dataChild.assembling_time==='00:00'?'待定':dataChild.assembling_time }}</td>
 
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                                <td style="width: 7%;">
+                                                    <p *ngIf="dataChild.sms_status===0">
+                                                        <nz-badge nzColor="yellow"></nz-badge>未发
+                                                    </p>
+                                                    <p *ngIf="dataChild.sms_status===1">
+                                                        <nz-badge nzColor="green"></nz-badge>已发
+                                                    </p>
+                                                    <p *ngIf="dataChild.sms_status===2">
+                                                        <nz-badge nzColor="red"></nz-badge>发送失败
+                                                    </p>
+                                                </td>
+                                                <td style="width: 5%;">
+                                                    <div *ngIf="dataChild.refund_status===1" style="color: red;">退款</div>
+                                                    <div *ngIf="dataChild.refund_status===0">正常</div>
+                                                </td>
+                                                <td style="width: 9%;" [attr.rowspan]="data?.member?.data?.length" *ngIf="i==0">
+                                                    <div fxLayout="column" fxLayoutGap="5px">
+                                                        <div>
+                                                            <ng-container *ngFor="let ins of data.insurance.data;let i =index">
+                                                                <ng-container *ngIf="ins?.item_type==1&&ins?.status==2">
+                                                                    <span *ngIf="i==0">基础保险:</span>
+                                                                    <div><a>{{ins.insurance_name}}</a></div>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                        </div>
+                                                        <div>
+                                                            <ng-container *ngFor="let insExtra of data.insurance.data;let j =index">
+                                                                <ng-container *ngIf="insExtra?.item_type==2&&insExtra?.status==2">
+                                                                    <span *ngIf="j==1">额外保险:</span>
+                                                                    <div><a>{{insExtra.insurance_name}}</a>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </ng-container>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </nz-table>
+                                </tr>
+                            </ng-template>
                         </tbody>
-                    </nz-table>
-                    </tr>
-                    </ng-template>
-                    </tbody>
                     </nz-table>
                 </div>
 
