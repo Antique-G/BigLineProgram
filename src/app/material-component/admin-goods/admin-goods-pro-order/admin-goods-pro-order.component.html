@@ -130,7 +130,9 @@
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_id">下单人</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="bind_id" placeholder="请输入下单人" />
+                                    <nz-select nzPlaceHolder="请选择下单人" formControlName="bind_id" nzAllowClear nzShowSearch>
+                                        <nz-option *ngFor="let data of adminList" [nzLabel]="data.real_name" [nzValue]="data.admin_id"> </nz-option>
+                                    </nz-select>
                                 </nz-form-control>
                             </div>
                         </nz-form-item>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AdminGoodsService } from 'services/admin/admin-goods.service';
+import { AdminOrderGroupTravelService } from 'services/admin/admin-order-group-travel.service';
 import { AdminProductManagementService } from 'services/admin/admin-product-management.service';
 import { AdminGoodsProOrderMoneyComponent } from './admin-goods-pro-order-money/admin-goods-pro-order-money.component';
 
@@ -48,9 +49,11 @@ export class AdminGoodsProOrderComponent implements OnInit {
 
     setQuery: any;
     totalMoney: any;
+    adminList: any[] = [];
 
     constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
-        public adminGoodsService: AdminGoodsService, public router: Router, public modal: NzModalService,) {
+        public adminGoodsService: AdminGoodsService, public router: Router, public modal: NzModalService,
+        public adminOrderGroupTravelService: AdminOrderGroupTravelService,) {
         this.searchForm = this.fb.group({
             order_status: [''],
             order_id: [''],
@@ -72,43 +75,69 @@ export class AdminGoodsProOrderComponent implements OnInit {
         this.adminProductManagementService.storeList('').subscribe(res => {
             console.log("24234", res);
             this.storeList = res;
-            this.adminGoodsService.getCateListTree().subscribe(res => {
-                console.log("11111", res);
-                this.cateList = res;
+            this.adminOrderGroupTravelService.getAdminOptData().subscribe(res => {
+                console.log("333333", res);
+                this.adminList = res.data;
+                this.adminGoodsService.getCateListTree().subscribe(res => {
+                    console.log("11111", res);
+                    this.cateList = res;
+                    if (JSON.parse(localStorage.getItem("adminGoodsOrderListSearch")!) == null) {
+                        // 第一次进来页面
+                        // // 从缓存拿到登陆的账号是否为员工accountIsStaff，若是，则默认展示该员工accountAdminId的下单内容
+                        let accountIsStaff = Number(localStorage.getItem("accountIsStaff"));
+                        let accountAdminId = Number(localStorage.getItem("adminId"));
+                        if (accountIsStaff == 1) {
+                            this.bind_id = accountAdminId;
+                            this.searchForm.patchValue({
+                                bind_id: accountAdminId,
+                            })
+                            console.log("22222222", this.bind_id);
+                        }
+                        else {
+                            this.bind_id = '';
+                            this.searchForm.patchValue({
+                                bind_id: '',
+                            })
+                        }
+                        this.getOrderList();
+                    }
+                    else {
+                        let getSeatch = JSON.parse(localStorage.getItem("adminGoodsOrderListSearch")!);
+                        this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
+                        this.order_id = getSeatch?.order_id ? getSeatch?.order_id : '';
+                        this.express_status = getSeatch?.express_status ? getSeatch?.express_status : '';
+                        this.goods_name = getSeatch?.goods_name ? getSeatch?.goods_name : '';
+                        this.cate_id = getSeatch?.cate_id ? getSeatch?.cate_id : '';
+                        this.is_postage = getSeatch?.is_postage ? getSeatch?.is_postage : '';
+                        this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
+                        this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
+                        this.send_time_start = getSeatch?.send_time_start ? getSeatch?.send_time_start : null;
+                        this.send_time_end = getSeatch?.send_time_end ? getSeatch?.send_time_end : null;
+                        this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
+                        this.consignee = getSeatch?.consignee ? getSeatch?.consignee : '';
+                        this.phone = getSeatch?.phone ? getSeatch?.phone : '';
+                        this.bind_id = getSeatch?.bind_id ? getSeatch?.bind_id : '';
 
-                let getSeatch = JSON.parse(localStorage.getItem("adminGoodsOrderListSearch")!);
-                this.order_status = getSeatch?.order_status ? getSeatch?.order_status : '';
-                this.order_id = getSeatch?.order_id ? getSeatch?.order_id : '';
-                this.express_status = getSeatch?.express_status ? getSeatch?.express_status : '';
-                this.goods_name = getSeatch?.goods_name ? getSeatch?.goods_name : '';
-                this.cate_id = getSeatch?.cate_id ? getSeatch?.cate_id : '';
-                this.is_postage = getSeatch?.is_postage ? getSeatch?.is_postage : '';
-                this.date_start = getSeatch?.date_start ? getSeatch?.date_start : null;
-                this.date_end = getSeatch?.date_end ? getSeatch?.date_end : null;
-                this.send_time_start = getSeatch?.send_time_start ? getSeatch?.send_time_start : null;
-                this.send_time_end = getSeatch?.send_time_end ? getSeatch?.send_time_end : null;
-                this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
-                this.consignee = getSeatch?.consignee ? getSeatch?.consignee : '';
-                this.phone = getSeatch?.phone ? getSeatch?.phone : '';
-                this.bind_id = getSeatch?.bind_id ? getSeatch?.bind_id : '';
 
-
-                this.searchForm.patchValue({
-                    order_status: this.order_status,
-                    order_id: this.order_id,
-                    goods_name: this.goods_name,
-                    type: this.cate_id ? this.cateAnalyze(this.cate_id) : '',
-                    is_postage: this.is_postage,
-                    orderTime: this.date_start == null ? [] : [this.date_start, this.date_end],
-                    deliveryTime: this.send_time_start == null ? [] : [this.send_time_start, this.send_time_end],
-                    express_status: this.express_status,
-                    consignee: this.consignee,
-                    phone: this.phone,
-                    store_id: this.store_id,
-                    bind_id: this.bind_id,
+                        this.searchForm.patchValue({
+                            order_status: this.order_status,
+                            order_id: this.order_id,
+                            goods_name: this.goods_name,
+                            type: this.cate_id ? this.cateAnalyze(this.cate_id) : '',
+                            is_postage: this.is_postage,
+                            orderTime: this.date_start == null ? [] : [this.date_start, this.date_end],
+                            deliveryTime: this.send_time_start == null ? [] : [this.send_time_start, this.send_time_end],
+                            express_status: this.express_status,
+                            consignee: this.consignee,
+                            phone: this.phone,
+                            store_id: this.store_id,
+                            bind_id: this.bind_id,
+                        })
+                        this.getOrderList();
+                    }
                 })
-                this.getOrderList();
             })
+
         })
     }
 
