@@ -139,7 +139,7 @@
                                         <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
                                         <nz-option [nzLabel]="'预售码'" [nzValue]="10"></nz-option>
                                         <nz-option [nzLabel]="'POS机'" [nzValue]="11"></nz-option>
-                                        <nz-option [nzLabel]="'同城艺龙'" [nzValue]="12"></nz-option>
+                                        <nz-option [nzLabel]="'同程艺龙'" [nzValue]="12"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -180,7 +180,7 @@
                             <div>线上：通过小程序或者扫码进行付款 </div>
                             <div>手动：后台手动收款</div>
                             <div>POS：通过POS机收款</div>
-                            <div>OTA：携程、飞猪、同城艺龙</div>
+                            <div>OTA：携程、飞猪、同程艺龙</div>
                         </div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
