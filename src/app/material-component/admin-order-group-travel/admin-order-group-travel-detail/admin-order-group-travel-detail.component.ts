@@ -597,7 +597,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    if (res?.data?.result instanceof Array) {
+                    if (res?.data?.result==true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,

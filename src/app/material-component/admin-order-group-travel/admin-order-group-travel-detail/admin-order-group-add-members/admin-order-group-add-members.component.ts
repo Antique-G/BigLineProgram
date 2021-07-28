@@ -92,7 +92,7 @@ export class AdminOrderGroupAddMembersComponent implements OnInit {
 
 
 
-    constructor(public fb: FormBuilder, private message: NzMessageService,public dialog: MatDialog,
+    constructor(public fb: FormBuilder, private message: NzMessageService, public dialog: MatDialog,
         private modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService) {
         this.informationForm = this.fb.group({
             humanList: this.fb.array([]),
@@ -117,14 +117,14 @@ export class AdminOrderGroupAddMembersComponent implements OnInit {
     ngOnInit(): void {
         console.log("记过", this.data);
         this.detailModel = this.data;
-        this.old_total_member = this.detailModel?.total_member[0];
-        this.old_total_audlt = this.detailModel?.total_member[1];
-        this.old_total_kid = this.detailModel?.total_member[2];
-        this.old_total_baby = this.detailModel?.total_member[3];
-        this.old_total_member_1 = this.detailModel?.total_member[0];
-        this.old_total_audlt_1 = this.detailModel?.total_member[1];
-        this.old_total_kid_1 = this.detailModel?.total_member[2];
-        this.old_total_baby_1 = this.detailModel?.total_member[3];
+        this.old_total_member = this.detailModel?.num_total;
+        this.old_total_audlt = this.detailModel?.num_adult;
+        this.old_total_kid = this.detailModel?.num_kid;
+        this.old_total_baby = this.detailModel?.baby_num;
+        this.old_total_member_1 = this.detailModel?.num_total;
+        this.old_total_audlt_1 = this.detailModel?.num_adult;
+        this.old_total_kid_1 = this.detailModel?.num_kid;
+        this.old_total_baby_1 = this.detailModel?.baby_num;
         this.audltPrice = this.detailModel.price_adult;
         this.childPrice = this.detailModel.price_kid;
         this.babyPrice = this.detailModel.price_baby;
@@ -294,15 +294,16 @@ export class AdminOrderGroupAddMembersComponent implements OnInit {
         this.priceAll();
         this.old_total_audlt_1 = Number(allAudlt)
         this.old_total_kid_1 = Number(allKid);
-        // 婴儿占位
-        if (this.detailModel?.product?.data?.baby_occupy == 1) {
-            this.old_total_baby_1 = Number(this.detailModel?.total_member[3]) + Number(this.informationForm.value.baby_num);
+        this.old_total_baby_1 = Number(this.detailModel?.baby_num) + Number(this.informationForm.value.baby_num);
+        // 婴儿不占位
+        if (this.detailModel?.product?.data?.baby_occupy == 0) {
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1);
         }
         else {
-            this.old_total_baby_1 = 0;
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
         }
 
-        this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
+       
     }
 
     onEnter1(data: any) {
@@ -316,15 +317,14 @@ export class AdminOrderGroupAddMembersComponent implements OnInit {
         this.priceAll();
         this.old_total_audlt_1 = Number(allAudlt)
         this.old_total_kid_1 = Number(allKid);
-        // 婴儿占位
-        if (this.detailModel?.product?.data?.baby_occupy == 1) {
-            this.old_total_baby_1 = Number(this.detailModel?.total_member[3]) + Number(this.informationForm.value.baby_num);
+        this.old_total_baby_1 = Number(this.detailModel?.baby_num) + Number(this.informationForm.value.baby_num);
+        // 婴儿不占位
+        if (this.detailModel?.product?.data?.baby_occupy == 0) {
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1);
         }
         else {
-            this.old_total_baby_1 = 0;
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
         }
-
-        this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
     }
 
 
@@ -335,17 +335,16 @@ export class AdminOrderGroupAddMembersComponent implements OnInit {
         this.priceAll();
         let allAudlt = Number(this.informationForm.value.num_adult) + Number(this.old_total_audlt);
         let allKid = Number(this.informationForm.value.num_kid) + Number(this.old_total_kid);
-        this.old_total_audlt_1 = Number(allAudlt)
+        this.old_total_audlt_1 = Number(allAudlt);
         this.old_total_kid_1 = Number(allKid);
-        // 婴儿占位
-        if (this.detailModel?.product?.data?.baby_occupy == 1) {
-            this.old_total_baby_1 = Number(this.detailModel?.total_member[3]) + Number(this.informationForm.value.baby_num);
+        this.old_total_baby_1 = Number(this.detailModel?.baby_num) + Number(this.informationForm.value.baby_num);
+        // 婴儿不占位
+        if (this.detailModel?.product?.data?.baby_occupy == 0) {
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1);
         }
         else {
-            this.old_total_baby_1 = 0;
+            this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
         }
-
-        this.old_total_member_1 = Number(this.old_total_audlt_1) + Number(this.old_total_kid_1) + Number(this.old_total_baby_1);
     }
 
 

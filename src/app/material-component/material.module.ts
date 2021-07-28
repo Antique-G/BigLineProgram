@@ -198,6 +198,7 @@ import { AdminGenerateContractComponent } from './admin-order-group-travel/admin
 import { AdminOrderRefundSaleChangeTypeComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-change-type/admin-order-refund-sale-change-type.component';
 import { AdminOrderGroupAddMembersComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-add-members/admin-order-group-add-members.component';
 import { AOGSetSalesComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
+import { AdminOrderGroupChooseExportExcelComponent } from './admin-order-group-travel/admin-order-group-choose-export-excel/admin-order-group-choose-export-excel.component';
 
 
 
@@ -423,6 +424,7 @@ import { AOGSetSalesComponent } from './admin-order-group-travel/admin-order-gro
     AdminOrderRefundSaleChangeTypeComponent,
     AdminOrderGroupAddMembersComponent,
     AOGSetSalesComponent,
+    AdminOrderGroupChooseExportExcelComponent,
 
   ]
 })

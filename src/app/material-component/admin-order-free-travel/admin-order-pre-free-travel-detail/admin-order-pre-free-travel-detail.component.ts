@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AOGSetSalesComponent } from 'app/material-component/admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -12,7 +13,6 @@ import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-o
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
-import { AOGSetSalesComponent } from 'app/material-component/admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
 
 
 @Component({
@@ -378,7 +378,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    if (res?.data?.result instanceof Array) {
+                    if (res?.data?.result==true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
