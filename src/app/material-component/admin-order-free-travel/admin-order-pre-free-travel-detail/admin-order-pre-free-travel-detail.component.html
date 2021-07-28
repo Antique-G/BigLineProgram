@@ -114,7 +114,7 @@
                                                     <div nz-row>
                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bind_account_name">下单/推荐人</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="bind_account_name" nzBorderless readonly [ngModel]="detailModel?.bind_account_name" />
+                                                            <input nz-input formControlName="bind_account_name" nzBorderless readonly [ngModel]="detailModel?.bind_account_name+',工号'+detailModel?.job_num" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
