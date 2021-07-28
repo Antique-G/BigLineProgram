@@ -14,6 +14,7 @@ import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminMemberComponent } from './admin-member/admin-member.component';
 import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderGroupAddMembersComponent } from './admin-order-group-add-members/admin-order-group-add-members.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
 
@@ -165,14 +166,14 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     }
                     // 为其他证件
                     else {
-                        if (element.birthday == null||element.birthday =='') {
+                        if (element.birthday == null || element.birthday == '') {
                             element.birthday = null;
                         }
                     }
                 }
 
 
-               
+
                 element['edit'] = false;
                 if (element?.assembling_time != null) {
                     let i = '2021-01-01' + ' ' + element?.assembling_time;
@@ -609,6 +610,30 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         });
 
 
+    }
+
+
+    // 添加出行人
+    addMembers() {
+        const editmodal = this.modal.create({
+            nzTitle: '添加出行人',
+            nzContent: AdminOrderGroupAddMembersComponent,
+            nzWidth: 1100,
+            nzComponentParams: {
+                data: this.detailModel
+            },
+            nzFooter: null
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
+        })
+ 
     }
 
 }

@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
-import { ProductQuteDateModel, SyncOrderModel } from '../../interfaces/adminProduct/product-management-model';
+import { AddGroupOrderMemberModel, ProductQuteDateModel, SyncOrderModel } from '../../interfaces/adminProduct/product-management-model';
 import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, SendCreateContractModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
@@ -364,6 +364,14 @@ export class AdminOrderGroupTravelService {
             )
     }
 
+
+    // 添加出行人
+    addOrderMember(addGroupOrderMemberModel: AddGroupOrderMemberModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminOrderGroupAddMembers, addGroupOrderMemberModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
