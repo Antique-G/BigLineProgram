@@ -9,13 +9,16 @@ import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-orde
 import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
+import { AOGSetSalesComponent } from './a-o-g-set-sales/a-o-g-set-sales.component';
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminMemberComponent } from './admin-member/admin-member.component';
 import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderGroupAddMembersComponent } from './admin-order-group-add-members/admin-order-group-add-members.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
+
 
 
 
@@ -46,6 +49,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     editInfoModel: EditInfoModel;
     idChangeBir = false;
     idChangeBirDate: any;
+
+
 
     // 保险合计
     insuranceMoney: any = 0;
@@ -78,6 +83,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             store_name: [''],
             end_date: [''],
             group_code: [''],
+            bind_account_name: [''],
         });
         this.editMemberModel = {
             id: '',
@@ -165,14 +171,14 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
                     }
                     // 为其他证件
                     else {
-                        if (element.birthday == null||element.birthday =='') {
+                        if (element.birthday == null || element.birthday == '') {
                             element.birthday = null;
                         }
                     }
                 }
 
 
-               
+
                 element['edit'] = false;
                 if (element?.assembling_time != null) {
                     let i = '2021-01-01' + ' ' + element?.assembling_time;
@@ -591,7 +597,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    if (res?.data?.result instanceof Array) {
+                    if (res?.data?.result==true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -609,6 +615,65 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         });
 
 
+    }
+
+
+    // 添加出行人
+    addMembers() {
+        const editmodal = this.modal.create({
+            nzTitle: '添加出行人',
+            nzContent: AdminOrderGroupAddMembersComponent,
+            nzWidth: 1100,
+            nzMaskClosable: false,
+            nzComponentParams: {
+                data: this.detailModel
+            },
+            nzFooter: null
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
+        })
+
+    }
+
+    // 分配销售
+    distributionSales() {
+        const editmodal = this.modal.create({
+            nzTitle: '分配下单/推荐人（大航）',
+            nzWidth: 600,
+            nzContent: AOGSetSalesComponent,
+            nzComponentParams: {
+                data: {
+                    order_id: this.detailModel.id,
+                    bind_id:this.detailModel.bind_id,
+                    bind_account_name: this.detailModel.bind_account_name,
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
+        })
     }
 
 }

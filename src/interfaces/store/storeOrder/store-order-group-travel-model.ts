@@ -221,6 +221,9 @@ export interface DetailsModel {
     insurance?: any;
     contract_status?: any;
     store_name?: any;
+    bind_account_name?: any;
+    bind_id?: any;
+    job_num?: any;
 }
 
 export interface insModel {

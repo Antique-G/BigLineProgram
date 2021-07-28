@@ -8,8 +8,9 @@ import { AdminOrderFreeTravelService } from '../../../services/admin/admin-order
 import { AdminOrderGroupTravelService } from '../../../services/admin/admin-order-group-travel.service';
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
+import { AdminOrderGroupChooseExportExcelComponent } from '../admin-order-group-travel/admin-order-group-choose-export-excel/admin-order-group-choose-export-excel.component';
 import { AdminOrderGroupMoneyComponent } from '../admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
-import { AdminProductOprateLogComponent } from '../admin-product/admin-product-management/admin-product-oprate-log/admin-product-oprate-log.component';
+import { AdminOrderGroupOprateLogComponent } from '../admin-order-group-travel/admin-order-group-oprate-log/admin-order-group-oprate-log.component';
 
 
 @Component({
@@ -40,8 +41,9 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     product_code: any;
     storeList: any[] = [];
     totalModel: any;
-    push_status:any;
+    push_status: any;
 
+    show_type: any;  //导出的角色
 
     setQuery: any;
     api = environment.baseUrl;
@@ -162,7 +164,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     }
 
     getFreeTravel() {
-        this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id,this.push_status).subscribe(res => {
+        this.adminOrderFreeTravelService.freeTravelList(this.page, this.per_page, this.status, this.product_id, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id, this.push_status).subscribe(res => {
             console.log("结果是", res)
             this.dataSource = res?.data;
             this.total = res.meta?.pagination?.total;
@@ -194,7 +196,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            admin_id: this.admin_id,push_status:this.push_status
+            admin_id: this.admin_id, push_status: this.push_status
         }
         localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
         this.getFreeTravel();
@@ -249,7 +251,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
         this.departure_city = this.isDeparture;
         this.destination_city = this.isDestination;
         this.admin_id = this.searchForm.value.admin_id;
-        this.push_status= this.searchForm.value.push_status;
+        this.push_status = this.searchForm.value.push_status;
         this.loading = true;
         // 筛选条件存进cookie
         this.setQuery = {
@@ -259,7 +261,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            admin_id: this.admin_id,push_status:this.push_status
+            admin_id: this.admin_id, push_status: this.push_status
         }
         localStorage.setItem('adminOrderFreeSearch', JSON.stringify(this.setQuery));
     }
@@ -315,7 +317,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
             nzComponentParams: {
                 data: data
             },
-            nzFooter:null
+            nzFooter: null
         })
         addmodal.afterClose.subscribe(res => {
             this.getFreeTravel();
@@ -348,24 +350,52 @@ export class AdminOrderFreeTravelComponent implements OnInit {
 
     // 导出
     export() {
-        this.setValue();
-        this.date_start = this.date_start == null ? '' : this.date_start;
-        this.date_end = this.date_end == null ? '' : this.date_end;
-        this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
-        this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
-        this.departure_city = this.isDeparture ? this.isDeparture : '';
-        this.destination_city = this.isDestination ? this.isDestination : '';
-        this.admin_id = this.admin_id ? this.admin_id : '';
+        const editmodal = this.modal.create({
+            nzTitle: '选择角色',
+            nzWidth: 600,
+            nzContent: AdminOrderGroupChooseExportExcelComponent,
+            nzFooter: [
+                {
+                    label: '确定',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        let a = componentInstance?.update();
+                        editmodal.close(a)
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            console.log("关闭后res", res);
+            if (res) {
+                this.show_type = res;
+                this.setValue();
+                this.date_start = this.date_start == null ? '' : this.date_start;
+                this.date_end = this.date_end == null ? '' : this.date_end;
+                this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
+                this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
+                this.departure_city = this.isDeparture ? this.isDeparture : '';
+                this.destination_city = this.isDestination ? this.isDestination : '';
+                this.admin_id = this.admin_id ? this.admin_id : '';
 
 
-        this.isExport = this.api + '/admin/order/export/1?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
-            '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
-            '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
-            '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
-            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
-            '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city + '&admin_id=' + this.admin_id + '&push_status=' + this.push_status;
-        console.log('object :>> ', this.isExport);
-        this.loading = false;
+                this.isExport = this.api + '/admin/order/export/1?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+                    '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
+                    '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
+                    '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
+                    '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
+                    '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city +
+                    '&admin_id=' + this.admin_id + '&push_status=' + this.push_status+'&show_type=' + this.show_type;
+                console.log('object :>> ', this.isExport);
+                window.open(this.isExport);
+
+            }
+        })
+
+
+
+
+
 
     }
 
@@ -377,7 +407,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     getTimeLine(data: any) {
         const addmodal = this.modal.create({
             nzTitle: '操作记录',
-            nzContent: AdminProductOprateLogComponent,
+            nzContent: AdminOrderGroupOprateLogComponent,
             nzWidth: 1000,
             nzComponentParams: {
                 data: data
