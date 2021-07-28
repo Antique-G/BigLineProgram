@@ -18,6 +18,7 @@
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="distributionSales()">绑定下单人</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="cancelOrder()" *ngIf="detailModel?.order_status==1">取消订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="syncOrder()" *ngIf="detailModel?.independent_product?.data?.third_product_id!=0">订单同步到大航系统</button>
@@ -105,6 +106,15 @@
                                                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="code">预约码</nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="code" nzBorderless readonly [ngModel]="" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bind_account_name">下单/推荐人</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="bind_account_name" nzBorderless readonly [ngModel]="detailModel?.bind_account_name" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>

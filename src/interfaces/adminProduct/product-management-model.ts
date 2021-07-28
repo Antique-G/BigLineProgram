@@ -271,3 +271,23 @@ export interface StoreListModel {
 export interface SyncOrderModel {
     order_id: any;
 }
+
+
+// 添加出行人
+export interface AddGroupOrderMemberModel {
+    id: any;
+    add_adult: any;
+    add_kid: any;
+    add_baby: any;
+    num_room: any;
+    shared_status: any;
+    members: any;
+}
+
+
+// 添加销售
+export interface AddGroupOrderBindIdModel {
+    order_id: any;
+    key_word: any;
+
+}
