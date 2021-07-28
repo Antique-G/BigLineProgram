@@ -10,7 +10,7 @@ import { AdminProductManagementService } from '../../../services/admin/admin-pro
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminOrderGroupChooseExportExcelComponent } from '../admin-order-group-travel/admin-order-group-choose-export-excel/admin-order-group-choose-export-excel.component';
 import { AdminOrderGroupMoneyComponent } from '../admin-order-group-travel/admin-order-group-money/admin-order-group-money.component';
-import { AdminProductOprateLogComponent } from '../admin-product/admin-product-management/admin-product-oprate-log/admin-product-oprate-log.component';
+import { AdminOrderGroupOprateLogComponent } from '../admin-order-group-travel/admin-order-group-oprate-log/admin-order-group-oprate-log.component';
 
 
 @Component({
@@ -407,7 +407,7 @@ export class AdminOrderFreeTravelComponent implements OnInit {
     getTimeLine(data: any) {
         const addmodal = this.modal.create({
             nzTitle: '操作记录',
-            nzContent: AdminProductOprateLogComponent,
+            nzContent: AdminOrderGroupOprateLogComponent,
             nzWidth: 1000,
             nzComponentParams: {
                 data: data
