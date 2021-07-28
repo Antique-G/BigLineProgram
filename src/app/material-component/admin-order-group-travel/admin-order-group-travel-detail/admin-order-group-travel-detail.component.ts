@@ -624,6 +624,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzTitle: '添加出行人',
             nzContent: AdminOrderGroupAddMembersComponent,
             nzWidth: 1100,
+            nzMaskClosable: false,
             nzComponentParams: {
                 data: this.detailModel
             },
