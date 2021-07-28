@@ -201,6 +201,7 @@ export interface DetailsModel {
     cash_requirement?: any;
     bind_account_name?: any;
     bind_id?: any;
+    job_num?: any;
 
 }
 
