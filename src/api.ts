@@ -221,6 +221,8 @@ export const AdminUrls = {
 
 
     PostAdminOrderGroupAddMembers: api + '/admin/order/add_member',   //添加出行人
+    PostAdminOrderBindid: api + '/admin/order_bind_id',   //添加销售
+
 
     
 

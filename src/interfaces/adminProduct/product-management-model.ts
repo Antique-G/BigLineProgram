@@ -283,3 +283,11 @@ export interface AddGroupOrderMemberModel {
     shared_status: any;
     members: any;
 }
+
+
+// 添加销售
+export interface AddGroupOrderBindIdModel {
+    order_id: any;
+    key_word: any;
+
+}

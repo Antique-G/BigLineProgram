@@ -197,6 +197,7 @@ import { AdminOrderGroupOprateLogComponent } from './admin-order-group-travel/ad
 import { AdminGenerateContractComponent } from './admin-order-group-travel/admin-generate-contract/admin-generate-contract.component';
 import { AdminOrderRefundSaleChangeTypeComponent } from './admin-order-refund-sale-approval/admin-order-refund-sale-approval-detail/admin-order-refund-sale-change-type/admin-order-refund-sale-change-type.component';
 import { AdminOrderGroupAddMembersComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-add-members/admin-order-group-add-members.component';
+import { AOGSetSalesComponent } from './admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
 
 
 
@@ -421,6 +422,7 @@ import { AdminOrderGroupAddMembersComponent } from './admin-order-group-travel/a
     AdminGenerateContractComponent,
     AdminOrderRefundSaleChangeTypeComponent,
     AdminOrderGroupAddMembersComponent,
+    AOGSetSalesComponent,
 
   ]
 })

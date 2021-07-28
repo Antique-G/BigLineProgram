@@ -199,6 +199,9 @@ export interface DetailsModel {
     detailModel?: any;
     store_name?: any;
     cash_requirement?: any;
+    bind_account_name?: any;
+    bind_id?: any;
+
 }
 
 

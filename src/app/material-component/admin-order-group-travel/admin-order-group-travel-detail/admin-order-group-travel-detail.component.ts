@@ -9,6 +9,7 @@ import { DetailsModel } from '../../../../interfaces/store/storeOrder/store-orde
 import { EditInfoModel, EditMemberModel } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
+import { AOGSetSalesComponent } from './a-o-g-set-sales/a-o-g-set-sales.component';
 import { AOGTDChangePriceComponent } from './a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from './a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
@@ -17,6 +18,7 @@ import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-canc
 import { AdminOrderGroupAddMembersComponent } from './admin-order-group-add-members/admin-order-group-add-members.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
+
 
 
 
@@ -47,6 +49,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     editInfoModel: EditInfoModel;
     idChangeBir = false;
     idChangeBirDate: any;
+
+
 
     // 保险合计
     insuranceMoney: any = 0;
@@ -79,6 +83,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             store_name: [''],
             end_date: [''],
             group_code: [''],
+            bind_account_name: [''],
         });
         this.editMemberModel = {
             id: '',
@@ -633,7 +638,41 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
             });
         })
- 
+
+    }
+
+    // 分配销售
+    distributionSales() {
+        const editmodal = this.modal.create({
+            nzTitle: '分配下单/推荐人（大航）',
+            nzWidth: 600,
+            nzContent: AOGSetSalesComponent,
+            nzComponentParams: {
+                data: {
+                    order_id: this.detailModel.id,
+                    bind_id:this.detailModel.bind_id,
+                    bind_account_name: this.detailModel.bind_account_name,
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getgroupTravelDetail();
+
+            });
+        })
     }
 
 }

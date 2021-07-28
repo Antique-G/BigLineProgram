@@ -12,6 +12,7 @@ import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-o
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AOGSetSalesComponent } from 'app/material-component/admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
 
 
 @Component({
@@ -58,6 +59,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
             code: [''],
             is_presell: [''],
             store_name: [''],
+            bind_account_name: [''],
         });
         this.editInfoModel = {
             id: '',
@@ -394,6 +396,42 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
         });
 
 
+    }
+
+
+
+    // 分配销售
+    distributionSales() {
+        const editmodal = this.modal.create({
+            nzTitle: '分配下单/推荐人（大航）',
+            nzWidth: 600,
+            nzContent: AOGSetSalesComponent,
+            nzComponentParams: {
+                data: {
+                    order_id: this.detailModel.id,
+                    bind_id: this.detailModel.bind_id,
+                    bind_account_name: this.detailModel.bind_account_name,
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
     }
 }
 
