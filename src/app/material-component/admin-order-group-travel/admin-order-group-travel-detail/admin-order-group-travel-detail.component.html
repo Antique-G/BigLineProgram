@@ -146,7 +146,7 @@
                                             <h4 style="padding-left: 10px;padding-top: 10px;">出行人信息</h4>
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                            <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addMembers()" *ngIf="detailModel?.order_status==1||detailModel?.order_status==2">添加出行人</button> -->
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="addMembers()" *ngIf="detailModel?.order_status==1||detailModel?.order_status==2">添加出行人</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDetail()" *ngIf="!isChange">修改联系人信息</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="commitDetail()" *ngIf="isChange">提交修改</button>
                                             <button mat-raised-button color="basic" style="letter-spacing: 2px;" (click)="cancelDetail()" *ngIf="isChange">取消修改</button>
