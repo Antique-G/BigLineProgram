@@ -309,7 +309,8 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+            // this.message.create('error', `总金额不能小于0`)
         }
     }
 
@@ -318,7 +319,9 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+
         }
     }
 
@@ -326,7 +329,9 @@ export class AOFTRefundByquoteComponent implements OnInit {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+
         }
     }
 
