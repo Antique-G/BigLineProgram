@@ -420,11 +420,11 @@
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="refundRooms" nzRequired>剩余房间数
                                                                     </nz-form-label>
                                                                     <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入房间数">
-                                                                        <input nz-input formControlName="refundRooms" nzBorderless readonly [ngModel]="detailModel?.handle_data?.num_room" />
+                                                                        <input nz-input formControlName="refundRooms" nzBorderless readonly [ngModel]="detailModel?.handle_data?.num_room?detailModel?.handle_data?.num_room:0" />
 
                                                                     </nz-form-control>
                                                                 </div>
-                                                                <p style="color: red;margin-left: 25%;" *ngIf="isRoomTrue">！剩余房间数不对，请重新输入剩余房间数</p>
+                                                                <!-- <p style="color: red;margin-left: 25%;" *ngIf="isRoomTrue">！剩余房间数不对，请重新输入剩余房间数</p> -->
                                                             </nz-form-item>
 
                                                         </div>
@@ -493,7 +493,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="12" [nzXs]="24" nzFor="price_diff">房差</nz-form-label>
                                                                     <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                                        <span>￥{{detailModel.order?.data?.price_diff}}*{{difRoom}}</span>
+                                                                        <span>￥{{detailModel.order?.data?.price_diff}}*{{detailModel?.handle_data?.num_room?detailModel?.handle_data?.num_room:0}}</span>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -642,11 +642,12 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-detailModel?.handle_data?.refund_amount).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                                     </h4>
-                                                                    <p style="margin-left: 70px;font-size: 12px;">
-                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                                    <p style="margin-left: 70px;font-size: 12px;color: red;">
+                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                                 </div>
                                                             </nz-form-item>
 
@@ -1016,11 +1017,12 @@
                                                 </nz-form-item>
                                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                     <div>
+                                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-detailModel?.handle_data?.refund_amount).toFixed(2)}}</p>
                                                         <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                             本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                         </h4>
                                                         <p style="margin-left: 70px;font-size: 12px;">
-                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                     </div>
                                                 </nz-form-item>
 

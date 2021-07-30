@@ -163,7 +163,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                 this.playMoney = (Number(this.detailModel.order?.data?.price_total) * 100 - Number(this.detailModel.order?.data?.amount_received) * 100) / 100
                 console.log('object :>> ', this.detailModel.price_detail.data,);
                 this.dataMember = this.detailModel?.member?.data;
-                this.lastPeople = this.dataMember.length;
+               
                 // 优惠附加收费
                 this.priceDetail = JSON.parse(JSON.stringify(this.detailModel.price_detail.data))
                 let priceArr = JSON.parse(JSON.stringify(this.detailModel.price_detail.data));
@@ -243,6 +243,7 @@ export class AdminOrderRefundEditComponent implements OnInit {
                     }
                 })
                 this.selectMemberData = newMember;
+                this.lastPeople = this.selectMemberData.length;
                 // 总成人数
                 let adAllArr: any[] = [];
                 let kidAllArr: any[] = [];
@@ -546,7 +547,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
@@ -556,7 +559,8 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+            // this.message.create('error', `总金额不能小于0`)
         }
     }
 
@@ -565,7 +569,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
@@ -714,7 +720,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+
         }
     }
 
@@ -723,7 +731,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+
         }
     }
 
@@ -731,7 +741,9 @@ export class AdminOrderRefundEditComponent implements OnInit {
         this.isPack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.isPack_refund_amount = 0;
+
         }
     }
 

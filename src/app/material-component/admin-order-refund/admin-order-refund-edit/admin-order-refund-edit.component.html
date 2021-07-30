@@ -532,6 +532,7 @@
                                                                         <input nz-input formControlName="price_total" nzBorderless [ngModel]="nowOrderMoney.toFixed(2)" readonly/>
                                                                     </nz-form-control>
                                                                 </div>
+                                                                <p style="color: red;font-size: 13px;font-weight: 500;margin-left: 82px;">！请注意是否需修改优惠金额</p>
                                                             </nz-form-item>
                                                             <nz-divider nzDashed></nz-divider>
 
@@ -634,8 +635,9 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-refund_amount).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{refund_amount}}</span></h4>
-                                                                    <p style="margin-left: 70px;font-size: 12px;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                                    <p style="margin-left: 70px;font-size: 12px;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                                 </div>
                                                             </nz-form-item>
 
@@ -908,6 +910,7 @@
                                                                         <input nz-input formControlName="price_total" nzBorderless [ngModel]="nowOrderMoneyPack.toFixed(2)" readonly/>
                                                                     </nz-form-control>
                                                                 </div>
+                                                                <p style="color: red;font-size: 13px;font-weight: 500;margin-left: 82px;">！请注意是否需修改优惠金额</p>
                                                             </nz-form-item>
                                                             <nz-divider nzDashed></nz-divider>
                                                         </div>
@@ -1008,8 +1011,9 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-isPack_refund_amount).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{isPack_refund_amount}}</span></h4>
-                                                                    <p style="margin-left: 70px;font-size: 12px;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                                    <p style="margin-left: 70px;font-size: 12px;color: red;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                                 </div>
                                                             </nz-form-item>
 

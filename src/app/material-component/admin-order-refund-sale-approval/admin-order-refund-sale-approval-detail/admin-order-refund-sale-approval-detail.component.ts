@@ -488,6 +488,8 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         else {
             this.refundRoomNum = this.refundRoomNum;
             this.roomChange(data);
+            this.priceAll();
+
         }
 
     }
@@ -571,7 +573,9 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
@@ -582,7 +586,9 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
@@ -592,7 +598,9 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
@@ -737,7 +745,7 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
         }
     }
 
@@ -747,7 +755,7 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
         }
     }
 
@@ -756,7 +764,7 @@ export class AdminOrderRefundSaleApprovalDetailComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
         }
     }
 

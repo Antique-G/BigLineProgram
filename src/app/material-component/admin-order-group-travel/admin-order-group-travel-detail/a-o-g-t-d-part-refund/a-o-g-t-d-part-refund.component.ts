@@ -423,6 +423,7 @@ export class AOGTDPartRefundComponent implements OnInit {
         else {
             this.refundRoomNum = this.refundRoomNum;
             this.roomChange(data);
+            this.priceAll();
         }
 
     }
@@ -507,7 +508,8 @@ export class AOGTDPartRefundComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+            // this.message.create('error', `总金额不能小于0`);
         }
     }
 
@@ -517,7 +519,8 @@ export class AOGTDPartRefundComponent implements OnInit {
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.refund_amount = 0;
         }
     }
 
@@ -526,7 +529,9 @@ export class AOGTDPartRefundComponent implements OnInit {
         this.refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`)
+            this.refund_amount = 0;
+
         }
     }
 
