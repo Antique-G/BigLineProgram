@@ -642,7 +642,7 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
-                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-detailModel?.handle_data?.refund_amount).toFixed(2)}}</p>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                                     </h4>
@@ -1017,7 +1017,7 @@
                                                 </nz-form-item>
                                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                     <div>
-                                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-detailModel?.handle_data?.refund_amount).toFixed(2)}}</p>
+                                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoneyPack-(isPackRefundBasic+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                                         <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                             本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                         </h4>
