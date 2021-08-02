@@ -644,8 +644,9 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add">额外退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_add" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add" />
-                                                                        <input nz-input formControlName="amount_add" *ngIf="!reCommit" (ngModelChange)="numTest($event)" [ngModel]="detailModel?.handle_data?.amount_add" />
+                                                                        <input nz-input formControlName="amount_add" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add?detailModel?.handle_data?.amount_add:0" />
+                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTest($event)" *ngIf="!reCommit" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                    
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -653,8 +654,8 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut">其他扣除费用</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_cut" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut" />
-                                                                        <input nz-input formControlName="amount_cut" *ngIf="!reCommit" (ngModelChange)="numTest1($event)" [ngModel]="detailModel?.handle_data?.amount_cut" />
+                                                                        <input nz-input formControlName="amount_cut" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut?detailModel?.handle_data?.amount_cut:0" />
+                                                                        <nz-input-number style="width: 100%;" (ngModelChange)="numTest1($event)" *ngIf="!reCommit" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -669,22 +670,26 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="reCommit">
                                                                 <div>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">
+                                                                        手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}
+                                                                    </p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                                     </h4>
                                                                     <p style="margin-left: 70px;font-size: 12px;">
-                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                                 </div>
                                                             </nz-form-item>
 
 
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="!reCommit">
                                                                 <div>
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{recommit_refund_amount}}</span>
                                                                     </h4>
                                                                     <p style="margin-left: 70px;font-size: 12px;">
-                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                                        （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                                                 </div>
                                                             </nz-form-item>
 
@@ -1056,9 +1061,8 @@
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add" nzRequired>额外退款金额
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="amount_add" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add" />
-                                                            <input nz-input formControlName="amount_add" (ngModelChange)="numTestPack($event)" *ngIf="!reCommit" [ngModel]="detailModel?.handle_data?.amount_add" />
-
+                                                            <input nz-input formControlName="amount_add" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add?detailModel?.handle_data?.amount_add:0" />
+                                                            <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack($event)" *ngIf="!reCommit" formControlName="amount_add" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -1067,8 +1071,8 @@
                                                         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut" nzRequired>其他扣除费用
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                            <input nz-input formControlName="amount_cut" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut" />
-                                                            <input nz-input formControlName="amount_cut" *ngIf="!reCommit" (ngModelChange)="numTestPack2($event)" [ngModel]="detailModel?.handle_data?.amount_cut" />
+                                                            <input nz-input formControlName="amount_cut" *ngIf="reCommit" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut?detailModel?.handle_data?.amount_cut:0" />
+                                                            <nz-input-number style="width: 100%;" (ngModelChange)="numTestPack2($event)" *ngIf="!reCommit" formControlName="amount_cut" [nzMin]="0" [nzStep]="1"></nz-input-number>
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
@@ -1083,21 +1087,29 @@
                                                 </nz-form-item>
                                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="reCommit">
                                                     <div>
+                                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">
+                                                            手续费：￥{{(price_total-nowOrderMoneyPack-(isPackRefundBasic+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}
+                                                        </p>
                                                         <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                             本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                         </h4>
                                                         <p style="margin-left: 70px;font-size: 12px;">
-                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额）</p>
+                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）
+                                                        </p>
                                                     </div>
                                                 </nz-form-item>
 
                                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24" *ngIf="!reCommit">
                                                     <div>
+                                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">
+                                                            手续费：￥{{(price_total-nowOrderMoneyPack-(isPackRefundBasic+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}
+                                                        </p>
                                                         <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                             本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{recommit_pack_refund_amount}}</span>
                                                         </h4>
                                                         <p style="margin-left: 70px;font-size: 12px;">
-                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额</p>
+                                                            （可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）
+                                                        </p>
                                                     </div>
                                                 </nz-form-item>
 

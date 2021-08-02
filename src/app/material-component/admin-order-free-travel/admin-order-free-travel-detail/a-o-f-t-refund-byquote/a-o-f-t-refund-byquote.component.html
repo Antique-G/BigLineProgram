@@ -1,5 +1,5 @@
 <div fxLayoutWrap="wrap">
-    <div fxLayout="column" fxLayoutAlign="start stretch" >
+    <div fxLayout="column" fxLayoutAlign="start stretch">
         <div>
             <form nz-form [formGroup]="resultForm" nz-row>
                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
@@ -14,7 +14,7 @@
                     <div nz-row>
                         <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="to_account" nzRequired>退款方式</nz-form-label>
                         <nz-form-control [nzSm]="15" [nzXs]="24" nzErrorTip="请选择">
-                            <nz-select  nzPlaceHolder="请选择退款方式" formControlName="to_account">
+                            <nz-select nzPlaceHolder="请选择退款方式" formControlName="to_account">
                                 <nz-option [nzLabel]="'原路返回'" [nzValue]="0"> </nz-option>
                                 <nz-option [nzLabel]="'退至用户账户余额'" [nzValue]="1"> </nz-option>
                             </nz-select>
@@ -53,7 +53,7 @@
                                 <span class="marginLeft-50 total-title">退款金额:<span class="marginLeft-5">￥{{detailModel?.refund_amount}}</span></span>
                                 <span class="marginLeft-50 total-title">实收金额:<span class="marginLeft-5">￥{{detailModel?.amount_received}}</span></span>
                                 <span class="marginLeft-50 total-title">待收款金额:<span class="marginLeft-5">￥{{pendingPay.toFixed(2)}}</span></span>
-                                <nz-divider nzDashed ></nz-divider>
+                                <nz-divider nzDashed></nz-divider>
                             </div>
 
                             <div nz-row>
@@ -74,7 +74,7 @@
                                         </nz-form-control>
                                     </div>
                                 </nz-form-item>
-                               
+
                                 <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                     <div nz-row>
                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="packAge">套餐</nz-form-label>
@@ -103,14 +103,15 @@
                                                     <ng-template #elseTemplate>
                                                         +
                                                     </ng-template>
-                                                        ￥<nz-input-number style="width: 100px;" formControlName="price" [nzMin]='0' [nzPrecision]="2" nzPrecisionMode="cut" (ngModelChange)="priceChange($event,i)"></nz-input-number>
-                                                        <span class="red" *ngIf="oldPriceArr[i] && priceDetail[i].price!=image.value.price">原优惠金额:￥{{priceDetail[i].price}}</span>
+                                                    ￥
+                                                    <nz-input-number style="width: 100px;" formControlName="price" [nzMin]='0' [nzPrecision]="2" nzPrecisionMode="cut" (ngModelChange)="priceChange($event,i)"></nz-input-number>
+                                                    <span class="red" *ngIf="oldPriceArr[i] && priceDetail[i].price!=image.value.price">原优惠金额:￥{{priceDetail[i].price}}</span>
                                                 </nz-form-control>
                                             </div>
                                         </nz-form-item>
                                     </ng-container>
                                 </ng-container>
-                                <nz-divider nzDashed ></nz-divider>
+                                <nz-divider nzDashed></nz-divider>
 
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div nz-row>
@@ -121,7 +122,7 @@
                                     </div>
                                     <p style="color: red;font-size: 12px;font-weight: 500;">！请注意是否需修改优惠金额</p>
                                 </nz-form-item>
-                                <nz-divider nzDashed ></nz-divider>
+                                <nz-divider nzDashed></nz-divider>
                             </div>
 
 
@@ -204,7 +205,7 @@
                                 </nz-form-item>
                                 <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                                     <div>
-                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-pendingPay-isPack_refund_amount).toFixed(2)}}</p>
+                                        <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoneyPack-(isPackRefundBasic+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                         <h4 style="margin-left: 78px;letter-spacing: 1px;">本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{isPack_refund_amount}}</span></h4>
                                         <p style="margin-left: 70px;font-size: 12px;">（可退款金额合计=基础退款金额+额外退款金额-其他扣除费用-待收款金额,可退款总金额小于0时取0）</p>
                                     </div>
