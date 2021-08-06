@@ -68,7 +68,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
             console.log('结果是22222222 :>> ', res);
             let newArr:any[]=[];
             res.data.forEach((element: any) => {
-                if ([1, 2, 4, 5,7,8,12].indexOf(element?.pay_type) != -1) {
+                if ([1, 2, 4, 5,8,9,11,12].indexOf(element?.pay_type) != -1) {
                     newArr.push(element)
                 }
             });
