@@ -128,7 +128,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
             selectPack: [''],
             store_name: [''],
             refundRooms: [0],
-            to_account:['']
+            to_account: ['']
         })
         this.reundCheckModel = {
             id: '',
@@ -577,7 +577,8 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.refund_amount = Math.round(this.refund_amount * 100) / 100;
 
         if (this.refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.refund_amount = 0;
         }
     }
 
@@ -587,7 +588,9 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.recommit_refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.recommit_refund_amount = Math.round(this.recommit_refund_amount * 100) / 100;
         if (this.recommit_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.recommit_refund_amount = 0;
+
         }
     }
 
@@ -596,7 +599,8 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.recommit_refund_amount = Number(this.bascie_money) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.recommit_refund_amount = Math.round(this.recommit_refund_amount * 100) / 100;
         if (this.recommit_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.recommit_refund_amount = 0;
         }
     }
 
@@ -676,7 +680,8 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.isPack_refund_amount = Math.round(this.isPack_refund_amount * 100) / 100;
 
         if (this.isPack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.isPack_refund_amount = 0;
         }
     }
 
@@ -685,7 +690,9 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.recommit_pack_refund_amount = Math.round(this.recommit_pack_refund_amount * 100) / 100;
         if (this.recommit_pack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.recommit_pack_refund_amount = 0;
+
         }
     }
 
@@ -693,7 +700,8 @@ export class AdminOrderRefundChangeComponent implements OnInit {
         this.recommit_pack_refund_amount = Number(this.isPackRefundBasic) + Number(this.addForm.value.amount_add) - Number(this.addForm.value.amount_cut) - Number(this.pendingPay);
         this.recommit_pack_refund_amount = Math.round(this.recommit_pack_refund_amount * 100) / 100;
         if (this.recommit_pack_refund_amount < 0) {
-            this.message.create('error', `总金额不能小于0`)
+            // this.message.create('error', `总金额不能小于0`);
+            this.recommit_pack_refund_amount = 0;
         }
     }
 
@@ -767,6 +775,10 @@ export class AdminOrderRefundChangeComponent implements OnInit {
     change() {
         if (this.reCommit) {
             this.reCommit = false;
+            this.addForm.patchValue({
+                amount_cut: this.detailModel?.handle_data?.amount_cut ? this.detailModel?.handle_data?.amount_cut : 0,
+                amount_add: this.detailModel?.handle_data?.amount_add ? this.detailModel?.handle_data?.amount_add : 0
+            })
         }
         else {
             return;
@@ -795,7 +807,7 @@ export class AdminOrderRefundChangeComponent implements OnInit {
                 this.adminRefundService.postRefundCheck(this.reundCheckModel).subscribe(res => {
                     console.log('res :>> ', res);
                     if (res === null) {
-                        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1} });
+                        this.router.navigate(['/admin/main/refund'], { queryParams: { tabIndex: 1 } });
                     }
                 })
         });
@@ -832,10 +844,10 @@ export class AdminOrderRefundChangeComponent implements OnInit {
             nzTitle: "<h4>提示</h4>",
             nzContent: "<h6>是否确定撤销退款</h6>",
             nzOnOk: () =>
-              this.adminRefundService.postRefundCancel(this.detailModel?.id).subscribe((res) => {
-                this.router.navigate(['/admin/main/refund']);
-              }),
-          });
+                this.adminRefundService.postRefundCancel(this.detailModel?.id).subscribe((res) => {
+                    this.router.navigate(['/admin/main/refund']);
+                }),
+        });
     }
 
 }
