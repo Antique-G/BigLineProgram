@@ -49,6 +49,8 @@
         <div style="font-size: 14px;font-weight: 800;" *ngIf="isWay == 100">原路返回</div>
         <div style="width: 100%;" *ngIf="isWay == 1||isWay == 100">
             <p style="color: red;">( 注：退款上限指原路退款时，某支付流水号最大可退金额为实收金额，当退款上限金额小于实收金额时，表示该流水号已产生过退款。)</p>
+            <p style="color: red;">( 注：当支付方式为POS机时，又选择原路退回，退款时间必填，否则没记录。)</p>
+
             <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource">
                 <thead>
                     <tr>
@@ -58,6 +60,7 @@
                         <th style="text-align: center;">支付方式</th>
                         <th style="text-align: center;">支付时间</th>
                         <th style="text-align: center;">退款单号</th>
+                        <th style="text-align: center;">退款时间</th>
                         <th style="text-align: center;">输入退款金额</th>
                     </tr>
                 </thead>
@@ -76,12 +79,17 @@
                             <span *ngIf="data.pay_type===7">余额支付</span>
                             <span *ngIf="data.pay_type===8">飞猪</span>
                             <span *ngIf="data.pay_type===9">携程</span>
+                            <span *ngIf="data.pay_type===11">POS机</span>
                             <span *ngIf="data.pay_type===12">同程艺龙</span>
-
                         </td>
                         <td>{{data?.pay_time|date:'yyyy-MM-dd HH:mm:dd'}}</td>
                         <td>
                             <input nz-input [disabled]="data?.pay_way==0" [(ngModel)]="data.refund_no" />
+                        </td>
+                        <td>
+                            <ng-container *ngIf="data.pay_type===11">
+                                <nz-date-picker nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="data.pay_at" ></nz-date-picker>
+                            </ng-container>
                         </td>
                         <td>
                             <nz-input-number class="input" (keyup)="numTest1($event)" [disabled]="data?.refund_limit==='0.00'" [(ngModel)]="data.addNum" [nzMin]="0" [nzMax]="data?.refund_limit" [nzStep]="1"></nz-input-number>
