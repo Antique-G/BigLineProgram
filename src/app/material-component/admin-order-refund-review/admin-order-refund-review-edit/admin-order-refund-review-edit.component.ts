@@ -202,7 +202,7 @@ export class AdminOrderRefundReviewEditComponent implements OnInit {
         const editmodal = this.modal.create({
             nzTitle: '退款去向',
             nzContent: AdminOrderRefundWaysComponent,
-            nzWidth: 1000,
+            nzWidth: 1100,
             nzComponentParams: {
                 data: this.detailModel
             },
