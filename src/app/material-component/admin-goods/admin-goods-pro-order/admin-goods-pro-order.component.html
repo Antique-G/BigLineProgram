@@ -248,7 +248,7 @@
 
                                             <!-- 多个子订单 -->
                                             <ng-container *ngIf="data?.sub_order?.data.length!=1">
-                                                <ng-container *ngIf="j==0">
+                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">
                                                         {{data.id}}</td>
                                                     <td [attr.rowspan]="data?.allLength">
@@ -286,7 +286,7 @@
                                                         </div>
                                                     </td>
                                                 </ng-container>
-                                                <ng-container *ngIf="j==0">
+                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">
                                                         {{data?.price_total}} 元</td>
                                                     <td [attr.rowspan]="data?.allLength">

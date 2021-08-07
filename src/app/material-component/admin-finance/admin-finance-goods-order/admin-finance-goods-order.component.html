@@ -262,7 +262,7 @@
 
                                             <!-- 多个 -->
                                             <ng-container *ngIf="data?.sub_order?.data.length!=1">
-                                                <ng-container *ngIf="j==0">
+                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">
                                                         {{data.id}}</td>
                                                     <td [attr.rowspan]="data?.allLength">
@@ -281,7 +281,7 @@
                                                 </ng-container>
                                                 <td>{{order_item.goods_name}}</td>
 
-                                                <ng-container *ngIf="j==0">
+                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">
                                                         {{data?.order_status_info}} </td>
                                                     <td [attr.rowspan]="data?.allLength">
@@ -298,7 +298,7 @@
                                                     </td>
                                                 </ng-container>
 
-                                                <ng-container *ngIf="j==0">
+                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">
                                                         收款
                                                     </td>

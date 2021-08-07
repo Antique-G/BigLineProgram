@@ -152,9 +152,9 @@ export class AdminGoodsProOrderComponent implements OnInit {
 
                 this.dataSource.forEach((res: any) => {
                     let s = 0;
-                    console.log("res1111", res);
+                    console.log("遍历的this.dataSource", res);
                     res?.sub_order?.data.forEach((element: any, index: any) => {
-                        console.log("element", element, element?.order_item?.data?.length);
+                        console.log("对子订单的遍历", element, element?.order_item?.data?.length);
                         console.log("233333333", index);
                         s += Number(element?.order_item?.data?.length);
                     });
