@@ -312,6 +312,7 @@
                                             <span *ngIf="item.pay_type===7">余额支付</span>
                                             <span *ngIf="item.pay_type===8">飞猪</span>
                                             <span *ngIf="item.pay_type===9">携程</span>
+                                            <span *ngIf="item.pay_type===11">POS机</span>
                                             <span *ngIf="item.pay_type===12">同程艺龙</span>
                                             <ng-container *ngIf="item.status>1">
                                                 <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7)">
@@ -363,6 +364,7 @@
                                                 <span *ngIf="refund.pay_type===7">余额支付</span>
                                                 <span *ngIf="refund.pay_type===8">飞猪</span>
                                                 <span *ngIf="refund.pay_type===9">携程</span>
+                                                <span *ngIf="refund.pay_type===11">POS机</span>
                                                 <span *ngIf="refund.pay_type===12">同程艺龙</span>
                                             </ng-container>
                                         </td>

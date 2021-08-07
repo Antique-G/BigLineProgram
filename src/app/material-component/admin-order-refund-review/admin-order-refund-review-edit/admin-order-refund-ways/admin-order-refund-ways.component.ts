@@ -60,15 +60,15 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
         this.detailModel = this.data;
-        console.log("1231232423",this.detailModel)
+        console.log("1231232423", this.detailModel)
         this.order_id = this.detailModel?.order_id;
         this.adminRefundService.getPayLog(this.order_id).subscribe(res => {
             console.log('结果是22222222 :>> ', res);
-            let newArr:any[]=[];
+            let newArr: any[] = [];
             res.data.forEach((element: any) => {
-                if ([1, 2, 4, 5,8,9,11,12].indexOf(element?.pay_type) != -1) {
+                if ([1, 2, 4, 5, 8, 9, 11, 12].indexOf(element?.pay_type) != -1) {
                     newArr.push(element)
                 }
             });
@@ -77,12 +77,14 @@ export class AdminOrderRefundWaysComponent implements OnInit {
                 this.dataSource.forEach((element) => {
                     element['addNum'] = 0;
                     element['refund_no'] = '';
+                    element['pay_at'] = '';
                 })
             }
             else {
                 this.dataSource.forEach((element) => {
                     element['addNum'] = '';
                     element['refund_no'] = '';
+                    element['pay_at'] = '';
                 })
             }
             // 没有数据的话，以到余额为基础
@@ -105,7 +107,7 @@ export class AdminOrderRefundWaysComponent implements OnInit {
         // 自由行
         else {
             this.orderUrl = '/admin/main/financefreeDTravel/detail?detailId=';
-            
+
         }
     }
 
@@ -116,9 +118,9 @@ export class AdminOrderRefundWaysComponent implements OnInit {
         console.log('23423 ', this.dataSource);
         let newArr: any[] = [];
         this.dataSource.forEach((element: any) => {
-            console.log("2323",element)
+            console.log("2323", element)
             if (Number(element.addNum) >= 0) {
-                let i = { "pay_type": element.pay_type, "refund_amount": element.addNum, "payment_id": element.id,"refund_no":element.refund_no };
+                let i = { "pay_type": element.pay_type, "refund_amount": element.addNum, "payment_id": element.id, "refund_no": element.refund_no, "pay_at": element.pay_at ? format(new Date(element.pay_at), 'yyyy-MM-dd HH:mm:ss') : '' };
                 newArr.push(i)
             }
         })
@@ -199,7 +201,6 @@ export class AdminOrderRefundWaysComponent implements OnInit {
         }
 
     }
-
 
 
     changeWay(event: any) {
