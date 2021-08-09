@@ -1,0 +1,15 @@
+[nz-radio-button] {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 7px;
+}
+
+input {
+    width: 100px;
+    margin-left: 10px;
+}
+
+.ant-form-item {
+    margin: 0 0 16px !important;
+}

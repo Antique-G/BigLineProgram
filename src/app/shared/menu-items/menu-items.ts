@@ -41,6 +41,16 @@ const MENUITEMS = [
         ]
     },
     {
+        title: '生鲜管理', icon: 'apple', permission_name: 'goods_management',
+        children: [
+            { state: 'goodsCate', name: '商品分类', permission_name: 'goods_cate' },
+            { state: 'expressCompany', name: '快递公司', permission_name: 'goods_express_company' },
+            { state: 'goodsList', name: '商品管理列表', permission_name: 'goods_pro_list' },
+            { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'goods_add_order' },
+            { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'goods_order_list' },
+        ]
+    },
+    {
         title: '订单模块', icon: 'ordered-list', permission_name: 'admin_order',
         children: [
             { state: 'orderList', name: '团列表', permission_name: 'order_group_list' },
@@ -114,6 +124,8 @@ const MENUITEMS = [
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
             { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
             { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
+            { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
+
             
         ]
     },
@@ -137,6 +149,14 @@ const StoreMENUITEMS = [
         children: [
             { state: 'storeProduct', name: '跟团游' },
             { state: 'storeFreeTravel', name: '自由行' },
+        ]
+    },
+    {
+        title: '商城管理', icon: 'apple',
+        children: [
+            { state: 'storeGoods', name: '商品管理列表' },
+            { state: 'storeGoodsOrder', name: '商品订单列表' },
+
         ]
     },
     // {

@@ -1,0 +1,91 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 0px; margin-top: 20px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="isMoney">应付金额</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <input nz-input formControlName="isMoney" style="width: 100%; " readonly="true" nzBorderless [ngModel]="isPrice+'元'" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="fee">收款金额</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24">
+                    <nz-input-number class="input" [nzPrecision]="precision" nzPrecisionMode="cut" style="width: 94%;" formControlName="fee" [nzMin]="0" [ngModel]="isPrice"></nz-input-number>元
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="nz-form-item" nz-row>
+                <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_type" nzRequired>收款途径</nz-form-label>
+                <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                    <nz-select nzPlaceHolder="请选择" formControlName="pay_type" nzAllowClear nzShowSearch (ngModelChange)="changeType($event)">
+                        <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                        <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                        <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                        <nz-option [nzLabel]="'微信二维码'" [nzValue]="4"></nz-option>
+                        <nz-option [nzLabel]="'支付宝二维码'" [nzValue]="5"></nz-option>
+                        <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                        <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
+                        <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
+                        <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <div nz-row [style.display]="isTypeShow==4||isTypeShow==5||isTypeShow==7 ? 'none' : 'block'">
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="pay_time" nzRequired>收款时间</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                        <nz-date-picker style="width: 100%; " nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="pay_time" ngModel (ngModelChange)="onChange($event)"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="nz-form-item" nz-row *ngIf="isShow">
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="transaction_id" nzRequired>流水号</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入正确的流水号，最多32位">
+                        <input nz-input style="width: 100%; " formControlName="transaction_id" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-row [style.display]="isTypeShow!=4 ? 'none' : 'block'">
+                <div fxLayout="row">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;margin-left: 26px;" (click)="weChatQr()">生成微信二维码</button>
+                </div>
+                <p style="margin-left: 26px;color: red;font-weight: bold;">！收款完毕请点击右上角关闭按钮</p>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="isWeChat" cssClass="bshadow"></ngx-qrcode>
+                </div>
+
+            </div>
+
+            <div nz-row [style.display]="isTypeShow!=5 ? 'none' : 'block'">
+                <div fxLayout="row">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;margin-left: 26px;" (click)="aliPayQr()">生成支付宝二维码</button>
+                </div>
+                <p style="margin-left: 26px;color: red;font-weight: bold;">！收款完毕请点击右上角关闭按钮</p>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="isQr" cssClass="bshadow"></ngx-qrcode>
+                </div>
+
+            </div>
+
+            <!-- 余额支付  -->
+            <div nz-row [style.display]="isTypeShow==7 ? 'block' : 'none'">
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="money" nzRequired>用户余额</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入用户余额">
+                        <nz-input-number class="input" [nzPrecision]="precision" nzPrecisionMode="cut" style="width: 94%;" formControlName="money" [nzMin]="0" [nzMax]="isMoney" [ngModel]="isMoney" nzDisabled></nz-input-number>元
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+
+
+            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24" *ngIf="!(isTypeShow==4||isTypeShow==5)">
+                <nz-form-control [nzSpan]="24">
+                    <div style="display: flex;flex-direction: column;align-items: center;">
+                        <button nz-button nzType="primary" [nzLoading]="isLoadingBtn" (click)="add()">提交</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+
+    </div>
+</div>

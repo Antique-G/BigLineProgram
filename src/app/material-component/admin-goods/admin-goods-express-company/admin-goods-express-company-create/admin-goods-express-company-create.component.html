@@ -1,0 +1,26 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>快递公司</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入快递公司">
+                    <input nz-input formControlName="name" ngModel={{data?.name}}/>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status" nzRequired>状态</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24"  nzErrorTip="请选择状态">
+                    <nz-radio-group formControlName="status" ngModel={{data?.status}}>
+                        <label nz-radio nzValue='0'>禁用</label>
+                        <label nz-radio nzValue='1'>启用</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+
+
+        </form>
+    </div>
+</div>

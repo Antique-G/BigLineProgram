@@ -1,0 +1,45 @@
+<div fxLayoutWrap="wrap">
+
+    <div style="padding: 0px; margin-top: 20px;">
+        <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+            <form nz-form [formGroup]="addForm">
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired>上传视频</nz-form-label>
+                    <nz-form-control [nzSm]="20" [nzXs]="24">
+                        <nz-upload [nzBeforeUpload]="beforeUpload" [nzAccept]="accept" [(nzFileList)]="fileList" [nzShowButton]="fileList.length < 1" [nzMultiple]='true' [nzLimit]='1' [nzRemove]="removeImg">
+                            <div>
+                                <button nz-button>
+                                <span><i nz-icon nzType="upload"></i> 选择视频</span>
+                              </button>
+                            </div>
+                        </nz-upload>
+
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item class="nz-form-item" nz-row>
+                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="desc">描述</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                        <textarea rows="2" formControlName="desc" nz-input></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                    <nz-form-control [nzSpan]="24">
+                        <div style="display: flex;flex-direction: column;align-items: center;">
+                            <div> <label nz-checkbox style="margin-right: 5px;" formControlName="agree" [(ngModel)]="agreeChecked"></label>我已仔细阅读并同意<a style="padding: 0;" (click)="showConfirm()" nz-button nzType="link">《授权协议》</a></div>
+
+                            <ng-container *ngIf="agreeChecked; else elsebtn">
+                                <button style="width: 120px;" nz-button nzType="primary" (click)="add()">提交</button>
+                            </ng-container>
+                            <ng-template #elsebtn>
+                                <button style="width: 120px;" disabled nz-button nzType="primary">提交</button>
+                            </ng-template>
+
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-spin>
+    </div>
+</div>

@@ -325,6 +325,41 @@ export const AdminUrls = {
     PostAdminSupplyAdd: api + '/admin/supplier',   // 添加
     PutAdminSupplyUpdate: api + '/admin/supplier/',   // 更新
 
+
+
+    // 生鲜商城
+    GetAdminGoodsCateList: api + '/admin/goods_cate',   // 分类列表
+    PostAdminGoodsCate: api + '/admin/goods_cate',   // 添加
+    PutAdminGoodsCateUpdate: api + '/admin/goods_cate/',   // 更新
+    GetAdminGoodsCateListTree: api + '/admin/cate_list_tree',   // 商品列表的分类列表
+
+    GetAdminExpressCompanyList: api + '/admin/express_company',   // 快递列表
+    PostAdminExpressCompany: api + '/admin/express_company',   // 添加
+    PutAdminExpressCompanyUpdate: api + '/admin/express_company/',   // 更新
+    DeleteAdminExpressCompany: api + '/admin/express_company/',   // 删除
+
+
+
+    GetAdminGoodsList: api + '/admin/goods',     //商品列表
+    PutAdminGoodsUpdate: api + '/admin/goods/',     //更新
+    GetAdminGoodsDetail: api + '/admin/goods/',  // 详情
+    PostAdminGoodsSetHot: api + '/admin/set_hot',   // 设置热门
+    PostAdminGoodsSetShelves: api + '/admin/set_shelves/',     //商品上下架
+    PostAdminGoodsSetCheck: api + '/admin/set_check/',     //商品审核
+    PostAdminGoodsAddOrder: api + '/admin/goods_order',     //添加商品订单
+    GetAdminGoodsOrderList: api + '/admin/goods_order',     //商品订单
+    GetAdminGoodsOrderDetail: api + '/admin/goods_order/',     //商品订单详情
+    PostAdminGoodsOrderUpdateItem: api + '/admin/goods_order/update_item',     //商品订单修改
+    PutAdminGoodsOrderUpdateCon: api + '/admin/goods_order/',     //商品订单修改收货人信息
+    PostAdminGoodsOrderConfirmReceipt: api + '/admin/goods_order/confirm_receipt',     //商品订单收款
+    PostAdminGoodsOrderGetWeChatPayQr: api + '/admin/goods_order/get_wechat_pay_qr',   // 生成商品订微信收款码
+    PostAdminGoodsOrderAlipayCode: api + '/admin/goods_order/get_alipay_code',   // 生成商品订支付宝收款码
+    GetAdminFinanceGoodsOrderList: api + '/admin/finance/goods_order',     //财务商品订单
+    PostAdminFinanceGoodsOrderConfirm: api + '/admin/finance/goods_order_confirm',   // 财务确认商品收款
+    PostAdminFinanceGoodsOrderEditReceipt: api + '/admin/goods_order/edit_receipt',   // 财务修改商品流水
+ 
+    
+
 };
 
 
@@ -522,5 +557,32 @@ export const StoreUrls = {
     PostStoreCash: api + '/store/cash_requirement',   // 请款
     PutStoreCashUpdate: api + '/store/cash_requirement/',   // 更新
     DeleteStoreCashType: api + '/store/cash_requirement/',   // 删除
+
+
+
+    // 生鲜商城
+    GetStoreGoodsCateListTree: api + '/store/cate_list_tree',   // 分类列表
+    GetStoreGoodsList: api + '/store/goods',     //商品列表
+    PostStoreAddGoods: api + '/store/goods',     //添加商品
+    PutStoreGoodsUpdate: api + '/store/goods/',     //更新
+    GetStoreGoodsDetail: api + '/store/goods/',  // 详情
+    PostStoreGoodsSetShelves: api + '/store/set_shelves/',     //商品上下架
+    PostStoreGoodsSetCheck: api + '/store/set_check/',     //商品审核
+    GetStoreGoodsOrderList: api + '/store/goods_sub_order',     //商品订单
+    GetStoreGoodsOrderDetail: api + '/store/goods_sub_order/',     //商品订单详情
+    PostStoreGoodsOrderUpdateItem: api + '/store/goods_order/update_item',     //商品订单修改
+    PostStoreGoodsOrderAddSub: api + '/store/goods_order/add_sub',     //拆分订单
+
+    
+    GetStoreExpressCompanyList: api + '/store/express_company/list',     //快递公司
+    PostStoreGoodsSendExpress: api + '/store/goods_order/express',     //快递发货
+
+
+
+    PostStoreGoodsImgUpload: api + '/store/goods_image',  // 上传商品图片
+    GetStoreGoodsImgList: api + '/store/goods_image',  // 获取商品图片列表
+    PostStoreGoodsVedioUpload: api + '/store/goods_video',  // 上传商品视频
+
+
 
 };

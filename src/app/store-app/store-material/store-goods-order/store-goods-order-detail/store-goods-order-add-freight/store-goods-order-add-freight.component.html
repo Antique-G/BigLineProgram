@@ -1,0 +1,96 @@
+<nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
+    <div class="example-container" style="margin-bottom: 50px;">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div style="margin-top:13px">
+                <form nz-form nz-row [formGroup]="addForm">
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="2" [nzXs]="24">商品名称</nz-form-label>
+                            <nz-form-control [nzSm]="21" [nzXs]="24">
+                                <span>{{data?.goods_name}}</span>
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="2" [nzXs]="24">商品规格</nz-form-label>
+                            <nz-form-control [nzSm]="21" [nzXs]="24">
+                                <input nz-input formControlName="specificationValue" nzBorderless readonly [ngModel]="data?.spec_name" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">价格</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="price" nzBorderless readonly [ngModel]="data?.goods_price+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">附加收费</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="extra" nzBorderless readonly [ngModel]="data?.extra+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">优惠金额</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="discount" nzBorderless readonly [ngModel]="data?.discount+'元'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">是否包邮</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="postage" nzBorderless readonly [ngModel]="'不包邮'" />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+
+                    <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>运费</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入运费">
+                                <nz-input-number style="width: 90%;" formControlName="freight" [nzMin]="0" [nzPrecision]="precision1">
+                                </nz-input-number>元
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                        <nz-form-control [nzSpan]="12" [nzOffset]="9">
+                            <div fxLayout="row" fxLayoutGap="20px">
+                                <div>
+                                    <button nz-button nzType="primary" (click)="update()">确定</button>
+                                </div>
+                                <div>
+                                    <button nz-button nzType="primary" (click)="cancel()">取消</button>
+                                </div>
+                            </div>
+
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</nz-spin>

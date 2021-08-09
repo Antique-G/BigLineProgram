@@ -1,0 +1,49 @@
+.content {
+    padding: 7px;
+    border-radius: 8px;
+}
+
+.example-container {
+    padding-bottom: 70px;
+    padding: 2px;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
+
+.ant-form-item {
+    margin: 0 0 5px !important;
+}
+
+.footer {
+    height: 50px;
+    margin-top: -50px;
+}
+
+.btn {
+    height: 20px;
+    line-height: 10px;
+    background: pink;
+    border: none;
+    border-radius: 5px;
+    color: red;
+}
+
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.text-padding {
+    padding-left: 15px;
+}
+
+.title {
+    margin: 5px 0;
+}

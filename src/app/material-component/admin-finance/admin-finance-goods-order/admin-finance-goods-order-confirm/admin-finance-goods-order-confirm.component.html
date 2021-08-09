@@ -1,0 +1,73 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+            <form nz-form [formGroup]="addForm">
+
+                <div nz-row>
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="order_id" nzBorderless readonly ngModel={{itemModel.order_id}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fee">支付金额</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="fee" nzBorderless readonly ngModel={{itemModel.fee}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pay_number">支付序号</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="pay_number" nzBorderless readonly ngModel={{itemModel.pay_number}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pay_type">支付方式</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input nz-input formControlName="pay_type" nzBorderless readonly ngModel={{itemModel.pay_type_info}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                        <div nz-row>
+                            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="transaction_id">支付流水号
+                            </nz-form-label>
+                            <nz-form-control [nzSm]="16 " [nzXs]="24">
+                                <input nz-input formControlName="transaction_id" nzBorderless readonly ngModel={{itemModel.transaction_id}} />
+                            </nz-form-control>
+                        </div>
+                    </nz-form-item>
+
+
+                    <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                        <nz-form-control [nzSpan]="12" [nzOffset]="9">
+                            <div fxLayout="row" fxLayoutGap="20px">
+                                <div>
+                                    <button nz-button nzType="primary" (click)="update()">确认</button>
+                                </div>
+                                <div>
+                                    <button nz-button nzType="primary" (click)="cancel()">取消</button>
+                                </div>
+                            </div>
+
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

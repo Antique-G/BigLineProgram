@@ -57,6 +57,8 @@ export class Interceptor implements HttpInterceptor {
                     }
                     //   console.log("返回的结果", event)
                     console.log("event", event.status);
+                    // console.log("event.url?.lastIndexOf('/store/goods_image') === -1",event.url?.lastIndexOf('/store/goods_image') === -1)
+
                     if (event.status === 200 && event.body.message != null) {
                         console.log('1111', event.body)
                         this.alertMessage = event.body.message;
@@ -66,6 +68,7 @@ export class Interceptor implements HttpInterceptor {
                         console.log("true")
                         this.createSuccess();   // 更新 添加
                     }
+   
                     else if (event.status === 204) {
                         this.deleteSuccess();   // 删除
                     }
