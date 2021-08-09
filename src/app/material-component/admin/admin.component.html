@@ -51,6 +51,7 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
+                                    <th style="text-align: center;">id</th>
                                     <th style="text-align: center;">账号</th>
                                     <th style="text-align: center;">真实姓名</th>
                                     <th style="text-align: center;">手机号</th>
@@ -64,6 +65,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of rowSelectionTable.data">
+                                    <td>{{data?.admin_id}}</td>
                                     <td>{{data.account}}</td>
                                     <td>{{data.real_name}}</td>
                                     <td>{{data.mobile}}</td>

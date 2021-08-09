@@ -1,0 +1,115 @@
+.content {
+    padding: 7px;
+    border-radius: 8px;
+}
+
+.example-container {
+    padding-bottom: 70px;
+    padding: 2px;
+}
+
+.ant-form-item {
+    margin: 0 0 10px !important;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-tbody>tr>td {
+    text-align: center !important;
+}
+
+.ant-divider-horizontal {
+    margin: 5px 0 !important;
+}
+
+.footer {
+    height: 50px;
+    margin-top: -50px;
+}
+
+.btn {
+    width: 59px;
+    height: 20px;
+    line-height: 10px;
+    background: pink;
+    border: none;
+    border-radius: 5px;
+    color: red;
+}
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+    height: 43px !important;
+}
+
+.events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+.notes-month {
+    text-align: center;
+    font-size: 28px;
+}
+
+.notes-month section {
+    font-size: 28px;
+}
+
+.mat-elevation-z8 {
+    padding: 10px;
+}
+
+.ant-picker-calendar-date-content {
+    display: flex !important;
+}
+
+.events {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1 !important;
+}
+
+.item {
+    flex: 1 !important;
+}
+
+.itemFree {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.itemFree div {
+    width: 50%;
+}
+
+.item-bg-success {
+    background: rgba(20, 247, 20, 0.2) !important;
+}
+
+.item-bg-error {
+    background: rgba(243, 33, 33, 0.2) !important;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+}
+
+.ant-picker-calendar-date-content {
+    height: 46px !important;
+}
+
+li {
+    list-style: none;
+}

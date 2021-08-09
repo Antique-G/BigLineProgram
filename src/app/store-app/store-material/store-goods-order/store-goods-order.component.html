@@ -1,0 +1,219 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_status">订单状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="order_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'已取消'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'待支付'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已支付'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'已完成'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="express_status">发货状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="express_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未发'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'已发'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">子/主订单id</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="order_id" placeholder="请输入子/主订单id" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="goods_name">商品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="goods_name" placeholder="请输入商品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="type">商品类型</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="cateList" formControlName="type" [nzLabelProperty]="'name'" [nzValueProperty]="'id'" (ngModelChange)="onChangeCate($event)"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_postage">是否包邮</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="is_postage" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'否'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'是'" [nzValue]="'0'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="orderTime">下单日期</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeOrderDate($event)" formControlName="orderTime"></nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="deliveryTime">发货时间</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDeliveryDate($event)" formControlName="deliveryTime">
+                                    </nz-range-picker>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="consignee">收货人姓名</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="consignee" placeholder="请输入收货人姓名" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">收货人电话</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="phone" placeholder="请输入收货人电话" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_id">下单人</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="bind_id" placeholder="请输入下单人" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                    </form>
+
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px" style="letter-spacing: 1px;font-weight: bold;font-size: 16px">
+                        <div>
+                            <span>当前共有<span style="color: red;">{{isDeliver}}</span>个订单未发货，请及时安排发货！</span>
+                        </div>
+
+                    </div>
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">子/主订单id</th>
+                                    <th style="text-align: center;">下单/推荐人</th>
+                                    <th style="text-align: center;width: 10%;">商品名称</th>
+                                    <th style="text-align: center;">商品规格</th>
+                                    <th style="text-align: center;">商品类型</th>
+                                    <th style="text-align: center;width: 8%;">单价/数量</th>
+                                    <th style="text-align: center;">订单金额</th>
+                                    <th style="text-align: center;">是否包邮</th>
+                                    <th style="text-align: center;">发货时间</th>
+                                    <th style="text-align: center;">发货状态</th>
+                                    <th style="text-align: center;">收货人姓名/电话</th>
+                                    <th style="text-align: center;">订单状态</th>
+                                    <th style="text-align: center;">下单日期</th>
+                                    <th style="text-align: center;">查看详情</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let data of rowSelectionTable.data;">
+                                    <tr *ngFor="let order_item of data?.order_item?.data;let i=index">
+                                        <ng-container *ngIf="i==0">
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">
+                                                <div>{{data.id}}</div>
+                                                <div>{{data.order_id}}</div>
+                                            </td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">{{data?.main_order?.data?.bind_name}}</td>
+                                        </ng-container>
+                                        <td>{{order_item.goods_name}}</td>
+                                        <td>{{order_item.spec_name}}</td>
+                                        <td>{{order_item.cate_name}}</td>
+                                        <td>
+                                            <div>{{order_item.goods_price}}元</div>
+                                            <div>{{order_item.goods_num}}份</div>
+                                        </td>
+                                        <td>{{order_item.total_price}}元</td>
+                                        <td>{{order_item.postage==0?'是':'否,运费:￥'+order_item?.freight_price}}</td>
+                                        <td>{{order_item.send_start}}~{{order_item.send_end}}</td>
+                                        <ng-container *ngIf="i==0">
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">
+                                                <ng-container *ngIf="data?.order_status>1">
+                                                    <span *ngIf="data?.express_status==0">
+                                                    <nz-badge nzColor="yellow"></nz-badge>未发货</span>
+                                                    <span *ngIf="data?.express_status==1">
+                                                    <nz-badge nzColor="green"></nz-badge>已发货</span>
+                                                </ng-container>
+                                                <ng-container *ngIf="data?.order_status<2">-</ng-container>
+                                            </td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">
+                                                <div>
+                                                    <div>{{data?.main_order?.data?.consignee}}</div>
+                                                    <div>{{data?.main_order?.data?.phone}}</div>
+                                                </div>
+                                            </td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">{{data?.order_status_info}} </td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">{{data?.created_at|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">
+                                                <div style="cursor: pointer;">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

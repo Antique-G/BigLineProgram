@@ -1,0 +1,216 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <mat-card>
+            <div class="example-container" style="padding: 15px;">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <button mat-raised-button color="primary" style="width: 100px;letter-spacing: 2px;" (click)="addStep()">添加商品</button>
+                    </div>
+
+                    <form [formGroup]="searchForm" nz-row nz-form>
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="status">状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'下架'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'上架'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="check_status">审核状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="check_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未提交审核'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'审核中'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已通过'" [nzValue]="'2'"></nz-option>
+                                        <nz-option [nzLabel]="'未通过'" [nzValue]="'3'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_order">是否预售</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="is_order" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'否'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'是'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_hot">是否推荐</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="is_hot" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'否'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'是'" [nzValue]="'1'"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="type">商品类型</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-cascader nzChangeOnSelect [nzOptions]="cateList" formControlName="type" [nzLabelProperty]="'name'" [nzValueProperty]="'id'" (ngModelChange)="onChangeCate($event)"></nz-cascader>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
+                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="title">商品名称</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <input nz-input formControlName="title" placeholder="请输入商品名称" />
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="search()">搜索</button>
+                                <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="reset()">重置</button>
+                            </div>
+                        </nz-form-item>
+                    </form>
+
+
+
+                    <div class="mat-elevation-z8">
+                        <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
+                            (nzPageSizeChange)="changePageSize($event)">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">id</th>
+                                    <th style="text-align: center;width: 10%;">商品名称</th>
+                                    <th style="text-align: center;">商品类型</th>
+                                    <th style="text-align: center;">产地</th>
+                                    <th style="text-align: center;">商品规格</th>
+                                    <th style="text-align: center;">单价</th>
+                                    <th style="text-align: center;">单位</th>
+                                    <th style="text-align: center;">剩余库存/已售</th>
+                                    <th style="text-align: center;">是否包邮</th>
+                                    <!-- <th style="text-align: center;">总库存</th> -->
+                                    <th style="text-align: center;">审核状态</th>
+                                    <th style="text-align: center;">上下架状态</th>
+                                    <th style="text-align: center;">是否预售</th>
+                                    <th style="text-align: center;">是否推荐</th>
+                                    <th style="text-align: center;">排序</th>
+                                    <th style="text-align: center;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let data of rowSelectionTable.data;">
+                                    <tr *ngFor="let item of data?.goods_specs;let i=index">
+                                        <ng-container *ngIf="i==0">
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.id}}</td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.title}}</td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.cate_name}}</td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.goods_area_name}}</td>
+                                        </ng-container>
+                                        <td>{{item.spec_name}}</td>
+                                        <td>{{item.price}}</td>
+                                        <td>{{item.unit}}</td>
+                                        <td>
+                                            <div>{{item.stock}}份</div>
+                                            <div>{{item.sold_num}}份</div>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="item.postage==0">包邮</span>
+                                            <span *ngIf="item.postage==1">部分地区包邮</span>
+                                            <span *ngIf="item.postage==2">不包邮</span>
+                                        </td>
+                                        <ng-container *ngIf="i==0">
+                                            <!-- <td [attr.rowspan]="data?.goods_specs.length">{{data.id}}</td> -->
+                                            <td [attr.rowspan]="data?.goods_specs.length">
+                                                <div *ngIf="data.check_status===0">
+                                                    未提交审核
+                                                </div>
+                                                <div *ngIf="data.check_status===1">
+                                                    审核中
+                                                </div>
+                                                <div *ngIf="data.check_status===2">
+                                                    已通过
+                                                </div>
+                                                <div *ngIf="data.check_status===3">
+                                                    未通过
+                                                    <img src="http://cdn.bigline.com.cn/static/images/help_Outline.png" title={{data?.check_log?.reason}} style="cursor: pointer;">
+                                                </div>
+                                            </td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">
+                                                <div *ngIf="data.status===0">下架</div>
+                                                <div *ngIf="data.status===1">上架</div>
+                                            </td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.is_order===0?'否':'是'}} </td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.is_hot===0?'否':'是'}} </td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">{{data.sort}} </td>
+                                            <td [attr.rowspan]="data?.goods_specs.length">
+                                                <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+                                                    操作
+                                                    <i nz-icon nzType="down"></i>
+                                                </a>
+                                                <nz-dropdown-menu #menu="nzDropdownMenu">
+                                                    <ul nz-menu nzSelectable class="menu">
+                                                        <li nz-menu-item (click)="edit(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑"> 编辑
+                                                        </li>
+                                                        <!-- <li nz-menu-item (click)="copy(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/copy_text.png" title="克隆产品"> 克隆产品
+                                                        </li> -->
+                                                        <li nz-menu-item *ngIf="data.check_status===2" (click)="up(data)">
+                                                            <div *ngIf="data.status===0">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/up.png" title="上架"> 上架
+                                                            </div>
+                                                            <div *ngIf="data.status===1">
+                                                                <img src="http://cdn.bigline.com.cn/static/images/down.png" title="下架"> 下架
+                                                            </div>
+                                                        </li>
+                                                        <li nz-menu-item *ngIf="data.check_status==0" (click)="checkStatusClick(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="提交审核"> 提交审核
+                                                        </li>
+                                                        <li nz-menu-item *ngIf="data.check_status==1" (click)="revokeStatus(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/assignment.png" title="撤销审核"> 撤销审核
+                                                        </li>
+                                                        <!-- <li nz-menu-item (click)="setCommission(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
+                                                        </li> -->
+                                                        <!-- <li nz-menu-item (click)="getCode(data)">
+                                                            <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
+                                                        </li> -->
+                                                    </ul>
+                                                </nz-dropdown-menu>
+                                            </td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

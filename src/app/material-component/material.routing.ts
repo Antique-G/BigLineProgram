@@ -9,6 +9,8 @@ import { AdminProSupplyComponent } from './admin-cost-manage/admin-pro-supply/ad
 import { AdminFinanceFreeReqCashComponent } from './admin-finance/admin-finance-free-req-cash/admin-finance-free-req-cash.component';
 import { AdminFinanceFreeTravelDetailComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel-detail/admin-finance-free-travel-detail.component';
 import { AdminFinanceFreeTravelComponent } from './admin-finance/admin-finance-free-travel/admin-finance-free-travel.component';
+import { AdminFinanceGoodsOrderDetailComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order-detail/admin-finance-goods-order-detail.component';
+import { AdminFinanceGoodsOrderComponent } from './admin-finance/admin-finance-goods-order/admin-finance-goods-order.component';
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
@@ -17,6 +19,14 @@ import { AdminMiniWithdrawalReviewComponent } from './admin-finance/admin-mini-w
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
 import { AdminFreeTravelAddOrderDetailComponent } from './admin-free-travel-add-order/admin-free-travel-add-order-detail/admin-free-travel-add-order-detail.component';
 import { AdminFreeTravelAddOrderComponent } from './admin-free-travel-add-order/admin-free-travel-add-order.component';
+import { AdminGoodsCateComponent } from './admin-goods/admin-goods-cate/admin-goods-cate.component';
+import { AdminGoodsExpressCompanyComponent } from './admin-goods/admin-goods-express-company/admin-goods-express-company.component';
+import { AdminGoodsProAddOrderDetailComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order-detail/admin-goods-pro-add-order-detail.component';
+import { AdminGoodsProAddOrderComponent } from './admin-goods/admin-goods-pro-add-order/admin-goods-pro-add-order.component';
+import { AdminGoodsProOrderDetailComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order-detail/admin-goods-pro-order-detail.component';
+import { AdminGoodsProOrderComponent } from './admin-goods/admin-goods-pro-order/admin-goods-pro-order.component';
+import { AdminGoodsProDetailComponent } from './admin-goods/admin-goods-pro/admin-goods-pro-detail/admin-goods-pro-detail.component';
+import { AdminGoodsProComponent } from './admin-goods/admin-goods-pro/admin-goods-pro.component';
 import { AdminGroupAddOrderDetailComponent } from './admin-group-add-order/admin-group-add-order-detail/admin-group-add-order-detail.component';
 import { AdminGroupAddOrderComponent } from './admin-group-add-order/admin-group-add-order.component';
 import { AdminInsuranceHistoryComponent } from './admin-insurance-history/admin-insurance-history.component';
@@ -75,6 +85,7 @@ import { AdminWechatPageblockComponent } from './admin-wechat-pageconfig/admin-w
 import { AdminWechatPageconfigComponent } from './admin-wechat-pageconfig/admin-wechat-pageconfig.component';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
 import { AdminComponent } from './admin/admin.component';
+
 
 
 export const MaterialRoutes: Routes = [
@@ -650,6 +661,80 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '小程序钱包提现流水列表'
                 }
             },
+
+
+            // 生鲜商城
+            {
+                path: 'goodsCate',
+                component: AdminGoodsCateComponent,
+                data: {
+                    breadcrumb: '商品分类列表'
+                }
+            },
+            {
+                path: 'goodsList',
+                component: AdminGoodsProComponent,
+                data: {
+                    breadcrumb: '商品列表'
+                }
+            },
+            {
+                path: 'goodsList/detail',
+                component: AdminGoodsProDetailComponent,
+                data: {
+                    breadcrumb: '商品详情'
+                }
+            },
+            {
+                path: 'goodsAddOrder',
+                component: AdminGoodsProAddOrderComponent,
+                data: {
+                    breadcrumb: '添加商品可下单列表'
+                }
+            },
+            {
+                path: 'goodsAddOrder/add',
+                component: AdminGoodsProAddOrderDetailComponent,
+                data: {
+                    breadcrumb: '添加商品订单'
+                }
+            },
+            {
+                path: 'goodsOrderList',
+                component: AdminGoodsProOrderComponent,
+                data: {
+                    breadcrumb: '商品订单列表'
+                }
+            },
+            {
+                path: 'goodsOrderList/detail',
+                component: AdminGoodsProOrderDetailComponent,
+                data: {
+                    breadcrumb: '商品订单详情'
+                }
+            },
+            {
+                path: 'expressCompany',
+                component: AdminGoodsExpressCompanyComponent,
+                data: {
+                    breadcrumb: '快递公司列表'
+                }
+            },
+            {
+                path: 'financeGoods',
+                component: AdminFinanceGoodsOrderComponent,
+                data: {
+                    breadcrumb: '商品订单列表'
+                }
+            },
+            {
+                path: 'financeGoods/detail',
+                component: AdminFinanceGoodsOrderDetailComponent,
+                data: {
+                    breadcrumb: '商品订单详情'
+                }
+            },
+            
         ]
     }
 ];

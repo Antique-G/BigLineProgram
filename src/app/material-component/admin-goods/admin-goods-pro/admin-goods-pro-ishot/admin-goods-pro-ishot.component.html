@@ -1,0 +1,43 @@
+<div fxLayoutWrap="wrap">
+    <div style="padding: 5px;">
+        <form nz-form [formGroup]="addForm" nz-row>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="is_hot" nzRequired>是否推荐</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-radio-group formControlName="is_hot" ngModel={{data.is_hot}}>
+                            <label nz-radio nzValue=0>否 </label>
+                            <label nz-radio nzValue=1>是 </label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+
+
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="5" [nzXs]="24" nzFor="sort">排序</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <nz-input-number style="width: 100%" formControlName="sort" [nzMin]="0"></nz-input-number>
+                    </nz-form-control>
+                </div>
+                <p style="margin-left:21%;color: red;">从大到小顺序排列</p>
+            </nz-form-item>
+
+
+            <nz-form-item nz-col class="register-area" [nzSm]="24" [nzXs]="24">
+                <nz-form-control [nzSpan]="12" [nzOffset]="9">
+                    <div fxLayout="row" fxLayoutGap="20px">
+                        <div>
+                            <button nz-button nzType="primary" (click)="update()">确定</button>
+                        </div>
+                        <div>
+                            <button nz-button nzType="primary" (click)="cancel()">取消</button>
+                        </div>
+                    </div>
+
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>
