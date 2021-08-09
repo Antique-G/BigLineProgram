@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AOGSetSalesComponent } from 'app/material-component/admin-order-group-travel/admin-order-group-travel-detail/a-o-g-set-sales/a-o-g-set-sales.component';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -15,6 +16,7 @@ import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-o
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
+
 
 
 @Component({
@@ -69,6 +71,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             destination_city_name: [''],
             is_presell: [''],
             code: [''],
+            bind_account_name: [''],
         });
         this.editInfoModel = {
             id: '',
@@ -321,7 +324,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         // }
         // else {
         //     this.editMemberModel.birthday = '';
-        
+
         // }
         this.adminOrderService.editMember(this.editMemberModel).subscribe((res: any) => {
             console.log('结果是 :>> ', res);
@@ -471,7 +474,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
                     console.log("res", res)
-                    if (res.data.length == 0) {
+                    if (res?.data?.result==true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -481,7 +484,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
                         this.modal['error']({
                             nzMask: true,
                             nzTitle: "<h3>错误提示</h3>",
-                            nzContent: `<h5>同步失败，无法同步，请去大航系统手动同步</h5>`,
+                            nzContent: `<h5>${res?.data?.message}</h5>`,
                             nzStyle: { position: 'fixed', top: `70px`, left: `40%`, zIndex: 1000 }
                         })
                     }
@@ -489,6 +492,41 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
         });
 
 
+    }
+
+
+    // 分配销售
+    distributionSales() {
+        const editmodal = this.modal.create({
+            nzTitle: '分配下单/推荐人（大航）',
+            nzWidth: 600,
+            nzContent: AOGSetSalesComponent,
+            nzComponentParams: {
+                data: {
+                    order_id: this.detailModel.id,
+                    bind_id: this.detailModel.bind_id,
+                    bind_account_name: this.detailModel.bind_account_name,
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
     }
 }
 

@@ -135,6 +135,9 @@
                                         <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
                                         <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
                                         <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+                                        <nz-option [nzLabel]="'预售码'" [nzValue]="10"></nz-option>
+                                        <nz-option [nzLabel]="'POS机'" [nzValue]="11"></nz-option>
+                                        <nz-option [nzLabel]="'同程艺龙'" [nzValue]="12"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -156,21 +159,17 @@
                             <span *ngIf="totalModel?.total_kid!=0">|儿童{{totalModel?.total_kid}}</span>
                             <span *ngIf="totalModel?.baby_num!=0">|婴儿{{totalModel?.baby_num}}</span>
                         </div>
-                        <div>订单总额：
-                            <span style="color: red;" *ngIf="totalModel?.price_total!=0&&totalModel?.price_total!=null">{{totalModel?.price_total}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.price_total===0||totalModel?.price_total===null">-</span>
+                        <div title="不包含已取消订单" style="cursor: pointer;">订单总额：
+                            <span style="color: red;">{{totalModel?.price_total}}元</span>
                         </div>
-                        <div>入账总额：
-                            <span style="color: red;" *ngIf="totalModel?.receive!=0&&totalModel?.receive!=null">{{totalModel?.receive}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.receive===0||totalModel?.receive===null">-</span>
+                        <div title="不统计取消订单" style="cursor: pointer;">待收款总额：
+                            <span style="color: red;">{{totalModel?.is_pay_money}}元</span>
                         </div>
-                        <div>待收款总额：
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money!=0&&totalModel?.is_pay_money!=null">{{totalModel?.is_pay_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.is_pay_money===0||totalModel?.is_pay_money===null">-</span>
+                        <div [title]="'非取消订单金额+已取消订单金额，合计' +totalModel?.total_receive+'元'" style="cursor: pointer;">入账总额：
+                            <span style="color: red;">{{totalModel?.receive}}</span>+<span style="color: green;">{{totalModel?.off_receive}}</span>元
                         </div>
-                        <div>退款总额：
-                            <span style="color: red;" *ngIf="totalModel?.refund_money!=0&&totalModel?.refund_money!=null">{{totalModel?.refund_money}}元</span>
-                            <span style="color: red;" *ngIf="totalModel?.refund_money===0||totalModel?.refund_money===null">-</span>
+                        <div [title]="'非取消订单金额+已取消订单金额，合计'+totalModel?.total_refund_money+'元'" style="cursor: pointer;">退款总额：
+                            <span style="color: red;">{{totalModel?.refund_money}}</span>+<span style="color: green;">{{totalModel?.off_refund_money}}</span>元
                         </div>
                     </div>
 
@@ -181,6 +180,7 @@
                             <div>线上：通过小程序或者扫码进行付款 </div>
                             <div>手动：后台手动收款</div>
                             <div>POS：通过POS机收款</div>
+                            <div>OTA：携程、飞猪、同程艺龙</div>
                         </div>
                         <nz-table #rowSelectionTable nzBordered [nzFrontPagination]="false" [nzData]="dataSource" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="page" [(nzPageSize)]="per_page" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" (nzPageIndexChange)="changePageIndex($event)"
                             (nzPageSizeChange)="changePageSize($event)">
@@ -320,11 +320,14 @@
                                             <span *ngIf="item.pay_type===8">飞猪</span>
                                             <span *ngIf="item.pay_type===9">携程</span>
                                             <span *ngIf="item.pay_type===10">预售码</span>
+                                            <span *ngIf="item.pay_type===11">POS机</span>
+                                            <span *ngIf="item.pay_type===12">同程艺龙</span>
                                             <ng-container *ngIf="item.status>1">
                                                 <ng-container *ngIf="!(item.pay_type==3||item.pay_type==7||item.pay_type==10)">
                                                     <span *ngIf="item.pay_way==0">（线上）</span>
                                                     <span *ngIf="item.pay_way==1">（手动）</span>
                                                     <span *ngIf="item.pay_way==2">（POS）</span>
+                                                    <span *ngIf="item.pay_way==3">（OTA）</span>
                                                 </ng-container>
                                             </ng-container>
                                         </td>

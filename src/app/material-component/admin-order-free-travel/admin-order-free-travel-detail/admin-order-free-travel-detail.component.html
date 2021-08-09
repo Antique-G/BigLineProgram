@@ -24,6 +24,7 @@
                                             <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell!=1">
                                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
                                             </ng-container>
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="distributionSales()" *ngIf="detailModel?.bind_account_name==''">绑定下单人</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="cancelOrder()" *ngIf="detailModel?.order_status==1">取消订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="syncOrder()" *ngIf="detailModel?.independent_product?.data?.third_product_id!=0">订单同步到大航系统</button>
@@ -136,7 +137,14 @@
                                                     </nz-form-item>
                                                 </ng-container>
 
-
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bind_account_name">下单/推荐人</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="bind_account_name" nzBorderless readonly [ngModel]="detailModel?.bind_account_name+',工号'+detailModel?.job_num" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
                                             </form>
                                         </div>
 
@@ -502,11 +510,12 @@
                                                             <span *ngIf="data.status===2">已完成</span>
                                                             <span *ngIf="data.status===3">已确认</span>
                                                         </td>
-                                                        <td>{{data.pay_type_info}}</td>
+                                                        <td>{{data?.pay_type_info}}</td>
                                                         <td>
                                                             <span *ngIf="data.pay_way==0">线上支付</span>
                                                             <span *ngIf="data.pay_way==1">后台手动录入</span>
                                                             <span *ngIf="data.pay_way==2">POS机收款</span>
+                                                            <span *ngIf="data.pay_way==3">OTA</span>
                                                         </td>
                                                         <td>
                                                             {{data.pay_time}}
@@ -546,7 +555,7 @@
                                                         <th style="text-align: center;">退款类型</th>
                                                         <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">金额</th>
-                                                        <th style="text-align: center;">退款时间</th>
+                                                        <th style="text-align: center;">到账时间</th>
                                                         <th style="text-align: center;">流水号</th>
                                                         <th style="text-align: center;width: 15%;">退款明细</th>
                                                         <th style="text-align: center;">退款审核时间</th>
@@ -639,7 +648,7 @@
                                                                         <span *ngIf="data.type===3">退保</span>
                                                                     </td>
                                                                 </ng-container>
-                                                                <td>{{item.pay_type_info}}</td>
+                                                                <td>{{item?.pay_type_info}}</td>
                                                                 <td>{{item.refund_amount}}元</td>
                                                                 <td>{{item.pay_at}}</td>
                                                                 <td>{{item.transaction_id}}</td>

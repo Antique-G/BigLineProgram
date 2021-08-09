@@ -6,6 +6,7 @@ export interface StoreOrderFreeTravelListRequestModel {
 
 export interface Meta {
     pagination: Pagination;
+    statistics: any;
 }
 
 export interface Pagination {
@@ -199,6 +200,10 @@ export interface DetailsModel {
     store_name?: any;
     cash_requirement?: any;
     ticket_code?: any;
+    bind_account_name?: any;
+    bind_id?: any;
+    job_num?: any;
+
 }
 
 

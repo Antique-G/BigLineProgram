@@ -491,7 +491,7 @@
                                                                                 </ng-container>
                                                                             </td>
                                                                             <td>{{data.refund_no}}</td>
-                                                                            <td>{{data.pay_type_info}}</td>
+                                                                            <td>{{data?.pay_type_info}}</td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.status==0">失败</span>
@@ -859,7 +859,7 @@
                                                                                 </ng-container>
                                                                             </td>
                                                                             <td>{{data.refund_no}}</td>
-                                                                            <td>{{data.pay_type_info}} </td>
+                                                                            <td>{{data?.pay_type_info}} </td>
                                                                             <td>{{data.refund_amount}}</td>
                                                                             <td>
                                                                                 <span *ngIf="data.status==0">失败</span>

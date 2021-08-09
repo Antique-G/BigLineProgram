@@ -68,6 +68,7 @@ export interface AdminUserWithdrawListResponseModel {
 
 export interface MetaAdminUserWithdrawListResponseModel {
     pagination: PaginationDataAdminUserWithdrawListResponseModel;
+    statistics: any;
 }
 
 export interface PaginationDataAdminUserWithdrawListResponseModel {

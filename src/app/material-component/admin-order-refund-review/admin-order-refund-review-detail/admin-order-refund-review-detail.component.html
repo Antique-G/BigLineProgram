@@ -647,7 +647,7 @@
                                                                             {{data.transaction_id}}
                                                                         </ng-container>
                                                                     </td>
-                                                                    <td>{{data.pay_type_info}}</td>
+                                                                    <td>{{data?.pay_type_info}}</td>
                                                                     <td>{{data.refund_amount}}</td>
                                                                     <td>
                                                                         <span *ngIf="data.status==0">失败</span>

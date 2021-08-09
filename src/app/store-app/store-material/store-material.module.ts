@@ -18,6 +18,7 @@ import { SetCommissionComponent } from './common/set-commission/set-commission.c
 import { StoreAccountDetailComponent } from './common/store-account-detail/store-account-detail.component';
 import { UploadVideoComponent } from './common/upload-video/upload-video.component';
 import { StoreCerticationComponent } from './store-certication/store-certication.component';
+import { AtoreCertifiChangeJobNumComponent } from './store-certication/store-certifi-basic-info/atore-certifi-change-job-num/atore-certifi-change-job-num.component';
 import { StoreCertifiBasicInfoComponent } from './store-certication/store-certifi-basic-info/store-certifi-basic-info.component';
 import { StoreCertifiChangeComponent } from './store-certication/store-certifi-basic-info/store-certifi-change/store-certifi-change.component';
 import { StoreCertifiDoneComponent } from './store-certication/store-certifi-done/store-certifi-done.component';
@@ -257,6 +258,7 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
         StoreProductManagementOperateLogComponent,
         StoreProductFreeTravelOperateLogComponent,
         StoreOrderGroupOperateLogComponent,
+        AtoreCertifiChangeJobNumComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

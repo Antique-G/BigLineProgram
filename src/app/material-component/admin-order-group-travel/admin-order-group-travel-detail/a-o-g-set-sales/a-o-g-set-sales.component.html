@@ -1,0 +1,14 @@
+<div fxLayoutWrap="wrap">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+        <form nz-form [formGroup]="addForm" nz-row>
+            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+                <div nz-row>
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="bind_account_name" nzRequired>下单/推荐人（大航工号）</nz-form-label>
+                    <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="请输入大航工号">
+                        <input nz-input formControlName="bind_account_name" [ngModel]="data?.bind_account_name" placeholder="请输入大航工号" />
+                    </nz-form-control>
+                </div>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+.ant-form-item {
+    margin: 0 0 6px !important;
+}
+
+.ant-modal-confirm-error .ant-modal-content {
+    z-index: 11111111111111111111111111111111111 !important;
+}
+
+.ant-message {
+    z-index: 11111111111111111111111111111111111 !important;
+}

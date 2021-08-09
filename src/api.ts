@@ -227,6 +227,13 @@ export const AdminUrls = {
     PostAdminContractCreateTravel: api + '/admin/contract_create',   //发送合同
     PostAdminContractCancelTravel: api + '/admin/contract_cancel',   //作废合同
 
+
+    PostAdminOrderGroupAddMembers: api + '/admin/order/add_member',   //添加出行人
+    PostAdminOrderBindid: api + '/admin/order_bind_id',   //添加销售
+
+
+    
+
       
 
     GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
@@ -339,6 +346,9 @@ export const StoreUrls = {
     GetStoreApproveList: api + '/store/approve_list', // 认证资料的历史记录
     PostStoreEditContract: api + '/store/edit_contact/', // 修改联系人
     GetStoreAccount: api + '/store/account_info', // 账号详情
+    PostStoreChangeJobNum: api + '/store/update_job_num', // 修改联系人
+
+    
 
     GetStoreAccountList: api + '/store/store_account',    // 店铺的账号列表
 

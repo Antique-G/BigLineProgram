@@ -47,6 +47,13 @@
             </nz-form-item>
 
             <nz-form-item nz-row>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="job_num">大航工号</nz-form-label>
+                <nz-form-control [nzSm]="18" [nzXs]="24">
+                    <input nz-input formControlName="job_num" placeholder="请输入大航工号" ngModel={{data.job_num}}/>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-row>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="staff_type" nzRequired>门店员工</nz-form-label>
                 <nz-form-control [nzSm]="18" [nzXs]="24">
                     <nz-radio-group ngModel={{data.staff_type}} formControlName="staff_type">

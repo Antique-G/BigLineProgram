@@ -8,6 +8,7 @@ import { AdminOrderGroupTravelService } from '../../../services/admin/admin-orde
 import { AdminProductManagementService } from '../../../services/admin/admin-product-management.service';
 import { AdminRegionService } from '../../../services/admin/admin-region.service';
 import { AdminGenerateContractComponent } from './admin-generate-contract/admin-generate-contract.component';
+import { AdminOrderGroupChooseExportExcelComponent } from './admin-order-group-choose-export-excel/admin-order-group-choose-export-excel.component';
 import { AdminOrderGroupMoneyComponent } from './admin-order-group-money/admin-order-group-money.component';
 import { AdminOrderGroupOprateLogComponent } from './admin-order-group-oprate-log/admin-order-group-oprate-log.component';
 
@@ -40,6 +41,10 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     dateArray1: any[] = [];
     product_code: any;
     storeList: any[] = [];
+    member_name: any;
+    member_phone: any;
+    show_type: any;  //导出的角色
+    // 统计
     totalModel: any;
     setQuery: any
     isExport: any;
@@ -59,6 +64,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     // 签署合同
     order_id: any;
 
+
+
     constructor(public fb: FormBuilder, public router: Router, public adminRegionService: AdminRegionService,
         public modal: NzModalService, public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         public adminProductManagementService: AdminProductManagementService,) {
@@ -76,6 +83,9 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             destination_city: [''],
             admin_id: [''],
             push_status: [''],
+            member_name: [''],
+            member_phone: [''],
+
         });
     }
 
@@ -129,8 +139,10 @@ export class AdminOrderGroupTravelComponent implements OnInit {
                 this.departure_city = getSeatch?.departure_city ? getSeatch?.departure_city : '';
                 this.destination_city = getSeatch?.destination_city ? getSeatch?.destination_city : '';
                 this.admin_id = getSeatch?.admin_id ? getSeatch?.admin_id : '';
-                this.page = getSeatch?.page ? getSeatch?.page : '';
+                this.page = getSeatch?.page ? getSeatch?.page : 1;
                 this.push_status = getSeatch?.push_status ? getSeatch?.push_status : '';
+                this.member_name = getSeatch?.member_name ? getSeatch?.member_name : '';
+                this.member_phone = getSeatch?.member_phone ? getSeatch?.member_phone : '';
 
 
                 this.searchForm.patchValue({
@@ -147,9 +159,14 @@ export class AdminOrderGroupTravelComponent implements OnInit {
                     destination_city: this.destination_city ? this.cityChange(this.destination_city) : '',
                     admin_id: this.admin_id,
                     push_status: this.push_status,
+                    member_name: this.member_name,
+                    member_phone: this.member_phone
                 })
                 this.groupTravel();
                 this.getTotal();
+                // 拿到统计的值
+                let adminOrderTotalModel = JSON.parse(localStorage.getItem("adminOrderTotalModel")!);
+                this.totalModel = adminOrderTotalModel;
             }
 
         })
@@ -157,20 +174,25 @@ export class AdminOrderGroupTravelComponent implements OnInit {
     }
 
     groupTravel() {
-        this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id, this.push_status).subscribe(res => {
-            console.log("结果是", res);
-            this.dataSource = res?.data;
-            this.total = res.meta?.pagination?.total;
-            this.loading = false;
-        })
+        this.adminOrderGroupTravelService.groupTravelList(this.page, this.per_page, this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone,
+            this.departure_city, this.destination_city, this.admin_id, this.push_status, this.member_name, this.member_phone).subscribe(res => {
+                console.log("结果是", res);
+                this.dataSource = res?.data;
+                this.total = res.meta?.pagination?.total;
+                this.loading = false;
+                if (this.page == 1) {
+                    this.totalModel = res?.meta?.statistics;
+                    localStorage.setItem('adminOrderTotalModel', JSON.stringify(this.totalModel));
+                }
+            })
     }
 
     getTotal() {
-        this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id, this.push_status).subscribe(res => {
-            console.log('统计', res?.data);
-            this.totalModel = res?.data;
-            console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
-        })
+        // this.adminOrderGroupTravelService.getOrderTotal(this.status, this.product_name, this.order_number, this.date_start, this.date_end, this.product_code, this.store_id, this.order_start_date, this.order_end_date, this.contact_name, this.contact_phone, this.departure_city, this.destination_city, this.admin_id, this.push_status).subscribe(res => {
+        //     console.log('统计', res?.data);
+        //     this.totalModel = res?.data;
+        //     console.log('totalModel?.refund_money!=', this.totalModel?.refund_money != '0');
+        // })
     }
 
 
@@ -185,7 +207,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            admin_id: this.admin_id, push_status: this.push_status
+            admin_id: this.admin_id, push_status: this.push_status, member_name: this.member_name, member_phone: this.member_phone
         }
         localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
 
@@ -241,6 +263,8 @@ export class AdminOrderGroupTravelComponent implements OnInit {
         this.destination_city = this.isDestination;
         this.admin_id = this.searchForm.value.admin_id;
         this.push_status = this.searchForm.value.push_status;
+        this.member_name = this.searchForm.value.member_name;
+        this.member_phone = this.searchForm.value.member_phone;
 
         // 筛选条件存进cookie
         this.setQuery = {
@@ -250,7 +274,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             date_start: this.date_start, date_end: this.date_end, order_start_date: this.order_start_date,
             order_end_date: this.order_end_date, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
-            admin_id: this.admin_id, push_status: this.push_status
+            admin_id: this.admin_id, push_status: this.push_status, member_name: this.member_name, member_phone: this.member_phone
         }
         localStorage.setItem('adminOrderGroupSearch', JSON.stringify(this.setQuery));
     }
@@ -305,16 +329,7 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             nzComponentParams: {
                 data: data
             },
-            nzFooter: [
-                {
-                    label: '提交',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        componentInstance?.add()
-
-                    }
-                }
-            ]
+            nzFooter: null
         })
         addmodal.afterClose.subscribe(res => {
             this.groupTravel();
@@ -339,30 +354,59 @@ export class AdminOrderGroupTravelComponent implements OnInit {
             destination_city: '',
             admin_id: '',
             push_status: '',
+            member_name: '',
+            member_phone: ''
         });
     }
 
     // 导出
     export() {
-        this.setValue();
-        this.status = this.status == null ? '' : this.status;
-        this.date_start = this.date_start == null ? '' : this.date_start;
-        this.date_end = this.date_end == null ? '' : this.date_end;
-        this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
-        this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
-        this.departure_city = this.isDeparture ? this.isDeparture : '',
-            this.destination_city = this.isDestination ? this.isDestination : '',
-            this.admin_id = this.admin_id ? this.admin_id : '',
+        const editmodal = this.modal.create({
+            nzTitle: '选择角色',
+            nzWidth: 600,
+            nzContent: AdminOrderGroupChooseExportExcelComponent,
+            nzFooter: [
+                {
+                    label: '确定',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        let a = componentInstance?.update();
+                        editmodal.close(a)
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            console.log("关闭后res", res);
+            if (res) {
+                this.show_type = res;
+                this.setValue();
+                this.status = this.status == null ? '' : this.status;
+                this.date_start = this.date_start == null ? '' : this.date_start;
+                this.date_end = this.date_end == null ? '' : this.date_end;
+                this.order_start_date = this.order_start_date == null ? '' : this.order_start_date;
+                this.order_end_date = this.order_end_date == null ? '' : this.order_end_date;
+                this.departure_city = this.isDeparture ? this.isDeparture : '',
+                    this.destination_city = this.isDestination ? this.isDestination : '',
+                    this.admin_id = this.admin_id ? this.admin_id : '',
+
+                    this.isExport = this.api + '/admin/order/export/0?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
+                    '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
+                    '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
+                    '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
+                    '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
+                    '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city + '&admin_id=' +
+                    this.admin_id + '&push_status=' + this.push_status + '&member_name=' +
+                    this.member_name + '&member_phone=' + this.member_phone + '&show_type=' + this.show_type;
+                console.log('object :>> ', this.isExport);
+                this.loading = false;
+                window.open(this.isExport);
+
+            }
+        })
 
 
-            this.isExport = this.api + '/admin/order/export/0?page=' + this.page + '&per_page=' + this.per_page + '&status=' + this.status +
-            '&product_id=' + this.product_id + '&product_name=' + this.product_name + '&order_number=' + this.order_number +
-            '&date_start=' + this.date_start + '&date_end=' + this.date_end + '&product_code=' + this.product_code +
-            '&store_id=' + this.store_id + '&order_start_date=' + this.order_start_date + '&order_end_date=' + this.order_end_date +
-            '&contact_name=' + this.contact_name + '&contact_phone=' + this.contact_phone +
-            '&departure_city=' + this.departure_city + '&destination_city=' + this.destination_city + '&admin_id=' + this.admin_id + '&push_status=' + this.push_status;
-        console.log('object :>> ', this.isExport);
-        this.loading = false;
+
 
     }
 

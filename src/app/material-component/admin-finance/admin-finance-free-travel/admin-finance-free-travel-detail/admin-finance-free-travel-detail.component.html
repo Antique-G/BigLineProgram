@@ -437,11 +437,12 @@
                                                             <span *ngIf="data.status===2">已完成</span>
                                                             <span *ngIf="data.status===3">已确认</span>
                                                         </td>
-                                                        <td>{{data.pay_type_info}}</td>
+                                                        <td>{{data?.pay_type_info}}</td>
                                                         <td>
                                                             <span *ngIf="data.pay_way==0">线上支付</span>
                                                             <span *ngIf="data.pay_way==1">后台手动录入</span>
                                                             <span *ngIf="data.pay_way==2">POS机收款</span>
+                                                            <span *ngIf="data.pay_way==3">OTA</span>
                                                         </td>
                                                         <td>
                                                             {{data.pay_time}}
@@ -481,7 +482,7 @@
                                                         <th style="text-align: center;">退款类型</th>
                                                         <th style="text-align: center;">退款方式</th>
                                                         <th style="text-align: center;">金额</th>
-                                                        <th style="text-align: center;">退款时间</th>
+                                                        <th style="text-align: center;">到账时间</th>
                                                         <th style="text-align: center;">流水号</th>
                                                         <th style="text-align: center;width: 15%;">退款明细</th>
                                                         <th style="text-align: center;">退款审核时间</th>
@@ -566,7 +567,7 @@
                                                                         <span *ngIf="data.type===3">退保</span>
                                                                     </td>
                                                                 </ng-container>
-                                                                <td>{{item.pay_type_info}}</td>
+                                                                <td>{{item?.pay_type_info}}</td>
                                                                 <td>{{item.refund_amount}}元</td>
                                                                 <td>{{item.pay_at}}</td>
                                                                 <td>{{item.transaction_id}}</td>

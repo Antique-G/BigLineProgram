@@ -120,10 +120,26 @@
                                     <th style="text-align: center;width: 15%;">团队编号</th>
                                     <th style="text-align: center;width: 20%;">产品名称</th>
                                     <th style="text-align: center;width: 10%;">店铺名称</th>
-                                    <th style="text-align: center;">已确认&支付订单人数</th>
+                                    <th style="text-align: center;">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div>已确认&支付订单人数</div>
+                                            <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-left: 10px;">
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-up" nzTheme="outline" title="人数从多到少" (click)="sortDesc()"></i>
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-down" nzTheme="outline" title="人数从少到多" (click)="sortAsc()"></i>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th style="text-align: center;">子团数</th>
                                     <th style="text-align: center;">目的城市</th>
-                                    <th style="text-align: center;">订单出发日期</th>
+                                    <th style="text-align: center;">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div>订单出发日期</div>
+                                            <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-left: 10px;">
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-up" nzTheme="outline" title="订单出发日期从近到远" (click)="sortDescDate()"></i>
+                                                <i nz-icon style="cursor: pointer;width: 8px;height: 8px;color: gray;cursor: pointer;" nzType="caret-down" nzTheme="outline" title="订单出发日期从远到近" (click)="sortAscDate()"></i>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th style="text-align: center;">出团通知书/导游</th>
                                     <th style="text-align: center;">团队状态</th>
                                     <th style="text-align: center;">请款状态</th>

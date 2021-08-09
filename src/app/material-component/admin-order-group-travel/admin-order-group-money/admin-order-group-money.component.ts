@@ -1,11 +1,11 @@
-import { format } from 'date-fns';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
-import { ComfirmOrderModel, WeChatModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
-import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { ComfirmOrderModel, WeChatModel } from '../../../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminUserinfoService } from '../../../../services/admin/admin-userinfo.service';
 
 
@@ -33,6 +33,8 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
     // 余额支付
     user_id: any;
     isAccountMoney = 0;
+
+    isLoadingBtn = false;
 
     constructor(public adminOrderGroupTravelService: AdminOrderGroupTravelService,
         private msg: NzMessageService, public modal: NzModalService,
@@ -98,6 +100,7 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
         }
         console.log("this.addForm.valid", this.addForm);
         if (this.addForm.valid) {
+            this.isLoadingBtn = true;
             if (Number(this.addForm.value.fee) > Number(this.isPrice)) {
                 this.modal.confirm({
                     nzTitle: '<h4>提示</h4>',
@@ -105,20 +108,28 @@ export class AdminOrderGroupMoneyComponent implements OnInit {
                     nzOnOk: () =>
                         this.adminOrderGroupTravelService.comfirmOrder(this.comfirmOrderModel).subscribe(res => {
                             console.log('res :>> ', res);
+                            this.isLoadingBtn = false;
                         }
                             ,
                             err => {
                                 console.log('res :>> ',);
+                                this.isLoadingBtn = false;
+
+
                             })
                 })
             }
             else {
                 this.adminOrderGroupTravelService.comfirmOrder(this.comfirmOrderModel).subscribe(res => {
                     console.log('res :>> ', res);
+                    this.isLoadingBtn = false;
+
                 }
                     ,
                     err => {
                         console.log('res :>> ',);
+                        this.isLoadingBtn = false;
+
                     })
             }
 
