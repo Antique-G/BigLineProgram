@@ -390,7 +390,11 @@ export class StoreTravelDetailProinfoComponent implements OnInit {
                 let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
                 this.freeTravelModel.earlier = resMin;
             }
-            else if (min === 0) {
+            if (min == 0 && hour == 0) {
+                let resMin = earlier1 * 24 * 60 ;
+                this.freeTravelModel.earlier = resMin;
+            }
+            else if (min == 0) {
                 let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
                 this.freeTravelModel.earlier = resMin;
             }

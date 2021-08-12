@@ -642,8 +642,10 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
-                                                                    <!-- <ng-container *ngIf="detailModel?.handle_data?."></ng-container> -->
-                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
+                                                                    <!-- 不成团关团 -->
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;" *ngIf="!detailModel?.handle_data?.number">手续费：0</p>
+                                                                    <!-- 其他方式 -->
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;" *ngIf="detailModel?.handle_data?.number">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                                     </h4>

@@ -16,6 +16,7 @@ import { AOGTDetailChangeDataComponent } from './a-o-g-t-detail-change-data/a-o-
 import { AdminMemberComponent } from './admin-member/admin-member.component';
 import { AdminOrderCancelComponent } from './admin-order-cancel/admin-order-cancel.component';
 import { AdminOrderGroupAddMembersComponent } from './admin-order-group-add-members/admin-order-group-add-members.component';
+import { AdminOrderPrintConfirmationComponent } from './admin-order-print-confirmation/admin-order-print-confirmation.component';
 import { AdminOrderSurrenderComponent } from './admin-order-surrender/admin-order-surrender.component';
 import { AdminSelectRefundComponent } from './admin-select-refund/admin-select-refund.component';
 
@@ -676,5 +677,28 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         })
     }
 
+
+
+    printConfirmation() {
+        // this.adminOrderGroupTravelService.printConfirm(this.detailModel.id).subscribe(res => {
+        //     console.log("323", res)
+        //     const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
+        //         width: '1000px',
+        //         data: res.data,
+        //         disableClose: true
+        //       })
+        //     dialogRef.afterClosed().subscribe(result => {
+        //     })
+             
+        // })
+        const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
+            width: '1000px',
+            height: '800px',
+            data:1,
+            disableClose: true
+          })
+        dialogRef.afterClosed().subscribe(result => {
+        })
+    }
 }
 
