@@ -66,7 +66,7 @@
                                                         <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_name">下单/推荐人
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
-                                                            <input nz-input formControlName="bind_name" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.bind_id==0?'-': detailModel?.main_order?.data?.bind_name" />
+                                                            <input nz-input formControlName="bind_name" nzBorderless readonly [ngModel]="detailModel?.main_order?.data?.bind_id==0?'-': detailModel?.main_order?.data?.bind_name+',工号'+detailModel?.main_order?.data?.job_num" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
