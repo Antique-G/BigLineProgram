@@ -115,6 +115,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, public adminInsuranceService: AdminInsuranceService,
         public adminProductManagementService: AdminProductManagementService, public dialog: MatDialog, public modal: NzModalService,) {
+        // 校验手机
+        const { mobile } = MyValidators;
         this.addForm = this.fb.group({
             product_id: ['',],
             departure_city_name: ['',],
@@ -126,9 +128,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         });
         this.planForm = this.fb.group({
             internal_remarks: ['',],
+            referrer_phone: ['', [mobile]],
         });
-        // 校验手机
-        const { mobile } = MyValidators;
         this.informationForm = this.fb.group({
             humanList: this.fb.array([]),
             babyList: this.fb.array([]),
@@ -170,7 +171,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             internal_remarks: '',
             discount_tit: '',
             other_price_tit: '',
-            insurance_extra_ids: []
+            insurance_extra_ids: [],
+            referrer_phone: '',
         }
     }
 
@@ -614,6 +616,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         this.orderGroupProduct.other_price_tit = this.other_price_tit;
         // 计调备注
         this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
+        this.orderGroupProduct.referrer_phone = this.planForm.value.referrer_phone;
         // 保险
         this.orderGroupProduct.insurance_extra_ids = this.extraInsuranceId
 
