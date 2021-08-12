@@ -218,6 +218,9 @@ export const AdminUrls = {
     PostAdminSyncOrder: api + '/admin/send_bigline',  // 同步订单
     PostAdminContractCreateTravel: api + '/admin/contract_create',   //发送合同
     PostAdminContractCancelTravel: api + '/admin/contract_cancel',   //作废合同
+    GetAdminOrderPrintConfirm: api + '/admin/print_receipt',  // 打印客人确认单
+
+    
 
 
     PostAdminOrderGroupAddMembers: api + '/admin/order/add_member',   //添加出行人
