@@ -221,6 +221,7 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
+import { AdminFinanceOrderReportComponent } from './admin-finance/admin-finance-order-report/admin-finance-order-report.component';
 
 
 
@@ -473,6 +474,7 @@ import { MaterialRoutes } from './material.routing';
     AdminFinanceGoodsOrderDetailComponent,
     AdminFinanceGoodsOrderConfirmComponent,
     AdminFinanceGoodsOrderChangeTransComponent,
+    AdminFinanceOrderReportComponent,
 
   ]
 })
