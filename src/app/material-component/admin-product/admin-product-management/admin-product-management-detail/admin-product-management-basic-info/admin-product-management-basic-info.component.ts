@@ -319,13 +319,19 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             // 时间处理
             let earlier1 = this.addForm.value.earlier1;
             let date = new Date(this.addForm.value.earlier2);
+          
             let min = date.getMinutes();
             let hour = date.getHours();
+            console.log("datedatedate",date,min,hour)
             if (min > 0) {
                 let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
                 this.detailUpdateModel.earlier = resMin;
             }
-            else if (min === 0) {
+            if (min == 0 && hour == 0) {
+                let resMin = earlier1 * 24 * 60 ;
+                this.detailUpdateModel.earlier = resMin;
+            }
+            else if (min == 0) {
                 let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
                 this.detailUpdateModel.earlier = resMin;
             }

@@ -413,7 +413,11 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
                 let resMin = earlier1 * 24 * 60 + ((24 - hour - 1) * 60 + (60 - min));
                 this.detailUpdateModel.earlier = resMin;
             }
-            else if (min === 0) {
+            if (min == 0 && hour == 0) {
+                let resMin = earlier1 * 24 * 60 ;
+                this.detailUpdateModel.earlier = resMin;
+            }
+            else if (min == 0) {
                 let resMin = earlier1 * 24 * 60 + (24 - hour) * 60;
                 this.detailUpdateModel.earlier = resMin;
             }
