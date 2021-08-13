@@ -14,6 +14,7 @@ import { AdminFinanceGoodsOrderComponent } from './admin-finance/admin-finance-g
 import { AdminFinanceGroupReqMoneyComponent } from './admin-finance/admin-finance-group-req-money/admin-finance-group-req-money.component';
 import { AdminFinanceGroupTravelDetailComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel-detail/admin-finance-group-travel-detail.component';
 import { AdminFinanceGroupTravelComponent } from './admin-finance/admin-finance-group-travel/admin-finance-group-travel.component';
+import { AdminFinanceOrderReportComponent } from './admin-finance/admin-finance-order-report/admin-finance-order-report.component';
 import { AdminMiniWithdrawalRecordListComponent } from './admin-finance/admin-mini-withdrawal-record-list/admin-mini-withdrawal-record-list.component';
 import { AdminMiniWithdrawalReviewComponent } from './admin-finance/admin-mini-withdrawal-review/admin-mini-withdrawal-review.component';
 import { AdminFreeAddOrderByQuoteComponent } from './admin-free-travel-add-order/admin-free-add-order-by-quote/admin-free-add-order-by-quote.component';
@@ -661,6 +662,14 @@ export const MaterialRoutes: Routes = [
                     breadcrumb: '小程序钱包提现流水列表'
                 }
             },
+            {
+                path: 'financeOrderReport',
+                component: AdminFinanceOrderReportComponent,
+                data: {
+                    breadcrumb: '财务统计报表'
+                }
+            },
+            
 
 
             // 生鲜商城

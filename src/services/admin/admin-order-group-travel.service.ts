@@ -382,6 +382,22 @@ export class AdminOrderGroupTravelService {
     }
 
 
+    //打印确认单
+    printConfirm(order_id: any) {
+        const params = new HttpParams()
+            .set('order_id', order_id)
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+
+        return this.httpClient.get<any>(this.urls.GetAdminOrderPrintConfirm, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
     private handleError(error: HttpErrorResponse) {
         console.log("1212", error);
         switch (error.status) {
