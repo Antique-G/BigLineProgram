@@ -76,7 +76,7 @@
                                     </ng-container>
                                 </td>
                             </tr>
-                            <ng-container *ngIf="detailModel?.member?.data.length>0">
+                            <ng-container *ngIf="membersArr.length>0">
                                 <tr>
                                     <td colspan="2" style="text-align: center;">客人姓名</td>
                                     <td colspan="2" style="text-align: center;">性别</td>
@@ -85,7 +85,7 @@
                                     <td colspan="2" style="text-align: center;">证件号码</td>
                                     <td colspan="2" style="text-align: center;">电话号码</td>
                                 </tr>
-                                <ng-container *ngFor="let member of detailModel?.member?.data">
+                                <ng-container *ngFor="let member of membersArr">
                                     <tr>
                                         <td colspan="2" style="text-align: center;">{{member?.name}}</td>
                                         <td colspan="2" style="text-align: center;">

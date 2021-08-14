@@ -10,6 +10,7 @@ export class AdminOrderPrintConfirmationComponent implements OnInit {
     detailModel: any;
     ifFree: any;
     dateNow: any;
+    membersArr: any;
 
     constructor(public dialogRef: MatDialogRef<AdminOrderPrintConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: any,) {
 
@@ -20,6 +21,8 @@ export class AdminOrderPrintConfirmationComponent implements OnInit {
         this.detailModel = this.data[0];
         this.ifFree = this.data[1];
         this.dateNow = new Date();
+        this.membersArr=this.detailModel.member?.data.filter((item: any) => item.refund_status == 0);
+        console.log("v",this.membersArr)
     }
 
 
