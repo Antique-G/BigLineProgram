@@ -680,24 +680,17 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
 
 
     printConfirmation() {
-        // this.adminOrderGroupTravelService.printConfirm(this.detailModel.id).subscribe(res => {
-        //     console.log("323", res)
-        //     const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
-        //         width: '1000px',
-        //         data: res.data,
-        //         disableClose: true
-        //       })
-        //     dialogRef.afterClosed().subscribe(result => {
-        //     })
+        this.adminOrderGroupTravelService.printConfirm(this.detailModel.id).subscribe(res => {
+            console.log("323", res)
+            const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
+                width: '1000px',
+                height: '800px',
+                data: [res.data,1],
+                disableClose: true
+              })
+            dialogRef.afterClosed().subscribe(result => {
+            })
              
-        // })
-        const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
-            width: '1000px',
-            height: '800px',
-            data:1,
-            disableClose: true
-          })
-        dialogRef.afterClosed().subscribe(result => {
         })
     }
 }

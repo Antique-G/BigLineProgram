@@ -19,10 +19,8 @@
                                 <td colspan="12">{{detailModel?.product_name}}</td>
                             </tr>
                             <tr>
-                                <td colspan="4">订单号:{{ detailModel?.order_id }}</td>
-                                <td colspan="8">
-                                    <ng-container *ngIf="ifFree==1">团号:{{ detailModel?.group_code }}</ng-container>
-                                </td>
+                                <td colspan="12">订单号:{{ detailModel?.order_id }}</td>
+
                             </tr>
                             <tr>
                                 <td colspan="3">报名日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</td>
@@ -37,19 +35,15 @@
                                 <td colspan="12">价格:{{ detailModel?.price_info }}</td>
                             </tr>
                             <tr>
-                                <td colspan="3">附加费用:￥{{ detailModel?.price_other }}</td>
-                                <td colspan="3">补房差:￥{{ detailModel?.price_diff_total }}</td>
-                                <td colspan="3">优惠:￥{{ detailModel?.discount_other }}</td>
-                                <td colspan="3">
-                                    <ng-container *ngIf="ifFree==1">保险费用:￥{{ detailModel?.price_insurance_total }}</ng-container>
-                                </td>
+                                <td colspan="4">附加费用:￥{{ detailModel?.price_other }}</td>
+                                <td colspan="8">优惠:￥{{ detailModel?.discount_other }}</td>
                             </tr>
                             <tr>
-                                <td colspan="12" style="font-size: 14px;font-weight: 800;">订单金额合计:￥{{ detailModel?.price_total }}</td>
+                                <td colspan="12"><span style="font-size: 14px;font-weight: 800;">订单金额合计:￥{{ detailModel?.price_total }}</span></td>
                             </tr>
                             <tr>
-                                <td colspan="3">已付金额:￥{{ detailModel?.price_receive}}</td>
-                                <td colspan="3">实付金额:￥{{ detailModel?.amount_received }}</td>
+                                <td colspan="3">已付金额:￥{{ detailModel?.price_receive }}</td>
+                                <td colspan="3">实付金额:￥{{ detailModel?.amount_received}}</td>
                                 <td colspan="3">待付金额:￥{{ detailModel?.unpaid_amount }}</td>
                                 <td colspan="3">退款金额:￥{{ detailModel?.refund_amount }}</td>
                             </tr>
@@ -67,15 +61,6 @@
                                     </tr>
                                 </ng-container>
                             </ng-container>
-                            <tr *ngIf="ifFree==1">
-                                <td colspan="12">
-                                    <ng-container *ngIf="detailModel?.assembling_place.length>0">
-                                        <div *ngFor="let place of detailModel?.assembling_place;let i=index">
-                                            <div><span *ngIf="i==0">集合地点&集合时间:</span>{{place?.name}}</div>
-                                        </div>
-                                    </ng-container>
-                                </td>
-                            </tr>
                             <ng-container *ngIf="detailModel?.member?.data.length>0">
                                 <tr>
                                     <td colspan="2" style="text-align: center;">客人姓名</td>
