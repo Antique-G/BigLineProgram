@@ -14,8 +14,10 @@ import { AdminOrderService } from '../../../../services/admin/admin-order.servic
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
+import { AdminOrderPrintConfirmationComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-print-confirmation/admin-order-print-confirmation.component';
 import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
 import { AOFTRefundByquoteComponent } from './a-o-f-t-refund-byquote/a-o-f-t-refund-byquote.component';
+import { AdminOrderFreePrintConfirmComponent } from './admin-order-free-print-confirm/admin-order-free-print-confirm.component';
 
 
 
@@ -472,7 +474,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
                     console.log("res", res)
-                    if (res?.data?.result==true) {
+                    if (res?.data?.result == true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -524,6 +526,34 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
                 this.getDetail();
 
             });
+        })
+    }
+
+
+    printConfirmation() {
+        this.adminOrderGroupTravelService.printConfirm(this.detailModel.id).subscribe(res => {
+            // 按套餐
+            if (this.detailModel?.quote_type == 1) {
+                const dialogRef = this.dialog.open(AdminOrderFreePrintConfirmComponent, {
+                    width: '1000px',
+                    height: '800px',
+                    data: res.data,
+                    disableClose: true
+                })
+                dialogRef.afterClosed().subscribe(result => {
+                })
+            }
+            // 按人头           
+            else {
+                const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
+                    width: '1000px',
+                    height: '800px',
+                    data: [res.data, 2],
+                    disableClose: true
+                })
+                dialogRef.afterClosed().subscribe(result => {
+                })
+            }
         })
     }
 }

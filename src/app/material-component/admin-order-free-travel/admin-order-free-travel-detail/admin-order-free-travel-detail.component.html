@@ -21,6 +21,8 @@
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
                                             <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="detailModel?.order_status===0">订单修改日期</button> -->
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="printConfirmation()">打印客人确认单</button>
+                                            
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="distributionSales()" *ngIf="detailModel?.bind_account_name==''">绑定下单人</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
