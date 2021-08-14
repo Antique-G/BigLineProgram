@@ -185,6 +185,14 @@ export class AdminFinaceGroupService {
     }
 
 
+    // 作废收款记录
+    destroyReceive(order_pay_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminFinanceOrderDestroyReceive, { order_pay_id: order_pay_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);
         switch (error.status) {

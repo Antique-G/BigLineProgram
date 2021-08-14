@@ -315,4 +315,15 @@ export class AdminFinanceGroupTravelComponent implements OnInit {
         this.loading = false;
 
     }
+
+    
+    // 作废收款记录
+    destroyReceive(item: any) {
+        this.modal.confirm({
+            nzTitle: '提示',
+            nzContent: '请确认是否作废此收款记录？',
+            nzOnOk: () => this.adminFinaceGroupService.destroyReceive(item.id).subscribe(res => this.groupTravel())
+        });
+        
+    }
 }
