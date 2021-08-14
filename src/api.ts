@@ -321,6 +321,7 @@ export const AdminUrls = {
     GetAdminFinanceFreeCashList: api + '/admin/finance/free_travel_cash',  // 自由行请款列表
     GetAdminFreeCashTotal: api + '/admin/finance/free_travel_total',  // 自由行请款的合计
     GetAdminFinanceOrderReport: api + '/admin/finance_order_report',  // 财务统计报表
+    PostAdminFinanceOrderDestroyReceive: api + '/admin/order/del_receipt',  // 作废收款记录
 
     
 
