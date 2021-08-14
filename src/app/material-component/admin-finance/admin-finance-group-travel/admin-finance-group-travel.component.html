@@ -340,6 +340,14 @@
                                                 </div>
                                             </ng-container>
                                         </td>
+                                        <td>
+                                            <!-- 未确认的和后台手动填写收款的才可以修改 "-->
+                                            <ng-container *ngIf="item.pay_way==1||item.pay_way==3">
+                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/destroy.png" title="作废收款记录" (click)="destroyReceive(item)">
+                                                </div>
+                                            </ng-container>
+                                        </td>
                                     </tr>
                                     <tr *ngFor="let item of data?.refunds?.data;let i=index">
                                         <td [attr.rowspan]="data?.refunds?.data.length" *ngIf="i==0">退款</td>
