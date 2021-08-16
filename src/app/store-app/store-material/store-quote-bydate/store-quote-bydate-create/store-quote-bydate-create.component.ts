@@ -278,8 +278,8 @@ export class StoreQuoteBydateCreateComponent implements OnInit {
     disabledDate = (current: Date): boolean => {
         // 禁用之前的日期
         // console.log("this.isEarlier", this.isEarlier);
-        // let i = 1 + Number(this.isEarlier);
-        return differenceInCalendarDays(current, this.today) < 0;
+        let i = 1 + Number(this.isEarlier);
+        return differenceInCalendarDays(current, this.today) < i;
     };
 
 
