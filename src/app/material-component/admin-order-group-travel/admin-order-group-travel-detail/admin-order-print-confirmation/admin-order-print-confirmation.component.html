@@ -74,7 +74,7 @@
                                 <td colspan="12">
                                     <ng-container *ngIf="detailModel?.assembling_place.length>0">
                                         <div *ngFor="let place of detailModel?.assembling_place;let i=index">
-                                            <div><span *ngIf="i==0">集合地点&集合时间:</span>{{place?.name}}</div>
+                                            <div><span [class]="i==0?'item-bg-success':'item-bg-error'">集合地点&集合时间:</span>{{place?.name}}</div>
                                         </div>
                                     </ng-container>
                                 </td>
