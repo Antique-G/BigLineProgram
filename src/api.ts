@@ -218,6 +218,9 @@ export const AdminUrls = {
     PostAdminSyncOrder: api + '/admin/send_bigline',  // 同步订单
     PostAdminContractCreateTravel: api + '/admin/contract_create',   //发送合同
     PostAdminContractCancelTravel: api + '/admin/contract_cancel',   //作废合同
+    GetAdminOrderPrintConfirm: api + '/admin/print_receipt',  // 打印客人确认单
+
+    
 
 
     PostAdminOrderGroupAddMembers: api + '/admin/order/add_member',   //添加出行人
@@ -317,8 +320,10 @@ export const AdminUrls = {
     GetAdminGroupCashTotal: api + '/admin/group_cash_total',  // 团请款的合计
     GetAdminFinanceFreeCashList: api + '/admin/finance/free_travel_cash',  // 自由行请款列表
     GetAdminFreeCashTotal: api + '/admin/finance/free_travel_total',  // 自由行请款的合计
+    GetAdminFinanceOrderReport: api + '/admin/finance_order_report',  // 财务统计报表
+    PostAdminFinanceOrderDestroyReceive: api + '/admin/order/del_receipt',  // 作废收款记录
 
-
+    
 
     // 供应商
     GetAdminSupplyList: api + '/admin/supplier',   // 列表

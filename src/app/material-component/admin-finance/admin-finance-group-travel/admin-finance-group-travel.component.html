@@ -206,6 +206,8 @@
                                     <th>支付时间</th>
                                     <th style="text-align: center;">确认收款</th>
                                     <th style="text-align: center;">修改流水</th>
+                                    <th style="text-align: center;">作废收款记录</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -297,6 +299,9 @@
                                     <p *ngSwitchCase="3" style="color: green;">
                                         已确认
                                     </p>
+                                    <p *ngSwitchCase="4" style="color: green;">
+                                        已作废
+                                    </p>
                                     <p *ngSwitchDefault style="color: red;">
                                         错误状态
                                     </p>
@@ -332,9 +337,17 @@
                                         </td>
                                         <td>
                                             <!-- 未确认的和后台手动填写收款的才可以修改 "-->
-                                            <ng-container *ngIf="item.pay_way==1">
-                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                            <ng-container *ngIf="item.pay_way==1||item.pay_way==3">
+                                                <div style="cursor: pointer;" *ngIf="item.status==2">
                                                     <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
+                                                </div>
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <!-- 未确认的和后台手动填写收款的才可以修改 "-->
+                                            <ng-container *ngIf="item.pay_way==1||item.pay_way==3">
+                                                <div style="cursor: pointer;" *ngIf="item.status==2">
+                                                    <img src="http://cdn.bigline.com.cn/static/images/destroy.png" title="作废收款记录" (click)="destroyReceive(item)">
                                                 </div>
                                             </ng-container>
                                         </td>
@@ -377,6 +390,8 @@
                                                 <!-- <img src="http://cdn.bigline.com.cn/static/images/money.png" title="收款" (click)="moneyConfirm(item)"> -->
                                             </div>
                                         </td>
+                                        <td></td>
+                                        <td></td>
 
                                     </tr>
                                 </ng-container>

@@ -95,8 +95,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
     discount_tit: any;
     other_price_tit: any;
-   // 性别数组
-   idType: any[] = [];
+    // 性别数组
+    idType: any[] = [];
 
     constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService, public dialog: MatDialog, public modal: NzModalService,) {
@@ -129,6 +129,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             contact_qq: ['',],
             contact_email: ['',],
             internal_remarks: ['',],
+            referrer_phone: ['', [mobile]],
         });
         this.orderGroupProduct = {
             product_id: '',
@@ -152,7 +153,8 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             internal_remarks: '',
             discount_tit: '',
             other_price_tit: '',
-            insurance_extra_ids: []
+            insurance_extra_ids: [],
+            referrer_phone: '',
         }
     }
 
@@ -176,7 +178,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             this.humanArray.push(this.fb.group({
                 name: new FormControl('', [Validators.required]),
                 phone: new FormControl('', [mobile]),
-                is_kid: new FormControl( 0, [Validators.required]),
+                is_kid: new FormControl(0, [Validators.required]),
                 id_type: new FormControl(1, [Validators.required]),
                 id_num: new FormControl('', [Validators.required]),
                 birthday: new FormControl('', [Validators.required]),
@@ -189,7 +191,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             this.humanArray.push(this.fb.group({
                 name: new FormControl('', [Validators.required]),
                 phone: new FormControl('', [mobile]),
-                is_kid: new FormControl( 0, [Validators.required]),
+                is_kid: new FormControl(0, [Validators.required]),
                 id_type: new FormControl(1),
                 id_num: new FormControl(''),
                 birthday: new FormControl('', [Validators.required]),
@@ -364,31 +366,31 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
     }
 
 
-        // 输入证件号码
-        idCardEnter(event: any, i: any) {
-            console.log("this.informationForm.value.humanList.length", this.informationForm.value.humanList)
-            console.log("11111", event, i)
-            let newbir = this.informationForm.value.humanList[i].id_num;
-            let sex = this.getSex(newbir);
-            // 性别数组
-            this.idType[i] = sex;
-            console.log("newbir", newbir, sex);
-            console.log("this.idType", this.idType);
-        }
-    
-        // 根据输入的身份证信息获取性别
-        getSex(idCardany: any) {
-            let sexStr: number = 1;
-            if (parseInt(idCardany.slice(-2, -1)) % 2 == 1) {
-                sexStr = 1;
-            }
-            else {
-                sexStr = 2;
-            }
-            return sexStr;
-    
+    // 输入证件号码
+    idCardEnter(event: any, i: any) {
+        console.log("this.informationForm.value.humanList.length", this.informationForm.value.humanList)
+        console.log("11111", event, i)
+        let newbir = this.informationForm.value.humanList[i].id_num;
+        let sex = this.getSex(newbir);
+        // 性别数组
+        this.idType[i] = sex;
+        console.log("newbir", newbir, sex);
+        console.log("this.idType", this.idType);
     }
-    
+
+    // 根据输入的身份证信息获取性别
+    getSex(idCardany: any) {
+        let sexStr: number = 1;
+        if (parseInt(idCardany.slice(-2, -1)) % 2 == 1) {
+            sexStr = 1;
+        }
+        else {
+            sexStr = 2;
+        }
+        return sexStr;
+
+    }
+
 
     // 详细人信息校验
     isNum() {
@@ -420,7 +422,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             control.push(new FormGroup({
                 name: new FormControl('', [Validators.required]),
                 phone: new FormControl('', [mobile]),
-                is_kid: new FormControl( 0, [Validators.required]),
+                is_kid: new FormControl(0, [Validators.required]),
                 id_type: new FormControl(1, [Validators.required]),
                 id_num: new FormControl('', [Validators.required]),
                 birthday: new FormControl('', [Validators.required]),
@@ -433,7 +435,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
             control.push(new FormGroup({
                 name: new FormControl('', [Validators.required]),
                 phone: new FormControl('', [mobile]),
-                is_kid: new FormControl( 0, [Validators.required]),
+                is_kid: new FormControl(0, [Validators.required]),
                 id_type: new FormControl(1),
                 id_num: new FormControl(''),
                 birthday: new FormControl('', [Validators.required]),
@@ -504,7 +506,7 @@ export class AdminFreeTravelAddOrderDetailComponent implements OnInit {
 
         // 计调备注
         this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
-
+        this.orderGroupProduct.referrer_phone = this.contactForm.value.referrer_phone;
         console.log("提交的", this.orderGroupProduct)
     }
 
