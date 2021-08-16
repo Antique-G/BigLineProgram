@@ -1,0 +1,11 @@
+tbody {
+    font-size: 12px !important;
+}
+
+.item-bg-success {
+    visibility: visible;
+}
+
+.item-bg-error {
+    visibility: hidden;
+}
