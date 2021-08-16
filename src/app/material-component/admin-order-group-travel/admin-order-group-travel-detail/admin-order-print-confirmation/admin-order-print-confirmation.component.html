@@ -80,7 +80,7 @@
                                 <tr>
                                     <td colspan="2" style="text-align: center;">客人姓名</td>
                                     <td colspan="2" style="text-align: center;">性别</td>
-                                    <td colspan="2" style="text-align: center;">出生日期</td>
+                                    <td colspan="2" style="text-align: center;">年龄</td>
                                     <td colspan="2" style="text-align: center;">证件类型</td>
                                     <td colspan="2" style="text-align: center;">证件号码</td>
                                     <td colspan="2" style="text-align: center;">电话号码</td>
@@ -93,7 +93,7 @@
                                             <span *ngIf="member?.is_kid===1">儿童</span>
                                             <span *ngIf="member?.is_kid===2">婴儿</span>
                                         </td>
-                                        <td colspan="2" style="text-align: center;">{{member?.birthday}}</td>
+                                        <td colspan="2" style="text-align: center;">{{member?.age}}</td>
                                         <td colspan="2" style="text-align: center;">
                                             <span *ngIf="member.id_type===1">身份证</span>
                                             <span *ngIf="member.id_type===2">护照</span>
