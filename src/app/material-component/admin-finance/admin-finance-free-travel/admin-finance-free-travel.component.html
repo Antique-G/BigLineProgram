@@ -117,7 +117,6 @@
                                         <nz-option [nzLabel]="'已支付'" [nzValue]="'1'"></nz-option>
                                         <nz-option [nzLabel]="'支付中'" [nzValue]="'2'"></nz-option>
                                         <nz-option [nzLabel]="'已确认'" [nzValue]="'3'"></nz-option>
-                                        <nz-option [nzLabel]="'已作废'" [nzValue]="'4'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -239,9 +238,6 @@
                                                     <p *ngSwitchCase="3">
                                                         已确认
                                                     </p>
-                                                    <p *ngSwitchCase="4">
-                                                        已作废
-                                                    </p>
                                                 </span>
 
                                             </td>
@@ -310,6 +306,9 @@
                                                 <p *ngSwitchCase="3" style="color: green;">
                                                     已确认
                                                 </p>
+                                                <p *ngSwitchCase="4" style="color: green;">
+                                                    已作废
+                                                </p>
                                                 <p *ngSwitchDefault style="color: red;">
                                                     错误状态
                                                 </p>
@@ -347,7 +346,7 @@
                                         <td>
                                             <!-- 未确认的和后台手动填写收款的才可以修改 "-->
                                             <ng-container *ngIf="item.pay_way==1||item.pay_way==3">
-                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                                <div style="cursor: pointer;" *ngIf="item.status==2">
                                                     <img src="http://cdn.bigline.com.cn/static/images/tranNo.png" title="修改流水信息" (click)="changeTrans(item)">
                                                 </div>
                                             </ng-container>
@@ -355,7 +354,7 @@
                                         <td>
                                             <!-- 未确认的和后台手动填写收款的才可以修改 "-->
                                             <ng-container *ngIf="item.pay_way==1||item.pay_way==3">
-                                                <div style="cursor: pointer;" *ngIf="item.status!=3">
+                                                <div style="cursor: pointer;" *ngIf="item.status==2">
                                                     <img src="http://cdn.bigline.com.cn/static/images/destroy.png" title="作废收款记录" (click)="destroyReceive(item)">
                                                 </div>
                                             </ng-container>
