@@ -25,7 +25,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3">报名日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</td>
+                                <td colspan="3">
+                                    <ng-container *ngIf="ifFree==1"> 报名日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</ng-container>
+                                    <ng-container *ngIf="ifFree==2"> 下单日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</ng-container>
+                                </td>
                                 <td colspan="3">出发日期:{{ detailModel?.start_date }}</td>
                                 <td colspan="3">行程天数:{{ detailModel?.few_days+'天'+detailModel?.few_nights+'晚'}}</td>
                                 <td colspan="3">联系人:{{ detailModel?.contact_name+'&'+ detailModel?.contact_phone }}</td>
@@ -80,7 +83,7 @@
                                 <tr>
                                     <td colspan="2" style="text-align: center;">客人姓名</td>
                                     <td colspan="2" style="text-align: center;">性别</td>
-                                    <td colspan="2" style="text-align: center;">出生日期</td>
+                                    <td colspan="2" style="text-align: center;">年龄</td>
                                     <td colspan="2" style="text-align: center;">证件类型</td>
                                     <td colspan="2" style="text-align: center;">证件号码</td>
                                     <td colspan="2" style="text-align: center;">电话号码</td>
@@ -93,7 +96,7 @@
                                             <span *ngIf="member?.is_kid===1">儿童</span>
                                             <span *ngIf="member?.is_kid===2">婴儿</span>
                                         </td>
-                                        <td colspan="2" style="text-align: center;">{{member?.birthday}}</td>
+                                        <td colspan="2" style="text-align: center;">{{member?.age}}</td>
                                         <td colspan="2" style="text-align: center;">
                                             <span *ngIf="member.id_type===1">身份证</span>
                                             <span *ngIf="member.id_type===2">护照</span>

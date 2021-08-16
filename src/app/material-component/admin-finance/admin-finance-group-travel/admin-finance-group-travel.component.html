@@ -118,6 +118,7 @@
                                         <nz-option [nzLabel]="'已支付'" [nzValue]="'1'"></nz-option>
                                         <nz-option [nzLabel]="'支付中'" [nzValue]="'2'"></nz-option>
                                         <nz-option [nzLabel]="'已确认'" [nzValue]="'3'"></nz-option>
+                                        <nz-option [nzLabel]="'已作废'" [nzValue]="'4'"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -232,6 +233,9 @@
                                         </p>
                                         <p *ngSwitchCase="3">
                                             已确认
+                                        </p>
+                                        <p *ngSwitchCase="4">
+                                            已作废
                                         </p>
                                     </span>
 

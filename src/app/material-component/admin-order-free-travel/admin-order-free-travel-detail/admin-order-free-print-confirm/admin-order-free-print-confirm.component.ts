@@ -9,7 +9,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AdminOrderFreePrintConfirmComponent implements OnInit {
     detailModel: any;
     dateNow: any;
+    membersArr: any;
 
+    
     constructor(public dialogRef: MatDialogRef<AdminOrderFreePrintConfirmComponent>, @Inject(MAT_DIALOG_DATA) public data: any,) {
 
     }
@@ -18,6 +20,15 @@ export class AdminOrderFreePrintConfirmComponent implements OnInit {
         console.log("data", this.data);
         this.detailModel = this.data;
         this.dateNow = new Date();
+        this.membersArr = this.detailModel.member?.data.filter((item: any) => item.refund_status == 0);
+        this.membersArr.forEach((element:any) => {
+            if (element.birthday) {
+                element['age'] = this.ages(element.birthday);
+            }
+            else {
+                element['age'] = '';
+            }
+        });
     }
 
 
@@ -36,5 +47,14 @@ export class AdminOrderFreePrintConfirmComponent implements OnInit {
     }
 
 
+    ages(str: any) {
+        var r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+        if (r == null) return false;
+        var d = new Date(r[1], r[3] - 1, r[4]);
+        if (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
+            var Y = new Date().getFullYear();
+            return ((Y - r[1]));
+        }
+    }
 }
 
