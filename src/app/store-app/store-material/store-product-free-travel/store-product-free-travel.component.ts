@@ -248,9 +248,12 @@ export class StoreProductFreeTravelComponent implements OnInit {
         let child_status = Number(data.reserve_children)
         // 处理时间，预计多久报名
         let minutes = data.earlier;
+        // 小时
         this.newMin = Math.floor(minutes % 60);
-        if (this.newMin === 0) {
+        console.log("小时", this.newMin)
+        if (this.newMin == 0) {
             this.newHour = Math.floor(24 - minutes / 60 % 24);
+            console.log("小时newHour", this.newHour)
         }
         else if (this.newMin != 0) {
             this.newMin = 60 - this.newMin;
@@ -258,12 +261,23 @@ export class StoreProductFreeTravelComponent implements OnInit {
         }
         this.newDay = format(new Date(), 'HH');
         console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
-        if (this.newHour <= this.newDay) {
+        if (this.newHour < this.newDay) {
             this.isEar = Math.floor(minutes / 60 / 24) + 1;
         }
-        else {
+        if (this.newHour == this.newDay) {
+            let nowMins = format(new Date(), 'ss');
+            if (this.newMin < nowMins) {
+                this.isEar = Math.floor(minutes / 60 / 24);
+            }
+            else {
+                this.isEar = Math.floor(minutes / 60 / 24) + 1;
+            }
+        }
+        else if (this.newHour > this.newDay) {
             this.isEar = Math.floor(minutes / 60 / 24);
         }
+
+
         // 按套餐
         if (data?.quote_type == 1) {
             let start_date = data?.product_ticket[0]?.start_date;

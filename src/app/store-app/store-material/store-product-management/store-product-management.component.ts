@@ -278,9 +278,12 @@ export class StoreProductManagementComponent implements OnInit {
             let child_status = Number(res.data.child_status)
             // 处理时间，预计多久报名
             let minutes = res.data.earlier;
+            // 小时
             this.newMin = Math.floor(minutes % 60);
-            if (this.newMin === 0) {
+            console.log("小时",this.newMin)
+            if (this.newMin == 0) {
                 this.newHour = Math.floor(24 - minutes / 60 % 24);
+                console.log("小时newHour",this.newHour)
             }
             else if (this.newMin != 0) {
                 this.newMin = 60 - this.newMin;
@@ -288,12 +291,22 @@ export class StoreProductManagementComponent implements OnInit {
             }
             this.newDay = format(new Date(), 'HH');
             console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
-            if (this.newHour <= this.newDay) {
+            if (this.newHour < this.newDay) {
                 this.isEar = Math.floor(minutes / 60 / 24) + 1;
             }
-            else {
+            if (this.newHour == this.newDay) {
+                let nowMins = format(new Date(), 'ss');
+                if (this.newMin < nowMins) {
+                    this.isEar = Math.floor(minutes / 60 / 24);
+                }
+                else {
+                    this.isEar = Math.floor(minutes / 60 / 24) + 1; 
+                }
+            }
+            else if (this.newHour >this.newDay){
                 this.isEar = Math.floor(minutes / 60 / 24);
             }
+            console.log("天数",this.isEar)
             this.router.navigate(['/store/main/storeProduct/storeQuote'], { queryParams: { productId: res.data.id, type: 'management', earlier: this.isEar, proName: data.title, childStatus: child_status, few_nights: data?.few_nights, include_insurance_fee: res.data?.include_insurance_fee, insurance_expense: res.data?.insurance_base_info?.data?.insurance_expense } });
         })
     }
