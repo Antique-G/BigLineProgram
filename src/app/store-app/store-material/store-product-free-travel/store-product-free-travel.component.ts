@@ -265,8 +265,8 @@ export class StoreProductFreeTravelComponent implements OnInit {
             this.isEar = Math.floor(minutes / 60 / 24) + 1;
         }
         if (this.newHour == this.newDay) {
-            let nowMins = format(new Date(), 'ss');
-            if (this.newMin < nowMins) {
+            let nowMins = format(new Date(), 'mm');
+            if (this.newMin > nowMins) {
                 this.isEar = Math.floor(minutes / 60 / 24);
             }
             else {
