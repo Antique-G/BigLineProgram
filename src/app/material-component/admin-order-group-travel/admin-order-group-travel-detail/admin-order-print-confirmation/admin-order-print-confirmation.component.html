@@ -1,0 +1,143 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+        <div class="example-container" id="report">
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <div>
+                    <img src="http://cdn.bigline.com.cn/static/images/printCon.png" style="width: 100%;" />
+                </div>
+
+                <div>
+                    <h4 style="text-align: center;font-size: 16px;font-weight: 800;">客人确认单</h4>
+                    <nz-table nzBordered [nzData]="[{}]" [nzShowPagination]='false'>
+                        <!-- <thead>
+                            <tr>
+                                <th colspan="12" style="font-size: 16px;font-weight: 800;">客人确认单</th>
+                            </tr>
+                        </thead> -->
+                        <tbody>
+                            <tr>
+                                <td colspan="12">{{detailModel?.product_name}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">订单号:{{ detailModel?.order_id }}</td>
+                                <td colspan="8">
+                                    <ng-container *ngIf="ifFree==1">团号:{{ detailModel?.group_code }}</ng-container>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <ng-container *ngIf="ifFree==1"> 报名日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</ng-container>
+                                    <ng-container *ngIf="ifFree==2"> 下单日期:{{ detailModel?.created_at| date:'yyyy-MM-dd'}}</ng-container>
+                                </td>
+                                <td colspan="3">出发日期:{{ detailModel?.start_date }}</td>
+                                <td colspan="3">行程天数:{{ detailModel?.few_days+'天'+detailModel?.few_nights+'晚'}}</td>
+                                <td colspan="3">联系人:{{ detailModel?.contact_name+'&'+ detailModel?.contact_phone }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">备注:{{ detailModel?.customer_remarks }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">价格:{{ detailModel?.price_info }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">附加费用:￥{{ detailModel?.price_other }}</td>
+                                <td colspan="3">补房差:￥{{ detailModel?.price_diff_total }}</td>
+                                <td colspan="3">优惠:￥{{ detailModel?.discount_other }}</td>
+                                <td colspan="3">
+                                    <ng-container *ngIf="ifFree==1">保险费用:￥{{ detailModel?.price_insurance_total }}</ng-container>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="font-size: 14px;font-weight: 800;">订单金额合计:￥{{ detailModel?.price_total }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">已付金额:￥{{ detailModel?.price_receive}}</td>
+                                <td colspan="3">实付金额:￥{{ detailModel?.amount_received }}</td>
+                                <td colspan="3">待付金额:￥{{ detailModel?.unpaid_amount }}</td>
+                                <td colspan="3">退款金额:￥{{ detailModel?.refund_amount }}</td>
+                            </tr>
+                            <ng-container *ngIf="detailModel?.pay_log?.data.length>0">
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">付款方式</td>
+                                    <td colspan="4" style="text-align: center;">付款金额</td>
+                                    <td colspan="4" style="text-align: center;">付款日期</td>
+                                </tr>
+                                <ng-container *ngFor="let pay of detailModel?.pay_log?.data">
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">{{pay?.pay_type_info}}</td>
+                                        <td colspan="4" style="text-align: center;">￥{{pay?.fee}}</td>
+                                        <td colspan="4" style="text-align: center;">{{pay?.pay_time}}</td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                            <tr *ngIf="ifFree==1">
+                                <td colspan="12">
+                                    <ng-container *ngIf="detailModel?.assembling_place.length>0">
+                                        <div *ngFor="let place of detailModel?.assembling_place;let i=index">
+                                            <div><span [class]="i==0?'item-bg-success':'item-bg-error'">集合地点&集合时间:</span>{{place?.name}}</div>
+                                        </div>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="membersArr.length>0">
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">客人姓名</td>
+                                    <td colspan="2" style="text-align: center;">性别</td>
+                                    <td colspan="2" style="text-align: center;">年龄</td>
+                                    <td colspan="2" style="text-align: center;">证件类型</td>
+                                    <td colspan="2" style="text-align: center;">证件号码</td>
+                                    <td colspan="2" style="text-align: center;">电话号码</td>
+                                </tr>
+                                <ng-container *ngFor="let member of membersArr">
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">{{member?.name}}</td>
+                                        <td colspan="2" style="text-align: center;">
+                                            <span *ngIf="member?.is_kid===0">成人</span>
+                                            <span *ngIf="member?.is_kid===1">儿童</span>
+                                            <span *ngIf="member?.is_kid===2">婴儿</span>
+                                        </td>
+                                        <td colspan="2" style="text-align: center;">{{member?.age}}</td>
+                                        <td colspan="2" style="text-align: center;">
+                                            <span *ngIf="member.id_type===1">身份证</span>
+                                            <span *ngIf="member.id_type===2">护照</span>
+                                            <span *ngIf="member.id_type===3">回乡证</span>
+                                        </td>
+                                        <td colspan="2" style="text-align: center;">{{member.id_num}}</td>
+                                        <td colspan="2" style="text-align: center;">{{member.phone}}</td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+                            <tr>
+                                <td colspan="12" style="font-size: 14px;font-weight: 800;">费用包含</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12"><span [innerHTML]="detailModel?.fee"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="font-size: 14px;font-weight: 800;">预定须知</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12">
+                                    <span [innerHTML]="detailModel?.notice"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">业务员:{{detailModel?.handler_name}}</td>
+                                <td colspan="4">打印日期:{{dateNow|date:'yyyy-MM-dd HH:mm'}}</td>
+                                <td colspan="4">客人签名:</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" style="margin-top: 20px;">
+            <!-- <button mat-raised-button color="primary" (click)="print()">打印</button> -->
+
+            <button mat-raised-button color="primary" printSectionId="report" ngxPrint [useExistingCss]="true">打印</button>
+
+            <button mat-raised-button color="primary" (click)="cancel()">取消</button>
+        </div>
+    </div>
+</div>

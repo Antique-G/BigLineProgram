@@ -24,6 +24,8 @@
                                             <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell!=1">
                                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
                                             </ng-container>
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="printConfirmation()" *ngIf="detailModel?.order_status>0">打印客人确认单</button>
+
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="distributionSales()" *ngIf="detailModel?.bind_account_name==''">绑定下单人</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="restore()" *ngIf="detailModel?.order_status==0&&detailModel?.cancel_type==1">恢复订单</button>
                                             <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="cancelOrder()" *ngIf="detailModel?.order_status==1">取消订单</button>
@@ -509,6 +511,7 @@
                                                             <span *ngIf="data.status===1">待完成</span>
                                                             <span *ngIf="data.status===2">已完成</span>
                                                             <span *ngIf="data.status===3">已确认</span>
+                                                            <span *ngIf="data.status===4">已作废</span>
                                                         </td>
                                                         <td>{{data?.pay_type_info}}</td>
                                                         <td>

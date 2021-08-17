@@ -107,6 +107,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
             inclusive: ['',],
             num_total: [1, [Validators.required]],
             internal_remarks: ['',],
+            referrer_phone: ['',[mobile]],
         });
         this.orderGroupProduct = {
             product_id: '',
@@ -126,6 +127,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
             internal_remarks: '',
             discount_tit: '',
             other_price_tit: '',
+            referrer_phone: '',
         }
     }
 
@@ -222,6 +224,7 @@ export class AdminFreeAddOrderByQuoteComponent implements OnInit {
         this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
         this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
         this.orderGroupProduct.internal_remarks = this.contactForm.value.internal_remarks;
+        this.orderGroupProduct.referrer_phone = this.contactForm.value.referrer_phone;
         this.orderGroupProduct.num_total = this.contactForm.value.num_total;
         // 优惠金额
         this.orderGroupProduct.discount = this.discountPrice;

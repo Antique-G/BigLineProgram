@@ -1,0 +1,74 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <div style="border: 1px solid 	#D3D3D3;">
+                    <nz-table [nzData]="dataSource" [nzTitle]="'支付流水列表'">
+                        <thead>
+                            <tr>
+                                <th style=" text-align: center;">订单id</th>
+                                <th style=" text-align: center;">支付id</th>
+                                <th style=" text-align: center;width: 8%;">收款金额</th>
+                                <th style=" text-align: center;width: 20%;">支付流水号</th>
+                                <th style=" text-align: center;width: 15%;">支付方式</th>
+                                <th style=" text-align: center;">支付时间</th>
+                                <th style="text-align: center;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of dataSource">
+                                <ng-container *ngIf="!data.edit; else editTemplate">
+                                    <td>{{data.order_id}}</td>
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.fee}}</td>
+                                    <td>{{data.transaction_id}}</td>
+                                    <td>
+                                        <span *ngIf="data.pay_type==1">微信</span>
+                                        <span *ngIf="data.pay_type==2">支付宝</span>
+                                        <span *ngIf="data.pay_type==3">现金</span>
+                                        <span *ngIf="data.pay_type==4">微信二维码</span>
+                                        <span *ngIf="data.pay_type==5">支付宝二维码</span>
+                                        <span *ngIf="data.pay_type==6">银行卡转账</span>
+                                        <span *ngIf="data.pay_type==7">余额支付</span>
+                                        <span *ngIf="data.pay_type==8">飞猪</span>
+                                        <span *ngIf="data.pay_type==9">携程</span>
+
+                                    </td>
+                                    <td>{{data.pay_time}}</td>
+                                    <td>
+                                        <div><a (click)="startEdit(data)">修改</a></div>
+                                    </td>
+                                </ng-container>
+                                <ng-template #editTemplate>
+                                    <td>{{data.order_id}}</td>
+                                    <td>{{data.id}}</td>
+                                    <td>
+                                        <nz-input-number [(ngModel)]="data.fee" [nzMin]="0" [nzPrecision]="precision" nzPrecisionMode="cut"></nz-input-number>
+                                        <td><input type="text" nz-input [(ngModel)]="data.transaction_id" /></td>
+                                        <td>
+                                            <nz-select [(ngModel)]="data.pay_type" nzAllowClear nzShowSearch>
+                                                <nz-option [nzLabel]="'微信'" [nzValue]="1"></nz-option>
+                                                <nz-option [nzLabel]="'支付宝'" [nzValue]="2"></nz-option>
+                                                <nz-option [nzLabel]="'现金'" [nzValue]="3"></nz-option>
+                                                <nz-option [nzLabel]="'银行卡转账'" [nzValue]="6"></nz-option>
+                                                <nz-option [nzLabel]="'余额支付'" [nzValue]="7"></nz-option>
+                                                <nz-option [nzLabel]="'飞猪'" [nzValue]="8"></nz-option>
+                                                <nz-option [nzLabel]="'携程'" [nzValue]="9"></nz-option>
+
+                                            </nz-select>
+                                        </td>
+                                        <td>{{data.pay_time}}</td>
+                                        <td>
+                                            <div><a (click)="saveEdit(data)">保存</a></div>
+                                            <div><a (click)="cancelEdit(data.id)">取消</a></div>
+                                        </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,9 +6,12 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { environment } from '../../../../environments/environment';
 import { AdminFinaceFreedomService } from '../../../../services/admin/admin-finace-freedom.service';
+import { AdminFinaceGroupService } from '../../../../services/admin/admin-finace-group.service';
 import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-order-free-travel.service';
 import { AdminProductManagementService } from '../../../../services/admin/admin-product-management.service';
 import { AdminFinanceChangeTransComponent } from '../admin-finance-group-travel/admin-finance-change-trans/admin-finance-change-trans.component';
+
+
 
 @Component({
     selector: 'app-admin-finance-free-travel',
@@ -48,7 +51,9 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
 
     constructor(public fb: FormBuilder, public router: Router, public modal: NzModalService,
         public adminOrderFreeTravelService: AdminOrderFreeTravelService,
-        public adminProductManagementService: AdminProductManagementService, public adminFinaceFreedomService: AdminFinaceFreedomService,
+        public adminProductManagementService: AdminProductManagementService,
+        public adminFinaceFreedomService: AdminFinaceFreedomService,
+        public adminFinaceGroupService:AdminFinaceGroupService,
         private message: NzMessageService) {
         this.searchForm = fb.group({
             status: [''],
@@ -312,5 +317,16 @@ export class AdminFinanceFreeTravelComponent implements OnInit {
         console.log('object :>> ', this.isExport);
         this.loading = false;
 
+    }
+
+
+    // 作废收款记录
+    destroyReceive(item: any) {
+        this.modal.confirm({
+            nzTitle: '提示',
+            nzContent: '请确认是否作废此收款记录？',
+            nzOnOk: () => this.adminFinaceGroupService.destroyReceive(item.id).subscribe(res => this.getFreeTravel())
+        });
+        
     }
 }

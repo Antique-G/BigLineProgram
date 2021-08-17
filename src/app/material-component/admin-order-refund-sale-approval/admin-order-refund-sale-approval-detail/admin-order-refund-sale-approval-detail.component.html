@@ -620,7 +620,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_add">额外退款金额</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_add" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add" />
+                                                                        <input nz-input formControlName="amount_add" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_add?detailModel?.handle_data?.amount_add:0" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -628,7 +628,7 @@
                                                                 <div nz-row>
                                                                     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount_cut">其他扣除费用</nz-form-label>
                                                                     <nz-form-control [nzSm]="15" [nzXs]="24">
-                                                                        <input nz-input formControlName="amount_cut" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut" />
+                                                                        <input nz-input formControlName="amount_cut" nzBorderless readonly [ngModel]="detailModel?.handle_data?.amount_cut?detailModel?.handle_data?.amount_cut:0" />
                                                                     </nz-form-control>
                                                                 </div>
                                                             </nz-form-item>
@@ -642,7 +642,10 @@
                                                             </nz-form-item>
                                                             <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                                                                 <div>
-                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
+                                                                    <!-- 不成团关团 -->
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;" *ngIf="!detailModel?.handle_data?.number">手续费：0</p>
+                                                                    <!-- 其他方式 -->
+                                                                    <p style="margin-left: 78px;letter-spacing: 1px;font-size: 14px;" *ngIf="detailModel?.handle_data?.number">手续费：￥{{(price_total-nowOrderMoney-(bascie_money+addForm.value.amount_add-addForm.value.amount_cut)).toFixed(2)}}</p>
                                                                     <h4 style="margin-left: 78px;letter-spacing: 1px;">
                                                                         本次申请可退款总金额：<span style="font-weight: bold;font-size: 18px;color: red;">{{detailModel?.handle_data?.refund_amount}}</span>
                                                                     </h4>

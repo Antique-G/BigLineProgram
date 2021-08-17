@@ -40,6 +40,16 @@ const MENUITEMS = [
         ]
     },
     {
+        title: '生鲜管理', icon: 'apple', permission_name: 'goods_management',
+        children: [
+            { state: 'goodsCate', name: '商品分类', permission_name: 'goods_cate' },
+            { state: 'expressCompany', name: '快递公司', permission_name: 'goods_express_company' },
+            { state: 'goodsList', name: '商品管理列表', permission_name: 'goods_pro_list' },
+            { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'goods_add_order' },
+            { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'goods_order_list' },
+        ]
+    },
+    {
         title: '订单模块', icon: 'ordered-list', permission_name: 'admin_order',
         children: [
             { state: 'orderList', name: '团列表', permission_name: 'order_group_list' },
@@ -120,8 +130,11 @@ const MENUITEMS = [
             { state: 'financePreSaleList', name: '自由行预售订单列表', permission_name: 'financial_indent_presell' },
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
+            // { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
             { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
             { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
+            { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
+
             
         ]
     },
@@ -155,6 +168,22 @@ const StoreMENUITEMS = [
             { state: 'storePreFreeAppointList', name: '自由行预约码管理' },
         ]
     },
+    {
+        title: '商城管理', icon: 'apple',
+        children: [
+            { state: 'storeGoods', name: '商品管理列表' },
+            { state: 'storeGoodsOrder', name: '商品订单列表' },
+
+        ]
+    },
+    // {
+    //     title: '预售管理', icon: 'clock-circle',
+    //     children: [
+    //         { state: 'storePreFree', name: '自由行预售产品列表' },
+    //         { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
+
+    //     ]
+    // },
     {
         title: '订单管理模块', icon: 'ordered-list',
         children: [

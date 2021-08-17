@@ -598,6 +598,7 @@ export interface OrderGroupProduct {
     internal_remarks?: any;
     discount_tit?: any;
     other_price_tit?: any;
+    referrer_phone?: any;
 }
 
 

@@ -1,0 +1,60 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/store/main/storeGoods">返回生鲜商品列表</button>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <h4 style="font-weight: bold;">{{goodsName}}</h4>
+                </div>
+
+                <mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+                    <mat-tab label="基本信息">
+                        <div class="content">
+                            <app-store-goods-pro-detai-info></app-store-goods-pro-detai-info>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="商品详情">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-goods-pro-editdetail [addDataDetailModel]='addDataDetailModel'></app-store-goods-pro-editdetail>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="购买须知">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-goods-pro-editnotice [addDataDetailModel]='addDataDetailModel'></app-store-goods-pro-editnotice>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="图片与视频">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-goods-pro-detai-img [addDataDetailModel]='addDataDetailModel'></app-store-goods-pro-detai-img>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+                    <mat-tab label="海报">
+                        <ng-template matTabContent>
+                            <div class="content">
+                                <app-store-goods-pro-detai-post [addDataDetailModel]='addDataDetailModel'></app-store-goods-pro-detai-post>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+
+
+                </mat-tab-group>
+            </div>
+
+        </div>
+
+    </div>
+</div>

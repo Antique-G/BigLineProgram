@@ -168,6 +168,30 @@ export class AdminFinaceGroupService {
 
 
 
+    // 财务统计报表
+    financeOrderReport(store_id: any, start_time: any, end_time: any): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('store_id', store_id ? store_id : '')
+            .set('start_time', start_time ? start_time : '')
+            .set('end_time', end_time ? end_time : '');
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminFinanceOrderReport, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 作废收款记录
+    destroyReceive(order_pay_id: any): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminFinanceOrderDestroyReceive, { order_pay_id: order_pay_id }, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);
