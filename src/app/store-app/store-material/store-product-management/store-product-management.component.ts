@@ -295,8 +295,9 @@ export class StoreProductManagementComponent implements OnInit {
                 this.isEar = Math.floor(minutes / 60 / 24) + 1;
             }
             if (this.newHour == this.newDay) {
-                let nowMins = format(new Date(), 'ss');
-                if (this.newMin < nowMins) {
+                let nowMins = format(new Date(), 'mm');
+                console.log("this.newMinthis.newMinthis.newMin",this.newMin,nowMins)
+                if (this.newMin > nowMins) {
                     this.isEar = Math.floor(minutes / 60 / 24);
                 }
                 else {
