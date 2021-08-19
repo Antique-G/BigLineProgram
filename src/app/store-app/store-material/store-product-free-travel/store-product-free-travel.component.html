@@ -138,6 +138,11 @@
                                     <th style="text-align: center;">是否开启预售</th>
                                     <th style="text-align: center;">审核状态</th>
                                     <th style="text-align: center;">上下架状态</th>
+                                    <th style="text-align: center;">是否设置分销</th>
+                                    <th style="text-align: center;">分销佣金</th>
+                                    <th style="text-align: center;">店铺佣金</th>
+                                    <th style="text-align: center;">第三方佣金</th>
+                                    <th style="text-align: center;">电中佣金</th>
                                     <th style="text-align: center;">操作</th>
                                 </tr>
                             </thead>
@@ -191,36 +196,32 @@
                                         <div *ngIf="data.status===0">下架</div>
                                         <div *ngIf="data.status===1">上架</div>
                                     </td>
-                                    <!-- <td>{{ data.reward_set===0?'不设置':'设置'}} </td>
+                                    <td>{{ data.reward_set===0?'不设置':'设置'}} </td>
+                                    <td>
+                                        <div *ngIf="data.reward_set==0">-</div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span>{{data.dist_reward}}元</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.reward_set==0">-</div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span>{{data.store_reward}}元</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.reward_set==0">-</div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span>{{data.third_reward}}元</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="data.reward_set==0">-</div>
+                                        <div *ngIf="data.reward_set!=0">
+                                            <span>{{data.commerce_reward}}元</span>
+                                        </div>
+                                    </td>
 
-                                    <td>
-                                        <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0">
-                                            <span *ngIf="data.dist_reward===''">-</span>
-                                            <span *ngIf="data.dist_reward!=''">{{data.dist_reward}}元</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0">
-                                            <span *ngIf="data.store_reward===''">-</span>
-                                            <span *ngIf="data.store_reward!=''">{{data.store_reward}}元</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0">
-                                            <span *ngIf="data.third_reward===''">-</span>
-                                            <span *ngIf="data.third_reward!=''">{{data.third_reward}}元</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div *ngIf="data.reward_set===0">-</div>
-                                        <div *ngIf="data.reward_set!=0">
-                                            <span *ngIf="data.commerce_reward===''">-</span>
-                                            <span *ngIf="data.commerce_reward!=''">{{data.commerce_reward}}元</span>
-                                        </div>
-                                    </td> -->
 
                                     <td>
                                         <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
@@ -255,9 +256,9 @@
                                                 <li nz-menu-item (click)="getCode(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/minicode.png" title="生成小程序码">生成小程序码
                                                 </li>
-                                                <!-- <li nz-menu-item (click)="setCommission(data)">
+                                                <li nz-menu-item (click)="setCommission(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/commission.png" title="设置佣金"> 设置佣金
-                                                </li> -->
+                                                </li>
                                                 <li nz-menu-item (click)="getTimeLine(data)">
                                                     <img src="http://cdn.bigline.com.cn/static/images/timeLine.png" title="操作记录">操作记录
                                                 </li>
