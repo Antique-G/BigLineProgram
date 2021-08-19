@@ -97,13 +97,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <!-- 跟团游 -->
-                                        <ng-container *ngIf="data?.order_type==1">
-                                            <a href={{isOrderUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
-                                        </ng-container>
                                         <!-- 自由行 -->
-                                        <ng-container *ngIf="data?.order_type==2">
+                                        <ng-container *ngIf="data?.order_type==1">
                                             <a href={{isFreeUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
+                                        </ng-container>
+                                        <!-- 跟团游 -->
+                                        <ng-container *ngIf="data?.order_type==2">
+                                            <a href={{isOrderUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
                                         </ng-container>
                                         <!-- 预售 -->
                                         <ng-container *ngIf="data?.order_type==3">
