@@ -8,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { StoreProductTreeTravelService } from '../../../../services/store/store-product-free-travel/store-product-tree-travel.service';
 import { StoreProductService } from '../../../../services/store/store-product/store-product.service';
+import { StoreQuoteBydateService } from '../../../../services/store/store-quote-bydate/store-quote-bydate.service';
 import { StoreRegionService } from '../../../../services/store/store-region/store-region.service';
 import { SetCommissionComponent } from '../common/set-commission/set-commission.component';
 import { StoreProductMiniCodeComponent } from '../store-product-management/store-product-mini-code/store-product-mini-code.component';
@@ -59,7 +60,7 @@ export class StoreProductFreeTravelComponent implements OnInit {
     constructor(public fb: FormBuilder, private freeTrvelService: StoreProductTreeTravelService, public router: Router,
         public dialog: MatDialog, private modal: NzModalService, public storeProductService: StoreProductService,
         private nzContextMenuService: NzContextMenuService, public storeRegionService: StoreRegionService,
-        private message: NzMessageService,) {
+        private message: NzMessageService,public quoteBydateService: StoreQuoteBydateService) {
         this.searchForm = this.fb.group({
             checkStatus: [''],
             title: [''],
@@ -319,43 +320,65 @@ export class StoreProductFreeTravelComponent implements OnInit {
         });
     }
 
+
     // 设置佣金
     setCommission(obj: any) {
         console.log(obj, '设置佣金');
-        const addmodal = this.modal.create({
-            nzTitle: '设置佣金',
-            nzContent: SetCommissionComponent,
-            nzComponentParams: {
-                data: {
-                    id: obj.id,
-                    title: obj.title,
-                    day: obj.few_days
+        this.quoteBydateService.getQuoteDateList(obj.id, 'freeTravel', '', '', '').subscribe(res => {
+            let { data } = res;
+            let nowDate = format(new Date(), 'yyyy-MM-dd');
+            console.log("nowDate", nowDate);
+            let flag = data.some((item: any) => new Date(item.date).getTime() >= new Date(nowDate).getTime())
 
-                }
-            },
-            nzFooter: [
-                {
-                    label: '添加',
-                    type: 'primary',
-                    onClick: componentInstance => {
-                        let flag = componentInstance?.Add()
-                        if (flag) {
-                            let obj = componentInstance?.getValue()
-                            this.setRewardModel = obj;
-                            this.freeTrvelService.setReward(this.setRewardModel).subscribe(res => {
-                                console.log('res :>> ', res);
-                                if (res === null) {
-                                    setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
-                                }
-                            })
+            if (!flag) {
+                this.modal.confirm({
+                    nzTitle: '<h5>提示</h5>',
+                    nzContent: '该日期无产品报价，请先进行日期报价，再设置佣金',
+                    nzOnOk: () => {
+
+                    }
+                });
+                return
+            }
+
+            const addmodal = this.modal.create({
+                nzTitle: '设置佣金',
+                nzContent: SetCommissionComponent,
+                nzComponentParams: {
+                    data: {
+                        id: obj.id,
+                        title: obj.title,
+                        day: obj.few_days,
+                        obj: obj
+                    }
+                },
+                nzFooter: [
+                    {
+                        label: '添加',
+                        type: 'primary',
+                        onClick: componentInstance => {
+                            let flag = componentInstance?.Add()
+                            if (flag) {
+                                let obj = componentInstance?.getValue();
+                                this.setRewardModel = obj;
+                                this.freeTrvelService.setReward(this.setRewardModel).subscribe(res => {
+                                    console.log('res :>> ', res);
+                                    if (res === null) {
+                                        setTimeout(() => this.modal.closeAll(), 1000);  //1s后消失
+                                    }
+                                })
+
+                            }
                         }
                     }
-                }
-            ]
+                ]
+            })
+            addmodal.afterClose.subscribe(res => {
+                this.getProductList();
+            })
+
         })
-        addmodal.afterClose.subscribe(res => {
-            this.getProductList();
-        })
+
     }
 
 
