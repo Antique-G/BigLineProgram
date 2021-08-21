@@ -85,6 +85,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             end_date: [''],
             group_code: [''],
             bind_account_name: [''],
+            user_id: [''],
         });
         this.editMemberModel = {
             id: '',
@@ -597,7 +598,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    if (res?.data?.result==true) {
+                    if (res?.data?.result == true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -651,7 +652,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzComponentParams: {
                 data: {
                     order_id: this.detailModel.id,
-                    bind_id:this.detailModel.bind_id,
+                    bind_id: this.detailModel.bind_id,
                     bind_account_name: this.detailModel.bind_account_name,
                 }
             },
@@ -684,13 +685,20 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             const dialogRef = this.dialog.open(AdminOrderPrintConfirmationComponent, {
                 width: '1000px',
                 height: '800px',
-                data: [res.data,1],
+                data: [res.data, 1],
                 disableClose: true
-              })
+            })
             dialogRef.afterClosed().subscribe(result => {
             })
-             
+
         })
+    }
+
+
+    // 跳转到用户记录
+    routeIt(data: any) {
+        console.log("data", data);
+        this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
     }
 }
 
