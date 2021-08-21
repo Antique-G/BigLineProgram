@@ -40,16 +40,6 @@ const MENUITEMS = [
         ]
     },
     {
-        title: '生鲜管理', icon: 'apple', permission_name: 'goods_management',
-        children: [
-            { state: 'goodsCate', name: '商品分类', permission_name: 'goods_cate' },
-            { state: 'expressCompany', name: '快递公司', permission_name: 'goods_express_company' },
-            { state: 'goodsList', name: '商品管理列表', permission_name: 'goods_pro_list' },
-            { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'goods_add_order' },
-            { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'goods_order_list' },
-        ]
-    },
-    {
         title: '订单模块', icon: 'ordered-list', permission_name: 'admin_order',
         children: [
             { state: 'orderList', name: '团列表', permission_name: 'order_group_list' },
@@ -69,6 +59,32 @@ const MENUITEMS = [
             { state: 'preFree', name: '自由行预售产品', permission_name: 'product_indent_presell' },
             { state: 'preSaleList', name: '自由行预售订单', permission_name: 'order_indent_presell' },
             { state: 'preSaleRecord', name: '自由行预约码管理', permission_name: 'order_indent_presell_code' },
+            
+        ]
+    },
+    {
+        title: '生鲜管理', icon: 'apple', permission_name: 'goods_management',
+        children: [
+            { state: 'goodsCate', name: '商品分类', permission_name: 'goods_cate' },
+            { state: 'expressCompany', name: '快递公司', permission_name: 'goods_express_company' },
+            { state: 'goodsList', name: '商品管理列表', permission_name: 'goods_pro_list' },
+            { state: 'goodsAddOrder', name: '商品添加订单', permission_name: 'goods_add_order' },
+            { state: 'goodsOrderList', name: '商品订单列表', permission_name: 'goods_order_list' },
+        ]
+    },
+    {
+        title: '财务模块', icon: 'account-book', permission_name: 'admin_financial',
+        children: [
+            { state: 'financeGroupTravel', name: '跟团游订单列表', permission_name: 'financial_group_order' },
+            { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
+            { state: 'financePreSaleList', name: '自由行预售订单列表', permission_name: 'financial_indent_presell' },
+            { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
+            { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
+            { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
+            { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
+            { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
+            { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
+
             
         ]
     },
@@ -122,22 +138,7 @@ const MENUITEMS = [
             { state: 'pageConfig', name: '页面设置', permission_name: 'mini_config_page' },
         ]
     },
-    {
-        title: '财务模块', icon: 'account-book', permission_name: 'admin_financial',
-        children: [
-            { state: 'financeGroupTravel', name: '跟团游订单列表', permission_name: 'financial_group_order' },
-            { state: 'financefreeDTravel', name: '自由行订单列表', permission_name: 'financial_freedom_order' },
-            { state: 'financePreSaleList', name: '自由行预售订单列表', permission_name: 'financial_indent_presell' },
-            { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
-            { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
-            { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
-            { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
-            { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
-            { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
-
-            
-        ]
-    },
+    
 
 ];
 
@@ -161,6 +162,16 @@ const StoreMENUITEMS = [
         ]
     },
     {
+        title: '订单管理模块', icon: 'ordered-list',
+        children: [
+            { state: 'storeOrderGroup', name: '团订单列表' },
+            { state: 'storeOrdergroupTravel', name: '跟团游订单列表' },
+            { state: 'storeOrderFreeTravel', name: '自由行订单列表' },
+            { state: 'storeRefund', name: '订单退款记录列表' },
+            { state: 'storeRefundTurnOver', name: '订单退款流水' },
+        ]
+    },
+    {
         title: '预售管理', icon: 'clock-circle',
         children: [
             { state: 'storePreFree', name: '自由行预售产品列表' },
@@ -174,24 +185,6 @@ const StoreMENUITEMS = [
             { state: 'storeGoods', name: '商品管理列表' },
             { state: 'storeGoodsOrder', name: '商品订单列表' },
 
-        ]
-    },
-    // {
-    //     title: '预售管理', icon: 'clock-circle',
-    //     children: [
-    //         { state: 'storePreFree', name: '自由行预售产品列表' },
-    //         { state: 'storePreFreeSaleList', name: '自由行预售抢购' },
-
-    //     ]
-    // },
-    {
-        title: '订单管理模块', icon: 'ordered-list',
-        children: [
-            { state: 'storeOrderGroup', name: '团订单列表' },
-            { state: 'storeOrdergroupTravel', name: '跟团游订单列表' },
-            { state: 'storeOrderFreeTravel', name: '自由行订单列表' },
-            { state: 'storeRefund', name: '订单退款记录列表' },
-            { state: 'storeRefundTurnOver', name: '订单退款流水' },
         ]
     },
     {
