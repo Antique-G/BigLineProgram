@@ -373,6 +373,9 @@ export class StoreProductInfoComponent implements OnInit {
             this.addStoreProductModel.departure_city = values[values.length - 1];
             this.isPlaceRegion = this.addStoreProductModel.departure_city;
             this.getAccemList();
+            this.addForm.patchValue({
+                assembling_place_id : []
+            })
         }
     }
 

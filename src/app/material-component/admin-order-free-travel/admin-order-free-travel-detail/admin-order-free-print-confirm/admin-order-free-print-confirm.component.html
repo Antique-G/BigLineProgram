@@ -74,9 +74,8 @@
                                     <tr>
                                         <td colspan="2" style="text-align: center;">{{member?.name}}</td>
                                         <td colspan="2" style="text-align: center;">
-                                            <span *ngIf="member?.is_kid===0">成人</span>
-                                            <span *ngIf="member?.is_kid===1">儿童</span>
-                                            <span *ngIf="member?.is_kid===2">婴儿</span>
+                                            <span *ngIf="member.gender===1">男</span>
+                                            <span *ngIf="member.gender===2">女</span>
                                         </td>
                                         <td colspan="2" style="text-align: center;">{{member?.age}}</td>
                                         <td colspan="2" style="text-align: center;">

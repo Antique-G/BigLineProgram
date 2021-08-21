@@ -211,6 +211,16 @@ export class StoreProductService {
 
 
 
+    // 获取默认佣金
+    getProductReward(): Observable<any> {
+        return this.httpClient.get<any>(this.urls.GetStoreProductReward, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+
     // 获取保险
     insuranceList(page: number, per_page: number, status: any): Observable<AdminInsuranceListResponseModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())

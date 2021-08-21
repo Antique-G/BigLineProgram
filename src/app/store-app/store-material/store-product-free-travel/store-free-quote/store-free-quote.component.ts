@@ -110,7 +110,7 @@ export class StoreFreeQuoteComponent implements OnInit {
         this.nzPageIndex = Number(newMon);
         let newDay = format(new Date(select), 'yyyy-MM-dd');
         // 处理不能点击的日期
-        let i = 1 + Number(this.isEarlier);
+        let i = Number(this.isEarlier);
         // console.log("differenceInCalendarDays(select, this.toDay) < i", differenceInCalendarDays(select, this.toDay) < i)
         if (differenceInCalendarDays(select, this.toDay) <i) {
             this.msg.error('当前日期不能进行报价');

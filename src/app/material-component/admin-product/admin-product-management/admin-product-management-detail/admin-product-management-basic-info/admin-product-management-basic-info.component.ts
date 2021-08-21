@@ -464,6 +464,9 @@ export class AdminProductManagementBasicInfoComponent implements OnInit {
             this.store_id = this.detailUpdateModel?.store_id;
             console.log('22222222', this.dataProductDetailModel);
             this.getAccemList();
+            if (this.detailUpdateModel.departure_city != this.dataProductDetailModel?.departure_city) {
+                this.selectedPlace = [];
+            }
         }
     }
 
