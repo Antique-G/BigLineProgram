@@ -457,7 +457,9 @@ export class StoreProductManagementDetailInfoComponent implements OnInit {
             this.detailUpdateModel.departure_city = data[data.length - 1];
             this.isPlaceRegion = this.detailUpdateModel.departure_city;
             this.getAccemList();
-
+            if (this.detailUpdateModel.departure_city != this.dataProductDetailModel?.departure_city) {
+                this.selectedPlace = [];
+            }
         }
     }
 

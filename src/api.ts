@@ -427,6 +427,7 @@ export const StoreUrls = {
 
 
     PostStoreProductReward: api + '/store/product_reward', // 佣金的编辑
+    GetStoreProductReward: api + '/store/product_default_reward', // 获取默认佣金
     PostStoreFreeReward: api + '/store/inden_product_reward', // 佣金的编辑
 
     GetStoreInsuranceList: api + '/store/insurance',      // 跟团游保险列表
