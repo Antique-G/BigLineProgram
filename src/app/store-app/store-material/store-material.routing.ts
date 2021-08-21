@@ -247,13 +247,13 @@ export const StoreMaterialRoutes: Routes = [
                     breadcrumb: '自由行预售产品列表'
                 }
             },
-            {
-                path: 'storePreFree/create',
-                component: StoreFreeCreateBystepComponent,
-                data: {
-                    breadcrumb: '添加自由行预售产品'
-                }
-            },
+            // {
+            //     path: 'storePreFree/create',
+            //     component: StoreFreeCreateBystepComponent,
+            //     data: {
+            //         breadcrumb: '添加自由行预售产品'
+            //     }
+            // },
             {
                 path: 'storePreFree/detail',
                 component: StoreProductFreeTravelDetailComponent,

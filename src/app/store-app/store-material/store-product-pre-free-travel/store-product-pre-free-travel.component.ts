@@ -106,7 +106,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     getProductList() {
         this.loading = true;
-        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page,  this.title, this.few_days, this.id, this.departure_city, this.destination_city, this.start_date, this.end_date, this.use_start_date, this.use_end_date).subscribe(res => {
+        this.freeTrvelService.GetPreFreeTravelList(this.page, this.per_page, this.title, this.few_days, this.id, this.departure_city, this.destination_city, this.start_date, this.end_date, this.use_start_date, this.use_end_date).subscribe(res => {
             this.loading = false;
             console.log("结果是", res);
             this.total = res.total;   //总页数
@@ -125,7 +125,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.page = page;
         // 筛选条件存进cookie
         this.setQuery = {
-          title: this.title,id: this.id, few_days: this.few_days, page: this.page,
+            title: this.title, id: this.id, few_days: this.few_days, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
             start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
         }
@@ -196,7 +196,7 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         this.use_end_date = this.dateArray1[1];
         // 筛选条件存进cookie
         this.setQuery = {
-           title: this.title, id: this.id, few_days: this.few_days,  page: this.page,
+            title: this.title, id: this.id, few_days: this.few_days, page: this.page,
             departure_city: this.departure_city, destination_city: this.destination_city,
             start_date: this.start_date, end_date: this.end_date, use_start_date: this.use_start_date, use_end_date: this.use_end_date
 
@@ -210,18 +210,22 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
 
     // 查看详情
     edit(data: any) {
-        this.router.navigate(['/store/main/storeFreeTravel/detail'], { queryParams: { detailId: data.product_id, is_presell: 1 } });
+        this.router.navigate(['/store/main/storePreFree/detail'], { queryParams: { detailId: data.product_id, is_presell: 1 } });
     }
 
     // 报价
     goToQuoteClick(data: any) {
         console.log('data', data);
         let child_status = Number(data.product?.reserve_children)
+
         // 处理时间，预计多久报名
-        let minutes = data.product?.earlier;
+        let minutes = data.earlier;
+        // 小时
         this.newMin = Math.floor(minutes % 60);
-        if (this.newMin === 0) {
+        console.log("小时", this.newMin)
+        if (this.newMin == 0) {
             this.newHour = Math.floor(24 - minutes / 60 % 24);
+            console.log("小时newHour", this.newHour)
         }
         else if (this.newMin != 0) {
             this.newMin = 60 - this.newMin;
@@ -229,12 +233,23 @@ export class StoreProductPreFreeTravelComponent implements OnInit {
         }
         this.newDay = format(new Date(), 'HH');
         console.log('2423423', this.newHour, new Date(), this.newMin, this.newDay, this.newHour <= this.newDay)
-        if (this.newHour <= this.newDay) {
+        if (this.newHour < this.newDay) {
             this.isEar = Math.floor(minutes / 60 / 24) + 1;
         }
-        else {
+        if (this.newHour == this.newDay) {
+            let nowMins = format(new Date(), 'mm');
+            if (this.newMin > nowMins) {
+                this.isEar = Math.floor(minutes / 60 / 24);
+            }
+            else {
+                this.isEar = Math.floor(minutes / 60 / 24) + 1;
+            }
+        }
+        else if (this.newHour > this.newDay) {
             this.isEar = Math.floor(minutes / 60 / 24);
         }
+
+
         let start_date = data?.start_date;
         let end_date = data?.end_date;
         let use_start_date = data?.use_start_date;
