@@ -23,6 +23,8 @@
                                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                     <div>
                                         <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
+                                        <span style="font-size: 12px;font-weight: 600;">{{detailModel?.product_id}}</span>
+
                                         <div>
                                             <button class="btn" *ngIf="detailModel?.order_status===0">订单已取消</button>
                                             <button class="btn" *ngIf="detailModel?.order_status===1">订单待支付</button>
