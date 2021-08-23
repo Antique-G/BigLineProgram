@@ -80,7 +80,7 @@ const MENUITEMS = [
             { state: 'financePreSaleList', name: '自由行预售订单列表', permission_name: 'financial_indent_presell' },
             { state: 'financeGroupCashReq', name: '团请款', permission_name: 'finance_group_cast_require' },
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
-            { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
+            // { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
             { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
             { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
             { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
