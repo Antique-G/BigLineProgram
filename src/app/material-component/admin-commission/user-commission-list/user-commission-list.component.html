@@ -59,12 +59,12 @@
                                 <tr>
                                     <!-- <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th> -->
                                     <th>订单id</th>
-                                    <th style="width: 300px;">产品名称</th>
-                                    <th>产品编码</th>
+                                    <th style="width:8%">产品名称</th>
+                                    <th style="width:8%">产品编码</th>
+                                    <th>产品类型</th>
+                                    <th style="width:10%">订单出行总人数/份数</th>
                                     <th>产品总佣金</th>
                                     <th>订单总金额</th>
-                                    <th style="width: 100px;">订单出行人总人数</th>
-                                    <th>产品类型</th>
                                     <th>状态</th>
                                     <th>收益人(一级)</th>
                                     <th>佣金金额(一级)</th>
@@ -78,9 +78,6 @@
                                     <td>{{data.order_id}}</td>
                                     <td>{{data.product_name}}</td>
                                     <td>{{data.product_code}}</td>
-                                    <td>{{data.reward_price}}元</td>
-                                    <td>{{data.price_total}}元</td>
-                                    <td>{{data.num_total}}</td>
                                     <td>
                                         <div *ngIf="data.product_type===0">
                                             跟团游
@@ -89,6 +86,21 @@
                                             自由行
                                         </div>
                                     </td>
+                                    <td>
+                                        <div *ngIf="data.product_type==0">
+                                            {{data.num_total}}人
+                                        </div>
+                                        <div *ngIf="data.product_type==1">
+                                            <ng-container *ngIf="data.quote_type==1">
+                                                {{data.num_total}}份
+                                            </ng-container>
+                                            <ng-container *ngIf="data.quote_type==2">
+                                                {{data.num_total}}人
+                                            </ng-container>
+                                        </div>
+                                    </td>
+                                    <td>{{data.reward_price}}元</td>
+                                    <td>{{data.price_total}}元</td>
                                     <td>
                                         <span *ngIf="data.status===0">
                                             <nz-badge nzColor="yellow"></nz-badge>取消
