@@ -24,7 +24,6 @@
                                     <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
                                         <div>
                                             <h5 style="font-weight: bold;">{{detailModel?.product_name}}</h5>
-                                            <span style="font-size: 12px;font-weight: 600;">{{detailModel?.product_id}}</span>
 
                                             <div>
                                                 <button class="btn" *ngIf="detailModel?.order_status===0">订单已取消</button>
@@ -41,6 +40,15 @@
                                                         </nz-form-label>
                                                         <nz-form-control [nzSm]="12" [nzXs]="24">
                                                             <input nz-input formControlName="order_id" nzBorderless readonly [ngModel]="detailModel?.id" />
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="product_id">产品id</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <input nz-input formControlName="product_id" nzBorderless readonly [ngModel]="detailModel?.product_id" />
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>

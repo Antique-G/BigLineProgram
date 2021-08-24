@@ -56,6 +56,8 @@ export class StoreOrderGrouptravelDetailComponent implements OnInit {
             days: ['', [Validators.required]],
             end_date: [''],
             group_code: [''],
+            product_id: [''],
+            product_code: [''],
         });
 
     }

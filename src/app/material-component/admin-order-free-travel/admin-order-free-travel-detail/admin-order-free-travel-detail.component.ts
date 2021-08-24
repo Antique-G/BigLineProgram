@@ -74,6 +74,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
             is_presell: [''],
             code: [''],
             bind_account_name: [''],
+            product_id: [''],
         });
         this.editInfoModel = {
             id: '',

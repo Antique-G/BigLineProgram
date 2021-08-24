@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminMemberComponent } from '../../../admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
 import { format } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -9,6 +8,7 @@ import { DetailsModel } from '../../../../../interfaces/store/storeOrder/store-o
 import { EditInfoModel, EditMemberModel } from '../../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderGroupTravelService } from '../../../../../services/admin/admin-order-group-travel.service';
 import { AdminOrderService } from '../../../../../services/admin/admin-order.service';
+import { AdminMemberComponent } from '../../../admin-order-group-travel/admin-order-group-travel-detail/admin-member/admin-member.component';
 
 
 @Component({
@@ -65,6 +65,8 @@ export class AdminFinanceGroupTravelDetailComponent implements OnInit {
             store_name: [''],
             end_date: [''],
             group_code: [''],
+            product_id: [''],
+            product_code: [''],
         });
         this.editMemberModel = {
             id: '',

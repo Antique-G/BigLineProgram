@@ -60,6 +60,7 @@ export class AdminFinanceFreeTravelDetailComponent implements OnInit {
           store_name: [''],
           departure_city_name: [''],
           destination_city_name: [''],
+          product_id: [''],
       });
       this.editInfoModel = {
           id: '',

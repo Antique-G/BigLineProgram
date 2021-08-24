@@ -60,6 +60,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
             is_presell: [''],
             store_name: [''],
             bind_account_name: [''],
+            product_id: [''],
         });
         this.editInfoModel = {
             id: '',
