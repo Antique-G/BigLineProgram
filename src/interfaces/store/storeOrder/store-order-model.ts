@@ -73,6 +73,7 @@ export interface DataOrderDetail {
     destination_city_name: string;
     sub_group: SubgroupModel;
     cash_requirement?: any;
+    product?: any;
 }
 
 export interface SubgroupModel {
