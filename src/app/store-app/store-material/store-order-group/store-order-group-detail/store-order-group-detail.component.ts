@@ -45,6 +45,8 @@ export class StoreOrderGroupDetailComponent implements OnInit {
             active_date: ['', [Validators.required]],
             returnDate: ['', [Validators.required]],
             member_max: ['', [Validators.required]],
+            product_id: ['',],
+            product_code: ['',],
         });
         this.requestMoneyModel = {
             group_id: '',

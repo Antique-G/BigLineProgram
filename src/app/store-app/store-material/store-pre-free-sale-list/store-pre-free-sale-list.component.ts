@@ -156,7 +156,7 @@ export class StorePreFreeSaleListComponent implements OnInit {
     }
 
     edit(data: any) {
-        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/store/main/storePreFreeSaleList/detail'], { queryParams: { detailId: data.order_id } });
     }
 
     onChangeDate(event: any) {

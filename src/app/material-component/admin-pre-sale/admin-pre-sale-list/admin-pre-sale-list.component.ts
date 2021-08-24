@@ -167,7 +167,7 @@ export class AdminPreSaleListComponent implements OnInit {
     }
 
     edit(data: any) {
-        this.router.navigate(['/admin/main/preSaleList/detail'], { queryParams: { detailId: data.id } });
+        this.router.navigate(['/admin/main/preSaleList/detail'], { queryParams: { detailId: data.order_id } });
     }
 
     onChangeDate(event: any) {

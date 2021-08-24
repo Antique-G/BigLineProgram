@@ -1,12 +1,12 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { environment } from '../../../../environments/environment';
 import { DataOrderDetail } from '../../../../interfaces/store/storeOrder/store-order-model';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AODChangeNumsComponent } from './a-o-d-change-nums/a-o-d-change-nums.component';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { AODShutOffComponent } from './a-o-d-shut-off/a-o-d-shut-off.component';
-import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-admin-order-detail',
@@ -39,6 +39,8 @@ export class AdminOrderDetailComponent implements OnInit {
             returnDate: ['', [Validators.required]],
             member_max: ['', [Validators.required]],
             group_member: ['', [Validators.required]],
+            product_id: ['',],
+            product_code: ['',],
         });
     }
 
