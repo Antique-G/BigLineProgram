@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SetStatusRequestModel } from '../../../interfaces/adminUserinfo/admin-userinfo-model';
 import { AdminUserinfoService } from '../../../services/admin/admin-userinfo.service';
@@ -25,7 +25,7 @@ export class AdminUserinfoComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, private adminUserinfoService: AdminUserinfoService,
-        public router: Router, private modal: NzModalService) {
+        public router: Router, private modal: NzModalService, public activatedRoute: ActivatedRoute,) {
         this.searchForm = fb.group({
             status: [""],
             name: [""],
@@ -37,8 +37,24 @@ export class AdminUserinfoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getDataList();
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.keyword = params?.user_phone;
+        });
+        if (this.keyword != undefined) {
+            this.searchForm.patchValue({
+                name: this.keyword
+            })
+            this.getDataList();
+        }
+        else {
+            this.searchForm.patchValue({
+                name: ''
+            })
+            this.getDataList();
+        }
     }
+
+
     getDataList(): void {
         this.loading = true;
         this.adminUserinfoService.userinfoList(this.page, this.per_page, this.keyword, this.status).subscribe((result: any) => {

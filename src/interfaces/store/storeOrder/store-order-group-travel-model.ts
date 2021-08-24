@@ -225,6 +225,7 @@ export interface DetailsModel {
     bind_id?: any;
     job_num?: any;
     product_code?: any;
+    user_phone?: any;
 }
 
 export interface insModel {

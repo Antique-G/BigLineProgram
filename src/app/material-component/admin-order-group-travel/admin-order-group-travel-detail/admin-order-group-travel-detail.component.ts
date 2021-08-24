@@ -88,6 +88,7 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             user_id: [''],
             product_id: [''],
             product_code: [''],
+            user_phone: [''],
         });
         this.editMemberModel = {
             id: '',
@@ -701,6 +702,13 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
     routeIt(data: any) {
         console.log("data", data);
         this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
+    }
+
+
+    // 跳转到用户列表
+    routeItUser(data: any) {
+        console.log("data", data);
+        this.router.navigate(['/admin/main/user'], { queryParams: { user_phone: data } });
     }
 }
 

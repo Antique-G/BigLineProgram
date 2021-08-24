@@ -136,6 +136,15 @@
                                                         </nz-form-control>
                                                     </div>
                                                 </nz-form-item>
+
+                                                <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                                                    <div nz-row>
+                                                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="user_phone">归属用户手机</nz-form-label>
+                                                        <nz-form-control [nzSm]="12" [nzXs]="24">
+                                                            <a (click)="routeItUser(detailModel?.user_phone)" title="跳转到用户信息界面">{{detailModel?.user_phone}}</a>
+                                                        </nz-form-control>
+                                                    </div>
+                                                </nz-form-item>
                                             </form>
                                         </div>
 
