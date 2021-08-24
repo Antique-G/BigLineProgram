@@ -203,6 +203,7 @@ export interface DetailsModel {
     bind_account_name?: any;
     bind_id?: any;
     job_num?: any;
+    user_phone?: any;
 
 }
 

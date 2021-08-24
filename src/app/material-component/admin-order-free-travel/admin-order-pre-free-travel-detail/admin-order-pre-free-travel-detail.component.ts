@@ -61,6 +61,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
             store_name: [''],
             bind_account_name: [''],
             product_id: [''],
+            user_phone: [''],
         });
         this.editInfoModel = {
             id: '',
@@ -440,6 +441,13 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
     routeIt(data: any) {
         console.log("data", data);
         this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
+    }
+
+    
+    // 跳转到用户列表
+    routeItUser(data: any) {
+        console.log("data", data);
+        this.router.navigate(['/admin/main/user'], { queryParams: { user_phone: data } });
     }
 }
 
