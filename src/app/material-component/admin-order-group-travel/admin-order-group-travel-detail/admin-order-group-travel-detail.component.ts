@@ -86,6 +86,8 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             group_code: [''],
             bind_account_name: [''],
             user_id: [''],
+            product_id: [''],
+            product_code: [''],
         });
         this.editMemberModel = {
             id: '',
