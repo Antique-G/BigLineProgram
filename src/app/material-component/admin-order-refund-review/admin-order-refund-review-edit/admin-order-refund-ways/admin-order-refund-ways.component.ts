@@ -60,19 +60,19 @@ export class AdminOrderRefundWaysComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         this.detailModel = this.data;
         console.log("1231232423", this.detailModel)
         this.order_id = this.detailModel?.order_id;
         this.adminRefundService.getPayLog(this.order_id).subscribe(res => {
             console.log('结果是22222222 :>> ', res);
-            let newArr: any[] = [];
-            res.data.forEach((element: any) => {
-                if ([1, 2, 4, 5, 8, 9, 11, 12].indexOf(element?.pay_type) != -1) {
-                    newArr.push(element)
-                }
-            });
-            this.dataSource = newArr;
+            // let newArr: any[] = [];
+            // res.data.forEach((element: any) => {
+            //     if ([1, 2, 4, 5, 8, 9, 11, 12].indexOf(element?.pay_type) != -1) {
+            //         newArr.push(element)
+            //     }
+            // });
+            this.dataSource = res.data;
+            console.log("结果",this.dataSource)
             if (this.detailModel?.refund_amount == 0) {
                 this.dataSource.forEach((element) => {
                     element['addNum'] = 0;

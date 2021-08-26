@@ -86,7 +86,7 @@ export class AdminUserinfoEditComponent implements OnInit {
     }
 
     getMoneyList() {
-        this.adminUserMoneyLogService.UserWithdrawList(this.page1, this.per_page1, '', this.userId).subscribe((res: any) => {
+        this.adminUserMoneyLogService.UserWithdrawList(this.page1, this.per_page1, '', this.userId,'user_id').subscribe((res: any) => {
             console.log('res', res)
             this.isSpinning = false;
             this.loading1 = false;
