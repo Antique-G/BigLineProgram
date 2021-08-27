@@ -85,7 +85,7 @@ export class AOGTDetailChangeDataComponent implements OnInit {
 
     update() {
         this.changeDateRequestModel.order_id = this.detailModel.id;
-        this.changeDateRequestModel.new_date = this.addForm.value.new_date;
+        this.changeDateRequestModel.new_date = this.new_date;
         this.changeDateRequestModel.diff_price = this.addForm.value.diff_price;
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",

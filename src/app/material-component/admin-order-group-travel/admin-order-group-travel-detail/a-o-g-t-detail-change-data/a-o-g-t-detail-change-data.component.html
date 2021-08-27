@@ -13,7 +13,7 @@
                 <div nz-row>
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="new_date" nzRequired>修改出发日期为</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
-                        <nz-select nzPlaceHolder="请选择日期" formControlName="new_date" (ngModelChange)="changeDate($event)">
+                        <nz-select nzPlaceHolder="请选择日期" nzAllowClear nzShowSearch formControlName="new_date" (ngModelChange)="changeDate($event)">
                             <nz-option *ngFor="let date of dateList" [nzLabel]="date?.date" [nzValue]="date">
                             </nz-option>
                         </nz-select>
