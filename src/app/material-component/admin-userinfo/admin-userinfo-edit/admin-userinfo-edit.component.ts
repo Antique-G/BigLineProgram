@@ -27,8 +27,12 @@ export class AdminUserinfoEditComponent implements OnInit {
     total1 = 1;
     loading1 = false;
 
+
     // 跳转到订单详情
     isOrderUrl: any;
+    isFreeUrl: any;
+    isPreFreeUrl: any;
+    isGoodsUrl: any;
     // 跳到流水
     isRefundUrl: any;
 
@@ -47,6 +51,10 @@ export class AdminUserinfoEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isOrderUrl = '/admin/main/groupTravelOrder/detail?detailId=';
+        this.isFreeUrl = '/admin/main/freeTravelOrder/detail?detailId=';
+        this.isPreFreeUrl = '/admin/main/preSaleList/detail?detailId=';
+        this.isGoodsUrl = '/admin/main/goodsOrderList/detail?id=';
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.userId = params?.user_id;
@@ -86,7 +94,7 @@ export class AdminUserinfoEditComponent implements OnInit {
     }
 
     getMoneyList() {
-        this.adminUserMoneyLogService.UserWithdrawList(this.page1, this.per_page1, '', this.userId,'user_id').subscribe((res: any) => {
+        this.adminUserMoneyLogService.UserWithdrawList(this.page1, this.per_page1, '', this.userId, 'user_id').subscribe((res: any) => {
             console.log('res', res)
             this.isSpinning = false;
             this.loading1 = false;
@@ -112,8 +120,13 @@ export class AdminUserinfoEditComponent implements OnInit {
 
     toDetail(data: any) {
         // 跟团游
-        if (data?.product_type == 0) {
+        if (data?.product_type == 0||data?.product_type == 2) {
             this.isUrl = '/admin/main/groupTravelOrder/detail?detailId=' + data?.id;
+            window.open(this.isUrl);
+        }
+        // 自由行预售
+        if (data?.product_type == 3) {
+            this.isUrl = '/admin/main/preSaleList/detail?detailId=' + data?.id;
             window.open(this.isUrl);
         }
         // 自由行
@@ -125,15 +138,6 @@ export class AdminUserinfoEditComponent implements OnInit {
 
 
 
-    routeToDetail(data: any) {
-        console.log("dara", data);
-        if (data?.product_type == 0) {
-            this.isOrderUrl = '/admin/main/groupTravelOrder/detail?detailId=' + data?.id;
-        }
-        else if (data?.product_type == 1) {
-            this.isOrderUrl = '/admin/main/freeTravelOrder/detail?detailId=' + data?.id;
-        }
-    }
 
     routeToRefund(data: any) {
         this.router.navigate(['/admin/main/refundTurnOver'], { queryParams: { transaction_id: data } });

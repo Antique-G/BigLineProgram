@@ -14,13 +14,36 @@
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="new_date" nzRequired>修改出发日期为</nz-form-label>
                     <nz-form-control [nzSm]="20" [nzXs]="24">
                         <nz-select nzPlaceHolder="请选择日期" formControlName="new_date" (ngModelChange)="changeDate($event)">
-                            <nz-option *ngFor="let date of dateList" [nzLabel]="date" [nzValue]="date">
+                            <nz-option *ngFor="let date of dateList" [nzLabel]="date?.date" [nzValue]="date">
                             </nz-option>
                         </nz-select>
                     </nz-form-control>
                 </div>
             </nz-form-item>
+
             <ng-container *ngIf="isShow===true">
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>剩余库存</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <span>{{choiceData?.inventory_num-choiceData?.sold_num<0?0:choiceData?.inventory_num-choiceData?.sold_num}}</span>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>是否可超卖</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <ng-container *ngIf="choiceData?.set_inventory==1">
+                                <span>{{choiceData?.allow_over==1?'可超卖':'不能超卖'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="choiceData?.set_inventory==0">
+                                <span>可超卖</span>
+                            </ng-container>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
                 <ng-container *ngIf="detailModel?.independent_product?.data?.quote_type!=1">
                     <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                         <div nz-row>
