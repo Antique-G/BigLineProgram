@@ -86,7 +86,7 @@ export class AOGTDetailChangeDataComponent implements OnInit {
         this.changeDateRequestModel.diff_price = this.addForm.value.diff_price;
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",
-            nzContent: "<h6>确认修改联系人信息</h6>",
+            nzContent: "<h6>确认修改该订单的出行日期？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.changeDateGroup(this.changeDateRequestModel).subscribe(res => {
                     console.log('11111 ', res);
