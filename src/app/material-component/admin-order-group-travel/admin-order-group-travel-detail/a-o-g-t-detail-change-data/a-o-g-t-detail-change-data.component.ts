@@ -22,6 +22,7 @@ export class AOGTDetailChangeDataComponent implements OnInit {
     changeDateRequestModel: ChangeDateRequestModel;
     type: any;
     detailModel: any;
+    choiceData: any;
 
 
     //  public storeQuoteBydateService: StoreQuoteBydateService
@@ -59,8 +60,10 @@ export class AOGTDetailChangeDataComponent implements OnInit {
 
 
     changeDate(data: any) {
+        console.log("选择的是", data);
+        this.choiceData = data;
         this.order_id = this.detailModel.id;
-        this.new_date = this.addForm.value.new_date;
+        this.new_date = data.date;
         this.isShow = true;
         this.adminOrderGroupTravelService.changGetDateGroup(this.order_id, this.new_date).subscribe(res => {
             console.log('结果是', res);
