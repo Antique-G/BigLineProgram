@@ -132,7 +132,11 @@
                                                             <td>{{data?.bind_account_name}}</td>
                                                             <td>{{data.store_name}}</td>
                                                             <td>{{data.product_name}}</td>
-                                                            <td>{{data.product_type==1?'自由行':'跟团游'}}</td>
+                                                            <td>
+                                                                <span *ngIf="data.product_type==1">自由行</span>
+                                                                <span *ngIf="data.product_type==2||data.product_type==0">跟团游</span>
+                                                                <span *ngIf="data.product_type==3">自由行预售</span>
+                                                            </td>
                                                             <td>
                                                                 <div>{{data.contact_name}}</div>
                                                                 <div>{{data.contact_phone}}</div>
@@ -219,11 +223,21 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <ng-container *ngIf="data?.order_log">
-                                                                    <a href={{isOrderUrl}} target="_blank" title="查看订单详情" (click)="routeToDetail(data?.order_log?.order)">{{data?.order_log?.order?.id}} </a>
+                                                                <!-- 自由行 -->
+                                                                <ng-container *ngIf="data?.order_type==1">
+                                                                    <a href={{isFreeUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
                                                                 </ng-container>
-                                                                <ng-container *ngIf="!data?.order_log">
-                                                                    -
+                                                                <!-- 跟团游 -->
+                                                                <ng-container *ngIf="data?.order_type==2">
+                                                                    <a href={{isOrderUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
+                                                                </ng-container>
+                                                                <!-- 预售 -->
+                                                                <ng-container *ngIf="data?.order_type==3">
+                                                                    <a href={{isPreFreeUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
+                                                                </ng-container>
+                                                                <!-- 生鲜 -->
+                                                                <ng-container *ngIf="data?.order_type==4">
+                                                                    <a href={{isGoodsUrl+data.order_id}} target="_blank" title="查看订单详情">{{data?.order_id}} </a>
                                                                 </ng-container>
                                                             </td>
                                                             <td>
