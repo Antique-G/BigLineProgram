@@ -396,12 +396,13 @@ export interface ChangePriceModel {
 export interface ChangeDateRequestModel {
     order_id: string;
     new_date: any;
+    diff_price?: any;
 }
 
 export interface ChangeDateResponModel {
     date_quote: Datequote;
     new_date_quote: Datequote;
-    diff_price_total: string;
+    diff_price?: string;
 }
 
 export interface Datequote {

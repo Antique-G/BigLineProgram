@@ -20,7 +20,7 @@
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
                                         <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-                                            <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="detailModel?.order_status===0">订单修改日期</button> -->
+                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="changeDate()" [disabled]="!(detailModel?.order_status==1||detailModel?.order_status==2)">订单修改日期</button>
                                             <ng-container *ngIf="detailModel?.independent_product?.data?.is_presell!=1">
                                                 <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderPartRefund()" [disabled]="detailModel?.order_status===0||detailModel?.order_status===1">订单退款</button>
                                             </ng-container>

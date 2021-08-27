@@ -104,6 +104,21 @@ export class AdminOrderGroupTravelService {
     }
 
 
+    // 获取跟团游自由行可下单列表GetAdminOrderDateList
+    getAdminOrderDateList(product_id: any, type: any): Observable<any> {
+        const params = new HttpParams().set('product_id', product_id)
+            .set('type', type);
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params: params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminOrderDateList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
 
     // 后台下订单
     addOrderGroup(orderGroupProduct: OrderGroupProduct): Observable<any> {

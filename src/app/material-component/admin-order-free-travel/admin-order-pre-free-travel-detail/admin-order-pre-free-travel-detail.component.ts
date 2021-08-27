@@ -12,6 +12,7 @@ import { AdminOrderFreeTravelService } from '../../../../services/admin/admin-or
 import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-order-group-travel.service';
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
+import { AOGTDetailChangeDataComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 
 
@@ -380,7 +381,7 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
             nzContent: "<h6>确定同步此订单到大航系统？</h6>",
             nzOnOk: () =>
                 this.adminOrderGroupTravelService.syncOrder(this.syncOrderModel).subscribe((res: any) => {
-                    if (res?.data?.result==true) {
+                    if (res?.data?.result == true) {
                         this.modal['success']({
                             nzMask: false,
                             nzTitle: `同步成功`,
@@ -437,13 +438,48 @@ export class AdminOrderPreFreeTravelDetailComponent implements OnInit {
     }
 
 
+    // 订单修改日期
+    changeDate() {
+        const editmodal = this.modal.create({
+            nzTitle: '订单修改日期',
+            nzWidth: 800,
+            nzContent: AOGTDetailChangeDataComponent,
+            nzComponentParams: {
+                data: {
+                    data: this.detailModel,
+                    type: 1
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
+    }
+
+
+
     // 跳转到用户记录
     routeIt(data: any) {
         console.log("data", data);
         this.router.navigate(['/admin/main/userMoneyLog'], { queryParams: { user_id: data } });
     }
 
-    
+
     // 跳转到用户列表
     routeItUser(data: any) {
         console.log("data", data);
