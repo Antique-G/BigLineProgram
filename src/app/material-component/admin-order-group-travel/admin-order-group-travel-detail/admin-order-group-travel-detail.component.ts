@@ -228,7 +228,10 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
             nzWidth: 800,
             nzContent: AOGTDetailChangeDataComponent,
             nzComponentParams: {
-                data: this.detailModel
+                data: {
+                    data: this.detailModel,
+                    type: 2
+                }
             },
             nzFooter: [
                 {

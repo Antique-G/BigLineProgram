@@ -210,8 +210,8 @@ export const AdminUrls = {
     GetAdminProSearch: api + '/admin/product/search',  // 跟团游产品搜索
     PostAdminProductOrderGroup: api + '/admin/order/group_product',  // 跟团游后台下订单
     PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  // 确认收款
-    GetAdminOrderChangeDate: api + '/admin/order/change_date',  // 订单改日期（提交前展示）
-    PostAdminOrderChangeDate: api + '/admin/order/change_date',  // 订单改日期（提交）
+    GetAdminOrderChangeDate: api + '/admin/order/change_date_show',  // 订单改日期（提交前展示）
+    PostAdminOrderChangeDate: api + '/admin/order/change_date_update',  // 订单改日期（提交）
     PostAdminEditMember: api + '/admin/order/edit_member',  // 修改出行人信息
     PostAdminOrderEditInfo: api + '/admin/order/edit_info',  // 修改订单信息
     PostAdminOrderRecover: api + '/admin/order/recover',  // 恢复订单
@@ -227,6 +227,10 @@ export const AdminUrls = {
     PostAdminContractCreateTravel: api + '/admin/contract_create',   //发送合同
     PostAdminContractCancelTravel: api + '/admin/contract_cancel',   //作废合同
     GetAdminOrderPrintConfirm: api + '/admin/print_receipt',  // 打印客人确认单
+    GetAdminOrderDateList: api + '/admin/product_date_list',  // 获取跟团游自由行可下单的日期列表
+
+
+    
 
     
 

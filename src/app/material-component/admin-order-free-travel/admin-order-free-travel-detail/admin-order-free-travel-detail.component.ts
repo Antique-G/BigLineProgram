@@ -13,6 +13,7 @@ import { AdminOrderGroupTravelService } from '../../../../services/admin/admin-o
 import { AdminOrderService } from '../../../../services/admin/admin-order.service';
 import { AOGTDChangePriceComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-change-price/a-o-g-t-d-change-price.component';
 import { AOGTDPartRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-d-part-refund/a-o-g-t-d-part-refund.component';
+import { AOGTDetailChangeDataComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/a-o-g-t-detail-change-data/a-o-g-t-detail-change-data.component';
 import { AdminOrderCancelComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-cancel/admin-order-cancel.component';
 import { AdminOrderPrintConfirmationComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-order-print-confirmation/admin-order-print-confirmation.component';
 import { AdminSelectRefundComponent } from '../../admin-order-group-travel/admin-order-group-travel-detail/admin-select-refund/admin-select-refund.component';
@@ -562,6 +563,39 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     }
 
 
+    // 订单修改日期
+    changeDate() {
+        const editmodal = this.modal.create({
+            nzTitle: '订单修改日期',
+            nzWidth: 800,
+            nzContent: AOGTDetailChangeDataComponent,
+            nzComponentParams: {
+                data: {
+                    data: this.detailModel,
+                    type: 1
+                }
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.update()
+                    }
+                }
+            ]
+        })
+        editmodal.afterClose.subscribe(res => {
+            this.activatedRoute.queryParams.subscribe(params => {
+                console.log("params", params)
+                this.detailId = params?.detailId;
+                // 详情
+                this.getDetail();
+
+            });
+        })
+    }
+
     // 跳转到用户记录
     routeIt(data: any) {
         console.log("data", data);
@@ -569,7 +603,7 @@ export class AdminOrderFreeTravelDetailComponent implements OnInit {
     }
 
 
-    
+
     // 跳转到用户列表
     routeItUser(data: any) {
         console.log("data", data);
