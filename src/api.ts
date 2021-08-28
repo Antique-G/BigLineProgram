@@ -600,6 +600,11 @@ export const StoreUrls = {
     GetStoreExpressCompanyList: api + '/store/express_company/list',     //快递公司
     PostStoreGoodsSendExpress: api + '/store/goods_order/express',     //快递发货
 
+    PostStoreGoodsOrderRequest: api + '/store/goods_cash_requirement',     //商品订单请款
+
+
+     
+
 
 
     PostStoreGoodsImgUpload: api + '/store/goods_image',  // 上传商品图片
