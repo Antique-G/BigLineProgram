@@ -142,6 +142,7 @@ import { StoreTermsManagementComponent } from './store-terms-management/store-te
 import { StoreTouristCreateComponent } from './store-tourist/store-tourist-create/store-tourist-create.component';
 import { StoreTouristDetailComponent } from './store-tourist/store-tourist-detail/store-tourist-detail.component';
 import { StoreTouristComponent } from './store-tourist/store-tourist.component';
+import { StoreGoodsOrderRequestMoneyComponent } from './store-goods-order/store-goods-order-detail/store-goods-order-request-money/store-goods-order-request-money.component';
 
 
 @NgModule({
@@ -299,6 +300,7 @@ import { StoreTouristComponent } from './store-tourist/store-tourist.component';
         StoreGoodsOrderMergeShipComponent,
         StoreGoodsOrderDetailModifyComponent,
         StoreGoodsOrderAddFreightComponent,
+        StoreGoodsOrderRequestMoneyComponent,
     ]
 })
 export class StoreMaterialComponentsModule { }

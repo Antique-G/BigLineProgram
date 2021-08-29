@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AddExpressCompanyModel, AddGoodsOrderModel, GoodsListModel, GoodsOrderListModel, GoodsSetCheckStatusModel, GoodsSetHotModel, GoodsSetStatusModel, StoreGoodCateTreeList, UpdateGoodsOrderConsigneeModel, UpdateGoodsOrderModel } from 'interfaces/store/storeGoods/store-goods-model';
-import { ComfirmOrderModel, TransChangeModel, WeChatModel } from 'interfaces/store/storeOrder/store-order-group-travel-model';
+import { CashReqReviwqModel, ComfirmOrderModel, TransChangeModel, WeChatModel } from 'interfaces/store/storeOrder/store-order-group-travel-model';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
@@ -333,6 +333,50 @@ export class AdminGoodsService {
                 catchError(this.handleError)
             );
     }
+
+
+    // 请款列表
+    cashRequireList(page: number, per_page: number, order_status: any, order_id: any, express_status: any, goods_name: any, cate_id: any,
+        is_postage: any, date_start: any, date_end: any, send_time_start: any, send_time_end: any,
+        store_id: any, consignee: any, phone: any, bind_id: any,): Observable<any> {
+        const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
+            .set('per_page', per_page.toString())
+            .set('order_status', order_status ? order_status : '')
+            .set('order_id', order_id ? order_id : '')
+            .set('express_status', express_status ? express_status : '')
+            .set('goods_name', goods_name ? goods_name : '')
+            .set('cate_id', cate_id ? cate_id : '')
+            .set('is_postage', is_postage ? is_postage : '')
+            .set('date_start', date_start ? date_start : '')
+            .set('date_end', date_end ? date_end : '')
+            .set('send_time_start', send_time_start ? send_time_start : '')
+            .set('send_time_end', send_time_end ? send_time_end : '')
+            .set('store_id', store_id ? store_id : '')
+            .set('consignee', consignee ? consignee : '')
+            .set('phone', phone ? phone : '')
+            .set('bind_id', bind_id ? bind_id : '');
+
+
+
+        const findhttpOptions = {
+            headers: new HttpHeaders({ 'content-Type': 'application/json' }),
+            params
+        };
+        return this.httpClient.get<any>(this.urls.GetAdminGoodsOrderCashRequireList, findhttpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
+    // 请款审核
+    cashReview(cashReqReviwqModel: CashReqReviwqModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminGoodsOrderCheckCash, cashReqReviwqModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);

@@ -28,6 +28,9 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
     updateGoodsOrderConsigneeModel: UpdateGoodsOrderConsigneeModel;
     isHadExpress = true;
 
+    // 请款跳过来的
+    isGoodReq:any;
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public adminGoodsService: AdminGoodsService,
         private modal: NzModalService, public adminRegionService: AdminRegionService,) {
         this.addForm = this.fb.group({
@@ -53,7 +56,8 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
-            console.log("params", params)
+            console.log("params", params);
+            this.isGoodReq = params?.isGoodReq;
             this.detailId = params?.id;
             // 详情
             this.isSpinning = true;

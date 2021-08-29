@@ -230,6 +230,8 @@ import { AdminCreateComponent } from './admin/admin-create/admin-create.componen
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
+import { AdminFinanceGoodsRequestMoneyComponent } from './admin-finance/admin-finance-goods-request-money/admin-finance-goods-request-money.component';
+import { AdminFinanceGoodsRequestReviewComponent } from './admin-finance/admin-finance-goods-request-money/admin-finance-goods-request-review/admin-finance-goods-request-review.component';
 
 
 
@@ -494,6 +496,8 @@ import { MaterialRoutes } from './material.routing';
         AdminFinanceOrderReportComponent,
         AdminOrderPrintConfirmationComponent,
         AdminOrderFreePrintConfirmComponent,
+        AdminFinanceGoodsRequestMoneyComponent,
+        AdminFinanceGoodsRequestReviewComponent,
     ]
 })
 export class MaterialComponentsModule { }

@@ -40,6 +40,8 @@ export class AOGTDetailChangeDataComponent implements OnInit {
             diff_price: [''],
             old_pack_price: [''],
             new_pack_price: [''],
+            baby_price: [''],
+            new_baby_price: [''],
         });
         this.changeDateRequestModel = {
             order_id: '',
@@ -77,7 +79,9 @@ export class AOGTDetailChangeDataComponent implements OnInit {
                 new_difference_price: this.dataModel?.new_date_quote?.difference_price,
                 diff_price: this.dataModel?.diff_price_total,
                 old_pack_price:this.dataModel?.date_quote?.inclusive_price,
-                new_pack_price:this.dataModel?.new_date_quote?.inclusive_price
+                new_pack_price: this.dataModel?.new_date_quote?.inclusive_price,
+                baby_price: this.dataModel?.date_quote?.baby_price,
+                new_baby_price: this.dataModel?.new_date_quote?.baby_price,
             })
         })
     }

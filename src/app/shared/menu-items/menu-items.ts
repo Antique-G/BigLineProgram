@@ -82,6 +82,7 @@ const MENUITEMS = [
             { state: 'financeFreeCash', name: '自由行请款', permission_name: 'finance_independent_cash' },
             { state: 'financeOrderReport', name: '财务统计报表', permission_name: 'finance_order_report' },
             { state: 'financeGoods', name: '商品订单列表', permission_name: 'finance_goods_order' },
+            { state: 'financeGoodsCash', name: '商品请款', permission_name: 'finance_goods_cash' },
             { state: 'miniWithdrawalReview', name: '小程序钱包提现审核', permission_name: 'finance_mini_withdrawal-review' },
             { state: 'miniWithdrawalRecordList', name: '小程序钱包提现流水', permission_name: 'finance_mini_withdrawal-record' },
 

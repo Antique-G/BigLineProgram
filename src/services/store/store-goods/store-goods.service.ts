@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
-import { AddGoodsModel, GoodsListModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, SendStoreExpressCompany, SplitGoodsOrderModel, StoreExpressCompanyList, StoreGoodCateTreeList, UpdateGoodsOrderModel } from '../../../interfaces/store/storeGoods/store-goods-model';
+import { AddGoodsModel, GoodsListModel, GoodsOrderRequestModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, SendStoreExpressCompany, SplitGoodsOrderModel, StoreExpressCompanyList, StoreGoodCateTreeList, UpdateGoodsOrderModel } from '../../../interfaces/store/storeGoods/store-goods-model';
 
 
 
@@ -170,6 +170,11 @@ export class StoreGoodsService {
         return this.httpClient.post<any>(this.urls.PostStoreGoodsSendExpress, sendStoreExpressCompany, httpOptions)
     }
 
+
+    // 请款
+    goodsOrderRequest(goodsOrderRequestModel: GoodsOrderRequestModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostStoreGoodsOrderRequest , goodsOrderRequestModel, httpOptions)
+    }
 
     private handleError(error: HttpErrorResponse) {
         console.log('1212', error);

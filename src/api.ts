@@ -374,6 +374,8 @@ export const AdminUrls = {
     GetAdminFinanceGoodsOrderList: api + '/admin/finance/goods_order',     //财务商品订单
     PostAdminFinanceGoodsOrderConfirm: api + '/admin/finance/goods_order_confirm',   // 财务确认商品收款
     PostAdminFinanceGoodsOrderEditReceipt: api + '/admin/goods_order/edit_receipt',   // 财务修改商品流水
+    GetAdminGoodsOrderCashRequireList: api + '/admin/goods_cash_list',     //商品请款列表
+    PostAdminGoodsOrderCheckCash: api + '/admin/check_goods_cash',   // 请款审核
  
     
 
@@ -599,6 +601,11 @@ export const StoreUrls = {
     
     GetStoreExpressCompanyList: api + '/store/express_company/list',     //快递公司
     PostStoreGoodsSendExpress: api + '/store/goods_order/express',     //快递发货
+
+    PostStoreGoodsOrderRequest: api + '/store/goods_cash_requirement',     //商品订单请款
+
+
+     
 
 
 

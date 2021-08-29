@@ -317,3 +317,12 @@ export interface SendStoreExpressCompany {
     express_company: string;
     express_number: any;
 }
+
+
+//商品请款
+export interface GoodsOrderRequestModel {
+    order_id: any;
+    cost_type: any;
+    suppiler_id: any;
+    goods_info: any;
+}

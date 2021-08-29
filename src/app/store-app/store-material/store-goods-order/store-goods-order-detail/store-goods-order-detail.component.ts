@@ -7,6 +7,7 @@ import { StoreGoodsService } from 'services/store/store-goods/store-goods.servic
 import { StoreGoodsOrderAddFreightComponent } from './store-goods-order-add-freight/store-goods-order-add-freight.component';
 import { StoreGoodsOrderDetailModifyComponent } from './store-goods-order-detail-modify/store-goods-order-detail-modify.component';
 import { StoreGoodsOrderMergeShipComponent } from './store-goods-order-merge-ship/store-goods-order-merge-ship.component';
+import { StoreGoodsOrderRequestMoneyComponent } from './store-goods-order-request-money/store-goods-order-request-money.component';
 
 
 
@@ -187,6 +188,34 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
             ]
         });
         editmodal.afterClose.subscribe(res => {
+            this.getOrderDetail();
+        });
+    }
+
+
+
+    // 请款
+    orderRequest(detailModel:any) {
+        console.log("1212", detailModel);
+        const addmodal = this.modal.create({
+            nzTitle: '商品订单请款',
+            nzWidth: 1000,
+            nzContent: StoreGoodsOrderRequestMoneyComponent,
+            nzComponentParams: {
+                data:detailModel
+            },
+            nzFooter: [
+                {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: componentInstance => {
+                        componentInstance?.add();
+
+                    }
+                }
+            ]
+        });
+        addmodal.afterClose.subscribe(res => {
             this.getOrderDetail();
         });
     }
