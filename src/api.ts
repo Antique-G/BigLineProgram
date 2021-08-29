@@ -374,6 +374,8 @@ export const AdminUrls = {
     GetAdminFinanceGoodsOrderList: api + '/admin/finance/goods_order',     //财务商品订单
     PostAdminFinanceGoodsOrderConfirm: api + '/admin/finance/goods_order_confirm',   // 财务确认商品收款
     PostAdminFinanceGoodsOrderEditReceipt: api + '/admin/goods_order/edit_receipt',   // 财务修改商品流水
+    GetAdminGoodsOrderCashRequireList: api + '/admin/goods_cash_list',     //商品请款列表
+    PostAdminGoodsOrderCheckCash: api + '/admin/check_goods_cash',   // 请款审核
  
     
 

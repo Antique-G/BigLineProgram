@@ -4,7 +4,8 @@
         <div class="example-container">
             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
                 <div fxLayout="row" fxLayoutGap="20px">
-                    <button mat-raised-button color="primary" style="letter-spacing: 2px;" routerLink="/admin/main/goodsOrderList">返回商品订单列表</button>
+                    <button mat-raised-button color="primary" *ngIf="isGoodReq!=1" style="letter-spacing: 2px;" routerLink="/admin/main/goodsOrderList">返回商品订单列表</button>
+                    <button mat-raised-button color="primary" *ngIf="isGoodReq==1" style="letter-spacing: 2px;" routerLink="/admin/main/financeGoodsCash">返回商品请款列表</button>
                 </div>
 
                 <nz-spin [nzSpinning]="isSpinning" nzTip="Loading...">
