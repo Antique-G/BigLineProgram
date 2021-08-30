@@ -157,10 +157,10 @@
                     <div nz-row>
                         <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="diff_price" nzRequired>订单差额需补/退</nz-form-label>
                         <nz-form-control [nzSm]="16" [nzXs]="24">
-                            <input nz-input formControlName="diff_price" [ngModel]="" />
+                            <input nz-input formControlName="diff_price" [ngModel]="" readonly/>
                         </nz-form-control>
                     </div>
-                    <p style="color: red; margin-left: 33%;">若需要退多余的钱，则为负数，如退10元，写成"-10"，补交钱则为正数"10"</p>
+                    <!-- <p style="color: red; margin-left: 33%;">若需要退多余的钱，则为负数，如退10元，写成"-10"，补交钱则为正数"10"</p> -->
                 </nz-form-item>
             </ng-container>
 

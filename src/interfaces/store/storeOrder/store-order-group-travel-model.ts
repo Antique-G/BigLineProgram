@@ -396,7 +396,7 @@ export interface ChangePriceModel {
 export interface ChangeDateRequestModel {
     order_id: string;
     new_date: any;
-    diff_price?: any;
+    // diff_price?: any;
 }
 
 export interface ChangeDateResponModel {

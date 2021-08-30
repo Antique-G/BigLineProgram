@@ -46,7 +46,7 @@ export class AOGTDetailChangeDataComponent implements OnInit {
         this.changeDateRequestModel = {
             order_id: '',
             new_date: '',
-            diff_price: '',
+            // diff_price: '',
         }
     }
 
@@ -90,7 +90,7 @@ export class AOGTDetailChangeDataComponent implements OnInit {
     update() {
         this.changeDateRequestModel.order_id = this.detailModel.id;
         this.changeDateRequestModel.new_date = this.new_date;
-        this.changeDateRequestModel.diff_price = this.addForm.value.diff_price;
+        // this.changeDateRequestModel.diff_price = this.addForm.value.diff_price;
         this.modal.confirm({
             nzTitle: "<h4>提示</h4>",
             nzContent: "<h6>确认修改该订单的出行日期？</h6>",
