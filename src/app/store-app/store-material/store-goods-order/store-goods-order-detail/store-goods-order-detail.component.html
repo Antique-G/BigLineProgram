@@ -17,7 +17,7 @@
                                             <h4 style="padding-left: 10px;padding-top: 10px;">订单基本信息</h4>
                                         </div>
                                         <div fxLayout="row" fxLayoutGap="20px">
-                                            <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderRequest(detailModel)">请款</button>
+                                            <!-- <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="orderRequest(detailModel)">请款</button> -->
                                             <ng-container *ngIf="detailModel?.order_status==2">
                                                 <div *ngIf="detailModel?.express_status==0">
                                                     <button mat-raised-button color="primary" style="letter-spacing: 2px;" (click)="mergeShip()">订单发货</button>

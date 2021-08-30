@@ -31,6 +31,9 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
     // 请款跳过来的
     isGoodReq:any;
 
+    // 请款信息
+    cashList: any[] = [];
+
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public adminGoodsService: AdminGoodsService,
         private modal: NzModalService, public adminRegionService: AdminRegionService,) {
         this.addForm = this.fb.group({
@@ -73,6 +76,9 @@ export class AdminGoodsProOrderDetailComponent implements OnInit {
         this.adminGoodsService.orderDetail(this.detailId).subscribe(res => {
             this.isSpinning = false;
             this.detailModel = res.data;
+            // 请款
+            this.cashList = this.detailModel?.goods_cash?.data;
+            console.log("this.cashList",this.cashList)
             this.dataPayLog = this.detailModel?.pay_log?.data;
             this.detailModel?.sub_order?.data.forEach((element: any) => {
                 // 已发货不显示
