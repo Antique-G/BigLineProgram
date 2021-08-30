@@ -164,6 +164,7 @@
                                 <tr>
                                     <th style="text-align: center;">订单id</th>
                                     <th style="text-align: center;">下单/推荐人</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;width: 10%;">商品名称</th>
                                     <th style="text-align: center;">商品规格</th>
@@ -192,6 +193,13 @@
                                                         {{data.id}}</td>
                                                     <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
                                                         {{data.bind_name}}</td>
+                                                    <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
+                                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                                        <span *ngIf="data.payout_status===2">已付款</span>
+                                                        <span *ngIf="data.payout_status===3">已收发票</span>
+                                                    </td>
                                                     <td [attr.rowspan]="data?.sub_order?.data[0]?.order_item?.data?.length">
                                                         {{sub_order.store_name}}
                                                     </td>
@@ -253,6 +261,13 @@
                                                         {{data.id}}</td>
                                                     <td [attr.rowspan]="data?.allLength">
                                                         {{data.bind_name}}
+                                                    </td>
+                                                    <td [attr.rowspan]="data?.allLength">
+                                                        <!-- 0未请款 1已请款 2已付款 3已收发票 -->
+                                                        <span *ngIf="data.payout_status===0">未请款</span>
+                                                        <span *ngIf="data.payout_status===1">已请款</span>
+                                                        <span *ngIf="data.payout_status===2">已付款</span>
+                                                        <span *ngIf="data.payout_status===3">已收发票</span>
                                                     </td>
                                                 </ng-container>
                                                 <ng-container *ngIf="i==0">

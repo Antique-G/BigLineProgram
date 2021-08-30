@@ -217,6 +217,7 @@ export interface DataGoodsOrderListModel {
     zip_code: string;
     created_at: string;
     updated_at: string;
+    payout_status: string;
     sub_order: SubOrderGoodsOrderListModel;
 }
 

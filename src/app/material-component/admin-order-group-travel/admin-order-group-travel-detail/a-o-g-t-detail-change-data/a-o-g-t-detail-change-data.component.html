@@ -1,14 +1,38 @@
 <div fxLayoutWrap="wrap">
     <div style="padding: 5px;">
         <form nz-form [formGroup]="addForm" nz-row>
-            <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
+            <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
                 <div nz-row>
-                    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="old_date" nzRequired>原订单出发日期</nz-form-label>
-                    <nz-form-control [nzSm]="20" [nzXs]="24">
+                    <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="old_date" nzRequired>原订单出发日期</nz-form-label>
+                    <nz-form-control [nzSm]="16" [nzXs]="24">
                         <input nz-input formControlName="old_date" [ngModel]="detailModel?.start_date" readonly nzBorderless/>
                     </nz-form-control>
                 </div>
             </nz-form-item>
+
+
+            <ng-container *ngIf="detailModel?.independent_product?.data?.quote_type!=1">
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>原订单人数</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <div>成人{{detailModel?.num_adult}}&nbsp;|&nbsp;儿童{{detailModel?.num_kid}}&nbsp;|&nbsp;婴儿{{detailModel?.baby_num}}</div>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+            </ng-container>
+
+            <ng-container *ngIf="detailModel?.independent_product?.data?.quote_type==1">
+                <nz-form-item nz-col [nzSm]="12" [nzXs]="24">
+                    <div nz-row>
+                        <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>原订单份数</nz-form-label>
+                        <nz-form-control [nzSm]="16" [nzXs]="24">
+                            <div>{{detailModel?.num_total}}份</div>
+                        </nz-form-control>
+                    </div>
+                </nz-form-item>
+            </ng-container>
+
             <nz-form-item nz-col [nzSm]="24" [nzXs]="24">
                 <div nz-row>
                     <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="new_date" nzRequired>修改出发日期为</nz-form-label>
