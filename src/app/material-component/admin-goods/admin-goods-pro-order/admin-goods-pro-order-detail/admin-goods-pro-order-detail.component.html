@@ -243,7 +243,7 @@
 
 
 
-                        <!-- <mat-card *ngIf="cashList?.length>0">
+                        <mat-card *ngIf="cashList?.length>0">
                             <div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch">
                                     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -279,7 +279,7 @@
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.id}}</td>
                                                             </ng-container>
                                                             <td>{{goods?.goods_name}}</td>
-                                                            <td>{{goods?.cash_price}}</td>
+                                                            <td>{{goods?.cash_price}}元</td>
                                                             <td>{{goods?.num}}</td>
                                                             <ng-container *ngIf="i==0">
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.total}}元</td>
@@ -306,7 +306,7 @@
                                 </div>
 
                             </div>
-                        </mat-card> -->
+                        </mat-card>
 
                         <mat-card *ngIf="dataPayLog.length!=0">
                             <div>

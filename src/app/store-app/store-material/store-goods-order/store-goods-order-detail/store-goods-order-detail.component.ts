@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { StoreCostService } from 'services/store/store-cost/store-cost.service';
 import { StoreGoodsService } from 'services/store/store-goods/store-goods.service';
 import { StoreGoodsOrderAddFreightComponent } from './store-goods-order-add-freight/store-goods-order-add-freight.component';
 import { StoreGoodsOrderDetailModifyComponent } from './store-goods-order-detail-modify/store-goods-order-detail-modify.component';
@@ -25,10 +26,15 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
     setOfCheckedId = new Set<number>();
     setArr = new Set<any>();
     splitGoodsOrderModel: any;
+    cashList: any[] = [];
+    requestMoneyModel: any;
+    typeList: any[] = [];
+    supplyList: any[] = [];
+    goodInfoArr: any;
 
 
     constructor(public fb: FormBuilder, public activatedRoute: ActivatedRoute, public storeGoodsService: StoreGoodsService,
-        private message: NzMessageService, private modal: NzModalService,) {
+        private message: NzMessageService, private modal: NzModalService, public storeCostService: StoreCostService) {
         this.addForm = this.fb.group({
             order_id: [''],
             main_order_id: [''],
@@ -44,10 +50,24 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
         this.splitGoodsOrderModel = {
             item_ids: '',
             sub_order_id: ''
-        }
+        };
+        this.requestMoneyModel = {
+            cost_type:'',
+            content: '',
+            suppiler_id: '',
+            goods_info: '',
+            id: '',
+        };
     }
 
     ngOnInit(): void {
+        this.storeCostService.getTypeList(1, 100, 1).subscribe(res => {
+            this.typeList = res?.data?.data;
+            this.storeCostService.getCashList(1, 100, 1).subscribe(res => {
+                console.log('res', res);
+                this.supplyList = res?.data?.data;
+            });
+        });
         this.activatedRoute.queryParams.subscribe(params => {
             console.log("params", params)
             this.detailId = params?.id;
@@ -61,6 +81,7 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
         this.storeGoodsService.orderDetail(this.detailId).subscribe(res => {
             this.isSpinning = false;
             this.detailModel = res.data;
+            this.cashList = this.detailModel?.goods_cash?.data;
             console.log("订单详情", res)
         })
     }
@@ -195,14 +216,14 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
 
 
     // 请款
-    orderRequest(detailModel:any) {
+    orderRequest(detailModel: any) {
         console.log("1212", detailModel);
         const addmodal = this.modal.create({
             nzTitle: '商品订单请款',
             nzWidth: 1000,
             nzContent: StoreGoodsOrderRequestMoneyComponent,
             nzComponentParams: {
-                data:detailModel
+                data: detailModel
             },
             nzFooter: [
                 {
@@ -218,5 +239,79 @@ export class StoreGoodsOrderDetailComponent implements OnInit {
         addmodal.afterClose.subscribe(res => {
             this.getOrderDetail();
         });
+    }
+
+
+
+    // 修改请款
+    startEdit(data: any): void {
+        this.cashList.filter(function (item: any, index: any) {
+            if (item.id === data.id) {
+                item.edit = true;
+            }
+        });
+    }
+
+
+    cancelEdit(id: string): void {
+        console.log('id :>> ', id);
+        this.cashList.filter(function (item: any, index: any) {
+            if (item.id === id) {
+                item.edit = false;
+            }
+        });
+    }
+
+
+
+
+    saveEdit(data: any): void {
+        console.log("111",data)
+        this.requestMoneyModel.id = data.id;
+        this.requestMoneyModel.cost_type = data.cost_type;
+        this.requestMoneyModel.content = data.content;
+        this.requestMoneyModel.suppiler_id = data.suppiler_id;
+        this.requestMoneyModel.goods_info = data.goods_detail?.data;
+        console.log("3423423",this.requestMoneyModel)
+        this.storeGoodsService.updateOrderRequestCash(this.requestMoneyModel).subscribe((res: any) => {
+            console.log('结果是 :>> ', res);
+            this.cashList.filter(function (item: any, index: any) {
+                if (item.id === data.id) {
+                    item.edit = false;
+                }
+            });
+            this.activatedRoute.queryParams.subscribe(params => {
+                // 详情
+                this.getOrderDetail();
+
+            });
+        });
+    }
+
+
+
+    // 删除
+    deleteIt(data: any) {
+        this.modal.confirm({
+            nzTitle: '<h4>提示</h4>',
+            nzContent: '<h6>是否删除该条请款</h6>',
+            nzOnOk: () =>
+                this.storeGoodsService.deleteOrderRequestCash(data).subscribe(res => {
+                    this.activatedRoute.queryParams.subscribe(params => {
+                        // 详情
+                        this.getOrderDetail();
+
+                    });
+                })
+        });
+    }
+
+
+
+    changeSuppy(data: any, i: any) {
+        console.log('111', data, i);
+        let ii = this.supplyList.filter((item: any) => item?.id == data)
+        console.log("22222", ii, this.cashList);
+        this.cashList[i].supplier.data = ii;
     }
 }

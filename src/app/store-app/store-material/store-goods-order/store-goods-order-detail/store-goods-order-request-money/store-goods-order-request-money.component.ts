@@ -32,6 +32,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
             bank_account: new FormControl(''),
             bank_name: new FormControl(''),
             bank_open: new FormControl(''),
+            remarks: new FormControl(''),
         });
         this.goodsOrderRequestModel = {
             order_id: '',
@@ -39,6 +40,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
             cost_type: '',
             suppiler_id: '',
             goods_info: '',
+            content: '',
         };
 
     }
@@ -132,6 +134,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
         this.goodsOrderRequestModel.cost_type = this.addForm.value.cost_type;
         this.goodsOrderRequestModel.suppiler_id = this.addForm.value.supplier_name;
         this.goodsOrderRequestModel.goods_info = this.addForm.value.foodOrderList;
+        this.goodsOrderRequestModel.content = this.addForm.value.remarks;
     }
 
 

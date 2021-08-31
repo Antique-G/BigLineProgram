@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StoreUrls } from '../../../api';
 import { EncodeComponent } from '../../../app/store-app/store-material/EncodeComponent';
-import { AddGoodsModel, GoodsListModel, GoodsOrderRequestModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, SendStoreExpressCompany, SplitGoodsOrderModel, StoreExpressCompanyList, StoreGoodCateTreeList, UpdateGoodsOrderModel } from '../../../interfaces/store/storeGoods/store-goods-model';
+import { AddGoodsModel, GoodsListModel, GoodsOrderRequestModel, GoodsOrderRequestMoneyModel, GoodsSetCheckStatusModel, GoodsSetStatusModel, SendStoreExpressCompany, SplitGoodsOrderModel, StoreExpressCompanyList, StoreGoodCateTreeList, UpdateGoodsOrderModel } from '../../../interfaces/store/storeGoods/store-goods-model';
 
 
 
@@ -33,7 +33,7 @@ export class StoreGoodsService {
 
 
     // 商品列表
-    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any,is_hot:any): Observable<GoodsListModel> {
+    goodsList(page: number, per_page: number, status: any, check_status: any, is_order: any, cate_id: any, title: any, is_hot: any): Observable<GoodsListModel> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('status', status ? status : '')
@@ -42,7 +42,7 @@ export class StoreGoodsService {
             .set('cate_id', cate_id ? cate_id : '')
             .set('title', title ? title : '')
             .set('is_hot', is_hot ? is_hot : '');
-        
+
 
 
         const findhttpOptions = {
@@ -173,7 +173,25 @@ export class StoreGoodsService {
 
     // 请款
     goodsOrderRequest(goodsOrderRequestModel: GoodsOrderRequestModel): Observable<any> {
-        return this.httpClient.post<any>(this.urls.PostStoreGoodsOrderRequest , goodsOrderRequestModel, httpOptions)
+        return this.httpClient.post<any>(this.urls.PostStoreGoodsOrderRequest, goodsOrderRequestModel, httpOptions)
+    }
+
+
+    // 更新
+    updateOrderRequestCash(goodsOrderRequestMoneyModel: GoodsOrderRequestMoneyModel): Observable<any> {
+        const id = goodsOrderRequestMoneyModel.id;
+        return this.httpClient.put(this.urls.PutStoreGoodsOrderCashUpdate + id, goodsOrderRequestMoneyModel, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    // 删除
+    deleteOrderRequestCash(id: any): Observable<any> {
+        return this.httpClient.delete<any>(this.urls.DeleteStoreGoodsOrderCashType + id, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private handleError(error: HttpErrorResponse) {

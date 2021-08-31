@@ -19,15 +19,15 @@
                             </div>
                         </nz-form-item>
 
-
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="express_status">发货状态</nz-form-label>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="payout_status">请款状态</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="express_status" nzAllowClear nzShowSearch>
+                                    <nz-select nzPlaceHolder="请选择" formControlName="payout_status" nzAllowClear nzShowSearch>
                                         <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                        <nz-option [nzLabel]="'未发'" [nzValue]="'0'"></nz-option>
-                                        <nz-option [nzLabel]="'已发'" [nzValue]="'1'"></nz-option>
+                                        <nz-option [nzLabel]="'已请款'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已收款 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已给发票 '" [nzValue]="3"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </div>
@@ -42,78 +42,6 @@
                             </div>
                         </nz-form-item>
 
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="goods_name">商品名称</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="goods_name" placeholder="请输入商品名称" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="type">商品类型</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-cascader nzChangeOnSelect [nzOptions]="cateList" formControlName="type" [nzLabelProperty]="'name'" [nzValueProperty]="'id'" (ngModelChange)="onChangeCate($event)"></nz-cascader>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_postage">是否包邮</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择" formControlName="is_postage" nzAllowClear nzShowSearch>
-                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
-                                        <nz-option [nzLabel]="'否'" [nzValue]="'1'"></nz-option>
-                                        <nz-option [nzLabel]="'是'" [nzValue]="'0'"></nz-option>
-                                    </nz-select>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="orderTime">下单日期</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeOrderDate($event)" formControlName="orderTime"></nz-range-picker>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="deliveryTime">发货时间</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-range-picker nzFormat="yyyy-MM-dd" (ngModelChange)="onChangeDeliveryDate($event)" formControlName="deliveryTime">
-                                    </nz-range-picker>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="consignee">收货人姓名</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="consignee" placeholder="请输入收货人姓名" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">收货人电话</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <input nz-input formControlName="phone" placeholder="请输入收货人电话" />
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
-
-
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="store_id">店铺名称</nz-form-label>
@@ -126,16 +54,7 @@
                         </nz-form-item>
 
 
-                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
-                            <div nz-row>
-                                <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="bind_id">下单人</nz-form-label>
-                                <nz-form-control [nzSm]="15" [nzXs]="24">
-                                    <nz-select nzPlaceHolder="请选择下单人" formControlName="bind_id" nzAllowClear nzShowSearch>
-                                        <nz-option *ngFor="let data of adminList" [nzLabel]="data.real_name" [nzValue]="data.admin_id"> </nz-option>
-                                    </nz-select>
-                                </nz-form-control>
-                            </div>
-                        </nz-form-item>
+
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="25px" style="margin-left: 50px;">
@@ -163,18 +82,18 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center;">订单id</th>
-                                    <th style="text-align: center;">订单请款状态</th>
-                                    <th style="text-align: center;">店铺名称</th>
-                                    <th style="text-align: center;">商品名称</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;">订单状态</th>
                                     <th style="text-align: center;">查看详情</th>
                                     <th style="text-align: center;">请款总额</th>
+                                    <th style="text-align: center;">商品名称</th>
+                                    <th style="text-align: center;">店铺名称</th>
                                     <th style="text-align: center;">请款成本类型</th>
                                     <th style="text-align: center;">供应商</th>
                                     <th style="text-align: center;">供应商收款账户</th>
                                     <th style="text-align: center;">请款说明</th>
                                     <th style="text-align: center;">请款金额</th>
-                                    <th style="text-align: center;">请款状态</th>
+                                    <th style="text-align: center;">付款状态</th>
                                     <th style="text-align: center;">已批金额</th>
                                     <th style="text-align: center;">操作人</th>
                                     <th style="text-align: center;">审核</th>
@@ -195,22 +114,24 @@
                                                         <span *ngIf="data?.payout_status==2">已收款</span>
                                                         <span *ngIf="data?.payout_status==3">已给发票</span>
                                                     </td>
-                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length"></td>
-                                                </ng-container>
-                                                <td>{{goods?.goods_name}}</td>
-                                                <ng-container *ngIf="i==0">
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{data.order_status_info}}</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">
                                                         <div style="cursor: pointer;">
                                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                                         </div>
                                                     </td>
-                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length"></td>
+                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">
+                                                        <span style="color: red;">{{data?.cash_money_total}}元</span>
+                                                    </td>
+                                                </ng-container>
+                                                <td>{{goods?.goods_name}}</td>
+                                                <ng-container *ngIf="i==0">
+                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.sub_order?.data[0]?.store_name}}</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.group_cost_type?.data[0]?.title}}</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.supplier?.data[0]?.supplier_name}}</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.supplier?.data[0]?.bank_account}}</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.content}}</td>
-                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.total}}</td>
+                                                    <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">{{goods_cash?.total}}元</td>
                                                     <td [attr.rowspan]="data?.goods_cash?.data[0]?.goods_detail?.data?.length">
                                                         <span *ngIf="goods_cash?.pay_status==0">未付款</span>
                                                         <span *ngIf="goods_cash?.pay_status==1">部分付款</span>
@@ -243,24 +164,22 @@
                                                         <span *ngIf="data?.payout_status==2">已收款</span>
                                                         <span *ngIf="data?.payout_status==3">已给发票</span>
                                                     </td>
-                                                    <td [attr.rowspan]="data?.allLength"> </td>
-                                                </ng-container>
-                                                <td>{{goods?.goods_name}}</td>
-                                                <ng-container *ngIf="j==0&&i==0">
                                                     <td [attr.rowspan]="data?.allLength">{{data.order_status_info}}</td>
                                                     <td [attr.rowspan]="data?.allLength">
                                                         <div style="cursor: pointer;">
                                                             <img src="http://cdn.bigline.com.cn/static/images/edit.png" title="编辑" (click)="edit(data)">
                                                         </div>
                                                     </td>
+                                                    <td [attr.rowspan]="data?.allLength"> <span style="color: red;">{{data?.cash_money_total}}元</span></td>
                                                 </ng-container>
+                                                <td>{{goods?.goods_name}}</td>
                                                 <ng-container *ngIf="i==0">
-                                                    <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length"></td>
+                                                    <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.sub_order?.data[0]?.store_name}}</td>
                                                     <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.group_cost_type?.data[0]?.title}}</td>
                                                     <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.supplier?.data[0]?.supplier_name}}</td>
                                                     <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.supplier?.data[0]?.bank_account}}</td>
                                                     <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.content}}</td>
-                                                    <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.total}}</td>
+                                                    <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">{{goods_cash?.total}}元</td>
                                                     <td [attr.rowspan]="goods_cash?.goods_detail?.data?.length">
                                                         <span *ngIf="goods_cash?.pay_status==0">未付款</span>
                                                         <span *ngIf="goods_cash?.pay_status==1">部分付款</span>
