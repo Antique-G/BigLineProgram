@@ -326,4 +326,5 @@ export interface GoodsOrderRequestModel {
     cost_type: any;
     suppiler_id: any;
     goods_info: any;
+    sub_order_id: any;
 }

@@ -79,7 +79,8 @@
                             (nzPageSizeChange)="changePageSize($event)">
                             <thead>
                                 <tr>
-                                    <th style="width: 4%;">日期</th>
+                                    <!-- <th style="width: 4%;">日期</th> -->
+                                    <th style="width: 3%;"></th>
                                     <th style="text-align: center;">产品id</th>
                                     <th style="text-align: center;">产品编码</th>
                                     <th style="text-align: center;width: 15%;">产品名称</th>
@@ -105,7 +106,8 @@
                             <tbody>
                                 <ng-template ngFor let-data [ngForOf]="rowSelectionTable.data">
                                     <tr>
-                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看可下单日期"></td>
+                                        <!-- <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看可下单日期"></td> -->
+                                        <td [(nzExpand)]="data.expand" (nzExpandChange)="onExpandChange(data.id, $event)" title="查看团信息"></td>
                                         <td>{{data.id}}</td>
                                         <td>{{data.code}}</td>
                                         <td>{{data.title}}</td>
@@ -139,7 +141,7 @@
 
                                     </tr>
 
-                                    <tr [nzExpand]="data.expand">
+                                    <!-- <tr [nzExpand]="data.expand">
                                         <div style="padding:10px 10px" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
                                             <div>
                                                 <div style="display: flex; align-items: center;">
@@ -190,8 +192,45 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </tr>
+                                    </tr> -->
 
+
+                                    <tr [nzExpand]="data.expand">
+                                        <nz-table #innerTable [nzData]="data?.group" [nzShowPagination]="false" *ngIf="data?.group?.length!=0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">团队id</th>
+                                                    <th style="text-align: center;">团队编号</th>
+                                                    <th style="text-align: center;">最小成团人数</th>
+                                                    <th style="text-align: center;">最大成团人数</th>
+                                                    <th style="text-align: center;">当前团人数</th>
+                                                    <th style="text-align: center;">成团日期</th>
+                                                    <th style="text-align: center;">出发日期</th>
+                                                    <th style="text-align: center;">团状态</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dataChild of innerTable.data">
+                                                    <td style="width: 10%;">{{ dataChild.group_id }}</td>
+                                                    <td style="width: 10%;">{{dataChild.group_code}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_min}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_max}}</td>
+                                                    <td style="width: 10%;">{{dataChild.member_total}}</td>
+                                                    <td style="width: 10%;">{{dataChild.active_date}}</td>
+                                                    <td style="width: 10%;">{{dataChild.start_date}}</td>
+                                                    <td style="width: 10%;">
+                                                        <span *ngIf="dataChild.group_status===0"> <nz-badge nzColor="red"></nz-badge>已取消，不成团</span>
+                                                        <span *ngIf="dataChild.group_status===1"><nz-badge nzColor="yellow"></nz-badge>未成团</span>
+                                                        <span *ngIf="dataChild.group_status===2"><nz-badge nzColor="green"></nz-badge>已成团</span>
+                                                        <span *ngIf="dataChild.group_status===3"><nz-badge nzColor="pink"></nz-badge>已出团，完成</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </nz-table>
+
+
+                                        <p *ngIf="data?.group?.length===0">无团信息</p>
+                                    </tr>
 
                                 </ng-template>
                             </tbody>

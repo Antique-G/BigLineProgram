@@ -35,6 +35,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
         });
         this.goodsOrderRequestModel = {
             order_id: '',
+            sub_order_id: '',
             cost_type: '',
             suppiler_id: '',
             goods_info: '',
@@ -117,7 +118,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
         console.log(this.addForm.valid);
         if (this.addForm.valid) {
             this.storeGoodsService.goodsOrderRequest(this.goodsOrderRequestModel).subscribe(res => {
-                console.log("结果是",res)
+                console.log("结果是", res)
             })
         }
     }
@@ -127,6 +128,7 @@ export class StoreGoodsOrderRequestMoneyComponent implements OnInit {
 
     setValue() {
         this.goodsOrderRequestModel.order_id = this.data?.order_id;
+        this.goodsOrderRequestModel.sub_order_id = this.data?.id;
         this.goodsOrderRequestModel.cost_type = this.addForm.value.cost_type;
         this.goodsOrderRequestModel.suppiler_id = this.addForm.value.supplier_name;
         this.goodsOrderRequestModel.goods_info = this.addForm.value.foodOrderList;
