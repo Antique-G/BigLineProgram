@@ -263,6 +263,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
         });
     }
 
+
     onExpandChange(id: number, checked: boolean): void {
         console.log("点击的是", id, checked);
     }
@@ -271,6 +272,7 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     ngYearChange(year: any) {
         let month = this.nzPageIndex < 10 ? '0' + this.nzPageIndex : this.nzPageIndex;
         this.seletYearMonth = this.selectedYear + '-' + month;
+        this.nzPageIndex = Number(month);
         let str = this.seletYearMonth + '-' + new Date().getDate()
         this.selectedDateValue = new Date(str)
         console.log('objec12111111t :>> ', str);
@@ -279,11 +281,12 @@ export class AdminFreeTravelAddOrderComponent implements OnInit {
     nzPageIndexChange(index: any) {
         console.log(index);
         let month = index < 10 ? '0' + index : index;
-        let year = new Date().getFullYear();
+        let year = this.selectedYear;
         let day = new Date().getDate();
-        this.selectedDateValue = new Date(year + '-' + month + '-' + day);
+        this.selectedDateValue = new Date(year + '-' + month + '-' + '01');
         this.seletYearMonth = this.selectedYear + '-' + month;
         this.nzPageIndex = index;
+
     }
 
     selectChange(select: Date): void {
