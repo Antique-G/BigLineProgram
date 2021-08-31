@@ -146,6 +146,7 @@
                                 <tr>
                                     <th style="text-align: center;">子/主订单id</th>
                                     <th style="text-align: center;">下单/推荐人</th>
+                                    <th style="text-align: center;">请款状态</th>
                                     <th style="text-align: center;width: 10%;">商品名称</th>
                                     <th style="text-align: center;">商品规格</th>
                                     <th style="text-align: center;">商品类型</th>
@@ -169,6 +170,12 @@
                                                 <div>{{data.order_id}}</div>
                                             </td>
                                             <td [attr.rowspan]="data?.order_item?.data?.length">{{data?.main_order?.data?.bind_name}}</td>
+                                            <td [attr.rowspan]="data?.order_item?.data?.length">
+                                                <span *ngIf="data.payout_status===0">未请款</span>
+                                                <span *ngIf="data.payout_status===1">已请款</span>
+                                                <span *ngIf="data.payout_status===2">已付款</span>
+                                                <span *ngIf="data.payout_status===3">已收发票</span>
+                                            </td>
                                         </ng-container>
                                         <td>{{order_item.goods_name}}</td>
                                         <td>{{order_item.spec_name}}</td>

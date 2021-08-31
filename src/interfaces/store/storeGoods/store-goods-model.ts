@@ -327,4 +327,14 @@ export interface GoodsOrderRequestModel {
     suppiler_id: any;
     goods_info: any;
     sub_order_id: any;
+    content?: any;
+}
+
+
+export interface GoodsOrderRequestMoneyModel {
+    cost_type: any;
+    content: any;
+    suppiler_id: any;
+    goods_info?: any;
+    id: any;
 }

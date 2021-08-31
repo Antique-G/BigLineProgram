@@ -230,18 +230,18 @@ export const AdminUrls = {
     GetAdminOrderDateList: api + '/admin/product_date_list',  // 获取跟团游自由行可下单的日期列表
 
 
-    
 
-    
+
+
 
 
     PostAdminOrderGroupAddMembers: api + '/admin/order/add_member',   //添加出行人
     PostAdminOrderBindid: api + '/admin/order_bind_id',   //添加销售
 
 
-    
 
-      
+
+
 
     GetAdminOptData: api + '/admin/admin_opt_data',  // 下单人
 
@@ -335,7 +335,7 @@ export const AdminUrls = {
     GetAdminFinanceOrderReport: api + '/admin/finance_order_report',  // 财务统计报表
     PostAdminFinanceOrderDestroyReceive: api + '/admin/order/del_receipt',  // 作废收款记录
 
-    
+
 
     // 供应商
     GetAdminSupplyList: api + '/admin/supplier',   // 列表
@@ -376,8 +376,8 @@ export const AdminUrls = {
     PostAdminFinanceGoodsOrderEditReceipt: api + '/admin/goods_order/edit_receipt',   // 财务修改商品流水
     GetAdminGoodsOrderCashRequireList: api + '/admin/goods_cash_list',     //商品请款列表
     PostAdminGoodsOrderCheckCash: api + '/admin/check_goods_cash',   // 请款审核
- 
-    
+
+
 
 };
 
@@ -394,7 +394,7 @@ export const StoreUrls = {
     GetStoreAccount: api + '/store/account_info', // 账号详情
     PostStoreChangeJobNum: api + '/store/update_job_num', // 修改联系人
 
-    
+
 
     GetStoreAccountList: api + '/store/store_account',    // 店铺的账号列表
 
@@ -598,14 +598,14 @@ export const StoreUrls = {
     PostStoreGoodsOrderUpdateItem: api + '/store/goods_order/update_item',     //商品订单修改
     PostStoreGoodsOrderAddSub: api + '/store/goods_order/add_sub',     //拆分订单
 
-    
+
     GetStoreExpressCompanyList: api + '/store/express_company/list',     //快递公司
     PostStoreGoodsSendExpress: api + '/store/goods_order/express',     //快递发货
 
     PostStoreGoodsOrderRequest: api + '/store/goods_cash_requirement',     //商品订单请款
+    PutStoreGoodsOrderCashUpdate: api + '/store/goods_cash_requirement/',   // 更新
+    DeleteStoreGoodsOrderCashType: api + '/store/goods_cash_requirement/',   // 删除
 
-
-     
 
 
 
