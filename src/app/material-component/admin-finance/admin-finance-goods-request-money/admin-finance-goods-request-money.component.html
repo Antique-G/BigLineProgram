@@ -35,6 +35,22 @@
 
                         <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
                             <div nz-row>
+                                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="cash_pay_status">付款状态</nz-form-label>
+                                <nz-form-control [nzSm]="15" [nzXs]="24">
+                                    <nz-select nzPlaceHolder="请选择" formControlName="cash_pay_status" nzAllowClear nzShowSearch>
+                                        <nz-option [nzLabel]="'全部'" [nzValue]=""></nz-option>
+                                        <nz-option [nzLabel]="'未付款'" [nzValue]="'0'"></nz-option>
+                                        <nz-option [nzLabel]="'部分付款'" [nzValue]="1"></nz-option>
+                                        <nz-option [nzLabel]="'已付款 '" [nzValue]="2"></nz-option>
+                                        <nz-option [nzLabel]="'已收发票 '" [nzValue]="3"></nz-option>
+                                    </nz-select>
+                                </nz-form-control>
+                            </div>
+                        </nz-form-item>
+
+
+                        <nz-form-item nz-col [nzSm]="6" [nzXs]="24">
+                            <div nz-row>
                                 <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="order_id">订单id</nz-form-label>
                                 <nz-form-control [nzSm]="15" [nzXs]="24">
                                     <input nz-input formControlName="order_id" placeholder="请输入订单id" />
@@ -66,13 +82,14 @@
 
 
                     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30px" style="letter-spacing: 1px;font-weight: bold;font-size: 16px">
-                        <div>订单总额：
-                            <span style="color: red;">{{totalMoney?.price_total}}元</span> </div>
-                        <div>入账总额：
-                            <span style="color: red;">{{totalMoney?.amount_paid}}元</span>
+                        <div>总请款：
+                            <span style="color: red;">{{moneyModel?.total}}元</span>
                         </div>
-                        <div>待收款总额：
-                            <span style="color: red;">{{totalMoney?.amount_unpaid}}元</span>
+                        <div>已付款：
+                            <span style="color: red;">{{moneyModel?.payed_money}}元</span>
+                        </div>
+                        <div>待付款：
+                            <span style="color: red;">{{(moneyModel?.total-moneyModel?.payed_money).toFixed(2)}}元</span>
                         </div>
                     </div>
 
