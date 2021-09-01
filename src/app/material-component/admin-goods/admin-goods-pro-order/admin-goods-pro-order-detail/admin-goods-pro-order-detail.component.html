@@ -258,7 +258,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="text-align: center;">请款id</th>
-                                                        <th style="text-align: center;">请款商品</th>
+                                                        <th style="text-align: center;width: 10%;">请款商品</th>
+                                                        <th style="text-align: center;">商品规格</th>
                                                         <th style="text-align: center;">请款单价</th>
                                                         <th style="text-align: center;">请款数量</th>
                                                         <th style="text-align: center;">请款总金额</th>
@@ -279,6 +280,7 @@
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.id}}</td>
                                                             </ng-container>
                                                             <td>{{goods?.goods_name}}</td>
+                                                            <td>{{goods?.goods_spec}}</td>
                                                             <td>{{goods?.cash_price}}元</td>
                                                             <td>{{goods?.num}}</td>
                                                             <ng-container *ngIf="i==0">

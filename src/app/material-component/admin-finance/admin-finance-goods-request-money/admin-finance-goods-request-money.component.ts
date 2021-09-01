@@ -23,11 +23,14 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
     order_status: any;
     store_id: any;
     payout_status: any;
+    cash_pay_status: any;
     order_id: any;
     storeList: any[] = [];
     dateArray: any[] = [];
     setQuery: any;
     totalMoney: any;
+    moneyModel: any;
+
 
     constructor(public fb: FormBuilder, public adminProductManagementService: AdminProductManagementService,
         public adminGoodsService: AdminGoodsService, public router: Router, public modal: NzModalService,
@@ -37,6 +40,7 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
             order_id: [''],
             store_id: [''],
             payout_status: [''],
+            cash_pay_status: [''],
         });
 
     }
@@ -50,19 +54,24 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
             this.order_id = getSeatch?.order_id ? getSeatch?.order_id : '';
             this.store_id = getSeatch?.store_id ? getSeatch?.store_id : '';
             this.payout_status = getSeatch?.payout_status ? getSeatch?.payout_status : '';
+            this.cash_pay_status = getSeatch?.cash_pay_status ? getSeatch?.cash_pay_status : '';
             this.searchForm.patchValue({
                 order_status: this.order_status,
                 order_id: this.order_id,
                 store_id: this.store_id,
                 payout_status: this.payout_status,
+                cash_pay_status: this.cash_pay_status
             })
             this.getOrderList();
+            // 拿到统计的值
+            let adminFinanceGoodsOrderReqTotalModel = JSON.parse(localStorage.getItem("adminFinanceGoodsOrderReqTotalModel")!);
+            this.moneyModel = adminFinanceGoodsOrderReqTotalModel;
         })
     }
 
     getOrderList() {
         this.adminGoodsService.cashRequireList(this.page, this.per_page, this.order_status, this.order_id,
-            this.store_id, this.payout_status).subscribe(res => {
+            this.store_id, this.payout_status, this.cash_pay_status).subscribe(res => {
                 console.log("结果是", res);
                 this.loading = false;
                 this.dataSource = res.data;
@@ -78,7 +87,10 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
                     res['allLength'] = s;
                 })
                 console.log("5555555", this.dataSource);
-
+                if (this.page == 1) {
+                    this.moneyModel = res?.meta?.statistics;
+                    localStorage.setItem('adminFinanceGoodsOrderReqTotalModel', JSON.stringify(this.moneyModel));
+                }
             })
     }
 
@@ -89,11 +101,13 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
         this.order_id = this.searchForm.value.order_id;
         this.store_id = this.searchForm.value.store_id;
         this.payout_status = this.searchForm.value.payout_status;
+        this.cash_pay_status = this.searchForm.value.cash_pay_status;
         this.getOrderList();
         // 筛选条件存进cookie
         this.setQuery = {
             order_status: this.order_status, order_id: this.order_id,
-            store_id: this.store_id, page: this.page, payout_status: this.payout_status
+            store_id: this.store_id, page: this.page, payout_status: this.payout_status,
+            cash_pay_status: this.cash_pay_status
         }
         localStorage.setItem('adminGoodsOrderCashRequestSearch', JSON.stringify(this.setQuery));
     }
@@ -111,7 +125,8 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
         // 筛选条件存进cookie
         this.setQuery = {
             order_status: this.order_status, order_id: this.order_id,
-            store_id: this.store_id, page: this.page, payout_status: this.payout_status
+            store_id: this.store_id, page: this.page, payout_status: this.payout_status,
+            cash_pay_status: this.cash_pay_status
         }
         localStorage.setItem('adminGoodsOrderCashRequestSearch', JSON.stringify(this.setQuery));
         this.getOrderList();
@@ -126,6 +141,7 @@ export class AdminFinanceGoodsRequestMoneyComponent implements OnInit {
             order_id: '',
             store_id: '',
             payout_status: '',
+            cash_pay_status: '',
         })
     }
 

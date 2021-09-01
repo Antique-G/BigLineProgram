@@ -337,14 +337,15 @@ export class AdminGoodsService {
 
     // 请款列表
     cashRequireList(page: number, per_page: number, order_status: any, order_id: any, 
-       store_id: any,payout_status: any, ): Observable<any> {
+       store_id: any,payout_status: any, cash_pay_status:any): Observable<any> {
         const params = new HttpParams({ encoder: new EncodeComponent() }).set('page', page.toString())
             .set('per_page', per_page.toString())
             .set('order_status', order_status ? order_status : '')
             .set('order_id', order_id ? order_id : '')
             .set('store_id', store_id ? store_id : '')
             .set('payout_status', payout_status ? payout_status : '')
-        
+            .set('cash_pay_status', cash_pay_status ? cash_pay_status : '')
+           
 
         const findhttpOptions = {
             headers: new HttpHeaders({ 'content-Type': 'application/json' }),
