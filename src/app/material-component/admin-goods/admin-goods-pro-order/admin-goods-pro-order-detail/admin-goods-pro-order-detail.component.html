@@ -263,6 +263,7 @@
                                                         <th style="text-align: center;">请款单价</th>
                                                         <th style="text-align: center;">请款数量</th>
                                                         <th style="text-align: center;">请款总金额</th>
+                                                        <th style="text-align: center;">店铺名称</th>
                                                         <th style="text-align: center;">成本类型</th>
                                                         <th style="text-align: center;">供应商</th>
                                                         <th style="text-align: center;">供应商收款账户</th>
@@ -285,6 +286,7 @@
                                                             <td>{{goods?.num}}</td>
                                                             <ng-container *ngIf="i==0">
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.total}}元</td>
+                                                                <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.sub_order?.data[0]?.store_name}}</td>
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.group_cost_type?.data[0]?.title}}</td>
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.supplier?.data[0]?.supplier_name}}</td>
                                                                 <td [attr.rowspan]="data?.goods_detail?.data?.length">{{data.supplier?.data[0]?.bank_account}}</td>
