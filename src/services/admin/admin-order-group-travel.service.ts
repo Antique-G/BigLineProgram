@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { AdminUrls } from '../../api';
 import { EncodeComponent } from '../../app/store-app/store-material/EncodeComponent';
 import { AddGroupOrderBindIdModel, AddGroupOrderMemberModel, ProductQuteDateModel, SyncOrderModel } from '../../interfaces/adminProduct/product-management-model';
-import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, OrderGroupProduct, OrderTotalModel, ProModel, SendCreateContractModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
+import { CancelInsModel, CancelOrderModel, ChangeDateRequestModel, ChangeDateResponModel, ChangePriceModel, ComfirmOrderModel, DetailModel, FillOrderMemberModel, OrderGroupProduct, OrderTotalModel, ProModel, SendCreateContractModel, StoreOrderGroupTravelListRequestModel, WeChatModel } from '../../interfaces/store/storeOrder/store-order-group-travel-model';
 
 
 const httpOptions = {
@@ -123,6 +123,15 @@ export class AdminOrderGroupTravelService {
     // 后台下订单
     addOrderGroup(orderGroupProduct: OrderGroupProduct): Observable<any> {
         return this.httpClient.post<any>(this.urls.PostAdminProductOrderGroup, orderGroupProduct, httpOptions)
+            .pipe(
+                catchError(this.handleError)
+            )
+    }
+
+
+    // 补录出行人信息
+    fillOrderMember(fillOrderMemberModel: FillOrderMemberModel): Observable<any> {
+        return this.httpClient.post<any>(this.urls.PostAdminOrderGroupFillOrderMember, fillOrderMemberModel, httpOptions)
             .pipe(
                 catchError(this.handleError)
             )

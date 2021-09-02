@@ -226,6 +226,7 @@ export interface DetailsModel {
     job_num?: any;
     product_code?: any;
     user_phone?: any;
+    added_member_num: number;
 }
 
 export interface insModel {
@@ -684,4 +685,12 @@ export interface SyncOrderModel {
 export interface SendCreateContractModel {
     order_id: any;
     has_shopping: any;
+}
+
+
+// 补录出行人信息
+export interface FillOrderMemberModel {
+    order_id: any;
+    product_type: any;
+    members:any
 }

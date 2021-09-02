@@ -232,6 +232,7 @@ import { AdminComponent } from './admin/admin.component';
 import { MaterialRoutes } from './material.routing';
 import { AdminFinanceGoodsRequestMoneyComponent } from './admin-finance/admin-finance-goods-request-money/admin-finance-goods-request-money.component';
 import { AdminFinanceGoodsRequestReviewComponent } from './admin-finance/admin-finance-goods-request-money/admin-finance-goods-request-review/admin-finance-goods-request-review.component';
+import { AdminOrderGroupSupplementaryInfoComponent } from './admin-order-group-travel/admin-order-group-travel-detail/admin-order-group-supplementary-info/admin-order-group-supplementary-info.component';
 
 
 
@@ -498,6 +499,7 @@ import { AdminFinanceGoodsRequestReviewComponent } from './admin-finance/admin-f
         AdminOrderFreePrintConfirmComponent,
         AdminFinanceGoodsRequestMoneyComponent,
         AdminFinanceGoodsRequestReviewComponent,
+        AdminOrderGroupSupplementaryInfoComponent,
     ]
 })
 export class MaterialComponentsModule { }

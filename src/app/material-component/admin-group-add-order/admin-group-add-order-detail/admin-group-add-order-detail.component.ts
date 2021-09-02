@@ -110,7 +110,8 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
     extraInsurance: any[] = [];          //额外保险名称
     extraInsuranceId: any[] = [];
 
-
+    // 补录
+    supplementaryInfo: any;
 
     constructor(public fb: FormBuilder, private message: NzMessageService, public router: Router, public activatedRoute: ActivatedRoute,
         public adminOrderGroupTravelService: AdminOrderGroupTravelService, public adminInsuranceService: AdminInsuranceService,
@@ -141,6 +142,7 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
             customer_remarks: ['',],
             emergency_contact_person: [''],
             emergency_contact_number: ['', [mobile]],
+            supplementaryInfo: ['0', [Validators.required]],
         });
         this.contactForm = this.fb.group({
             contact_name: ['', [Validators.required]],
@@ -621,62 +623,120 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         // 保险
         this.orderGroupProduct.insurance_extra_ids = this.extraInsuranceId
 
-        console.log("提交的", this.orderGroupProduct)
+        console.log("提交的", this.orderGroupProduct);
     }
 
-    add() {
-        this.setValue();
-        this.isLoadingAdd = true;
-        // 校验出行人信息
-        let adult = this.orderGroupProduct.num_adult;
-        let kid = this.orderGroupProduct.num_kid;
-        let baby = this.orderGroupProduct.baby_num;
-        let allData = Number(adult) + Number(kid) + Number(baby);
-        if (this.orderGroupProduct.members.length != allData) {
-            this.message.error("请补充出行人信息");
-            this.isLoadingAdd = false;
+
+    setSupplementaryInfoValue() {
+        this.orderGroupProduct.product_id = this.detailModel.id;
+        this.orderGroupProduct.num_adult = this.informationForm.value.num_adult;
+        this.orderGroupProduct.num_kid = this.informationForm.value.num_kid;
+        if (this.detailModel.few_nights === 0) {
+            this.orderGroupProduct.num_room = 0;
         }
         else {
-            let adultArr: any[] = [];
-            let kidArr: any[] = [];
-            let babyArr: any[] = [];
-            this.orderGroupProduct.members.forEach((ele: any, index: any) => {
-                if (ele.is_kid === 0) {
-                    adultArr.push(ele.is_kid)
-                }
-                if (ele.is_kid === 1) {
-                    kidArr.push(ele.is_kid)
-                }
-                else if (ele.is_kid === 2) {
-                    babyArr.push(ele.is_kid)
-                }
-            })
-            console.log('123123123', adultArr, kidArr);
-            if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
-                // this.message.error("请正确填写出行人信息");
+            this.orderGroupProduct.num_room = this.isForRoom;
+        }
+        this.orderGroupProduct.customer_remarks = this.informationForm.value.customer_remarks;
+        this.orderGroupProduct.baby_num = this.informationForm.value.baby_num;
+        this.orderGroupProduct.shared_status = this.isshared_status;
+        this.orderGroupProduct.contact_name = this.contactForm.value.contact_name;
+        this.orderGroupProduct.contact_phone = this.contactForm.value.contact_phone;
+        this.orderGroupProduct.contact_wechat = this.contactForm.value.contact_wechat;
+        this.orderGroupProduct.contact_qq = this.contactForm.value.contact_qq;
+        this.orderGroupProduct.contact_email = this.contactForm.value.contact_email;
+        this.orderGroupProduct.date_quotes_id = this.isdate_quotes_id;
+        this.orderGroupProduct.emergency_contact_person = this.informationForm.value.emergency_contact_person;
+        this.orderGroupProduct.emergency_contact_number = this.informationForm.value.emergency_contact_number;
+        // 优惠金额
+        this.orderGroupProduct.discount = this.discountPrice;
+        this.orderGroupProduct.discount_tit = this.discount_tit;
+        // 附加收费
+        this.orderGroupProduct.other_price = this.other_price;
+        this.orderGroupProduct.other_price_tit = this.other_price_tit;
+        // 计调备注
+        this.orderGroupProduct.internal_remarks = this.planForm.value.internal_remarks;
+        this.orderGroupProduct.referrer_phone = this.planForm.value.referrer_phone;
+        // 保险
+        this.orderGroupProduct.insurance_extra_ids = this.extraInsuranceId
+
+        console.log("提交的", this.orderGroupProduct);
+    }
+
+
+
+    add() {
+        // 后补信息
+        if (this.supplementaryInfo == 1) {
+            this.setSupplementaryInfoValue();
+            this.isLoadingAdd = true;
+            this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
                 this.isLoadingAdd = false;
-                if (adultArr.length != Number(adult)) {
-                    this.message.error("成人数与成人类型数量不匹配");
-                    return
-                }
-                 if (kidArr.length != Number(kid)) {
-                    this.message.error("儿童数与儿童类型数量不匹配");
-                }
-                else if (babyArr.length != Number(baby)) {
-                    this.message.error("婴儿数与婴儿类型数量不匹配");
-                }
+                this.router.navigate(['/admin/main/groupTravelOrder']);
+                localStorage.removeItem("orderData");
+            },
+                error => {
+                    this.isLoadingAdd = false;
+                })
+        }
+        else {
+            this.setValue();
+            this.isLoadingAdd = true;
+            // 校验出行人信息
+            let adult = this.orderGroupProduct.num_adult;
+            let kid = this.orderGroupProduct.num_kid;
+            let baby = this.orderGroupProduct.baby_num;
+            let allData = Number(adult) + Number(kid) + Number(baby);
+            if (this.orderGroupProduct.members.length != allData) {
+                this.message.error("请补充出行人信息");
+                this.isLoadingAdd = false;
             }
             else {
-                this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
+                let adultArr: any[] = [];
+                let kidArr: any[] = [];
+                let babyArr: any[] = [];
+                this.orderGroupProduct.members.forEach((ele: any, index: any) => {
+                    if (ele.is_kid === 0) {
+                        adultArr.push(ele.is_kid)
+                    }
+                    if (ele.is_kid === 1) {
+                        kidArr.push(ele.is_kid)
+                    }
+                    else if (ele.is_kid === 2) {
+                        babyArr.push(ele.is_kid)
+                    }
+                })
+                console.log('123123123', adultArr, kidArr);
+                if (adultArr.length != Number(adult) || kidArr.length != Number(kid) || babyArr.length != Number(baby)) {
+                    // this.message.error("请正确填写出行人信息");
                     this.isLoadingAdd = false;
-                    this.router.navigate(['/admin/main/groupTravelOrder']);
-                    localStorage.removeItem("orderData");
-                },
-                    error => {
+                    if (adultArr.length != Number(adult)) {
+                        this.message.error("成人数与成人类型数量不匹配");
+                        return
+                    }
+                    if (kidArr.length != Number(kid)) {
+                        this.message.error("儿童数与儿童类型数量不匹配");
+                    }
+                    else if (babyArr.length != Number(baby)) {
+                        this.message.error("婴儿数与婴儿类型数量不匹配");
+                    }
+                }
+                else {
+                    this.adminOrderGroupTravelService.addOrderGroup(this.orderGroupProduct).subscribe(res => {
                         this.isLoadingAdd = false;
-                    })
+                        this.router.navigate(['/admin/main/groupTravelOrder']);
+                        localStorage.removeItem("orderData");
+                    },
+                        error => {
+                            this.isLoadingAdd = false;
+                        })
+                }
             }
+
         }
+
+
+
 
 
     }
@@ -942,4 +1002,12 @@ export class AdminGroupAddOrderDetailComponent implements OnInit {
         })
     }
 
+
+
+
+    // 补录
+    isChangeSupplementaryInfo(data: any) {
+        console.log("选择的是", data);
+        this.supplementaryInfo = data;
+    }
 }
