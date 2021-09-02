@@ -713,5 +713,14 @@ export class AdminOrderGroupTravelDetailComponent implements OnInit {
         console.log("data", data);
         this.router.navigate(['/admin/main/user'], { queryParams: { user_phone: data } });
     }
+
+
+
+
+    // 补录出行人信息 
+    supplementaryInfo() {
+        localStorage.setItem("groupOrderDetailForAddMem", JSON.stringify(this.detailModel));
+        this.router.navigate(['/admin/main/groupTravelOrder/detail/supplementaryInfo']);
+    }
 }
 

@@ -1,0 +1,325 @@
+<div fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100%" fxFlex="100">
+
+        <div class="example-container">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+                <mat-card>
+                    <div style="padding: 20px;">
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div style="padding: 10px 12px;font-size: 18px;font-weight: 900;">
+                                <span>当前出行人5人： 成人{{detailModel?.num_adult}} | 儿童{{detailModel?.num_kid}} | 婴儿{{detailModel?.baby_num}}，已有出行人信息人数：{{detailModel?.added_member_num}}</span>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" style="padding:10px 10px" fxLayoutGap="10px">
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                                    <h2 style="color: red;font-size: 16px;">请填写出行人详细信息</h2>
+                                    <div style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">儿童标准信息：年龄：{{detailModel?.product?.data?.child_age_min}}-{{detailModel?.product?.data?.child_age_max}}岁<span *ngIf="detailModel?.product?.data?.child_height_max!=0">，身高：{{detailModel?.product?.data?.child_height_min}}-{{detailModel?.product?.data?.child_height_max}}cm</span></div>
+                                    <div style="color: red;margin-left: 29%;margin-top: 2px;height: 10px;font-size: 14px;">{{detailModel?.product?.data?.baby_occupy==0?'婴儿不占位':'婴儿占位'}}</div>
+                                </div>
+
+                                <div>
+                                    <form nz-form [formGroup]="informationForm">
+                                        <div nz-row style="margin-top: 10px;">
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_adult" nzRequired>成人数</nz-form-label>
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入成人数">
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_adult" (ngModelChange)="onEnter($event)" [nzMin]="0" [nzStep]="1" [nzMax]="detailModel?.num_adult"></nz-input-number>
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="detailModel?.num_kid!=0">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="num_kid">儿童数</nz-form-label>
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                        <nz-input-number style=" width: 100%;" formControlName="num_kid" (ngModelChange)="onEnter1($event)" [nzMin]="0" [nzStep]="1" [nzMax]="detailModel?.num_kid"></nz-input-number>
+                                                    </nz-form-control>
+                                                </div>
+                                            </nz-form-item>
+
+                                            <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="detailModel?.baby_num!=0">
+                                                <div nz-row>
+                                                    <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="baby_num">婴儿数</nz-form-label>
+                                                    <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                        <nz-input-number style=" width: 100%;" (ngModelChange)="onEnter2($event)" formControlName="baby_num" [nzMin]="0" [nzStep]="1" [nzMax]="detailModel?.baby_num"></nz-input-number>
+                                                    </nz-form-control>
+                                                </div>
+                                                <p style="color: red;margin-left: 29%;margin-top: 2px;">0-2岁</p>
+                                            </nz-form-item>
+
+                                            <div style="margin-left: 14px;">
+                                                <button nz-button nzType="dashed" class="add-button" (click)="addHuman()" *ngIf="numIsShow">
+                                                    <i nz-icon nzType="plus"></i>
+                                                    添加出行人详细信息
+                                                </button>
+                                            </div>
+
+                                            <div style="margin-left: 14px;" *ngIf="isBabyShow === true">
+                                                <button nz-button nzType="dashed" class="add-button" (click)="addBaby()">
+                                                    <i nz-icon nzType="plus"></i>
+                                                    添加婴儿详细信息
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div style="border: 1px dashed darkgrey; margin-top: 10px;border-radius: 14px;">
+                                            <div formArrayName="humanList" *ngFor="let human of humanArray.controls as FormArray;let i = index" style="margin-bottom:10px;margin-top: 10px;">
+                                                <div [formGroupName]="i" nz-row>
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name" nzRequired>姓名</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入姓名">
+                                                                <input nz-input formControlName="name" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="eng_name">英文名</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="eng_name" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_kid" nzRequired>类型</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="is_kid">
+                                                                    <nz-option [nzLabel]="'成人'" [nzValue]="0"></nz-option>
+                                                                    <nz-option [nzLabel]="'儿童'" [nzValue]="1"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                            <button nz-button nzType="dashed" class="add-button" (click)="removeIcon(i)">
+                                                                <i nz-icon nzType="minus"></i>
+                                                                删除
+                                                            </button>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" nzRequired *ngIf="isRequestIdNum">证件类型</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type" *ngIf="!isRequestIdNum">证件类型</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch formControlName="id_type" (ngModelChange)="changeType($event,i)">
+                                                                    <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
+                                                                    <nz-option [nzLabel]="'回乡证'" [nzValue]="3"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" nzRequired *ngIf="isRequestIdNum">证件号码</nz-form-label>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num" *ngIf="!isRequestIdNum">证件号码</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请输入证件号码">
+                                                                <input nz-input formControlName="id_num" (blur)="idCardEnter($event,i)" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="isChangeData[i] === true">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="birthday" nzRequired>出生年月日</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-date-picker style="width: 100%;" formControlName="birthday"></nz-date-picker>
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender" [(ngModel)]="idType[i]">
+                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="assembling_place_id" nzRequired>集合地点</nz-form-label>
+                                                            <nz-form-control [nzSm]="12" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="assembling_place_id" [(ngModel)]="selectAssembling[i]" (ngModelChange)="changeAssembling($event,i)">
+                                                                    <nz-option *ngFor="let place of assemblingPlaceList" [nzLabel]="place.label+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+place.time" [nzValue]="place.value">
+                                                                    </nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                            <button nz-button nzType="primary" (click)="applyAll(i)">应用到全部</button>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="4" [nzXs]="24">上传证件照</nz-form-label>
+                                                            <div *ngIf="newImgArr[i]?.length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                                <div *ngFor="let img of newImgArr[i],let index=index" style="position: relative;">
+                                                                    <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
+                                                                    <span (click)="deleteImg(i,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
+                                                                </div>
+                                                            </div>
+                                                            <button nz-button [disabled]="newImgArr[i]?.length > 1" nzType="primary" (click)="choiceImg(i)">选择图片(只能上传两张)</button>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                            <!-- 婴儿 -->
+                                            <div formArrayName="babyList" *ngFor="let baby of babyArray.controls as FormArray;let t = index" style="margin-bottom:10px;margin-top: 10px;">
+                                                <div [formGroupName]="t" nz-row>
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="name">姓名</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="name" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="eng_name">英文名</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="eng_name" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="is_kid">类型</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="is_kid">
+                                                                    <nz-option [nzLabel]="'婴儿'" [nzValue]="2"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+                                                            <button nz-button nzType="dashed" class="add-button" (click)="removeBaby(t)">
+                                                                <i nz-icon nzType="minus"></i>
+                                                                删除
+                                                            </button>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="phone">电话</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="phone" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_type">证件类型</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <nz-select nzPlaceHolder="请选择" nzAllowClear nzShowSearch formControlName="id_type" (ngModelChange)="changeBabyType($event,t)">
+                                                                    <nz-option [nzLabel]="'身份证'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'护照'" [nzValue]="2"></nz-option>
+                                                                    <nz-option [nzLabel]="'回乡证'" [nzValue]="3"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="id_num">证件号码</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                                                <input nz-input formControlName="id_num" />
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24" *ngIf="isChangeBabyData[t] === true">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="birthday" nzRequired>出生年月日</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-date-picker style="width: 100%;" formControlName="birthday"></nz-date-picker>
+                                                            </nz-form-control>
+                                                        </div>
+                                                    </nz-form-item>
+
+                                                    <nz-form-item nz-col [nzSm]="8" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="7" [nzXs]="24" nzFor="gender" nzRequired>性别</nz-form-label>
+                                                            <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="请选择">
+                                                                <nz-select nzPlaceHolder="请选择" formControlName="gender">
+                                                                    <nz-option [nzLabel]="'男'" [nzValue]="1"></nz-option>
+                                                                    <nz-option [nzLabel]="'女'" [nzValue]="2"></nz-option>
+                                                                </nz-select>
+                                                            </nz-form-control>
+
+                                                        </div>
+                                                    </nz-form-item>
+
+
+
+                                                    <nz-form-item nz-col [nzSm]="14" [nzXs]="24">
+                                                        <div nz-row>
+                                                            <nz-form-label [nzSm]="4" [nzXs]="24">上传证件照</nz-form-label>
+                                                            <div *ngIf="newBabyArr[t].length!=0" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                                                <div *ngFor="let img of newBabyArr[t],let index=index" style="position: relative;">
+                                                                    <a href={{img}} target="_blank" title="点击可预览"> <img src={{img}} style="width: 50px;height: 50px;"></a>
+                                                                    <span (click)="deleteBabyImg(t,index)" style="position: absolute;left: 39px;top: -2px;color: red;font-weight: bolder; cursor: pointer;">X</span>
+                                                                </div>
+                                                            </div>
+                                                            <button [disabled]="babyArray[t]?.length > 1" nz-button nzType="primary" (click)="choiceBabyImg(t)">选择图片(只能上传两张)</button>
+                                                        </div>
+                                                    </nz-form-item>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                            <button nz-button nzType="primary" [nzLoading]="isLoadingAdd" (click)="add()">提交</button>
+                        </div>
+                    </div>
+                </mat-card>
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>

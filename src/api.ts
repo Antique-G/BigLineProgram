@@ -209,6 +209,7 @@ export const AdminUrls = {
     GetAdminOrderGroupProductDetail: api + '/admin/order/group_product/',  // 跟团游订单详情
     GetAdminProSearch: api + '/admin/product/search',  // 跟团游产品搜索
     PostAdminProductOrderGroup: api + '/admin/order/group_product',  // 跟团游后台下订单
+    PostAdminOrderGroupFillOrderMember: api + '/admin/fill_order_members',  // 补录出行人信息
     PostAdminOrderConfirmReceipt: api + '/admin/order/confirm_receipt',  // 确认收款
     GetAdminOrderChangeDate: api + '/admin/order/change_date_show',  // 订单改日期（提交前展示）
     PostAdminOrderChangeDate: api + '/admin/order/change_date_update',  // 订单改日期（提交）
